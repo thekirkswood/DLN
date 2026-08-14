@@ -30,8 +30,6 @@ We want more **client** plots. Studio listings are allowed because Ewan said so.
 | `/login` `/logout` | public / session | DLN login. Cookie `dln_session`. Studio addresses `@designlabnorth.com`. Reached from a plot story, not the homepage. |
 | `/privacy` `/terms` | public | Small. Real. Footer. |
 | Cursor / this repo | studio | The actual design interface. No in-site builder UI. |
-| `/privacy` `/terms` | public | Small. Real. Footer. |
-| Cursor / this repo | studio | The actual design interface. No in-site builder UI. |
 
 ## Auth
 
@@ -47,7 +45,7 @@ We want more **client** plots. Studio listings are allowed because Ewan said so.
 | Layer | Choice |
 |---|---|
 | Studio site | Next.js 14 App Router, TypeScript, `Site/` (local `:3010`) |
-| Edge | Caddy 80/443, Let’s Encrypt. One hostname per hosted plot. |
+| Edge | Caddy 80 + 443. HTTPS when Let’s Encrypt can see Livedns. Never force HTTP→HTTPS until certs exist (that bricks the hub). Plot `/assets` and `/_next/static` skip the gate so pictures load. Old `/p/modyu/*` strips to the plot at `/`. |
 | Plots | One compose service per **hosted** plot. ModYu: `plot-modyu` at `modyu.designlabnorth.com`. Swarm: `plot-swarm` at `swarmfund.designlabnorth.com`. Plots serve at `/` on their own host. Local ModYu on `:3000` stays at `/`. |
 | Local | `npm run dev` in `Site/` (`:3010`). ModYu stays `:3000`. |
 | VPS | Ubuntu 26, `/srv/dln`, Docker Engine + compose |

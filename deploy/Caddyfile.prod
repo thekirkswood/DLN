@@ -1,15 +1,31 @@
 {
   email {$DLN_ACME_EMAIL:build@designlabnorth.com}
+  auto_https disable_redirects
 }
 
 designlabnorth.com, www.designlabnorth.com {
   encode gzip
-  handle /p/modyu* {
-    redir https://modyu.designlabnorth.com 302
+
+  handle_path /p/modyu* {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=modyu
+      copy_headers Cookie
+    }
+    reverse_proxy plot-modyu:3000
   }
-  handle /p/swarm* {
-    redir https://swarmfund.designlabnorth.com 302
+
+  handle /assets* {
+    reverse_proxy plot-modyu:3000
   }
+
+  handle_path /p/swarm* {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=swarm
+      copy_headers Cookie
+    }
+    reverse_proxy plot-swarm:3000
+  }
+
   handle {
     reverse_proxy web:3000
   }
@@ -17,23 +33,35 @@ designlabnorth.com, www.designlabnorth.com {
 
 modyu.designlabnorth.com {
   encode gzip
-  forward_auth web:3000 {
-    uri /api/auth/gate?plot=modyu
-    copy_headers Cookie
+  handle /assets* {
+    reverse_proxy plot-modyu:3000
   }
-  reverse_proxy plot-modyu:3000
+  handle /_next/static* {
+    reverse_proxy plot-modyu:3000
+  }
+  handle {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=modyu
+      copy_headers Cookie
+    }
+    reverse_proxy plot-modyu:3000
+  }
 }
 
 swarmfund.designlabnorth.com {
   encode gzip
-  forward_auth web:3000 {
-    uri /api/auth/gate?plot=swarm
-    copy_headers Cookie
+  handle /assets* {
+    reverse_proxy plot-swarm:3000
   }
-  reverse_proxy plot-swarm:3000
+  handle {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=swarm
+      copy_headers Cookie
+    }
+    reverse_proxy plot-swarm:3000
+  }
 }
 
-# Reserved for a possible client. Not a greenhouse plot until Ewan lists it.
 daa.designlabnorth.com {
-  redir https://designlabnorth.com
+  redir http://designlabnorth.com
 }

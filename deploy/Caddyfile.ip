@@ -1,7 +1,15 @@
-# HTTP-only fallback (no TLS). VPS live edge is Caddyfile.prod.
+# HTTP-only. VPS may use Caddyfile.prod (TLS without forcing HTTPS).
 
 :80 {
   encode gzip
+
+  @modyu_static {
+    host modyu.designlabnorth.com
+    path /assets* /_next/static*
+  }
+  handle @modyu_static {
+    reverse_proxy plot-modyu:3000
+  }
 
   @modyu host modyu.designlabnorth.com
   handle @modyu {
@@ -10,6 +18,14 @@
       copy_headers Cookie
     }
     reverse_proxy plot-modyu:3000
+  }
+
+  @swarm_static {
+    host swarmfund.designlabnorth.com
+    path /assets*
+  }
+  handle @swarm_static {
+    reverse_proxy plot-swarm:3000
   }
 
   @swarm host swarmfund.designlabnorth.com
@@ -26,11 +42,24 @@
     redir http://designlabnorth.com
   }
 
-  handle /p/modyu* {
-    redir http://modyu.designlabnorth.com 302
+  handle_path /p/modyu* {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=modyu
+      copy_headers Cookie
+    }
+    reverse_proxy plot-modyu:3000
   }
-  handle /p/swarm* {
-    redir http://swarmfund.designlabnorth.com 302
+
+  handle /assets* {
+    reverse_proxy plot-modyu:3000
+  }
+
+  handle_path /p/swarm* {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=swarm
+      copy_headers Cookie
+    }
+    reverse_proxy plot-swarm:3000
   }
 
   handle {

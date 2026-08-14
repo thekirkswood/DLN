@@ -85,4 +85,12 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - Homepage has no Sign in. People with a plot use the plot host; unauth → greenhouse story → Sign in if this is yours. Header Home is hidden when you are already home.
 - Public offering: brands and identities, not “marks”.
 
+## 2026-08-15 — overnight: site-down, pictures, HTTP+TLS
+
+- “Site down” was browsers hitting HTTPS while Caddy only listened on 80, plus a forced HTTPS redirect after ACME SERVFAIL. Serve HTTP always. Obtain certs with `auto_https disable_redirects` so HTTP never dies.
+- ModYu pictures: `/assets` was behind `forward_auth`, so img requests 302’d to the greenhouse. Static `/assets` and `/_next/static` skip the gate. Hub `/assets*` again goes to `plot-modyu` for leftover `/p/modyu` pages.
+- Keep `/p/modyu/ht4-people` working via `handle_path` (strip prefix). Do not redirect that bookmark to the plot homepage.
+- DIRECTIONS above that still mention homepage Sign in, `/p/swarm` as the only enter, or TLS as already live are historical. Current: no homepage Sign in; enter on plot hosts; HTTP until certs stick.
+
+
 

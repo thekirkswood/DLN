@@ -67,3 +67,6 @@
 {"t":"2026-08-15T00:55:00+01:00","k":"mod","p":"Site Header page practice greenhouse login","s":"Home off on homepage; no home Sign in; brands copy; login next allows plot hosts","d":"people with sites use the site"}
 {"t":"2026-08-15T00:55:00+01:00","k":"mod","p":"ops/dns.md WORKSTREAM.md","s":"modyu swarmfund daa A live; TLS sequenced as current","d":"nameservers already Livedns; these are A records"}
 {"t":"2026-08-15T01:00:00+01:00","k":"mod","p":"deploy Caddyfile.ip plots.json","s":"stay HTTP on plot hosts; TLS rolled back after LE SERVFAIL","d":"Livedns still flaky for ACME; HTTPS redirect bricked login"}
+{"t":"2026-08-15T01:05:00+01:00","k":"mod","p":"deploy/Caddyfile.prod Caddyfile.ip","s":"TLS without HTTP redirect; plot static skips gate; /p/modyu path strip kept","d":"ewan: site down; modyu pictures empty; still using /p/modyu/ht4-people"}
+{"t":"2026-08-15T01:05:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"dedupe surfaces; edge HTTP+optional TLS; assets skip gate","d":"audit duplicate rows; pictures"}
+{"t":"2026-08-15T01:05:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"never force HTTPS until certs; assets ungated; path dock strip","d":"overnight standing"}
