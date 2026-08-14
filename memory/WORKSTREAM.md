@@ -5,7 +5,7 @@ Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + 
 ## Done — plots on their own hosts
 
 1. Apex + www + `modyu` + `swarmfund` + `daa` A records → `82.165.5.84`.
-2. Caddy host routing on port 80. TLS (`Caddyfile.prod`) waits until Livedns answers Let’s Encrypt without SERVFAIL/timeout. Do not HTTPS-redirect until certs issue — that bricks login.
+2. Caddy host routing on port **80 only**. Port 443 is closed until Livedns answers Let’s Encrypt without SERVFAIL — a dead 443 makes browsers show the site as down. Do not force HTTPS.
 3. ModYu image empty `BASE_PATH`, host `modyu.designlabnorth.com`.
 4. Swarm image `VITE_BASE=/`, host `swarmfund.designlabnorth.com`.
 5. Unauth plot host → 302 greenhouse story. Signed-in cookie → 200 plot.
