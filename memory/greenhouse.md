@@ -10,7 +10,7 @@ DLN is a hub of multiple sites. Client plots can be entered when hosted. Studio 
 
 - Party: client
 - Host: `modyu.designlabnorth.com`
-- Enter: `https://modyu.designlabnorth.com` (gated; unauth → greenhouse story)
+- Enter: `http://modyu.designlabnorth.com` (gated; unauth → greenhouse story). HTTPS when Livedns answers consistently for Let’s Encrypt.
 - Kind: rebuild (they have a live site; we are building the next one)
 - Status: growing
 - Voice: Design Lab North are rebuilding ModYu, the market-leading hair and scalp care brand — for people looking after their scalp before, during, and after transplant.
@@ -23,7 +23,7 @@ DLN is a hub of multiple sites. Client plots can be entered when hosted. Studio 
 ### Swarm Fund (`swarm`)
 
 - Party: studio. Ours. Hosted on this VPS.
-- Enter: `https://swarmfund.designlabnorth.com` (gated). Host name is `swarmfund`, not `swarm`.
+- Enter: `http://swarmfund.designlabnorth.com` (gated). Host name is `swarmfund`, not `swarm`. HTTPS when Livedns is stable for certificates.
 - Kind: new. Status: growing.
 - Voice: Design Lab North are building Swarm Fund. We are excited to work with this hive brand — people finding work they believe in, and backing it together.
 - Logo: `Site/public/plots/swarm.svg` (official hive, amber).

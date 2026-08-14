@@ -40,7 +40,7 @@ export async function plotBySlug(slug: string): Promise<Plot | undefined> {
 
 export function enterUrlFor(plot: Plot): string | null {
   if (plot.enterUrl) return plot.enterUrl;
-  if (plot.hosts[0]) return `https://${plot.hosts[0]}`;
+  if (plot.hosts[0]) return `http://${plot.hosts[0]}`;
   return null;
 }
 

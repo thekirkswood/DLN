@@ -66,3 +66,4 @@
 {"t":"2026-08-15T00:55:00+01:00","k":"dir","p":"memory/DIRECTIONS.md dln-voice.mdc practice","s":"no homepage Sign in; Home hidden on /; brands not marks","d":"ewan: sign-in bubble obsolete; marks→brands"}
 {"t":"2026-08-15T00:55:00+01:00","k":"mod","p":"Site Header page practice greenhouse login","s":"Home off on homepage; no home Sign in; brands copy; login next allows plot hosts","d":"people with sites use the site"}
 {"t":"2026-08-15T00:55:00+01:00","k":"mod","p":"ops/dns.md WORKSTREAM.md","s":"modyu swarmfund daa A live; TLS sequenced as current","d":"nameservers already Livedns; these are A records"}
+{"t":"2026-08-15T01:00:00+01:00","k":"mod","p":"deploy Caddyfile.ip plots.json","s":"stay HTTP on plot hosts; TLS rolled back after LE SERVFAIL","d":"Livedns still flaky for ACME; HTTPS redirect bricked login"}
