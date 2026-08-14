@@ -1,0 +1,16 @@
+---
+description: DLN holy memory — load, log, never subtract. Always on.
+alwaysApply: true
+---
+
+# Memory (holy)
+
+Load `memory/protocol.md` order: identity → brand → BLUEPRINT → greenhouse → DIRECTIONS → CHANGELOG tail.
+
+- Major function/IA → update `BLUEPRINT.md` + changelog `k:bp`
+- Standing/small direction → `DIRECTIONS.md` + `k:dir`
+- Every add/mod/delete → append `memory/CHANGELOG.jsonl` (jsonl, dense, not for humans)
+- Never rewrite changelog history. Deletions must name `p` and what left.
+- Do not overwrite working behaviour. Extend or stop and ask.
+- No secrets in memory files (no passwords, keys, tokens).
+- Phrase **Okay attention to memory**: re-read earliest→latest, confirm intact, fill only evidenced gaps, state current stage, then continue.

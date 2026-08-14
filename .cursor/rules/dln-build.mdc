@@ -1,0 +1,18 @@
+---
+description: DLN build constants — stack, plots, auth, no CMS, no invented mark
+alwaysApply: true
+---
+
+# Build
+
+- App lives in `Site/` (Next.js 14). `npm run dev` → http://localhost:3010
+- Plots registry: `greenhouse/plots.json` + `memory/greenhouse.md` (keep in sync)
+- Auth cookie `dln_session`; accounts in `_meta/accounts/` (gitignored)
+- Gate: `/api/auth/gate?plot=` — 200 allow, 302 greenhouse story
+- No in-site designer UI. Cursor is the desk.
+- Do not invent a logo. Mark lives in `Site/public/brand/dln-*.png`. Paper uses ink plate, ink uses white plate.
+- Grounds are **Paper** / **Ink** (not light/dark). Control is the 45° cut, never a sun/moon.
+- Type is T-Star. Chamfer interactive edges. No pills, no card shadows, no gradient orbs.
+- Public plot copy is DLN-voice, never a deep-link to the client’s current live site.
+- One Docker service per plot. Isolation over shared roots.
+- VPS facts: `ops/vps.md`. Deploy files: `deploy/`.

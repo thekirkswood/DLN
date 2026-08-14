@@ -1,0 +1,19 @@
+# Local (no TLS): localhost + modyu.localhost
+# VPS: set DLN_MODE=prod via a second Caddyfile.prod or env — see Caddyfile.prod
+
+{
+  admin off
+}
+
+http://localhost {
+  reverse_proxy web:3000
+}
+
+http://modyu.localhost {
+  reverse_proxy /api/auth/gate* web:3000
+  forward_auth web:3000 {
+    uri /api/auth/gate?plot=modyu
+    copy_headers Cookie
+  }
+  reverse_proxy plot-modyu:80
+}

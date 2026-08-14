@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+.env
+.env.*
+!.env.example
+_meta/accounts/
+_meta/secrets/
+**/*.pem
+**/*.key
+SEED.txt
+.DS_Store
+*.log
+ops/local.secret

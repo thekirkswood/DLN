@@ -1,0 +1,17 @@
+{
+  email {$DLN_ACME_EMAIL:ops@designlabnorth.com}
+}
+
+designlabnorth.com, www.designlabnorth.com {
+  encode gzip
+  reverse_proxy web:3000
+}
+
+modyu.designlabnorth.com {
+  encode gzip
+  forward_auth web:3000 {
+    uri /api/auth/gate?plot=modyu
+    copy_headers Cookie
+  }
+  reverse_proxy plot-modyu:80
+}

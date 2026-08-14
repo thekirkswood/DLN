@@ -1,0 +1,21 @@
+{"t":"2026-08-14T22:05:00+01:00","k":"mem","p":"memory/*","s":"genesis LTM: protocol identity brand BLUEPRINT greenhouse DIRECTIONS","d":"ewan: holy memory before build"}
+{"t":"2026-08-14T22:05:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"surfaces auth stack vps layout plot gate cookie dln_session","d":"parent studio + docker plots + caddy forward_auth"}
+{"t":"2026-08-14T22:05:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"local-first; no cms; greenhouse voice; harden vps; no invent logo","d":"standing from genesis brief"}
+{"t":"2026-08-14T23:15:00+01:00","k":"add","p":".cursor/rules,skills,AGENTS.md","s":"always-on memory+build+voice rules; dln-memory skill","d":"holy LTM enforcement"}
+{"t":"2026-08-14T23:15:00+01:00","k":"add","p":"Site/","s":"next14 studio: home greenhouse login privacy terms preview gate cookie auth","d":"offline parent site"}
+{"t":"2026-08-14T23:15:00+01:00","k":"add","p":"greenhouse/plots.json","s":"plot modyu rebuild public voice","d":"first greenhouse bed"}
+{"t":"2026-08-14T23:15:00+01:00","k":"add","p":"deploy/","s":"caddy compose dockerfile placeholder plot bootstrap sync Caddyfile.ip/prod","d":"edge+isolation"}
+{"t":"2026-08-14T23:15:00+01:00","k":"add","p":"ops/vps.md","s":"host 82.165.5.84 ubuntu26 /srv/dln key-only","d":"no secrets"}
+{"t":"2026-08-14T23:15:00+01:00","k":"mod","p":"deploy/Dockerfile.web","s":"npm install after COPY; NODE_ENV prod after build","d":"@/ resolve fail when prod npm omitted devDeps"}
+{"t":"2026-08-14T23:15:00+01:00","k":"mod","p":"Site/package.json","s":"dev port 3010","d":"avoid modyu :3000"}
+{"t":"2026-08-14T23:15:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"local :3010 noted","d":"port collision"}
+{"t":"2026-08-14T23:15:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"vps http-ip live; dns pending; github pending; rotate panel pass","d":"post-bootstrap"}
+{"t":"2026-08-14T23:15:00+01:00","k":"mod","p":"Site/src/lib/auth.ts","s":"ensure() on session read so first hit seeds accounts","d":"layout used to skip seed when no cookie"}
+{"t":"2026-08-14T23:20:00+01:00","k":"bp","p":"memory/brand.md","s":"mark locked; T-Star; paper/ink tokens; chamfer 45","d":"ewan plates"}
+{"t":"2026-08-14T23:20:00+01:00","k":"add","p":"Site/public/brand/dln-*.png","s":"transparent extracts from plates; plates archived jpg","d":"do not redraw"}
+{"t":"2026-08-14T23:20:00+01:00","k":"add","p":"Site/public/fonts/T-Star-*.woff2","s":"T-Star light/medium/bold/heavy from studio","d":"requested face"}
+{"t":"2026-08-14T23:20:00+01:00","k":"add","p":"Site/src/app/practice","s":"practice page + selected clients index","d":"dad credentials; no invented name"}
+{"t":"2026-08-14T23:20:00+01:00","k":"add","p":"Site/src/components/GroundSwitch.tsx","s":"PAPER|INK 45cut + chamfer wipe","d":"not sun/moon"}
+{"t":"2026-08-14T23:20:00+01:00","k":"mod","p":"Site/src/app/globals.css,page,layout,Header","s":"think-tank restyle; mark hero; index rows not cards","d":"no default gen chrome"}
+{"t":"2026-08-14T23:20:00+01:00","k":"add","p":"ops/dns.md","s":"A @ www * -> 82.165.5.84","d":"ewan waiting for records"}
+{"t":"2026-08-14T23:20:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"github thekirkswood/DLN; rotate PAT; paper/ink law","d":"go"}
