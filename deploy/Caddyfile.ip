@@ -12,18 +12,21 @@
     reverse_proxy plot-modyu:3000
   }
 
+  # Hub dock on port 80 — IONOS only admits 22/80/443 from the internet.
+  handle /p/modyu* {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=modyu
+      copy_headers Cookie
+    }
+    reverse_proxy plot-modyu:3000
+  }
+
+  # Hardcoded /assets in the ModYu tree (not rewritten by basePath)
+  handle /assets* {
+    reverse_proxy plot-modyu:3000
+  }
+
   handle {
     reverse_proxy web:3000
   }
-}
-
-# Interim plot dock — same cookie as the apex while modyu.* has no A record.
-# Close this port when Livedns answers for modyu.designlabnorth.com.
-:3080 {
-  encode gzip
-  forward_auth web:3000 {
-    uri /api/auth/gate?plot=modyu
-    copy_headers Cookie
-  }
-  reverse_proxy plot-modyu:3000
 }

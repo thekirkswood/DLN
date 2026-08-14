@@ -7,10 +7,10 @@ Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + 
 1. Confirm plot container `dln-plot-modyu-1` is up (it is).
 2. Confirm apex DNS `designlabnorth.com` → `82.165.5.84` (it is).
 3. Confirm `modyu.designlabnorth.com` NXDOMAIN on Livedns (it is). Do not pretend the subdomain works.
-4. Interim dock: Caddy `:3080` → `plot-modyu:3000` with the same `forward_auth` gate. UFW 3080. Cookie `.designlabnorth.com`.
-5. `plots.json` `enterUrl` = `http://designlabnorth.com:3080`. Sign in on the apex, then Enter the plot.
-6. Prove with a real session cookie: unauth `:3080` → 302 greenhouse; owner cookie → 200 ModYu HTML.
-7. Do **not** rebase ModYu onto `/p/modyu` (hardcoded `/assets`, `/_next` clash with the hub). Harmony: extend Caddy, leave the plot.
+4. Interim dock: Caddy `/p/modyu*` → `plot-modyu:3000` with `forward_auth`. ModYu greenhouse image `BASE_PATH=/p/modyu`. Caddy also sends `/assets*` to the plot (hardcoded src). IONOS drops ports other than 22/80/443 — do not use `:3080` from the internet.
+5. `plots.json` `enterUrl` = `http://designlabnorth.com/p/modyu`. Sign in on the apex, then Enter the plot.
+6. Prove with a real session cookie: unauth `/p/modyu` → 302 greenhouse; owner cookie → 200 ModYu HTML (assets load).
+7. Local ModYu on `:3000` keeps empty `BASE_PATH`. Only the VPS greenhouse image is prefixed.
 
 ## Next — Livedns (Ewan, 123-reg / Heart / Fasthosts panel)
 
@@ -18,8 +18,8 @@ Nameservers: `ns1.livedns.co.uk`, `ns2`, `ns3`. This is **not** the IONOS VPS pa
 
 8. Add A `modyu` → `82.165.5.84` (TTL 300). Prefer also A `*` → same IP for every future client plot.
 9. Wait until `dig +short A modyu.designlabnorth.com` returns the IP.
-10. Switch `enterUrl` to `http://modyu.designlabnorth.com`. Keep `:3080` until that is proven.
-11. Remove `:3080` from Caddy, compose, and UFW. Log `k:del` for the dock.
+10. Switch `enterUrl` to `http://modyu.designlabnorth.com`. Rebuild plot image with empty `BASE_PATH`. Keep `/p/modyu` until that is proven.
+11. Remove `/p/modyu` Caddy handle and `/assets` steal. Log `k:del` for the dock.
 
 ## Then — TLS
 

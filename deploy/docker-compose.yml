@@ -11,7 +11,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "3080:3080"
     volumes:
       - ${CADDY_FILE:-./Caddyfile}:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
@@ -38,6 +37,8 @@ services:
     build:
       context: ${MODYU_DIR:-/srv/dln/plots/modyu}
       dockerfile: deploy/Dockerfile
+      args:
+        BASE_PATH: ${MODYU_BASE_PATH:-/p/modyu}
     restart: unless-stopped
     labels:
       dln.plot: modyu

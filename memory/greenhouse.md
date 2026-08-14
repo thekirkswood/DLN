@@ -10,7 +10,7 @@ DLN is a hub of multiple sites. Client plots can be entered when hosted. Studio 
 
 - Party: client
 - Host (wanted): `modyu.designlabnorth.com` — Livedns A not in yet (NXDOMAIN)
-- Enter now: `http://designlabnorth.com:3080` (interim dock, same gate + cookie)
+- Enter now: `http://designlabnorth.com/p/modyu` (interim dock on port 80, same gate + cookie)
 - Kind: rebuild (they have a live site; we are building the next one)
 - Status: growing
 - Voice: Design Lab North are rebuilding ModYu, the market-leading hair and scalp care brand — for people looking after their scalp before, during, and after transplant.

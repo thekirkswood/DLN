@@ -66,6 +66,4 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 ## 2026-08-15 — hub of multiple sites
 
 - DLN is a hub: client plots (ModYu, more wanted) + studio plots (Swarm, Choozlist). Grow each on its own terms. Isolation: one container per hosted plot.
-- Do not rebase a plot onto a URL path on the hub (`/assets` and `/_next` clash). Extend Caddy. Leave the plot.
-- Livedns (`ns1.livedns.co.uk`) is the DNS panel — not IONOS. Apex+www live; `modyu` NXDOMAIN.
-- Interim ModYu dock: `http://designlabnorth.com:3080` behind the same gate. Close when Livedns answers. Sequenced work: `memory/WORKSTREAM.md`.
+- Interim ModYu dock: `http://designlabnorth.com/p/modyu` behind the same gate (port 80). `:3080` is not reachable from the internet (IONOS). Sequenced work: `memory/WORKSTREAM.md`.

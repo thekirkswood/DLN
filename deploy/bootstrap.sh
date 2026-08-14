@@ -31,7 +31,6 @@ ufw default allow outgoing
 ufw allow OpenSSH
 ufw allow 80/tcp
 ufw allow 443/tcp
-ufw allow 3080/tcp
 ufw --force enable
 
 # fail2ban ssh

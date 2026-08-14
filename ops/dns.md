@@ -20,6 +20,6 @@ The wildcard covers `modyu.designlabnorth.com` and every future client plot. If 
 |---|---|---|
 | `modyu` | A | `82.165.5.84` |
 
-Until that answers, Enter the plot uses the interim dock: `http://designlabnorth.com:3080` (signed in). Use `http://` until we switch Caddy to `Caddyfile.prod`.
+Until that answers, Enter the plot uses the interim dock: `http://designlabnorth.com/p/modyu` (signed in, port 80). Use `http://` until we switch Caddy to `Caddyfile.prod`.
 
 No AAAA until we have IPv6.

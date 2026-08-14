@@ -32,7 +32,7 @@ Do not add their live domains or full sites to DLN.
 
 ## Clients
 
-- **ModYu** — first client plot. Rebuild / facelift. GitHub `thekirkswood/modyu`. Wanted host: `modyu.designlabnorth.com`. Until Livedns has that A record, enter via the apex dock (`designlabnorth.com:3080`). Greenhouse uses their mark.
+- **ModYu** — first client plot. Rebuild / facelift. GitHub `thekirkswood/modyu`. Wanted host: `modyu.designlabnorth.com`. Until Livedns has that A record, enter via `http://designlabnorth.com/p/modyu`. Greenhouse uses their mark.
 - More clients are the point of the hub. Add a plot file when Ewan names one. Do not invent clients.
 
 ## Practice

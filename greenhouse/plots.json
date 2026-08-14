@@ -6,7 +6,7 @@
     "kind": "rebuild",
     "party": "client",
     "hosts": ["modyu.designlabnorth.com"],
-    "enterUrl": "http://designlabnorth.com:3080",
+    "enterUrl": "http://designlabnorth.com/p/modyu",
     "localPreview": "/preview/modyu",
     "public": true,
     "logoPaper": "/plots/modyu.svg",

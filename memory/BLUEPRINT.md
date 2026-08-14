@@ -25,7 +25,7 @@ We want more **client** plots. Studio listings are allowed because Ewan said so.
 | `/greenhouse/[slug]` | public | Plot story from our side. No live-client-site link. Studio listings have no enter-plot until hosted. |
 | `/preview/[slug]` | cookie | Redirects to the live plot URL if one exists. |
 | `{slug}.designlabnorth.com` | cookie | Real plot host (Livedns A / wildcard). Unauthed → greenhouse story. |
-| `designlabnorth.com:3080` | cookie | **Interim ModYu dock** while `modyu.` has no A record. Close when Livedns answers. |
+| `/p/modyu` | cookie | **Interim ModYu dock** on the hub hostname (port 80). IONOS drops non-80/443. Close when Livedns answers and we rebuild ModYu with empty `BASE_PATH`. |
 | `/login` `/logout` | public / session | DLN login. Cookie `dln_session`. |
 | `/privacy` `/terms` | public | Small. Real. Footer. |
 | Cursor / this repo | studio | The actual design interface. No in-site builder UI. |
@@ -43,8 +43,8 @@ We want more **client** plots. Studio listings are allowed because Ewan said so.
 | Layer | Choice |
 |---|---|
 | Studio site | Next.js 14 App Router, TypeScript, `Site/` (local `:3010`) |
-| Edge | Caddy 80/443, plus interim `:3080` dock; wildcard / per-plot hosts after Livedns |
-| Plots | One compose service per **hosted** plot. ModYu: `plot-modyu` from `/srv/dln/plots/modyu` (GitHub `thekirkswood/Modyu`). Do not rebase a plot onto a URL path — `/assets` and `/_next` collide. |
+| Edge | Caddy 80/443; wildcard / per-plot hosts after Livedns. Interim hub path `/p/{slug}` + plot `BASE_PATH` (IONOS only admits 22/80/443). |
+| Plots | One compose service per **hosted** plot. ModYu: `plot-modyu` from `/srv/dln/plots/modyu`. Greenhouse image may set `BASE_PATH=/p/modyu` so it can live on the hub host. Local ModYu on `:3000` stays at `/`. |
 | Local | `npm run dev` in `Site/` (`:3010`). ModYu stays `:3000`. |
 | VPS | Ubuntu 26, `/srv/dln`, Docker Engine + compose |
 | Source | This PC → GitHub `thekirkswood/DLN` → VPS `git fetch` + `reset --hard origin/main`. Later: home server as the Cursor box. |
@@ -82,7 +82,7 @@ Host: `82.165.5.84` (IONOS). SSH key `~/.ssh/id_ed25519_dln`. Secrets never in g
 | Party | `client` or `studio` in `plots.json` |
 | Studio | Us. Cursor. This repo. Swarm and Choozlist. |
 | Client | ModYu now. More to come. |
-| Dock | Interim port on the apex (`:3080`) so a plot is reachable before its subdomain exists |
+| Dock | Interim path on the hub (`/p/modyu`) so a plot is reachable before its subdomain exists |
 | Migrate | Client plot leaves the greenhouse onto their own server/URL |
 
 Open names (not locked): “upgrade station” for branding-only work. Do not ship a label until Ewan picks it.

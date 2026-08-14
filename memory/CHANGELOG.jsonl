@@ -50,3 +50,6 @@
 {"t":"2026-08-15T00:20:00+01:00","k":"mod","p":"greenhouse/plots.json","s":"party client/studio; modyu enterUrl designlabnorth.com:3080","d":"Enter the plot must resolve today"}
 {"t":"2026-08-15T00:20:00+01:00","k":"mod","p":"ops/dns.md","s":"Livedns ns1.livedns.co.uk not IONOS panel","d":"why subdomain never appeared"}
 {"t":"2026-08-15T00:20:00+01:00","k":"dir","p":"memory/DIRECTIONS.md protocol AGENTS skill","s":"load WORKSTREAM; no path-rebase of plots","d":"harmony"}
+{"t":"2026-08-15T00:25:00+01:00","k":"del","p":"deploy :3080 dock","s":"removed public 3080 listener","d":"IONOS drops non-80/443 from internet; timeout from PC"}
+{"t":"2026-08-15T00:25:00+01:00","k":"mod","p":"Caddyfile.ip /p/modyu + /assets; ModYu BASE_PATH","s":"hub-path dock on port 80; greenhouse image only","d":"enter plot must work from DLN login"}
+{"t":"2026-08-15T00:25:00+01:00","k":"mod","p":"plots.json enterUrl","s":"http://designlabnorth.com/p/modyu","d":"replace 3080"}
