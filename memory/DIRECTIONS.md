@@ -56,3 +56,4 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 ## 2026-08-15 — greenhouse captions
 
 - Public plot copy: Design Lab North **are**. Pleasure said differently each time. Brand only. No product internals, no hosting plan, no slight on a live site or its builders.
+- Do not invent plot status. Choozlist is growing. “Resting” was an agent guess from “not hosted here” — wrong. Hosting fact stays off the public wall. Public Choozlist line is the life registry, not the AI stack.

@@ -24,10 +24,11 @@ Registry prose. Machine source: `greenhouse/plots.json`. Keep them in sync.
 
 ### Choozlist (`choozlist`)
 
-- Listed only: mark + description. No domain, no container.
-- Own server forever — never a DLN plot host. Do not say that on the public wall.
-- Kind: new. Status: resting.
-- Voice: Design Lab North are on Choozlist. A different pleasure: a brand about choosing for someone else, a heart on the mark. That is as much as this wall needs.
+- Listed only: mark + description. No domain, no container on DLN (own host — internal fact, never on the public wall).
+- Public brand: all-in-one life registry. Creates, browses, and documents findings, curated to you and those around you.
+- Internals (not public copy): agentic AI-driven search app. Do not put that on the greenhouse.
+- Kind: new. Status: growing. Never label it resting — Ewan did not say the work is paused.
+- Voice: Design Lab North are building Choozlist. We have the pleasure of an all-in-one life registry — it creates, browses, and documents findings, curated to you and those around you.
 - Mark: `Site/public/plots/choozlist.png` (lime heart list).
 
 ## Not listed yet

@@ -26,7 +26,7 @@ Conversational, from our side. Plural: Design Lab North are. Pleasure of the wor
 ## Own properties (greenhouse listings)
 
 - **Swarm Fund** — listed. Will host here later. No subdomain until Ewan says so.
-- **Choozlist** — listed. Own server forever; greenhouse is mark + description only.
+- **Choozlist** — listed, growing. All-in-one life registry (creates, browses, documents findings, curated to you and those around you). Own host; greenhouse is mark + copy only. Internals are an agentic search app — not public copy.
 
 Do not add their live domains or full sites to DLN.
 

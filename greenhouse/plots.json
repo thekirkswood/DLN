@@ -26,13 +26,13 @@
   {
     "slug": "choozlist",
     "name": "Choozlist",
-    "status": "resting",
+    "status": "growing",
     "kind": "new",
     "hosts": [],
     "localPreview": "/greenhouse/choozlist",
     "public": true,
     "logoPaper": "/plots/choozlist.png",
     "logoInk": "/plots/choozlist.png",
-    "voice": "Design Lab North are on Choozlist. A different pleasure: a brand about choosing for someone else, a heart on the mark. That is as much as this wall needs."
+    "voice": "Design Lab North are building Choozlist. We have the pleasure of an all-in-one life registry — it creates, browses, and documents findings, curated to you and those around you."
   }
 ]
