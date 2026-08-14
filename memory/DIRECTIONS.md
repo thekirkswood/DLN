@@ -52,3 +52,7 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - Enquiries: `build@designlabnorth.com` (mailbox exists).
 - Greenhouse may list studio work as mark + copy only. Swarm: later a plot. Choozlist: never hosted here.
 - Password SSH/FTP stays off. Access is SFTP/SSH with `id_ed25519_dln`. Do not store the IONOS root password in memory.
+
+## 2026-08-15 — greenhouse captions
+
+- Public plot copy: Design Lab North **are**. Pleasure said differently each time. Brand only. No product internals, no hosting plan, no slight on a live site or its builders.

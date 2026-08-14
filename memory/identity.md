@@ -16,8 +16,7 @@ Not a client product. Not ModYu, SwarmFund, or any plot’s public brand. Not an
 
 ## Voice (public)
 
-Conversational, from our side. Example shape: “Design Lab North have the pleasure of building…”  
-If they already have a live site and we are replacing/improving it, say so honestly. No hype. No agency-speak.
+Conversational, from our side. Plural: Design Lab North are. Pleasure of the work, said differently each time, gritty, short — the brand, not the product spec. Never slight a live site or its builders. No hype. No agency-speak. No hosting plans on the public wall.
 
 ## People
 
