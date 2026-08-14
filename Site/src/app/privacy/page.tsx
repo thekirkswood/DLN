@@ -12,8 +12,9 @@ export default function PrivacyPage() {
 
       <h2>Who we are</h2>
       <p>
-        Design Lab North, designlabnorth.com. Contact: the address we give you
-        when we start work. Company details will sit here once they are filed.
+        Design Lab North, designlabnorth.com. Enquiries:{" "}
+        <a href="mailto:build@designlabnorth.com">build@designlabnorth.com</a>.
+        Company details will sit here once they are filed.
       </p>
 
       <h2>What we collect</h2>

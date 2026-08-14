@@ -13,7 +13,7 @@ Public design hub + gated greenhouse of client plots. Identities, marketing, red
 | `designlabnorth.com` `/` | public | Who we are. Quiet. |
 | `/practice` | public | Studio credentials, selected clients, how we work. |
 | `/greenhouse` | public | What’s growing. Index, not cards. DLN voice. |
-| `/greenhouse/[slug]` | public | Plot story from our side. No live-client-site link (that is what we are building against). |
+| `/greenhouse/[slug]` | public | Plot story from our side. No live-client-site link. Mark-only listings (Swarm, Choozlist) have no enter-plot. |
 | `/preview/[slug]` | cookie | Local stand-in for the subdomain. |
 | `{slug}.designlabnorth.com` | cookie | Live plot container. Unauthed → greenhouse story. |
 | `/login` `/logout` | public / session | DLN login. Cookie `dln_session`. |

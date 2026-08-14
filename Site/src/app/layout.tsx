@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
 };
 
-const groundBoot = `(function(){try{var g=localStorage.getItem("dln-ground");if(g==="ink"||g==="paper")document.documentElement.setAttribute("data-ground",g);}catch(e){}})();`;
+const groundBoot = `(function(){try{var g=localStorage.getItem("dln-ground");document.documentElement.setAttribute("data-ground",g==="ink"?"ink":"paper");}catch(e){document.documentElement.setAttribute("data-ground","paper");}})();`;
 
 export default async function RootLayout({
   children,

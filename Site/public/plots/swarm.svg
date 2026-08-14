@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" role="img" aria-label="Swarm Fund">
+  <title>Swarm Fund</title>
+  <!--
+    Official mark geometry: pointy hex, circular open field,
+    three diagonal amber bars. Gaps are open (no fill) so the page shows through.
+  -->
+  <g fill="#FCB017">
+    <!-- Outer hex with circular hole (evenodd) -->
+    <path fill-rule="evenodd" d="
+      M100 8
+      L172 50
+      L172 134
+      L100 176
+      L28 134
+      L28 50
+      Z
+      M100 48
+      A 48 48 0 1 0 100.01 48
+      Z
+    "/>
+    <!-- Three diagonal bars across the open circle -->
+    <g transform="rotate(-38 100 98)">
+      <rect x="54" y="66" width="92" height="13" rx="1.5"/>
+      <rect x="54" y="92" width="92" height="13" rx="1.5"/>
+      <rect x="54" y="118" width="92" height="13" rx="1.5"/>
+    </g>
+  </g>
+  <text
+    x="176" y="34"
+    font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+    font-size="13"
+    font-weight="600"
+    fill="#12110F"
+  >TM</text>
+</svg>

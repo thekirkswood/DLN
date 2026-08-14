@@ -29,3 +29,8 @@
 {"t":"2026-08-14T23:43:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"VPS repo is git checkout; unauth plot host 302 greenhouse; cookie domain after DNS","d":"pull not rsync-over-git"}
 {"t":"2026-08-14T23:43:00+01:00","k":"mod","p":"/srv/dln/repo","s":"git fetch+reset origin/main @ 6ac0cfe; dln-web recreated; no homepage hero-mark","d":"ewan: leave beautiful, show designer"}
 {"t":"2026-08-14T23:43:00+01:00","k":"add","p":"/srv/dln/plots/modyu + dln-plot-modyu","s":"real ModYu next image on plot-modyu:3000 behind forward_auth","d":"github thekirkswood/Modyu e5d0897"}
+{"t":"2026-08-14T23:52:00+01:00","k":"mod","p":"Site/public/brand/dln-mute.png + globals.css + GroundSwitch + layout","s":"paper grey-on-white; ink white-on-#414141; opaque mute; boot always sets data-ground; wipe never blocks flip","d":"toggle dead after faint grey extract"}
+{"t":"2026-08-14T23:52:00+01:00","k":"mod","p":"Site/src/app/practice/page.tsx","s":"the work as body copy; enquiries mailto build@designlabnorth.com","d":"factual direct; mailbox live"}
+{"t":"2026-08-14T23:52:00+01:00","k":"mod","p":"Footer privacy globals header","s":"build@ in footer+privacy; mobile header wrap + smaller mark","d":"compressed top bar"}
+{"t":"2026-08-14T23:52:00+01:00","k":"add","p":"greenhouse/plots.json swarm choozlist + plots/*.svg/png","s":"studio listings mark+voice only; empty hosts; no domains","d":"ewan: greenhouse not full sites; chooz never hosted here"}
+{"t":"2026-08-14T23:52:00+01:00","k":"bp","p":"memory/BLUEPRINT.md greenhouse.md identity brand DIRECTIONS","s":"mark-only greenhouse rows; plates grey/white; mail build@","d":"this turn"}

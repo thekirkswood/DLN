@@ -3,6 +3,7 @@
 **Name:** Design Lab North  
 **Short:** DLN  
 **Domain:** designlabnorth.com  
+**Enquiries:** build@designlabnorth.com  
 **Role:** Design hub. Identities, marketing principles, redesigns, facelifts, and websites — hosted in the greenhouse while they grow, then migrated.
 
 ## What this is
@@ -23,9 +24,12 @@ If they already have a live site and we are replacing/improving it, say so hones
 - Ewan — designer; works in Cursor on this PC and will add a second designer machine.
 - Agents in this repo — builders with long-term memory. Not generic page-makers.
 
-## Own properties (not public greenhouse unless listed)
+## Own properties (greenhouse listings)
 
-Two studio-owned sites exist: one already in development, one still a shell. They wait until DLN itself is standing. Do not invent their names on the public greenhouse.
+- **Swarm Fund** — listed. Will host here later. No subdomain until Ewan says so.
+- **Choozlist** — listed. Own server forever; greenhouse is mark + description only.
+
+Do not add their live domains or full sites to DLN.
 
 ## Practice
 

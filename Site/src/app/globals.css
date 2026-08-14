@@ -1,10 +1,9 @@
-:root,
-html[data-ground="paper"] {
+html {
   --ground: #ffffff;
   --ink: #414141;
   --mute: #6e6e6e;
   --line: #d4d4d4;
-  --wipe: #000000;
+  --wipe: #414141;
   --max: 1180px;
   --cut: 9px;
   --font: var(--font-tstar), "T Star", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -12,10 +11,10 @@ html[data-ground="paper"] {
 }
 
 html[data-ground="ink"] {
-  --ground: #000000;
+  --ground: #414141;
   --ink: #ffffff;
-  --mute: #414141;
-  --line: #1f1f1f;
+  --mute: #c8c8c8;
+  --line: #5c5c5c;
   --wipe: #ffffff;
   color-scheme: dark;
 }
@@ -125,6 +124,10 @@ input {
   width: min(560px, 92vw);
 }
 
+.mark-on-paper {
+  display: block;
+}
+
 .mark-on-ink {
   display: none;
 }
@@ -222,7 +225,7 @@ html[data-ground="ink"] .mark-on-ink {
 }
 
 .ground-wipe[data-to="ink"] {
-  background: #000000;
+  background: #414141;
 }
 
 main {
@@ -399,6 +402,15 @@ html[data-ground="ink"] .plot-mark-ink {
   padding: 4.2rem 0 5.5rem;
 }
 
+.story-mark {
+  margin-bottom: 1.6rem;
+}
+
+.story-mark .plot-mark {
+  width: 7.2rem;
+  height: auto;
+}
+
 .story-page {
   max-width: 38rem;
 }
@@ -445,6 +457,21 @@ html[data-ground="ink"] .plot-mark-ink {
   color: var(--mute);
   max-width: 38rem;
   margin-bottom: 0.95rem;
+}
+
+.practice .body {
+  color: var(--ink);
+  max-width: 40rem;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  margin-bottom: 1.15rem;
+}
+
+.practice .mail {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .client-index {
@@ -568,11 +595,17 @@ html[data-ground="ink"] .err {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--mute);
+  flex-wrap: wrap;
 }
 
 .site-footer a {
   text-decoration: none;
   margin-left: 1.1rem;
+}
+
+.site-footer a[href^="mailto"] {
+  text-transform: none;
+  letter-spacing: 0.02em;
 }
 
 .site-footer nav {
@@ -610,5 +643,58 @@ html[data-ground="ink"] .err {
 @media (prefers-reduced-motion: reduce) {
   .ground-wipe {
     display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .wrap {
+    width: min(100% - 1.6rem, var(--max));
+  }
+
+  .site-header {
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
+    padding: 0.85rem 0 0.8rem;
+  }
+
+  .mark-nav img {
+    width: 86px;
+  }
+
+  .site-header nav {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.7rem 0.95rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+  }
+
+  .ground-switch {
+    margin-left: auto;
+    height: 1.7rem;
+  }
+
+  .ground-switch span {
+    padding: 0 0.55rem;
+  }
+
+  .plot-card {
+    grid-template-columns: 4.6rem 1fr;
+    gap: 0.85rem 1rem;
+  }
+
+  .plot-card .status {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .plot-card .plot-mark-well,
+  .plot-card .plot-mark {
+    width: 4.6rem;
+  }
+
+  .hero {
+    padding: 3.2rem 0 2.8rem;
   }
 }

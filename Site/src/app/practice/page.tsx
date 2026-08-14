@@ -29,25 +29,30 @@ export default function PracticePage() {
       </ul>
 
       <h2>The work</h2>
-      <p>
-        Multi-award-winning for branding and marketing. Nominated brand and
-        marketing advisor for Lancashire County Council, consulting with
-        businesses across the region. Public speaker and host. Work has
-        appeared in print and on screen. A qualified teacher who has lectured
-        at universities and design colleges.
+      <p className="body">
+        The work is identities, marketing principles, redesigns, facelifts, and
+        the websites that have to carry them. The founding practice is
+        multi-award-winning for branding and marketing. It is a nominated brand
+        and marketing advisor to Lancashire County Council, and consults with
+        businesses across the region. Work has been spoken in public, hosted,
+        printed, and put on screen. The same practice is a qualified teacher
+        and has lectured at universities and design colleges.
       </p>
-      <p>
-        For the last ten years the practice has sat directly with businesses,
-        organisations, and multi-nationals — and with their agencies under NDA
-        — to develop brand strategy and online brand engagement. Further detail
+      <p className="body">
+        For the last ten years that work has sat directly with businesses,
+        organisations, and multi-nationals — and with their agencies, under NDA
+        — on brand strategy and how the brand behaves online. Further detail
         can be given under NDA.
       </p>
 
       <h2 id="enquiries">Enquiries</h2>
-      <p>
-        If you have a site, a mark, a facelift, or a brand that needs to be
-        made properly — start with the greenhouse if you want to see how we
-        work, or write when the domain mail is live.
+      <p className="body">
+        A site, a mark, a facelift, or a brand that needs to be made properly —
+        write to{" "}
+        <a className="mail" href="mailto:build@designlabnorth.com">
+          build@designlabnorth.com
+        </a>
+        . Look at the greenhouse if you want to see how we work first.
       </p>
     </article>
   );

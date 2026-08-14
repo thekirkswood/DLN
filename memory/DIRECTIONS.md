@@ -45,3 +45,10 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - `/srv/dln/repo` is a git checkout of `thekirkswood/DLN` (fetch + reset to origin/main). Do not rsync over `.git`.
 - ModYu plot image is live behind Caddy `forward_auth`. Unauth `Host: modyu.designlabnorth.com` → `/greenhouse/modyu`.
 - Cookie domain stays host-only until DNS; then `DLN_COOKIE_DOMAIN=.designlabnorth.com` + `Caddyfile.prod`.
+
+## 2026-08-14 — plates, mail, studio listings
+
+- Paper = grey mark on white. Ink = white mark on `#414141`. Mute PNG must be opaque grey glyphs, not a faint extract.
+- Enquiries: `build@designlabnorth.com` (mailbox exists).
+- Greenhouse may list studio work as mark + copy only. Swarm: later a plot. Choozlist: never hosted here.
+- Password SSH/FTP stays off. Access is SFTP/SSH with `id_ed25519_dln`. Do not store the IONOS root password in memory.

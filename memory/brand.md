@@ -8,10 +8,10 @@ Custom geometric **DLN** — modular blocks, 45° chamfers, TM above the join. N
 
 | File | Use |
 |---|---|
-| `Site/public/brand/dln-ink.png` | Paper ground (black mark, transparent) |
+| `Site/public/brand/dln-mute.png` | Paper ground (grey mark, transparent) |
 | `Site/public/brand/dln-white.png` | Ink ground (white mark, transparent) |
-| `Site/public/brand/dln-mute.png` | Quiet dark-plate cousin — spare, not UI default |
-| `dln-plate-ink.jpg` / `dln-plate-mute.jpg` | Source plates (black field). Archive, not layout chrome |
+| `Site/public/brand/dln-ink.png` | Near-black extract — spare |
+| `dln-plate-ink.jpg` / `dln-plate-mute.jpg` | Source plates. Archive, not layout chrome |
 
 Never put the black-field JPEG on a light page. Never recolour the glyphs.
 
@@ -27,11 +27,13 @@ Studio language: **Paper** / **Ink**. Control is a chamfered PAPER | INK cut (45
 
 | Token | Paper | Ink |
 |---|---|---|
-| `--ground` | `#FFFFFF` (inverse of the black plates) | `#000000` (plate field) |
-| `--ink` | `#414141` (gray plate glyph) | `#FFFFFF` (white plate glyph) |
-| `--mute` | `#6E6E6E` | `#414141` |
-| `--line` | `#D4D4D4` | `#1F1F1F` |
-| `--mark` | `dln-mute.png` | `dln-white.png` |
+| `--ground` | `#FFFFFF` | `#414141` (mute plate field) |
+| `--ink` | `#414141` (grey mark) | `#FFFFFF` (white mark) |
+| `--mute` | `#6E6E6E` | `#C8C8C8` |
+| `--line` | `#D4D4D4` | `#5C5C5C` |
+| `--mark` | `dln-mute.png` (grey glyph, transparent) | `dln-white.png` |
+
+Paper is grey on white. Ink is white on grey. Not black plates in the UI. Toggle must set `data-ground` on `<html>` immediately.
 
 Chamfer every interactive edge (8px, 45°) — buttons, switch, plot rows, submit. No 999px pills, no drop-shadow cards, no gradient orbs.
 

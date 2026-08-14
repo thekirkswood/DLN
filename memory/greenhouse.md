@@ -14,10 +14,22 @@ Registry prose. Machine source: `greenhouse/plots.json`. Keep them in sync.
 - Source: GitHub `thekirkswood/modyu` · VPS `/srv/dln/plots/modyu` · Docker plot `plot-modyu`
 - Access: DLN client user bound to `modyu`. Studio/owner always.
 
+### Swarm Fund (`swarm`)
+
+- Listed only: mark + description. No domain, no container, no enter-plot.
+- Will host on this greenhouse later. Do not add a host until Ewan says so.
+- Kind: new. Status: growing.
+- Mark: `Site/public/plots/swarm.svg` (official hive, amber).
+
+### Choozlist (`choozlist`)
+
+- Listed only: mark + description. No domain, no container.
+- Own server forever — never a DLN plot host.
+- Kind: new. Status: resting.
+- Mark: `Site/public/plots/choozlist.png` (lime heart list).
+
 ## Not listed yet
 
-- Studio-owned site in development (wait).
-- Studio-owned shell (wait until DLN is standing).
 - Future outreach clients — add a plot file, do not preview-publish empty cards.
 
 ## Plot lifecycle
@@ -28,3 +40,4 @@ Registry prose. Machine source: `greenhouse/plots.json`. Keep them in sync.
 4. Client cookie on `.designlabnorth.com` opens the subdomain.
 5. Public still sees the greenhouse story only.
 6. After the first month: migrate container/image to the client’s server + DNS. Plot here can retire or stay as archive (decision later).
+7. Studio listings may stay mark-only (Swarm until hosted; Choozlist always).
