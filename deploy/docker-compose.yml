@@ -38,7 +38,7 @@ services:
       context: ${MODYU_DIR:-/srv/dln/plots/modyu}
       dockerfile: deploy/Dockerfile
       args:
-        BASE_PATH: ${MODYU_BASE_PATH:-/p/modyu}
+        BASE_PATH: ${MODYU_BASE_PATH:-}
     restart: unless-stopped
     labels:
       dln.plot: modyu
@@ -52,14 +52,14 @@ services:
       context: ${SWARM_DIR:-/srv/dln/plots/swarm}
       dockerfile: deploy/Dockerfile.greenhouse
       args:
-        VITE_BASE: ${SWARM_BASE_PATH:-/p/swarm/}
-        VITE_API_BASE: ${SWARM_API_BASE:-/p/swarm/api}
+        VITE_BASE: ${SWARM_BASE_PATH:-/}
+        VITE_API_BASE: ${SWARM_API_BASE:-/api}
     restart: unless-stopped
     labels:
       dln.plot: swarm
     environment:
-      CORS_ORIGIN: ${SWARM_CORS_ORIGIN:-http://designlabnorth.com}
-      COOKIE_PATH: ${SWARM_COOKIE_PATH:-/p/swarm}
+      CORS_ORIGIN: ${SWARM_CORS_ORIGIN:-https://swarmfund.designlabnorth.com}
+      COOKIE_PATH: ${SWARM_COOKIE_PATH:-/}
       SWARMFUND_DB: /data/swarmfund.sqlite
     volumes:
       - ${SWARM_DATA_DIR:-/srv/dln/data/swarm}:/data

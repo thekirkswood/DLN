@@ -19,21 +19,23 @@ We want more **client** plots. Studio listings are allowed because Ewan said so.
 
 | Path / host | Who | What |
 |---|---|---|
-| `designlabnorth.com` `/` | public | Who we are. Quiet. Home rows: mark, name, growing (Choozlist: growing - beta test). No descriptions. Practice / Greenhouse / Sign in live on the homepage, not the header. |
-| `/practice` | public | Studio credentials, selected clients, how we work. Dave Kirkwood named. |
-| `/greenhouse` | public | What’s growing. Index with descriptions. DLN voice. |
-| `/greenhouse/[slug]` | public | Plot story from our side. Sign in if yours. Enter the plot when a host exists and the cookie matches. Choozlist: beta contact `create@wishwell.uk`. |
+| `designlabnorth.com` `/` | public | Who we are. Quiet. Home rows: logo, name, growing. No descriptions. Practice / Greenhouse on the homepage. No Sign in on the home page. Header has Home only when you are not already there. |
+| `/practice` | public | Studio credentials, selected clients, how we work. Dave Kirkwood named. Public offering: **brands** and identities (not “marks”). |
+| `/greenhouse` | public | What’s growing. Index with descriptions. DLN voice. Sign out as text if signed in. |
+| `/greenhouse/[slug]` | public | Plot story from our side. Sign in if yours — then the plot host. Choozlist: beta contact `create@wishwell.uk`. |
 | `/preview/[slug]` | cookie | Redirects to the live plot URL if one exists. |
-| `{slug}.designlabnorth.com` | cookie | Real plot host (Livedns A / wildcard). Unauthed → greenhouse story. |
-| `/p/modyu` | cookie | **Interim ModYu dock** on the hub hostname (port 80). Close when Livedns answers and we rebuild ModYu with empty `BASE_PATH`. |
-| `/p/swarm` | cookie | **Interim Swarm dock** on the hub hostname. Vite `VITE_BASE=/p/swarm/`. Do not steal hub `/assets` for Swarm (that path is ModYu). Close when Livedns has `swarm` and we rebuild with empty base. |
-| `/login` `/logout` | public / session | DLN login. Cookie `dln_session`. Studio addresses `@designlabnorth.com`. |
+| `modyu.designlabnorth.com` | cookie | ModYu plot. Unauthed → greenhouse story. |
+| `swarmfund.designlabnorth.com` | cookie | Swarm Fund plot. Unauthed → greenhouse story. |
+| `daa.designlabnorth.com` | public | Name reserved for a possible client. Redirects to the hub. Not listed in the greenhouse until Ewan says so. |
+| `/login` `/logout` | public / session | DLN login. Cookie `dln_session`. Studio addresses `@designlabnorth.com`. Reached from a plot story, not the homepage. |
+| `/privacy` `/terms` | public | Small. Real. Footer. |
+| Cursor / this repo | studio | The actual design interface. No in-site builder UI. |
 | `/privacy` `/terms` | public | Small. Real. Footer. |
 | Cursor / this repo | studio | The actual design interface. No in-site builder UI. |
 
 ## Auth
 
-- Cookie: `dln_session` httpOnly. Domain `.designlabnorth.com` so apex, www, plot hosts, and the interim dock port inherit it.
+- Cookie: `dln_session` httpOnly. Domain `.designlabnorth.com` so apex, www, and plot hosts inherit it. `Secure` on HTTPS.
 - Store: `_meta/accounts/` on VPS `/srv/dln/data/accounts`. Gitignored. Seed file `SEED.txt`.
 - Studio logins: `ewan@designlabnorth.com` (owner), `dave@designlabnorth.com` (studio). Older `.local` seeds may still work until dropped.
 - Roles: `owner` (all plots), `studio` (all plots), `client` (listed `plots[]` only).
@@ -45,8 +47,8 @@ We want more **client** plots. Studio listings are allowed because Ewan said so.
 | Layer | Choice |
 |---|---|
 | Studio site | Next.js 14 App Router, TypeScript, `Site/` (local `:3010`) |
-| Edge | Caddy 80/443; wildcard / per-plot hosts after Livedns. Interim hub path `/p/{slug}` + plot `BASE_PATH` (IONOS only admits 22/80/443). |
-| Plots | One compose service per **hosted** plot. ModYu: `plot-modyu` from `/srv/dln/plots/modyu`. Swarm: `plot-swarm` from `/srv/dln/plots/swarm` (Vite web + API). Greenhouse images may set a path prefix so they can live on the hub host. Local ModYu on `:3000` stays at `/`. |
+| Edge | Caddy 80/443, Let’s Encrypt. One hostname per hosted plot. |
+| Plots | One compose service per **hosted** plot. ModYu: `plot-modyu` at `modyu.designlabnorth.com`. Swarm: `plot-swarm` at `swarmfund.designlabnorth.com`. Plots serve at `/` on their own host. Local ModYu on `:3000` stays at `/`. |
 | Local | `npm run dev` in `Site/` (`:3010`). ModYu stays `:3000`. |
 | VPS | Ubuntu 26, `/srv/dln`, Docker Engine + compose |
 | Source | This PC → GitHub `thekirkswood/DLN` → VPS `git fetch` + `reset --hard origin/main`. Later: home server as the Cursor box. |
@@ -86,7 +88,7 @@ Host: `82.165.5.84` (IONOS). SSH key `~/.ssh/id_ed25519_dln`. Secrets never in g
 | Party | `client` or `studio` in `plots.json` |
 | Studio | Us. Cursor. This repo. Swarm and Choozlist. |
 | Client | ModYu now. More to come. |
-| Dock | Interim path on the hub (`/p/modyu`) so a plot is reachable before its subdomain exists |
+| Dock | Retired. Interim hub paths `/p/modyu` and `/p/swarm` redirected to the plot hosts. |
 | Migrate | Client plot leaves the greenhouse onto their own server/URL |
 
 Open names (not locked): “upgrade station” for branding-only work. Do not ship a label until Ewan picks it.
@@ -97,4 +99,5 @@ Open names (not locked): “upgrade station” for branding-only work. Do not sh
 - In-site CMS / designer UI
 - Charging / billing UI
 - Hosting Choozlist on this VPS (waiting on repo upload)
-- Swarm subdomain until Livedns has `swarm` and we rebuild with empty `VITE_BASE`
+- Listing DAA in the greenhouse until Ewan names them as a client
+- Homepage Sign in (people with a plot use the plot host)

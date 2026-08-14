@@ -60,3 +60,9 @@
 {"t":"2026-08-15T00:45:00+01:00","k":"add","p":"deploy plot-swarm Caddyfile.ip compose","s":"plot-swarm service + /p/swarm dock strip_prefix; no /assets steal","d":"builder for Dave like ModYu; retire old Swarm VPS later"}
 {"t":"2026-08-15T00:45:00+01:00","k":"mod","p":"Site/src/lib/auth.ts","s":"ensureHubAccounts ewan@ and dave@ designlabnorth.com; keep .local","d":"studio logins on owned domain"}
 {"t":"2026-08-15T00:45:00+01:00","k":"mod","p":"memory/WORKSTREAM.md ops/vps.md AGENTS.md","s":"swarm host steps; vps plots/swarm + data/swarm","d":"open work moved"}
+{"t":"2026-08-15T00:55:00+01:00","k":"bp","p":"memory/BLUEPRINT.md identity greenhouse","s":"plots on own HTTPS hosts; path docks retired; DAA reserved not listed","d":"ewan added modyu swarmfund daa A records; wants subdomains"}
+{"t":"2026-08-15T00:55:00+01:00","k":"del","p":"deploy /p/modyu /p/swarm /assets steal","s":"removed hub-path docks and ModYu /assets steal","d":"subdomains answer; plots serve at / on their host"}
+{"t":"2026-08-15T00:55:00+01:00","k":"mod","p":"deploy/Caddyfile.prod compose plots.json","s":"TLS hosts modyu + swarmfund; daa redir hub; empty BASE_PATH","d":"one hostname per plot; HTTPS so browsers can login"}
+{"t":"2026-08-15T00:55:00+01:00","k":"dir","p":"memory/DIRECTIONS.md dln-voice.mdc practice","s":"no homepage Sign in; Home hidden on /; brands not marks","d":"ewan: sign-in bubble obsolete; marks→brands"}
+{"t":"2026-08-15T00:55:00+01:00","k":"mod","p":"Site Header page practice greenhouse login","s":"Home off on homepage; no home Sign in; brands copy; login next allows plot hosts","d":"people with sites use the site"}
+{"t":"2026-08-15T00:55:00+01:00","k":"mod","p":"ops/dns.md WORKSTREAM.md","s":"modyu swarmfund daa A live; TLS sequenced as current","d":"nameservers already Livedns; these are A records"}

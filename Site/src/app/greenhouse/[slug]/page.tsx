@@ -63,7 +63,7 @@ export default async function PlotStoryPage({
         {!user ? (
           <Link
             className="act act-line"
-            href={`/login?next=/greenhouse/${plot.slug}`}
+            href={`/login?next=${encodeURIComponent(live || `/greenhouse/${plot.slug}`)}`}
           >
             Sign in if this is yours
           </Link>

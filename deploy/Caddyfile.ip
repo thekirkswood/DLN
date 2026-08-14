@@ -1,4 +1,4 @@
-# Plot host (until TLS + Livedns wildcard)
+# HTTP-only fallback (no TLS). VPS live edge is Caddyfile.prod.
 
 :80 {
   encode gzip
@@ -12,7 +12,7 @@
     reverse_proxy plot-modyu:3000
   }
 
-  @swarm host swarm.designlabnorth.com
+  @swarm host swarmfund.designlabnorth.com
   handle @swarm {
     forward_auth web:3000 {
       uri /api/auth/gate?plot=swarm
@@ -21,30 +21,16 @@
     reverse_proxy plot-swarm:3000
   }
 
-  # Hub dock on port 80 — IONOS only admits 22/80/443 from the internet.
+  @daa host daa.designlabnorth.com
+  handle @daa {
+    redir http://designlabnorth.com
+  }
+
   handle /p/modyu* {
-    forward_auth web:3000 {
-      uri /api/auth/gate?plot=modyu
-      copy_headers Cookie
-    }
-    reverse_proxy plot-modyu:3000
+    redir http://modyu.designlabnorth.com 302
   }
-
-  # Hardcoded /assets in the ModYu tree (not rewritten by basePath)
-  handle /assets* {
-    reverse_proxy plot-modyu:3000
-  }
-
-  # Swarm dock — Vite assets live under /p/swarm/, not hub /assets.
-  # Strip the prefix so the container can serve at / (API /api, SPA /).
-  redir /p/swarm /p/swarm/ 308
   handle /p/swarm* {
-    forward_auth web:3000 {
-      uri /api/auth/gate?plot=swarm
-      copy_headers Cookie
-    }
-    uri strip_prefix /p/swarm
-    reverse_proxy plot-swarm:3000
+    redir http://swarmfund.designlabnorth.com 302
   }
 
   handle {

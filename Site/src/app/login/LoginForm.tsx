@@ -9,6 +9,23 @@ export default function LoginForm() {
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
+  function safeNext(value: string) {
+    if (value.startsWith("/") && !value.startsWith("//")) return value;
+    try {
+      const u = new URL(value);
+      const host = u.hostname.toLowerCase();
+      if (
+        (host === "designlabnorth.com" || host.endsWith(".designlabnorth.com")) &&
+        (u.protocol === "https:" || u.protocol === "http:")
+      ) {
+        return value;
+      }
+    } catch {
+      /* fall through */
+    }
+    return "/greenhouse";
+  }
+
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
@@ -27,7 +44,7 @@ export default function LoginForm() {
       setError("That sign-in didn’t match.");
       return;
     }
-    window.location.href = next.startsWith("/") ? next : "/greenhouse";
+    window.location.href = safeNext(next);
   }
 
   return (

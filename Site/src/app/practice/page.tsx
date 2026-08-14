@@ -15,7 +15,7 @@ export default function PracticePage() {
 
       <h2>What we do</h2>
       <p>
-        Marks and identities. Marketing principles that still hold when the
+        Brands and identities. Marketing principles that still hold when the
         campaign is over. Redesigns and facelifts for sites that have drifted.
         New websites, hosted while they grow, then migrated when they are
         ready to stand alone.
@@ -47,8 +47,7 @@ export default function PracticePage() {
 
       <h2 id="enquiries">Enquiries</h2>
       <p className="body">
-        A site, a mark, a facelift, or a brand that needs to be made properly —
-        write to{" "}
+        A site, a brand, a facelift that needs to be made properly — write to{" "}
         <a className="mail" href="mailto:build@designlabnorth.com">
           build@designlabnorth.com
         </a>

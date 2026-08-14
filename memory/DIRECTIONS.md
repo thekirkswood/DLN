@@ -77,3 +77,12 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - Swarm Fund hosts on this VPS (`plot-swarm`, `/p/swarm`). Ewan handles Swarm git. Retire the old Swarm VPS when this dock is proven.
 - Choozlist: Sign in on the story; no DLN container until the repo is uploaded.
 
+## 2026-08-15 — subdomains, TLS, no homepage Sign in
+
+- Livedns A records: `modyu`, `swarmfund`, `daa` → `82.165.5.84`. One hostname per hosted plot. Edge is `Caddyfile.prod` (HTTPS).
+- ModYu: `https://modyu.designlabnorth.com`. Swarm: `https://swarmfund.designlabnorth.com`. DAA reserved, redirects to the hub, not listed.
+- Path docks `/p/modyu` and `/p/swarm` retired (redirect to the hosts). Plots serve at `/` on their own host. No hub `/assets` steal.
+- Homepage has no Sign in. People with a plot use the plot host; unauth → greenhouse story → Sign in if this is yours. Header Home is hidden when you are already home.
+- Public offering: brands and identities, not “marks”.
+
+

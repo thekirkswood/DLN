@@ -2,41 +2,24 @@
 
 Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + this file). Do not invent extra studio names. Do not take the shortest path if it overwrites a working plot.
 
-## Now — ModYu reachable from a DLN login
+## Done — plots on their own hosts
 
-1. Confirm plot container `dln-plot-modyu-1` is up (it is).
-2. Confirm apex DNS `designlabnorth.com` → `82.165.5.84` (it is).
-3. Confirm `modyu.designlabnorth.com` NXDOMAIN on Livedns (it is). Do not pretend the subdomain works.
-4. Interim dock: Caddy `/p/modyu*` → `plot-modyu:3000` with `forward_auth`. ModYu greenhouse image `BASE_PATH=/p/modyu`. Caddy also sends `/assets*` to the plot (hardcoded src). IONOS drops ports other than 22/80/443 — do not use `:3080` from the internet.
-5. `plots.json` `enterUrl` = `http://designlabnorth.com/p/modyu`. Sign in on the apex, then Enter the plot.
-6. Prove with a real session cookie: unauth `/p/modyu` → 302 greenhouse; owner cookie → 200 ModYu HTML (assets load).
-7. Local ModYu on `:3000` keeps empty `BASE_PATH`. Only the VPS greenhouse image is prefixed.
+1. Apex + www + `modyu` + `swarmfund` + `daa` A records → `82.165.5.84`.
+2. Caddy `Caddyfile.prod`: HTTPS on each name. Cookie `Secure`, `DLN_PUBLIC_URL=https://designlabnorth.com`.
+3. ModYu image empty `BASE_PATH`, host `modyu.designlabnorth.com`.
+4. Swarm image `VITE_BASE=/`, host `swarmfund.designlabnorth.com`.
+5. Unauth plot host → 302 greenhouse story. Signed-in cookie → 200 plot.
+6. Old `/p/modyu` and `/p/swarm` redirect to the hosts.
 
-## Next — Livedns (Ewan, 123-reg / Heart / Fasthosts panel)
+## Then — keep the hub growing
 
-Nameservers: `ns1.livedns.co.uk`, `ns2`, `ns3`. This is **not** the IONOS VPS panel.
-
-8. Add A `modyu` → `82.165.5.84` (TTL 300). Prefer also A `*` → same IP for every future client plot.
-9. Wait until `dig +short A modyu.designlabnorth.com` returns the IP.
-10. Switch `enterUrl` to `http://modyu.designlabnorth.com`. Rebuild plot image with empty `BASE_PATH`. Keep `/p/modyu` until that is proven.
-11. Remove `/p/modyu` Caddy handle and `/assets` steal. Log `k:del` for the dock.
-
-## Then — TLS
-
-12. Apex already answers; wildcard/modyu must answer first.
-13. Switch edge to `Caddyfile.prod`, set `DLN_COOKIE_SECURE=true`, `DLN_PUBLIC_URL=https://designlabnorth.com`.
-14. Prove https://designlabnorth.com and https://modyu.designlabnorth.com (signed-in).
-
-## Grow the hub
-
-15. **Clients:** next client = new GitHub repo, `plots.json` party `client`, compose service, Caddy host, greenhouse voice. Isolation: one container each.
-16. **Swarm Fund (studio):** hosted here. Enter `http://designlabnorth.com/p/swarm`. Source `/srv/dln/plots/swarm`, sqlite `/srv/dln/data/swarm`. Ewan git-uploads the existing Swarm repo. Do not add Livedns `swarm` until we rebuild with empty `VITE_BASE`. Then retire `77.68.49.132`.
-17. **Choozlist (studio):** listed, Sign in on the story, `growing - beta test`, contact `create@wishwell.uk`. Own server until Ewan uploads the repo here. Never a DLN container before that. Public copy is the life registry, not the agentic stack.
-18. Greenhouse stays the front: mark + brand sentence. Homepage is mark + name + growing only. Enter the plot only when a host exists and the person is signed in.
+7. **Clients:** next named client = GitHub repo, `plots.json`, compose service, Caddy host, Livedns A (or wildcard). DAA is reserved only until Ewan lists them.
+8. **Choozlist:** listed, Sign in on the story, beta contact `create@wishwell.uk`. Own server until the repo is uploaded here.
+9. Retire old Swarm VPS `77.68.49.132` when `https://swarmfund.designlabnorth.com` is the working builder.
 
 ## Standing checks (every plot ship)
 
 - Memory: BLUEPRINT / greenhouse / plots.json / WORKSTREAM / CHANGELOG.
 - Gate 302 for strangers, 200 for the matching cookie.
 - No insult to a live site. No invented status. No secrets in git.
-- Swarm assets must stay under `/p/swarm/` while docked. Do not point hub `/assets*` at Swarm.
+- Each hosted plot has its own hostname. Do not rebase a plot onto a hub path.
