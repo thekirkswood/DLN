@@ -34,7 +34,7 @@ Public design hub + gated greenhouse of client plots. Identities, marketing, red
 |---|---|
 | Studio site | Next.js 14 App Router, TypeScript, `Site/` (local `:3010`) |
 | Edge | Caddy 80/443, wildcard / per-plot hosts |
-| Plots | One Docker compose service each under `deploy/plots/` |
+| Plots | Compose service per client. ModYu: `plot-modyu` from `/srv/dln/plots/modyu` (GitHub `thekirkswood/Modyu`). Placeholder only under `deploy/plots/` |
 | Local | `npm run dev` in `Site/` (path preview). Compose optional for edge parity. |
 | VPS | Ubuntu 26, `/srv/dln`, Docker Engine + compose |
 | Source | This PC → GitHub `thekirkswood/DLN` → VPS pull. Later: home server as the Cursor box. |

@@ -25,3 +25,7 @@
 {"t":"2026-08-14T23:28:00+01:00","k":"add","p":"Site/public/plots/modyu*.svg + PlotRow","s":"ModYu marks on greenhouse rows and story","d":"use client logo"}
 {"t":"2026-08-14T23:28:00+01:00","k":"bp","p":"deploy/docker-compose.yml Caddyfile*.ip/prod","s":"plot-modyu builds /srv/dln/plots/modyu :3000 host-routed","d":"real rebuild not placeholder"}
 {"t":"2026-08-14T23:28:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"modyu github thekirkswood/modyu; hub copy; plate colours","d":"this turn"}
+{"t":"2026-08-14T23:43:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"plot-modyu source /srv/dln/plots/modyu github Modyu; placeholder stays deploy/plots","d":"live plot not the stub"}
+{"t":"2026-08-14T23:43:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"VPS repo is git checkout; unauth plot host 302 greenhouse; cookie domain after DNS","d":"pull not rsync-over-git"}
+{"t":"2026-08-14T23:43:00+01:00","k":"mod","p":"/srv/dln/repo","s":"git fetch+reset origin/main @ 6ac0cfe; dln-web recreated; no homepage hero-mark","d":"ewan: leave beautiful, show designer"}
+{"t":"2026-08-14T23:43:00+01:00","k":"add","p":"/srv/dln/plots/modyu + dln-plot-modyu","s":"real ModYu next image on plot-modyu:3000 behind forward_auth","d":"github thekirkswood/Modyu e5d0897"}

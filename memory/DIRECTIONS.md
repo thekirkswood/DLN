@@ -39,3 +39,9 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - Paper/Ink must be the two plate colours: white+#414141 vs black+#FFFFFF. Toggle applies `data-ground` immediately (React must not pin `data-ground` on `<html>`).
 - Greenhouse plots show the client mark. ModYu live container on `modyu.designlabnorth.com`.
 - ModYu source → `thekirkswood/modyu` (Ewan: kirkswood/modyu).
+
+## 2026-08-14 — VPS git + live plot
+
+- `/srv/dln/repo` is a git checkout of `thekirkswood/DLN` (fetch + reset to origin/main). Do not rsync over `.git`.
+- ModYu plot image is live behind Caddy `forward_auth`. Unauth `Host: modyu.designlabnorth.com` → `/greenhouse/modyu`.
+- Cookie domain stays host-only until DNS; then `DLN_COOKIE_DOMAIN=.designlabnorth.com` + `Caddyfile.prod`.
