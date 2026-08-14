@@ -60,5 +60,5 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 
 ## 2026-08-15 — greenhouse captions
 
-- Public plot copy: Design Lab North **are**. Pleasure said differently each time. Proper sentences. Brand, plainly. No riddles, no product internals, no hosting plan, no slight on a live site or its builders.
+- Public plot copy: Design Lab North **are**. Pleasure is optional, not every caption. Choozlist: the life registry, no “pleasure of”. Swarm: excited to work with this hive brand. ModYu: market-leading hair and scalp. Proper sentences.
 - Do not invent plot status. Choozlist is growing. “Resting” was an agent guess from “not hosted here” — wrong. Hosting fact stays off the public wall. Public Choozlist line is the life registry, not the AI stack.

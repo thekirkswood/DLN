@@ -9,7 +9,7 @@ Registry prose. Machine source: `greenhouse/plots.json`. Keep them in sync.
 - Host: `modyu.designlabnorth.com`
 - Kind: rebuild (they have a live site; we are building the next one)
 - Status: growing
-- Voice: Design Lab North are rebuilding ModYu. We have the pleasure of working with a hair and scalp care brand — for people looking after their scalp before, during, and after transplant.
+- Voice: Design Lab North are rebuilding ModYu, the market-leading hair and scalp care brand — for people looking after their scalp before, during, and after transplant.
 - Marks: `Site/public/plots/modyu.svg` (paper) + `modyu-white.svg` (ink)
 - Source: GitHub `thekirkswood/modyu` · VPS `/srv/dln/plots/modyu` · Docker plot `plot-modyu`
 - Access: DLN client user bound to `modyu`. Studio/owner always.
@@ -19,7 +19,7 @@ Registry prose. Machine source: `greenhouse/plots.json`. Keep them in sync.
 - Listed only: mark + description. No domain, no container, no enter-plot.
 - Will host on this greenhouse later. Do not add a host until Ewan says so.
 - Kind: new. Status: growing.
-- Voice: Design Lab North are building Swarm Fund. It is our pleasure to work with a hive brand — people finding work they believe in, and backing it together.
+- Voice: Design Lab North are building Swarm Fund. We are excited to work with this hive brand — people finding work they believe in, and backing it together.
 - Mark: `Site/public/plots/swarm.svg` (official hive, amber).
 
 ### Choozlist (`choozlist`)
@@ -28,7 +28,7 @@ Registry prose. Machine source: `greenhouse/plots.json`. Keep them in sync.
 - Public brand: all-in-one life registry. Creates, browses, and documents findings, curated to you and those around you.
 - Internals (not public copy): agentic AI-driven search app. Do not put that on the greenhouse.
 - Kind: new. Status: growing. Never label it resting — Ewan did not say the work is paused.
-- Voice: Design Lab North are building Choozlist. We have the pleasure of an all-in-one life registry that creates, browses, and documents findings, curated to you and those around you.
+- Voice: Design Lab North are building Choozlist. An all-in-one life registry that creates, browses, and documents findings, curated to you and those around you.
 - Mark: `Site/public/plots/choozlist.png` (lime heart list).
 
 ## Not listed yet
