@@ -395,6 +395,25 @@ html[data-ground="ink"] .plot-mark-ink {
   margin-top: 0.25rem;
 }
 
+.plot-card-home {
+  grid-template-columns: 7.4rem 1fr;
+  align-items: start;
+}
+
+.plot-card-home .plot-copy h3 {
+  margin-bottom: 0;
+}
+
+.plot-card-home .status {
+  margin-top: 0.4rem;
+  justify-self: start;
+}
+
+.beta-note {
+  margin-top: 1.1rem;
+  max-width: 36rem;
+}
+
 .story-page,
 .legal,
 .form,
@@ -427,6 +446,10 @@ html[data-ground="ink"] .plot-mark-ink {
 }
 
 .story {
+  color: var(--mute);
+}
+
+.story-page .body {
   color: var(--mute);
 }
 
@@ -687,6 +710,10 @@ html[data-ground="ink"] .err {
   .plot-card .status {
     grid-column: 2;
     justify-self: start;
+  }
+
+  .plot-card-home .status {
+    grid-column: auto;
   }
 
   .plot-card .plot-mark-well,

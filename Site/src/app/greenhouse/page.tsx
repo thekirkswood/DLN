@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { publicPlots } from "@/lib/plots";
 import { PlotRow } from "@/components/PlotRow";
 

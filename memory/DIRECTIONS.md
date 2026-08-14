@@ -67,3 +67,13 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 
 - DLN is a hub: client plots (ModYu, more wanted) + studio plots (Swarm, Choozlist). Grow each on its own terms. Isolation: one container per hosted plot.
 - Interim ModYu dock: `http://designlabnorth.com/p/modyu` behind the same gate (port 80). `:3080` is not reachable from the internet (IONOS). Sequenced work: `memory/WORKSTREAM.md`.
+
+## 2026-08-15 — hub IA, Dave, Swarm on this VPS
+
+- Header is mark + Home + Paper/Ink. Practice, Greenhouse, and Sign in live on the homepage. Logo or Home returns to `/`.
+- Homepage plot rows: mark, name, growing underneath. No description, no status column on the right. Descriptions on greenhouse / story.
+- Choozlist only: `growing - beta test`. Story: open to beta testers — contact `create@wishwell.uk`.
+- Studio logins `@designlabnorth.com`. Dave Kirkwood (`dave@designlabnorth.com`, studio) can enter live plots. Named on `/practice`.
+- Swarm Fund hosts on this VPS (`plot-swarm`, `/p/swarm`). Ewan handles Swarm git. Retire the old Swarm VPS when this dock is proven.
+- Choozlist: Sign in on the story; no DLN container until the repo is uploaded.
+

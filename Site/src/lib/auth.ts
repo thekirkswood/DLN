@@ -82,17 +82,90 @@ async function ensure() {
   } catch {
     await fs.writeFile(SESSIONS, "[]\n", "utf8");
   }
+  await ensureHubAccounts();
 }
 
 function genPass(): string {
   return randomBytes(12).toString("base64url");
 }
 
+type SeedUser = {
+  email: string;
+  displayName: string;
+  role: Role;
+  plots: string[];
+};
+
+async function ensureHubAccounts() {
+  try {
+    const users = JSON.parse(await fs.readFile(USERS, "utf8")) as User[];
+    if (!Array.isArray(users)) return;
+    const wanted: SeedUser[] = [
+      {
+        email: "ewan@designlabnorth.com",
+        displayName: "Ewan",
+        role: "owner",
+        plots: ["*"],
+      },
+      {
+        email: "dave@designlabnorth.com",
+        displayName: "Dave Kirkwood",
+        role: "studio",
+        plots: ["*"],
+      },
+    ];
+    const extra: string[] = [];
+    const now = new Date().toISOString();
+    for (const w of wanted) {
+      if (users.some((u) => u.email.toLowerCase() === w.email)) continue;
+      const pass = genPass();
+      users.push({
+        id: randomUUID(),
+        email: w.email,
+        passwordHash: hashPassword(pass),
+        displayName: w.displayName,
+        role: w.role,
+        plots: w.plots,
+        createdAt: now,
+      });
+      extra.push(`${w.role}  ${w.email}  ${pass}`);
+    }
+    if (!extra.length) return;
+    await fs.writeFile(USERS, `${JSON.stringify(users, null, 2)}\n`, "utf8");
+    await fs.appendFile(
+      SEED,
+      ["", "Hub accounts — added when missing.", ...extra, ""].join("\n"),
+      { encoding: "utf8", mode: 0o600 },
+    );
+  } catch {
+    /* store unreadable — leave as-is */
+  }
+}
+
 async function seed() {
   const ownerPass = genPass();
+  const studioPass = genPass();
   const clientPass = genPass();
   const now = new Date().toISOString();
   const users: User[] = [
+    {
+      id: randomUUID(),
+      email: "ewan@designlabnorth.com",
+      passwordHash: hashPassword(ownerPass),
+      displayName: "Ewan",
+      role: "owner",
+      plots: ["*"],
+      createdAt: now,
+    },
+    {
+      id: randomUUID(),
+      email: "dave@designlabnorth.com",
+      passwordHash: hashPassword(studioPass),
+      displayName: "Dave Kirkwood",
+      role: "studio",
+      plots: ["*"],
+      createdAt: now,
+    },
     {
       id: randomUUID(),
       email: "ewan@designlabnorth.local",
@@ -118,6 +191,8 @@ async function seed() {
     SEED,
     [
       "DLN local seed — gitignored. Change these.",
+      `owner  ewan@designlabnorth.com  ${ownerPass}`,
+      `studio dave@designlabnorth.com  ${studioPass}`,
       `owner  ewan@designlabnorth.local  ${ownerPass}`,
       `client modyu@designlabnorth.local  ${clientPass}`,
       "",

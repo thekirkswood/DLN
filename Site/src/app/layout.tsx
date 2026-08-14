@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { getSessionUser } from "@/lib/session";
 
 const tstar = localFont({
   src: [
@@ -34,14 +33,13 @@ const groundBoot = `(function(){try{var g=localStorage.getItem("dln-ground");doc
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const user = await getSessionUser();
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: groundBoot }} />
       </head>
       <body className={`${tstar.variable} ${tstar.className}`}>
-        <Header user={user} />
+        <Header />
         <main>{children}</main>
         <Footer />
       </body>

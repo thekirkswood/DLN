@@ -16,6 +16,10 @@ export type Plot = {
   voice: string;
   logoPaper?: string;
   logoInk?: string;
+  /** Extra status beside growing, e.g. “beta test”. Choozlist only for now. */
+  badge?: string;
+  /** Shown on the plot story, not the homepage. */
+  betaContact?: string;
 };
 
 const FILE = path.join(process.cwd(), "..", "greenhouse", "plots.json");
@@ -38,4 +42,9 @@ export function enterUrlFor(plot: Plot): string | null {
   if (plot.enterUrl) return plot.enterUrl;
   if (plot.hosts[0]) return `http://${plot.hosts[0]}`;
   return null;
+}
+
+export function statusLabel(plot: Plot): string {
+  if (plot.badge) return `${plot.status} - ${plot.badge}`;
+  return plot.status;
 }

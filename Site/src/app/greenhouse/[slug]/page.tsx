@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { plotBySlug, enterUrlFor } from "@/lib/plots";
+import { plotBySlug, enterUrlFor, statusLabel } from "@/lib/plots";
 import { getSessionUser } from "@/lib/session";
 import { canAccessPlot } from "@/lib/auth";
 
@@ -40,24 +40,35 @@ export default async function PlotStoryPage({
           />
         </div>
       ) : null}
-      <div className="status">{plot.status}</div>
+      <div className="status">{statusLabel(plot)}</div>
       <h1>{plot.name}</h1>
       <p className="story">{plot.voice}</p>
-      {live ? (
-        <div className="actions">
-          {allowed ? (
-            <Link className="act act-fill" href={live}>
-              Enter the plot
-            </Link>
-          ) : user ? (
-            <span className="note">This plot isn’t on your account.</span>
-          ) : (
-            <Link className="act act-line" href={`/login?next=/greenhouse/${plot.slug}`}>
-              Sign in if this is yours
-            </Link>
-          )}
-        </div>
+      {plot.betaContact ? (
+        <p className="body beta-note">
+          Open to beta testers — contact{" "}
+          <a className="mail" href={`mailto:${plot.betaContact}`}>
+            {plot.betaContact}
+          </a>
+        </p>
       ) : null}
+      <div className="actions">
+        {live && allowed ? (
+          <Link className="act act-fill" href={live}>
+            Enter the plot
+          </Link>
+        ) : null}
+        {live && user && !allowed ? (
+          <span className="note">This plot isn’t on your account.</span>
+        ) : null}
+        {!user ? (
+          <Link
+            className="act act-line"
+            href={`/login?next=/greenhouse/${plot.slug}`}
+          >
+            Sign in if this is yours
+          </Link>
+        ) : null}
+      </div>
     </article>
   );
 }

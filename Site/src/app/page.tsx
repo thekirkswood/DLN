@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { publicPlots } from "@/lib/plots";
 import { PlotRow } from "@/components/PlotRow";
+import { getSessionUser } from "@/lib/session";
 
 export default async function HomePage() {
   const plots = await publicPlots();
+  const user = await getSessionUser();
   return (
     <>
       <section className="hero wrap">
@@ -21,6 +23,15 @@ export default async function HomePage() {
           <Link className="act act-line" href="/greenhouse">
             Greenhouse
           </Link>
+          {user ? (
+            <Link className="act act-line" href="/logout">
+              Sign out
+            </Link>
+          ) : (
+            <Link className="act act-line" href="/login">
+              Sign in
+            </Link>
+          )}
         </div>
       </section>
       {plots.length > 0 && (
@@ -28,7 +39,7 @@ export default async function HomePage() {
           <h2>Currently growing</h2>
           <div className="plot-list">
             {plots.map((plot) => (
-              <PlotRow key={plot.slug} plot={plot} />
+              <PlotRow key={plot.slug} plot={plot} compact />
             ))}
           </div>
         </section>

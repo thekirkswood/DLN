@@ -1,9 +1,20 @@
 import Link from "next/link";
 import type { Plot } from "@/lib/plots";
+import { statusLabel } from "@/lib/plots";
 
-export function PlotRow({ plot }: { plot: Plot }) {
+export function PlotRow({
+  plot,
+  compact = false,
+}: {
+  plot: Plot;
+  compact?: boolean;
+}) {
+  const status = statusLabel(plot);
   return (
-    <Link className="plot-card" href={`/greenhouse/${plot.slug}`}>
+    <Link
+      className={compact ? "plot-card plot-card-home" : "plot-card"}
+      href={`/greenhouse/${plot.slug}`}
+    >
       <span className="plot-mark-well">
         {plot.logoPaper ? (
           <>
@@ -18,9 +29,9 @@ export function PlotRow({ plot }: { plot: Plot }) {
       </span>
       <div className="plot-copy">
         <h3>{plot.name}</h3>
-        <p>{plot.voice}</p>
+        {compact ? <div className="status">{status}</div> : <p>{plot.voice}</p>}
       </div>
-      <div className="status">{plot.status}</div>
+      {compact ? null : <div className="status">{status}</div>}
     </Link>
   );
 }

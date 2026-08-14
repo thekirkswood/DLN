@@ -22,7 +22,7 @@ http://localhost:3010 — greenhouse at `/greenhouse`, login at `/login`. Port 3
 
 ## Accounts
 
-`_meta/accounts/` (gitignored). Cookie `dln_session`. Seed file `_meta/accounts/SEED.txt` after first boot.
+`_meta/accounts/` (gitignored). Cookie `dln_session`. Seed file `_meta/accounts/SEED.txt` after first boot. Studio logins are `@designlabnorth.com` (Ewan owner, Dave Kirkwood studio).
 
 ## VPS
 

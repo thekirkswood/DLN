@@ -15,3 +15,12 @@ modyu.designlabnorth.com {
   }
   reverse_proxy plot-modyu:3000
 }
+
+swarm.designlabnorth.com {
+  encode gzip
+  forward_auth web:3000 {
+    uri /api/auth/gate?plot=swarm
+    copy_headers Cookie
+  }
+  reverse_proxy plot-swarm:3000
+}

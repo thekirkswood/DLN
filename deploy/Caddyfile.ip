@@ -12,6 +12,15 @@
     reverse_proxy plot-modyu:3000
   }
 
+  @swarm host swarm.designlabnorth.com
+  handle @swarm {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=swarm
+      copy_headers Cookie
+    }
+    reverse_proxy plot-swarm:3000
+  }
+
   # Hub dock on port 80 — IONOS only admits 22/80/443 from the internet.
   handle /p/modyu* {
     forward_auth web:3000 {
@@ -24,6 +33,18 @@
   # Hardcoded /assets in the ModYu tree (not rewritten by basePath)
   handle /assets* {
     reverse_proxy plot-modyu:3000
+  }
+
+  # Swarm dock — Vite assets live under /p/swarm/, not hub /assets.
+  # Strip the prefix so the container can serve at / (API /api, SPA /).
+  redir /p/swarm /p/swarm/ 308
+  handle /p/swarm* {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=swarm
+      copy_headers Cookie
+    }
+    uri strip_prefix /p/swarm
+    reverse_proxy plot-swarm:3000
   }
 
   handle {

@@ -30,12 +30,13 @@ Nameservers: `ns1.livedns.co.uk`, `ns2`, `ns3`. This is **not** the IONOS VPS pa
 ## Grow the hub
 
 15. **Clients:** next client = new GitHub repo, `plots.json` party `client`, compose service, Caddy host, greenhouse voice. Isolation: one container each.
-16. **Swarm Fund (studio):** listed only until Ewan says host it. Then same path as a client plot, party `studio`. No public domain of their live site.
-17. **Choozlist (studio):** listed only. Own server forever. Never a DLN plot host. Public copy is the life registry, not the agentic stack.
-18. Greenhouse stays the front: mark + brand sentence. Enter the plot only when a host exists and the person is signed in.
+16. **Swarm Fund (studio):** hosted here. Enter `http://designlabnorth.com/p/swarm`. Source `/srv/dln/plots/swarm`, sqlite `/srv/dln/data/swarm`. Ewan git-uploads the existing Swarm repo. Do not add Livedns `swarm` until we rebuild with empty `VITE_BASE`. Then retire `77.68.49.132`.
+17. **Choozlist (studio):** listed, Sign in on the story, `growing - beta test`, contact `create@wishwell.uk`. Own server until Ewan uploads the repo here. Never a DLN container before that. Public copy is the life registry, not the agentic stack.
+18. Greenhouse stays the front: mark + brand sentence. Homepage is mark + name + growing only. Enter the plot only when a host exists and the person is signed in.
 
 ## Standing checks (every plot ship)
 
 - Memory: BLUEPRINT / greenhouse / plots.json / WORKSTREAM / CHANGELOG.
 - Gate 302 for strangers, 200 for the matching cookie.
 - No insult to a live site. No invented status. No secrets in git.
+- Swarm assets must stay under `/p/swarm/` while docked. Do not point hub `/assets*` at Swarm.

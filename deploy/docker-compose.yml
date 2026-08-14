@@ -47,6 +47,25 @@ services:
     expose:
       - "3000"
 
+  plot-swarm:
+    build:
+      context: ${SWARM_DIR:-/srv/dln/plots/swarm}
+      dockerfile: deploy/Dockerfile.greenhouse
+      args:
+        VITE_BASE: ${SWARM_BASE_PATH:-/p/swarm/}
+        VITE_API_BASE: ${SWARM_API_BASE:-/p/swarm/api}
+    restart: unless-stopped
+    labels:
+      dln.plot: swarm
+    environment:
+      CORS_ORIGIN: ${SWARM_CORS_ORIGIN:-http://designlabnorth.com}
+      COOKIE_PATH: ${SWARM_COOKIE_PATH:-/p/swarm}
+      SWARMFUND_DB: /data/swarmfund.sqlite
+    volumes:
+      - ${SWARM_DATA_DIR:-/srv/dln/data/swarm}:/data
+    expose:
+      - "3000"
+
 volumes:
   caddy_data:
   caddy_config:

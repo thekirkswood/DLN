@@ -32,7 +32,7 @@ export default function LoginForm() {
 
   return (
     <form className="form wrap" onSubmit={onSubmit}>
-      <p className="kicker">Client</p>
+      <p className="kicker">Studio</p>
       <h1>Sign in</h1>
       {error ? <p className="err">{error}</p> : null}
       <label htmlFor="email">Email</label>
@@ -49,8 +49,8 @@ export default function LoginForm() {
         {pending ? "…" : "Enter"}
       </button>
       <p className="note">
-        Clients receive a DLN login. It unlocks your plot. Everyone else stays
-        in the greenhouse.
+        Studio and clients receive a Design Lab North login. It unlocks the
+        plots on your account. Everyone else stays in the greenhouse.
       </p>
     </form>
   );

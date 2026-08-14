@@ -19,7 +19,8 @@
     "status": "growing",
     "kind": "new",
     "party": "studio",
-    "hosts": [],
+    "hosts": ["swarm.designlabnorth.com"],
+    "enterUrl": "http://designlabnorth.com/p/swarm",
     "localPreview": "/greenhouse/swarm",
     "public": true,
     "logoPaper": "/plots/swarm.svg",
@@ -35,6 +36,8 @@
     "hosts": [],
     "localPreview": "/greenhouse/choozlist",
     "public": true,
+    "badge": "beta test",
+    "betaContact": "create@wishwell.uk",
     "logoPaper": "/plots/choozlist.png",
     "logoInk": "/plots/choozlist.png",
     "voice": "Design Lab North are building Choozlist. An all-in-one life registry that creates, browses, and documents findings, curated to you and those around you."

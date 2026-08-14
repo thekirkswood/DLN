@@ -31,12 +31,12 @@ export default function PracticePage() {
       <h2>The work</h2>
       <p className="body">
         The work is identities, marketing principles, redesigns, facelifts, and
-        the websites that have to carry them. The founding practice is
-        multi-award-winning for branding and marketing. It is a nominated brand
-        and marketing advisor to Lancashire County Council, and consults with
-        businesses across the region. Work has been spoken in public, hosted,
-        printed, and put on screen. The same practice is a qualified teacher
-        and has lectured at universities and design colleges.
+        the websites that have to carry them. Dave Kirkwood — Dave Kirkwood
+        Studio, formerly Walsh Simmons — is a multi-award-winning designer for
+        branding and marketing, and a former lecturer of branding. The practice
+        is a nominated brand and marketing advisor to Lancashire County
+        Council, and consults with businesses across the region. Work has been
+        spoken in public, hosted, printed, and put on screen.
       </p>
       <p className="body">
         For the last ten years that work has sat directly with businesses,

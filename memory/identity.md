@@ -8,7 +8,7 @@
 
 ## What this is
 
-A hub of multiple sites, and a greenhouse. Clients land here (first: ModYu; we want more). Studio work is listed too: Swarm Fund (will host here later), Choozlist (own server). Work in progress that we host lives on subdomains of designlabnorth.com. After the first month (set price, hosted here) a **client** plot migrates onto their own server and URL.
+A hub of multiple sites, and a greenhouse. Clients land here (first: ModYu; we want more). Studio work is listed too: Swarm Fund (hosted on this VPS while it grows), Choozlist (own server; beta). Work in progress that we host lives on subdomains of designlabnorth.com, or on an interim hub path until Livedns answers. After the first month (set price, hosted here) a **client** plot migrates onto their own server and URL.
 
 ## What this is not
 
@@ -20,13 +20,16 @@ Conversational, from our side. Plural: Design Lab North are. Pleasure of the wor
 
 ## People
 
-- Ewan — designer; works in Cursor on this PC and will add a second designer machine.
+- Ewan — designer; works in Cursor on this PC. Login `ewan@designlabnorth.com` (owner). Older `.local` seed may still exist on the VPS until dropped.
+- Dave Kirkwood — designer, Dave Kirkwood Studio, formerly Walsh Simmons, lecturer of branding. Named on `/practice`. Login `dave@designlabnorth.com` (studio). Access to live plots so he can build in his space.
 - Agents in this repo — builders with long-term memory. Not generic page-makers.
+
+Studio logins use `@designlabnorth.com`. Do not put passwords in this file.
 
 ## Own properties (studio plots)
 
-- **Swarm Fund** — ours. Listed. Will host here later. No subdomain until Ewan says so.
-- **Choozlist** — ours. Listed, growing. All-in-one life registry (creates, browses, documents findings, curated to you and those around you). Own host; greenhouse is mark + copy only. Internals are an agentic search app — not public copy.
+- **Swarm Fund** — ours. Hosted on this VPS (`plot-swarm`, enter `http://designlabnorth.com/p/swarm` until Livedns has `swarm`). Source lives in `/home/main/SwarmFund` locally and `/srv/dln/plots/swarm` on the VPS. Ewan handles git to the existing Swarm repo. Old Swarm VPS (`77.68.49.132` / swarmfund.com) is being retired.
+- **Choozlist** — ours. Listed, growing, open to beta testers (`create@wishwell.uk`). All-in-one life registry. Own host; no DLN container until Ewan uploads the repo. Greenhouse has Sign in + beta line. Internals are an agentic search app — not public copy.
 
 Do not add their live domains or full sites to DLN.
 
@@ -37,4 +40,4 @@ Do not add their live domains or full sites to DLN.
 
 ## Practice
 
-Founding designer (Ewan’s father): brand and marketing. Selected clients and credentials live on `/practice`. Do not invent a personal name on the site until Ewan supplies the lockup name.
+Dave Kirkwood is named on `/practice` (Dave Kirkwood Studio, formerly Walsh Simmons, lecturer of branding). Founding practice credentials stay; do not invent extra personal biography.

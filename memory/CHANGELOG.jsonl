@@ -53,3 +53,10 @@
 {"t":"2026-08-15T00:25:00+01:00","k":"del","p":"deploy :3080 dock","s":"removed public 3080 listener","d":"IONOS drops non-80/443 from internet; timeout from PC"}
 {"t":"2026-08-15T00:25:00+01:00","k":"mod","p":"Caddyfile.ip /p/modyu + /assets; ModYu BASE_PATH","s":"hub-path dock on port 80; greenhouse image only","d":"enter plot must work from DLN login"}
 {"t":"2026-08-15T00:25:00+01:00","k":"mod","p":"plots.json enterUrl","s":"http://designlabnorth.com/p/modyu","d":"replace 3080"}
+{"t":"2026-08-15T00:45:00+01:00","k":"bp","p":"memory/BLUEPRINT.md identity greenhouse","s":"Swarm hosted here /p/swarm; header home-only; homepage compact rows; Dave studio login","d":"ewan: smash hub IA, Dave, Swarm on this VPS, chooz beta"}
+{"t":"2026-08-15T00:45:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"header Home only; home rows mark+name+growing; chooz beta; @designlabnorth.com; Swarm on this VPS","d":"standing IA"}
+{"t":"2026-08-15T00:45:00+01:00","k":"mod","p":"Site Header page PlotRow greenhouse story practice login","s":"nav off header; compact home; chooz beta+contact; Dave named; sign in on stories","d":"go home for practice/greenhouse/login"}
+{"t":"2026-08-15T00:45:00+01:00","k":"mod","p":"greenhouse/plots.json","s":"swarm enterUrl /p/swarm; chooz badge beta test + create@wishwell.uk","d":"sign in swarm+chooz; beta public"}
+{"t":"2026-08-15T00:45:00+01:00","k":"add","p":"deploy plot-swarm Caddyfile.ip compose","s":"plot-swarm service + /p/swarm dock strip_prefix; no /assets steal","d":"builder for Dave like ModYu; retire old Swarm VPS later"}
+{"t":"2026-08-15T00:45:00+01:00","k":"mod","p":"Site/src/lib/auth.ts","s":"ensureHubAccounts ewan@ and dave@ designlabnorth.com; keep .local","d":"studio logins on owned domain"}
+{"t":"2026-08-15T00:45:00+01:00","k":"mod","p":"memory/WORKSTREAM.md ops/vps.md AGENTS.md","s":"swarm host steps; vps plots/swarm + data/swarm","d":"open work moved"}

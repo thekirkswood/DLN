@@ -2,7 +2,7 @@
 
 Registry prose. Machine source: `greenhouse/plots.json`. Keep them in sync.
 
-DLN is a hub of multiple sites. Client plots can be entered when hosted. Studio plots may be mark + voice only.
+DLN is a hub of multiple sites. Client plots can be entered when hosted. Studio plots may be mark + voice only until hosted. Homepage rows are mark + name + growing (no description). Descriptions live on `/greenhouse` and `/greenhouse/[slug]`.
 
 ## Client plots
 
@@ -22,20 +22,24 @@ DLN is a hub of multiple sites. Client plots can be entered when hosted. Studio 
 
 ### Swarm Fund (`swarm`)
 
-- Party: studio. Ours. Will host here later.
-- Listed only: mark + description. No domain, no container, no enter-plot.
+- Party: studio. Ours. Hosted on this VPS.
+- Enter now: `http://designlabnorth.com/p/swarm` (interim dock, gate `plot=swarm`). Vite prefix `/p/swarm/` — do not use hub `/assets` (that is ModYu).
+- Host (wanted): `swarm.designlabnorth.com` — add Livedns A after empty-base rebuild.
 - Kind: new. Status: growing.
 - Voice: Design Lab North are building Swarm Fund. We are excited to work with this hive brand — people finding work they believe in, and backing it together.
 - Mark: `Site/public/plots/swarm.svg` (official hive, amber).
+- Source: local `/home/main/SwarmFund` · VPS `/srv/dln/plots/swarm` · Docker `plot-swarm` · sqlite `/srv/dln/data/swarm`. Ewan handles git to the existing Swarm repo. Old Swarm VPS to be retired.
 
 ### Choozlist (`choozlist`)
 
-- Party: studio. Ours. Own server forever — never a DLN plot host. Do not say that on the public wall.
+- Party: studio. Ours. Own server — not a DLN plot host until Ewan uploads the repo. Do not say that on the public wall.
 - Public brand: all-in-one life registry. Creates, browses, and documents findings, curated to you and those around you.
 - Internals (not public copy): agentic AI-driven search app.
-- Kind: new. Status: growing. Never label it resting.
+- Kind: new. Status: growing. Homepage badge: `growing - beta test`. Never label it resting.
+- Story extra: Open to beta testers — contact `create@wishwell.uk`.
 - Voice: Design Lab North are building Choozlist. An all-in-one life registry that creates, browses, and documents findings, curated to you and those around you.
 - Mark: `Site/public/plots/choozlist.png` (lime heart list).
+- Greenhouse story has Sign in. No Enter until a host exists.
 
 ## Not listed yet
 
@@ -49,4 +53,4 @@ DLN is a hub of multiple sites. Client plots can be entered when hosted. Studio 
 4. Cookie on `.designlabnorth.com` opens the host (or the interim dock).
 5. Public still sees the greenhouse story only.
 6. Client, after the first month: migrate to their own server + DNS. Plot here can retire or stay as archive (decision later).
-7. Swarm hosts here when Ewan says. Choozlist stays mark-only.
+7. Swarm hosts here now. Choozlist stays mark + sign-in + beta until the repo is on this VPS.
