@@ -8,6 +8,7 @@ rsync -az --delete \
   --exclude node_modules \
   --exclude .next \
   --exclude _meta/accounts \
+  --exclude deploy/.env \
   --exclude .git \
   -e ssh \
   "$ROOT/" "$HOST:$DEST/"
