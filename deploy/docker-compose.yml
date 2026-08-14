@@ -10,7 +10,8 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"
+      # 443 closed until Livedns is stable for Let’s Encrypt.
+      # A mapped 443 with no cert makes browsers show “site down” instead of falling back to HTTP.
     volumes:
       - ${CADDY_FILE:-./Caddyfile}:/etc/caddy/Caddyfile:ro
       - caddy_data:/data

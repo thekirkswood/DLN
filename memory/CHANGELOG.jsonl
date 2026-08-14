@@ -70,3 +70,5 @@
 {"t":"2026-08-15T01:05:00+01:00","k":"mod","p":"deploy/Caddyfile.prod Caddyfile.ip","s":"TLS without HTTP redirect; plot static skips gate; /p/modyu path strip kept","d":"ewan: site down; modyu pictures empty; still using /p/modyu/ht4-people"}
 {"t":"2026-08-15T01:05:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"dedupe surfaces; edge HTTP+optional TLS; assets skip gate","d":"audit duplicate rows; pictures"}
 {"t":"2026-08-15T01:05:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"never force HTTPS until certs; assets ungated; path dock strip","d":"overnight standing"}
+{"t":"2026-08-15T01:08:00+01:00","k":"mod","p":"deploy/docker-compose.yml ports","s":"stopped publishing 443","d":"broken TLS handshake made browsers report site down; HTTP :80 is the live edge"}
+{"t":"2026-08-15T01:08:00+01:00","k":"mod","p":"deploy/Caddyfile.ip","s":"plot /assets skip gate; /p/modyu handle_path strip","d":"pictures; ht4-people bookmark"}

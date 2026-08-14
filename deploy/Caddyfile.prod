@@ -3,8 +3,48 @@
   auto_https disable_redirects
 }
 
-designlabnorth.com, www.designlabnorth.com {
+# HTTP always — never leave :80 empty while certs obtain.
+:80 {
   encode gzip
+
+  @modyu_static {
+    host modyu.designlabnorth.com
+    path /assets* /_next/static*
+  }
+  handle @modyu_static {
+    reverse_proxy plot-modyu:3000
+  }
+
+  @modyu host modyu.designlabnorth.com
+  handle @modyu {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=modyu
+      copy_headers Cookie
+    }
+    reverse_proxy plot-modyu:3000
+  }
+
+  @swarm_static {
+    host swarmfund.designlabnorth.com
+    path /assets*
+  }
+  handle @swarm_static {
+    reverse_proxy plot-swarm:3000
+  }
+
+  @swarm host swarmfund.designlabnorth.com
+  handle @swarm {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=swarm
+      copy_headers Cookie
+    }
+    reverse_proxy plot-swarm:3000
+  }
+
+  @daa host daa.designlabnorth.com
+  handle @daa {
+    redir http://designlabnorth.com
+  }
 
   handle_path /p/modyu* {
     forward_auth web:3000 {
@@ -59,6 +99,30 @@ swarmfund.designlabnorth.com {
       copy_headers Cookie
     }
     reverse_proxy plot-swarm:3000
+  }
+}
+
+designlabnorth.com, www.designlabnorth.com {
+  encode gzip
+  handle_path /p/modyu* {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=modyu
+      copy_headers Cookie
+    }
+    reverse_proxy plot-modyu:3000
+  }
+  handle /assets* {
+    reverse_proxy plot-modyu:3000
+  }
+  handle_path /p/swarm* {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=swarm
+      copy_headers Cookie
+    }
+    reverse_proxy plot-swarm:3000
+  }
+  handle {
+    reverse_proxy web:3000
   }
 }
 
