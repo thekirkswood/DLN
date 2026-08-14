@@ -46,6 +46,11 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - ModYu plot image is live behind Caddy `forward_auth`. Unauth `Host: modyu.designlabnorth.com` → `/greenhouse/modyu`.
 - Cookie domain stays host-only until DNS; then `DLN_COOKIE_DOMAIN=.designlabnorth.com` + `Caddyfile.prod`.
 
+## 2026-08-15 — plot DNS
+
+- Apex + www A records are live. `modyu.designlabnorth.com` is NXDOMAIN until Ewan adds `modyu` or `*` A → `82.165.5.84`. Plot container is up; the name is not.
+- VPS `deploy/.env` (gitignored): `DLN_PUBLIC_URL=http://designlabnorth.com`, `DLN_COOKIE_DOMAIN=.designlabnorth.com`. Sign in on the apex, then the plot host inherits the cookie. HTTPS later with `Caddyfile.prod`.
+
 ## 2026-08-14 — plates, mail, studio listings
 
 - Paper = grey mark on white. Ink = white mark on `#414141`. Mute PNG must be opaque grey glyphs, not a faint extract.
