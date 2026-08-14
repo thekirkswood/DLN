@@ -4,11 +4,11 @@
 **Short:** DLN  
 **Domain:** designlabnorth.com  
 **Enquiries:** build@designlabnorth.com  
-**Role:** Design hub. Identities, marketing principles, redesigns, facelifts, and websites — hosted in the greenhouse while they grow, then migrated.
+**Role:** Hub of multiple sites. Identities, marketing principles, redesigns, facelifts, and websites — client plots grow here, studio work sits in the greenhouse, then each site grows on its own terms.
 
 ## What this is
 
-A design hub and a greenhouse. Clients land here. Work in progress lives on subdomains of designlabnorth.com. After the first month (set price, hosted here) we migrate the plot onto the client’s own server and URL.
+A hub of multiple sites, and a greenhouse. Clients land here (first: ModYu; we want more). Studio work is listed too: Swarm Fund (will host here later), Choozlist (own server). Work in progress that we host lives on subdomains of designlabnorth.com. After the first month (set price, hosted here) a **client** plot migrates onto their own server and URL.
 
 ## What this is not
 
@@ -23,17 +23,18 @@ Conversational, from our side. Plural: Design Lab North are. Pleasure of the wor
 - Ewan — designer; works in Cursor on this PC and will add a second designer machine.
 - Agents in this repo — builders with long-term memory. Not generic page-makers.
 
-## Own properties (greenhouse listings)
+## Own properties (studio plots)
 
-- **Swarm Fund** — listed. Will host here later. No subdomain until Ewan says so.
-- **Choozlist** — listed, growing. All-in-one life registry (creates, browses, documents findings, curated to you and those around you). Own host; greenhouse is mark + copy only. Internals are an agentic search app — not public copy.
+- **Swarm Fund** — ours. Listed. Will host here later. No subdomain until Ewan says so.
+- **Choozlist** — ours. Listed, growing. All-in-one life registry (creates, browses, documents findings, curated to you and those around you). Own host; greenhouse is mark + copy only. Internals are an agentic search app — not public copy.
 
 Do not add their live domains or full sites to DLN.
+
+## Clients
+
+- **ModYu** — first client plot. Rebuild / facelift. GitHub `thekirkswood/modyu`. Wanted host: `modyu.designlabnorth.com`. Until Livedns has that A record, enter via the apex dock (`designlabnorth.com:3080`). Greenhouse uses their mark.
+- More clients are the point of the hub. Add a plot file when Ewan names one. Do not invent clients.
 
 ## Practice
 
 Founding designer (Ewan’s father): brand and marketing. Selected clients and credentials live on `/practice`. Do not invent a personal name on the site until Ewan supplies the lockup name.
-
-## First client plot
-
-ModYu — rebuild / facelift against a live site. GitHub `thekirkswood/modyu`. Preview host: `modyu.designlabnorth.com`. Greenhouse uses their mark.

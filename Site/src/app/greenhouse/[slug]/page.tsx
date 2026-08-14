@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { plotBySlug } from "@/lib/plots";
+import { plotBySlug, enterUrlFor } from "@/lib/plots";
 import { getSessionUser } from "@/lib/session";
 import { canAccessPlot } from "@/lib/auth";
 
@@ -22,8 +22,7 @@ export default async function PlotStoryPage({
   if (!plot || !plot.public) notFound();
   const user = await getSessionUser();
   const allowed = user ? canAccessPlot(user, plot.slug) : false;
-  const host = plot.hosts[0];
-  const live = host ? `http://${host}` : null;
+  const live = enterUrlFor(plot);
 
   return (
     <article className="story-page wrap">

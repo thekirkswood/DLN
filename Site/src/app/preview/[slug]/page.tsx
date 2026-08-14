@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { plotBySlug } from "@/lib/plots";
+import { plotBySlug, enterUrlFor } from "@/lib/plots";
 import { getSessionUser } from "@/lib/session";
 import { canAccessPlot } from "@/lib/auth";
 
@@ -16,20 +16,7 @@ export default async function PreviewPage({
   if (!user || !canAccessPlot(user, plot.slug)) {
     redirect(`/greenhouse/${plot.slug}`);
   }
-
-  return (
-    <section className="section wrap">
-      <div className="status">local preview · {plot.slug}</div>
-      <div className="preview-frame">
-        <div>
-          <strong>{plot.name}</strong>
-          <p>
-            The plot container will sit here on the VPS at{" "}
-            {plot.hosts[0] || `${plot.slug}.designlabnorth.com`}. This path is
-            the offline stand-in while we build on this machine.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
+  const live = enterUrlFor(plot);
+  if (live) redirect(live);
+  redirect(`/greenhouse/${plot.slug}`);
 }

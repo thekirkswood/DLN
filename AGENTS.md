@@ -7,6 +7,7 @@ Parent studio site + greenhouse of Docker plots. Domain: designlabnorth.com.
 - [memory/protocol.md](memory/protocol.md)
 - [memory/BLUEPRINT.md](memory/BLUEPRINT.md)
 - [memory/DIRECTIONS.md](memory/DIRECTIONS.md)
+- [memory/WORKSTREAM.md](memory/WORKSTREAM.md)
 - [memory/greenhouse.md](memory/greenhouse.md)
 - [memory/brand.md](memory/brand.md)
 - [.cursor/rules/dln-memory.mdc](.cursor/rules/dln-memory.mdc)

@@ -12,6 +12,7 @@ description: Maintains Design Lab North holy long-term memory (BLUEPRINT, DIRECT
 2. If architecture / new function / IA changed → edit `memory/BLUEPRINT.md` first.
 3. If a standing instruction arrived → append dated bullet to `memory/DIRECTIONS.md`.
 4. If a plot changed → `greenhouse/plots.json` and `memory/greenhouse.md`.
+5. If sequenced hub work moved → `memory/WORKSTREAM.md`.
 
 ## Attention to memory
 

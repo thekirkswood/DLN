@@ -10,8 +10,9 @@
 3. `memory/BLUEPRINT.md`
 4. `memory/greenhouse.md`
 5. `memory/DIRECTIONS.md`
-6. `memory/CHANGELOG.jsonl` (tail — last ~40 lines is enough unless auditing)
-7. `AGENTS.md` + `.cursor/rules/*.mdc`
+6. `memory/WORKSTREAM.md` (open sequenced hub work)
+7. `memory/CHANGELOG.jsonl` (tail — last ~40 lines is enough unless auditing)
+8. `AGENTS.md` + `.cursor/rules/*.mdc`
 
 ## Write rules
 

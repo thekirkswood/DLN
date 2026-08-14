@@ -6,7 +6,11 @@ export type Plot = {
   name: string;
   status: "growing" | "resting" | "migrated";
   kind: "rebuild" | "new" | "brand";
+  /** Who the plot belongs to. Studio plots may be listed without a host. */
+  party: "client" | "studio";
   hosts: string[];
+  /** Full URL for “Enter the plot”. Prefer this over hosts[0] while DNS catches up. */
+  enterUrl?: string;
   localPreview: string;
   public: boolean;
   voice: string;
@@ -28,4 +32,10 @@ export async function publicPlots(): Promise<Plot[]> {
 
 export async function plotBySlug(slug: string): Promise<Plot | undefined> {
   return (await allPlots()).find((p) => p.slug === slug);
+}
+
+export function enterUrlFor(plot: Plot): string | null {
+  if (plot.enterUrl) return plot.enterUrl;
+  if (plot.hosts[0]) return `http://${plot.hosts[0]}`;
+  return null;
 }

@@ -25,12 +25,13 @@ usermod -aG docker dln
 install -d -m 0755 /srv/dln /srv/dln/repo /srv/dln/data/accounts /srv/dln/plots
 chown -R dln:dln /srv/dln
 
-# Firewall: ssh / http / https only
+# Firewall: ssh / http / https / interim plot dock
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow OpenSSH
 ufw allow 80/tcp
 ufw allow 443/tcp
+ufw allow 3080/tcp
 ufw --force enable
 
 # fail2ban ssh

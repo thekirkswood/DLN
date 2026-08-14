@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Memory (holy)
 
-Load `memory/protocol.md` order: identity → brand → BLUEPRINT → greenhouse → DIRECTIONS → CHANGELOG tail.
+Load `memory/protocol.md` order: identity → brand → BLUEPRINT → greenhouse → DIRECTIONS → WORKSTREAM → CHANGELOG tail.
 
 - Major function/IA → update `BLUEPRINT.md` + changelog `k:bp`
 - Standing/small direction → `DIRECTIONS.md` + `k:dir`

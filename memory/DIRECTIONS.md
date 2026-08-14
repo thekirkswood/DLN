@@ -62,3 +62,10 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 
 - Public plot copy: Design Lab North **are**. Pleasure is optional, not every caption. Choozlist: the life registry, no “pleasure of”. Swarm: excited to work with this hive brand. ModYu: market-leading hair and scalp. Proper sentences.
 - Do not invent plot status. Choozlist is growing. “Resting” was an agent guess from “not hosted here” — wrong. Hosting fact stays off the public wall. Public Choozlist line is the life registry, not the AI stack.
+
+## 2026-08-15 — hub of multiple sites
+
+- DLN is a hub: client plots (ModYu, more wanted) + studio plots (Swarm, Choozlist). Grow each on its own terms. Isolation: one container per hosted plot.
+- Do not rebase a plot onto a URL path on the hub (`/assets` and `/_next` clash). Extend Caddy. Leave the plot.
+- Livedns (`ns1.livedns.co.uk`) is the DNS panel — not IONOS. Apex+www live; `modyu` NXDOMAIN.
+- Interim ModYu dock: `http://designlabnorth.com:3080` behind the same gate. Close when Livedns answers. Sequenced work: `memory/WORKSTREAM.md`.
