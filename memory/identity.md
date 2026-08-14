@@ -16,7 +16,7 @@ Not a client product. Not ModYu, SwarmFund, or any plot’s public brand. Not an
 
 ## Voice (public)
 
-Conversational, from our side. Plural: Design Lab North are. Pleasure of the work, said differently each time, gritty, short — the brand, not the product spec. Never slight a live site or its builders. No hype. No agency-speak. No hosting plans on the public wall.
+Conversational, from our side. Plural: Design Lab North are. Pleasure of the work, said differently each time. Proper sentences about the brand. Never slight a live site or its builders. No riddles. No hype. No agency-speak. No hosting plans on the public wall.
 
 ## People
 

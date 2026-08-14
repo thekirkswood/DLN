@@ -39,3 +39,5 @@
 {"t":"2026-08-15T00:08:00+01:00","k":"del","p":"greenhouse/plots.json choozlist.status","s":"removed status resting","d":"ewan never said paused; agent invented it from not-hosted-here"}
 {"t":"2026-08-15T00:08:00+01:00","k":"mod","p":"greenhouse/plots.json choozlist","s":"status growing; voice life registry create/browse/document curated","d":"user-facing brand; AI stack stays internal"}
 {"t":"2026-08-15T00:08:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"do not invent plot status; chooz public=life registry not agentic search","d":"correction"}
+{"t":"2026-08-15T00:10:00+01:00","k":"mod","p":"greenhouse/plots.json voice","s":"three captions rewritten as proper sentences","d":"ewan: current captions make no sense; no riddles"}
+{"t":"2026-08-15T00:10:00+01:00","k":"dir","p":"memory/DIRECTIONS.md identity dln-voice.mdc","s":"captions are proper sentences about the brand","d":"stop cryptic greenhouse copy"}
