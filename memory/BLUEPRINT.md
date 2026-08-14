@@ -4,7 +4,7 @@ Site-wide map. Update on major change only. Small work goes to DIRECTIONS + CHAN
 
 ## Purpose
 
-Public studio + gated greenhouse of client plots. Each growing site is a Docker plot on a subdomain. Isolation is the point: one plot dying must not take the others.
+Public design hub + gated greenhouse of client plots. Identities, marketing, redesigns, facelifts, new sites. Each growing site is a Docker plot on a subdomain. Isolation is the point: one plot dying must not take the others.
 
 ## Surfaces
 

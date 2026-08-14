@@ -9,7 +9,9 @@ Registry prose. Machine source: `greenhouse/plots.json`. Keep them in sync.
 - Host: `modyu.designlabnorth.com`
 - Kind: rebuild (they have a live site; we are building the next one)
 - Status: growing
-- Voice: Design Lab North have the pleasure of building a calmer home for ModYu, who look after people before, during, and after hair transplant. Their current site is already out in the world; this plot is the one that should feel like them.
+- Voice: Design Lab North have the pleasure of rebuilding ModYu — a calmer home for people before, during, and after hair transplant. Their current site is already out in the world; this plot is the facelift that should feel like them.
+- Marks: `Site/public/plots/modyu.svg` (paper) + `modyu-white.svg` (ink)
+- Source: GitHub `thekirkswood/modyu` · VPS `/srv/dln/plots/modyu` · Docker plot `plot-modyu`
 - Access: DLN client user bound to `modyu`. Studio/owner always.
 
 ## Not listed yet

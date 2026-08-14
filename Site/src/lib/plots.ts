@@ -10,6 +10,8 @@ export type Plot = {
   localPreview: string;
   public: boolean;
   voice: string;
+  logoPaper?: string;
+  logoInk?: string;
 };
 
 const FILE = path.join(process.cwd(), "..", "greenhouse", "plots.json");

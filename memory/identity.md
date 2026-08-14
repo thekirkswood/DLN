@@ -3,11 +3,11 @@
 **Name:** Design Lab North  
 **Short:** DLN  
 **Domain:** designlabnorth.com  
-**Role:** Parent studio. We design and build websites, then host them while they grow.
+**Role:** Design hub. Identities, marketing principles, redesigns, facelifts, and websites — hosted in the greenhouse while they grow, then migrated.
 
 ## What this is
 
-A studio site and a greenhouse. Clients land here. Work in progress lives on subdomains of designlabnorth.com. After the first month (set price, hosted here) we migrate the plot onto the client’s own server and URL.
+A design hub and a greenhouse. Clients land here. Work in progress lives on subdomains of designlabnorth.com. After the first month (set price, hosted here) we migrate the plot onto the client’s own server and URL.
 
 ## What this is not
 
@@ -33,4 +33,4 @@ Founding designer (Ewan’s father): brand and marketing. Selected clients and c
 
 ## First client plot
 
-ModYu — rebuild against a live site. Preview host: `modyu.designlabnorth.com` (user also said “modu”; canonical slug is `modyu`).
+ModYu — rebuild / facelift against a live site. GitHub `thekirkswood/modyu`. Preview host: `modyu.designlabnorth.com`. Greenhouse uses their mark.

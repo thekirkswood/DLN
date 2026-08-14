@@ -1,10 +1,10 @@
 :root,
 html[data-ground="paper"] {
-  --ground: #efede7;
-  --ink: #0c0c0c;
-  --mute: #6e6c66;
-  --line: #d8d5cc;
-  --wipe: #070707;
+  --ground: #ffffff;
+  --ink: #414141;
+  --mute: #6e6e6e;
+  --line: #d4d4d4;
+  --wipe: #000000;
   --max: 1180px;
   --cut: 9px;
   --font: var(--font-tstar), "T Star", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -12,11 +12,11 @@ html[data-ground="paper"] {
 }
 
 html[data-ground="ink"] {
-  --ground: #070707;
-  --ink: #f3f1ec;
-  --mute: #9a9892;
-  --line: #242424;
-  --wipe: #efede7;
+  --ground: #000000;
+  --ink: #ffffff;
+  --mute: #414141;
+  --line: #1f1f1f;
+  --wipe: #ffffff;
   color-scheme: dark;
 }
 
@@ -28,6 +28,8 @@ html[data-ground="ink"] {
 
 html {
   -webkit-font-smoothing: antialiased;
+  background: var(--ground);
+  color: var(--ink);
 }
 
 html,
@@ -216,11 +218,11 @@ html[data-ground="ink"] .mark-on-ink {
 }
 
 .ground-wipe[data-to="paper"] {
-  background: #efede7;
+  background: #ffffff;
 }
 
 .ground-wipe[data-to="ink"] {
-  background: #070707;
+  background: #000000;
 }
 
 main {
@@ -231,10 +233,6 @@ main {
 
 .hero {
   padding: 5.5rem 0 4.2rem;
-}
-
-.hero-mark {
-  margin-bottom: 2.4rem;
 }
 
 .kicker {
@@ -326,23 +324,54 @@ main {
   border-top: 1px solid var(--line);
 }
 
-.plot-card,
-.client-index li {
+.plot-card {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1rem;
-  align-items: baseline;
-  padding: 1.15rem 0 1.2rem;
+  grid-template-columns: 7.4rem 1fr auto;
+  gap: 1.2rem;
+  align-items: center;
+  padding: 1.35rem 0 1.4rem;
   border-bottom: 1px solid var(--line);
   text-decoration: none;
 }
 
-.plot-card:hover,
-.client-index a:hover {
+.plot-card:hover {
   text-decoration: none;
 }
 
-.plot-card h3 {
+.client-index li {
+  display: block;
+  padding: 0.7rem 1rem 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+  font-weight: 300;
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+
+.plot-card .plot-mark-well {
+  width: 7.2rem;
+  min-height: 2.4rem;
+  display: grid;
+  place-items: center start;
+}
+
+.plot-card .plot-mark {
+  width: 7.2rem;
+  height: auto;
+}
+
+.plot-mark-ink {
+  display: none;
+}
+
+html[data-ground="ink"] .plot-mark-paper {
+  display: none;
+}
+
+html[data-ground="ink"] .plot-mark-ink {
+  display: block;
+}
+
+.plot-copy h3 {
   font-size: 1.35rem;
   font-weight: 300;
   letter-spacing: -0.02em;
@@ -356,8 +385,7 @@ main {
   font-weight: 500;
 }
 
-.plot-card p {
-  grid-column: 1 / -1;
+.plot-copy p {
   color: var(--mute);
   max-width: 40rem;
   font-size: 0.98rem;

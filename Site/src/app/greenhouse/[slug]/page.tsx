@@ -22,21 +22,38 @@ export default async function PlotStoryPage({
   if (!plot || !plot.public) notFound();
   const user = await getSessionUser();
   const allowed = user ? canAccessPlot(user, plot.slug) : false;
+  const live = plot.hosts[0] ? `http://${plot.hosts[0]}` : plot.localPreview;
 
   return (
     <article className="story-page wrap">
+      {plot.logoPaper ? (
+        <div style={{ marginBottom: "1.6rem" }}>
+          <img
+            className="plot-mark plot-mark-paper"
+            src={plot.logoPaper}
+            alt={plot.name}
+            style={{ width: "11rem" }}
+          />
+          <img
+            className="plot-mark plot-mark-ink"
+            src={plot.logoInk || plot.logoPaper}
+            alt=""
+            style={{ width: "11rem" }}
+          />
+        </div>
+      ) : null}
       <div className="status">{plot.status}</div>
       <h1>{plot.name}</h1>
       <p className="story">{plot.voice}</p>
       <div className="actions">
         {allowed ? (
-          <Link className="act act-fill" href={plot.localPreview}>
+          <Link className="act act-fill" href={live}>
             Enter the plot
           </Link>
         ) : user ? (
           <span className="note">This plot isn’t on your account.</span>
         ) : (
-          <Link className="act act-line" href={`/login?next=/preview/${plot.slug}`}>
+          <Link className="act act-line" href={`/login?next=/greenhouse/${plot.slug}`}>
             Sign in if this is yours
           </Link>
         )}

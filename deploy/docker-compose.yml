@@ -34,12 +34,16 @@ services:
       - "3000"
 
   plot-modyu:
-    build: ./plots/placeholder
+    build:
+      context: ${MODYU_DIR:-/srv/dln/plots/modyu}
+      dockerfile: deploy/Dockerfile
     restart: unless-stopped
     labels:
       dln.plot: modyu
+    volumes:
+      - ${MODYU_ACCOUNTS_DIR:-/srv/dln/data/modyu-accounts}:/app/_meta/accounts
     expose:
-      - "80"
+      - "3000"
 
 volumes:
   caddy_data:

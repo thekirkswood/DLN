@@ -1,21 +1,18 @@
 import Link from "next/link";
 import { publicPlots } from "@/lib/plots";
-import { Mark } from "@/components/Mark";
+import { PlotRow } from "@/components/PlotRow";
 
 export default async function HomePage() {
   const plots = await publicPlots();
   return (
     <>
       <section className="hero wrap">
-        <div className="hero-mark">
-          <Mark size="hero" />
-        </div>
         <p className="kicker">Design Lab North</p>
-        <h1>Brand, sites, and the work that has to hold.</h1>
+        <h1>A design hub for brands that need a proper next step.</h1>
         <p className="lede">
-          A studio in the north. We design identities and the places they live
-          online, then host them while they grow — so a client can walk the
-          rooms before the building is theirs.
+          Identities, marketing principles, redesigns, facelifts, and the
+          websites that have to carry them. We make the work here, grow it in
+          the greenhouse, then move it onto a home of its own.
         </p>
         <div className="hero-links">
           <Link className="act act-fill" href="/practice">
@@ -31,15 +28,7 @@ export default async function HomePage() {
           <h2>Currently growing</h2>
           <div className="plot-list">
             {plots.map((plot) => (
-              <Link
-                key={plot.slug}
-                className="plot-card"
-                href={`/greenhouse/${plot.slug}`}
-              >
-                <h3>{plot.name}</h3>
-                <div className="status">{plot.status}</div>
-                <p>{plot.voice}</p>
-              </Link>
+              <PlotRow key={plot.slug} plot={plot} />
             ))}
           </div>
         </section>

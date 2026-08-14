@@ -13,5 +13,5 @@ modyu.designlabnorth.com {
     uri /api/auth/gate?plot=modyu
     copy_headers Cookie
   }
-  reverse_proxy plot-modyu:80
+  reverse_proxy plot-modyu:3000
 }

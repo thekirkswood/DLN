@@ -7,6 +7,8 @@
     "hosts": ["modyu.designlabnorth.com"],
     "localPreview": "/preview/modyu",
     "public": true,
-    "voice": "Design Lab North have the pleasure of building a calmer home for ModYu, who look after people before, during, and after hair transplant. Their current site is already out in the world; this plot is the one that should feel like them."
+    "logoPaper": "/plots/modyu.svg",
+    "logoInk": "/plots/modyu-white.svg",
+    "voice": "Design Lab North have the pleasure of rebuilding ModYu — a calmer home for people before, during, and after hair transplant. Their current site is already out in the world; this plot is the facelift that should feel like them."
   }
 ]

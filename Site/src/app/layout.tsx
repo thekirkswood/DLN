@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     template: "%s · Design Lab North",
   },
   description:
-    "A north studio for brand, websites, and the work that has to hold.",
+    "A north design hub for identities, marketing, redesigns, facelifts, and the sites that have to carry them.",
   metadataBase: new URL(process.env.DLN_PUBLIC_URL || "http://localhost:3010"),
   icons: {
-    icon: "/brand/dln-ink.png",
+    icon: "/brand/dln-mute.png",
   },
 };
 
@@ -36,7 +36,7 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const user = await getSessionUser();
   return (
-    <html lang="en-GB" data-ground="paper" suppressHydrationWarning>
+    <html lang="en-GB" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: groundBoot }} />
       </head>

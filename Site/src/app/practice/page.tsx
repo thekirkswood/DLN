@@ -6,11 +6,19 @@ export default function PracticePage() {
   return (
     <article className="practice wrap">
       <p className="kicker">Practice</p>
-      <h1>A studio that still draws, then builds.</h1>
+      <h1>A design hub, not a factory.</h1>
       <p className="lede">
-        Design Lab North is the parent house: brand, marketing, and the sites
-        that have to carry them. Work is made here, shown in the greenhouse,
-        then moved onto a home of its own.
+        Design Lab North is where brand, marketing, and the website meet.
+        Identities, principles, redesigns, facelifts, and new builds — made
+        here, shown in the greenhouse, then moved onto a home of their own.
+      </p>
+
+      <h2>What we do</h2>
+      <p>
+        Marks and identities. Marketing principles that still hold when the
+        campaign is over. Redesigns and facelifts for sites that have drifted.
+        New websites, hosted while they grow, then migrated when they are
+        ready to stand alone.
       </p>
 
       <h2>Selected clients</h2>
@@ -37,9 +45,9 @@ export default function PracticePage() {
 
       <h2 id="enquiries">Enquiries</h2>
       <p>
-        If you have a site, a mark, or a brand that needs to be made properly —
-        start with the greenhouse if you want to see how we work, or write when
-        the domain mail is live.
+        If you have a site, a mark, a facelift, or a brand that needs to be
+        made properly — start with the greenhouse if you want to see how we
+        work, or write when the domain mail is live.
       </p>
     </article>
   );

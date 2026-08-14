@@ -19,3 +19,9 @@
 {"t":"2026-08-14T23:20:00+01:00","k":"mod","p":"Site/src/app/globals.css,page,layout,Header","s":"think-tank restyle; mark hero; index rows not cards","d":"no default gen chrome"}
 {"t":"2026-08-14T23:20:00+01:00","k":"add","p":"ops/dns.md","s":"A @ www * -> 82.165.5.84","d":"ewan waiting for records"}
 {"t":"2026-08-14T23:20:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"github thekirkswood/DLN; rotate PAT; paper/ink law","d":"go"}
+{"t":"2026-08-14T23:28:00+01:00","k":"del","p":"Site/src/app/page.tsx hero-mark","s":"removed large homepage logo; header mark remains","d":"ewan: leave beautiful, drop big mark"}
+{"t":"2026-08-14T23:28:00+01:00","k":"mod","p":"Site/src/app/page.tsx,practice","s":"design hub copy: identities marketing redesign facelift","d":"ewan description"}
+{"t":"2026-08-14T23:28:00+01:00","k":"mod","p":"memory/brand.md + globals.css + GroundSwitch","s":"paper #fff/#414141 ink #000/#fff; apply ground immediately; no data-ground on server html","d":"match plates; toggle must work"}
+{"t":"2026-08-14T23:28:00+01:00","k":"add","p":"Site/public/plots/modyu*.svg + PlotRow","s":"ModYu marks on greenhouse rows and story","d":"use client logo"}
+{"t":"2026-08-14T23:28:00+01:00","k":"bp","p":"deploy/docker-compose.yml Caddyfile*.ip/prod","s":"plot-modyu builds /srv/dln/plots/modyu :3000 host-routed","d":"real rebuild not placeholder"}
+{"t":"2026-08-14T23:28:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"modyu github thekirkswood/modyu; hub copy; plate colours","d":"this turn"}

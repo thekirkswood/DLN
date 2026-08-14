@@ -32,3 +32,10 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - `/practice` holds selected clients + founding designer credentials (no invented personal name until Ewan sets it).
 - GitHub: `https://github.com/thekirkswood/DLN`. PAT was in chat — use once, do not store in repo, rotate.
 - DNS A records: `@`, `www`, `*` → `82.165.5.84` (see `ops/dns.md`).
+
+## 2026-08-14 — hub copy + logo grounds + ModYu plot
+
+- DLN is a design hub: identities, marketing principles, redesigns, facelifts, new sites. Home hero mark removed; header mark stays.
+- Paper/Ink must be the two plate colours: white+#414141 vs black+#FFFFFF. Toggle applies `data-ground` immediately (React must not pin `data-ground` on `<html>`).
+- Greenhouse plots show the client mark. ModYu live container on `modyu.designlabnorth.com`.
+- ModYu source → `thekirkswood/modyu` (Ewan: kirkswood/modyu).

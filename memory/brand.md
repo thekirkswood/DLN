@@ -27,11 +27,11 @@ Studio language: **Paper** / **Ink**. Control is a chamfered PAPER | INK cut (45
 
 | Token | Paper | Ink |
 |---|---|---|
-| `--ground` | `#EFEDE7` | `#070707` |
-| `--ink` | `#0C0C0C` | `#F3F1EC` |
-| `--mute` | `#6E6C66` | `#9A9892` |
-| `--line` | `#D8D5CC` | `#242424` |
-| `--mark` | ink png | white png |
+| `--ground` | `#FFFFFF` (inverse of the black plates) | `#000000` (plate field) |
+| `--ink` | `#414141` (gray plate glyph) | `#FFFFFF` (white plate glyph) |
+| `--mute` | `#6E6E6E` | `#414141` |
+| `--line` | `#D4D4D4` | `#1F1F1F` |
+| `--mark` | `dln-mute.png` | `dln-white.png` |
 
 Chamfer every interactive edge (8px, 45°) — buttons, switch, plot rows, submit. No 999px pills, no drop-shadow cards, no gradient orbs.
 

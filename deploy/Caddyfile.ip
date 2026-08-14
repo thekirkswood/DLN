@@ -1,4 +1,18 @@
+# Plot host (until TLS)
+
 :80 {
   encode gzip
-  reverse_proxy web:3000
+
+  @modyu host modyu.designlabnorth.com
+  handle @modyu {
+    forward_auth web:3000 {
+      uri /api/auth/gate?plot=modyu
+      copy_headers Cookie
+    }
+    reverse_proxy plot-modyu:3000
+  }
+
+  handle {
+    reverse_proxy web:3000
+  }
 }
