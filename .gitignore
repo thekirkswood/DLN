@@ -5,6 +5,9 @@ out/
 .env.*
 !.env.example
 _meta/accounts/
+_meta/billing/
+_meta/enquiries/
+_meta/plans/
 _meta/secrets/
 **/*.pem
 **/*.key

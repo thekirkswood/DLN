@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { GroundSwitch } from "@/components/GroundSwitch";
 
 export function Footer() {
   return (
@@ -9,6 +10,7 @@ export function Footer() {
         <Link href="/practice">Practice</Link>
         <Link href="/privacy">Privacy</Link>
         <Link href="/terms">Terms</Link>
+        <GroundSwitch />
       </nav>
     </footer>
   );

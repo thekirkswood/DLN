@@ -10,15 +10,28 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-      # 443 closed until Livedns is stable for Let’s Encrypt.
-      # A mapped 443 with no cert makes browsers show “site down” instead of falling back to HTTP.
+      - "443:443"
+      - "443:443/udp"
     volumes:
-      - ${CADDY_FILE:-./Caddyfile}:/etc/caddy/Caddyfile:ro
+      - ${CADDY_FILE:-./Caddyfile.ip}:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
       - web
       - plot-modyu
+      - plot-swarm
+
+  # Answers DNS only while the registrar NS are the plot hosts.
+  # Also needs IONOS Cloud Panel: allow 53/tcp and 53/udp. UFW alone is not enough.
+  dns:
+    image: coredns/coredns:1.11.3
+    restart: unless-stopped
+    command: -conf /etc/coredns/Corefile
+    ports:
+      - "82.165.5.84:53:53/udp"
+      - "82.165.5.84:53:53/tcp"
+    volumes:
+      - ./coredns:/etc/coredns:ro
 
   web:
     build:
@@ -29,8 +42,17 @@ services:
       DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-http://localhost}
       DLN_COOKIE_DOMAIN: ${DLN_COOKIE_DOMAIN:-}
       DLN_COOKIE_SECURE: ${DLN_COOKIE_SECURE:-false}
+      DLN_SMTP_HOST: ${DLN_SMTP_HOST:-}
+      DLN_SMTP_PORT: ${DLN_SMTP_PORT:-587}
+      DLN_SMTP_USER: ${DLN_SMTP_USER:-}
+      DLN_SMTP_PASS: ${DLN_SMTP_PASS:-}
+      DLN_ENQUIRE_TO: ${DLN_ENQUIRE_TO:-build@designlabnorth.com}
+      DLN_ENQUIRE_FROM: ${DLN_ENQUIRE_FROM:-}
     volumes:
       - ${DLN_ACCOUNTS_DIR:-../_meta/accounts}:/app/_meta/accounts
+      - ${DLN_BILLING_DIR:-../_meta/billing}:/app/_meta/billing
+      - ${DLN_ENQUIRIES_DIR:-../_meta/enquiries}:/app/_meta/enquiries
+      - ${DLN_PLANS_DIR:-../_meta/plans}:/app/_meta/plans
     expose:
       - "3000"
 

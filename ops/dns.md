@@ -1,10 +1,16 @@
 # DNS — designlabnorth.com
 
-VPS IPv4: **82.165.5.84** (IONOS).  
-Nameservers: **Livedns** — `ns1.livedns.co.uk`, `ns2.livedns.co.uk`, `ns3.livedns.co.uk`.  
-That panel is typically **123-reg / Heart / Fasthosts**, not the IONOS VPS panel. Adding records in IONOS will do nothing.
+VPS IPv4: **82.165.5.84** (IONOS).
 
-Put these **A** records at Livedns (no CNAME to the VPS). TTL 300 while it settles, then 3600.
+## How it should be
+
+Nameservers at the **registrar** (123-reg / Heart / Fasthosts): **Livedns**
+
+- `ns1.livedns.co.uk`
+- `ns2.livedns.co.uk`
+- `ns3.livedns.co.uk`
+
+Then **A records** in the Livedns panel (not nameserver rows, not IONOS DNS):
 
 | Host | Type | Value |
 |---|---|---|
@@ -15,12 +21,18 @@ Put these **A** records at Livedns (no CNAME to the VPS). TTL 300 while it settl
 | `daa` | A | `82.165.5.84` |
 | `*` (wildcard) | A | `82.165.5.84` |
 
-The wildcard covers every future client plot. If the panel has no `*`, add each plot as its own A to the same IP.
-
-**Now (2026-08-15):** `@`, `www`, `modyu`, `swarmfund`, and `daa` answer. Plot hosts:
-
-- `https://modyu.designlabnorth.com` — ModYu (gated)
-- `https://swarmfund.designlabnorth.com` — Swarm Fund (gated)
-- `https://daa.designlabnorth.com` — reserved name, redirects to the hub. Not a greenhouse plot yet.
+Plot hosts are **A records**. They are not nameservers.
 
 No AAAA until we have IPv6.
+
+## What went wrong (2026-08-15)
+
+The registrar nameservers were set to the plot hosts:
+
+- `modyu.designlabnorth.com`
+- `swarmfund.designlabnorth.com`
+- `daa.designlabnorth.com`
+
+Let’s Encrypt then asks those names for DNS. They are the VPS web hosts, not DNS servers, so ACME gets timeout/SERVFAIL and HTTPS cannot issue. Livedns still has the A records (querying ns1.livedns.co.uk works); the parent `.com` zone no longer points at Livedns.
+
+**Now (2026-08-15 evening):** Registrar NS are Livedns again. A records for `@`, `www`, `modyu`, `swarmfund`, `daa` → `82.165.5.84`. That is the correct shape. HTTPS is still off until a certificate exists.

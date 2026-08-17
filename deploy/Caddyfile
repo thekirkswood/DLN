@@ -1,5 +1,4 @@
-# Local (no TLS): localhost + modyu.localhost
-# VPS: set DLN_MODE=prod via a second Caddyfile.prod or env — see Caddyfile.prod
+# Local only (localhost). VPS must use Caddyfile.ip — compose defaults to that.
 
 {
   admin off

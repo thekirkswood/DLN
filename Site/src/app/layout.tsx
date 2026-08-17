@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { getSessionUser } from "@/lib/session";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 const tstar = localFont({
   src: [
@@ -33,13 +37,14 @@ const groundBoot = `(function(){try{var g=localStorage.getItem("dln-ground");doc
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const user = await getSessionUser();
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: groundBoot }} />
       </head>
       <body className={`${tstar.variable} ${tstar.className}`}>
-        <Header />
+        <Header signedIn={Boolean(user)} />
         <main>{children}</main>
         <Footer />
       </body>

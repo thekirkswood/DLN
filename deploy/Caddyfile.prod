@@ -1,10 +1,11 @@
+# Do not use this file on the VPS until Let’s Encrypt has issued certificates.
+# A named HTTPS site with port 443 published and no cert makes browsers show the site as down.
+# Live edge is Caddyfile.ip (HTTP :80 only). auto_https disable_redirects is required if this is enabled.
 {
   email {$DLN_ACME_EMAIL:build@designlabnorth.com}
-  auto_https disable_redirects
 }
 
-# HTTP always — never leave :80 empty while certs obtain.
-:80 {
+(edge) {
   encode gzip
 
   @modyu_static {
@@ -43,7 +44,7 @@
 
   @daa host daa.designlabnorth.com
   handle @daa {
-    redir http://designlabnorth.com
+    redir {scheme}://designlabnorth.com
   }
 
   handle_path /p/modyu* {
@@ -71,61 +72,16 @@
   }
 }
 
-modyu.designlabnorth.com {
-  encode gzip
-  handle /assets* {
-    reverse_proxy plot-modyu:3000
-  }
-  handle /_next/static* {
-    reverse_proxy plot-modyu:3000
-  }
-  handle {
-    forward_auth web:3000 {
-      uri /api/auth/gate?plot=modyu
-      copy_headers Cookie
-    }
-    reverse_proxy plot-modyu:3000
-  }
+# HTTP stays up even while certificates obtain.
+http://designlabnorth.com, http://www.designlabnorth.com, http://modyu.designlabnorth.com, http://swarmfund.designlabnorth.com, http://daa.designlabnorth.com {
+  import edge
 }
 
-swarmfund.designlabnorth.com {
-  encode gzip
-  handle /assets* {
-    reverse_proxy plot-swarm:3000
-  }
-  handle {
-    forward_auth web:3000 {
-      uri /api/auth/gate?plot=swarm
-      copy_headers Cookie
+designlabnorth.com, www.designlabnorth.com, modyu.designlabnorth.com, swarmfund.designlabnorth.com, daa.designlabnorth.com {
+  tls {
+    issuer acme {
+      disable_tlsalpn_challenge
     }
-    reverse_proxy plot-swarm:3000
   }
-}
-
-designlabnorth.com, www.designlabnorth.com {
-  encode gzip
-  handle_path /p/modyu* {
-    forward_auth web:3000 {
-      uri /api/auth/gate?plot=modyu
-      copy_headers Cookie
-    }
-    reverse_proxy plot-modyu:3000
-  }
-  handle /assets* {
-    reverse_proxy plot-modyu:3000
-  }
-  handle_path /p/swarm* {
-    forward_auth web:3000 {
-      uri /api/auth/gate?plot=swarm
-      copy_headers Cookie
-    }
-    reverse_proxy plot-swarm:3000
-  }
-  handle {
-    reverse_proxy web:3000
-  }
-}
-
-daa.designlabnorth.com {
-  redir http://designlabnorth.com
+  import edge
 }

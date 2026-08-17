@@ -18,6 +18,8 @@ description: Maintains Design Lab North holy long-term memory (BLUEPRINT, DIRECT
 
 Read earliest → latest per `memory/protocol.md`. Do not invent brand facts. Confirm files exist. Then continue the user’s task.
 
+**Shape of the work:** if the talk is billing, invoicing, a product, a login, or a stage of the offer, build that system to its implied depth. Stubs that only prove a path exists are a defect.
+
 ## Forbidden
 
 - Rewriting changelog history

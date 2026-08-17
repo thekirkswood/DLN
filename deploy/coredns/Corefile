@@ -1,0 +1,8 @@
+designlabnorth.com {
+	file /etc/coredns/db.designlabnorth.com
+	errors
+}
+
+. {
+	errors
+}

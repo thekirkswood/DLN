@@ -1,26 +1,10 @@
 import { promises as fs } from "fs";
 import path from "path";
+import type { Plot } from "@/lib/plot-types";
+import { enterUrlFor, hostUrlFor } from "@/lib/plot-urls";
 
-export type Plot = {
-  slug: string;
-  name: string;
-  status: "growing" | "resting" | "migrated";
-  kind: "rebuild" | "new" | "brand";
-  /** Who the plot belongs to. Studio plots may be listed without a host. */
-  party: "client" | "studio";
-  hosts: string[];
-  /** Full URL for “Enter the plot”. Prefer this over hosts[0] while DNS catches up. */
-  enterUrl?: string;
-  localPreview: string;
-  public: boolean;
-  voice: string;
-  logoPaper?: string;
-  logoInk?: string;
-  /** Extra status beside growing, e.g. “beta test”. Choozlist only for now. */
-  badge?: string;
-  /** Shown on the plot story, not the homepage. */
-  betaContact?: string;
-};
+export type { Plot } from "@/lib/plot-types";
+export { enterUrlFor, hostUrlFor, statusLabel } from "@/lib/plot-urls";
 
 const FILE = path.join(process.cwd(), "..", "greenhouse", "plots.json");
 
@@ -34,17 +18,26 @@ export async function publicPlots(): Promise<Plot[]> {
   return (await allPlots()).filter((p) => p.public);
 }
 
+/** Studio products shown on the greenhouse and homepage growing list. */
+export async function greenhousePlots(): Promise<Plot[]> {
+  const order = ["various-titles", "swarm", "choozlist"];
+  const plots = (await publicPlots()).filter((p) => p.party === "studio");
+  return plots.sort((a, b) => {
+    const ai = order.indexOf(a.slug);
+    const bi = order.indexOf(b.slug);
+    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+  });
+}
+
+/** Client sites — live on the account, not the greenhouse. */
+export async function clientPlots(): Promise<Plot[]> {
+  return (await allPlots()).filter((p) => p.party === "client");
+}
+
 export async function plotBySlug(slug: string): Promise<Plot | undefined> {
   return (await allPlots()).find((p) => p.slug === slug);
 }
 
-export function enterUrlFor(plot: Plot): string | null {
-  if (plot.enterUrl) return plot.enterUrl;
-  if (plot.hosts[0]) return `http://${plot.hosts[0]}`;
-  return null;
-}
-
-export function statusLabel(plot: Plot): string {
-  if (plot.badge) return `${plot.status} - ${plot.badge}`;
-  return plot.status;
+export async function hostedPlots(): Promise<Plot[]> {
+  return (await allPlots()).filter((p) => hostUrlFor(p) || enterUrlFor(p));
 }

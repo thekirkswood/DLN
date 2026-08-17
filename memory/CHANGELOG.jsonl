@@ -72,3 +72,59 @@
 {"t":"2026-08-15T01:05:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"never force HTTPS until certs; assets ungated; path dock strip","d":"overnight standing"}
 {"t":"2026-08-15T01:08:00+01:00","k":"mod","p":"deploy/docker-compose.yml ports","s":"stopped publishing 443","d":"broken TLS handshake made browsers report site down; HTTP :80 is the live edge"}
 {"t":"2026-08-15T01:08:00+01:00","k":"mod","p":"deploy/Caddyfile.ip","s":"plot /assets skip gate; /p/modyu handle_path strip","d":"pictures; ht4-people bookmark"}
+{"t":"2026-08-15T01:15:00+01:00","k":"mod","p":"greenhouse/plots.json Site/src/lib/plots.ts","s":"ModYu status rebuilding; type allows rebuilding","d":"ewan: change ModYu from growing to rebuilding"}
+{"t":"2026-08-15T01:15:00+01:00","k":"mod","p":"memory/greenhouse.md BLUEPRINT WORKSTREAM","s":"ModYu rebuilding; HTTPS obtain with HTTP up; 443 closed until cert","d":"ewan: site up, fix https finally"}
+{"t":"2026-08-15T01:15:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"no 443 until cert; ModYu public status is rebuilding","d":"HTTPS without dropping HTTP"}
+{"t":"2026-08-15T01:15:00+01:00","k":"mod","p":"deploy/Caddyfile.prod","s":"http:// sites + named TLS sites; auto_https disable_redirects; {scheme} daa","d":"keep port 80 while ACME runs"}
+{"t":"2026-08-15T01:20:00+01:00","k":"add","p":"deploy/coredns compose dns","s":"CoreDNS on 53 answering plot-host NS glue","d":"registrar NS were set to modyu/swarmfund/daa; LE SERVFAIL"}
+{"t":"2026-08-15T01:20:00+01:00","k":"mod","p":"ops/dns.md DIRECTIONS","s":"plot hosts are A records not nameservers; IONOS drops :53 so VPS cannot be NS","d":"HTTPS blocked by wrong registrar NS"}
+{"t":"2026-08-15T01:25:00+01:00","k":"mod","p":"deploy compose dns profile Caddyfile.ip","s":"stop public DNS attempt; HTTP edge only until Livedns NS restored","d":"IONOS drops 53; do not burn LE retries"}
+{"t":"2026-08-15T10:40:00+01:00","k":"mod","p":"deploy/docker-compose.yml Caddyfile Caddyfile.prod","s":"default Caddyfile.ip; dns service on; prod file warned off until cert","d":"missing .env would load localhost Caddyfile and kill public HTTP"}
+{"t":"2026-08-15T10:40:00+01:00","k":"add","p":"deploy/watchdog.sh","s":"VPS cron keeps HTTP 200; never publish 443 or Caddyfile.prod","d":"ewan: live site down; services must not crash the hub"}
+{"t":"2026-08-15T10:40:00+01:00","k":"dir","p":"memory/DIRECTIONS.md ops/dns.md vps.md","s":"IONOS Cloud Panel 53; watchdog; Caddyfile.ip is live edge","d":"registrar NS still plot hosts; name does not resolve"}
+{"t":"2026-08-15T10:40:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"edge is Caddyfile.ip HTTP; watchdog","d":"stability"}
+{"t":"2026-08-15T21:10:00+01:00","k":"mod","p":"deploy/watchdog.sh Caddyfile.prod","s":"watchdog keeps HTTP; allow prod ACME; http-01 only","d":"Livedns NS restored; A records correct; Chrome hits 443"}
+{"t":"2026-08-15T21:10:00+01:00","k":"dir","p":"memory/DIRECTIONS.md ops/dns.md","s":"A records to VPS IP are correct; NS are Livedns; HTTPS still off","d":"ewan added subdomain A records"}
+{"t":"2026-08-15T21:15:00+01:00","k":"mod","p":"deploy/docker-compose.yml plots.json greenhouse","s":"443 published after LE certs; enterUrl https","d":"Livedns A records live; padlock"}
+{"t":"2026-08-15T21:16:00+01:00","k":"mod","p":"deploy/Caddyfile.prod","s":"HTTP redirects to HTTPS after certs","d":"Chrome opens https first"}
+{"t":"2026-08-16T22:20:00+01:00","k":"bp","p":"memory/BLUEPRINT.md greenhouse","s":"stories behind matching login; unauth home click inert; wrong account /not-yours 3s home","d":"ewan: no public descriptions"}
+{"t":"2026-08-16T22:20:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"homepage rows public; greenhouse cookie; gate to login or not-yours","d":"lock greenhouse sites"}
+{"t":"2026-08-16T22:20:00+01:00","k":"add","p":"Site/src/app/not-yours PlotRow gate greenhouse home","s":"inert guest rows; not-yours page; stories cookie-only","d":"descriptions off the public wall"}
+{"t":"2026-08-16T22:20:00+01:00","k":"mod","p":"memory/greenhouse.md","s":"descriptions not public; unauth login; wrong not-yours","d":"sync registry prose"}
+{"t":"2026-08-17T14:45:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"account profile; greenhouse studio products; client sites on account; billing book","d":"ewan: no login after lock; payments; greenhouse ours"}
+{"t":"2026-08-17T14:45:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"header Sign in; /account sites+invoices; greenhouse Swarm+Choozlist public","d":"profile area"}
+{"t":"2026-08-17T14:45:00+01:00","k":"add","p":"Site/src/app/account lib/billing data/plans api/billing","s":"weekly/monthly subscribe; invoices; pay in ledger","d":"billing inside profile"}
+{"t":"2026-08-17T14:45:00+01:00","k":"mod","p":"Header layout greenhouse home login compose gitignore","s":"Sign in in header; billing volume; greenhouse studio-only","d":"login function; our products"}
+{"t":"2026-08-17T14:45:00+01:00","k":"mod","p":"memory/greenhouse.md ops/vps.md","s":"client sites on account; data/billing","d":"sync"}
+{"t":"2026-08-17T14:52:00+01:00","k":"mod","p":"Site/src/lib/billing.ts","s":"add invoicesForUser so account build typechecks","d":"VPS next build failed"}
+{"t":"2026-08-17T14:52:00+01:00","k":"mod","p":"greenhouse/plots.json","s":"modyu public false; client sites not greenhouse listings","d":"greenhouse is our products"}
+{"t":"2026-08-17T14:52:00+01:00","k":"mod","p":"memory/BLUEPRINT.md greenhouse.md globals.css account page sync-to-vps","s":"billing dir in map; public studio stories; exclude billing from rsync","d":"account area"}
+{"t":"2026-08-17T16:00:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"stages Design then Strategy then Build; VT in Strategy; invoice desk; VT house","d":"ewan: lab; billing depth; VT"}
+{"t":"2026-08-17T16:00:00+01:00","k":"dir","p":"memory/DIRECTIONS.md protocol.md","s":"shape of the work; stages; desk 50/50; seven-day shut; swarmfund.com enter","d":"plan"}
+{"t":"2026-08-17T16:00:00+01:00","k":"mod","p":"memory/identity.md greenhouse.md WORKSTREAM.md AGENTS.md dln-memory","s":"VT named; practice 50/50; greenhouse products; thoroughness","d":"lab map"}
+{"t":"2026-08-17T16:20:00+01:00","k":"add","p":"Site/src/app/design strategy build","s":"stage pages Design then Strategy then Build; VT on Strategy","d":"lab offer"}
+{"t":"2026-08-17T16:20:00+01:00","k":"mod","p":"Site/src/app/page.tsx practice greenhouse PlotRow plots.json","s":"home stages; practice 50/50; VT listing; swarmfund.com enter","d":"public IA"}
+{"t":"2026-08-17T16:20:00+01:00","k":"add","p":"Site/src/data/catalogue.ts lib/billing.ts InvoiceDesk account invoices","s":"compose waive issue A4; catalogue by stage","d":"invoice desk"}
+{"t":"2026-08-17T16:20:00+01:00","k":"del","p":"Site/src/data/plans.ts api/billing/subscribe","s":"removed two-button weekly/monthly stub","d":"replaced by catalogue desk"}
+{"t":"2026-08-17T16:20:00+01:00","k":"add","p":"api/studio/onboard api/account profile avatar gate","s":"onboard; picture; seven-day plot shut","d":"desk and gate"}
+{"t":"2026-08-17T16:20:00+01:00","k":"add","p":"/home/main/VariousTitles","s":"sibling house memory rules skill; no public site","d":"VT seed"}
+{"t":"2026-08-17T16:10:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"DLN email is VT login; billing stays on this book; .local is a handle","d":"ewan: convert DLN customers to VT"}
+{"t":"2026-08-17T16:10:00+01:00","k":"dir","p":"memory/DIRECTIONS.md identity greenhouse WORKSTREAM","s":".local not mailbox; paying titlesGrant; bank rail next","d":"VT sync"}
+{"t":"2026-08-17T16:10:00+01:00","k":"add","p":"api/billing/titles api/auth/titles ConvertTitles handles.ts","s":"convert to VT; titles grant for session","d":"same login; DLN bank"}
+{"t":"2026-08-17T16:10:00+01:00","k":"mod","p":"account onboard login billing issue","s":"local handle onboard; waive-all auto-paid; VT status on account","d":"desk edits"}
+{"t":"2026-08-17T16:20:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"home three equal columns; practice holds hub copy; enquiry form; VT first; no funnel","d":"ewan: jump in anywhere; form not mailto"}
+{"t":"2026-08-17T16:20:00+01:00","k":"dir","p":"memory/DIRECTIONS.md identity greenhouse","s":"no not-a-shop on greenhouse; VT learn copy; form to desk+SMTP","d":"public IA"}
+{"t":"2026-08-17T16:20:00+01:00","k":"add","p":"HomeOffer needs.ts enquiries api account desk","s":"clickable I-have reasons; enquire form; studio enquiry list","d":"write in; we onboard"}
+{"t":"2026-08-17T16:20:00+01:00","k":"mod","p":"page practice greenhouse plots.json stage pages compose","s":"old hub line on practice; VT top; products unlisted in intro","d":"ewan notes"}
+{"t":"2026-08-17T16:25:00+01:00","k":"mod","p":"HomeOffer design strategy build practice greenhouse story","s":"I-have as home subheads; equal jumps; drop VT through-Strategy line","d":"site-wide: sit beside, not after"}
+{"t":"2026-08-17T16:25:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"un-number Design Strategy Build; catalogue grouped not staged","d":"no public funnel"}
+{"t":"2026-08-17T16:25:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"I-have are home subheads; offer pages equal jumps","d":"ewan: jump in anywhere"}
+{"t":"2026-08-17T16:25:00+01:00","k":"add","p":"Site/package.json","s":"nodemailer for enquiry notify if SMTP set","d":"desk still works without it"}
+{"t":"2026-08-17T16:40:00+01:00","k":"bp","p":"memory/BLUEPRINT.md identity","s":"live host model; offline plan; person-first desk; session 90d","d":"ewan: commercial model + dave desk"}
+{"t":"2026-08-17T16:40:00+01:00","k":"dir","p":"memory/DIRECTIONS.md WORKSTREAM","s":"session persists; pick a person; generate login; notes-to-plan offline","d":"standing"}
+{"t":"2026-08-17T16:40:00+01:00","k":"mod","p":"layout Header api/auth/me auth.ts","s":"force-dynamic layout; refresh cookie on walk; 90d session","d":"login dropped page to page"}
+{"t":"2026-08-17T16:40:00+01:00","k":"add","p":"StudioDesk plans.ts comments api onboard","s":"person panel; bring-on from enquiry; sweep plan; current builds","d":"dave can use the desk"}
+{"t":"2026-08-17T16:40:00+01:00","k":"mod","p":"catalogue.ts build/page needs.ts","s":"consult 125; initial build 250; live host 75wk; public live-host copy","d":"no GBP on public wall"}
+{"t":"2026-08-17T16:40:00+01:00","k":"add","p":"_meta/plans docker-compose gitignore","s":"notes+plans store; volume; rsync exclude","d":"shape of the work"}
+{"t":"2026-08-17T17:05:00+01:00","k":"mod","p":"Footer Header globals.css","s":"Paper/Ink cut in footer bar","d":"ewan: slider in bottom bar"}
+{"t":"2026-08-17T17:05:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"ground switch is footer, not header","d":"standing"}

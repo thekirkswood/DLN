@@ -4,6 +4,8 @@ Parent studio site + greenhouse of Docker plots. Domain: designlabnorth.com.
 
 ## Read first
 
+Every turn, before edits: [memory/protocol.md](memory/protocol.md) (shape of the work), then identity → brand → BLUEPRINT → greenhouse → DIRECTIONS → WORKSTREAM → changelog tail.
+
 - [memory/protocol.md](memory/protocol.md)
 - [memory/BLUEPRINT.md](memory/BLUEPRINT.md)
 - [memory/DIRECTIONS.md](memory/DIRECTIONS.md)

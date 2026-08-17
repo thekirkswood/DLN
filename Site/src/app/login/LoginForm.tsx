@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
   const search = useSearchParams();
-  const next = search.get("next") || "/greenhouse";
+  const next = search.get("next") || "/account";
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
@@ -23,7 +23,7 @@ export default function LoginForm() {
     } catch {
       /* fall through */
     }
-    return "/greenhouse";
+    return "/account";
   }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -49,7 +49,7 @@ export default function LoginForm() {
 
   return (
     <form className="form wrap" onSubmit={onSubmit}>
-      <p className="kicker">Studio</p>
+      <p className="kicker">Account</p>
       <h1>Sign in</h1>
       {error ? <p className="err">{error}</p> : null}
       <label htmlFor="email">Email</label>
@@ -66,8 +66,10 @@ export default function LoginForm() {
         {pending ? "…" : "Enter"}
       </button>
       <p className="note">
-        Studio and clients receive a Design Lab North login. It unlocks the
-        plots on your account. Everyone else stays in the greenhouse.
+        Your login opens the sites on your account, the billing book, and
+        Various Titles when you are a paying customer. A{" "}
+        <code>@designlabnorth.local</code> address is an internal handle, not a
+        mailbox.
       </p>
     </form>
   );

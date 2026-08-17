@@ -34,6 +34,10 @@
 - `s` = enough for a future agent to know what moved. No essays.
 - Deletions must log `p` + what was removed. Empty `d` is a defect.
 
+## Shape of the work
+
+A named function is built to the shape it implies. Billing means line items, a service, a price, who issues, who pays, a document, and what happens if it is not paid. A login means a way in and a room behind it. A product listing means a story and a path to the product. Stubs that only prove a path exists are a defect. Read this file first every turn, then identity → brand → BLUEPRINT → greenhouse → DIRECTIONS → WORKSTREAM → changelog tail. Do not invent brand facts.
+
 ## Harmony law
 
 Do not overwrite working behaviour to make a new thing fit. Extend. If a collision exists, stop, log, ask. Treat live plots as client property.

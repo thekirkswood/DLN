@@ -8,6 +8,9 @@ rsync -az --delete \
   --exclude node_modules \
   --exclude .next \
   --exclude _meta/accounts \
+  --exclude _meta/billing \
+  --exclude _meta/enquiries \
+  --exclude _meta/plans \
   --exclude deploy/.env \
   --exclude .git \
   -e ssh \

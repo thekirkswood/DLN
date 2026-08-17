@@ -1,4 +1,5 @@
 import { CLIENTS } from "@/data/practice";
+import { EnquireForm, OfferJump } from "@/components/HomeOffer";
 
 export const metadata = { title: "Practice" };
 
@@ -6,20 +7,44 @@ export default function PracticePage() {
   return (
     <article className="practice wrap">
       <p className="kicker">Practice</p>
-      <h1>A design hub, not a factory.</h1>
+      <h1>A design hub for brands that need a proper next step.</h1>
       <p className="lede">
-        Design Lab North is where brand, marketing, and the website meet.
-        Identities, principles, redesigns, facelifts, and new builds — made
-        here, shown in the greenhouse, then moved onto a home of their own.
+        Identities, marketing principles, redesigns, facelifts, and the
+        websites that have to carry them. We make the work here, grow it in the
+        greenhouse, then move it onto a home of its own.
       </p>
+
+      <div className="practice-pair">
+        <div>
+          <h2>Ewan</h2>
+          <p className="body">
+            Designer. Builds the sites in this house — identities through to
+            the live plot — in Cursor, on this desk.
+          </p>
+        </div>
+        <div>
+          <h2>Dave Kirkwood</h2>
+          <p className="body">
+            Dave Kirkwood Studio, formerly Walsh Simmons — a multi-award-winning
+            designer for branding and marketing, and a former lecturer of
+            branding. The practice is a nominated brand and marketing advisor to
+            Lancashire County Council, and consults with businesses across the
+            region. Work has been spoken in public, hosted, printed, and put on
+            screen.
+          </p>
+        </div>
+      </div>
 
       <h2>What we do</h2>
       <p>
         Brands and identities. Marketing principles that still hold when the
         campaign is over. Redesigns and facelifts for sites that have drifted.
-        New websites, hosted while they grow, then migrated when they are
-        ready to stand alone.
+        New websites, hosted while they grow, then migrated when they are ready
+        to stand alone. Design, Strategy, and Build sit together — come in at
+        the one you need. Various Titles is a resource for people to learn
+        marketing fundamentals and branding.
       </p>
+      <OfferJump />
 
       <h2>Selected clients</h2>
       <ul className="client-index">
@@ -30,15 +55,6 @@ export default function PracticePage() {
 
       <h2>The work</h2>
       <p className="body">
-        The work is identities, marketing principles, redesigns, facelifts, and
-        the websites that have to carry them. Dave Kirkwood — Dave Kirkwood
-        Studio, formerly Walsh Simmons — is a multi-award-winning designer for
-        branding and marketing, and a former lecturer of branding. The practice
-        is a nominated brand and marketing advisor to Lancashire County
-        Council, and consults with businesses across the region. Work has been
-        spoken in public, hosted, printed, and put on screen.
-      </p>
-      <p className="body">
         For the last ten years that work has sat directly with businesses,
         organisations, and multi-nationals — and with their agencies, under NDA
         — on brand strategy and how the brand behaves online. Further detail
@@ -47,12 +63,10 @@ export default function PracticePage() {
 
       <h2 id="enquiries">Enquiries</h2>
       <p className="body">
-        A site, a brand, a facelift that needs to be made properly — write to{" "}
-        <a className="mail" href="mailto:build@designlabnorth.com">
-          build@designlabnorth.com
-        </a>
-        . Look at the greenhouse if you want to see how we work first.
+        Tell us who you are and what you need. We’ll write back, and make you
+        an account if that’s the next step.
       </p>
+      <EnquireForm />
     </article>
   );
 }

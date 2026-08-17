@@ -11,9 +11,10 @@ const ROOT = path.join(process.cwd(), "..", "_meta", "accounts");
 const USERS = path.join(ROOT, "users.json");
 const SESSIONS = path.join(ROOT, "sessions.json");
 const SEED = path.join(ROOT, "SEED.txt");
+export const AVATARS = path.join(ROOT, "avatars");
 
 export const COOKIE = "dln_session";
-const SESSION_DAYS = 30;
+const SESSION_DAYS = 90;
 
 export type Role = "owner" | "studio" | "client";
 
@@ -25,6 +26,12 @@ export type User = {
   role: Role;
   plots: string[];
   createdAt: string;
+  avatar?: string;
+  /** Mailbox. Login may be a .local handle. */
+  personalEmail?: string;
+  phone?: string;
+  notes?: string;
+  enquiryId?: string;
 };
 
 export type PublicUser = Omit<User, "passwordHash">;
@@ -43,6 +50,7 @@ function cookieDomain(): string | undefined {
 
 export function sessionCookieOptions(token: string, maxAge = SESSION_DAYS * 24 * 60 * 60) {
   const secure = process.env.DLN_COOKIE_SECURE === "true";
+  const expires = new Date(Date.now() + maxAge * 1000);
   return {
     name: COOKIE,
     value: token,
@@ -50,9 +58,14 @@ export function sessionCookieOptions(token: string, maxAge = SESSION_DAYS * 24 *
     sameSite: "lax" as const,
     path: "/",
     maxAge,
+    expires,
     secure,
     ...(cookieDomain() ? { domain: cookieDomain() } : {}),
   };
+}
+
+export function generatePassword(): string {
+  return randomBytes(12).toString("base64url");
 }
 
 export function hashPassword(password: string): string {
@@ -86,7 +99,7 @@ async function ensure() {
 }
 
 function genPass(): string {
-  return randomBytes(12).toString("base64url");
+  return generatePassword();
 }
 
 type SeedUser = {
@@ -221,10 +234,112 @@ function pub(u: User): PublicUser {
   return rest;
 }
 
+export async function clientForPlot(slug: string): Promise<PublicUser | null> {
+  const users = await readJson<User>(USERS);
+  const u = users.find(
+    (x) =>
+      x.role === "client" &&
+      (x.plots.includes(slug) || x.plots.includes("*")),
+  );
+  return u ? pub(u) : null;
+}
+
 export function canAccessPlot(user: PublicUser, slug: string): boolean {
   if (user.role === "owner" || user.role === "studio") return true;
   if (user.plots.includes("*")) return true;
   return user.plots.includes(slug);
+}
+
+export function isStudio(user: PublicUser): boolean {
+  return user.role === "owner" || user.role === "studio";
+}
+
+export async function findUserById(id: string): Promise<PublicUser | null> {
+  const users = await readJson<User>(USERS);
+  const u = users.find((x) => x.id === id);
+  return u ? pub(u) : null;
+}
+
+export async function listClients(): Promise<PublicUser[]> {
+  const users = await readJson<User>(USERS);
+  return users.filter((u) => u.role === "client").map(pub);
+}
+
+export async function createClient(input: {
+  email: string;
+  displayName: string;
+  plots: string[];
+  password?: string;
+  personalEmail?: string;
+  phone?: string;
+  notes?: string;
+  enquiryId?: string;
+}): Promise<{ user: PublicUser; password: string }> {
+  const email = input.email.trim().toLowerCase();
+  const displayName = input.displayName.trim();
+  const password = (input.password || generatePassword()).trim();
+  if (!email || !displayName || password.length < 8) throw new Error("invalid");
+  const users = await readJson<User>(USERS);
+  if (users.some((u) => u.email.toLowerCase() === email)) throw new Error("exists");
+  const plots = input.plots.map((p) => p.trim()).filter(Boolean);
+  const personalEmail = input.personalEmail?.trim().toLowerCase() || undefined;
+  const user: User = {
+    id: randomUUID(),
+    email,
+    passwordHash: hashPassword(password),
+    displayName,
+    role: "client",
+    plots,
+    createdAt: new Date().toISOString(),
+    personalEmail,
+    phone: input.phone?.trim() || undefined,
+    notes: input.notes?.trim() || undefined,
+    enquiryId: input.enquiryId?.trim() || undefined,
+  };
+  users.push(user);
+  await writeJson(USERS, users);
+  await fs.appendFile(
+    SEED,
+    `client  ${email}  ${password}${personalEmail ? `  mailbox ${personalEmail}` : ""}\n`,
+    { encoding: "utf8", mode: 0o600 },
+  );
+  return { user: pub(user), password };
+}
+
+/** Keep a live session from going stale while they walk the site. */
+export async function touchSession(token: string | undefined): Promise<PublicUser | null> {
+  const user = await userFromSession(token);
+  if (!user || !token) return user;
+  const sessions = await readJson<Session>(SESSIONS);
+  const s = sessions.find((x) => x.token === token);
+  if (!s) return user;
+  const now = Date.now();
+  const expires = new Date(s.expiresAt).getTime();
+  if (expires - now > 7 * 86400000) return user;
+  s.expiresAt = new Date(now + SESSION_DAYS * 86400000).toISOString();
+  await writeJson(SESSIONS, sessions);
+  return user;
+}
+
+export async function updateDisplayName(userId: string, displayName: string): Promise<PublicUser> {
+  const name = displayName.trim();
+  if (!name) throw new Error("invalid");
+  const users = await readJson<User>(USERS);
+  const u = users.find((x) => x.id === userId);
+  if (!u) throw new Error("missing");
+  u.displayName = name;
+  await writeJson(USERS, users);
+  return pub(u);
+}
+
+export async function setAvatar(userId: string, filename: string): Promise<PublicUser> {
+  const users = await readJson<User>(USERS);
+  const u = users.find((x) => x.id === userId);
+  if (!u) throw new Error("missing");
+  await fs.mkdir(AVATARS, { recursive: true });
+  u.avatar = filename;
+  await writeJson(USERS, users);
+  return pub(u);
 }
 
 export async function findUserByEmail(email: string): Promise<User | null> {

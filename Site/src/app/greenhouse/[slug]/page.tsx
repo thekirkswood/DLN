@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { plotBySlug, enterUrlFor, statusLabel } from "@/lib/plots";
-import { getSessionUser } from "@/lib/session";
-import { canAccessPlot } from "@/lib/auth";
 
 export async function generateMetadata({
   params,
@@ -19,9 +17,7 @@ export default async function PlotStoryPage({
   params: { slug: string };
 }) {
   const plot = await plotBySlug(params.slug);
-  if (!plot || !plot.public) notFound();
-  const user = await getSessionUser();
-  const allowed = user ? canAccessPlot(user, plot.slug) : false;
+  if (!plot || !plot.public || plot.party !== "studio") notFound();
   const live = enterUrlFor(plot);
 
   return (
@@ -39,7 +35,9 @@ export default async function PlotStoryPage({
             alt=""
           />
         </div>
-      ) : null}
+      ) : (
+        <p className="wordmark">{plot.name}</p>
+      )}
       <div className="status">{statusLabel(plot)}</div>
       <h1>{plot.name}</h1>
       <p className="story">{plot.voice}</p>
@@ -52,20 +50,9 @@ export default async function PlotStoryPage({
         </p>
       ) : null}
       <div className="actions">
-        {live && allowed ? (
+        {live ? (
           <Link className="act act-fill" href={live}>
-            Enter the plot
-          </Link>
-        ) : null}
-        {live && user && !allowed ? (
-          <span className="note">This plot isn’t on your account.</span>
-        ) : null}
-        {!user ? (
-          <Link
-            className="act act-line"
-            href={`/login?next=${encodeURIComponent(live || `/greenhouse/${plot.slug}`)}`}
-          >
-            Sign in if this is yours
+            Enter
           </Link>
         ) : null}
       </div>
