@@ -9,6 +9,7 @@ import { CommentBox, InvoiceList, StudioDesk } from "@/components/StudioDesk";
 import { isLocalHandle } from "@/lib/handles";
 import { listEnquiries } from "@/lib/enquiries";
 import { commentsFor, plansFor } from "@/lib/plans";
+import { labHostFromHeaders } from "@/lib/lab";
 
 export const metadata = { title: "Account" };
 export const dynamic = "force-dynamic";
@@ -18,6 +19,7 @@ export default async function AccountPage() {
   if (!user) redirect("/login?next=/account");
   await rollDueInvoices();
   const studio = isStudio(user);
+  const lab = labHostFromHeaders();
   const plots = await allPlots();
   const allClientPlots = await clientPlots();
   const sites = allClientPlots.filter((p) => canAccessPlot(user, p.slug));
@@ -53,6 +55,7 @@ export default async function AccountPage() {
           invoices={invoices}
           comments={comments}
           plans={plans}
+          lab={lab}
         />
       ) : (
         <>
@@ -119,8 +122,7 @@ export default async function AccountPage() {
           <h2>Various Titles</h2>
           {titles?.grant ? (
             <p className="body bill-note">
-              Paying customer — {titles.grant === "full" ? "full resource" : "section"}.
-              This Design Lab North login is the one that will open Various Titles.
+              You have access — {titles.grant === "full" ? "the full resource" : "a section"}.
             </p>
           ) : titles?.pendingInvoiceId ? (
             <p className="body bill-note">
@@ -129,8 +131,7 @@ export default async function AccountPage() {
             </p>
           ) : (
             <p className="body bill-note">
-              Various Titles is billed here. Once a line is paid, this same login
-              opens the resources.
+              Nothing unlocked on Various Titles yet.
             </p>
           )}
 

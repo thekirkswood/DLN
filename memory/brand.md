@@ -17,9 +17,17 @@ Never put the black-field JPEG on a light page. Never recolour the glyphs.
 
 ## Type
 
-**T-Star** (Light 300 / Medium 500 / Bold 700 / Heavy 800) via `next/font/local`.  
-Fallback: `"T Star", "Helvetica Neue", Helvetica, Arial, sans-serif`.  
-Body mostly Light/Medium. Heavy is for rare display, not buttons. Plain text. No Google faces, no Inter-as-identity.
+**[Blender](https://binnenland.ch/typeface/blender#overview)** by Nik Thoenen / Binnenland. Self-hosted `next/font/local`. Not T-Star. No Google faces.
+
+| File | Weight | Use |
+|---|---|---|
+| `Site/public/fonts/Blender-Book.woff2` | 400 | Body, lede |
+| `Site/public/fonts/Blender-BookItalic.woff2` | 400 italic | Emphasis |
+| `Site/public/fonts/Blender-Medium.woff2` | 500 | Kickers, nav, buttons |
+| `Site/public/fonts/Blender-Bold.woff2` | 700 | Subheads, names, strong |
+| `Site/public/fonts/Blender-Strong.woff2` | 900 | Page titles, offer columns |
+
+Fallback: `"Blender", "Helvetica Neue", Helvetica, Arial, sans-serif`. T-Star files stay in `public/fonts/` unused.
 
 ## Ground (not “theme”)
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export function CloseEnquiry({ id }: { id: string }) {
@@ -139,31 +139,9 @@ export function ProfileForm({
     router.refresh();
   }
 
-  async function onPhoto(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError("");
-    const file = new FormData(e.currentTarget).get("file");
-    if (!(file instanceof File) || !file.size) return;
-    setPending(true);
-    const data = new FormData();
-    data.set("file", file);
-    const res = await fetch("/api/account/avatar", { method: "POST", body: data });
-    setPending(false);
-    if (!res.ok) {
-      setError("Picture didn’t take. JPEG, PNG or WebP, under 2MB.");
-      return;
-    }
-    router.refresh();
-  }
-
   return (
     <div className="profile-card">
-      {hasAvatar ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img className="avatar" src={`/api/account/avatar/${userId}`} alt="" />
-      ) : (
-        <div className="avatar avatar-empty" aria-hidden />
-      )}
+      <AvatarSlot userId={userId} hasAvatar={hasAvatar} onBusy={setPending} onError={setError} />
       <div>
         <form onSubmit={onName}>
           <label htmlFor="displayName">Name</label>
@@ -177,15 +155,83 @@ export function ProfileForm({
             {pending ? "…" : "Save"}
           </button>
         </form>
-        <form className="photo-form" onSubmit={onPhoto}>
-          <label htmlFor="photo">Picture</label>
-          <input id="photo" name="file" type="file" accept="image/jpeg,image/png,image/webp" />
-          <button type="submit" disabled={pending}>
-            Upload
-          </button>
-        </form>
         {error ? <p className="err">{error}</p> : null}
       </div>
+    </div>
+  );
+}
+
+export function AvatarSlot({
+  userId,
+  hasAvatar,
+  forOthers,
+  onBusy,
+  onError,
+}: {
+  userId: string;
+  hasAvatar: boolean;
+  forOthers?: boolean;
+  onBusy?: (v: boolean) => void;
+  onError?: (msg: string) => void;
+}) {
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [shown, setShown] = useState(hasAvatar);
+  const [bust, setBust] = useState(() => Date.now());
+
+  useEffect(() => {
+    setShown(hasAvatar);
+    setBust(Date.now());
+  }, [userId, hasAvatar]);
+
+  async function onPick(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.currentTarget.files?.[0];
+    e.currentTarget.value = "";
+    if (!file) return;
+    setError("");
+    onError?.("");
+    setBusy(true);
+    onBusy?.(true);
+    const data = new FormData();
+    data.set("file", file);
+    if (forOthers) data.set("userId", userId);
+    const res = await fetch("/api/account/avatar", { method: "POST", body: data });
+    setBusy(false);
+    onBusy?.(false);
+    if (!res.ok) {
+      const msg = "Picture didn’t take. JPEG, PNG or WebP, under 8MB.";
+      setError(msg);
+      onError?.(msg);
+      return;
+    }
+    setShown(true);
+    setBust(Date.now());
+    router.refresh();
+  }
+
+  return (
+    <div className="avatar-block">
+      <label className={shown ? "avatar-slot" : "avatar-slot is-empty"}>
+        {shown ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            className="avatar"
+            src={`/api/account/avatar/${userId}?t=${bust}`}
+            alt=""
+          />
+        ) : (
+          <span className="avatar avatar-empty" aria-hidden />
+        )}
+        <span className="avatar-veil">{busy ? "…" : "Upload image here"}</span>
+        <input
+          type="file"
+          accept="image/jpeg,image/jpg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
+          disabled={busy}
+          onChange={onPick}
+        />
+      </label>
+      {!onError && error ? <p className="err">{error}</p> : null}
     </div>
   );
 }

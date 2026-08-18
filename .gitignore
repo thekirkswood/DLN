@@ -9,6 +9,8 @@ _meta/billing/
 _meta/enquiries/
 _meta/plans/
 _meta/secrets/
+_meta/lab-inbox/
+_meta/lab-houses/
 **/*.pem
 **/*.key
 SEED.txt

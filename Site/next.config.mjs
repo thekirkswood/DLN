@@ -1,5 +1,19 @@
+import os from "node:os";
+
+function lanDevOrigins() {
+  const hosts = new Set(["localhost", "127.0.0.1", "[::1]"]);
+  for (const addrs of Object.values(os.networkInterfaces())) {
+    for (const a of addrs || []) {
+      if (a.internal) continue;
+      hosts.add(a.family === "IPv6" ? `[${a.address}]` : a.address);
+    }
+  }
+  return [...hosts];
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  allowedDevOrigins: lanDevOrigins(),
   async headers() {
     return [
       {

@@ -368,6 +368,19 @@ export async function login(
   return { user: pub(user), token };
 }
 
+/** Plot logins: Ewan and Dave only. Clients on this book stay off the house staff door. */
+export async function verifyStudioLogin(
+  email: string,
+  password: string,
+): Promise<PublicUser | null> {
+  await ensure();
+  const user = await findUserByEmail(email);
+  if (!user || !verifyPassword(password, user.passwordHash)) return null;
+  const pubUser = pub(user);
+  if (!isStudio(pubUser)) return null;
+  return pubUser;
+}
+
 export async function userFromSession(
   token: string | undefined,
 ): Promise<PublicUser | null> {

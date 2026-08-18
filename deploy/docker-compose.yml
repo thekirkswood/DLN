@@ -20,6 +20,7 @@ services:
       - web
       - plot-modyu
       - plot-swarm
+      - plot-titles
 
   # Answers DNS only while the registrar NS are the plot hosts.
   # Also needs IONOS Cloud Panel: allow 53/tcp and 53/udp. UFW alone is not enough.
@@ -48,6 +49,7 @@ services:
       DLN_SMTP_PASS: ${DLN_SMTP_PASS:-}
       DLN_ENQUIRE_TO: ${DLN_ENQUIRE_TO:-build@designlabnorth.com}
       DLN_ENQUIRE_FROM: ${DLN_ENQUIRE_FROM:-}
+      TITLES_PUBLIC_URL: ${TITLES_PUBLIC_URL:-https://varioustitles.com}
     volumes:
       - ${DLN_ACCOUNTS_DIR:-../_meta/accounts}:/app/_meta/accounts
       - ${DLN_BILLING_DIR:-../_meta/billing}:/app/_meta/billing
@@ -67,6 +69,12 @@ services:
       dln.plot: modyu
     volumes:
       - ${MODYU_ACCOUNTS_DIR:-/srv/dln/data/modyu-accounts}:/app/_meta/accounts
+      - ${MODYU_ORDERS_DIR:-/srv/dln/data/modyu-orders}:/app/_meta/orders
+      - ${MODYU_ANALYTICS_DIR:-/srv/dln/data/modyu-analytics}:/app/_meta/analytics
+    environment:
+      MODYU_COOKIE_SECURE: ${MODYU_COOKIE_SECURE:-true}
+      DLN_ORIGIN: ${MODYU_DLN_ORIGIN:-http://web:3000}
+      DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-https://designlabnorth.com}
     expose:
       - "3000"
 
@@ -81,11 +89,32 @@ services:
     labels:
       dln.plot: swarm
     environment:
-      CORS_ORIGIN: ${SWARM_CORS_ORIGIN:-https://swarmfund.designlabnorth.com}
+      CORS_ORIGIN: ${SWARM_CORS_ORIGIN:-https://swarmfund.com,https://www.swarmfund.com,https://swarmfund.designlabnorth.com}
       COOKIE_PATH: ${SWARM_COOKIE_PATH:-/}
       SWARMFUND_DB: /data/swarmfund.sqlite
+      BUILDING_LOCK: ${SWARM_BUILDING_LOCK:-true}
+      DLN_ORIGIN: ${SWARM_DLN_ORIGIN:-http://web:3000}
+      DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-https://designlabnorth.com}
+      SWARM_PUBLIC_URL: ${SWARM_PUBLIC_URL:-https://swarmfund.com}
+      SF_COOKIE_SECURE: ${SWARM_COOKIE_SECURE:-true}
     volumes:
       - ${SWARM_DATA_DIR:-/srv/dln/data/swarm}:/data
+    expose:
+      - "3000"
+
+  plot-titles:
+    build:
+      context: ${TITLES_DIR:-/srv/dln/plots/various-titles}
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    labels:
+      dln.plot: various-titles
+    environment:
+      DLN_ORIGIN: ${TITLES_DLN_ORIGIN:-http://web:3000}
+      DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-https://designlabnorth.com}
+      VT_PUBLIC_URL: ${TITLES_PUBLIC_URL:-https://varioustitles.com}
+      VT_COOKIE_DOMAIN: ${TITLES_COOKIE_DOMAIN:-}
+      VT_COOKIE_SECURE: ${TITLES_COOKIE_SECURE:-true}
     expose:
       - "3000"
 

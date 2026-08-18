@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
           text: [
             `Hello ${created.user.displayName},`,
             "",
-            "Here is your Design Lab North login. The same address opens Various Titles when you are on that book.",
+            "Here is your Design Lab North login.",
             "",
             `Sign in: ${signIn.replace(/\/$/, "")}/login`,
             `Login: ${created.user.email}`,

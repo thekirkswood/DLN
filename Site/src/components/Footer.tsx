@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { GroundSwitch } from "@/components/GroundSwitch";
 
 export function Footer() {
+  const path = usePathname() || "";
+  if (/^\/lab\/[^/]+/.test(path) && !path.includes("/admin")) return null;
   return (
     <footer className="site-footer wrap">
       <span>Design Lab North</span>

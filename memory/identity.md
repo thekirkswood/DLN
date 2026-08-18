@@ -18,7 +18,7 @@ Work is staged **offline**. Notes become one plan. Ewan runs the plan when it is
 
 ## What this is not
 
-Not a client product. Not ModYu, SwarmFund, Various Titles, or any plot’s public brand. Not an in-site CMS — building happens in Cursor, on the PC now, later a home server, then GitHub, then the VPS. Public copy for Various Titles: a resource for people to learn, a life’s work. Do not use the negative “not a shop” on the greenhouse.
+Not a client product. Not ModYu, SwarmFund, Various Titles, or any plot’s public brand. Not an in-site CMS — building happens in Cursor, on the PC now, later a home server, then GitHub, then the VPS. Public copy for Various Titles: a place for ideas about marketing and branding, written so people can learn. Do not say same login, shared billing, “further facets as they are written,” or “not a shop.”
 
 ## Voice (public)
 
@@ -26,8 +26,8 @@ Conversational, from our side. Plural: Design Lab North are. Pleasure of the wor
 
 ## People
 
-- Ewan — designer; builds the sites in this house, in Cursor on this PC. Named on `/practice` equally with Dave. Login `ewan@designlabnorth.com` (owner). Full desk. Older `.local` seed may still exist on the VPS until dropped.
-- Dave Kirkwood — designer, Dave Kirkwood Studio, formerly Walsh Simmons, lecturer of branding. Named on `/practice` equally with Ewan. Login `dave@designlabnorth.com` (studio). Full desk: every plot, onboard, invoices. Do not invent extra personal biography.
+- Ewan Kirkwood — builder. Developments that belong to the business: integrated systems (mapping, delivery, stock), AI models for the operation, social and brand development, and the sites that carry them. Named on `/practice` after Dave, equal. Login `ewan@designlabnorth.com` (owner). Full desk. Public word is **builder**, not designer. Do not put Cursor or the desk on the public page.
+- Dave Kirkwood — designer, Dave Kirkwood Studio, lecturer of branding. Named on `/practice` first, equal with Ewan. Login `dave@designlabnorth.com` (studio). Full desk: every plot, onboard, invoices. Public copy does not say formerly Walsh Simmons — the solo practice has stood long enough. Do not invent extra personal biography.
 - Agents in this repo — builders with long-term memory. Not generic page-makers.
 
 Studio logins use `@designlabnorth.com` (real mail). Client logins may use a real email or an internal `@designlabnorth.local` handle — that is not a mailbox; it is the name on this book, and the same name they use for Various Titles. Do not put passwords in this file.
@@ -36,7 +36,7 @@ Studio logins use `@designlabnorth.com` (real mail). Client logins may use a rea
 
 - **Swarm Fund** — ours. Public product: `https://swarmfund.com` (own server). Growing copy on this VPS (`plot-swarm`, `swarmfund.designlabnorth.com`). Source: `/home/main/SwarmFund` locally, `/srv/dln/plots/swarm` on the VPS. Ewan handles git. Greenhouse enter is swarmfund.com, not the DLN subdomain.
 - **Choozlist** — ours. Listed, growing, open to beta testers (`create@wishwell.uk`). All-in-one life registry. Own host; no DLN container until Ewan uploads the repo. Internals are an agentic search app — not public copy.
-- **Various Titles** — ours. Resource centre. A life’s work, for people to learn marketing fundamentals and branding. Sibling house `/home/main/VariousTitles`. We host it so Design Lab North customers log in with their DLN address; billing stays on this book. Also reached through **Strategy**. Greenhouse listing first (wordmark until Ewan drops a logo). External people can come in too — they still get a DLN account and are billed here. Do not invent a domain. Public copy: no “not a shop”.
+- **Various Titles** — ours. A place for ideas: marketing and branding, written so people can learn. Sibling house `/home/main/VariousTitles`. Public host: `https://varioustitles.com` on this VPS (`plot-titles`). Not a designlabnorth.com subdomain. **Now:** public wall is Building. Only Ewan and Dave walk in, on this book’s session. Machinery (not public copy): billing stays on this book; `titlesGrant` when it opens. Also reached through **Strategy**. Greenhouse listing first. Mark locked 2026-08-17 (geometric VT, mute + white plates). Public copy: no same-login, no shared-billing, no “not a shop.”
 
 Do not paste their full sites into DLN. Greenhouse click goes to the product domain when one exists.
 
@@ -48,4 +48,4 @@ Do not paste their full sites into DLN. Greenhouse click goes to the product dom
 
 ## Practice
 
-`/practice` is the information page. **50/50:** Ewan and Dave Kirkwood, equal. Dave’s credentials stay (Dave Kirkwood Studio, formerly Walsh Simmons, lecturer of branding). Ewan is the designer who builds here — do not invent awards or a CV. Public offering line is **brands** and identities, not marks. Both studio accounts have the full desk.
+`/practice` is the information page. **50/50:** Dave Kirkwood first, then Ewan Kirkwood, equal. Dave’s public credentials: Dave Kirkwood Studio, lecturer of branding, LCC advisor — not formerly Walsh Simmons. Ewan’s public word is **builder**. Line: developments that belong to the business; integrated systems (mapping, delivery, stock); AI models for the operation, social and brand development; and the sites that carry them. Do not mention Cursor or the desk. Do not invent awards. Public offering line is **brands** and identities, not marks. Both studio accounts have the full desk.

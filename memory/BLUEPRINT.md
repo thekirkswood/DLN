@@ -17,7 +17,7 @@ Two kinds of plot:
 | Party | Who | Greenhouse | Hosting |
 |---|---|---|---|
 | **Client** | Someone we are building for (first: ModYu) | Not listed. Sites live on the account. | Subdomain of designlabnorth.com while it grows, then migrate. |
-| **Studio** | Ours (Swarm Fund, Choozlist, Various Titles) | Public product stories. Enter the **product domain**, not a DLN subdomain. | Swarm: live at swarmfund.com (own server). DLN `plot-swarm` is a growing copy until cutover. Choozlist: own house until Ewan uploads. Various Titles: ours — we host it so a Design Lab North login opens the resources. Not a plot host until the house is built. |
+| **Studio** | Ours (Swarm Fund, Choozlist, Various Titles) | Public product stories. Enter the **product domain**, not a DLN subdomain. | Swarm: live at swarmfund.com (own server). DLN `plot-swarm` is a growing copy until cutover. Choozlist: own house until Ewan uploads. Various Titles: `https://varioustitles.com` on this VPS (`plot-titles`). Public wall is Building; studio enter on this book’s session. |
 
 We want more **client** plots. Do not invent studio names or clients. Do not put DAA on the wall until Ewan names them.
 
@@ -25,46 +25,58 @@ We want more **client** plots. Do not invent studio names or clients. Do not put
 
 | Path / host | Who | What |
 |---|---|---|
-| `designlabnorth.com` `/` | public | Small Design Lab North. Three columns (swipe on a phone): Design, Strategy, Build. Each has clickable reasons. Form to tell us who they are. No journey copy. |
+| `designlabnorth.com` `/` | public | Small Design Lab North. Three columns when they lock; one full centred slide with a swipe when they cannot. Design, Strategy, Build. Clickable reasons. Form. No journey copy. |
 | `/design` `/strategy` `/build` | public | The offer, and the same form. Other offers are open — not a funnel. |
-| `/practice` | public | About us. Old hub description. Ewan and Dave **50/50**. Selected clients. Form. |
+| `/practice` | public | About us. Dave Kirkwood first, then Ewan Kirkwood, **50/50**. Selected clients. Form. |
 | `/greenhouse` | public | Our products. No named list in the intro. Various Titles first. |
 | `/greenhouse/[slug]` | public | Studio product story. Enter the product domain if one exists. |
 | `/account` | cookie | Client: profile, sites, notes, shipped patch notes, invoices. Studio/owner: desk — current builds to jump into, waiting enquiries, pick a person (sites, notes, sweep-to-plan, invoice, VT), bring someone on from an enquiry. Unauth → `/login`. |
 | `/account/invoices/[id]` | cookie | One invoice. A4 print. Client if it is theirs; studio sees all. |
 | `/not-yours` | cookie | Blanket: not yours. Home after 3 seconds. |
 | `/preview/[slug]` | cookie | Redirects to the live plot URL if one exists. |
-| `modyu.designlabnorth.com` | cookie | ModYu plot. Unauth → login. Wrong account → `/not-yours`. Unpaid due invoice older than seven days → shut for the client. Studio still in. Not on the greenhouse. |
+| `modyu.designlabnorth.com` | public + ModYu cookie | Self-contained plot (`plot-modyu`). Own accounts (`modyu_session`). Same logins as local `:3000`. Not behind DLN `forward_auth` — that gate blocked ModYu’s own login. Swarm growing copy stays gated. |
 | `swarmfund.designlabnorth.com` | cookie | Growing Swarm plot on this VPS. Public enter is `https://swarmfund.com`. |
 | `daa.designlabnorth.com` | public | Reserved. Redirects to the hub. |
-| `/login` `/logout` | public / session | Cookie `dln_session`. Header Sign in → `/account`. Studio addresses `@designlabnorth.com`. |
+| `varioustitles.com` | public: building. Studio: DLN session copied onto this host | Resource centre (`plot-titles`). Not behind `forward_auth`. Enter bounce: `/api/auth/titles-enter`. www redirects to apex. |
+| `/login` `/logout` | public / session | Cookie `dln_session`. Header Sign in → `/account` (studio on this PC → `/lab`). Studio addresses `@designlabnorth.com`. |
 | `/privacy` `/terms` | public | Small. Real. Footer. |
-| Cursor / this repo | studio | The actual design interface. No in-site builder UI. |
-| `/home/main/VariousTitles` | studio | Sibling house. Own memory. Will be hosted with us. DLN email is the login. Billing stays on this book. |
+| `/lab` | studio, this PC (`localhost` or its LAN address on `:3010`) | Campus door. Units as large buttons. A unit app runs only while occupied. 404 on the public host. Dave and Ewan both enter. |
+| `/lab/[slug]` | studio, this PC | Unit station: the house in a frame under `/go/{slug}/`, note well on the exact page. `/modyu` and `/modyu/admin` alias here. |
+| `/lab/[slug]/admin` | studio, this PC | Builder queue for **that** unit’s Cursor (writes that folder’s inbox + `wake.flag`). |
+| `/admin` | studio, this PC | **Campus building site** — queue for this Design Lab North Cursor (`_meta/lab-inbox/`). Not a public CMS. |
+| Cursor / this repo | studio | The actual design interface. `/admin` on 3010 talks to this chat. `/lab/modyu/admin` talks to the ModYu folder’s chat. |
+| Offline lab | studio, this PC | Spec `memory/offline-lab.md` + `ops/lab.md`. One user-facing port. Live VPS unchanged. |
+| `/home/main/VariousTitles` | studio | Sibling house. Public: `https://varioustitles.com` (`plot-titles` on this VPS). DLN email is the login. Billing stays on this book. |
 
 ## Auth
 
-- Cookie: `dln_session` httpOnly. Domain `.designlabnorth.com`. `Secure` on HTTPS. Path `/`. 90 days, refreshed while they walk the site (`/api/auth/me` on each page). Root layout is always dynamic — do not cache a signed-out header.
+- Cookie: `dln_session` httpOnly. Domain `.designlabnorth.com`. `Secure` on HTTPS. Path `/`. 90 days, refreshed while they walk the site (`/api/auth/me` on each page). Root layout is always dynamic — do not cache a signed-out header. Logout and other server redirects use `DLN_PUBLIC_URL` / forwarded host, never `0.0.0.0:3000`.
 - Store: `_meta/accounts/` and `_meta/billing/` on VPS `/srv/dln/data/accounts` and `/srv/dln/data/billing`. Gitignored. Avatars in `_meta/accounts/avatars/`. Seed file `SEED.txt`.
 - Studio logins: `ewan@designlabnorth.com` (owner), `dave@designlabnorth.com` (studio). Both have the full desk: current builds, onboard, invoices, every plot.
+- Copyable login sheets live in gitignored `_meta/accounts/sheets/` (Dave’s computer only for his; Ewan’s master has both studio pairs, live and local). Never put the passwords in this file.
+- **Blanket:** those two logins are studio access on every plot host and subdomain login. Client books on live sites (ModYu patients/clinics, and so on) stay theirs. Hub endpoints: `GET /api/auth/studio`, `POST /api/auth/studio-verify`. Plots ask the hub; they do not copy passwords.
+- ModYu ops: Anne Marie is a **client** on this book (`modyu@designlabnorth.com`, plot `modyu` only — not the studio desk). The same email is her ModYu admin login; **separate password**. Rotation at launches / key events is later.
 - Client handles: a real email, or an internal `@designlabnorth.local` address. `.local` is not a mailbox — it is the login on this book, and the same login for Various Titles. Personal mailbox is stored separately; onboard generates login + password and sends them there.
 - Roles: `owner` (all), `studio` (all), `client` (listed `plots[]` only).
 - Various Titles: DLN customers log in with their Design Lab North address. Billing stays on this book. They must be a paying VT customer (a paid `titlesGrant` line). Bank-account link is the next rail. People who only want VT still get a DLN account and are billed here.
 - Gate: `GET /api/auth/gate?plot={slug}` → 200 if allowed, 302 `/login` if unauth, 302 `/not-yours` if wrong account or plot shut for unpaid (seven days after due). Studio/owner always 200 when signed in.
-- Titles: `GET /api/auth/titles` → session grant for the VT house (`section` \| `full` \| none).
-- Edge (Caddy) `forward_auth` to that gate before proxying a plot.
+- Titles: `GET /api/auth/titles` → session grant for the VT house (`section` \| `full` \| none), plus `studio`. `GET /api/auth/titles-enter` copies a studio session onto varioustitles.com. Clients are sent to the building page.
+- Swarm public (`swarmfund.com`): same pattern. `GET /api/auth/swarm` → `{ ok, studio }`. `GET /api/auth/swarm-enter` copies a studio session onto swarmfund.com. `GET /api/auth/swarm-consume` for the one-time code. Public wall is the Swarm Fund mark and “Building.” until Ewan/Dave enter. Clients signed in here still see Building.
+- Edge (Caddy) `forward_auth` to that gate before proxying a **gated** plot (Swarm growing copy). ModYu’s host is ungated so its own account book can sign people in. Various Titles at `varioustitles.com` is ungated at the edge — the app shows Building unless a studio session is copied on.
 
 ## Desk (studio)
 
-Pick a person. Everything for them lives in that panel: their sites (jump in), notes they left, sweep those notes into one plan, invoice, Various Titles. Waiting list is people who wrote in — Bring on uses what they already typed. We generate the login and password; SMTP sends it to their mailbox; the desk always shows the copy once.
+Pick a person. Everything for them lives in that panel: picture, their sites (jump in), notes they left, sweep those notes into one plan, invoice, Various Titles. Waiting list is people who wrote in — Bring on uses what they already typed. We generate the login and password; SMTP sends it to their mailbox; the desk always shows the copy once.
 
-**Current builds** at the top of the desk: ModYu, Swarm on our host (`swarmfund.designlabnorth.com`), Swarm public (`swarmfund.com`), and any other hosted plot. Dave opens them from here.
+**Current builds** at the top of the desk: on this PC, **Open here** jumps into `/lab/{slug}`. That page starts the house. Live URLs stay for the hosted copy. Greenhouse / Strategy **Enter** on this PC goes to the same station; public `designlabnorth.com` still enters the live host.
 
 ## Live host, notes, plan, staging
 
 The service they buy after an initial sit-down and an initial build is a **live host**: a growing copy on our subdomain. They leave notes (on the DLN account now; later also at the foot of plot pages — studio does not need a comment admin on the subdomain). An agent reads the notes, sweeps them into **one plan**. Ewan edits the plan, marks it ready, runs it **offline**. Nothing is pushed live until that bigger update is happy. Shipped plans carry **patch notes** (their notes, rewritten, plus what we added).
 
 Do not live-edit hosted plots on every save. Offline staging is the point.
+
+**Offline lab (this PC):** user-facing port is `:3010` — the **campus**. Units (ModYu, Various Titles, Swarm, new stations) are their own folders, like plots on an industrial estate. Loading a unit holds it and starts its app. When occupancy drops to zero, that app sleeps. The unit’s inbox still listens (`wake.flag` in that folder). `/admin` is the campus building site. Which Cursor owns which queue: `memory/cross-house-comms.md`. Live VPS is the upload target, not the editor. Spec: `memory/offline-lab.md`. How to run: `ops/lab.md`. Do not rebase **live** plots onto hub paths. A later PC upgrade / remote workstation keeps this shape — campus always on, units on occupancy.
 
 ## Billing
 
@@ -82,8 +94,8 @@ Do not live-edit hosted plots on every save. Offline staging is the point.
 |---|---|
 | Studio site | Next.js 14 App Router, TypeScript, `Site/` (local `:3010`) |
 | Edge | Caddy. HTTPS live (`Caddyfile.prod`). Plot `/assets` and `/_next/static` skip the gate. Watchdog keeps HTTP up. |
-| Plots | One compose service per **hosted** plot. ModYu at `modyu.designlabnorth.com`. Swarm growing copy at `swarmfund.designlabnorth.com`. |
-| Local | `npm run dev` in `Site/` (`:3010`). ModYu stays `:3000`. |
+| Plots | One compose service per **hosted** plot. ModYu at `modyu.designlabnorth.com`. Swarm growing copy at `swarmfund.designlabnorth.com`. Various Titles at `varioustitles.com` (`plot-titles`). |
+| Local | Campus `npm run dev` in `Site/` (`:3010`). Unit apps start on occupancy (ModYu `:3000`, VT `:3020`, Swarm `:5173` + api `:8787`) and sleep at zero. |
 | VPS | Ubuntu 26, `/srv/dln`, Docker Engine + compose |
 | Source | This PC → GitHub `thekirkswood/DLN` → VPS. Rsync excluding `.git`, `deploy/.env`, accounts, billing. |
 | DNS | Livedns (`ns1.livedns.co.uk`). VPS is IONOS; DNS is not. |
@@ -115,6 +127,7 @@ ops/                    host facts, no secrets
   data/swarm/     Swarm Fund sqlite
   plots/modyu    ModYu source bind for image builds
   plots/swarm    Swarm Fund source bind for image builds
+  plots/various-titles  Various Titles source bind (`plot-titles`)
 ```
 
 Host: `82.165.5.84` (IONOS). SSH key `~/.ssh/id_ed25519_dln`. Secrets never in git or memory prose.
@@ -132,17 +145,17 @@ Host: `82.165.5.84` (IONOS). SSH key `~/.ssh/id_ed25519_dln`. Secrets never in g
 | Desk | Owner + studio: pick a person; current builds; bring on from an enquiry |
 | Live host | Growing copy on our subdomain. Notes in, we come in, they watch. |
 | Plan | Swept notes. Run offline. Upload when happy. Patch notes on ship. |
-| Various Titles | Resource centre. A life’s work, for people to learn. Sibling house, hosted with us. DLN email is the login. Billed on this book. |
+| Various Titles | Resource centre. A life’s work, for people to learn. Sibling house, hosted at varioustitles.com on this VPS. DLN email is the login. Billed on this book. |
+| Campus | This PC’s hub on `:3010`. Design Lab North. Always on. |
+| Unit | One house folder + its Cursor + its app while occupied (ModYu, Various Titles, Swarm, new stations). |
 | Migrate | Client plot leaves onto their own server/URL. Same desk, different upload target. |
 
 ## Out of scope (now)
 
 - GitHub Actions deploy
-- In-site CMS / designer UI
 - Card checkout / Stripe (invoice book is live; bank-account link next)
 - Hosting Choozlist on this VPS
-- Various Titles public site, paywall UI, screenshot blocking (DIRECTION on that house — login sync and billing are on DLN now)
-- Comment widgets on plot pages (hub notes are live; agent scrape of plot pages later)
 - Auto-deploy from a plan. Offline first. Upload is a decision.
 - Listing DAA until Ewan names them as a client
-- Inventing a Various Titles logo or domain
+- Inventing extra studio marks
+- Public Cursor / in-site CMS on the live hosts

@@ -128,3 +128,78 @@
 {"t":"2026-08-17T16:40:00+01:00","k":"add","p":"_meta/plans docker-compose gitignore","s":"notes+plans store; volume; rsync exclude","d":"shape of the work"}
 {"t":"2026-08-17T17:05:00+01:00","k":"mod","p":"Footer Header globals.css","s":"Paper/Ink cut in footer bar","d":"ewan: slider in bottom bar"}
 {"t":"2026-08-17T17:05:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"ground switch is footer, not header","d":"standing"}
+{"t":"2026-08-17T17:10:00+01:00","k":"mod","p":"greenhouse/plots.json greenhouse.md dln-voice","s":"Swarm: work on this hive brand","d":"ewan: with→on"}
+{"t":"2026-08-17T17:15:00+01:00","k":"mod","p":"practice/page.tsx identity BLUEPRINT","s":"Dave first; Ewan Kirkwood; systems copy; no Cursor","d":"ewan: tmi; sell in-house systems"}
+{"t":"2026-08-17T17:15:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"practice: Dave then Ewan Kirkwood; no Cursor/desk on public","d":"standing"}
+{"t":"2026-08-17T17:16:00+01:00","k":"mod","p":"practice/page.tsx identity DIRECTIONS","s":"Ewan line: business-owned systems, AI, social/brand, sites","d":"ewan: steer the bio"}
+{"t":"2026-08-17T17:20:00+01:00","k":"mod","p":"practice/page.tsx identity DIRECTIONS","s":"builder not designer; drop Walsh Simmons on public Dave","d":"ewan: not passive; solo long enough"}
+{"t":"2026-08-17T17:25:00+01:00","k":"mod","p":"HomeOffer globals.css","s":"home offers: full centred snap slides until 1040","d":"ewan: ugly cut-off swipe"}
+{"t":"2026-08-17T17:37:00+01:00","k":"mod","p":"HomeOffer.tsx globals.css","s":"home offers: full-viewport snap columns until 1040, no peek","d":"ewan: physical swipe, centred, independent"}
+{"t":"2026-08-17T17:55:00+01:00","k":"mod","p":"AccountBilling avatar API StudioDesk","s":"avatar: hover upload on picture; sniff bytes; studio sets person","d":"ewan: whatsapp png was jpeg; form did not take"}
+{"t":"2026-08-17T17:55:00+01:00","k":"dir","p":"memory/DIRECTIONS.md BLUEPRINT.md","s":"person picture: hover upload image here","d":"standing"}
+{"t":"2026-08-17T17:55:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"desk person panel includes picture","d":"ewan: modyu profile pic"}
+{"t":"2026-08-17T18:05:00+01:00","k":"mod","p":"deploy/docker-compose.yml","s":"plot-modyu persists orders+analytics; cookie secure","d":"anne marie ops desk on live plot"}
+{"t":"2026-08-17T18:35:00+01:00","k":"bp","p":"memory/BLUEPRINT.md greenhouse Caddyfile.prod Caddyfile.ip","s":"ModYu host ungated; own modyu_session; Swarm stays gated","d":"ewan: live subdomain must work like localhost"}
+{"t":"2026-08-17T18:35:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"do not forward_auth ModYu; it steals the plot login","d":"standing"}
+{"t":"2026-08-17T19:00:00+01:00","k":"bp","p":"memory/BLUEPRINT.md identity greenhouse plots.json compose Caddyfile.prod","s":"plot-titles at varioustitles.com ungated; greenhouse Enter pointed","d":"ewan: VT A records to this VPS; own domain not a subdomain"}
+{"t":"2026-08-17T19:00:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"varioustitles.com on this VPS; no forward_auth; no invented logo","d":"standing"}
+{"t":"2026-08-17T19:00:00+01:00","k":"mod","p":"Site/src/app/strategy/page.tsx WORKSTREAM ops/vps.md","s":"Strategy Enter to varioustitles.com; workstream 11 hosted","d":"product domain is the enter"}
+{"t":"2026-08-17T19:08:00+01:00","k":"add","p":"Site/public/plots/various-titles.png various-titles-white.png","s":"VT mute and white plates on the greenhouse","d":"ewan dropped the mark"}
+{"t":"2026-08-17T19:08:00+01:00","k":"mod","p":"greenhouse/plots.json greenhouse.md identity DIRECTIONS","s":"VT logos on the plot; story mark larger; row max-height","d":"wordmark replaced by the plate"}
+{"t":"2026-08-17T19:08:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"VT mark locked; do not redraw or recolour","d":"standing"}
+{"t":"2026-08-17T19:17:05+01:00","k":"dir","p":"memory/DIRECTIONS.md identity greenhouse.md","s":"VT public copy is ideas; no same-login on the wall","d":"ewan: do not tell people DLN login or billing is shared"}
+{"t":"2026-08-17T19:17:05+01:00","k":"mod","p":"Site/src/app/strategy greenhouse/plots.json account login practice onboard","s":"VT story as a place for ideas; client-facing copy no shared-login pitch","d":"public silence; desk still names the grant"}
+{"t":"2026-08-17T19:54:09+01:00","k":"dir","p":"memory/DIRECTIONS.md identity greenhouse.md WORKSTREAM BLUEPRINT","s":"VT public is Building; studio bounce titles-enter","d":"ewan: only me and dave; use DLN cookies"}
+{"t":"2026-08-17T19:54:09+01:00","k":"add","p":"Site/src/app/api/auth/titles-enter titles-consume titles-handoff.ts","s":"Studio handoff code copies session onto varioustitles.com","d":"cookie cannot cross registrable domains"}
+{"t":"2026-08-17T19:54:09+01:00","k":"mod","p":"Site/src/app/api/auth/titles/route.ts deploy/docker-compose.yml","s":"titles JSON includes studio; web gets TITLES_PUBLIC_URL","d":"VT gate needs the flag and the callback host"}
+{"t":"2026-08-17T20:00:53+01:00","k":"dir","p":"memory/DIRECTIONS.md WORKSTREAM AGENTS.md","s":"Offline lab brief; run memory/offline-lab.md in this builder","d":"ewan: central host, one port, comments, sniffer, push by origin"}
+{"t":"2026-08-17T20:00:53+01:00","k":"add","p":"memory/offline-lab.md","s":"Full spec: local edge, central /admin from ModYu desk, comments, agent loop, push by origin","d":"one document to run; do not overwrite live VPS"}
+{"t":"2026-08-17T20:00:53+01:00","k":"bp","p":"memory/BLUEPRINT.md greenhouse.md","s":"Offline lab next; comment widgets on local builds; VT github thekirkswood/vt","d":"architecture named; live hosts stay upload-only"}
+{"t":"2026-08-17T20:10:00+01:00","k":"mod","p":"logout/route.ts public-url.ts gate","s":"logout/gate redirect to public host, never 0.0.0.0:3000","d":"ewan: live sign-out dead end"}
+{"t":"2026-08-17T20:10:00+01:00","k":"dir","p":"memory/DIRECTIONS.md BLUEPRINT.md","s":"server redirects use public URL not container bind","d":"standing"}
+{"t":"2026-08-17T20:20:00+01:00","k":"add","p":"Site/public/fonts/Blender-*.woff2","s":"Blender Book/Italic/Medium/Bold/Strong from Binnenland","d":"ewan: all fonts to blender"}
+{"t":"2026-08-17T20:20:00+01:00","k":"mod","p":"layout.tsx globals.css","s":"hub face is Blender; Strong titles, Bold subheads, Book body","d":"ewan: utilise bold variants"}
+{"t":"2026-08-17T20:20:00+01:00","k":"dir","p":"brand.md DIRECTIONS BLUEPRINT dln-voice dln-build offline-lab","s":"hub type Blender Book/Medium/Bold/Strong","d":"standing; T-Star unloaded"}
+{"t":"2026-08-17T21:35:00+01:00","k":"bp","p":"memory/BLUEPRINT.md greenhouse.md WORKSTREAM offline-lab.md","s":"Local lab: :3010 only; /lab door; /admin this Cursor; /lab/{slug}/admin that house","d":"ewan: one port, two logins, stations, page comments, per-folder cursor"}
+{"t":"2026-08-17T21:35:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"One port path click-through; named Ewan/Dave notes; station = folder at /home/main/{slug}","d":"standing; live hosts stay isolated"}
+{"t":"2026-08-17T21:35:00+01:00","k":"add","p":"Site/src/lib/lab.ts lab-inbox.ts lab-guard.ts stations.ts lab-proxy.ts lab-host.ts","s":"Lab registry, per-house inbox+wake, station mkdir, /go proxy","d":"named function; not a stub path"}
+{"t":"2026-08-17T21:35:00+01:00","k":"add","p":"Site/src/app/lab Site/src/app/admin Site/src/app/go Site/src/app/api/lab middleware.ts","s":"Lab door, stations, hub+house desks, localhost gate","d":"404 on public host"}
+{"t":"2026-08-17T21:35:00+01:00","k":"add","p":"Site/src/components/LabDesk.tsx LabComment.tsx LabStation.tsx LabHubDock.tsx OpenStation.tsx","s":"Desk, page notes, iframe chrome, open-station form","d":"Dave: one login, click a house"}
+{"t":"2026-08-17T21:35:00+01:00","k":"mod","p":"Header Footer layout LoginForm StudioDesk account plots.json plot-types globals.css","s":"Lab nav; studio localhost → /lab; desk Open here; comment dock; lab plot fields","d":"two named logins; comments on the page"}
+{"t":"2026-08-17T21:35:00+01:00","k":"mod","p":"VariousTitles/Site/next.config.mjs","s":"BASE_PATH env for lab frame","d":"same-origin /go/various-titles"}
+{"t":"2026-08-17T21:35:00+01:00","k":"add","p":"ops/lab.md ops/start-lab-houses.sh AGENTS.md .gitignore dln-build.mdc","s":"How to run houses with prefix; wake protocol this inbox","d":"do not rsync as Caddy change"}
+{"t":"2026-08-17T21:25:00+01:00","k":"mod","p":"SwarmFund BuildingPage StudioGate studio.js styles Brand.tsx","s":"Public wall is Swarm mark + Building; lock on; studio via DLN session","d":"ewan: VT parking for anyone who is not me or dave"}
+{"t":"2026-08-17T21:25:00+01:00","k":"dir","p":"memory/DIRECTIONS.md greenhouse.md BLUEPRINT.md","s":"Swarm parking: logo + Building; local lock on","d":"standing"}
+{"t":"2026-08-17T21:40:00+01:00","k":"dir","p":"memory/DIRECTIONS.md BLUEPRINT.md dln-build.mdc","s":"Studio door on every plot host is Ewan/Dave DLN logins; client books stay theirs","d":"ewan: blanket rule; not live-site users"}
+{"t":"2026-08-17T21:40:00+01:00","k":"add","p":"Site/src/app/api/auth/studio studio-verify auth.ts","s":"Hub studio check + verify; clients on this book cannot open house staff","d":"plots ask the hub; no password copy"}
+{"t":"2026-08-17T21:40:00+01:00","k":"mod","p":"ModYu hub-studio.ts login auth-server staff-auth admin page","s":"ModYu staff accepts DLN studio cookie or hub verify","d":"Anne Marie and clinics unchanged"}
+{"t":"2026-08-17T21:40:00+01:00","k":"mod","p":"deploy/docker-compose.yml plot-modyu","s":"DLN_ORIGIN on plot-modyu so live host can ask the hub","d":"same as swarm/titles"}
+{"t":"2026-08-17T21:50:00+01:00","k":"dir","p":"memory/DIRECTIONS.md BLUEPRINT.md greenhouse.md","s":"Anne Marie hub login modyu@designlabnorth.com; sheets gitignored; rotation later","d":"ewan: copyable docs; same email ModYu admin other password"}
+{"t":"2026-08-17T21:50:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Anne Marie client on modyu; same email ModYu admin; studio sheets gitignored","d":"not studio desk"}
+{"t":"2026-08-17T21:50:00+01:00","k":"mod","p":"ModYu accounts.ts admin pages AGENTS handoff new-build","s":"Anne Marie staff email to modyu@designlabnorth.com; own password not walkthrough","d":"streamline test+live email; drop .local ops seed"}
+{"t":"2026-08-17T21:50:00+01:00","k":"add","p":"_meta/accounts/sheets (gitignored)","s":"copyable login sheets for Dave, Ewan, Anne Marie","d":"offline on the matching computer; no passwords in memory"}
+{"t":"2026-08-18T13:30:00+01:00","k":"mod","p":"Site/src/lib/lab-host.ts LoginForm middleware next.config.mjs StudioDesk","s":"Lab host is loopback + LAN; Dave on 192.168.x gets /lab","d":"ewan: Daves account no lab; hostname was localhost only"}
+{"t":"2026-08-18T13:30:00+01:00","k":"bp","p":"memory/BLUEPRINT.md offline-lab.md ops/lab.md AGENTS.md dln-build.mdc","s":"Lab door on this PC LAN address; public host still 404","d":"same two studio logins"}
+{"t":"2026-08-18T13:30:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Lab on LAN not only localhost hostname","d":"standing"}
+{"t":"2026-08-18T16:30:00+01:00","k":"add","p":"Site/src/lib/lab-runner.ts api/lab/houses","s":"On-open house runner; isolated cwd/port/prefix","d":"ewan: worker talks to one house; Dave does not start npm"}
+{"t":"2026-08-18T16:30:00+01:00","k":"mod","p":"lab-proxy.ts LabStation lab/page ops/lab.md start-lab-houses.sh","s":"Station waits for house; start-lab-houses is a note","d":"frame no longer 503 because nobody started :3000"}
+{"t":"2026-08-18T16:30:00+01:00","k":"mod","p":"public-url.ts gate/route.ts","s":"Gate login uses hub origin not plot Host","d":"swarmfund.designlabnorth.com unauth looped on /login"}
+{"t":"2026-08-18T16:30:00+01:00","k":"bp","p":"BLUEPRINT.md offline-lab.md WORKSTREAM.md","s":"Lab starts houses on open in own rooms","d":"isolation; RAM is enough; on-open is the shape"}
+{"t":"2026-08-18T16:30:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Houses start when opened; gate hub origin","d":"standing"}
+{"t":"2026-08-18T18:50:00+01:00","k":"add","p":"Site/src/components/EnsureHouse.tsx","s":"Listener starts a house when its page loads","d":"ewan: each folder app on webpage load"}
+{"t":"2026-08-18T18:50:00+01:00","k":"mod","p":"LabStation LabDesk LabComment greenhouse preview strategy StudioDesk lab-runner lab-inbox","s":"Station/builder/greenhouse Enter on this PC launch that house; notes keep the cookie","d":"every page that shows a site"}
+{"t":"2026-08-18T18:50:00+01:00","k":"add","p":"VariousTitles/_meta/lab-inbox SwarmFund/_meta/lab-inbox AGENTS.md","s":"VT and Swarm inboxes + wake protocol","d":"bot talks to each house folder"}
+{"t":"2026-08-18T18:50:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse.md offline-lab.md ops/lab.md AGENTS.md","s":"Lab Enter on this PC; per-house inbox","d":"listener + folder bots"}
+{"t":"2026-08-18T18:50:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Listener per house page; inbox in that folder","d":"standing"}
+{"t":"2026-08-18T18:55:00+01:00","k":"mod","p":"LabDesk LabComment lab/page admin CampusDoors","s":"Campus building site; units are other doors","d":"dave: talk to this house; ewan: campus vs estate"}
+{"t":"2026-08-18T18:55:00+01:00","k":"mod","p":"lab-runner.ts api/lab/houses EnsureHouse lab-proxy","s":"Occupancy hold; unit app sleeps at zero","d":"ewan: load when active, end at 0; listen on inbox"}
+{"t":"2026-08-18T18:55:00+01:00","k":"bp","p":"BLUEPRINT.md offline-lab.md ops/lab.md AGENTS.md dln-build.mdc","s":"Campus vs unit; occupancy; remote workstation later","d":"industrial estate shape"}
+{"t":"2026-08-18T18:55:00+01:00","k":"dir","p":"memory/DIRECTIONS.md WORKSTREAM.md","s":"Campus always on; unit apps on occupancy","d":"standing"}
+{"t":"2026-08-18T18:55:00+01:00","k":"mod","p":"_meta/lab-inbox/messages.json","s":"Dave campus title + interface test stamped done","d":"campus queue received"}
+{"t":"2026-08-18T19:05:00+01:00","k":"mod","p":"LabDesk.tsx EnsureHouse","s":"Unit builder keeps one occupancy hold; shows app starting","d":"remount on queue load cancelled ModYu start"}
+{"t":"2026-08-18T19:05:00+01:00","k":"dir","p":"memory/DIRECTIONS.md AGENTS.md","s":"Campus chat does not stamp another unit queue","d":"ewan: copy same message into ModYu Cursor"}
+{"t":"2026-08-18T19:10:00+01:00","k":"add","p":"memory/cross-house-comms.md","s":"Campus map: who owns which Cursor queue","d":"twin of ModYu file; dual post wake 6ec8202d"}
+{"t":"2026-08-18T19:10:00+01:00","k":"mod","p":"protocol.md AGENTS.md DIRECTIONS.md BLUEPRINT.md dln-memory SKILL","s":"Load cross-house-comms; campus does not mix unit queues","d":"modyu-cursor note to campus inbox"}
+{"t":"2026-08-18T19:10:00+01:00","k":"mod","p":"_meta/lab-inbox/messages.json","s":"Ack 6ec8202d cross-house protocol from ModYu Cursor","d":"wake received; short reply; no deploy"}
+{"t":"2026-08-18T19:10:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Offline lab points at cross-house-comms","d":"who owns which Cursor"}
+{"t":"2026-08-18T19:10:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Cross-house map dual post with ModYu","d":"standing"}

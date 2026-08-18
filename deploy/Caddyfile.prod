@@ -18,10 +18,6 @@
 
   @modyu host modyu.designlabnorth.com
   handle @modyu {
-    forward_auth web:3000 {
-      uri /api/auth/gate?plot=modyu
-      copy_headers Cookie
-    }
     reverse_proxy plot-modyu:3000
   }
 
@@ -48,10 +44,6 @@
   }
 
   handle_path /p/modyu* {
-    forward_auth web:3000 {
-      uri /api/auth/gate?plot=modyu
-      copy_headers Cookie
-    }
     reverse_proxy plot-modyu:3000
   }
 
@@ -84,4 +76,52 @@ designlabnorth.com, www.designlabnorth.com, modyu.designlabnorth.com, swarmfund.
     }
   }
   import edge
+}
+
+# Own domain on this VPS. Separate site so the hub certificate is not rewritten.
+http://varioustitles.com, http://www.varioustitles.com {
+  encode gzip
+  @www host www.varioustitles.com
+  handle @www {
+    redir http://varioustitles.com{uri} permanent
+  }
+  reverse_proxy plot-titles:3000
+}
+
+varioustitles.com, www.varioustitles.com {
+  tls {
+    issuer acme {
+      disable_tlsalpn_challenge
+    }
+  }
+  encode gzip
+  @www host www.varioustitles.com
+  handle @www {
+    redir https://varioustitles.com{uri} permanent
+  }
+  reverse_proxy plot-titles:3000
+}
+
+# Swarm Fund public apex — ungated (app Building lock). Greenhouse copy stays on subdomain with forward_auth.
+http://swarmfund.com, http://www.swarmfund.com {
+  encode gzip
+  @www host www.swarmfund.com
+  handle @www {
+    redir http://swarmfund.com{uri} permanent
+  }
+  reverse_proxy plot-swarm:3000
+}
+
+swarmfund.com, www.swarmfund.com {
+  tls {
+    issuer acme {
+      disable_tlsalpn_challenge
+    }
+  }
+  encode gzip
+  @www host www.swarmfund.com
+  handle @www {
+    redir https://swarmfund.com{uri} permanent
+  }
+  reverse_proxy plot-swarm:3000
 }

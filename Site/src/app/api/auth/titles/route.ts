@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { COOKIE, userFromSession } from "@/lib/auth";
+import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
 import { titlesAccessFor } from "@/lib/billing";
 
 export async function GET() {
@@ -14,5 +14,6 @@ export async function GET() {
     grant: access.grant,
     paying: access.paying,
     pendingInvoiceId: access.pendingInvoiceId || null,
+    studio: isStudio(user),
   });
 }

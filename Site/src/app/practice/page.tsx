@@ -16,21 +16,22 @@ export default function PracticePage() {
 
       <div className="practice-pair">
         <div>
-          <h2>Ewan</h2>
+          <h2>Dave Kirkwood</h2>
           <p className="body">
-            Designer. Builds the sites in this house — identities through to
-            the live plot — in Cursor, on this desk.
+            Dave Kirkwood Studio — a multi-award-winning designer for branding
+            and marketing, and a former lecturer of branding. The practice is a
+            nominated brand and marketing advisor to Lancashire County Council,
+            and consults with businesses across the region. Work has been spoken
+            in public, hosted, printed, and put on screen.
           </p>
         </div>
         <div>
-          <h2>Dave Kirkwood</h2>
+          <h2>Ewan Kirkwood</h2>
           <p className="body">
-            Dave Kirkwood Studio, formerly Walsh Simmons — a multi-award-winning
-            designer for branding and marketing, and a former lecturer of
-            branding. The practice is a nominated brand and marketing advisor to
-            Lancashire County Council, and consults with businesses across the
-            region. Work has been spoken in public, hosted, printed, and put on
-            screen.
+            Builder. Developments that belong to the business: integrated
+            systems — mapping, delivery and stock — through to AI models for
+            the operation, for social, and for brand development. And the
+            sites that have to carry them.
           </p>
         </div>
       </div>
@@ -41,8 +42,8 @@ export default function PracticePage() {
         campaign is over. Redesigns and facelifts for sites that have drifted.
         New websites, hosted while they grow, then migrated when they are ready
         to stand alone. Design, Strategy, and Build sit together — come in at
-        the one you need. Various Titles is a resource for people to learn
-        marketing fundamentals and branding.
+        the one you need. Various Titles is a place for ideas about marketing
+        and branding, written so people can learn.
       </p>
       <OfferJump />
 

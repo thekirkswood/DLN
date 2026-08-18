@@ -2,10 +2,11 @@
 
 import { FormEvent, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { isLabHost } from "@/lib/lab-host";
 
 export default function LoginForm() {
   const search = useSearchParams();
-  const next = search.get("next") || "/account";
+  const nextParam = search.get("next");
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
@@ -44,7 +45,26 @@ export default function LoginForm() {
       setError("That sign-in didn’t match.");
       return;
     }
-    window.location.href = safeNext(next);
+    const data = (await res.json().catch(() => null)) as {
+      user?: { role?: string };
+    } | null;
+    const role = data?.user?.role;
+    const studio = role === "owner" || role === "studio";
+    const onLab = isLabHost(window.location.host);
+    if (nextParam) {
+      const dest = safeNext(nextParam);
+      if (
+        studio &&
+        onLab &&
+        (dest === "/account" || dest.startsWith("/account/"))
+      ) {
+        window.location.href = "/lab";
+        return;
+      }
+      window.location.href = dest;
+      return;
+    }
+    window.location.href = studio && onLab ? "/lab" : "/account";
   }
 
   return (
@@ -66,10 +86,9 @@ export default function LoginForm() {
         {pending ? "…" : "Enter"}
       </button>
       <p className="note">
-        Your login opens the sites on your account, the billing book, and
-        Various Titles when you are a paying customer. A{" "}
-        <code>@designlabnorth.local</code> address is an internal handle, not a
-        mailbox.
+        Your login opens the sites on your account and the billing book. On this
+        studio PC — including from Dave’s machine on the LAN — studio opens the
+        lab.
       </p>
     </form>
   );

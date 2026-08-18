@@ -9,10 +9,11 @@
 2. `memory/brand.md`
 3. `memory/BLUEPRINT.md`
 4. `memory/greenhouse.md`
-5. `memory/DIRECTIONS.md`
-6. `memory/WORKSTREAM.md` (open sequenced hub work)
-7. `memory/CHANGELOG.jsonl` (tail — last ~40 lines is enough unless auditing)
-8. `AGENTS.md` + `.cursor/rules/*.mdc`
+5. `memory/cross-house-comms.md` (campus vs unit Cursors — who owns which queue)
+6. `memory/DIRECTIONS.md`
+7. `memory/WORKSTREAM.md` (open sequenced hub work)
+8. `memory/CHANGELOG.jsonl` (tail — last ~40 lines is enough unless auditing)
+9. `AGENTS.md` + `.cursor/rules/*.mdc`
 
 ## Write rules
 

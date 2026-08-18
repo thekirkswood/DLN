@@ -3,19 +3,23 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { LabHubDock } from "@/components/LabHubDock";
 import { getSessionUser } from "@/lib/session";
+import { isStudio } from "@/lib/auth";
+import { labHostFromHeaders } from "@/lib/lab";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-const tstar = localFont({
+const blender = localFont({
   src: [
-    { path: "../../public/fonts/T-Star-Light.woff2", weight: "300", style: "normal" },
-    { path: "../../public/fonts/T-Star-Medium.woff2", weight: "500", style: "normal" },
-    { path: "../../public/fonts/T-Star-Bold.woff2", weight: "700", style: "normal" },
-    { path: "../../public/fonts/T-Star-Heavy.woff2", weight: "800", style: "normal" },
+    { path: "../../public/fonts/Blender-Book.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/Blender-BookItalic.woff2", weight: "400", style: "italic" },
+    { path: "../../public/fonts/Blender-Medium.woff2", weight: "500", style: "normal" },
+    { path: "../../public/fonts/Blender-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../../public/fonts/Blender-Strong.woff2", weight: "900", style: "normal" },
   ],
-  variable: "--font-tstar",
+  variable: "--font-blender",
   display: "swap",
 });
 
@@ -38,14 +42,17 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const user = await getSessionUser();
+  const lab = labHostFromHeaders();
+  const studio = Boolean(user && isStudio(user));
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: groundBoot }} />
       </head>
-      <body className={`${tstar.variable} ${tstar.className}`}>
-        <Header signedIn={Boolean(user)} />
+      <body className={`${blender.variable} ${blender.className}`}>
+        <Header signedIn={Boolean(user)} studio={studio} lab={lab} />
         <main>{children}</main>
+        {lab && studio ? <LabHubDock /> : null}
         <Footer />
       </body>
     </html>

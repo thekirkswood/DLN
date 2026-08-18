@@ -41,3 +41,7 @@ export async function plotBySlug(slug: string): Promise<Plot | undefined> {
 export async function hostedPlots(): Promise<Plot[]> {
   return (await allPlots()).filter((p) => hostUrlFor(p) || enterUrlFor(p));
 }
+
+export async function savePlots(plots: Plot[]): Promise<void> {
+  await fs.writeFile(FILE, `${JSON.stringify(plots, null, 2)}\n`, "utf8");
+}

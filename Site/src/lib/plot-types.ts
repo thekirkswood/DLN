@@ -17,4 +17,11 @@ export type Plot = {
   badge?: string;
   /** Shown on the plot story, not the homepage. */
   betaContact?: string;
+  /** Offline lab only. House on this PC. */
+  lab?: {
+    housePath: string;
+    localPort?: number;
+    github?: string;
+    inboxRel?: string;
+  };
 };

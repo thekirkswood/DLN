@@ -11,7 +11,13 @@
     "public": false,
     "logoPaper": "/plots/modyu.svg",
     "logoInk": "/plots/modyu-white.svg",
-    "voice": "Design Lab North are rebuilding ModYu, the market-leading hair and scalp care brand — for people looking after their scalp before, during, and after transplant."
+    "voice": "Design Lab North are rebuilding ModYu, the market-leading hair and scalp care brand — for people looking after their scalp before, during, and after transplant.",
+    "lab": {
+      "housePath": "/home/main/ModYu",
+      "localPort": 3000,
+      "github": "thekirkswood/Modyu",
+      "inboxRel": "_meta/designer-inbox"
+    }
   },
   {
     "slug": "various-titles",
@@ -19,10 +25,19 @@
     "status": "growing",
     "kind": "brand",
     "party": "studio",
-    "hosts": [],
+    "hosts": ["varioustitles.com"],
+    "enterUrl": "https://varioustitles.com",
     "localPreview": "/greenhouse/various-titles",
     "public": true,
-    "voice": "Design Lab North are building Various Titles. A resource centre — a life’s work — for people to learn marketing fundamentals and branding."
+    "logoPaper": "/plots/various-titles.png",
+    "logoInk": "/plots/various-titles-white.png",
+    "voice": "Design Lab North are building Various Titles. A place for ideas — marketing and branding, written so people can learn.",
+    "lab": {
+      "housePath": "/home/main/VariousTitles",
+      "localPort": 3020,
+      "github": "thekirkswood/vt",
+      "inboxRel": "_meta/lab-inbox"
+    }
   },
   {
     "slug": "swarm",
@@ -36,7 +51,12 @@
     "public": true,
     "logoPaper": "/plots/swarm.svg",
     "logoInk": "/plots/swarm.svg",
-    "voice": "Design Lab North are building Swarm Fund. We are excited to work with this hive brand — people finding work they believe in, and backing it together."
+    "voice": "Design Lab North are building Swarm Fund. We are excited to work on this hive brand — people finding work they believe in, and backing it together.",
+    "lab": {
+      "housePath": "/home/main/SwarmFund",
+      "localPort": 5173,
+      "inboxRel": "_meta/lab-inbox"
+    }
   },
   {
     "slug": "choozlist",

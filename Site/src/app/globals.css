@@ -6,7 +6,7 @@ html {
   --wipe: #414141;
   --max: 1180px;
   --cut: 9px;
-  --font: var(--font-tstar), "T Star", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font: var(--font-blender), "Blender", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color-scheme: light;
 }
 
@@ -39,7 +39,7 @@ body {
 
 body {
   font-family: var(--font);
-  font-weight: 300;
+  font-weight: 400;
   color: var(--ink);
   line-height: 1.55;
   font-size: 1.05rem;
@@ -49,6 +49,11 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+b,
+strong {
+  font-weight: 700;
 }
 
 a:hover {
@@ -242,6 +247,7 @@ main {
 
 .home-offer {
   padding: 2.4rem 0 5.5rem;
+  overflow-x: clip;
 }
 
 .home-kicker {
@@ -249,15 +255,60 @@ main {
 }
 
 .offer-track {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
-  align-items: start;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 0;
+  align-items: stretch;
+  touch-action: pan-x;
+}
+
+.offer-track::-webkit-scrollbar {
+  display: none;
+}
+
+.offer-col {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  padding-inline: 1.3rem;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.offer-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.55rem;
+  margin: 1.4rem 0 0;
+}
+
+.offer-dots button {
+  width: 1.35rem;
+  height: 0.28rem;
+  padding: 0;
+  border: 0;
+  background: var(--line);
+  cursor: pointer;
+  clip-path: polygon(3px 0, calc(100% - 3px) 0, 100% 100%, 0 100%);
+}
+
+.offer-dots button.is-on {
+  background: var(--ink);
 }
 
 .offer-col h2 {
   font-size: 1.7rem;
-  font-weight: 300;
+  font-weight: 900;
   letter-spacing: -0.03em;
   margin-bottom: 0.4rem;
 }
@@ -276,7 +327,7 @@ main {
   cursor: pointer;
   font: inherit;
   font-size: 1.05rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.4;
   letter-spacing: -0.02em;
   padding: 0;
@@ -296,26 +347,30 @@ main {
   border-top: 1px solid var(--line);
 }
 
-@media (max-width: 800px) {
+@media (min-width: 1040px) {
   .offer-track {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 0;
-    margin-inline: -1.3rem;
-    padding-inline: 1.3rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .offer-track::-webkit-scrollbar {
-    display: none;
+    display: grid;
+    width: min(100% - 2.6rem, var(--max));
+    margin-inline: auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    overflow: visible;
+    scroll-snap-type: none;
+    touch-action: auto;
   }
 
   .offer-col {
-    flex: 0 0 82%;
-    scroll-snap-align: start;
-    padding-right: 1.4rem;
+    flex: none;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    padding-inline: 0;
+    scroll-snap-align: unset;
+    scroll-snap-stop: normal;
+  }
+
+  .offer-dots {
+    display: none;
   }
 }
 
@@ -337,7 +392,7 @@ main {
 .hero h1,
 .page-title {
   font-size: clamp(2rem, 4.4vw, 3.35rem);
-  font-weight: 300;
+  font-weight: 900;
   letter-spacing: -0.035em;
   line-height: 1.08;
   max-width: 18ch;
@@ -348,7 +403,7 @@ main {
   color: var(--mute);
   font-size: 1.08rem;
   max-width: 34rem;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .hero-links {
@@ -387,7 +442,7 @@ main {
 
 .stage-row h3 {
   font-size: 1.55rem;
-  font-weight: 300;
+  font-weight: 700;
   letter-spacing: -0.03em;
 }
 
@@ -516,7 +571,7 @@ main {
   display: block;
   padding: 0.7rem 1rem 0.7rem 0;
   border-bottom: 1px solid var(--line);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1.02rem;
   color: var(--ink);
 }
@@ -538,7 +593,10 @@ main {
 
 .plot-card .plot-mark {
   width: 7.2rem;
+  max-height: 3.4rem;
   height: auto;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .plot-mark-ink {
@@ -555,7 +613,7 @@ html[data-ground="ink"] .plot-mark-ink {
 
 .plot-copy h3 {
   font-size: 1.35rem;
-  font-weight: 300;
+  font-weight: 700;
   letter-spacing: -0.02em;
 }
 
@@ -605,7 +663,7 @@ html[data-ground="ink"] .plot-mark-ink {
 }
 
 .story-mark .plot-mark {
-  width: 7.2rem;
+  width: min(11rem, 42vw);
   height: auto;
 }
 
@@ -618,7 +676,7 @@ html[data-ground="ink"] .plot-mark-ink {
 .form h1,
 .practice h1 {
   font-size: clamp(2rem, 3.8vw, 2.8rem);
-  font-weight: 300;
+  font-weight: 900;
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin: 0.35rem 0 1.2rem;
@@ -655,6 +713,9 @@ html[data-ground="ink"] .plot-mark-ink {
 
 .practice-pair h2 {
   margin-top: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 @media (max-width: 720px) {
@@ -703,7 +764,7 @@ html[data-ground="ink"] .plot-mark-ink {
 .client-index li {
   display: block;
   padding: 0.7rem 1rem 0.7rem 0;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1.02rem;
   color: var(--ink);
 }
@@ -815,7 +876,7 @@ html[data-ground="ink"] .err {
 
 .account h1 {
   font-size: clamp(2rem, 3.8vw, 2.8rem);
-  font-weight: 300;
+  font-weight: 900;
   letter-spacing: -0.03em;
   margin: 0.35rem 0 0.4rem;
 }
@@ -855,7 +916,7 @@ html[data-ground="ink"] .err {
 
 .site-copy h3 {
   font-size: 1.25rem;
-  font-weight: 300;
+  font-weight: 700;
 }
 
 .site-copy .status {
@@ -944,6 +1005,28 @@ html[data-ground="ink"] .err {
   margin-bottom: 1rem;
 }
 
+.avatar-block {
+  width: 5.5rem;
+}
+
+.avatar-slot {
+  position: relative;
+  display: block;
+  width: 5.5rem;
+  height: 5.5rem;
+  cursor: pointer;
+}
+
+.avatar-slot input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 0;
+}
+
 .avatar {
   width: 5.5rem;
   height: 5.5rem;
@@ -961,11 +1044,52 @@ html[data-ground="ink"] .err {
 }
 
 .avatar-empty {
+  display: block;
   background: var(--line);
 }
 
-.photo-form {
-  margin-top: 0.8rem;
+.avatar-veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.4rem;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: var(--ground);
+  background: color-mix(in srgb, var(--ink) 72%, transparent);
+  clip-path: polygon(
+    8px 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 calc(100% - 8px),
+    0 8px
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s linear;
+}
+
+.avatar-slot.is-empty .avatar-veil,
+.avatar-slot:hover .avatar-veil,
+.avatar-slot:focus-within .avatar-veil {
+  opacity: 1;
+}
+
+.person-head {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1.2rem;
+  align-items: center;
+  margin-bottom: 0.9rem;
 }
 
 .preset-block h3 {
@@ -1105,7 +1229,7 @@ html[data-ground="ink"] .err {
   text-align: left;
   padding: 0.7rem 0;
   border-bottom: 1px solid var(--line);
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .invoice-lines th {
@@ -1121,6 +1245,7 @@ html[data-ground="ink"] .err {
   .bill-row,
   .compose-line,
   .profile-card,
+  .person-head,
   .invoice-head {
     grid-template-columns: 1fr;
   }
@@ -1206,7 +1331,7 @@ html[data-ground="ink"] .err {
   display: block;
   color: var(--ink);
   font-size: 1.4rem;
-  font-weight: 300;
+  font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
@@ -1326,6 +1451,10 @@ html[data-ground="ink"] .err {
   margin: 2rem 0 0.85rem;
 }
 
+.person-head .person-lede {
+  margin-bottom: 0;
+}
+
 .person-lede {
   font-size: 1.15rem;
   margin-bottom: 0.6rem;
@@ -1370,4 +1499,242 @@ html[data-ground="ink"] .err {
 .comment-box {
   max-width: 32rem;
   margin: 1rem 0 1.2rem;
+}
+
+/* lab — localhost only */
+
+.lab-door {
+  padding: 3.2rem 0 5.5rem;
+}
+
+.lab-door h1,
+.lab-desk h1,
+.lab-station-bar h1,
+.lab-open h2 {
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  margin: 0.2rem 0 0.9rem;
+}
+
+.lab-door .lede,
+.lab-desk .lede {
+  margin-bottom: 1.6rem;
+}
+
+.lab-doors {
+  display: grid;
+  gap: 0.85rem;
+  margin: 2.2rem 0 1.6rem;
+}
+
+.lab-door-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.55rem 1.45rem 1.4rem;
+  background: var(--ink);
+  color: var(--ground);
+  text-decoration: none;
+}
+
+.lab-door-btn:hover {
+  text-decoration: none;
+  filter: brightness(1.08);
+}
+
+.lab-door-name {
+  font-weight: 900;
+  font-size: clamp(1.55rem, 3.2vw, 2.35rem);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.lab-door-meta {
+  font-size: 0.92rem;
+  font-weight: 400;
+  opacity: 0.78;
+}
+
+.lab-door-walk {
+  margin: 0.4rem 0 1.2rem;
+}
+
+.lab-open {
+  margin-top: 3.2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+  max-width: 28rem;
+}
+
+.lab-open h2 {
+  font-size: 1.6rem;
+}
+
+.lab-station {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 5.4rem);
+}
+
+.lab-station-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2rem;
+  align-items: flex-end;
+  padding: 1.1rem 0 1rem;
+}
+
+.lab-station-bar h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+}
+
+.lab-station-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  padding-bottom: 0.25rem;
+}
+
+.lab-frame {
+  flex: 1;
+  width: 100%;
+  min-height: 58vh;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--ground);
+}
+
+.lab-hint {
+  font-size: 0.82rem;
+  color: var(--mute);
+  padding: 0.7rem 0;
+}
+
+.lab-hint code {
+  font-family: inherit;
+  font-size: 0.92em;
+}
+
+.lab-empty {
+  padding: 2rem 0;
+}
+
+.lab-dock,
+.lab-hub-dock {
+  padding: 1.1rem 0 1.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.lab-comment {
+  max-width: 40rem;
+}
+
+.lab-comment-kicker {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin-bottom: 0.55rem;
+}
+
+.lab-kinds {
+  display: flex;
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+
+.lab-kinds button {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 0.38rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px),
+    0 6px
+  );
+}
+
+.lab-kinds button.is-on {
+  background: var(--ink);
+  color: var(--ground);
+  border-color: var(--ink);
+}
+
+.lab-ok {
+  color: var(--mute);
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+}
+
+.lab-desk {
+  padding: 2.6rem 0 2rem;
+}
+
+.lab-thread {
+  max-height: 28rem;
+  overflow: auto;
+  border-top: 1px solid var(--line);
+  margin: 1.4rem 0 1.6rem;
+}
+
+.lab-bubble {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.lab-meta {
+  font-size: 0.78rem;
+  color: var(--mute);
+  margin-bottom: 0.35rem;
+}
+
+.lab-reply {
+  margin-top: 0.7rem;
+  color: var(--mute);
+}
+
+.lab-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+.lab-thumbs img {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: cover;
+}
+
+.lab-compose {
+  max-width: 36rem;
+  padding-bottom: 2.4rem;
+}
+
+.lab-back {
+  padding-bottom: 3rem;
+  color: var(--mute);
+}
+
+@media (max-width: 720px) {
+  .lab-station-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

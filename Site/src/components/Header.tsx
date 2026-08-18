@@ -5,12 +5,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Mark } from "@/components/Mark";
 
-export function Header({ signedIn }: { signedIn: boolean }) {
+export function Header({
+  signedIn,
+  studio = false,
+  lab = false,
+}: {
+  signedIn: boolean;
+  studio?: boolean;
+  lab?: boolean;
+}) {
   const path = usePathname();
   const [inSession, setInSession] = useState(signedIn);
   const atHome = path === "/";
   const atAccount = path === "/account" || path.startsWith("/account/");
   const atLogin = path === "/login";
+  const atLab = path === "/lab" || path.startsWith("/lab/");
+  const atAdmin = path === "/admin" || path.startsWith("/admin/");
+  const showLab = lab && studio && inSession;
 
   useEffect(() => {
     setInSession(signedIn);
@@ -38,10 +49,12 @@ export function Header({ signedIn }: { signedIn: boolean }) {
       </Link>
       <nav>
         {atHome ? null : <Link href="/">Home</Link>}
+        {showLab && !atLab ? <Link href="/lab">Lab</Link> : null}
+        {showLab && !atAdmin && !atLab ? <Link href="/admin">Builder</Link> : null}
         {inSession ? (
           atAccount ? null : <Link href="/account">Account</Link>
         ) : atLogin ? null : (
-          <Link href="/login?next=/account">Sign in</Link>
+          <Link href={lab ? "/login?next=/lab" : "/login?next=/account"}>Sign in</Link>
         )}
       </nav>
     </header>

@@ -13,10 +13,6 @@
 
   @modyu host modyu.designlabnorth.com
   handle @modyu {
-    forward_auth web:3000 {
-      uri /api/auth/gate?plot=modyu
-      copy_headers Cookie
-    }
     reverse_proxy plot-modyu:3000
   }
 
@@ -42,11 +38,17 @@
     redir http://designlabnorth.com
   }
 
+  @titles_www host www.varioustitles.com
+  handle @titles_www {
+    redir http://varioustitles.com{uri} permanent
+  }
+
+  @titles host varioustitles.com
+  handle @titles {
+    reverse_proxy plot-titles:3000
+  }
+
   handle_path /p/modyu* {
-    forward_auth web:3000 {
-      uri /api/auth/gate?plot=modyu
-      copy_headers Cookie
-    }
     reverse_proxy plot-modyu:3000
   }
 

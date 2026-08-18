@@ -9,11 +9,13 @@ import {
   IssueButton,
   PayButton,
   VoidButton,
+  AvatarSlot,
 } from "@/components/AccountBilling";
 import { formatGbp } from "@/data/catalogue";
 import type { Invoice } from "@/lib/billing";
 import { localHandleFromName } from "@/lib/handles";
 import { enterUrlFor, hostUrlFor, type Plot } from "@/lib/plot-urls";
+import { labStationPath } from "@/lib/lab-host";
 import type { Enquiry } from "@/lib/enquiries";
 import type { BuildPlan, SiteComment } from "@/lib/plans";
 import type { PublicUser } from "@/lib/auth";
@@ -31,6 +33,7 @@ export function StudioDesk({
   invoices,
   comments,
   plans,
+  lab = false,
 }: {
   people: Person[];
   plots: Plot[];
@@ -38,6 +41,7 @@ export function StudioDesk({
   invoices: Invoice[];
   comments: SiteComment[];
   plans: BuildPlan[];
+  lab?: boolean;
 }) {
   const waiting = enquiries.filter((e) => e.status === "new");
   const [personId, setPersonId] = useState(people[0]?.id || "");
@@ -46,12 +50,18 @@ export function StudioDesk({
 
   return (
     <div className="studio-desk">
+      {lab ? (
+        <p className="actions">
+          <Link href="/lab">Open the lab</Link>
+        </p>
+      ) : null}
       <h2>Current builds</h2>
       <p className="body bill-note">
-        Jump in and look. Public site if there is one; our host is the growing
-        copy on this VPS.
+        {lab
+          ? "Jump into the offline build on this PC. Live hosts stay on the VPS for the upload."
+          : "Jump in and look. Public site if there is one; our host is the growing copy on this VPS."}
       </p>
-      <BuildList plots={plots} />
+      <BuildList plots={plots} lab={lab} />
 
       <h2>Waiting</h2>
       <p className="body bill-note">
@@ -99,6 +109,7 @@ export function StudioDesk({
         enquiry={fromEnquiry}
         onClearEnquiry={() => setFromEnquiry(null)}
         onCreated={(id) => setPersonId(id)}
+        lab={lab}
       />
 
       <h2>A person</h2>
@@ -128,6 +139,7 @@ export function StudioDesk({
           comments={comments.filter((c) => c.userId === person.id)}
           plans={plans.filter((p) => p.userId === person.id)}
           people={people}
+          lab={lab}
         />
       ) : (
         <p className="body">Bring someone on, then they appear here.</p>
@@ -136,8 +148,10 @@ export function StudioDesk({
   );
 }
 
-function BuildList({ plots }: { plots: Plot[] }) {
-  const rows = plots.filter((p) => hostUrlFor(p) || enterUrlFor(p) || p.localPreview);
+function BuildList({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
+  const rows = plots.filter(
+    (p) => hostUrlFor(p) || enterUrlFor(p) || p.localPreview || p.lab?.housePath,
+  );
   if (!rows.length) return <p className="body">No builds to open yet.</p>;
   return (
     <div className="build-list">
@@ -154,6 +168,9 @@ function BuildList({ plots }: { plots: Plot[] }) {
               </span>
             </div>
             <div className="build-jumps">
+              {lab && plot.lab?.housePath ? (
+                <Link href={labStationPath(plot.slug)}>Open here</Link>
+              ) : null}
               {pub && !same ? (
                 <a href={pub} target="_blank" rel="noreferrer">
                   Public
@@ -185,6 +202,7 @@ function PersonPanel({
   comments,
   plans,
   people,
+  lab = false,
 }: {
   person: Person;
   plots: Plot[];
@@ -192,6 +210,7 @@ function PersonPanel({
   comments: SiteComment[];
   plans: BuildPlan[];
   people: Person[];
+  lab?: boolean;
 }) {
   const theirPlots = plots.filter(
     (p) => person.plots.includes("*") || person.plots.includes(p.slug),
@@ -204,18 +223,21 @@ function PersonPanel({
 
   return (
     <div className="person-panel">
-      <p className="lede person-lede">
-        {person.displayName}
-        {person.personalEmail ? ` · mailbox ${person.personalEmail}` : ""}
-        {person.phone ? ` · ${person.phone}` : ""}
-      </p>
+      <div className="person-head">
+        <AvatarSlot userId={person.id} hasAvatar={Boolean(person.avatar)} forOthers />
+        <p className="lede person-lede">
+          {person.displayName}
+          {person.personalEmail ? ` · mailbox ${person.personalEmail}` : ""}
+          {person.phone ? ` · ${person.phone}` : ""}
+        </p>
+      </div>
       {person.notes ? <p className="body">{person.notes}</p> : null}
 
       <h3>Their sites</h3>
       {theirPlots.length === 0 ? (
         <p className="body">No site bound yet.</p>
       ) : (
-        <BuildList plots={theirPlots} />
+        <BuildList plots={theirPlots} lab={lab} />
       )}
 
       <h3>Notes they left</h3>
@@ -442,11 +464,13 @@ function BringOnForm({
   enquiry,
   onClearEnquiry,
   onCreated,
+  lab = false,
 }: {
   plots: Plot[];
   enquiry: Enquiry | null;
   onClearEnquiry: () => void;
   onCreated: (id: string) => void;
+  lab?: boolean;
 }) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
@@ -456,6 +480,7 @@ function BringOnForm({
     password: string;
     personalEmail: string | null;
     mailed: boolean;
+    station?: string;
   } | null>(null);
   const [name, setName] = useState(enquiry?.name || "");
   const [mailbox, setMailbox] = useState(enquiry?.email || "");
@@ -464,6 +489,7 @@ function BringOnForm({
     enquiry ? [enquiry.needLabel, enquiry.message].filter(Boolean).join("\n") : "",
   );
   const [usePersonal, setUsePersonal] = useState(false);
+  const [openStation, setOpenStation] = useState(false);
 
   useEffect(() => {
     if (!enquiry) return;
@@ -505,11 +531,22 @@ function BringOnForm({
       setError(res.status === 409 ? "That login is already on the book." : "Bring-on didn’t take.");
       return;
     }
+    let station = "";
+    if (lab && openStation) {
+      const st = await fetch("/api/lab/stations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, party: "client" }),
+      });
+      const stData = (await st.json().catch(() => null)) as { slug?: string } | null;
+      if (st.ok && stData?.slug) station = stData.slug;
+    }
     setCred({
       email: data.email,
       password: data.password,
       personalEmail: data.personalEmail || null,
       mailed: Boolean(data.mailed),
+      station,
     });
     onCreated(data.id);
     onClearEnquiry();
@@ -589,6 +626,16 @@ function BringOnForm({
           ))
         )}
       </fieldset>
+      {lab ? (
+        <label className="check">
+          <input
+            type="checkbox"
+            checked={openStation}
+            onChange={(e) => setOpenStation(e.target.checked)}
+          />
+          Open a station on this PC
+        </label>
+      ) : null}
       <button type="submit" disabled={pending}>
         {pending ? "…" : "Make their login"}
       </button>
@@ -606,6 +653,11 @@ function BringOnForm({
           <p>
             <strong>Password</strong> {cred.password}
           </p>
+          {cred.station ? (
+            <p>
+              <Link href={labStationPath(cred.station)}>Open their station</Link>
+            </p>
+          ) : null}
         </div>
       ) : null}
     </form>

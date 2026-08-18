@@ -34,7 +34,7 @@ export async function GET(
     return new NextResponse(buf, {
       headers: {
         "Content-Type": MIME[ext] || "application/octet-stream",
-        "Cache-Control": "private, max-age=60",
+        "Cache-Control": "private, no-store",
       },
     });
   } catch {

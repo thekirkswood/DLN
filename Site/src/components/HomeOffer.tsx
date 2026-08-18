@@ -1,11 +1,13 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { OFFERS, type Facet, type Need } from "@/data/needs";
 
 export function HomeOffer() {
   const [need, setNeed] = useState<Need | null>(null);
+  const [slide, setSlide] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!need) return;
@@ -15,10 +17,39 @@ export function HomeOffer() {
     });
   }, [need]);
 
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    function sync() {
+      const track = trackRef.current;
+      if (!track) return;
+      const w = track.clientWidth;
+      if (!w) return;
+      const i = Math.round(track.scrollLeft / w);
+      setSlide(Math.max(0, Math.min(OFFERS.length - 1, i)));
+    }
+
+    sync();
+    el.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+    return () => {
+      el.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
+    };
+  }, []);
+
+  function goTo(i: number) {
+    const track = trackRef.current;
+    if (!track) return;
+    setSlide(i);
+    track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
+  }
+
   return (
-    <section className="home-offer wrap">
-      <h1 className="kicker home-kicker">Design Lab North</h1>
-      <div className="offer-track">
+    <section className="home-offer">
+      <h1 className="kicker home-kicker wrap">Design Lab North</h1>
+      <div className="offer-track" ref={trackRef}>
         {OFFERS.map((offer) => (
           <div key={offer.id} className="offer-col">
             <h2>
@@ -40,10 +71,25 @@ export function HomeOffer() {
           </div>
         ))}
       </div>
+      <div className="offer-dots wrap" role="tablist" aria-label="Design, Strategy, Build">
+        {OFFERS.map((offer, i) => (
+          <button
+            key={offer.id}
+            type="button"
+            role="tab"
+            aria-selected={slide === i}
+            aria-label={offer.name}
+            className={slide === i ? "is-on" : ""}
+            onClick={() => goTo(i)}
+          />
+        ))}
+      </div>
       {need ? (
-        <EnquireForm key={need.id} need={need} onClear={() => setNeed(null)} />
+        <div className="wrap">
+          <EnquireForm key={need.id} need={need} onClear={() => setNeed(null)} />
+        </div>
       ) : null}
-      <p className="home-quiet">
+      <p className="home-quiet wrap">
         <Link href="/practice">The practice</Link>
         {" · "}
         <Link href="/greenhouse">Greenhouse</Link>

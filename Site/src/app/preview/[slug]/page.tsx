@@ -3,6 +3,7 @@ import { plotBySlug, enterUrlFor } from "@/lib/plots";
 import { getSessionUser } from "@/lib/session";
 import { canAccessPlot, isStudio } from "@/lib/auth";
 import { plotShutFor } from "@/lib/billing";
+import { labHostFromHeaders, labStationPath } from "@/lib/lab";
 
 export const metadata = { title: "Plot" };
 
@@ -17,6 +18,9 @@ export default async function PreviewPage({
   if (!user) redirect("/");
   if (!canAccessPlot(user, plot.slug)) redirect("/not-yours");
   if (!isStudio(user) && (await plotShutFor(plot.slug))) redirect("/not-yours");
+  if (labHostFromHeaders() && isStudio(user) && plot.lab?.housePath) {
+    redirect(labStationPath(plot.slug));
+  }
   const live = enterUrlFor(plot);
   if (live) redirect(live);
   redirect(`/greenhouse/${plot.slug}`);

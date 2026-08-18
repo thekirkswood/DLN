@@ -60,7 +60,7 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 
 ## 2026-08-15 — greenhouse captions
 
-- Public plot copy: Design Lab North **are**. Pleasure is optional, not every caption. Choozlist: the life registry, no “pleasure of”. Swarm: excited to work with this hive brand. ModYu: market-leading hair and scalp. Proper sentences.
+- Public plot copy: Design Lab North **are**. Pleasure is optional, not every caption. Choozlist: the life registry, no “pleasure of”. Swarm: excited to work on this hive brand. ModYu: market-leading hair and scalp. Proper sentences.
 - Do not invent plot status. Choozlist is growing. “Resting” was an agent guess from “not hosted here” — wrong. Hosting fact stays off the public wall. Public Choozlist line is the life registry, not the AI stack.
 
 ## 2026-08-15 — hub of multiple sites
@@ -140,7 +140,7 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 
 ## 2026-08-17 — home columns, practice copy, enquiries, free entry
 
-- Homepage is a small Design Lab North, then three equal columns (swipe on a phone). Clickable “I have…” reasons as the subheads. No hub essay on home — that copy lives on `/practice` with the portfolio.
+- Homepage is a small Design Lab North, then three equal columns (one full slide, swipe, when they cannot sit locked — from 1040px). Clickable “I have…” reasons as the subheads. No hub essay on home — that copy lives on `/practice` with the portfolio.
 - Do not number or funnel Design → Strategy → Build on the public site. They sit together. Come in at any. Offer pages carry equal jumps: beside, not after.
 - No “Write to us”. A form: who they are, what they need. Lands on the studio desk. Email if SMTP is set (`DLN_SMTP_HOST`). Studio writes back and onboard themselves.
 - Greenhouse: “Our products.” then the list. Various Titles first. Do not name the products in the intro.
@@ -149,7 +149,9 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 ## 2026-08-17 — desk, session, live host
 
 - Session must survive page to page. Cookie 90 days, path `/`, layout always dynamic, header checks `/api/auth/me` as they walk.
-- Studio desk is a person, not a pile of tools. Pick them: sites, notes, plan, invoice. Waiting list → Bring on from what they already typed. We generate login + password and send it to their mailbox.
+- Redirects (logout, gate) use the public URL, never the container bind `0.0.0.0:3000`.
+- Studio desk is a person, not a pile of tools. Pick them: picture, sites, notes, plan, invoice. Waiting list → Bring on from what they already typed. We generate login + password and send it to their mailbox.
+- Picture: hover the chamfer — “Upload image here” — click to choose. We read the file bytes, not the WhatsApp filename. Studio can set it on the person as well as their own.
 - Current builds on the desk: jump into ModYu, Swarm on our host, Swarm public, anything else we host. Dave can check without hunting.
 - Live host is the product after sit-down and initial build. Notes on the DLN account (overall). Sweep into one plan. Run offline. Upload when happy. Patch notes on ship. No auto-deploy. No comment-admin on the subdomain for studio.
 - Catalogue until Ewan changes it: consultation £125, initial build £250, live host weekly £75. Dave’s branding/marketing is charged by Dave on the book. No GBP on the public wall.
@@ -158,6 +160,98 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 ## 2026-08-17 — Paper/Ink in the footer
 
 - Paper/Ink cut lives in the footer bar, not the header. Header is mark + Home/Account/Sign in.
+
+## 2026-08-17 — practice people
+
+- Dave Kirkwood first on `/practice`, then Ewan Kirkwood. Equal.
+- Ewan’s public word is **builder**, not designer. Developments that belong to the business; integrated systems (mapping, delivery, stock); AI models for the operation, social and brand development; and the sites that carry them. No Cursor. No desk. No “actually runs on”.
+- Dave’s public copy is Dave Kirkwood Studio. Do not say formerly Walsh Simmons.
+
+## 2026-08-17 — hub type is Blender
+
+- Hub type is [Blender](https://binnenland.ch/typeface/blender#overview) by Binnenland: Book body, Medium kickers, Bold subheads, Strong titles. Bold and Strong are used, not sitting unused. T-Star files stay in `public/fonts/` but are not loaded.
+
+## 2026-08-17 — ModYu host ungated
+
+- `modyu.designlabnorth.com` is a self-contained Docker plot. Do not put DLN `forward_auth` in front of it — that steals `/login` and `/api/auth` so ModYu accounts never sign in. Same credentials as local `:3000`. Swarm stays gated.
+
+## 2026-08-17 — Various Titles on varioustitles.com
+
+- Public host is `varioustitles.com` on this VPS (`plot-titles`). A records point here. Not a designlabnorth.com subdomain. Ungated — own login, copies the DLN session. Greenhouse Enter is that URL.
+
+## 2026-08-17 — VT mark locked
+
+- Ewan dropped VT plates (`VT-logo-01` mute grey, `VT-logo-02` white). Greenhouse uses those files. Do not redraw or recolour.
+
+## 2026-08-17 — VT public copy is its own house
+
+- Public VT (greenhouse voice, Strategy blurb, client `/account`, DLN login note): sell the ideas, not the machinery. Never: same login, shared billing, “further facets as they are written,” or “not a shop.” Desk/studio may still name `titlesGrant`. Onboard mail is the DLN login only.
+
+## 2026-08-17 — VT studio only while building
+
+- Public varioustitles.com is Building. Only owner/studio (Ewan, Dave) enter. Bounce `/api/auth/titles-enter` copies `dln_session` onto that host. Clients signed in here still see Building. Greenhouse Enter stays the product domain.
+- Public swarmfund.com is Building the same way. Bounce `/api/auth/swarm-enter` copies `dln_session` onto swarmfund.com. Set `SWARM_PUBLIC_URL=https://swarmfund.com` on the DLN app. Clients still see Building.
+
+## 2026-08-17 — Swarm parking wall
+
+- People who are not Ewan or Dave see the Swarm Fund mark and “Building.” — Various Titles parking, Swarm logo. Studio still enters on this book’s session. Local lock is on (set `BUILDING_LOCK=0` only if we need the hive open without a login).
+
+## 2026-08-17 — studio logins on every plot host
+
+- Ewan and Dave’s Design Lab North accounts are the studio door on every subdomain login. Not the client’s live-site book. Same two logins Dave already has. Gated hosts already honour `dln_session`. Houses with their own login (ModYu) ask the hub (`/api/auth/studio` / `studio-verify`) and treat owner/studio as staff. Patient/clinic/walkthrough logins stay on that house.
+
+## 2026-08-17 — offline lab (central builder)
+
+- Full brief: [`memory/offline-lab.md`](offline-lab.md). **Run that file in this builder.** Do not implement it from the Various Titles house.
+- Two always-on local things: the hub on **:3010** (the only port Dave sees) and the house servers on their internal ports, proxied under `/go/{slug}/`.
+- `/admin` on 3010 talks to this Design Lab North Cursor. `/lab/modyu/admin` (and `/modyu/admin`) writes ModYu’s designer inbox — that folder’s Cursor. Same idea for every house.
+- Comments on the exact local page join that house’s queue. Live VPS stays upload-only. No auto-deploy. No public Cursor.
+- VT type is Blender / Blender Strong (Binnenland). Hub type is the same face: Book, Medium, Bold, Strong.
+- One port, path click-through, DLN banner, big buttons. Not `.localhost` host names for the user. Live hosts stay isolated.
+
+## 2026-08-17 — lab is the local desk for Ewan and Dave
+
+- Only those two studio logins on this PC. Named on every note (`author` + `authorId`).
+- Open a station = new filesystem at `/home/main/{slug}`, then build the site in it. Skip if the folder already exists.
+- Dave: one login, `/lab`, click a house, comment or builder. No extra passcodes.
+
+## 2026-08-17 — login sheets; Anne Marie on the .com book
+
+- Copyable login documents live in gitignored `_meta/accounts/sheets/`. Dave’s is for his computer only. Ewan’s has both studio logins, live and local (those two stores are different). Do not put the passwords in memory.
+- Anne Marie’s Design Lab North login is `modyu@designlabnorth.com` (client, plot `modyu` only — not the studio desk or lab). The same email is her ModYu admin / test login. **Separate passwords** so that book could later open another space without sharing the admin door. Same pair on live and local for her. Password rotation at launches and similar key events comes later — not built yet.
+- Keep `modyu@designlabnorth.local` as the older seed client named ModYu. Do not collide the two.
+
+## 2026-08-18 — lab on this PC’s LAN, not only localhost
+
+- Dave’s studio login already has lab. The door was bound to the hostname `localhost`, so his machine on the LAN (`192.168.x.x:3010`) got the desk and a 404 on `/lab`. Ewan on this PC did not.
+- Lab host is loopback, `*.local`, and private LAN addresses. Public `designlabnorth.com` still 404s `/lab`. Same two logins. No extra passcode.
+
+## 2026-08-18 — houses start when opened
+
+- Dave does not start each house by hand. `/lab/{slug}` asks the hub; the hub starts that house in its own environment (folder, port, prefix) and proxies `/go/{slug}/`. Unused houses stay down. Swarm’s API starts beside its web. This PC has the RAM; on-open is isolation, not a shortage.
+- Gate login redirects use the hub origin (`DLN_PUBLIC_URL`), never the plot Host. `forward_auth` on `swarmfund.designlabnorth.com` was looping onto `/login` on that host.
+
+## 2026-08-18 — listener per house, inbox in that folder
+
+- Every page that shows a house on this PC starts that house when it loads. Station, builder, greenhouse Enter, Strategy Enter, studio preview. Public host still enters live.
+- The bot talks to the house whose page the note came from. DLN hub inbox, ModYu designer inbox, Various Titles `_meta/lab-inbox`, Swarm `_meta/lab-inbox`. Opening `/lab` creates those folders if they are missing. Each house Cursor watches its own `wake.flag`.
+
+## 2026-08-18 — campus and units; occupancy
+
+- Design Lab North on this PC is the **campus**. `/admin` is the campus building site. Each other house is its own unit (own folder, own Cursor, own app) — like plots on an industrial estate, not rooms in one building.
+- A unit **app** runs while occupancy is above zero (someone on that station, builder, or framed page). At zero it sleeps. The unit **inbox** still listens; `wake.flag` is acted on at once by that unit’s Cursor. Do not keep every Next/Vite process up “just in case”.
+- Later: a bigger PC and a remote workstation keep this shape. Campus stays the door. Do not put Cursor on the VPS.
+
+## 2026-08-18 — campus chat is not a unit Cursor
+
+- This Design Lab North chat thinks campus: occupancy, `/lab`, inboxes routing, the hub. It does not stamp another unit’s pending queue as if it were that house.
+- Dave’s note on `/lab/modyu/admin` is for the **ModYu** Cursor window. Same message pasted there is received there. The campus desk’s own queue is `/admin`.
+- A unit builder must keep the occupancy hold for the whole visit. Do not remount the starter when the queue finishes loading — that cancelled the app start.
+
+## 2026-08-18 — cross-house map (dual post)
+
+- Map: [`memory/cross-house-comms.md`](cross-house-comms.md). Twin lives on ModYu. Campus `/admin` → this Cursor. `/lab/modyu` and ModYu designer inbox → ModYu Cursor. Do not mix queues.
+- ModYu Cursor wrote campus inbox note `6ec8202d-5580-4220-ad54-f4cfe8665b3e` so this instance learns the same routing.
 
 
 
