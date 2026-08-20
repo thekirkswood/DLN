@@ -1,9 +1,17 @@
-import { promises as fs } from "fs";
+import { existsSync, promises as fs } from "fs";
 import path from "path";
 import { allPlots, savePlots } from "@/lib/plots";
 import type { Plot } from "@/lib/plot-types";
 
 const HOUSE_PARENT = process.env.DLN_HOUSE_PARENT?.trim() || "/home/main";
+
+/** Debian 1TB client mount. Working copies on GPU PCs stay under /home/main. */
+function clientHouseParent(): string {
+  const env = process.env.DLN_CLIENT_PARENT?.trim();
+  if (env) return env;
+  if (existsSync("/srv/clients")) return "/srv/clients";
+  return HOUSE_PARENT;
+}
 
 const RESERVED = new Set([
   "admin",
@@ -54,6 +62,9 @@ export async function createStation(input: {
   const plots = await allPlots();
   if (plots.some((p) => p.slug === slug)) throw new Error("exists");
 
+  const party = input.party || "client";
+  const diskParent = party === "studio" ? HOUSE_PARENT : clientHouseParent();
+  const realPath = path.join(diskParent, slug);
   const housePath = path.join(HOUSE_PARENT, slug);
   try {
     await fs.access(housePath);
@@ -62,7 +73,10 @@ export async function createStation(input: {
     if (err instanceof Error && err.message === "exists") throw err;
   }
 
-  await fs.mkdir(path.join(housePath, "_meta", "lab-inbox"), { recursive: true });
+  await fs.mkdir(path.join(realPath, "_meta", "lab-inbox"), { recursive: true });
+  if (realPath !== housePath) {
+    await fs.symlink(realPath, housePath);
+  }
   await fs.mkdir(path.join(housePath, "memory"), { recursive: true });
   await fs.writeFile(
     path.join(housePath, "_meta", "lab-inbox", "messages.json"),
@@ -78,6 +92,8 @@ House on this PC for Design Lab North. Live hosts stay on the VPS. This folder i
 ## Wake
 
 When \`_meta/lab-inbox/wake.flag\` changes, open \`_meta/lab-inbox/messages.json\`, take every \`pending\` item in order, set \`working\`, do the work in **this** filesystem, then stamp \`done\` or \`error\` with a reply. One failure does not block the rest. Do not auto-deploy.
+
+The campus desk can make this folder. It cannot open Cursor. A human opens this house.
 
 Comments and \`/lab/${slug}/admin\` on localhost:3010 write here. That is this house's Cursor, not the Design Lab North hub chat.
 `,

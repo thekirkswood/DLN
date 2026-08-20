@@ -4,6 +4,12 @@ import { FormEvent, useState } from "react";
 
 type LabKind = "change" | "plan" | "note";
 
+function queuedCopy(plot: string) {
+  return plot === "dln"
+    ? "Queued for campus. Taken while someone is signed in."
+    : "Queued for this unit’s Cursor. Taken while that instance is sniffing.";
+}
+
 export function LabComment({
   plot,
   page,
@@ -25,25 +31,41 @@ export function LabComment({
     setPending(true);
     setError("");
     setDone("");
-    const res = await fetch("/api/lab/messages", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        plot,
-        kind,
-        text: text.trim(),
-        page,
-        origin: window.location.pathname,
-      }),
-    });
+    let res: Response;
+    try {
+      res = await fetch("/api/lab/messages", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          plot,
+          kind,
+          text: text.trim(),
+          page,
+          origin: window.location.pathname,
+        }),
+      });
+    } catch {
+      setPending(false);
+      setError("Could not reach the campus (connection failed).");
+      return;
+    }
+    const data = (await res.json().catch(() => ({}))) as { error?: string };
     setPending(false);
+    if (res.status === 401) {
+      window.location.href = `/login?next=${encodeURIComponent(window.location.pathname)}`;
+      return;
+    }
     if (!res.ok) {
-      setError("That note didn’t take.");
+      setError(
+        data.error
+          ? `${res.status}: ${data.error}`
+          : `That note didn’t take (${res.status}).`,
+      );
       return;
     }
     setText("");
-    setDone("Sent to this house’s builder.");
+    setDone(queuedCopy(plot));
   }
 
   return (

@@ -234,7 +234,7 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 ## 2026-08-18 — listener per house, inbox in that folder
 
 - Every page that shows a house on this PC starts that house when it loads. Station, builder, greenhouse Enter, Strategy Enter, studio preview. Public host still enters live.
-- The bot talks to the house whose page the note came from. DLN hub inbox, ModYu designer inbox, Various Titles `_meta/lab-inbox`, Swarm `_meta/lab-inbox`. Opening `/lab` creates those folders if they are missing. Each house Cursor watches its own `wake.flag`.
+- The bot talks to the house whose page the note came from. DLN hub inbox, ModYu designer inbox, Various Titles `_meta/lab-inbox`, Swarm `_meta/lab-inbox`. Opening `/lab` tries to create those folders if they are missing; a unit disk error must not take the campus down. Each house Cursor watches its own `wake.flag`.
 
 ## 2026-08-18 — campus and units; occupancy
 
@@ -252,6 +252,279 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 
 - Map: [`memory/cross-house-comms.md`](cross-house-comms.md). Twin lives on ModYu. Campus `/admin` → this Cursor. `/lab/modyu` and ModYu designer inbox → ModYu Cursor. Do not mix queues.
 - ModYu Cursor wrote campus inbox note `6ec8202d-5580-4220-ad54-f4cfe8665b3e` so this instance learns the same routing.
+
+## 2026-08-19 — campus audit; Debian as always-on host
+
+- Send on the dock and `/admin` shows the real HTTP status. A 200 is “queued”. While studio is signed in, campus sniff takes the queue; a unit note waits for that unit’s Cursor sniffer.
+- Unit frames: if the port is up but `/go/{slug}` is 404, stop that process and start with `BASE_PATH` / `VITE_BASE`. Occupancy kills are logged. Proxy rewrites `/_next` and Vite `/@` roots.
+- This PC keeps campus alive with `ops/campus.service` and `ops/never-sleep.sh` until Debian downstairs is the host.
+- Home VPS is that Debian box (ethernet, no GPU). GPU PCs Remote SSH in. Dave has his own Cursor seat on the same tree. Runbooks: `ops/debian-host.md`, `ops/cursor-remote-ssh.md`. Do not wipe Debian until Chooz on it is snapshotted (`ops/backup-chooz-then-wipe.md`).
+- Later, not this move: GPU server, Chooz + APES brain, a real note dispatcher (`memory/phase-d-later.md`). The dispatcher honours [`memory/compass.md`](compass.md): laptop is a live seat, not only a spare.
+
+## 2026-08-19 — compass: tower and laptop seats
+
+- Debian is the home host. Ewan’s **tower** (2070) is the primary Cursor seat; the **3060 laptop** is secondary on the same SSH remote.
+- The laptop still logs in when the tower is off. When **both** already have responses going, work cycles: tower, laptop, tower, laptop. Head of the queue, and high weight **and** high tokens, stay on the tower. Jobs too big for the laptop wait for the tower. Dave’s seat is his own, not in that cycle.
+- Policy lives in [`memory/compass.md`](compass.md). Do not pretend campus Send can open Cursor or read its token meter.
+
+## 2026-08-19 — ChoozBoost look (no migrate)
+
+- Downstairs Debian is `192.168.0.246`, hostname ChoozBoost. Unix `user` can SSH. That account cannot sudo. Palworld is not running. Chooz/Ollama still is. Ethernet unplugged. Bench + site-host verdict: `ops/debian-host.md`. Do not wipe or rsync until Ewan says so.
+
+## 2026-08-19 — replica on the PC, LAN live on Debian
+
+- Do **not** reinstall to get LAN. Plug ethernet downstairs. `user` must be added to `sudo` on the laptop screen (`usermod -aG sudo user`). Reinstall only if root/sudo is unreachable.
+
+## 2026-08-19 — files on the downstairs disk; Cursor on GPU PCs
+
+- Ewan’s shape: websites and filesystems live on the downstairs laptop HDD (another 1TB can join). That box hosts **all the site ports** and sits. This PC and the 3060 are Cursor working copies so editing is fast and the tower is not the host. Push/pull like GitHub. Disks back each other up through that push.
+- Two Cursors must not write the same house at once. Cursor has no shared-doc merge. Use house split + [`ops/house-lease.md`](../ops/house-lease.md) + git pull/push. The 3060 can run closed as a second instance on Ewan’s account.
+- Occupancy-sleep stays for the 2070. On Debian the units stay up.
+
+## 2026-08-19 — houses on ChoozBoost
+
+- Files and pinned ports are on downstairs Debian. Bookmark `http://192.168.0.223:3010`. Working copies stay on this PC. 3060 Windows: install OpenSSH if this Cursor should reach it (`ops/windows-3060.md`).
+- Recheck: campus on `.223:3010` still 200. 3060 still not visible from this Cursor (no OpenSSH / RDP). Reserve `.223` on the router when you can.
+
+## 2026-08-19 — client houses on the 1TB
+
+- Downstairs 1TB (old unmounted Ubuntu) is wiped and mounted at `/srv/clients`. Studio houses stay on the NVMe (`/home/main`). Client houses on the HDD — ModYu now (`/home/main/ModYu` is a symlink). New client stations follow that split when `/srv/clients` exists.
+
+## 2026-08-19 — sniffer while logged in
+
+- Campus sniff is on while Ewan or Dave is signed in on the lab host. Login starts it. The window pings every few minutes. Logout (or ten minutes without a ping) rests it unless a job is still working. Logged out, the site only shows.
+- LAN campus is **http://192.168.0.223:3010** (Mac, phones, typing the IP in a browser). This PC’s Cursor sniffs that inbox. `localhost:3010` on the tower is local-only and is not on the LAN.
+- ModYu keeps its waiting console. Various Titles and Swarm do the same in their own Cursor chats (`ops/sniff-inbox.sh`). Load that instance, leave it until you log off that instance, or until processing finishes.
+
+## 2026-08-19 — 3060 Cursor vs OpenSSH; DHCP bind
+
+- On the 3060, install Cursor and Remote-SSH **to Debian** (`user@192.168.0.223`). That does not need Windows OpenSSH Server. OpenSSH Server is only if the tower must log into Windows (`ops/windows-3060.md`).
+- DHCP reservation for `.223` is optional while ChoozBoost already holds that lease. If add-reservation fails, bind the existing client; do not fight the form.
+
+## 2026-08-19 — chrome buttons rest / hover / click
+
+- Rest: white face, grey border, ink type. Hover wash (`#e8e8e8`) like Choose files. Click: black face, white type. After click, back to the white button. Chrome buttons are **right-angled** (no chamfer). Same for Send, kinds, desk, file picker. Not the large lab doors.
+
+## 2026-08-19 — pull the host onto this disk
+
+- Debian is the centre. After a push (or after the Mac `/admin` queue moves), pull: `ops/pull-from-debian.sh`. Merge inboxes **by id** — do not rsync `messages.json` over a localhost send. localhost `/admin` writes this disk and `ops/push-lab-inbox.sh` copies it downstairs. Sniff watches Debian **and** the local wake flag.
+
+## 2026-08-19 — seven background dots
+
+- Footer Paper/Ink cut is seven small circles with a fine border: white `#ffffff`, charcoal `#353c44`, grey `#e5e5e5`, mint `#e9f5eb`, mist `#eaedee`, cream `#f9f8eb`, blush `#f8f2f6`. They set the site background. Dark charcoal still uses the white plate.
+
+## 2026-08-19 — headlines 30% smaller; Method page
+
+- Public headline type is 30% smaller (home offer titles, page titles). `/method` is the institute copy. Filter and Pipeline headings are large. List titles have no parenthetical gloss. The scale paragraph does not include the “volume of inputs / uncompromising” line.
+
+## 2026-08-19 — ground dots also vary Binnenland type
+
+- Each footer colour also switches the typeface, cycling the Binnenland catalogue at random (Blender, T-Star, T-Star TW, Catalog, Catalog Mono, Formale Grotesque, FRAC, Korpus, Korpus Grotesk, Lexik, Regular, Relevant, Micronova). Default remains Blender. The face name sits beside the dots. Studio lock is still Blender; this is the proof that the work is not only a font or a colour.
+
+## 2026-08-19 — Method: Various Titles heading
+
+- On `/method`, Various Titles is a larger subhead so it does not sit in the Diagnostic Loop body.
+
+## 2026-08-19 — campus without a unit inbox
+
+- `/lab` must render if a unit inbox cannot be created (disk EIO). The site does not depend on Cursor being open. Notes to that house wait until the disk writes.
+
+## 2026-08-19 — invoice amounts and bank pay
+
+- Catalogue option amounts are editable on the studio desk. Standing GBP live in `_meta/billing/prices.json`. Compose still lets you change a line’s amount before issue.
+- Pay is bank transfer on the invoice. Studio sets the account on the desk. Client marks sent; studio records paid when it lands. Unpaid seven days still shuts a bound plot. Card/Stripe stays later.
+
+## 2026-08-19 — privacy and terms are real notices
+
+- `/privacy` and `/terms` name who we are, the account, the session cookie, enquiries, invoices, live hosts, rights, and English law. Company number sits there once it is filed. No invented address.
+
+
+## 2026-08-19 — campus sniff must be running in this Cursor
+
+- Send writes the inbox and `wake.flag`. That does not wake the chat by itself. `ops/sniff-inbox.sh` has to be running in this campus Cursor. A restart must still fire if anything is `pending` — do not swallow the first wake.
+- Pushing stamps downstairs must not overwrite Debian’s `wake.flag`. That flag is the LAN Send. Overwriting it wakes the chat a second time with an empty queue.
+
+## 2026-08-19 — type is Rigid Square from Adobe Fonts
+
+- We do not own Binnenland (Blender, T-Star, the catalogue). Those files are off the hub. Face is [Rigid Square](https://fonts.adobe.com/fonts/rigid-square) — octagonal, 45° cuts, closest Adobe Fonts match. Dave’s Adobe Fonts **web project** is the licence: add Regular, Italic, Semi Bold, Bold, Extra Bold; add designlabnorth.com and the campus hosts; put the kit id in `NEXT_PUBLIC_ADOBE_FONTS_KIT`. Do not self-host the files. Footer dots change colour only.
+
+## 2026-08-19 — Method in the header
+
+- The main menu carries Method (`/method`), Practice (`/practice`), and Greenhouse (`/greenhouse`), next to Home. Each hides on its own page. Footer links stay. Menu type is initial caps, not all caps.
+
+## 2026-08-19 — home three columns are Dave’s section copy
+
+- Home Design / Strategy / Build columns carry Dave’s institute paragraphs (UK spelling). Three columns stay. The old “I have…” reason list is no longer the column body. Home has no Tell us form. Design, Strategy, Build and Practice have no enquire form.
+
+## 2026-08-19 — Aktiv Grotesk; header mark 30% smaller
+
+- Hub type is [Aktiv Grotesk](https://fonts.adobe.com/fonts/aktiv-grotesk/) (Dave). Same Adobe Fonts web project: Regular, Italic, Medium, Bold, Black. CSS `"aktiv-grotesk"`. Kit id still `NEXT_PUBLIC_ADOBE_FONTS_KIT`.
+- Header mark is 30% smaller (`min(104px, 27vw)`; 60px on a narrow screen).
+
+## 2026-08-19 — no Tell us form on home
+
+- Home is the three columns and the dots. Practice, Method and Greenhouse live in the header, not in the home body. No public enquire form. Write to build@designlabnorth.com.
+
+## 2026-08-19 — home body 20% smaller, no stage enquire forms
+
+- Home column body is 10% up from the last size (`0.86rem`) with the same leading ratio (`1.32`).
+- Enquire form is off home, Design, Strategy, Build and Practice. Footer mail stays.
+
+## 2026-08-19 — Practice and Greenhouse in the header
+
+- Main menu is Home, Method, Practice, Greenhouse (each hidden on its own page), then Sign in / Account. Initial caps, not all caps. Home body no longer carries those links.
+
+## 2026-08-19 — home body 10% larger
+
+- Home column body is `0.86rem` at line-height `1.32` — same size-to-leading ratio as the last set.
+
+## 2026-08-19 — Practice heading
+
+- `/practice` heading is Designing High-Value Brand Ecosystems (Dave).
+
+## 2026-08-19 — no Enquiries on Practice
+
+- Practice has no Enquiries heading and no Tell us form. Public write-in is the footer mailbox.
+
+## 2026-08-19 — Practice body matches home
+
+- Practice body, lede and paragraphs use the home column size: `0.86rem` at line-height `1.32`.
+
+## 2026-08-19 — Greenhouse projects
+
+- `/greenhouse` heading is Greenhouse projects (Dave). Not “Our products.”
+
+## 2026-08-19 — Various Titles greenhouse copy
+
+- Greenhouse Various Titles voice is Dave’s Proprietary Engine Room paragraph (`will be` our premium paywalled repository…). List name stays Various Titles.
+
+## 2026-08-19 — Method body matches home
+
+- Method paragraphs use the home column size: `0.86rem` at line-height `1.32`.
+
+## 2026-08-19 — Dave’s Practice paragraph
+
+- `/practice` Dave copy is his amended paragraph: multi-award-winning designer for branding and marketing, former lecturer, LCC advisor, consultant across the region, public speaker and host, work in publications, on TV and radio. Do not restore “Dave Kirkwood Studio —” as the lead, “nominated”, or “lecturer of branding”.
+
+## 2026-08-19 — Practice lede
+
+- Practice lede is: DLN creates Identities, marketing strategies, brand redesigns and facelifts, websites and design for print.
+
+## 2026-08-19 — no What we do on Practice
+
+- Practice has no What we do section. Lede carries the offering line. Design / Strategy / Build stay on home.
+
+## 2026-08-19 — Practice client list
+
+- Selected clients are three columns, no rules between names, home body size (`0.86rem` / `1.32`). Added Richard Creme, Stan Sulzman, Bernard Oglesby, Paul Fosbury, Motionhouse Dance Co. Do not invent further names.
+
+## 2026-08-19 — home module strip
+
+- Home carries Dave’s seven-module RUUN Framework image (`/home/modules.png`) above the Design / Strategy / Build columns. Not a replacement for the header mark.
+
+## 2026-08-19 — home papers; trial column copy
+
+- The seven modules sit as white paper sheets you swipe between (`/home/modules/01.png`–`07.png`). Not one squeezed strip. No mix-blend. Hover lifts the sheet (no drop shadow).
+- Home Design / Strategy / Build body is a trial (Ewan): shorter, what we actually give, same for small and large. Dave’s institute paragraphs are cached as `daveCopy` in `needs.ts` — do not delete.
+
+## 2026-08-19 — middle-ground home columns
+
+- Live column copy sits between Dave’s institute voice and the short trial: Sandbox, blueprint, Greenhouse / 8-Phase kept; what you actually get kept. Each column ends “Come in on Design / Strategy / Build”, plus a line-link under the paragraph. `daveCopy` stays cached.
+
+## 2026-08-19 — journey form; tabbed studio desk
+
+- Design, Strategy and Build carry the Tell us form again so interest lands on the desk. Home still has no form.
+- Studio `/account` is Clients, Waiting, or Book, then a person with Profile / Work / Billing. Work files live in `_meta/clients/`. Catalogue includes monthly staging and launch on their domain; amounts still set when composed. Do not overwrite the invoice or onboard APIs.
+
+## 2026-08-19 — campus is the book; Tell us folds; menu wheel
+
+- Live home column copy: fewer em dashes and semicolons. Dave terms kept (high-value brand systems, Sandbox, lectures and lab sessions, strategic blueprint, 8-Phase, Greenhouse). `daveCopy` stays cached.
+- On a lab host the studio book sits on `/lab` under the unit doors. `/account` is us (profile and sign out). Public VPS keeps the book on `/account` because `/lab` 404s there.
+- Catalogue amounts and the bank rail live in Book → How we bill. Compose and issue stay on the person.
+- Tell us is a drop-down. The form is hidden until it is open.
+- Selects and fold-out menus use `--menu` / `--menu-ink`: a neighbouring colour from the footer ground wheel (paper → grey, ink → mist, the rest → charcoal).
+
+## 2026-08-19 — book as a desk
+
+- Book is a webapp desk, not a list: UK clock, Due / Rolling / Drafts cards, then builds. Standing amounts and bank details sit in folds. Bank details later. Dates stamp themselves in Europe/London. Weekly and monthly hosts roll without a typed date. Compose on the person uses Design / Strategy / Build chips.
+
+## 2026-08-20 — sittings, live calendars, receipts
+
+- Dave’s calendar is Design and Strategy. Ewan’s is Build, unless studio holds the other diary. Pay for the sitting, then pick a slot. No GBP on the public calendar.
+- Hosting rolls try to collect online when that rail is live. Card provider later, no secrets in git. Receipts write when a payment clears and download from the account.
+- Studio set availability live on the Book calendars: In/Away, weekday chips, from/to, click a time or a day. Hold a slot is a second mode. Book plates lift (offset chamfer, no shadows).
+- Public Design / Strategy / Build have no calendar. Diary APIs and the Book grid stay so we book and see what is on.
+- LAN campus on Debian is production Next (`next start`), not `next dev`. Watch probes `/api/health`. Do not bounce a dead tab — the overnight overlay was compile-on-rsync.
+- Tell us contact is one line: I’m name, email, phone together. Not stacked Name / Email / Phone. Same fields, same API.
+
+## 2026-08-20 — Settings dump; Charge default
+
+- Studio desk has a Settings tab. Dump options there: default charge, days to pay, Adobe Fonts kit, then charging, online pay, bank.
+- Charging is Design / Strategy / Build in three columns on a desk, swipe on a phone. The box is Charge £, or Charge default. Empty is the Settings default, not “set when issued”.
+- Book keeps calendars, due, rolling, drafts, builds. Compose still lives on the person.
+
+## 2026-08-20 — Book owns pay; Onboarding; calendar this-week
+
+- Payment (standing amounts, online pay, bank) is a **Pay** tab on the desk, not Settings. Settings only holds defaults that feed other pages: Charge default, days to pay, Adobe kit. Do not invent extra settings.
+- Calendar on Book collapses to this week. Full calendars when opened.
+- Waiting is **Onboarding**: each form fill is a saved card (Design / Strategy / Build). Verify details, make the login, make a folder on disk. Cursor is opened by a human.
+- Other in each charging column is a unique named charge for the situation.
+- `modyu@designlabnorth.local` is obsolete. Anne Marie is `modyu@designlabnorth.com` only. Absorb the seed into that login; do not keep both.
+- Swarm Fund and Choozlist greenhouse copy match Various Titles for depth. Do not make them generic or similar to each other.
+- Ewan on Practice: last line is “The sites are built here, and they are built well.” Not a sentence that begins with And.
+
+## 2026-08-20 — Anne Marie live-only; suggestion well; per-entry charge; papers overflow
+
+- Anne Marie never uses campus, localhost, or the public hub. Keep a client **record** for billing and suggestions. `hubLogin: false` on `modyu@designlabnorth.com`. Her login is the live ModYu book.
+- Live host comment is a **text box**. Collect, audit, sweep to a plan, run ourselves. Not a live editor like the offline lab.
+- No overall Charge default. Settings has the same catalogue list, each box its own saved amount. Pay has that list plus Other: Reason and Charge.
+- Homepage papers scroll only when the strip overflows. Desktop drag and wheel count. If they fit, they sit.
+
+## 2026-08-20 — greenhouse product copy
+
+- Swarm and Choozlist greenhouse stories do not open with “Design Lab North are building…”. They talk about the product.
+- Do not broadcast where a house lives on the public wall (no “public house is…”, “growing copy”, “on its own house”). Hosting stays in studio memory.
+
+## 2026-08-20 — studio desk: serving, rooms, campus header
+
+- Opening a client is our dossier, not their account. Desk rooms stay. Close / browser back leaves them.
+- Pay requires a client to serve. Serving survives switching Clients / Pay / Book.
+- Accounts rooms are chamfered plates with a hint, not a tutorial underline tab row.
+
+## 2026-08-20 — live nav vs campus circle
+
+- Live site top bar stays public: Home, Method, Practice, Greenhouse, Sign in. Do not put Lab / Builder / Campus in that row.
+- Signed in: Account is a **circle** ready for an avatar. Everything else hangs under it. Studio: Campus is the only admin item in that menu (Builder is a door on campus). Campus header is mark + circle; Live site is under the circle so they can leave without mixing the two bars.
+- Phone footer: name, then links, then ground dots on their own rows. Do not let the dots overlap the legal links.
+
+## 2026-08-20 — pay: select lines, ping online
+
+- Do not overwrite a working charge list to add a second compose UI. Pay uses the Settings list look; tapping a line populates the invoice.
+- Defaults stay in Settings. Other on Pay is Reason + Charge for this invoice.
+- Ping payment — they enter details in the online system. No manual invoice section on Pay. Bank rail remains in Settings as spare. Draft / issue APIs stay.
+- Charge rows keep the Settings Charge £ plate. Tap still fills the invoice. Do not let the 20px desk-button chrome restyle `.charge-item`. Screenshot Pay beside Settings when this UI moves.
+
+## 2026-08-20 — Anne Marie is an offline puppet
+
+- Credential snow was so we could see a client account before deployment. Keep that path: `modyu@designlabnorth.com` signs into **campus / localhost** only (`puppet: true`).
+- Do not mail, display, or regenerate that login every time. Public hub stays locked for the puppet. Live ModYu book is still hers, separate password.
+- Accessible again: password stays in `SEED.txt` / `sheets/anne-marie-modyu.txt` / `/home/main/_meta/ops-secrets.env`. Login on `localhost:3010` works; public hub returns `campus_only`. Sheet no longer claims public hub login.
+- This Cursor owns `thekirkswood/DLN` only. Campus vital LTM lives at `/home/main/_meta/LTM-vital.md`, repo map `/home/main/_meta/github-repos.md`, PAT path `/home/main/_meta/github-ops.env` (never echo). Push with `/home/main/_meta/bin/gh-push.sh DLN main`.
+
+## 2026-08-20 — numbered site iterations
+
+- Every GitHub upload of a site is a new integer. DLN: `memory/ITERATION`, log `memory/iterations.jsonl`, git tag `dln-{n}`. Other houses use `{slug}-{n}` in their own repo. So a version can be seen, logged, and rolled back. Do not ship unnumbered. First DLN number is **1**.
+
+
+
+
+
+
+
+
+
+
+
 
 
 

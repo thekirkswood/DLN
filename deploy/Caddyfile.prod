@@ -8,6 +8,13 @@
 (edge) {
   encode gzip
 
+  @dln_suggest {
+    path /suggest /suggest/* /api/suggestions /api/suggestions/*
+  }
+  handle @dln_suggest {
+    reverse_proxy web:3000
+  }
+
   @modyu_static {
     host modyu.designlabnorth.com
     path /assets* /_next/static*

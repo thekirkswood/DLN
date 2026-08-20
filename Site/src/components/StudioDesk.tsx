@@ -1,19 +1,17 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, Suspense, useEffect, useState, type CSSProperties } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { InvoiceComposer, ConvertTitles } from "@/components/InvoiceDesk";
-import {
-  CloseEnquiry,
-  IssueButton,
-  PayButton,
-  VoidButton,
-  AvatarSlot,
-} from "@/components/AccountBilling";
-import { formatGbp } from "@/data/catalogue";
-import type { Invoice } from "@/lib/billing";
-import { localHandleFromName } from "@/lib/handles";
+import { BookApp, InvoiceBoard } from "@/components/BookApp";
+import { SettingsDesk } from "@/components/SettingsDesk";
+import { PayDesk } from "@/components/PayDesk";
+import { OnboardDesk } from "@/components/OnboardDesk";
+import { AvatarSlot } from "@/components/AccountBilling";
+import { type CatalogueItem } from "@/data/catalogue";
+import type { Invoice, PayRail, Payment, Roll, OnlineRail } from "@/lib/billing";
+import type { StudioSettings } from "@/lib/settings";
 import { enterUrlFor, hostUrlFor, type Plot } from "@/lib/plot-urls";
 import { labStationPath } from "@/lib/lab-host";
 import type { Enquiry } from "@/lib/enquiries";
@@ -21,20 +19,15 @@ import type { BuildPlan, SiteComment } from "@/lib/plans";
 import type { PublicUser } from "@/lib/auth";
 
 type Person = PublicUser;
+type DeskRoom = "clients" | "onboarding" | "book" | "pay" | "settings";
 
-function totalOf(inv: Invoice): number {
-  return inv.lines.reduce((sum, l) => sum + (l.waived ? 0 : l.amountGbp), 0);
+const ROOMS: DeskRoom[] = ["clients", "onboarding", "book", "pay", "settings"];
+
+function asRoom(raw: string | null, fallback: DeskRoom): DeskRoom {
+  return ROOMS.includes(raw as DeskRoom) ? (raw as DeskRoom) : fallback;
 }
 
-export function StudioDesk({
-  people,
-  plots,
-  enquiries,
-  invoices,
-  comments,
-  plans,
-  lab = false,
-}: {
+type DeskProps = {
   people: Person[];
   plots: Plot[];
   enquiries: Enquiry[];
@@ -42,108 +35,199 @@ export function StudioDesk({
   comments: SiteComment[];
   plans: BuildPlan[];
   lab?: boolean;
-}) {
+  catalogue: CatalogueItem[];
+  rail: PayRail;
+  claims: Record<string, Payment>;
+  rolls?: Roll[];
+  online?: OnlineRail;
+  settings: StudioSettings;
+};
+
+export function StudioDesk(props: DeskProps) {
+  return (
+    <Suspense fallback={<div className="studio-desk" />}>
+      <StudioDeskLive {...props} />
+    </Suspense>
+  );
+}
+
+function StudioDeskLive({
+  people,
+  plots,
+  enquiries,
+  invoices,
+  comments,
+  plans,
+  lab = false,
+  catalogue,
+  rail,
+  claims,
+  rolls = [],
+  online = { provider: "none", autoHost: true, note: "" },
+  settings,
+}: DeskProps) {
+  const router = useRouter();
+  const path = usePathname() || "/lab";
+  const params = useSearchParams();
   const waiting = enquiries.filter((e) => e.status === "new");
-  const [personId, setPersonId] = useState(people[0]?.id || "");
-  const [fromEnquiry, setFromEnquiry] = useState<Enquiry | null>(null);
-  const person = people.find((p) => p.id === personId) || null;
+  const fallback: DeskRoom = waiting.length ? "onboarding" : "clients";
+  const desk = asRoom(params.get("desk"), fallback);
+  const who = params.get("who") || "";
+  const person = people.find((p) => p.id === who) || null;
+
+  function go(nextDesk: DeskRoom, nextWho: string | null = who || null) {
+    const q = new URLSearchParams();
+    q.set("desk", nextDesk);
+    if (nextWho) q.set("who", nextWho);
+    router.replace(`${path}?${q.toString()}`, { scroll: false });
+  }
+
+  const rooms: { id: DeskRoom; name: string; hint: string }[] = [
+    {
+      id: "clients",
+      name: "Clients",
+      hint: people.length ? `${people.length} on the book` : "None yet",
+    },
+    {
+      id: "onboarding",
+      name: "Onboarding",
+      hint: waiting.length ? `${waiting.length} waiting` : "Quiet",
+    },
+    { id: "book", name: "Book", hint: "Diaries" },
+    {
+      id: "pay",
+      name: "Pay",
+      hint: person ? person.displayName : "Choose a client",
+    },
+    { id: "settings", name: "Settings", hint: "Amounts" },
+  ];
 
   return (
     <div className="studio-desk">
-      {lab ? (
-        <p className="actions">
-          <Link href="/lab">Open the lab</Link>
-        </p>
-      ) : null}
-      <h2>Current builds</h2>
-      <p className="body bill-note">
-        {lab
-          ? "Jump into the offline build on this PC. Live hosts stay on the VPS for the upload."
-          : "Jump in and look. Public site if there is one; our host is the growing copy on this VPS."}
-      </p>
-      <BuildList plots={plots} lab={lab} />
-
-      <h2>Waiting</h2>
-      <p className="body bill-note">
-        Someone wrote in. Read it, then bring them onto the book from what they
-        already told us.
-      </p>
-      {waiting.length === 0 ? (
-        <p className="body">Nobody waiting.</p>
-      ) : (
-        <div className="bill-table">
-          {waiting.map((row) => (
-            <div key={row.id} className="bill-row enquire-row">
-              <div>
-                <strong>{row.name}</strong>
-                <span className="status">
-                  {row.email}
-                  {row.phone ? ` · ${row.phone}` : ""}
-                </span>
-                <p className="body">{row.needLabel}</p>
-                {row.message ? <p className="body">{row.message}</p> : null}
-              </div>
-              <div className="bill-pay">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setFromEnquiry(row);
-                    document.getElementById("bring-on")?.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start",
-                    });
-                  }}
-                >
-                  Bring on
-                </button>
-                <CloseEnquiry id={row.id} />
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <h2 id="bring-on">Bring someone on</h2>
-      <BringOnForm
-        plots={plots.filter((p) => p.party === "client")}
-        enquiry={fromEnquiry}
-        onClearEnquiry={() => setFromEnquiry(null)}
-        onCreated={(id) => setPersonId(id)}
-        lab={lab}
-      />
-
-      <h2>A person</h2>
-      <p className="body bill-note">
-        Pick someone. Their sites, notes, plan, and invoice live in here.
-      </p>
-      <label htmlFor="desk-person">Who</label>
-      <select
-        id="desk-person"
-        className="desk-pick"
-        value={personId}
-        onChange={(e) => setPersonId(e.target.value)}
-      >
-        {people.length === 0 ? <option value="">Nobody on the book yet</option> : null}
-        {people.map((p) => (
-          <option key={p.id} value={p.id}>
-            {p.displayName} · {p.email}
-          </option>
+      <nav className="desk-rooms" aria-label="Accounts">
+        {rooms.map((room) => (
+          <button
+            key={room.id}
+            type="button"
+            className={desk === room.id ? "desk-room is-on" : "desk-room"}
+            aria-current={desk === room.id ? "page" : undefined}
+            onClick={() => go(room.id, person?.id || null)}
+          >
+            <span className="desk-room-name">{room.name}</span>
+            <span className="desk-room-hint">{room.hint}</span>
+          </button>
         ))}
-      </select>
+      </nav>
 
-      {person ? (
-        <PersonPanel
-          person={person}
-          plots={plots}
-          invoices={invoices.filter((i) => i.userId === person.id)}
-          comments={comments.filter((c) => c.userId === person.id)}
-          plans={plans.filter((p) => p.userId === person.id)}
+      {desk === "pay" || person ? (
+        <div className="desk-serving">
+          <p className="kicker desk-serving-kicker">Serving</p>
+          <label className="desk-serving-pick">
+            <span className="visually-hidden">Client</span>
+            <select
+              value={person?.id || ""}
+              onChange={(e) => go(desk, e.target.value || null)}
+            >
+              <option value="">Choose a client</option>
+              {people.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.displayName}
+                </option>
+              ))}
+            </select>
+          </label>
+          {person ? (
+            <button type="button" className="desk-serving-close" onClick={() => go(desk, null)}>
+              Close
+            </button>
+          ) : null}
+        </div>
+      ) : null}
+
+      {desk === "clients" ? (
+        <div className={`desk-clients${person ? " is-serving" : ""}`}>
+          <div className="client-pick">
+            {people.length === 0 ? (
+              <p className="body">Nobody on the book yet. Onboarding brings them in.</p>
+            ) : (
+              people.map((p, i) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  className={`lift-plate client-plate${person?.id === p.id ? " is-on" : ""}`}
+                  style={{ "--d": i } as CSSProperties}
+                  onClick={() => go("clients", p.id)}
+                >
+                  <span className="lift-plate-face client-plate-face">
+                    <AvatarSlot userId={p.id} hasAvatar={Boolean(p.avatar)} forOthers />
+                    <span>
+                      <strong>{p.displayName}</strong>
+                      <span className="status">{p.email}</span>
+                    </span>
+                  </span>
+                </button>
+              ))
+            )}
+          </div>
+          {person ? (
+            <PersonPanel
+              person={person}
+              plots={plots}
+              invoices={invoices.filter((i) => i.userId === person.id)}
+              comments={comments.filter((c) => c.userId === person.id)}
+              plans={plans.filter((p) => p.userId === person.id)}
+              people={people}
+              lab={lab}
+              catalogue={catalogue}
+              claims={claims}
+              graceDays={settings.graceDays}
+              onCharge={() => go("pay", person.id)}
+            />
+          ) : (
+            <p className="body bill-note desk-clients-hint">
+              Open a client. That is our dossier — not their account. Rooms stay
+              up here. Pay keeps whoever you are serving.
+            </p>
+          )}
+        </div>
+      ) : null}
+
+      {desk === "onboarding" ? (
+        <OnboardDesk enquiries={enquiries} plots={plots} lab={lab} />
+      ) : null}
+
+      {desk === "book" ? (
+        <BookApp
+          invoices={invoices}
           people={people}
+          plots={plots}
+          claims={claims}
+          rolls={rolls}
           lab={lab}
+          graceDays={settings.graceDays}
         />
-      ) : (
-        <p className="body">Bring someone on, then they appear here.</p>
-      )}
+      ) : null}
+
+          {desk === "pay" ? (
+            <PayDesk
+              catalogue={catalogue}
+              people={people}
+              plots={plots}
+              invoices={person ? invoices.filter((i) => i.userId === person.id) : []}
+              claims={claims}
+              graceDays={settings.graceDays}
+              servingId={person?.id || ""}
+            />
+          ) : null}
+
+          {desk === "settings" ? (
+            <SettingsDesk
+              settings={settings}
+              catalogue={catalogue}
+              rail={rail}
+              online={online}
+            />
+          ) : null}
     </div>
   );
 }
@@ -168,8 +252,10 @@ function BuildList({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
               </span>
             </div>
             <div className="build-jumps">
-              {lab && plot.lab?.housePath ? (
+              {lab && plot.lab?.housePath && plot.lab.localPort ? (
                 <Link href={labStationPath(plot.slug)}>Open here</Link>
+              ) : lab && plot.lab?.housePath ? (
+                <span className="status">Folder on disk. Open in Cursor.</span>
               ) : null}
               {pub && !same ? (
                 <a href={pub} target="_blank" rel="noreferrer">
@@ -203,6 +289,10 @@ function PersonPanel({
   plans,
   people,
   lab = false,
+  catalogue,
+  claims,
+  graceDays = 7,
+  onCharge,
 }: {
   person: Person;
   plots: Plot[];
@@ -211,7 +301,12 @@ function PersonPanel({
   plans: BuildPlan[];
   people: Person[];
   lab?: boolean;
+  catalogue: CatalogueItem[];
+  claims: Record<string, Payment>;
+  graceDays?: number;
+  onCharge?: () => void;
 }) {
+  const [tab, setTab] = useState<"profile" | "work" | "billing">("profile");
   const theirPlots = plots.filter(
     (p) => person.plots.includes("*") || person.plots.includes(p.slug),
   );
@@ -220,6 +315,7 @@ function PersonPanel({
     .map((p) => ({ slug: p.slug, name: p.name }));
   const defaultPlot = theirPlots[0]?.slug || plotOpts[0]?.slug || "";
   const openNotes = comments.filter((c) => !c.planId);
+  const titlesHref = lab ? labStationPath("various-titles") : "https://varioustitles.com";
 
   return (
     <div className="person-panel">
@@ -231,60 +327,303 @@ function PersonPanel({
           {person.phone ? ` · ${person.phone}` : ""}
         </p>
       </div>
-      {person.notes ? <p className="body">{person.notes}</p> : null}
 
-      <h3>Their sites</h3>
-      {theirPlots.length === 0 ? (
-        <p className="body">No site bound yet.</p>
-      ) : (
-        <BuildList plots={theirPlots} lab={lab} />
-      )}
+      <div className="person-rooms" role="tablist">
+        {(
+          [
+            ["profile", "Profile"],
+            ["work", "Work"],
+            ["billing", "Billing"],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={tab === id}
+            className={tab === id ? "is-on" : ""}
+            onClick={() => setTab(id)}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
 
-      <h3>Notes they left</h3>
-      <p className="body bill-note">
-        Overall notes on this book. The agent reads these, sweeps them into one
-        plan, and we run that plan offline — then we upload when it is right.
-      </p>
-      {openNotes.length === 0 ? (
-        <p className="body">None waiting to sweep.</p>
-      ) : (
-        <ul className="note-list">
-          {openNotes.map((c) => (
-            <li key={c.id}>
-              <span className="status">{c.createdAt.slice(0, 10)}</span>
-              {c.page ? ` · ${c.page}` : ""}
-              <p>{c.body}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-      <CommentBox
-        plotSlug={defaultPlot}
-        plotOptions={theirPlots.length ? theirPlots : plots.filter((p) => p.party === "client")}
-        clientId={person.id}
-        hint="Add a note from a call, or they leave their own from their account."
-      />
-      {defaultPlot ? (
-        <SweepButton userId={person.id} plotSlug={defaultPlot} disabled={!openNotes.length} />
+      {tab === "profile" ? (
+        <>
+          {person.notes ? <p className="body">{person.notes}</p> : null}
+          {person.puppet ? (
+            <p className="body bill-note">
+              Offline puppet for campus / localhost only — so we can see a
+              client account before deployment. Sign in on the lab host with the
+              existing password in the gitignored sheet (or campus ops-secrets).
+              Do not mail, display, or regenerate a login for her.
+            </p>
+          ) : person.hubLogin === false ? (
+            <p className="body bill-note">
+              Lives on the live host. No campus or hub login — they will not
+              sign in here.
+            </p>
+          ) : null}
+          <h3>Their sites</h3>
+          {theirPlots.length === 0 ? (
+            <p className="body">No site bound yet.</p>
+          ) : (
+            <BuildList plots={theirPlots} lab={lab} />
+          )}
+          <h3>Notes they left</h3>
+          <p className="body bill-note">
+            Account notes, and suggestions from the live host. Sweep them into
+            one plan, run it offline, upload when it is right. The live box is
+            not an editor.
+          </p>
+          {openNotes.length === 0 ? (
+            <p className="body">None waiting to sweep.</p>
+          ) : (
+            <ul className="note-list">
+              {openNotes.map((c) => (
+                <li key={c.id}>
+                  <span className="status">{c.createdAt.slice(0, 10)}</span>
+                  {c.source === "live" ? " · live host" : ""}
+                  {c.fromName ? ` · ${c.fromName}` : ""}
+                  {c.page ? ` · ${c.page}` : ""}
+                  <p>{c.body}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+          <CommentBox
+            plotSlug={defaultPlot}
+            plotOptions={theirPlots.length ? theirPlots : plots.filter((p) => p.party === "client")}
+            clientId={person.id}
+            hint="Add a note from a call. They leave suggestions on the live host."
+          />
+          {defaultPlot ? (
+            <SweepButton userId={person.id} plotSlug={defaultPlot} disabled={!openNotes.length} />
+          ) : null}
+          <h3>Plan</h3>
+          {plans.length === 0 ? (
+            <p className="body">No plan yet. Sweep the notes when you are ready.</p>
+          ) : (
+            plans.map((plan) => <PlanCard key={plan.id} plan={plan} />)
+          )}
+        </>
       ) : null}
 
-      <h3>Plan</h3>
-      {plans.length === 0 ? (
-        <p className="body">No plan yet. Sweep the notes when you are ready.</p>
-      ) : (
-        plans.map((plan) => <PlanCard key={plan.id} plan={plan} />)
-      )}
+      {tab === "work" ? (
+        <>
+          <p className="body bill-note">
+            A.P.E.S. generations, Logic versions, and resources for each stage
+            — plus the door into Various Titles. Add a title and a link as the
+            work lands.
+          </p>
+          <p className="body">
+            <Link href={titlesHref}>Enter Various Titles</Link>
+            {" · "}
+            <Link href="/greenhouse/various-titles">Greenhouse story</Link>
+          </p>
+          <ConvertTitles people={people} fixedUserId={person.id} />
+          <WorkFiles userId={person.id} />
+        </>
+      ) : null}
 
-      <h3>Invoice</h3>
-      <p className="body bill-note">
-        What the work actually was. Design, Strategy, or Build — pick the
-        lines, waive if you need, issue.
-      </p>
-      <InvoiceList invoices={invoices} studio />
-      <InvoiceComposer people={people} plots={plotOpts} fixedUserId={person.id} />
+      {tab === "billing" ? (
+        <>
+          <p className="body bill-note">
+            Their invoices. Same list as Pay — tap a line to add it, Ping
+            sends them to pay online.
+            {onCharge ? (
+              <>
+                {" "}
+                <button type="button" className="desk-inline" onClick={onCharge}>
+                  Open on Pay
+                </button>
+              </>
+            ) : null}
+          </p>
+          <InvoiceBoard invoices={invoices} studio claims={claims} people={people} graceDays={graceDays} />
+          <p className="body bill-note book-compose-note">
+            Issue stamps today’s UK date. They have {graceDays} days. A weekly or
+            monthly line rolls the next invoice when that period ends.
+          </p>
+          <InvoiceComposer
+            people={people}
+            plots={plotOpts}
+            fixedUserId={person.id}
+            catalogue={catalogue}
+            graceDays={graceDays}
+          />
+        </>
+      ) : null}
+    </div>
+  );
+}
 
-      <h3>Various Titles</h3>
-      <ConvertTitles people={people} fixedUserId={person.id} />
+type WorkStage = "apes" | "design" | "strategy" | "build" | "titles";
+
+const WORK_STAGES: { id: WorkStage; name: string }[] = [
+  { id: "apes", name: "A.P.E.S." },
+  { id: "design", name: "Design" },
+  { id: "strategy", name: "Strategy" },
+  { id: "build", name: "Build" },
+  { id: "titles", name: "Various Titles" },
+];
+
+function WorkFiles({ userId }: { userId: string }) {
+  const [who, setWho] = useState("");
+  const [resources, setResources] = useState<
+    { id: string; stage: WorkStage; title: string; url?: string; note?: string; createdAt: string }[]
+  >([]);
+  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
+  const [note, setNote] = useState("");
+  const [stage, setStage] = useState<WorkStage>("apes");
+  const [pending, setPending] = useState(false);
+
+  async function load() {
+    const res = await fetch(`/api/studio/dossier?userId=${encodeURIComponent(userId)}`, {
+      cache: "no-store",
+    });
+    const data = (await res.json().catch(() => null)) as {
+      dossier?: { who?: string; resources?: typeof resources };
+    } | null;
+    if (!res.ok || !data?.dossier) return;
+    setWho(data.dossier.who || "");
+    setResources(data.dossier.resources || []);
+  }
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
+
+  async function saveWho() {
+    setPending(true);
+    await fetch("/api/studio/dossier", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, who }),
+    });
+    setPending(false);
+  }
+
+  async function add(e: FormEvent) {
+    e.preventDefault();
+    setPending(true);
+    const res = await fetch("/api/studio/dossier", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, title, url, note, stage }),
+    });
+    setPending(false);
+    if (!res.ok) return;
+    setTitle("");
+    setUrl("");
+    setNote("");
+    await load();
+  }
+
+  async function remove(id: string) {
+    setPending(true);
+    await fetch("/api/studio/dossier", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, removeId: id }),
+    });
+    setPending(false);
+    await load();
+  }
+
+  return (
+    <div className="work-files">
+      <h3>Who they are</h3>
+      <label htmlFor="who-they">Studio note</label>
+      <textarea
+        id="who-they"
+        rows={3}
+        value={who}
+        onChange={(e) => setWho(e.target.value)}
+      />
+      <div className="actions">
+        <button type="button" disabled={pending} onClick={saveWho}>
+          {pending ? "…" : "Save"}
+        </button>
+      </div>
+      <h3>Resources</h3>
+      {WORK_STAGES.map((s) => {
+        const rows = resources.filter((r) => r.stage === s.id);
+        return (
+          <div key={s.id} className="work-stage">
+            <h4>{s.name}</h4>
+            {rows.length === 0 ? (
+              <p className="body">Nothing filed yet.</p>
+            ) : (
+              <ul className="note-list">
+                {rows.map((r) => (
+                  <li key={r.id}>
+                    <strong>{r.title}</strong>
+                    {r.url ? (
+                      <>
+                        {" · "}
+                        <a href={r.url} target="_blank" rel="noreferrer">
+                          Open
+                        </a>
+                      </>
+                    ) : null}
+                    {r.note ? <p>{r.note}</p> : null}
+                    <button
+                      type="button"
+                      className="act-quiet"
+                      disabled={pending}
+                      onClick={() => remove(r.id)}
+                    >
+                      Remove
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        );
+      })}
+      <form className="onboard" onSubmit={add}>
+        <label htmlFor="res-stage">Stage</label>
+        <select
+          id="res-stage"
+          value={stage}
+          onChange={(e) => setStage(e.target.value as WorkStage)}
+        >
+          {WORK_STAGES.map((s) => (
+            <option key={s.id} value={s.id}>
+              {s.name}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="res-title">Title</label>
+        <input
+          id="res-title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+        <label htmlFor="res-url">Link</label>
+        <input
+          id="res-url"
+          type="url"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
+        <label htmlFor="res-note">Note</label>
+        <textarea
+          id="res-note"
+          rows={2}
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+        />
+        <button type="submit" disabled={pending}>
+          {pending ? "…" : "File it"}
+        </button>
+      </form>
     </div>
   );
 }
@@ -459,241 +798,16 @@ export function CommentBox({
   );
 }
 
-function BringOnForm({
-  plots,
-  enquiry,
-  onClearEnquiry,
-  onCreated,
-  lab = false,
-}: {
-  plots: Plot[];
-  enquiry: Enquiry | null;
-  onClearEnquiry: () => void;
-  onCreated: (id: string) => void;
-  lab?: boolean;
-}) {
-  const router = useRouter();
-  const [pending, setPending] = useState(false);
-  const [error, setError] = useState("");
-  const [cred, setCred] = useState<{
-    email: string;
-    password: string;
-    personalEmail: string | null;
-    mailed: boolean;
-    station?: string;
-  } | null>(null);
-  const [name, setName] = useState(enquiry?.name || "");
-  const [mailbox, setMailbox] = useState(enquiry?.email || "");
-  const [phone, setPhone] = useState(enquiry?.phone || "");
-  const [notes, setNotes] = useState(
-    enquiry ? [enquiry.needLabel, enquiry.message].filter(Boolean).join("\n") : "",
-  );
-  const [usePersonal, setUsePersonal] = useState(false);
-  const [openStation, setOpenStation] = useState(false);
-
-  useEffect(() => {
-    if (!enquiry) return;
-    setName(enquiry.name);
-    setMailbox(enquiry.email);
-    setPhone(enquiry.phone || "");
-    setNotes([enquiry.needLabel, enquiry.message].filter(Boolean).join("\n"));
-  }, [enquiry]);
-
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError("");
-    setCred(null);
-    const form = new FormData(e.currentTarget);
-    const picked = form.getAll("plots").map(String);
-    setPending(true);
-    const res = await fetch("/api/studio/onboard", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        enquiryId: enquiry?.id,
-        displayName: name,
-        personalEmail: mailbox,
-        phone,
-        notes,
-        plots: picked,
-        usePersonalLogin: usePersonal,
-      }),
-    });
-    const data = (await res.json().catch(() => null)) as {
-      id?: string;
-      email?: string;
-      password?: string;
-      personalEmail?: string | null;
-      mailed?: boolean;
-    } | null;
-    setPending(false);
-    if (!res.ok || !data?.id || !data.email || !data.password) {
-      setError(res.status === 409 ? "That login is already on the book." : "Bring-on didn’t take.");
-      return;
-    }
-    let station = "";
-    if (lab && openStation) {
-      const st = await fetch("/api/lab/stations", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, party: "client" }),
-      });
-      const stData = (await st.json().catch(() => null)) as { slug?: string } | null;
-      if (st.ok && stData?.slug) station = stData.slug;
-    }
-    setCred({
-      email: data.email,
-      password: data.password,
-      personalEmail: data.personalEmail || null,
-      mailed: Boolean(data.mailed),
-      station,
-    });
-    onCreated(data.id);
-    onClearEnquiry();
-    router.refresh();
-  }
-
-  const previewLogin = usePersonal
-    ? mailbox || "their mailbox"
-    : localHandleFromName(name || "client");
-
-  return (
-    <form className="onboard" onSubmit={onSubmit}>
-      {enquiry ? (
-        <p className="body bill-note">
-          From {enquiry.name}. We keep what they wrote. We make a login and a
-          password, and send them to their mailbox.
-          {" "}
-          <button type="button" className="act-quiet" onClick={onClearEnquiry}>
-            Clear
-          </button>
-        </p>
-      ) : (
-        <p className="body bill-note">
-          We make the login and password. Their mailbox is where we send it.
-          Default login is a <code>@designlabnorth.local</code> handle — not a
-          mailbox, the name on this book.
-        </p>
-      )}
-      <label htmlFor="bo-name">Name</label>
-      <input
-        id="bo-name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-      <label htmlFor="bo-mail">Their mailbox</label>
-      <input
-        id="bo-mail"
-        type="email"
-        value={mailbox}
-        onChange={(e) => setMailbox(e.target.value)}
-        required
-      />
-      <label htmlFor="bo-phone">Phone</label>
-      <input
-        id="bo-phone"
-        type="tel"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      />
-      <label htmlFor="bo-notes">What they asked</label>
-      <textarea
-        id="bo-notes"
-        rows={3}
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-      />
-      <label className="check">
-        <input
-          type="checkbox"
-          checked={usePersonal}
-          onChange={(e) => setUsePersonal(e.target.checked)}
-        />
-        Use their mailbox as the login
-      </label>
-      <p className="body bill-note">Login will be {previewLogin}. Password is made for them.</p>
-      <fieldset>
-        <legend>Bind a site</legend>
-        {plots.length === 0 ? (
-          <p className="body">No client plots yet — they can still go on the book.</p>
-        ) : (
-          plots.map((p) => (
-            <label key={p.slug} className="check">
-              <input type="checkbox" name="plots" value={p.slug} />
-              {p.name}
-            </label>
-          ))
-        )}
-      </fieldset>
-      {lab ? (
-        <label className="check">
-          <input
-            type="checkbox"
-            checked={openStation}
-            onChange={(e) => setOpenStation(e.target.checked)}
-          />
-          Open a station on this PC
-        </label>
-      ) : null}
-      <button type="submit" disabled={pending}>
-        {pending ? "…" : "Make their login"}
-      </button>
-      {error ? <p className="err">{error}</p> : null}
-      {cred ? (
-        <div className="cred-card">
-          <p className="body">
-            {cred.mailed
-              ? `Sent to ${cred.personalEmail}. Copy is here if you need it.`
-              : `Mail didn’t send (no SMTP). Send this to ${cred.personalEmail || "them"} yourselves.`}
-          </p>
-          <p>
-            <strong>Login</strong> {cred.email}
-          </p>
-          <p>
-            <strong>Password</strong> {cred.password}
-          </p>
-          {cred.station ? (
-            <p>
-              <Link href={labStationPath(cred.station)}>Open their station</Link>
-            </p>
-          ) : null}
-        </div>
-      ) : null}
-    </form>
-  );
-}
-
 export function InvoiceList({
   invoices,
   studio,
+  claims = {},
+  graceDays = 7,
 }: {
   invoices: Invoice[];
   studio: boolean;
+  claims?: Record<string, Payment>;
+  graceDays?: number;
 }) {
-  if (invoices.length === 0) {
-    return <p className="body">No invoices yet.</p>;
-  }
-  return (
-    <div className="bill-table">
-      {invoices.map((inv) => (
-        <div key={inv.id} className="bill-row">
-          <div>
-            <Link href={`/account/invoices/${inv.id}`}>
-              <strong>{inv.number}</strong>
-            </Link>
-            <span className="status">{inv.status}</span>
-          </div>
-          <div>{formatGbp(totalOf(inv))}</div>
-          <div className="bill-pay">
-            {inv.status === "due" ? <PayButton invoiceId={inv.id} /> : null}
-            {studio && inv.status === "draft" ? <IssueButton invoiceId={inv.id} /> : null}
-            {studio && (inv.status === "draft" || inv.status === "due") ? (
-              <VoidButton invoiceId={inv.id} />
-            ) : null}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+  return <InvoiceBoard invoices={invoices} studio={studio} claims={claims} graceDays={graceDays} />;
 }

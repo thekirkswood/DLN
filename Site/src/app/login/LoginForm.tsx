@@ -41,13 +41,22 @@ export default function LoginForm() {
       }),
     });
     setPending(false);
-    if (!res.ok) {
-      setError("That sign-in didn’t match.");
-      return;
-    }
     const data = (await res.json().catch(() => null)) as {
+      reason?: string;
       user?: { role?: string };
     } | null;
+    if (!res.ok) {
+      if (data?.reason === "campus_only") {
+        setError(
+          "That account is an offline campus puppet — sign in on localhost / the lab PC, not the public hub.",
+        );
+      } else if (data?.reason === "hub_locked") {
+        setError("That account doesn’t sign in on this host.");
+      } else {
+        setError("That sign-in didn’t match.");
+      }
+      return;
+    }
     const role = data?.user?.role;
     const studio = role === "owner" || role === "studio";
     const onLab = isLabHost(window.location.host);

@@ -33,10 +33,22 @@ export function PrintButton() {
   );
 }
 
-export function PayButton({ invoiceId }: { invoiceId: string }) {
+export function PayButton({
+  invoiceId,
+  studio,
+  claimed,
+}: {
+  invoiceId: string;
+  studio?: boolean;
+  claimed?: boolean;
+}) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
+
+  if (!studio && claimed) {
+    return <span className="status">Sent — waiting</span>;
+  }
 
   async function onPay() {
     setError("");
@@ -44,11 +56,41 @@ export function PayButton({ invoiceId }: { invoiceId: string }) {
     const res = await fetch("/api/billing/pay", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ invoiceId }),
+      body: JSON.stringify({ invoiceId, action: studio ? "clear" : "claim" }),
     });
     setPending(false);
     if (!res.ok) {
-      setError("Payment didn’t record.");
+      setError(studio ? "Didn’t record as paid." : "Didn’t mark as sent.");
+      return;
+    }
+    router.refresh();
+  }
+
+  const label = studio ? (claimed ? "Confirm paid" : "Record paid") : "I’ve paid";
+
+  async function onOnline() {
+    setError("");
+    setPending(true);
+    const res = await fetch("/api/billing/pay", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        invoiceId,
+        action: studio ? "clear" : "claim",
+        method: "online",
+      }),
+    });
+    setPending(false);
+    if (res.status === 409) {
+      setError(
+        studio
+          ? "Online pay is not connected yet. Record paid when it lands."
+          : "Online pay is being connected. Pay on the invoice, or we’ll take it.",
+      );
+      return;
+    }
+    if (!res.ok) {
+      setError("Didn’t take.");
       return;
     }
     router.refresh();
@@ -57,7 +99,10 @@ export function PayButton({ invoiceId }: { invoiceId: string }) {
   return (
     <span className="pay-cell">
       <button type="button" onClick={onPay} disabled={pending}>
-        {pending ? "…" : "Pay"}
+        {pending ? "…" : label}
+      </button>
+      <button type="button" onClick={onOnline} disabled={pending}>
+        {studio ? "Paid online" : "Pay online"}
       </button>
       {error ? <span className="err">{error}</span> : null}
     </span>
@@ -95,7 +140,7 @@ export function IssueButton({ invoiceId }: { invoiceId: string }) {
     const res = await fetch("/api/billing/issue", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: invoiceId }),
+      body: JSON.stringify({ id: invoiceId, ping: true }),
     });
     setPending(false);
     if (res.ok) router.refresh();
@@ -103,7 +148,7 @@ export function IssueButton({ invoiceId }: { invoiceId: string }) {
 
   return (
     <button type="button" onClick={onIssue} disabled={pending}>
-      {pending ? "…" : "Issue"}
+      {pending ? "…" : "Ping payment"}
     </button>
   );
 }

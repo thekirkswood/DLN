@@ -1,27 +1,16 @@
-import localFont from "next/font/local";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LabHubDock } from "@/components/LabHubDock";
+import { StudioPresence } from "@/components/StudioPresence";
 import { getSessionUser } from "@/lib/session";
 import { isStudio } from "@/lib/auth";
 import { labHostFromHeaders } from "@/lib/lab";
+import { getSettings } from "@/lib/settings";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
-
-const blender = localFont({
-  src: [
-    { path: "../../public/fonts/Blender-Book.woff2", weight: "400", style: "normal" },
-    { path: "../../public/fonts/Blender-BookItalic.woff2", weight: "400", style: "italic" },
-    { path: "../../public/fonts/Blender-Medium.woff2", weight: "500", style: "normal" },
-    { path: "../../public/fonts/Blender-Bold.woff2", weight: "700", style: "normal" },
-    { path: "../../public/fonts/Blender-Strong.woff2", weight: "900", style: "normal" },
-  ],
-  variable: "--font-blender",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: {
@@ -36,7 +25,13 @@ export const metadata: Metadata = {
   },
 };
 
-const groundBoot = `(function(){try{var g=localStorage.getItem("dln-ground");document.documentElement.setAttribute("data-ground",g==="ink"?"ink":"paper");}catch(e){document.documentElement.setAttribute("data-ground","paper");}})();`;
+const groundBoot = `(function(){try{var g=localStorage.getItem("dln-ground");var ok={paper:1,ink:1,grey:1,mint:1,mist:1,cream:1,blush:1};document.documentElement.setAttribute("data-ground",ok[g]?g:"paper");localStorage.removeItem("dln-face");}catch(e){document.documentElement.setAttribute("data-ground","paper");}})();`;
+
+function adobeKitHref(fromSettings = ""): string | null {
+  const kit = (process.env.NEXT_PUBLIC_ADOBE_FONTS_KIT || fromSettings || "").trim();
+  if (!/^[a-z0-9]{5,12}$/i.test(kit)) return null;
+  return `https://use.typekit.net/${kit}.css`;
+}
 
 export default async function RootLayout({
   children,
@@ -44,14 +39,24 @@ export default async function RootLayout({
   const user = await getSessionUser();
   const lab = labHostFromHeaders();
   const studio = Boolean(user && isStudio(user));
+  const adobe = adobeKitHref((await getSettings()).adobeKit);
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <head>
+        {adobe ? <link rel="stylesheet" href={adobe} /> : null}
         <script dangerouslySetInnerHTML={{ __html: groundBoot }} />
       </head>
-      <body className={`${blender.variable} ${blender.className}`}>
-        <Header signedIn={Boolean(user)} studio={studio} lab={lab} />
+      <body>
+        <Header
+          signedIn={Boolean(user)}
+          studio={studio}
+          lab={lab}
+          userId={user?.id}
+          hasAvatar={Boolean(user?.avatar)}
+          displayName={user?.displayName}
+        />
         <main>{children}</main>
+        {lab && studio ? <StudioPresence /> : null}
         {lab && studio ? <LabHubDock /> : null}
         <Footer />
       </body>

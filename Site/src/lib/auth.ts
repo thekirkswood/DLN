@@ -6,6 +6,8 @@ import {
   timingSafeEqual,
   randomUUID,
 } from "crypto";
+import { headers } from "next/headers";
+import { isLabHost } from "@/lib/lab-host";
 
 const ROOT = path.join(process.cwd(), "..", "_meta", "accounts");
 const USERS = path.join(ROOT, "users.json");
@@ -32,6 +34,10 @@ export type User = {
   phone?: string;
   notes?: string;
   enquiryId?: string;
+  /** false = not this book. Their live plot has its own book. Puppet accounts ignore this and sign in on lab hosts only. */
+  hubLogin?: boolean;
+  /** Campus/lab test client. Sign in on lab hosts to see a client account. Never mail or regenerate a login. */
+  puppet?: boolean;
 };
 
 export type PublicUser = Omit<User, "passwordHash">;
@@ -143,8 +149,11 @@ async function ensureHubAccounts() {
       });
       extra.push(`${w.role}  ${w.email}  ${pass}`);
     }
-    if (!extra.length) return;
+    const absorbed = await absorbObsoleteModyu(users);
+    const puppets = markPuppetClients(users);
+    if (!extra.length && !absorbed && !puppets) return;
     await fs.writeFile(USERS, `${JSON.stringify(users, null, 2)}\n`, "utf8");
+    if (!extra.length) return;
     await fs.appendFile(
       SEED,
       ["", "Hub accounts — added when missing.", ...extra, ""].join("\n"),
@@ -155,10 +164,63 @@ async function ensureHubAccounts() {
   }
 }
 
+/** Offline puppets we sign in as on campus. Not a person to mail. */
+const PUPPET_EMAILS = new Set(["modyu@designlabnorth.com"]);
+
+export function isPuppetEmail(email: string): boolean {
+  return PUPPET_EMAILS.has(email.trim().toLowerCase());
+}
+
+function markPuppetClients(users: User[]): boolean {
+  let changed = false;
+  for (const u of users) {
+    if (!PUPPET_EMAILS.has(u.email.toLowerCase())) continue;
+    if (u.puppet === true && u.hubLogin !== false) continue;
+    u.puppet = true;
+    delete u.hubLogin;
+    changed = true;
+  }
+  return changed;
+}
+
+function requestIsLab(): boolean {
+  try {
+    return isLabHost(headers().get("host"));
+  } catch {
+    return false;
+  }
+}
+
+export function canHubLogin(
+  user: Pick<User, "hubLogin" | "puppet">,
+  lab = requestIsLab(),
+): boolean {
+  if (user.puppet) return lab;
+  return user.hubLogin !== false;
+}
+
+/** Seed `.local` ModYu is obsolete. Anne Marie’s `.com` login is the live one. */
+async function absorbObsoleteModyu(users: User[]): Promise<boolean> {
+  const keep = users.find((u) => u.email === "modyu@designlabnorth.com");
+  const drop = users.find((u) => u.email === "modyu@designlabnorth.local");
+  if (!keep || !drop) return false;
+  if (drop.avatar && !keep.avatar) keep.avatar = drop.avatar;
+  keep.plots = Array.from(new Set([...(keep.plots || []), ...(drop.plots || [])]));
+  if (drop.phone && !keep.phone) keep.phone = drop.phone;
+  if (drop.personalEmail && !keep.personalEmail) keep.personalEmail = drop.personalEmail;
+  if (drop.notes) {
+    keep.notes = keep.notes ? `${keep.notes}\n${drop.notes}` : drop.notes;
+  }
+  const idx = users.findIndex((u) => u.id === drop.id);
+  if (idx >= 0) users.splice(idx, 1);
+  const { remapClientRecords } = await import("@/lib/unify-client");
+  await remapClientRecords(drop.id, keep.id);
+  return true;
+}
+
 async function seed() {
   const ownerPass = genPass();
   const studioPass = genPass();
-  const clientPass = genPass();
   const now = new Date().toISOString();
   const users: User[] = [
     {
@@ -188,15 +250,6 @@ async function seed() {
       plots: ["*"],
       createdAt: now,
     },
-    {
-      id: randomUUID(),
-      email: "modyu@designlabnorth.local",
-      passwordHash: hashPassword(clientPass),
-      displayName: "ModYu",
-      role: "client",
-      plots: ["modyu"],
-      createdAt: now,
-    },
   ];
   await fs.writeFile(USERS, `${JSON.stringify(users, null, 2)}\n`, "utf8");
   await fs.writeFile(SESSIONS, "[]\n", "utf8");
@@ -207,7 +260,6 @@ async function seed() {
       `owner  ewan@designlabnorth.com  ${ownerPass}`,
       `studio dave@designlabnorth.com  ${studioPass}`,
       `owner  ewan@designlabnorth.local  ${ownerPass}`,
-      `client modyu@designlabnorth.local  ${clientPass}`,
       "",
     ].join("\n"),
     { encoding: "utf8", mode: 0o600 },
@@ -236,11 +288,13 @@ function pub(u: User): PublicUser {
 
 export async function clientForPlot(slug: string): Promise<PublicUser | null> {
   const users = await readJson<User>(USERS);
-  const u = users.find(
+  const matches = users.filter(
     (x) =>
       x.role === "client" &&
       (x.plots.includes(slug) || x.plots.includes("*")),
   );
+  const u =
+    matches.find((x) => !x.email.endsWith(".local")) || matches[0] || null;
   return u ? pub(u) : null;
 }
 
@@ -295,14 +349,17 @@ export async function createClient(input: {
     phone: input.phone?.trim() || undefined,
     notes: input.notes?.trim() || undefined,
     enquiryId: input.enquiryId?.trim() || undefined,
+    ...(isPuppetEmail(email) ? { puppet: true } : {}),
   };
   users.push(user);
   await writeJson(USERS, users);
-  await fs.appendFile(
-    SEED,
-    `client  ${email}  ${password}${personalEmail ? `  mailbox ${personalEmail}` : ""}\n`,
-    { encoding: "utf8", mode: 0o600 },
-  );
+  if (!user.puppet) {
+    await fs.appendFile(
+      SEED,
+      `client  ${email}  ${password}${personalEmail ? `  mailbox ${personalEmail}` : ""}\n`,
+      { encoding: "utf8", mode: 0o600 },
+    );
+  }
   return { user: pub(user), password };
 }
 
@@ -352,8 +409,10 @@ export async function login(
   email: string,
   password: string,
 ): Promise<{ user: PublicUser; token: string } | null> {
+  await ensure();
   const user = await findUserByEmail(email);
   if (!user || !verifyPassword(password, user.passwordHash)) return null;
+  if (!canHubLogin(user)) return null;
   const token = randomBytes(32).toString("hex");
   const now = new Date();
   const expires = new Date(now.getTime() + SESSION_DAYS * 86400000);
@@ -392,7 +451,8 @@ export async function userFromSession(
   if (new Date(s.expiresAt).getTime() < Date.now()) return null;
   const users = await readJson<User>(USERS);
   const user = users.find((u) => u.id === s.userId);
-  return user ? pub(user) : null;
+  if (!user || !canHubLogin(user)) return null;
+  return pub(user);
 }
 
 export async function logout(token: string | undefined) {

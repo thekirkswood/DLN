@@ -203,3 +203,223 @@
 {"t":"2026-08-18T19:10:00+01:00","k":"mod","p":"_meta/lab-inbox/messages.json","s":"Ack 6ec8202d cross-house protocol from ModYu Cursor","d":"wake received; short reply; no deploy"}
 {"t":"2026-08-18T19:10:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Offline lab points at cross-house-comms","d":"who owns which Cursor"}
 {"t":"2026-08-18T19:10:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Cross-house map dual post with ModYu","d":"standing"}
+{"t":"2026-08-19T11:35:51+01:00","k":"mod","p":"Site/src/components/LabComment.tsx LabDesk.tsx lab-guard.ts api/lab/messages","s":"Send shows HTTP status; 401 to login; queued waiting for Cursor","d":"file drop is not a worker"}
+{"t":"2026-08-19T11:35:51+01:00","k":"mod","p":"Site/src/lib/lab-runner.ts lab-proxy.ts","s":"404 not ready; respawn with BASE_PATH; rewrite /_next and Vite /@; occupancy.log","d":"smashed frames were prefix-miss"}
+{"t":"2026-08-19T11:35:51+01:00","k":"add","p":"ops/campus.service enable-campus-user.sh never-sleep.sh campus-inhibit-sleep.service campus-start.sh","s":"User systemd Restart=always for :3010; inhibit sleep until Debian","d":"overnight hub death"}
+{"t":"2026-08-19T11:35:51+01:00","k":"add","p":"ops/debian-host.md backup-chooz-then-wipe.md sync-to-debian.sh debian-caddy-lab.sh cursor-remote-ssh.md","s":"Debian home VPS runbooks; SSH/Cursor for Ewan and Dave","d":"always-on host downstairs; GPU optional"}
+{"t":"2026-08-19T11:35:51+01:00","k":"add","p":"memory/audit-campus.md phase-d-later.md","s":"Campus audit + Phase D later (GPU Chooz APES dispatcher)","d":"keep after leaving the plan"}
+{"t":"2026-08-19T11:35:51+01:00","k":"bp","p":"memory/BLUEPRINT.md offline-lab.md AGENTS.md dln-build.mdc WORKSTREAM.md","s":"Campus systemd; Debian host; Send is not a worker; honest /go prefix","d":"industrial estate on a LAN VPS"}
+{"t":"2026-08-19T11:35:51+01:00","k":"dir","p":"memory/DIRECTIONS.md cross-house-comms.md ops/lab.md","s":"Audit standing: Send vs wake; Debian; SSH for Dave; APES later","d":"2026-08-19 campus audit"}
+{"t":"2026-08-19T11:35:51+01:00","k":"mod","p":"ops/start-lab-houses.sh","s":"Point start at enable-campus-user.sh","d":"hub is a service"}
+{"t":"2026-08-19T11:37:00+01:00","k":"mod","p":"ops/campus-inhibit-sleep.service","s":"Inhibit why=campus-until-debian; block sleep:idle as user","d":"spaces in ExecStart broke systemd-inhibit"}
+{"t":"2026-08-19T11:54:37+01:00","k":"add","p":"memory/compass.md","s":"Home host + Ewan tower/laptop seats; round-robin when both answering; weight+tokens to tower","d":"laptop is not only fallback"}
+{"t":"2026-08-19T11:54:37+01:00","k":"mod","p":"protocol.md AGENTS.md dln-memory.mdc dln-memory SKILL","s":"Load compass after cross-house","d":"which seat takes the job"}
+{"t":"2026-08-19T11:54:37+01:00","k":"mod","p":"audit-campus.md debian-host.md cursor-remote-ssh.md phase-d-later.md ops/lab.md","s":"Laptop same SSH remote; cycle with tower when both answering","d":"ewan: delegate; head+heavy to tower"}
+{"t":"2026-08-19T11:54:37+01:00","k":"bp","p":"BLUEPRINT.md offline-lab.md cross-house-comms.md","s":"Compass: Debian home; seats tower/laptop/Dave","d":"named function for machine routing"}
+{"t":"2026-08-19T11:54:37+01:00","k":"dir","p":"DIRECTIONS.md","s":"Tower primary, laptop secondary; cycle; weight and tokens together","d":"standing 2026-08-19"}
+{"t":"2026-08-19T12:02:19+01:00","k":"mod","p":"ops/debian-host.md audit-campus.md compass.md DIRECTIONS.md","s":"ChoozBoost 192.168.0.246 login+bench; 154 is a MacBook; no migrate","d":"look only; palworld not running; wifi; no sudo"}
+{"t":"2026-08-19T12:12:16+01:00","k":"bp","p":"compass.md BLUEPRINT.md debian-host.md cursor-remote-ssh.md offline-lab.md","s":"Cursor replica on GPU PCs; Debian is LAN live; public VPS stays; no reinstall for ethernet","d":"ewan: local files stay; sudoers missing; nic is realtek down"}
+{"t":"2026-08-19T12:12:16+01:00","k":"dir","p":"DIRECTIONS.md audit-campus.md","s":"Add user to sudo at the screen; plug ethernet; replica vs LAN live vs Fasthosts","d":"standing"}
+{"t":"2026-08-19T12:21:51+01:00","k":"bp","p":"compass.md BLUEPRINT.md debian-host.md","s":"Debian disk holds files+all ports; GPU PCs are Cursor working copies; GitHub-sense push/pull","d":"ewan: not replica-as-truth; tower not the host"}
+{"t":"2026-08-19T12:21:51+01:00","k":"add","p":"ops/house-lease.md","s":"One writer per house; lease file; git is the conversation","d":"two Cursors cannot co-edit a buffer"}
+{"t":"2026-08-19T12:21:51+01:00","k":"dir","p":"DIRECTIONS.md AGENTS.md audit-campus.md cursor-remote-ssh.md offline-lab.md","s":"3060 closed worker; honour lease on wake; extra 1TB is more disk not a second writer","d":"standing"}
+{"t":"2026-08-19T13:03:41+01:00","k":"mod","p":"ops/debian-host.md","s":"user now in sudo; enp2s0 up but NO-CARRIER","d":"ewan ran usermod; cable still out"}
+{"t":"2026-08-19T13:09:07+01:00","k":"mod","p":"ops/debian-host.md","s":"enp2s0 1G DHCP 192.168.0.223; wifi .246 fallback; default via wire","d":"cable was fine; ipv4 was missing on nic"}
+{"t":"2026-08-19T13:31:09+01:00","k":"add","p":"ops/debian-modyu.service debian-vt.service debian-swarm-*.service enable-debian-host.sh windows-3060.md","s":"Pinned unit systemd on Debian; 3060 OpenSSH note","d":"LAN live host"}
+{"t":"2026-08-19T13:31:09+01:00","k":"mod","p":"ops/debian-host.md audit-campus.md DIRECTIONS.md sync-to-debian.sh","s":"Houses on /home/main ChoozBoost; campus http://192.168.0.223:3010","d":"transfer landed; 3060 not on LAN"}
+{"t":"2026-08-19T13:35:09+01:00","k":"mod","p":"ops/debian-host.md","s":"Bookmark .223:3010; drop stale sudo/no-migrate notes","d":"transfer already live"}
+{"t":"2026-08-19T13:35:09+01:00","k":"mod","p":"ops/windows-3060.md DIRECTIONS.md","s":"3060 still unreachable; campus .223:3010 still 200","d":"ewan asked transfer now + check gaming laptop"}
+{"t":"2026-08-19T13:52:00+01:00","k":"add","p":"ops/debian-clients-disk.sh","s":"Wipe 1TB Ubuntu LVM; mount /srv/clients dln-clients","d":"ewan: use the 1TB for clients"}
+{"t":"2026-08-19T13:52:00+01:00","k":"mod","p":"Site/src/lib/stations.ts ops/sync-to-debian.sh ops/lab.md debian-host.md","s":"Client stations on /srv/clients; ModYu symlink","d":"studio NVMe, clients HDD"}
+{"t":"2026-08-19T13:52:00+01:00","k":"bp","p":"BLUEPRINT.md compass.md greenhouse.md offline-lab.md","s":"Debian NVMe studio houses; 1TB /srv/clients for clients","d":"modyu on HDD"}
+{"t":"2026-08-19T13:52:00+01:00","k":"dir","p":"DIRECTIONS.md audit-campus.md","s":"Client houses on downstairs 1TB; studio on NVMe","d":"standing"}
+{"t":"2026-08-19T13:58:00+01:00","k":"mod","p":"ops/windows-3060.md cursor-remote-ssh.md debian-host.md","s":"3060 uses Cursor Remote-SSH to .223; OpenSSH Server optional; DHCP bind not add","d":"ewan: Cursor system install; reservation failed"}
+{"t":"2026-08-19T13:58:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"3060 Cursor to Debian; skip OpenSSH Server unless tower logs in; DHCP bind optional","d":"standing"}
+{"t":"2026-08-19T14:05:00+01:00","k":"mod","p":"_meta/lab-inbox/messages.json","s":"Dave Test 1-2 stamped done","d":"was pending; Send is not a watcher"}
+{"t":"2026-08-19T14:20:00+01:00","k":"add","p":"ops/sniff-inbox.sh studio-presence.ts api/lab/presence StudioPresence","s":"Studio ping minutes; campus sniff while logged in","d":"ewan: insta-edit like ModYu console"}
+{"t":"2026-08-19T14:20:00+01:00","k":"mod","p":"lab-runner.ts logout LabComment LabDesk","s":"Hold unit app while working; presence on logout; honest queue copy","d":"leave until log off or job done"}
+{"t":"2026-08-19T14:20:00+01:00","k":"bp","p":"BLUEPRINT.md offline-lab.md cross-house-comms.md AGENTS.md","s":"Sniff while studio signed in; unit Cursors sniff their own inbox","d":"login starts processing"}
+{"t":"2026-08-19T14:20:00+01:00","k":"dir","p":"DIRECTIONS.md lab.md audit-campus.md","s":"Campus sniff on login; VT/Swarm same as ModYu","d":"standing"}
+{"t":"2026-08-19T14:20:00+01:00","k":"mod","p":"VariousTitles/AGENTS.md SwarmFund/AGENTS.md ModYu/AGENTS.md","s":"Unit sniff script path; leave until log off or working done","d":"same console wait as ModYu"}
+{"t":"2026-08-19T14:22:00+01:00","k":"mod","p":"_meta/lab-inbox/messages.json","s":"Ewan Test 1-2 stamped done","d":"campus sniff first pass"}
+{"t":"2026-08-19T14:33:00+01:00","k":"mod","p":"Site/src/app/api/lab/messages/route.ts lab-inbox.ts","s":"Stop using global File on lab send; Node 18 500","d":"dave LAN send Could not send 500"}
+{"t":"2026-08-19T14:33:00+01:00","k":"mod","p":"_meta/lab-inbox/messages.json","s":"Stamp pipeline-check note done","d":"local proof send"}
+{"t":"2026-08-19T14:42:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"Chrome buttons 20px high, 3px 45 cut","d":"dave style guide on debian inbox"}
+{"t":"2026-08-19T14:42:00+01:00","k":"mod","p":"ops/sniff-inbox.sh","s":"Poll Debian wake.flag for campus sniff","d":"mac :3010 was .223 not this PC"}
+{"t":"2026-08-19T14:42:00+01:00","k":"mod","p":"_meta/lab-inbox/messages.json","s":"Dave button change stamped done","d":"20px chamfer"}
+{"t":"2026-08-19T14:42:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"LAN campus is .223; localhost is a working copy","d":"standing"}
+{"t":"2026-08-19T14:50:00+01:00","k":"mod","p":"Site/package.json campus.service debian-campus.service enable-debian-host.sh","s":"Tower campus localhost only; Debian serves LAN :3010","d":"ewan: browsers downstairs; Cursor here"}
+{"t":"2026-08-19T14:50:00+01:00","k":"mod","p":"ops/sniff-inbox.sh AGENTS.md compass.md dln-build.mdc lab.md debian-host.md","s":"Sniff Debian lan-inbox; bind tower off the LAN","d":"Mac/phones never hit this PC"}
+{"t":"2026-08-19T14:50:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Browser campus is .223; localhost:3010 is this PC only","d":"standing"}
+{"t":"2026-08-19T15:06:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"Chrome buttons: white face, grey edge, hover wash, click type black","d":"dave note 86efa0d5"}
+{"t":"2026-08-19T15:06:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Button rest/hover/click like Choose files","d":"dave campus desk"}
+{"t":"2026-08-19T15:06:00+01:00","k":"mod","p":"_meta/lab-houses/lan-inbox/messages.json","s":"Dave button hover/click stamped done","d":"debian inbox"}
+{"t":"2026-08-19T15:15:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"Chrome buttons click: black face white type","d":"dave note 059edebe"}
+{"t":"2026-08-19T15:15:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Button click is black/white","d":"dave campus desk"}
+{"t":"2026-08-19T15:15:00+01:00","k":"mod","p":"_meta/lab-houses/lan-inbox/messages.json","s":"Dave click invert stamped done","d":"debian inbox"}
+{"t":"2026-08-19T15:22:00+01:00","k":"add","p":"ops/pull-from-debian.sh","s":"Pull host tree onto tower working copy","d":"centre then pull"}
+{"t":"2026-08-19T15:22:00+01:00","k":"mod","p":"ops/sync-to-debian.sh debian-host.md cursor-remote-ssh.md sniff-inbox.sh lab.md","s":"Push/pull pair; sniff copies host inbox onto this disk","d":"ewan: update local from server"}
+{"t":"2026-08-19T15:22:00+01:00","k":"dir","p":"DIRECTIONS.md compass.md AGENTS.md dln-build.mdc","s":"After push, pull Debian onto this disk","d":"standing"}
+{"t":"2026-08-19T15:28:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"Chrome buttons square corners","d":"dave note 68e1c66d"}
+{"t":"2026-08-19T15:28:00+01:00","k":"mod","p":"GroundSwitch.tsx layout.tsx globals.css","s":"Seven background dots replace Paper/Ink cut","d":"dave note b18f404e"}
+{"t":"2026-08-19T15:28:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Square chrome; seven ground hexes","d":"dave campus desk"}
+{"t":"2026-08-19T15:28:00+01:00","k":"mod","p":"_meta/lab-inbox/messages.json","s":"Dave square + dots stamped done","d":"after pull from debian"}
+{"t":"2026-08-19T17:36:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"Public headlines 30% smaller","d":"dave note 1abdb896"}
+{"t":"2026-08-19T17:36:00+01:00","k":"add","p":"Site/src/app/method/page.tsx Footer HomeOffer","s":"Public /method with Dave institute copy","d":"dave note 6873787c"}
+{"t":"2026-08-19T17:36:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Add /method surface","d":"IA"}
+{"t":"2026-08-19T17:36:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Headlines 30% smaller; Method page is Dave copy","d":"standing"}
+{"t":"2026-08-19T17:36:00+01:00","k":"mod","p":"_meta/lab-inbox/messages.json","s":"Dave headline + method stamped done","d":"debian inbox"}
+{"t":"2026-08-19T17:58:00+01:00","k":"mod","p":"ops/sniff-inbox.sh","s":"Campus debian wake poll 5s","d":"ewan: monitor inbox immediately"}
+{"t":"2026-08-19T18:02:00+01:00","k":"add","p":"ops/merge-lab-inbox.py ops/push-lab-inbox.sh","s":"Merge campus inboxes by id; push localhost send downstairs","d":"localhost note was overwritten"}
+{"t":"2026-08-19T18:02:00+01:00","k":"mod","p":"ops/sniff-inbox.sh lab-inbox.ts","s":"Watch local wake; do not rsync messages.json over local-only rows","d":"POST 200 then sniff ate it"}
+{"t":"2026-08-19T18:02:00+01:00","k":"dir","p":"DIRECTIONS.md AGENTS.md dln-build.mdc","s":"localhost /admin is the same queue; merge never drops","d":"standing"}
+{"t":"2026-08-19T18:05:00+01:00","k":"mod","p":"Site/src/app/method/page.tsx","s":"Drop scale sentence; strip list gloss; bigger Filter/Pipeline heads","d":"ewan: AI lists, unused line"}
+{"t":"2026-08-19T18:05:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"method-block headings larger","d":"filter and pipeline"}
+{"t":"2026-08-19T18:05:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Method: no parenthetical list titles; Filter/Pipeline large","d":"standing"}
+{"t":"2026-08-19T18:18:00+01:00","k":"add","p":"Site/public/fonts/binnenland/","s":"Binnenland catalogue woff2 for campus ground dots","d":"ewan: vary type with colour"}
+{"t":"2026-08-19T18:18:00+01:00","k":"add","p":"binnenland-faces.css binnenland-faces.ts GroundSwitch layout","s":"Each ground dot also picks a random Binnenland face","d":"proof design is not only font or colour"}
+{"t":"2026-08-19T18:18:00+01:00","k":"dir","p":"DIRECTIONS.md brand.md","s":"Dots cycle Binnenland catalogue; default still Blender","d":"standing"}
+{"t":"2026-08-19T18:22:00+01:00","k":"mod","p":"method/page.tsx globals.css","s":"Various Titles subhead larger on /method","d":"ewan: was blending into body"}
+{"t":"2026-08-19T18:22:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Method Various Titles is a larger subhead","d":"standing"}
+{"t":"2026-08-19T18:37:00+01:00","k":"mod","p":"Site/src/lib/lab-inbox.ts","s":"Inbox mkdir EIO does not crash /lab; send fails that house only","d":"debian mkdir ModYu designer-inbox"}
+{"t":"2026-08-19T18:37:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Campus renders if a unit inbox disk errors","d":"site runs without Cursor"}
+{"t":"2026-08-19T18:41:00+01:00","k":"mod","p":"Site/src/app/lab/page.tsx","s":"/lab no longer primes every unit inbox on load","d":"EIO mkdir ModYu took the campus down"}
+{"t":"2026-08-19T18:55:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Billing: editable catalogue amounts; bank pay on the invoice","d":"ewan: payment system and editable invoice options"}
+{"t":"2026-08-19T18:55:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Desk amounts + bank rail; client claims; studio clears","d":"standing"}
+{"t":"2026-08-19T18:55:00+01:00","k":"mod","p":"memory/WORKSTREAM.md","s":"Item 8 bank pay landed; card later; VT billed here","d":"tick"}
+{"t":"2026-08-19T18:55:00+01:00","k":"add","p":"Site/src/lib/billing.ts api/billing/prices api/billing/rail","s":"Price book, pay rail, claim/clear payments","d":"pay is a system not a stub"}
+{"t":"2026-08-19T18:55:00+01:00","k":"mod","p":"InvoiceDesk StudioDesk AccountBilling account invoices","s":"Edit option and line amounts; bank details on invoice","d":"studio sets GBP; client pays the document"}
+{"t":"2026-08-19T18:55:00+01:00","k":"mod","p":"Site/src/data/catalogue.ts Site/src/app/globals.css","s":"Amounts overlay the catalogue; pay-how on the sheet","d":"desk is the book"}
+{"t":"2026-08-19T19:12:00+01:00","k":"mod","p":"ops/sniff-inbox.sh","s":"Fire at once if pending on arm; do not swallow first wake","d":"Send sat until next note"}
+{"t":"2026-08-19T19:12:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Campus sniff must run in this Cursor; pending still wakes after restart","d":"standing"}
+{"t":"2026-08-19T19:22:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"/privacy /terms are full notices","d":"ewan: flesh out privacy and terms"}
+{"t":"2026-08-19T19:22:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Privacy and terms name accounts, cookie, invoices, hosts, rights","d":"standing"}
+{"t":"2026-08-19T19:22:00+01:00","k":"mod","p":"Site/src/app/privacy/page.tsx Site/src/app/terms/page.tsx","s":"Flesh privacy and terms: who, cookie, book, hosts, pay, law","d":"admin note 7f0da40d"}
+{"t":"2026-08-19T19:28:00+01:00","k":"mod","p":"ops/push-lab-inbox.sh","s":"Do not rsync wake.flag downstairs","d":"stamp push retriggered sniff with empty queue"}
+{"t":"2026-08-19T19:28:00+01:00","k":"mod","p":"ops/sniff-inbox.sh","s":"Do not touch an existing wake.flag on arm","d":"mtime looked like a Send"}
+{"t":"2026-08-19T19:28:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Push stamps; leave Debian wake to the LAN Send","d":"standing"}
+{"t":"2026-08-19T20:45:00+01:00","k":"bp","p":"memory/brand.md","s":"Hub type Rigid Square via Adobe Fonts; no self-hosted Binnenland","d":"ewan: we do not own those faces"}
+{"t":"2026-08-19T20:45:00+01:00","k":"dir","p":"DIRECTIONS.md dln-voice dln-build offline-lab","s":"Dave Adobe web project is the licence; dots colour only","d":"standing"}
+{"t":"2026-08-19T20:45:00+01:00","k":"del","p":"Site/public/fonts/Blender-*.woff2 T-Star-*.woff2 binnenland/","s":"Removed unlicensed Binnenland and unused T-Star files","d":"studio does not own them"}
+{"t":"2026-08-19T20:45:00+01:00","k":"del","p":"Site/src/app/binnenland-faces.css Site/src/lib/binnenland-faces.ts","s":"Removed catalogue face loader","d":"dots no longer cycle type"}
+{"t":"2026-08-19T20:45:00+01:00","k":"mod","p":"layout.tsx globals.css GroundSwitch privacy","s":"Typekit Rigid Square; ground dots colour only","d":"kit id NEXT_PUBLIC_ADOBE_FONTS_KIT"}
+{"t":"2026-08-19T20:46:00+01:00","k":"mod","p":"ops/campus.service debian-campus.service","s":"Load Site/.env.local so the Adobe kit id is seen","d":"Rigid Square web project"}
+{"t":"2026-08-19T21:56:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Header includes Method","d":"dave: link method in main menu"}
+{"t":"2026-08-19T21:56:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Main menu Method next to Home; hide on /method","d":"standing"}
+{"t":"2026-08-19T21:56:00+01:00","k":"mod","p":"Site/src/components/Header.tsx","s":"Add Method to header nav","d":"admin note bfc97a1c"}
+{"t":"2026-08-19T22:18:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Home columns are Dave’s Design/Strategy/Build copy","d":"dave: change the three sections, keep columns"}
+{"t":"2026-08-19T22:18:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home section body is Dave’s institute copy; form under columns","d":"standing"}
+{"t":"2026-08-19T22:18:00+01:00","k":"mod","p":"needs.ts HomeOffer globals.css","s":"Replace home reason lists with Dave’s three section paragraphs","d":"admin notes 38fa7b00 d87e3eb2"}
+{"t":"2026-08-19T22:25:00+01:00","k":"dir","p":"DIRECTIONS.md brand.md dln-voice dln-build","s":"Hub type Aktiv Grotesk (Dave); header mark 30% smaller","d":"dave admin notes"}
+{"t":"2026-08-19T22:25:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"aktiv-grotesk stack; mark-nav 30% smaller","d":"dave: font + logo"}
+{"t":"2026-08-19T22:25:00+01:00","k":"mod","p":"memory/offline-lab.md","s":"Hub type Aktiv Grotesk","d":"sync"}
+{"t":"2026-08-19T22:28:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home has no Tell us form; enquiry stays on stage pages","d":"dave note e6dc8c08"}
+{"t":"2026-08-19T22:28:00+01:00","k":"mod","p":"Site/src/components/HomeOffer.tsx","s":"Remove EnquireForm from home","d":"dave: remove the tell us form section"}
+{"t":"2026-08-19T22:33:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"No enquire form on home, Design, Strategy, Build; practice keeps it","d":"dave note 1ca273b2"}
+{"t":"2026-08-19T22:33:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"Home offer-copy 20% smaller, leading 1.32","d":"dave: body 20% smaller, close line spacing"}
+{"t":"2026-08-19T22:33:00+01:00","k":"mod","p":"Site/src/app/design/page.tsx strategy/page.tsx build/page.tsx","s":"Remove EnquireForm from stage pages","d":"dave: other forms from the home page"}
+{"t":"2026-08-19T22:36:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Header: Home Method Practice Greenhouse; home has no body links","d":"dave note 46c39ce1"}
+{"t":"2026-08-19T22:36:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Practice and Greenhouse in header; menu initial caps","d":"dave: main menu"}
+{"t":"2026-08-19T22:36:00+01:00","k":"mod","p":"Site/src/components/Header.tsx","s":"Add Practice and Greenhouse; hide on own pages","d":"dave note"}
+{"t":"2026-08-19T22:36:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"Header nav initial caps not uppercase","d":"dave: not all caps"}
+{"t":"2026-08-19T22:36:00+01:00","k":"mod","p":"Site/src/components/HomeOffer.tsx","s":"Remove home-quiet Practice Method Greenhouse links","d":"dave: off the body of this page"}
+{"t":"2026-08-19T22:37:00+01:00","k":"mod","p":"Site/src/app/globals.css DIRECTIONS.md","s":"Home offer-copy 10% larger, keep 1.32 leading","d":"dave note 3ec268be"}
+{"t":"2026-08-19T22:39:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Practice heading Designing High-Value Brand Ecosystems","d":"dave note 9ba687b0"}
+{"t":"2026-08-19T22:39:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Practice heading is Dave’s Designing High-Value Brand Ecosystems","d":"dave /practice"}
+{"t":"2026-08-19T22:39:00+01:00","k":"mod","p":"Site/src/app/practice/page.tsx","s":"h1 Designing High-Value Brand Ecosystems","d":"dave: change the page heading"}
+{"t":"2026-08-19T22:43:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Practice has no public enquire form","d":"dave note 1032d805"}
+{"t":"2026-08-19T22:43:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"No Enquiries or Tell us on Practice; footer mailbox stays","d":"dave /practice"}
+{"t":"2026-08-19T22:43:00+01:00","k":"mod","p":"Site/src/app/practice/page.tsx","s":"Remove Enquiries heading and EnquireForm","d":"dave: remove the enquiries and tell us sections"}
+{"t":"2026-08-19T22:43:30+01:00","k":"mod","p":"Site/src/app/globals.css DIRECTIONS.md","s":"Practice body 0.86rem / 1.32 to match home","d":"dave note a84decd1"}
+{"t":"2026-08-19T22:45:00+01:00","k":"bp","p":"memory/BLUEPRINT.md greenhouse.md","s":"Public greenhouse heading Greenhouse projects","d":"dave note 54fb38cc"}
+{"t":"2026-08-19T22:45:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"/greenhouse heading is Greenhouse projects not Our products","d":"dave"}
+{"t":"2026-08-19T22:45:00+01:00","k":"mod","p":"Site/src/app/greenhouse/page.tsx","s":"h1 Greenhouse projects","d":"dave: change our products"}
+{"t":"2026-08-19T22:46:00+01:00","k":"mod","p":"greenhouse/plots.json memory/greenhouse.md","s":"VT greenhouse voice: Proprietary Engine Room (Dave)","d":"dave note da4d53e0"}
+{"t":"2026-08-19T22:46:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Greenhouse VT copy is Dave’s Engine Room paragraph","d":"dave /greenhouse"}
+{"t":"2026-08-19T22:50:00+01:00","k":"mod","p":"Site/src/app/globals.css DIRECTIONS.md","s":"Method body 0.86rem / 1.32 to match home","d":"dave note b0a81701"}
+{"t":"2026-08-19T22:53:00+01:00","k":"mod","p":"Site/src/app/practice/page.tsx identity.md","s":"Dave Practice bio: his amended paragraph","d":"dave note 21e83d98"}
+{"t":"2026-08-19T22:53:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Dave public copy is the 2026-08-19 Practice paragraph","d":"dave /practice"}
+{"t":"2026-08-19T22:55:00+01:00","k":"mod","p":"Site/src/app/practice/page.tsx identity.md dln-voice.mdc","s":"Practice lede: DLN creates Identities… design for print","d":"dave note a120b19d"}
+{"t":"2026-08-19T22:55:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Practice lede is Dave’s DLN creates… print line","d":"dave /practice"}
+{"t":"2026-08-19T22:55:30+01:00","k":"mod","p":"Site/src/app/practice/page.tsx DIRECTIONS.md","s":"Remove Practice What we do section","d":"dave note 5b168641"}
+{"t":"2026-08-19T23:03:00+01:00","k":"mod","p":"Site/src/data/practice.ts globals.css DIRECTIONS.md","s":"Client list 3 cols, no rules, home body type; five names added","d":"dave note 4b08ae56"}
+{"t":"2026-08-19T23:07:00+01:00","k":"add","p":"Site/public/home/modules.png","s":"Dave seven-module strip on home","d":"dave note 1734517c"}
+{"t":"2026-08-19T23:07:00+01:00","k":"mod","p":"HomeOffer.tsx globals.css","s":"Show modules.png above home columns","d":"dave: add this image"}
+{"t":"2026-08-19T23:07:00+01:00","k":"bp","p":"BLUEPRINT.md DIRECTIONS.md","s":"Home has Dave’s module strip above the three columns","d":"dave admin image"}
+{"t":"2026-08-19T23:09:00+01:00","k":"mod","p":"Site/public/home/modules.png HomeOffer.tsx","s":"Replace home strip with Dave’s second PNG","d":"dave note 55ac1b7b"}
+{"t":"2026-08-19T23:18:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Home RUUN papers swipe; trial column copy live","d":"ewan: mobile papers + clearer copy"}
+{"t":"2026-08-19T23:18:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Dave column copy cached as daveCopy; trial live; modules as swipeable paper","d":"ewan home"}
+{"t":"2026-08-19T23:18:00+01:00","k":"add","p":"Site/public/home/modules/01-07.png","s":"Seven cropped RUUN papers","d":"mobile strip was unreadable"}
+{"t":"2026-08-19T23:18:00+01:00","k":"mod","p":"HomeOffer.tsx globals.css needs.ts","s":"Paper scroller; trial Design Strategy Build copy","d":"ewan: floating paper + clearer columns"}
+{"t":"2026-08-19T23:23:00+01:00","k":"mod","p":"needs.ts HomeOffer.tsx globals.css DIRECTIONS.md","s":"Middle-ground column copy + Come in on CTAs; daveCopy cached","d":"ewan: more like Dave, keep trial clarity, more CTAs"}
+{"t":"2026-08-19T23:28:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"Tabbed studio desk; stage forms; monthly staging + domain launch lines","d":"ewan note 7042f16e"}
+{"t":"2026-08-19T23:28:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Tell us back on Design/Strategy/Build; desk is Clients/Waiting/Book then Profile/Work/Billing","d":"ewan journey + desk"}
+{"t":"2026-08-19T23:28:00+01:00","k":"add","p":"lib/dossiers.ts api/studio/dossier","s":"Client work files _meta/clients","d":"A.P.E.S. and stage resources"}
+{"t":"2026-08-19T23:28:00+01:00","k":"mod","p":"StudioDesk.tsx catalogue.ts stage pages","s":"Tabbed desk; site-launch catalogue; enquire on stage pages","d":"extend onboard/invoice, do not overwrite"}
+{"t":"2026-08-19T23:48:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"Studio book under campus doors; /account is us on lab hosts","d":"ewan: campus as control hub"}
+{"t":"2026-08-19T23:48:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Tell us folds; menu colour from ground wheel; less emdash/semicolon in column copy","d":"ewan home + campus + dropdowns"}
+{"t":"2026-08-19T23:48:00+01:00","k":"mod","p":"Site/src/data/needs.ts","s":"Column copy and need labels: no em dash or semicolon; Dave terms kept","d":"ewan: screams AI"}
+{"t":"2026-08-19T23:48:00+01:00","k":"mod","p":"Site/src/app/lab/page.tsx StudioDesk.tsx account/page.tsx","s":"Accounts desk under campus doors; studio /account is profile; pay rail+prices in Book","d":"campus hub; payments in the manager"}
+{"t":"2026-08-19T23:48:00+01:00","k":"mod","p":"HomeOffer.tsx globals.css","s":"Tell us details fold; --menu/--menu-ink for selects and menus","d":"contrasted dropdown from the wheel"}
+{"t":"2026-08-19T23:58:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"Book is a London-time card desk; bank rail later","d":"ewan: automate booking, nicer than a list"}
+{"t":"2026-08-19T23:58:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Book stamps Europe/London; bank details later; Due/Rolling/Drafts cards","d":"ewan booking upgrade"}
+{"t":"2026-08-19T23:58:00+01:00","k":"add","p":"Site/src/lib/clock.ts BookApp.tsx BookClock.tsx","s":"London clock, pay-by, rolling periods; book card desk","d":"time context gotten itself"}
+{"t":"2026-08-19T23:58:00+01:00","k":"mod","p":"billing.ts InvoiceDesk.tsx StudioDesk.tsx invoice page globals.css","s":"Issue/rolls use London calendar; compose by facet; bank fold not required","d":"upgrade book, do not overwrite invoice APIs"}
+{"t":"2026-08-20T00:20:00+01:00","k":"bp","p":"BLUEPRINT.md identity.md WORKSTREAM.md","s":"Live calendars; pay-before-book sittings; receipts; hosting auto-collect hook","d":"ewan: booking system + online pay + receipts"}
+{"t":"2026-08-20T00:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Dave Design/Strategy, Ewan Build; pay then slot; receipts on account","d":"ewan calendars"}
+{"t":"2026-08-20T00:20:00+01:00","k":"add","p":"lib/diary.ts lib/hosts.ts lib/receipts.ts api/diary SessionBook StudioDiary","s":"UK slot calendars, bookings, hours, receipt store","d":"life calendars now"}
+{"t":"2026-08-20T00:20:00+01:00","k":"mod","p":"catalogue.ts billing.ts stage pages account receipts BookApp","s":"Bookable sittings; buy then book; online rail; auto receipt on clear","d":"extend book, do not overwrite invoices"}
+{"t":"2026-08-20T00:45:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"Live hours on Book grid; closed/open dates and blocked slots","d":"ewan: set availability live"}
+{"t":"2026-08-20T00:45:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"In/Away, weekday chips, click slot/day to paint hours; hold is second mode; lift plates not shadows","d":"ewan prettier book + live availability"}
+{"t":"2026-08-20T00:45:00+01:00","k":"mod","p":"lib/diary.ts lib/hosts.ts lib/clock.ts api/diary","s":"Hours exceptions; board slots for studio; slotIsOffered on book","d":"live availability without overwriting pay-then-book"}
+{"t":"2026-08-20T00:45:00+01:00","k":"mod","p":"StudioDiary.tsx SessionBook.tsx BookApp.tsx account/page.tsx globals.css","s":"Live hours UI; chamfered lift plates; public calendar restyle","d":"modern depth, no card shadows"}
+{"t":"2026-08-20T11:10:00+01:00","k":"bp","p":"BLUEPRINT.md identity.md WORKSTREAM.md","s":"Diary studio-only; Debian campus is production Next + health watch","d":"ewan: no public calendar; site stays up"}
+{"t":"2026-08-20T11:10:00+01:00","k":"dir","p":"DIRECTIONS.md audit-campus.md","s":"Public pages no calendar; LAN host next start not next dev; watch /api/health","d":"overnight overlay was compile-on-rsync"}
+{"t":"2026-08-20T11:10:00+01:00","k":"del","p":"Site/src/components/SessionBook.tsx","s":"Removed public sitting calendar UI","d":"keep diary APIs and Book grid"}
+{"t":"2026-08-20T11:10:00+01:00","k":"mod","p":"design/strategy/build pages BookApp account","s":"No SessionBook on public stages; sittings copy on account","d":"calendar off the front"}
+{"t":"2026-08-20T11:10:00+01:00","k":"add","p":"api/health campus-lan.sh campus-watch debian-rebuild-campus.sh","s":"Health probe, production LAN start, rebuild-on-push, minute watch","d":"stay up for real"}
+{"t":"2026-08-20T11:10:00+01:00","k":"mod","p":"debian-campus.service campus.service enable-debian-host.sh sync-to-debian.sh lab.md debian-host.md","s":"StartLimitIntervalSec=0; Debian production; sync rebuilds campus","d":"systemd cannot give up; no next dev on LAN"}
+{"t":"2026-08-20T11:12:00+01:00","k":"mod","p":"api/lab/messages/route.ts lab-runner.ts","s":"File predicate; iterate Map via Array.from","d":"production next build was blocked; LAN campus was stopped mid-cutover"}
+{"t":"2026-08-20T11:15:00+01:00","k":"mod","p":"ops/debian-rebuild-campus.sh","s":"Wait for /api/health after start","d":"do not return while :3010 is still binding"}
+{"t":"2026-08-20T12:15:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Tell us: name email phone in one line, not stacked labels","d":"ewan: concurrent, conversational, direct"}
+{"t":"2026-08-20T12:15:00+01:00","k":"mod","p":"HomeOffer.tsx globals.css","s":"Enquire who-line: I’m name · email · phone","d":"same API fields, less formulaic"}
+{"t":"2026-08-20T12:25:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md identity.md","s":"Settings tab; Charge default; charging 3-col / swipe","d":"ewan: dump options; empty is default not set-when-issued"}
+{"t":"2026-08-20T12:25:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Settings dump: default charge, days to pay, Adobe kit, charging, rails","d":"ewan: a few things we can dump now"}
+{"t":"2026-08-20T12:25:00+01:00","k":"add","p":"lib/settings.ts api/studio/settings SettingsDesk.tsx _meta/studio","s":"Studio settings json; GET/POST; Settings tab","d":"dump not a fold on Book"}
+{"t":"2026-08-20T12:25:00+01:00","k":"mod","p":"InvoiceDesk.tsx BookApp.tsx StudioDesk.tsx catalogue.ts billing.ts clock.ts","s":"Charge £ / Charge default; Book drops standing folds; grace from settings","d":"charging page is Settings"}
+{"t":"2026-08-20T12:25:00+01:00","k":"mod","p":"lab/page.tsx account/page.tsx invoices/[id] layout.tsx globals.css .gitignore","s":"Pass settings; adobe kit fallback; charge-track CSS; gitignore studio","d":"desk + pay-by + type kit from dump"}
+{"t":"2026-08-20T12:50:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md identity.md greenhouse.md","s":"Pay tab; Onboarding cards; calendar this-week; Other charge; Anne Marie one login","d":"ewan: pay not settings dump; station waits for human"}
+{"t":"2026-08-20T12:50:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pay tab; Settings only defaults; Onboarding; Cursor is human; .local obsolete","d":"ewan: do not invent settings; unify Anne Marie"}
+{"t":"2026-08-20T12:50:00+01:00","k":"add","p":"PayDesk.tsx OnboardDesk.tsx lib/unify-client.ts extras.json api/enquiries PATCH","s":"Pay desk; onboarding cards; absorb .local; unique Other charges","d":"payment system on Book; form instances saved"}
+{"t":"2026-08-20T12:50:00+01:00","k":"mod","p":"StudioDesk BookApp InvoiceDesk SettingsDesk StudioDiary stations auth billing","s":"Tabs Clients/Onboarding/Book/Pay/Settings; week collapse; Other; no auto Cursor","d":"desk IA as asked"}
+{"t":"2026-08-20T12:50:00+01:00","k":"mod","p":"practice/page.tsx plots.json greenhouse.md","s":"Ewan last line; Swarm and Choozlist depth to match VT","d":"not generic, not similar, not And-"}
+{"t":"2026-08-20T13:20:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md identity.md greenhouse.md","s":"Anne Marie hubLogin false; live suggestion well; per-entry amounts; papers overflow","d":"ewan: she never uses campus; text box not live-edit; no global charge default"}
+{"t":"2026-08-20T13:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Live-only client; suggestion collect/audit/plan; Settings per box; papers scroll if overflow","d":"ewan afternoon"}
+{"t":"2026-08-20T13:20:00+01:00","k":"mod","p":"lib/auth.ts","s":"hubLogin false for modyu@designlabnorth.com; login and session refuse","d":"studio record only, not a campus login"}
+{"t":"2026-08-20T13:20:00+01:00","k":"add","p":"api/suggestions LiveSuggest.tsx suggest pages","s":"Public suggestion well; sweep still on the person","d":"text box, not a live changer"}
+{"t":"2026-08-20T13:20:00+01:00","k":"mod","p":"Caddyfile.prod Caddyfile.ip","s":"/suggest and /api/suggestions on plot hosts → hub","d":"same-origin well on live plot hostname"}
+{"t":"2026-08-20T13:20:00+01:00","k":"mod","p":"ModYu Footer SuggestChange.tsx","s":"Live-site suggestion box in ModYu footer","d":"collect on the host they actually use"}
+{"t":"2026-08-20T13:20:00+01:00","k":"del","p":"lib/settings.ts defaultChargeGbp","s":"Removed overall Charge default from studio settings","d":"each catalogue entry has its own amount"}
+{"t":"2026-08-20T13:20:00+01:00","k":"mod","p":"SettingsDesk PayDesk InvoiceDesk catalogue billing StudioDesk","s":"Settings edits per-entry amounts; Pay list + Reason/Charge Other","d":"same list, Other only on Pay"}
+{"t":"2026-08-20T13:20:00+01:00","k":"mod","p":"HomeOffer.tsx globals.css","s":"Papers scroll only when overflow; desktop drag and wheel","d":"not a mobile-only snap that stalls on a wide desk"}
+{"t":"2026-08-20T13:05:00+01:00","k":"dir","p":"DIRECTIONS.md dln-voice.mdc","s":"GH studio stories: no DLN-are-building opener; no housing on the wall","d":"ewan: not something you broadcast"}
+{"t":"2026-08-20T13:05:00+01:00","k":"mod","p":"greenhouse/plots.json greenhouse.md","s":"Swarm and Choozlist voice: drop building opener and housing last lines","d":"product copy only"}
+{"t":"2026-08-20T13:20:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"Desk rooms stay; serving client; Pay composes for them; campus header","d":"ewan: trapped in client view; pay had no who; admin menu tutorial"}
+{"t":"2026-08-20T13:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Dossier not their account; serving survives rooms; campus chrome not public nav","d":"daily desk"}
+{"t":"2026-08-20T13:20:00+01:00","k":"mod","p":"StudioDesk.tsx PayDesk.tsx Header.tsx lab/page.tsx globals.css","s":"URL desk+who; serving bar; room plates; Pay compose; campus header","d":"escape, pick a client, pretty enough to live in"}
+{"t":"2026-08-20T13:30:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"Pay: select Settings-look lines onto invoice; ping online; bank spare in Settings","d":"ewan: do not overwrite working charge; unify look; no manual invoice on Pay"}
+{"t":"2026-08-20T13:30:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Selectable charge list populates invoice; ping not a second compose UI; harmony","d":"LTM: extend, do not subtract"}
+{"t":"2026-08-20T13:30:00+01:00","k":"mod","p":"InvoiceDesk.tsx PayDesk.tsx SettingsDesk.tsx api/billing/issue","s":"Charge items selectable; Ping payment; rails moved to Settings; issue+tryAutoCollect","d":"same list look, ping online, keep draft/issue"}
+{"t": "2026-08-20T13:28:09+01:00", "k": "mem", "p": "protocol.md vital-ltm.mdc AGENTS.md", "s": "Campus vital trio in load order; this Cursor owns DLN only", "d": "ewan: chat is not memory; PAT path only"}
+{"t": "2026-08-20T13:28:09+01:00", "k": "dir", "p": "DIRECTIONS.md identity.md BLUEPRINT.md greenhouse.md", "s": "Anne Marie offline puppet on lab hosts; do not mail login", "d": "credential snow was to see a client account before deploy"}
+{"t": "2026-08-20T13:28:09+01:00", "k": "mod", "p": "lib/auth.ts onboard StudioDesk OnboardDesk", "s": "puppet sign-in on campus; no lockLiveOnly; skip mail/SEED for puppet", "d": "accessible again, not a login to keep handing out"}
+{"t": "2026-08-20T13:28:09+01:00", "k": "add", "p": ".cursor/rules/vital-ltm.mdc", "s": "Always-apply rule pointing at LTM-vital, github-repos, github-ops.env", "d": "paths only; never echo PAT"}
+{"t": "2026-08-20T13:28:09+01:00", "k": "del", "p": "lib/auth.ts lockLiveOnlyClients hubLogin=false", "s": "Removed live-only lock that blocked campus sign-in for Anne Marie", "d": "left puppet+lab-only; public hub still refused"}
+{"t": "2026-08-20T13:39:13+01:00", "k": "mod", "p": "globals.css InvoiceDesk.tsx", "s": "Pay charge rows use Charge £ plates; exclude from desk-button chrome", "d": "ewan: function stayed, look was smashed; screenshot vs Settings"}
+{"t": "2026-08-20T13:39:13+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Pay look is Settings plates; screenshot when editing charge UI", "d": "pretty and selectable together"}
+{"t": "2026-08-20T14:31:57+01:00", "k": "bp", "p": "BLUEPRINT.md", "s": "Live header stays public; campus is mark+circle; Campus only admin under avatar", "d": "ewan: admin options were on the live bar"}
+{"t": "2026-08-20T14:31:57+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Circle account menu; no Lab/Builder on live nav; phone footer no overlap", "d": "pretty and separate"}
+{"t": "2026-08-20T14:31:57+01:00", "k": "mod", "p": "Header.tsx Footer.tsx layout.tsx globals.css", "s": "Avatar circle menu; campus chrome without public tabs; footer stacks on phone", "d": "live site unchanged for everyone else"}
+{"t": "2026-08-20T14:35:22+01:00", "k": "add", "p": "memory/ITERATION memory/iterations.jsonl dln-iterations.mdc", "s": "Numbered site iterations; first is 1 tag dln-1", "d": "ewan: log, see, troubleshoot uploads"}
+{"t": "2026-08-20T14:35:22+01:00", "k": "dir", "p": "DIRECTIONS.md protocol.md LTM-vital", "s": "Every GitHub site upload is a new integer + tag", "d": "blanket across houses; this Cursor only bumps DLN"}
+{"t": "2026-08-20T14:35:22+01:00", "k": "ver", "p": "dln-1", "s": "Campus iteration 1: desk, pay ping, circle nav, puppet, numbered ships", "d": "first numbered GitHub upload of this campus"}

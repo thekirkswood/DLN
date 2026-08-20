@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession, createClient } from "@/lib/auth";
+import { COOKIE, isStudio, userFromSession, createClient, isPuppetEmail } from "@/lib/auth";
 import { allPlots } from "@/lib/plots";
 import { enquiryById, markEnquiryOnboarded } from "@/lib/enquiries";
 import { localHandleFromName } from "@/lib/handles";
@@ -63,31 +63,34 @@ export async function POST(req: NextRequest) {
       await markEnquiryOnboarded(enquiryId).catch(() => undefined);
     }
     const mailbox = created.user.personalEmail || personalEmail;
+    const puppet = Boolean(created.user.puppet) || isPuppetEmail(created.user.email);
     const signIn = process.env.DLN_PUBLIC_URL?.trim() || "https://designlabnorth.com";
-    const mailed = mailbox
-      ? await sendStudioMail({
-          to: mailbox,
-          subject: "Your Design Lab North login",
-          text: [
-            `Hello ${created.user.displayName},`,
-            "",
-            "Here is your Design Lab North login.",
-            "",
-            `Sign in: ${signIn.replace(/\/$/, "")}/login`,
-            `Login: ${created.user.email}`,
-            `Password: ${created.password}`,
-            "",
-            "Design Lab North",
-          ].join("\n"),
-        })
-      : false;
+    const mailed =
+      mailbox && !puppet
+        ? await sendStudioMail({
+            to: mailbox,
+            subject: "Your Design Lab North login",
+            text: [
+              `Hello ${created.user.displayName},`,
+              "",
+              "Here is your Design Lab North login.",
+              "",
+              `Sign in: ${signIn.replace(/\/$/, "")}/login`,
+              `Login: ${created.user.email}`,
+              `Password: ${created.password}`,
+              "",
+              "Design Lab North",
+            ].join("\n"),
+          })
+        : false;
     return NextResponse.json({
       ok: true,
       id: created.user.id,
       email: created.user.email,
-      password: created.password,
+      password: puppet ? "" : created.password,
       personalEmail: mailbox || null,
       mailed,
+      puppet,
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "";

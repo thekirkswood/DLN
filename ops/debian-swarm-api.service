@@ -1,0 +1,18 @@
+[Unit]
+Description=Swarm API (:8787)
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/main/SwarmFund/apps/api
+Environment=PATH=/usr/bin:/bin
+Environment=PORT=8787
+Environment=BUILDING_LOCK=false
+Environment=CORS_ORIGIN=http://192.168.0.223:3010,http://localhost:3010,http://127.0.0.1:3010
+ExecStart=/usr/bin/npm run dev
+Restart=always
+RestartSec=8
+KillMode=mixed
+
+[Install]
+WantedBy=default.target

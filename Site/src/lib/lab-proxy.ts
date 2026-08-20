@@ -49,21 +49,26 @@ function rewriteLocation(value: string, slug: string, port: number): string {
 }
 
 function rewriteRootPaths(body: string, base: string): string {
-  // Framed units serve under /go/{slug}. Absolute /assets and uploads must follow.
-  if (!base || body.includes(`${base}/assets/`)) {
-    // still rewrite any bare roots that slipped through
+  if (!base) return body;
+  const roots = [
+    "/_next/",
+    "/@vite/",
+    "/@react-refresh",
+    "/@fs/",
+    "/@id/",
+    "/assets/",
+    "/admin-uploads/",
+    "/profile-uploads/",
+    "/node_modules/",
+  ];
+  let out = body;
+  for (const p of roots) {
+    out = out.replaceAll(`"${p}`, `"${base}${p}`);
+    out = out.replaceAll(`'${p}`, `'${base}${p}`);
+    out = out.replaceAll(`(${p}`, `(${base}${p}`);
+    out = out.replaceAll(`url(${p}`, `url(${base}${p}`);
   }
-  return body
-    .replaceAll('"/assets/', `"${base}/assets/`)
-    .replaceAll("'/assets/", `'${base}/assets/`)
-    .replaceAll("(/assets/", `(${base}/assets/`)
-    .replaceAll('"/admin-uploads/', `"${base}/admin-uploads/`)
-    .replaceAll("'/admin-uploads/", `'${base}/admin-uploads/`)
-    .replaceAll('"/profile-uploads/', `"${base}/profile-uploads/`)
-    .replaceAll("'/profile-uploads/", `'${base}/profile-uploads/`)
-    .replaceAll('url(/assets/', `url(${base}/assets/`)
-    .replaceAll("url('/assets/", `url('${base}/assets/`)
-    .replaceAll('url("/assets/', `url("${base}/assets/`);
+  return out;
 }
 
 export async function proxyLab(

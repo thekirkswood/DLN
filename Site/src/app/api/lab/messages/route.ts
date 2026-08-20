@@ -23,62 +23,71 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ ok: true, messages });
 }
 
+function isUpload(f: FormDataEntryValue): f is File {
+  return typeof f !== "string";
+}
+
 export async function POST(req: NextRequest) {
   const gate = await requireLabStudioApi(req);
   if (gate.error) return gate.error;
   const user = gate.user;
 
-  const ctype = req.headers.get("content-type") || "";
-  let plot = "dln";
-  let kind: LabKind = "note";
-  let text = "";
-  let page = "";
-  let origin = "";
-  let files: File[] = [];
+  try {
+    const ctype = req.headers.get("content-type") || "";
+    let plot = "dln";
+    let kind: LabKind = "note";
+    let text = "";
+    let page = "";
+    let origin = "";
+    let files: File[] = [];
 
-  if (ctype.includes("multipart/form-data")) {
-    const form = await req.formData();
-    plot = String(form.get("plot") || "dln");
-    kind = String(form.get("kind") || "note") as LabKind;
-    text = String(form.get("text") || "");
-    page = String(form.get("page") || "");
-    origin = String(form.get("origin") || "");
-    files = form.getAll("files").filter((f): f is File => f instanceof File);
-  } else {
-    const body = (await req.json().catch(() => null)) as {
-      plot?: string;
-      kind?: string;
-      text?: string;
-      page?: string;
-      origin?: string;
-    } | null;
-    plot = body?.plot || "dln";
-    kind = (body?.kind || "note") as LabKind;
-    text = body?.text || "";
-    page = body?.page || "";
-    origin = body?.origin || "";
-  }
+    if (ctype.includes("multipart/form-data")) {
+      const form = await req.formData();
+      plot = String(form.get("plot") || "dln");
+      kind = String(form.get("kind") || "note") as LabKind;
+      text = String(form.get("text") || "");
+      page = String(form.get("page") || "");
+      origin = String(form.get("origin") || "");
+      files = form.getAll("files").filter(isUpload);
+    } else {
+      const body = (await req.json().catch(() => null)) as {
+        plot?: string;
+        kind?: string;
+        text?: string;
+        page?: string;
+        origin?: string;
+      } | null;
+      plot = body?.plot || "dln";
+      kind = (body?.kind || "note") as LabKind;
+      text = body?.text || "";
+      page = body?.page || "";
+      origin = body?.origin || "";
+    }
 
-  if (!KINDS.has(kind)) {
-    return NextResponse.json({ ok: false, error: "bad kind" }, { status: 400 });
-  }
-  if (!text.trim()) {
-    return NextResponse.json({ ok: false, error: "empty" }, { status: 400 });
-  }
-  if (!(await resolveHouse(plot))) {
-    return NextResponse.json({ ok: false, error: "unknown house" }, { status: 404 });
-  }
+    if (!KINDS.has(kind)) {
+      return NextResponse.json({ ok: false, error: "bad kind" }, { status: 400 });
+    }
+    if (!text.trim()) {
+      return NextResponse.json({ ok: false, error: "empty" }, { status: 400 });
+    }
+    if (!(await resolveHouse(plot))) {
+      return NextResponse.json({ ok: false, error: "unknown house" }, { status: 404 });
+    }
 
-  const images = files.length ? await saveLabUploads(plot, files) : [];
-  const message = await addLabMessage({
-    plot,
-    author: user.displayName,
-    authorId: user.id,
-    kind,
-    text,
-    page: page || undefined,
-    origin: origin || req.headers.get("referer") || `/${plot}`,
-    images,
-  });
-  return NextResponse.json({ ok: true, message });
+    const images = files.length ? await saveLabUploads(plot, files) : [];
+    const message = await addLabMessage({
+      plot,
+      author: user.displayName,
+      authorId: user.id,
+      kind,
+      text,
+      page: page || undefined,
+      origin: origin || req.headers.get("referer") || `/${plot}`,
+      images,
+    });
+    return NextResponse.json({ ok: true, message });
+  } catch (err) {
+    const why = err instanceof Error ? err.message : "write failed";
+    return NextResponse.json({ ok: false, error: why }, { status: 500 });
+  }
 }

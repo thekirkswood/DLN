@@ -25,7 +25,7 @@ export default function BuildPage() {
         for that work. We do not publish a price list here — tell us what you
         need.
       </p>
-      <EnquireForm />
+      <EnquireForm facet="build" />
     </article>
   );
 }

@@ -7,11 +7,17 @@ export type CatalogueItem = {
   stage: Stage;
   name: string;
   blurb: string;
-  /** 0 means set when the invoice is composed. Ewan fills this file. */
+  /** Standing amount for this entry. Desk overlay in `_meta/billing/prices.json`. Empty / 0 is £0, not a global default. */
   amountGbp: number;
   cadence: Cadence;
   plotBound?: boolean;
   titlesGrant?: TitlesGrant;
+  /** One-off named charge, unique to a situation. Lives in `_meta/billing/extras.json`. */
+  custom?: boolean;
+  /** A sitting that must be paid before a calendar slot is taken. */
+  bookable?: boolean;
+  host?: "dave" | "ewan";
+  durationMinutes?: number;
 };
 
 export const STAGES: { id: Stage; name: string }[] = [
@@ -20,7 +26,7 @@ export const STAGES: { id: Stage; name: string }[] = [
   { id: "build", name: "Build" },
 ];
 
-/** Ewan sets GBP. Hosting figures stand until he changes them. */
+/** Names and cadence. Standing GBP until the desk overlay changes them. */
 export const CATALOGUE: CatalogueItem[] = [
   {
     id: "identity-ground",
@@ -63,12 +69,26 @@ export const CATALOGUE: CatalogueItem[] = [
     cadence: "once",
   },
   {
+    id: "session-design",
+    stage: "design",
+    name: "Sitting · Design",
+    blurb: "Paid time with Dave. Pay, then pick a slot.",
+    amountGbp: 125,
+    cadence: "once",
+    bookable: true,
+    host: "dave",
+    durationMinutes: 60,
+  },
+  {
     id: "consultation",
     stage: "strategy",
     name: "Initial consultation",
     blurb: "Sit down. Design Lab North.",
     amountGbp: 125,
     cadence: "once",
+    bookable: true,
+    host: "dave",
+    durationMinutes: 60,
   },
   {
     id: "brand-strategy",
@@ -129,6 +149,17 @@ export const CATALOGUE: CatalogueItem[] = [
     cadence: "once",
   },
   {
+    id: "session-build",
+    stage: "build",
+    name: "Sitting · Build",
+    blurb: "Paid time with Ewan. Pay, then pick a slot.",
+    amountGbp: 125,
+    cadence: "once",
+    bookable: true,
+    host: "ewan",
+    durationMinutes: 60,
+  },
+  {
     id: "site-rebuild",
     stage: "build",
     name: "Site rebuild",
@@ -149,15 +180,29 @@ export const CATALOGUE: CatalogueItem[] = [
     id: "host-monthly",
     stage: "build",
     name: "Live host — monthly",
-    blurb: "The same live host, billed by the month.",
+    blurb: "Staging subdomain on our host, billed by the month.",
     amountGbp: 0,
     cadence: "monthly",
+    plotBound: true,
+  },
+  {
+    id: "site-launch",
+    stage: "build",
+    name: "Launch on their domain",
+    blurb:
+      "The site leaves our subdomain onto a domain of their own. First on servers we rent; later our own host.",
+    amountGbp: 0,
+    cadence: "once",
     plotBound: true,
   },
 ];
 
 export function catalogueById(id: string): CatalogueItem | undefined {
   return CATALOGUE.find((c) => c.id === id);
+}
+
+export function bookableForFacet(facet: Stage): CatalogueItem | undefined {
+  return CATALOGUE.find((c) => c.bookable && c.stage === facet);
 }
 
 export function formatGbp(amount: number): string {
@@ -167,6 +212,11 @@ export function formatGbp(amount: number): string {
   }).format(amount);
 }
 
+export function chargedGbp(amount: number): number {
+  return amount > 0 ? amount : 0;
+}
+
 export function priceLabel(amount: number): string {
-  return amount > 0 ? formatGbp(amount) : "set when issued";
+  if (amount > 0) return formatGbp(amount);
+  return "—";
 }

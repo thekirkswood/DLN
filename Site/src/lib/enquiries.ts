@@ -81,6 +81,31 @@ export async function createEnquiry(input: {
   return row;
 }
 
+export async function updateEnquiry(
+  id: string,
+  patch: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    message?: string;
+  },
+): Promise<Enquiry> {
+  const rows = await listEnquiries();
+  const row = rows.find((r) => r.id === id);
+  if (!row) throw new Error("missing");
+  const name = (patch.name ?? row.name).trim();
+  const email = (patch.email ?? row.email).trim().toLowerCase();
+  const phone = (patch.phone ?? row.phone ?? "").trim();
+  const message = (patch.message ?? row.message ?? "").trim();
+  if (!name || !validEmail(email)) throw new Error("invalid");
+  row.name = name;
+  row.email = email;
+  row.phone = phone || undefined;
+  row.message = message || undefined;
+  await save(rows);
+  return row;
+}
+
 export async function enquiryById(id: string): Promise<Enquiry | undefined> {
   return (await listEnquiries()).find((r) => r.id === id);
 }

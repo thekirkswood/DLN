@@ -1,0 +1,26 @@
+---
+description: Numbered site iterations on every GitHub upload. Always on.
+alwaysApply: true
+---
+
+# Site iterations (numbered)
+
+Every GitHub upload of a site is a **new integer**. That is how work is logged, seen, and rolled back. Not semver. Not a chat note.
+
+## This house (DLN)
+
+- Counter: `memory/ITERATION` (current integer)
+- Log: `memory/iterations.jsonl` (append only, never rewrite)
+- Git tag: `dln-{n}` on the upload commit
+- Changelog: one `k:ver` line with `p` = tag
+
+## When Ewan says upload / ship / new version
+
+1. Read `memory/ITERATION`. Next `n` is that number plus one (first ship is **1**).
+2. Write the new `n` into `ITERATION`. Append one jsonl line: `n`, `t`, `tag`, `s` (what this iteration is).
+3. Commit. Tag `dln-{n}`. Push: `/home/main/_meta/bin/gh-push.sh DLN main dln-{n}`
+4. Do not reuse or skip numbers. Do not retag history.
+
+## Other houses
+
+Same integer + `{slug}-{n}` tag in **that** repo (ModYu, VT, Swarm, choozlist). This Cursor only numbers **DLN**.

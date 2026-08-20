@@ -17,17 +17,19 @@ Never put the black-field JPEG on a light page. Never recolour the glyphs.
 
 ## Type
 
-**[Blender](https://binnenland.ch/typeface/blender#overview)** by Nik Thoenen / Binnenland. Self-hosted `next/font/local`. Not T-Star. No Google faces.
+**[Aktiv Grotesk](https://fonts.adobe.com/fonts/aktiv-grotesk/)** by Dalton Maag, served from **Adobe Fonts**. Dave named this face. Do not self-host foundry files we do not own. No Google faces.
 
-| File | Weight | Use |
-|---|---|---|
-| `Site/public/fonts/Blender-Book.woff2` | 400 | Body, lede |
-| `Site/public/fonts/Blender-BookItalic.woff2` | 400 italic | Emphasis |
-| `Site/public/fonts/Blender-Medium.woff2` | 500 | Kickers, nav, buttons |
-| `Site/public/fonts/Blender-Bold.woff2` | 700 | Subheads, names, strong |
-| `Site/public/fonts/Blender-Strong.woff2` | 900 | Page titles, offer columns |
+Dave’s Creative Cloud web project is the licence. He adds Aktiv Grotesk (Regular, Italic, Medium, Bold, Black) and the live domains. Kit id in `NEXT_PUBLIC_ADOBE_FONTS_KIT`. CSS stack: `"aktiv-grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif`.
 
-Fallback: `"Blender", "Helvetica Neue", Helvetica, Arial, sans-serif`. T-Star files stay in `public/fonts/` unused.
+| Weight | Use |
+|---|---|
+| 400 Regular | Body, lede |
+| 400 italic | Emphasis |
+| 500 Medium | Kickers, nav, buttons |
+| 700 Bold | Subheads, names |
+| 900 Black | Page titles, offer columns |
+
+Footer ground dots change colour only. They do not cycle typefaces.
 
 ## Ground (not “theme”)
 

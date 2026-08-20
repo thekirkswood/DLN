@@ -3,13 +3,18 @@ import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/session";
 import { allPlots, clientPlots, enterUrlFor, statusLabel } from "@/lib/plots";
 import { canAccessPlot, isStudio, listClients } from "@/lib/auth";
-import { invoicesVisibleTo, rollDueInvoices, titlesAccessFor } from "@/lib/billing";
+import { invoicesVisibleTo, rollDueInvoices, titlesAccessFor, liveCatalogue, getPayRail, paymentByInvoice, railIsReady, listRolls, getOnlineRail } from "@/lib/billing";
 import { ProfileForm } from "@/components/AccountBilling";
 import { CommentBox, InvoiceList, StudioDesk } from "@/components/StudioDesk";
 import { isLocalHandle } from "@/lib/handles";
 import { listEnquiries } from "@/lib/enquiries";
 import { commentsFor, plansFor } from "@/lib/plans";
 import { labHostFromHeaders } from "@/lib/lab";
+import { bookingsForUser } from "@/lib/diary";
+import { receiptsVisibleTo } from "@/lib/receipts";
+import { HOSTS } from "@/lib/hosts";
+import { formatLondonSlot } from "@/lib/clock";
+import { getSettings } from "@/lib/settings";
 
 export const metadata = { title: "Account" };
 export const dynamic = "force-dynamic";
@@ -29,10 +34,20 @@ export default async function AccountPage() {
   const enquiries = studio ? await listEnquiries() : [];
   const comments = await commentsFor(user);
   const plans = await plansFor(user);
+  const claims = await paymentByInvoice();
+  const catalogue = studio ? await liveCatalogue() : [];
+  const rail = await getPayRail();
+  const rolls = studio ? await listRolls() : [];
+  const online = studio
+    ? await getOnlineRail()
+    : { provider: "none" as const, autoHost: true, note: "" };
+  const sittings = studio ? [] : await bookingsForUser(user.id);
+  const receipts = studio ? [] : await receiptsVisibleTo(user);
+  const settings = await getSettings();
 
   return (
     <article className="account wrap">
-      <p className="kicker">{studio ? "Desk" : "Account"}</p>
+      <p className="kicker">Account</p>
       <h1>{user.displayName}</h1>
       <p className="lede">
         {user.email}
@@ -47,7 +62,14 @@ export default async function AccountPage() {
         hasAvatar={Boolean(user.avatar)}
       />
 
-      {studio ? (
+      {studio && lab ? (
+        <p className="body bill-note">
+          Clients, invoices, and how they pay live on{" "}
+          <Link href="/lab">campus</Link>. This page is us.
+        </p>
+      ) : null}
+
+      {studio && !lab ? (
         <StudioDesk
           people={people}
           plots={plots}
@@ -56,8 +78,16 @@ export default async function AccountPage() {
           comments={comments}
           plans={plans}
           lab={lab}
+          catalogue={catalogue}
+          rail={rail}
+          claims={claims}
+          rolls={rolls}
+          online={online}
+          settings={settings}
         />
-      ) : (
+      ) : null}
+
+      {!studio ? (
         <>
           <h2>Your site</h2>
           {sites.length === 0 ? (
@@ -135,11 +165,55 @@ export default async function AccountPage() {
             </p>
           )}
 
+          <h2>Sittings</h2>
+          {sittings.length === 0 ? (
+            <p className="body">No sittings booked yet.</p>
+          ) : (
+            <div className="book-grid">
+              {sittings.map((row) => (
+                <div key={row.id} className="lift-plate">
+                  <div className="lift-plate-face book-card">
+                    <div className="book-card-top">
+                      <strong>{HOSTS[row.hostId].name.split(" ")[0]}</strong>
+                      <span className="book-chip">{row.facet}</span>
+                    </div>
+                    <p className="book-when">{formatLondonSlot(row.startIso, row.endIso)}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <h2>Receipts</h2>
+          {receipts.length === 0 ? (
+            <p className="body">Receipts land here when a payment clears. Download any of them.</p>
+          ) : (
+            <div className="book-grid">
+              {receipts.map((row) => (
+                <div key={row.id} className="lift-plate">
+                  <div className="lift-plate-face book-card">
+                    <div className="book-card-top">
+                      <Link href={`/account/receipts/${row.id}`}>
+                        <strong>{row.number}</strong>
+                      </Link>
+                      <span className="book-chip">{row.method}</span>
+                    </div>
+                    <p className="book-when">{row.invoiceNumber}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           <h2>Invoices</h2>
-          <p className="body bill-note">Pay records in the account book. Card checkout comes next.</p>
-          <InvoiceList invoices={invoices} studio={false} />
+          <p className="body bill-note">
+            {railIsReady(rail)
+              ? "Pay by bank transfer on the invoice. Use the invoice number as the reference."
+              : `Open an invoice for the amount due. Unpaid after ${settings.graceDays} days shuts a bound site.`}
+          </p>
+          <InvoiceList invoices={invoices} studio={false} claims={claims} graceDays={settings.graceDays} />
         </>
-      )}
+      ) : null}
 
       <p className="account-out">
         <Link href="/logout">Sign out</Link>

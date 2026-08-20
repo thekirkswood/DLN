@@ -31,7 +31,7 @@
     "public": true,
     "logoPaper": "/plots/various-titles.png",
     "logoInk": "/plots/various-titles-white.png",
-    "voice": "Design Lab North are building Various Titles. A place for ideas — marketing and branding, written so people can learn.",
+    "voice": "The Proprietary Engine Room: The anchor of our campus authority. Various Titles will be our premium, paywalled repository of operational design methodology, identity blueprints, and communication frameworks. Corporate teams and external agency peers subscribe to trade in our proprietary tools, while our direct studio clients receive complete, unhindered access — equipping your internal teams with the exact blueprints needed to scale independently without forced agency dependency.",
     "lab": {
       "housePath": "/home/main/VariousTitles",
       "localPort": 3020,
@@ -51,7 +51,7 @@
     "public": true,
     "logoPaper": "/plots/swarm.svg",
     "logoInk": "/plots/swarm.svg",
-    "voice": "Design Lab North are building Swarm Fund. We are excited to work on this hive brand — people finding work they believe in, and backing it together.",
+    "voice": "A hive for cultural discovery and collective backing. A person finds work they believe should exist, signals it, and a like-minded hive weighs whether to swarm. Backing follows belief, not a feed and not an ads marketplace. It is Year Zero: the wall says Building, and only the studio walks in while the hive is assembled.",
     "lab": {
       "housePath": "/home/main/SwarmFund",
       "localPort": 5173,
@@ -71,6 +71,6 @@
     "betaContact": "create@wishwell.uk",
     "logoPaper": "/plots/choozlist.png",
     "logoInk": "/plots/choozlist.png",
-    "voice": "Design Lab North are building Choozlist. An all-in-one life registry that creates, browses, and documents findings, curated to you and those around you."
+    "voice": "The life registry. What you find gets kept: created, browsed, and documented, curated to you and to the people around you. Not another stream to scroll. A place that remembers, for a life that is already underway. It is growing, open to beta testers at create@wishwell.uk."
   }
 ]

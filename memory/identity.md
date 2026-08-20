@@ -12,7 +12,7 @@ A hub of multiple sites, and a greenhouse. Public offer is **Design** (identity)
 
 ## How we charge (standing)
 
-Ewan charges the sit-down, the initial build, and the **live host** (a growing copy on our subdomain: they leave notes, we come in, the site changes). Dave charges branding and marketing for that work, on the same book, when it is issued. Standing figures until Ewan changes them: consultation £125, initial build £250, live host £75 a week. Monthly live host is set when issued. Do not print GBP on the public site.
+Ewan charges the sit-down on **Build**, the initial build, and the **live host**. Dave charges branding and marketing, and sittings on **Design** and **Strategy**. Sittings are booked on the studio Book, not on the public pages. Each catalogue entry has its own amount, edited and saved on **Settings**. Empty is £0, not a global default. **Pay** shows the same list plus Other — a Reason and a Charge for the situation. Do not print GBP on the public site.
 
 Work is staged **offline**. Notes become one plan. Ewan runs the plan when it is ready. A bigger update is uploaded when it is happy — with patch notes. We do not push every save to the live host. Later: own domain, same rhythm; smaller sites can share a server.
 
@@ -27,7 +27,7 @@ Conversational, from our side. Plural: Design Lab North are. Pleasure of the wor
 ## People
 
 - Ewan Kirkwood — builder. Developments that belong to the business: integrated systems (mapping, delivery, stock), AI models for the operation, social and brand development, and the sites that carry them. Named on `/practice` after Dave, equal. Login `ewan@designlabnorth.com` (owner). Full desk. Public word is **builder**, not designer. Do not put Cursor or the desk on the public page.
-- Dave Kirkwood — designer, Dave Kirkwood Studio, lecturer of branding. Named on `/practice` first, equal with Ewan. Login `dave@designlabnorth.com` (studio). Full desk: every plot, onboard, invoices. Public copy does not say formerly Walsh Simmons — the solo practice has stood long enough. Do not invent extra personal biography.
+- Dave Kirkwood — designer. Named on `/practice` first, equal with Ewan. Login `dave@designlabnorth.com` (studio). Full desk: every plot, onboard, invoices. Public copy (Dave, 2026-08-19): multi-award-winning designer for branding and marketing, former lecturer, brand and marketing advisor to Lancashire County Council, consultant across the region, public speaker and host, work featured in publications, on TV and radio. Do not say formerly Walsh Simmons. Do not invent extra personal biography.
 - Agents in this repo — builders with long-term memory. Not generic page-makers.
 
 Studio logins use `@designlabnorth.com` (real mail). Client logins may use a real email or an internal `@designlabnorth.local` handle — that is not a mailbox; it is the name on this book, and the same name they use for Various Titles. Do not put passwords in this file.
@@ -42,10 +42,10 @@ Do not paste their full sites into DLN. Greenhouse click goes to the product dom
 
 ## Clients
 
-- **ModYu** — first client plot. Rebuild / facelift. GitHub `thekirkswood/modyu`. Host: `https://modyu.designlabnorth.com`. Greenhouse uses their logo.
+- **ModYu** — first client plot. Rebuild / facelift. GitHub `thekirkswood/modyu`. Host: `https://modyu.designlabnorth.com`. Greenhouse uses their logo. Anne Marie’s live ModYu book stays on `modyu.designlabnorth.com`. On this campus she is an **offline puppet** (`modyu@designlabnorth.com`, `puppet: true`): sign in on lab hosts to see a client account before deployment. Do not mail or regenerate that login. Public hub stays locked for the puppet.
 - **DAA** — possible future client. Host name `daa.designlabnorth.com` is reserved and redirects to the hub. Do not list in the greenhouse until Ewan says they are a client.
 - More clients are the point of the hub. Add a plot file when Ewan names one. Do not invent clients.
 
 ## Practice
 
-`/practice` is the information page. **50/50:** Dave Kirkwood first, then Ewan Kirkwood, equal. Dave’s public credentials: Dave Kirkwood Studio, lecturer of branding, LCC advisor — not formerly Walsh Simmons. Ewan’s public word is **builder**. Line: developments that belong to the business; integrated systems (mapping, delivery, stock); AI models for the operation, social and brand development; and the sites that carry them. Do not mention Cursor or the desk. Do not invent awards. Public offering line is **brands** and identities, not marks. Both studio accounts have the full desk.
+`/practice` is the information page. **50/50:** Dave Kirkwood first, then Ewan Kirkwood, equal. Dave’s public paragraph is his 2026-08-19 copy (multi-award-winning designer, former lecturer, LCC advisor, consultant, speaker, host, publications / TV / radio) — not formerly Walsh Simmons. Ewan’s public word is **builder**. Line: developments that belong to the business; integrated systems (mapping, delivery, stock); AI models for the operation, social and brand development. Last line: the sites are built here, and they are built well. Do not mention Cursor or the desk. Do not invent awards. Practice lede (Dave): DLN creates Identities, marketing strategies, brand redesigns and facelifts, websites and design for print. Public work is not called “marks”. Both studio accounts have the full desk.

@@ -19,4 +19,9 @@ export const CLIENTS = [
   "TIP International",
   "Whitworth Art Gallery",
   "Royal Exchange",
+  "Richard Creme",
+  "Stan Sulzman",
+  "Bernard Oglesby",
+  "Paul Fosbury",
+  "Motionhouse Dance Co",
 ] as const;

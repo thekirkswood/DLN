@@ -1,0 +1,27 @@
+---
+description: Campus vital LTM paths + this Cursor owns DLN only. Never echo the PAT.
+alwaysApply: true
+---
+
+# Vital LTM (this Cursor)
+
+Chat is not memory. Secrets and durable ops facts go to files **the same turn**.
+
+## This instance owns
+
+- Repo: **thekirkswood/DLN** only (local: `/home/main/DLN`).
+- Do **not** touch ModYu, Various Titles, Swarm, choozlist, or SammysScran from this Cursor.
+
+## Vital paths (open on “attention to memory”)
+
+1. `/home/main/_meta/LTM-vital.md` — blanked-secrets + write rules
+2. `/home/main/_meta/github-repos.md` — house map
+3. `/home/main/_meta/github-ops.env` — `GH_TOKEN` only (chmod 600; **never** commit, echo, or sticky in `origin`)
+4. House LTM: `memory/protocol.md` then identity → brand → BLUEPRINT → greenhouse → cross-house → compass → DIRECTIONS → WORKSTREAM → CHANGELOG tail
+
+## PAT / push
+
+- Screenshots of PATs are unreliable. Prefer the ops env file.
+- Verify: `api.github.com/user` → print **login only**.
+- Push when asked (or when the tree is clean): `/home/main/_meta/bin/gh-push.sh DLN main` (add `dln-{n}` when shipping a numbered iteration)
+- Origin must stay credential-free: `https://github.com/thekirkswood/DLN.git`

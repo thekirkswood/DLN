@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Memory (holy)
 
-Load `memory/protocol.md` order: identity → brand → BLUEPRINT → greenhouse → DIRECTIONS → WORKSTREAM → CHANGELOG tail.
+Load `memory/protocol.md` order: identity → brand → BLUEPRINT → greenhouse → cross-house → compass → DIRECTIONS → WORKSTREAM → CHANGELOG tail.
 
 - Major function/IA → update `BLUEPRINT.md` + changelog `k:bp`
 - Standing/small direction → `DIRECTIONS.md` + `k:dir`
@@ -13,5 +13,6 @@ Load `memory/protocol.md` order: identity → brand → BLUEPRINT → greenhouse
 - Never rewrite changelog history. Deletions must name `p` and what left.
 - Do not overwrite working behaviour. Extend or stop and ask.
 - No secrets in memory files (no passwords, keys, tokens).
-- Phrase **Okay attention to memory**: re-read earliest→latest, confirm intact, fill only evidenced gaps, state current stage, then continue.
+- Phrase **Okay attention to memory**: re-read earliest→latest, confirm intact, fill only evidenced gaps, state current stage, then continue. Also open `/home/main/_meta/LTM-vital.md`, `/home/main/_meta/github-repos.md`, `/home/main/_meta/github-ops.env` (path + non-empty `GH_TOKEN=` only — never print).
+- GitHub upload is a numbered iteration (`memory/ITERATION`, tag `dln-{n}`). Do not ship unnumbered.
 - **Shape of the work:** a named function is built to the depth it implies (billing = lines, price, who issues, document, unpaid). Stubs that only prove a path are a defect.

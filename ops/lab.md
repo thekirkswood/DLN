@@ -15,11 +15,25 @@ Two logins so every note is named. Those same two are studio access on every hou
 
 ## Start the hub
 
+Preferred (survives a crash; `Restart=always`):
+
+```bash
+/home/main/DLN/ops/enable-campus-user.sh
+sudo loginctl enable-linger "$USER"
+sudo /home/main/DLN/ops/never-sleep.sh
+```
+
+Until that is enabled, the old way still works:
+
 ```bash
 cd /home/main/DLN/Site && npm run dev
 ```
 
-http://localhost:3010 — or this PC’s LAN address on the same port.
+http://localhost:3010 — or this PC’s LAN address on the same port. Occupancy logs: `_meta/lab-houses/occupancy.log`.
+
+Overnight death on this desktop was the hub process exiting (sleep / OOM / `next dev` with nothing to restart it). The user unit is the fix for **this Cursor disk**. The always-on LAN campus is Debian downstairs in **production** (`ops/debian-campus.service`, `ops/campus-watch.timer`). Do not host Dave’s browser on `next dev`.
+
+Do not start unit apps without `BASE_PATH` / `VITE_BASE`. If a unit is already on its port **without** the `/go/{slug}` prefix, the hub now stops that process and starts it correctly. A 404 is not “up”.
 
 ## Houses start when you walk in, sleep when you leave
 
@@ -42,15 +56,19 @@ When `wake.flag` changes in that house’s inbox, the Cursor chat **for that fol
 5. One failure does not block the rest
 6. Do not auto-deploy to the VPS
 
+Campus sniff: `ops/sniff-inbox.sh` watches downstairs `http://192.168.0.223:3010` (Mac, phones, LAN). After a stamp, pull the host onto this disk (`ops/pull-from-debian.sh`). `localhost:3010` is the working copy. Unit chats: `ops/sniff-inbox.sh modyu` / `various-titles` / `swarm`.
+
 Design Lab North hub: `/home/main/DLN/_meta/lab-inbox/`
 ModYu: `/home/main/ModYu/_meta/designer-inbox/`
 Various Titles: `/home/main/VariousTitles/_meta/lab-inbox/`
 Swarm: `/home/main/SwarmFund/_meta/lab-inbox/`
 New stations: `{house}/_meta/lab-inbox/`
 
+When two of Ewan’s Cursor seats are already answering (tower and 3060 laptop, both SSH’d into Debian), the **next** jobs cycle between them. Head of the queue and high weight+tokens stay on the tower. See `memory/compass.md`. Dave’s Cursor is his own seat.
+
 ## Open a station
 
-On `/lab`, **Open a station** makes `/home/main/{slug}` (skipped if that folder already exists), writes `AGENTS.md` + an inbox, and adds the plot. Build the site in that folder. Bind a live host later.
+On `/lab`, **Open a station** makes `/home/main/{slug}` (skipped if that folder already exists), writes `AGENTS.md` + an inbox, and adds the plot. On Debian, **client** stations are created on `/srv/clients` with a symlink at `/home/main/{slug}`. Studio stations stay on the NVMe. Build the site in that folder. Bind a live host later.
 
 ## Production
 

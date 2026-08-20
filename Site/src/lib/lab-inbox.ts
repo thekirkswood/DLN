@@ -1,3 +1,4 @@
+import { spawn } from "child_process";
 import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
@@ -30,26 +31,30 @@ function roots(house: LabHouse) {
   };
 }
 
-async function ensure(house: LabHouse) {
+async function ensure(house: LabHouse): Promise<boolean> {
   const { dir, messages, wake } = roots(house);
-  await fs.mkdir(dir, { recursive: true });
   try {
-    await fs.access(messages);
+    await fs.mkdir(dir, { recursive: true });
+    try {
+      await fs.access(messages);
+    } catch {
+      await fs.writeFile(messages, "[]\n", "utf8");
+    }
+    try {
+      await fs.access(wake);
+    } catch {
+      await fs.writeFile(wake, "", "utf8");
+    }
+    return true;
   } catch {
-    await fs.writeFile(messages, "[]\n", "utf8");
-  }
-  try {
-    await fs.access(wake);
-  } catch {
-    await fs.writeFile(wake, "", "utf8");
+    return false;
   }
 }
 
 export async function ensureHouseInbox(slug: string): Promise<boolean> {
   const house = await resolveHouse(slug);
   if (!house) return false;
-  await ensure(house);
-  return true;
+  return ensure(house);
 }
 
 export async function primeAllHouseInboxes(): Promise<void> {
@@ -84,7 +89,7 @@ export async function addLabMessage(input: {
 }): Promise<LabMessage> {
   const house = await resolveHouse(input.plot);
   if (!house) throw new Error("unknown house");
-  await ensure(house);
+  if (!(await ensure(house))) throw new Error("inbox unavailable");
   const { messages: file, wake } = roots(house);
   const rows = await listLabMessages(input.plot);
   const message: LabMessage = {
@@ -107,6 +112,12 @@ export async function addLabMessage(input: {
     `${message.createdAt}\n${message.id}\n${message.kind}\n${message.plot}\n${message.page || "/"}\n${message.author}\n`,
     "utf8",
   );
+  if (input.plot === "dln") {
+    spawn("/home/main/DLN/ops/push-lab-inbox.sh", [], {
+      detached: true,
+      stdio: "ignore",
+    }).unref();
+  }
   return message;
 }
 
@@ -137,14 +148,20 @@ const IMAGE_TYPES = new Set([
   "image/gif",
 ]);
 
-function extForUpload(file: File): string | null {
-  if (IMAGE_TYPES.has(file.type) || file.type.startsWith("image/")) {
-    if (file.type === "image/png") return "png";
-    if (file.type === "image/webp") return "webp";
-    if (file.type === "image/gif") return "gif";
+function uploadName(file: Blob): string {
+  if ("name" in file && typeof file.name === "string") return file.name;
+  return "";
+}
+
+function extForUpload(file: Blob): string | null {
+  const type = file.type || "";
+  if (IMAGE_TYPES.has(type) || type.startsWith("image/")) {
+    if (type === "image/png") return "png";
+    if (type === "image/webp") return "webp";
+    if (type === "image/gif") return "gif";
     return "jpg";
   }
-  const name = file.name.toLowerCase();
+  const name = uploadName(file).toLowerCase();
   if (/\.png$/.test(name)) return "png";
   if (/\.jpe?g$/.test(name)) return "jpg";
   if (/\.webp$/.test(name)) return "webp";
@@ -154,13 +171,17 @@ function extForUpload(file: File): string | null {
 
 export async function saveLabUploads(
   slug: string,
-  files: File[],
+  files: Blob[],
 ): Promise<string[]> {
   const house = await resolveHouse(slug);
   if (!house) return [];
-  await ensure(house);
+  if (!(await ensure(house))) return [];
   const dir = path.join(roots(house).dir, "uploads");
-  await fs.mkdir(dir, { recursive: true });
+  try {
+    await fs.mkdir(dir, { recursive: true });
+  } catch {
+    return [];
+  }
   const urls: string[] = [];
   for (const file of files) {
     const ext = extForUpload(file);

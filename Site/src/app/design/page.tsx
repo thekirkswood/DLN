@@ -13,7 +13,7 @@ export default function DesignPage() {
         — Strategy and Build sit beside it, not after it.
       </p>
       <OfferJump current="design" />
-      <EnquireForm />
+      <EnquireForm facet="design" />
     </article>
   );
 }

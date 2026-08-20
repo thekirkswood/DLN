@@ -15,11 +15,11 @@ We stop editing on the live hosts. We edit **offline on this PC**, the same way 
 Two processes stay up. Not a zoo of ports Dave has to start.
 
 1. **Campus edge** — one port, like the live site. Always on. Knows where to read and write. You click through from Design Lab North into each **unit**. A unit’s app starts when someone is in it and sleeps at zero.
-2. **Sniffer + unit Cursors** — comments land in that unit’s inbox at once (`wake.flag`). The Cursor **for that folder** acts. The campus chat does not do another unit’s queue. Push goes to **that house’s GitHub**.
+2. **Sniffer + unit Cursors** — comments land in that unit’s inbox at once (`wake.flag`). Campus sniff runs while studio is signed in. A unit Cursor sniffs while that instance is open. The campus chat does not do another unit’s queue. Push goes to **that house’s GitHub**.
 
 Login is the Design Lab North book. One studio session. Dave and Ewan walk the local builds from the desk.
 
-Remote later: a bigger PC and a **remote workstation** (account-gated access to this campus — SSH tunnel / Tailscale / similar). Do not put the Cursor IDE on the VPS. Do not invent a public “remote Cursor” URL. Campus stays the door; units stay their own folders.
+Remote later: downstairs Debian **holds the files and hosts the sites** (`ops/debian-host.md`). GPU PCs keep working copies for Cursor and push like GitHub. Two seats: [`memory/compass.md`](compass.md) + [`ops/house-lease.md`](../ops/house-lease.md). Public VPS stays the internet. Campus sniff while signed in; unit sniff while that Cursor is open (`ops/sniff-inbox.sh`).
 
 ---
 
@@ -32,9 +32,9 @@ Remote later: a bigger PC and a **remote workstation** (account-gated access to 
 | Notes + plans | `_meta/plans/`, sweep, ready, shipped. Never auto-deploy | Keep. Page comments join this pile, tagged with plot. |
 | ModYu builder | `/admin/desk`, `_meta/designer-inbox/`, `wake.flag`, `/admin/log` | **Lift this into DLN and make it central.** ModYu desk can stay as a client ops surface; the *build-machine queue* lives on the hub. |
 | Plot registry | `greenhouse/plots.json` | Each plot needs: local house path, local host name, GitHub repo, live enter URL. |
-| Houses | `/home/main/DLN` (`thekirkswood/DLN`), `/home/main/ModYu` (`thekirkswood/Modyu`), `/home/main/VariousTitles` (`thekirkswood/vt`), `/home/main/SwarmFund` | Do not merge repos. Delegate by origin. |
+| Houses | `/home/main/DLN` (`thekirkswood/DLN`), `/home/main/ModYu` (`thekirkswood/Modyu`), `/home/main/VariousTitles` (`thekirkswood/vt`), `/home/main/SwarmFund` | Do not merge repos. Delegate by origin. On Debian, client trees sit on `/srv/clients`. |
 | VT public | varioustitles.com is Building; studio bounce `titles-enter` | Live gate stays. Offline VT is the editor copy on this PC. |
-| Type | Hub and Various Titles both use **Blender** (Binnenland): Book, Medium, Bold, Strong. | Do not restyle VT as T-Star. |
+| Type | Hub uses **Aktiv Grotesk** (Adobe Fonts, Dave’s web project). Do not self-host foundry files we do not own. | Various Titles should use the same when that house is next touched. |
 
 ---
 
@@ -127,7 +127,7 @@ Tick `memory/WORKSTREAM.md` when a step lands. Changelog every file touch.
 - Live Caddyfile.prod / plot containers — do not rewrite to “serve the PC”.
 - ModYu `/admin` ops for Anne Marie — keep. Only the **design inbox / wake queue** moves to the hub.
 - Public copy: no Cursor, no desk, no “actually runs on” on `/practice`.
-- VT: Building on the public wall; Blender type; own repo; do not tell the public about shared login or billing.
+- VT: Building on the public wall; own repo; do not tell the public about shared login or billing. Type follows the hub (Aktiv Grotesk / Adobe Fonts) when that house is next touched.
 - Auto-deploy stays forbidden.
 
 ---

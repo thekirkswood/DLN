@@ -8,10 +8,11 @@ import {
   existsSync,
   readFileSync,
   unlinkSync,
+  appendFileSync,
 } from "fs";
 import path from "path";
 import { labBasePath, resolveHouse, type LabHouse } from "@/lib/lab";
-import { ensureHouseInbox } from "@/lib/lab-inbox";
+import { ensureHouseInbox, listLabMessages } from "@/lib/lab-inbox";
 
 const ROOT = path.join(process.cwd(), "..", "_meta", "lab-houses");
 
@@ -67,9 +68,22 @@ async function portOpen(port: number): Promise<boolean> {
 async function httpUp(url: string): Promise<boolean> {
   try {
     const res = await fetch(url, { redirect: "manual", signal: AbortSignal.timeout(2500) });
-    return res.status < 500;
+    return res.status < 400;
   } catch {
     return false;
+  }
+}
+
+function logOcc(line: string) {
+  try {
+    mkdirSync(ROOT, { recursive: true });
+    appendFileSync(
+      path.join(ROOT, "occupancy.log"),
+      `${new Date().toISOString()} ${line}\n`,
+      "utf8",
+    );
+  } catch {
+    /* */
   }
 }
 
@@ -107,6 +121,8 @@ async function specsFor(house: LabHouse): Promise<ProcSpec[]> {
         port: 8787,
         env: {
           PORT: "8787",
+          // Offline lab must show the full product; live Building is production-only.
+          BUILDING_LOCK: "false",
           CORS_ORIGIN:
             "http://localhost:3010,http://127.0.0.1:3010,http://localhost:5173,http://127.0.0.1:5173",
         },
@@ -117,7 +133,11 @@ async function specsFor(house: LabHouse): Promise<ProcSpec[]> {
         id: "swarm",
         cwd: path.join(house.housePath, "apps", "web"),
         port: 5173,
-        env: { VITE_BASE: `${base}/` },
+        env: {
+          VITE_BASE: `${base}/`,
+          // Framed at /go/swarm — absolute /api would hit the campus host.
+          VITE_API_BASE: `${base}/api`,
+        },
         cmd: "npm",
         args: ["run", "dev"],
       },
@@ -173,6 +193,19 @@ async function waitReady(spec: ProcSpec, slug: string, ms = 90000): Promise<bool
   return false;
 }
 
+function writeWantSniff(slug: string, n: number) {
+  try {
+    mkdirSync(ROOT, { recursive: true });
+    writeFileSync(
+      path.join(ROOT, `want-sniff-${slug}`),
+      `${n}\n${new Date().toISOString()}\n`,
+      "utf8",
+    );
+  } catch {
+    /* */
+  }
+}
+
 export function occupancyOf(slug: string): number {
   pruneLeases(slug);
   return leases.get(slug)?.size || 0;
@@ -182,7 +215,7 @@ function pruneLeases(slug: string) {
   const m = leases.get(slug);
   if (!m) return;
   const now = Date.now();
-  for (const [id, exp] of m) {
+  for (const [id, exp] of Array.from(m.entries())) {
     if (exp <= now) m.delete(id);
   }
   if (m.size === 0) leases.delete(slug);
@@ -201,6 +234,7 @@ export function holdHouse(slug: string, leaseId: string, ttlMs = HOLD_TTL_MS): n
     leases.set(slug, m);
   }
   m.set(leaseId, Date.now() + ttlMs);
+  writeWantSniff(slug, m.size);
   return m.size;
 }
 
@@ -209,6 +243,7 @@ export function releaseHouse(slug: string, leaseId: string): number {
   leases.get(slug)?.delete(leaseId);
   pruneLeases(slug);
   const n = occupancyOf(slug);
+  writeWantSniff(slug, n);
   if (n === 0) scheduleStop(slug);
   return n;
 }
@@ -221,9 +256,21 @@ function scheduleStop(slug: string) {
     slug,
     setTimeout(() => {
       stopTimers.delete(slug);
-      if (occupancyOf(slug) === 0 && !starting.has(slug)) {
+      void (async () => {
+        if (occupancyOf(slug) > 0 || starting.has(slug)) return;
+        try {
+          const rows = await listLabMessages(slug);
+          if (rows.some((m) => m.status === "working")) {
+            logOcc(`hold ${slug} still working`);
+            scheduleStop(slug);
+            return;
+          }
+        } catch {
+          /* */
+        }
+        logOcc(`stop ${slug} occupancy=0`);
         void stopHouse(slug);
-      }
+      })();
     }, STOP_GRACE_MS),
   );
 }
@@ -322,13 +369,23 @@ export async function houseRunStatus(slug: string): Promise<HouseRun> {
       occupancy: occupancyOf(slug),
     };
   }
-  const up = await portOpen(house.localPort);
+  const open = await portOpen(house.localPort);
+  if (!open) {
+    return {
+      slug,
+      name: house.name,
+      port: house.localPort,
+      occupancy: occupancyOf(slug),
+      status: starting.has(slug) ? "starting" : "down",
+    };
+  }
+  const prefixOk = await httpUp(readyUrl(house.localPort, slug));
   return {
     slug,
     name: house.name,
     port: house.localPort,
     occupancy: occupancyOf(slug),
-    status: up ? "ready" : starting.has(slug) ? "starting" : "down",
+    status: prefixOk ? "ready" : starting.has(slug) ? "starting" : "down",
   };
 }
 
@@ -377,7 +434,20 @@ export async function ensureHouse(slug: string): Promise<HouseRun> {
     const specs = await specsFor(house);
     if (!specs.length) return "missing" as HouseRunStatus;
     for (const spec of specs) {
-      if (!(await portOpen(spec.port))) {
+      const url = readyUrl(spec.port, spec.id === "swarm-api" ? "swarm-api" : house.slug);
+      const open = await portOpen(spec.port);
+      const good =
+        spec.id === "swarm-api"
+          ? open
+          : open && (await httpUp(url));
+      if (open && !good) {
+        logOcc(`respawn ${spec.id} port=${spec.port} lab-prefix-miss`);
+        killPidFile(spec.id);
+        killPort(spec.port);
+        await new Promise((r) => setTimeout(r, 400));
+        await spawnSpec(spec);
+      } else if (!open) {
+        logOcc(`spawn ${spec.id} port=${spec.port}`);
         await spawnSpec(spec);
       }
     }

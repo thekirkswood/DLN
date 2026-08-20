@@ -2,7 +2,7 @@
 
 Registry prose. Machine source: `greenhouse/plots.json`. Keep them in sync.
 
-The greenhouse is **our products**. Public stories. Enter the product domain, not a DLN subdomain. Client sites live on the account (`/account`). Header Sign in opens the profile. Wrong account on a gated plot → `/not-yours`, then home after 3 seconds. Unpaid due invoice older than seven days shuts the client plot; studio still walks in.
+The greenhouse is **our products**. Public heading: **Greenhouse projects**. Public stories. Enter the product domain, not a DLN subdomain. Client sites live on the account (`/account`). Header Sign in opens the profile. Wrong account on a gated plot → `/not-yours`, then home after 3 seconds. Unpaid due invoice older than seven days shuts the client plot; studio still walks in.
 
 Hub offers: Design, Strategy, Build — walk in at any. Build includes a live host while the site grows (notes in, we come in). Various Titles is a resource for people to learn; also on Strategy. Listed **first** on the greenhouse.
 
@@ -18,8 +18,8 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Voice: Design Lab North are rebuilding ModYu, the market-leading hair and scalp care brand — for people looking after their scalp before, during, and after transplant.
 - Logos: `Site/public/plots/modyu.svg` (paper) + `modyu-white.svg` (ink)
 - Source: GitHub `thekirkswood/modyu` · VPS `/srv/dln/plots/modyu` · Docker plot `plot-modyu`
-- Offline lab: `/home/main/ModYu` · local `:3000` · inbox `_meta/designer-inbox` · framed at `localhost:3010/lab/modyu`
-- Access: DLN client user bound to `modyu`. Anne Marie: `modyu@designlabnorth.com` (client on this plot, not studio). Same email on ModYu admin, other password. Studio/owner always. Site + billing on `/account`, not the greenhouse.
+- Offline lab: `/home/main/ModYu` · local `:3000` · inbox `_meta/designer-inbox` · framed at `localhost:3010/lab/modyu`. On Debian the live tree is `/srv/clients/ModYu` (symlink at `/home/main/ModYu`).
+- Access: DLN client **record** bound to `modyu` for billing and live suggestions. Anne Marie: `modyu@designlabnorth.com` — **offline puppet** on campus (sign in on lab hosts to see a client account). Do not mail a login. Public hub locked. Live ModYu book stays `modyu.designlabnorth.com` (`modyu_session`, other password). Studio/owner always. Client sites stay off the greenhouse.
 
 ## Studio plots
 
@@ -31,7 +31,7 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Public wall on swarmfund.com is **Building** — Swarm Fund logo and the word Building. Only Ewan and Dave walk in (`swarm-enter`). Same idea as Various Titles.
 - **Cutover status (2026-08-17):** Swarm plot runs on this VPS. Public DNS for `swarmfund.com` still points at the legacy Scran VPS (`77.68.49.132`) where HTTPS was repaired so the apex shows Swarm Fund (not Scran). Caddy is prepared for apex on this host; flip Fasthosts A `@`/`www` → `82.165.5.84` when retiring the legacy box for Swarm.
 - Kind: new. Status: growing.
-- Voice: Design Lab North are building Swarm Fund. We are excited to work on this hive brand — people finding work they believe in, and backing it together.
+- Voice: A hive for cultural discovery and collective backing. A person finds work they believe should exist, signals it, and a like-minded hive weighs whether to swarm. Backing follows belief, not a feed and not an ads marketplace. It is Year Zero: the wall says Building, and only the studio walks in while the hive is assembled. Do not say where it is housed on the public wall.
 - Logo: `Site/public/plots/swarm.svg` (official hive, amber).
 - Source: local `/home/main/SwarmFund` · VPS `/srv/dln/plots/swarm` · Docker `plot-swarm` · sqlite `/srv/dln/data/swarm`. Ewan handles git.
 - Offline lab: local `:5173` · inbox `_meta/lab-inbox` · framed at `localhost:3010/lab/swarm`
@@ -43,19 +43,19 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Internals (not public copy): agentic AI-driven search app.
 - Kind: new. Status: growing. Homepage badge: `growing - beta test`. Never label it resting.
 - Story extra: Open to beta testers — contact `create@wishwell.uk`.
-- Voice: Design Lab North are building Choozlist. An all-in-one life registry that creates, browses, and documents findings, curated to you and those around you.
+- Voice: The life registry. What you find gets kept: created, browsed, and documented, curated to you and to the people around you. Not another stream to scroll. A place that remembers, for a life that is already underway. It is growing, open to beta testers at create@wishwell.uk. Do not say where it is housed on the public wall.
 - Logo: `Site/public/plots/choozlist.png` (lime heart list).
 - Public greenhouse story. No Enter until a host exists.
 
 ### Various Titles (`various-titles`)
 
-- Party: studio. Ours. A place for ideas — marketing and branding, written so people can learn.
+- Party: studio. Ours. Public greenhouse copy is Dave’s Proprietary Engine Room text.
 - Sibling house `/home/main/VariousTitles`. Public host `https://varioustitles.com` on this VPS (`plot-titles`). Ungated at the edge. Public wall is Building. Studio (Ewan, Dave) enter on this book’s session (`titles-enter` bounce). GitHub `thekirkswood/vt`. Billing on the DLN book (`titlesGrant`) when it opens.
 - Offline lab: local `:3020` · inbox `_meta/lab-inbox` · framed at `localhost:3010/lab/various-titles`
 - Source: VPS `/srv/dln/plots/various-titles`. A records for varioustitles.com point at this VPS.
 - Reached through **Strategy** on the hub as well. Consultation can unlock sections; full resource is an upsell. Must be a paying customer (paid grant). Bank link next.
 - Kind: brand. Status: growing. Listed first on the greenhouse wall.
-- Voice: Design Lab North are building Various Titles. A place for ideas — marketing and branding, written so people can learn.
+- Voice: The Proprietary Engine Room. The anchor of our campus authority. Various Titles will be our premium, paywalled repository of operational design methodology, identity blueprints, and communication frameworks. Corporate teams and external agency peers subscribe to trade in our proprietary tools, while our direct studio clients receive complete, unhindered access — equipping internal teams with the exact blueprints needed to scale independently without forced agency dependency.
 - Public greenhouse story. Enter on the public hub: `https://varioustitles.com`. On this PC’s lab, Enter opens `/lab/various-titles`. No “not a shop”. No same-login or shared-billing copy on the public wall.
 - Logos: `Site/public/plots/various-titles.png` (paper, mute grey VT) + `various-titles-white.png` (ink). Plates from Ewan 2026-08-17. Do not redraw.
 

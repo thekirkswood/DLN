@@ -16,6 +16,7 @@ How Ewan wants the Cursor instances to talk. Keep this when work spans Design La
 - `/lab/various-titles/admin` → VT `_meta/lab-inbox/` → VT Cursor.
 - `/lab/swarm/admin` → Swarm `_meta/lab-inbox/` → Swarm Cursor.
 - Unit apps run while occupied; inboxes still listen when the app sleeps.
+- Send is a file drop (`wake.flag`). Campus sniff runs while studio is signed in (`ops/sniff-inbox.sh`). A unit note waits for that unit’s Cursor sniffer. Audit: [`memory/audit-campus.md`](audit-campus.md). Machines and seats: [`memory/compass.md`](compass.md). Dave and Ewan talk to the same files through Cursor Remote SSH on the downstairs Debian host (`ops/cursor-remote-ssh.md`). GPU seats are optional workers, not the source of truth. Ewan’s tower and laptop cycle work when both are answering. Later dispatcher: `memory/phase-d-later.md`.
 
 ## Routing rule
 

@@ -1,5 +1,4 @@
 import { CLIENTS } from "@/data/practice";
-import { EnquireForm, OfferJump } from "@/components/HomeOffer";
 
 export const metadata = { title: "Practice" };
 
@@ -7,22 +6,21 @@ export default function PracticePage() {
   return (
     <article className="practice wrap">
       <p className="kicker">Practice</p>
-      <h1>A design hub for brands that need a proper next step.</h1>
+      <h1>Designing High-Value Brand Ecosystems</h1>
       <p className="lede">
-        Identities, marketing principles, redesigns, facelifts, and the
-        websites that have to carry them. We make the work here, grow it in the
-        greenhouse, then move it onto a home of its own.
+        DLN creates Identities, marketing strategies, brand redesigns and
+        facelifts, websites and design for print.
       </p>
 
       <div className="practice-pair">
         <div>
           <h2>Dave Kirkwood</h2>
           <p className="body">
-            Dave Kirkwood Studio — a multi-award-winning designer for branding
-            and marketing, and a former lecturer of branding. The practice is a
-            nominated brand and marketing advisor to Lancashire County Council,
-            and consults with businesses across the region. Work has been spoken
-            in public, hosted, printed, and put on screen.
+            Dave Kirkwood is a multi-award-winning designer for branding and
+            marketing, and a former lecturer. A brand and marketing advisor to
+            Lancashire County Council, and consultant to businesses across the
+            region. Public speaker, host, and work featured in multiple
+            publications on TV and radio.
           </p>
         </div>
         <div>
@@ -30,22 +28,11 @@ export default function PracticePage() {
           <p className="body">
             Builder. Developments that belong to the business: integrated
             systems — mapping, delivery and stock — through to AI models for
-            the operation, for social, and for brand development. And the
-            sites that have to carry them.
+            the operation, for social, and for brand development. The sites
+            are built here, and they are built well.
           </p>
         </div>
       </div>
-
-      <h2>What we do</h2>
-      <p>
-        Brands and identities. Marketing principles that still hold when the
-        campaign is over. Redesigns and facelifts for sites that have drifted.
-        New websites, hosted while they grow, then migrated when they are ready
-        to stand alone. Design, Strategy, and Build sit together — come in at
-        the one you need. Various Titles is a place for ideas about marketing
-        and branding, written so people can learn.
-      </p>
-      <OfferJump />
 
       <h2>Selected clients</h2>
       <ul className="client-index">
@@ -61,13 +48,6 @@ export default function PracticePage() {
         — on brand strategy and how the brand behaves online. Further detail
         can be given under NDA.
       </p>
-
-      <h2 id="enquiries">Enquiries</h2>
-      <p className="body">
-        Tell us who you are and what you need. We’ll write back, and make you
-        an account if that’s the next step.
-      </p>
-      <EnquireForm />
     </article>
   );
 }

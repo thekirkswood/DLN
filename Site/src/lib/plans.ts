@@ -17,6 +17,9 @@ export type SiteComment = {
   page?: string;
   createdAt: string;
   planId?: string;
+  /** live = public well on the plot host. Not a live editor. */
+  source?: "account" | "live" | "studio";
+  fromName?: string;
 };
 
 export type BuildPlan = {
@@ -119,6 +122,41 @@ export async function addComment(
     body,
     page: input.page?.trim() || undefined,
     createdAt: new Date().toISOString(),
+    source: isStudio(user) ? "studio" : "account",
+  };
+  const rows = await listComments();
+  rows.unshift(row);
+  await writeJson(COMMENTS, rows);
+  return row;
+}
+
+export async function addLiveSuggestion(input: {
+  plotSlug?: string;
+  body?: string;
+  page?: string;
+  fromName?: string;
+}): Promise<SiteComment> {
+  const { clientForPlot } = await import("@/lib/auth");
+  const { plotBySlug } = await import("@/lib/plots");
+  const plotSlug = (input.plotSlug || "").trim();
+  const body = (input.body || "").trim();
+  if (!plotSlug || !body) throw new Error("invalid");
+  if (body.length > 2000) throw new Error("invalid");
+  const plot = await plotBySlug(plotSlug);
+  if (!plot || plot.party !== "client") throw new Error("forbidden");
+  const owner = await clientForPlot(plotSlug);
+  if (!owner) throw new Error("missing");
+  const fromName = (input.fromName || "").trim().slice(0, 80) || undefined;
+  const row: SiteComment = {
+    id: randomUUID(),
+    userId: owner.id,
+    authorId: "live",
+    plotSlug,
+    body,
+    page: input.page?.trim().slice(0, 160) || undefined,
+    createdAt: new Date().toISOString(),
+    source: "live",
+    fromName,
   };
   const rows = await listComments();
   rows.unshift(row);
@@ -133,7 +171,9 @@ function notesFromComments(comments: SiteComment[]): string {
     .map((c) => {
       const when = c.createdAt.slice(0, 10);
       const page = c.page ? ` (${c.page})` : "";
-      return `— ${when}${page}: ${c.body}`;
+      const who = c.fromName ? ` ${c.fromName}` : "";
+      const src = c.source === "live" ? " live" : "";
+      return `— ${when}${src}${who}${page}: ${c.body}`;
     })
     .join("\n");
 }

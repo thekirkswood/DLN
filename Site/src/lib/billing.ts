@@ -2,18 +2,64 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
 import {
+  CATALOGUE,
+  bookableForFacet,
   type Cadence,
   type CatalogueItem,
+  type Stage,
   type TitlesGrant,
-  catalogueById,
 } from "@/data/catalogue";
 import { isStudio, type PublicUser } from "@/lib/auth";
+import { getSettings } from "@/lib/settings";
+import {
+  addCalendarDays,
+  GRACE_DAYS,
+  londonYear,
+  nowIso,
+  periodEnd as clockPeriodEnd,
+} from "@/lib/clock";
 
 const ROOT = path.join(process.cwd(), "..", "_meta", "billing");
 const INVOICES = path.join(ROOT, "invoices.json");
 const ROLLS = path.join(ROOT, "subscriptions.json");
+const PRICES = path.join(ROOT, "prices.json");
+const RAIL = path.join(ROOT, "rail.json");
+const ONLINE = path.join(ROOT, "online.json");
+const PAYMENTS = path.join(ROOT, "payments.json");
 
-const GRACE_DAYS = 7;
+export type ExtraCharge = {
+  id: string;
+  stage: Stage;
+  name: string;
+  amountGbp: number;
+};
+
+const EXTRAS = path.join(ROOT, "extras.json");
+
+export type PriceBook = Record<string, number>;
+
+export type PayRail = {
+  accountName: string;
+  sortCode: string;
+  accountNumber: string;
+  bankName: string;
+  extra: string;
+};
+
+export type PayMethod = "bank" | "studio" | "online";
+
+export type Payment = {
+  id: string;
+  invoiceId: string;
+  amountGbp: number;
+  method: PayMethod;
+  reference: string;
+  status: "claimed" | "cleared";
+  claimedAt?: string;
+  claimedBy?: string;
+  clearedAt?: string;
+  clearedBy?: string;
+};
 
 export type Line = {
   id: string;
@@ -63,14 +109,49 @@ type LegacyInvoice = Invoice & {
   subscriptionId?: string;
 };
 
+const EMPTY_RAIL: PayRail = {
+  accountName: "",
+  sortCode: "",
+  accountNumber: "",
+  bankName: "",
+  extra: "",
+};
+
+export type OnlineRail = {
+  provider: "none" | "stripe";
+  autoHost: boolean;
+  note: string;
+};
+
+const EMPTY_ONLINE: OnlineRail = {
+  provider: "none",
+  autoHost: true,
+  note: "",
+};
+
 async function ensure() {
   await fs.mkdir(ROOT, { recursive: true });
-  for (const file of [INVOICES, ROLLS]) {
+  for (const file of [INVOICES, ROLLS, PAYMENTS]) {
     try {
       await fs.access(file);
     } catch {
       await fs.writeFile(file, "[]\n", "utf8");
     }
+  }
+  try {
+    await fs.access(PRICES);
+  } catch {
+    await fs.writeFile(PRICES, "{}\n", "utf8");
+  }
+  try {
+    await fs.access(RAIL);
+  } catch {
+    await fs.writeFile(RAIL, `${JSON.stringify(EMPTY_RAIL, null, 2)}\n`, "utf8");
+  }
+  try {
+    await fs.access(ONLINE);
+  } catch {
+    await fs.writeFile(ONLINE, `${JSON.stringify(EMPTY_ONLINE, null, 2)}\n`, "utf8");
   }
 }
 
@@ -89,20 +170,177 @@ async function writeJson<T>(file: string, data: T[]) {
   await fs.writeFile(file, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
 
-function addDays(iso: string, days: number): string {
-  const d = new Date(iso);
-  d.setUTCDate(d.getUTCDate() + days);
-  return d.toISOString();
+function asPrice(n: unknown): number | null {
+  const v = typeof n === "number" ? n : Number(n);
+  if (!Number.isFinite(v) || v < 0) return null;
+  return v;
 }
 
-function addMonths(iso: string, months: number): string {
-  const d = new Date(iso);
-  d.setUTCMonth(d.getUTCMonth() + months);
-  return d.toISOString();
+function asExtra(raw: unknown): ExtraCharge | null {
+  const row = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {};
+  const id = typeof row.id === "string" ? row.id.trim() : "";
+  const name = typeof row.name === "string" ? row.name.trim() : "";
+  const stage = row.stage;
+  const amountGbp = asPrice(row.amountGbp);
+  if (!id || !name || amountGbp === null) return null;
+  if (stage !== "design" && stage !== "strategy" && stage !== "build") return null;
+  return { id, stage, name, amountGbp };
+}
+
+export async function listExtras(): Promise<ExtraCharge[]> {
+  await ensure();
+  try {
+    const parsed = JSON.parse(await fs.readFile(EXTRAS, "utf8")) as unknown;
+    if (!Array.isArray(parsed)) return [];
+    return parsed.map(asExtra).filter((row): row is ExtraCharge => Boolean(row));
+  } catch {
+    return [];
+  }
+}
+
+export async function saveExtras(
+  actor: PublicUser,
+  rows: ExtraCharge[],
+): Promise<ExtraCharge[]> {
+  if (!isStudio(actor)) throw new Error("forbidden");
+  const next = rows.map(asExtra).filter((row): row is ExtraCharge => Boolean(row));
+  await ensure();
+  await fs.writeFile(EXTRAS, `${JSON.stringify(next, null, 2)}\n`, "utf8");
+  return next;
+}
+
+function extraAsItem(row: ExtraCharge): CatalogueItem {
+  return {
+    id: row.id,
+    stage: row.stage,
+    name: row.name,
+    blurb: "Other — unique to this situation.",
+    amountGbp: row.amountGbp,
+    cadence: "once",
+    custom: true,
+  };
+}
+
+export async function liveCatalogue(): Promise<CatalogueItem[]> {
+  await ensure();
+  let overlay: PriceBook = {};
+  try {
+    const parsed = JSON.parse(await fs.readFile(PRICES, "utf8")) as PriceBook;
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) overlay = parsed;
+  } catch {
+    overlay = {};
+  }
+  const stock = CATALOGUE.map((item) => {
+    const next = asPrice(overlay[item.id]);
+    return next === null ? item : { ...item, amountGbp: next };
+  });
+  const extras = (await listExtras()).map(extraAsItem);
+  return [...stock, ...extras];
+}
+
+export async function savePrices(actor: PublicUser, book: PriceBook): Promise<CatalogueItem[]> {
+  if (!isStudio(actor)) throw new Error("forbidden");
+  const next: PriceBook = {};
+  for (const item of CATALOGUE) {
+    const v = asPrice(book[item.id]);
+    if (v !== null) next[item.id] = v;
+  }
+  await ensure();
+  await fs.writeFile(PRICES, `${JSON.stringify(next, null, 2)}\n`, "utf8");
+  return liveCatalogue();
+}
+
+function asRail(raw: unknown): PayRail {
+  const row = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {};
+  return {
+    accountName: typeof row.accountName === "string" ? row.accountName.trim() : "",
+    sortCode: typeof row.sortCode === "string" ? row.sortCode.trim() : "",
+    accountNumber: typeof row.accountNumber === "string" ? row.accountNumber.trim() : "",
+    bankName: typeof row.bankName === "string" ? row.bankName.trim() : "",
+    extra: typeof row.extra === "string" ? row.extra.trim() : "",
+  };
+}
+
+export async function getPayRail(): Promise<PayRail> {
+  await ensure();
+  try {
+    return asRail(JSON.parse(await fs.readFile(RAIL, "utf8")));
+  } catch {
+    return { ...EMPTY_RAIL };
+  }
+}
+
+export function railIsReady(rail: PayRail): boolean {
+  return Boolean(rail.accountName && rail.sortCode && rail.accountNumber);
+}
+
+export async function savePayRail(actor: PublicUser, body: Partial<PayRail>): Promise<PayRail> {
+  if (!isStudio(actor)) throw new Error("forbidden");
+  const rail = asRail(body);
+  await ensure();
+  await fs.writeFile(RAIL, `${JSON.stringify(rail, null, 2)}\n`, "utf8");
+  return rail;
+}
+
+function asOnline(raw: unknown): OnlineRail {
+  const row = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {};
+  return {
+    provider: row.provider === "stripe" ? "stripe" : "none",
+    autoHost: row.autoHost !== false,
+    note: typeof row.note === "string" ? row.note.trim() : "",
+  };
+}
+
+export async function getOnlineRail(): Promise<OnlineRail> {
+  await ensure();
+  try {
+    return asOnline(JSON.parse(await fs.readFile(ONLINE, "utf8")));
+  } catch {
+    return { ...EMPTY_ONLINE };
+  }
+}
+
+export function onlineProviderLive(): boolean {
+  return Boolean(process.env.STRIPE_SECRET_KEY);
+}
+
+export async function saveOnlineRail(
+  actor: PublicUser,
+  body: Partial<OnlineRail>,
+): Promise<OnlineRail> {
+  if (!isStudio(actor)) throw new Error("forbidden");
+  const rail = asOnline({ ...(await getOnlineRail()), ...body });
+  await ensure();
+  await fs.writeFile(ONLINE, `${JSON.stringify(rail, null, 2)}\n`, "utf8");
+  return rail;
+}
+
+export async function listPayments(): Promise<Payment[]> {
+  return readJson<Payment>(PAYMENTS);
+}
+
+async function savePayments(rows: Payment[]) {
+  await writeJson(PAYMENTS, rows);
+}
+
+export async function paymentByInvoice(): Promise<Record<string, Payment>> {
+  const rows = await listPayments();
+  const out: Record<string, Payment> = {};
+  for (const row of rows) {
+    const prev = out[row.invoiceId];
+    if (!prev) {
+      out[row.invoiceId] = row;
+      continue;
+    }
+    const a = row.clearedAt || row.claimedAt || "";
+    const b = prev.clearedAt || prev.claimedAt || "";
+    if (a >= b) out[row.invoiceId] = row;
+  }
+  return out;
 }
 
 function periodEnd(start: string, cadence: "weekly" | "monthly"): string {
-  return cadence === "weekly" ? addDays(start, 7) : addMonths(start, 1);
+  return clockPeriodEnd(start, cadence);
 }
 
 function normaliseInvoice(raw: LegacyInvoice): Invoice {
@@ -142,7 +380,7 @@ function normaliseInvoice(raw: LegacyInvoice): Invoice {
 }
 
 async function nextInvoiceNumber(existing: Invoice[]): Promise<string> {
-  const year = new Date().getUTCFullYear();
+  const year = londonYear();
   const prefix = `DLN-${year}-`;
   let max = 0;
   for (const inv of existing) {
@@ -307,7 +545,7 @@ export async function saveDraft(
 
 async function attachRolls(inv: Invoice) {
   const rolls = await listRolls();
-  const now = inv.issuedAt || new Date().toISOString();
+  const now = inv.issuedAt || nowIso();
   for (const line of inv.lines) {
     if (line.cadence !== "weekly" && line.cadence !== "monthly") continue;
     const existing = rolls.find(
@@ -344,7 +582,7 @@ export async function issueInvoice(actor: PublicUser, id: string): Promise<Invoi
   const inv = rows.find((i) => i.id === id);
   if (!inv) throw new Error("missing");
   if (inv.status !== "draft") throw new Error("state");
-  const now = new Date().toISOString();
+  const now = nowIso();
   inv.status = "due";
   inv.issuedAt = now;
   inv.dueAt = now;
@@ -354,8 +592,74 @@ export async function issueInvoice(actor: PublicUser, id: string): Promise<Invoi
     inv.status = "paid";
     inv.paidAt = now;
     await saveInvoices(rows);
+    const { writeReceipt } = await import("@/lib/receipts");
+    await writeReceipt(inv, "studio");
   }
   return inv;
+}
+
+export async function buySession(user: PublicUser, facet: Stage): Promise<Invoice> {
+  const item = (await liveCatalogue()).find((c) => c.bookable && c.stage === facet) || bookableForFacet(facet);
+  if (!item) throw new Error("plan");
+  const amountGbp = item.amountGbp;
+  if (amountGbp <= 0) throw new Error("amount");
+  const open = (await listInvoices()).find(
+    (inv) =>
+      inv.userId === user.id &&
+      inv.status === "due" &&
+      inv.lines.some((l) => l.presetId === item.id),
+  );
+  if (open) return open;
+  const line = lineFromPreset(item, { amountGbp });
+  const rows = await listInvoices();
+  const now = nowIso();
+  const inv: Invoice = {
+    id: randomUUID(),
+    number: await nextInvoiceNumber(rows),
+    userId: user.id,
+    status: "due",
+    issuedAt: now,
+    dueAt: now,
+    lines: [line],
+    notes: `Sitting · ${facet}. Pay, then pick a time.`,
+  };
+  rows.push(inv);
+  await saveInvoices(rows);
+  return inv;
+}
+
+async function markCollected(inv: Invoice, method: PayMethod, by: string): Promise<void> {
+  const now = nowIso();
+  const amount = invoiceTotal(inv);
+  const payments = await listPayments();
+  payments.push({
+    id: randomUUID(),
+    invoiceId: inv.id,
+    amountGbp: amount,
+    method,
+    reference: inv.number,
+    status: "cleared",
+    clearedAt: now,
+    clearedBy: by,
+  });
+  inv.status = "paid";
+  inv.paidAt = now;
+  await savePayments(payments);
+  const { writeReceipt } = await import("@/lib/receipts");
+  await writeReceipt(inv, method);
+}
+
+export async function tryAutoCollect(inv: Invoice): Promise<boolean> {
+  if (inv.status !== "due") return false;
+  const amount = invoiceTotal(inv);
+  if (amount <= 0) {
+    await markCollected(inv, "studio", "system");
+    return true;
+  }
+  const online = await getOnlineRail();
+  if (!online.autoHost) return false;
+  if (!onlineProviderLive()) return false;
+  return false;
 }
 
 export async function convertToTitles(
@@ -364,9 +668,13 @@ export async function convertToTitles(
   grant: TitlesGrant,
   waived: boolean,
 ): Promise<Invoice> {
-  const item = catalogueById(grant === "full" ? "titles-full" : "titles-section");
+  const items = await liveCatalogue();
+  const item = items.find((c) => c.id === (grant === "full" ? "titles-full" : "titles-section"));
   if (!item) throw new Error("plan");
-  const line = lineFromPreset(item, { waived, amountGbp: item.amountGbp });
+  const line = lineFromPreset(item, {
+    waived,
+    amountGbp: item.amountGbp,
+  });
   const draft = await saveDraft(actor, {
     userId,
     lines: [line],
@@ -386,16 +694,74 @@ export async function voidInvoice(actor: PublicUser, id: string): Promise<Invoic
   return inv;
 }
 
-export async function payInvoice(user: PublicUser, invoiceId: string): Promise<Invoice> {
+export async function paymentsFor(invoiceId: string): Promise<Payment[]> {
+  return (await listPayments()).filter((p) => p.invoiceId === invoiceId);
+}
+
+export async function claimPayment(user: PublicUser, invoiceId: string): Promise<Invoice> {
   const rows = await listInvoices();
   const inv = rows.find((i) => i.id === invoiceId);
   if (!inv) throw new Error("missing");
   const allowed = inv.userId === user.id || isStudio(user);
   if (!allowed) throw new Error("forbidden");
   if (inv.status !== "due") throw new Error("state");
+  const amount = invoiceTotal(inv);
+  if (amount <= 0) throw new Error("state");
+  const payments = await listPayments();
+  const existing = payments.find((p) => p.invoiceId === inv.id && p.status === "claimed");
+  if (existing) return inv;
+  payments.push({
+    id: randomUUID(),
+    invoiceId: inv.id,
+    amountGbp: amount,
+    method: "bank",
+    reference: inv.number,
+    status: "claimed",
+    claimedAt: nowIso(),
+    claimedBy: user.id,
+  });
+  await savePayments(payments);
+  return inv;
+}
+
+export async function clearPayment(
+  user: PublicUser,
+  invoiceId: string,
+  method: PayMethod = "studio",
+): Promise<Invoice> {
+  if (!isStudio(user)) throw new Error("forbidden");
+  const rows = await listInvoices();
+  const inv = rows.find((i) => i.id === invoiceId);
+  if (!inv) throw new Error("missing");
+  if (inv.status !== "due") throw new Error("state");
+  const now = nowIso();
+  const amount = invoiceTotal(inv);
+  const payments = await listPayments();
+  const claimed = payments.find((p) => p.invoiceId === inv.id && p.status === "claimed");
+  const payMethod: PayMethod = method === "online" || method === "bank" ? method : claimed?.method || "studio";
+  if (claimed) {
+    claimed.status = "cleared";
+    claimed.method = payMethod;
+    claimed.clearedAt = now;
+    claimed.clearedBy = user.id;
+  } else {
+    payments.push({
+      id: randomUUID(),
+      invoiceId: inv.id,
+      amountGbp: amount,
+      method: payMethod,
+      reference: inv.number,
+      status: "cleared",
+      clearedAt: now,
+      clearedBy: user.id,
+    });
+  }
   inv.status = "paid";
-  inv.paidAt = new Date().toISOString();
+  inv.paidAt = now;
+  await savePayments(payments);
   await saveInvoices(rows);
+  const { writeReceipt } = await import("@/lib/receipts");
+  await writeReceipt(inv, payMethod);
   return inv;
 }
 
@@ -435,6 +801,7 @@ export async function rollDueInvoices(): Promise<void> {
       roll.currentPeriodStart = start;
       roll.currentPeriodEnd = end;
       changed = true;
+      await tryAutoCollect(inv);
     }
   }
   if (!changed) return;
@@ -442,23 +809,25 @@ export async function rollDueInvoices(): Promise<void> {
   await writeJson(ROLLS, rolls);
 }
 
-export function graceEndsAt(inv: Invoice): string | null {
+export async function graceEndsAt(inv: Invoice): Promise<string | null> {
   if (inv.status !== "due") return null;
   const start = inv.dueAt || inv.issuedAt;
   if (!start) return null;
-  return addDays(start, GRACE_DAYS);
+  const days = (await getSettings()).graceDays || GRACE_DAYS;
+  return addCalendarDays(start, days);
 }
 
 export async function plotShutFor(slug: string): Promise<boolean> {
   const now = Date.now();
   const rows = await listInvoices();
-  return rows.some((inv) => {
-    if (inv.status !== "due") return false;
-    if (!plotSlugsOnInvoice(inv).includes(slug)) return false;
-    const ends = graceEndsAt(inv);
-    if (!ends) return false;
-    return new Date(ends).getTime() <= now;
-  });
+  for (const inv of rows) {
+    if (inv.status !== "due") continue;
+    if (!plotSlugsOnInvoice(inv).includes(slug)) continue;
+    const ends = await graceEndsAt(inv);
+    if (!ends) continue;
+    if (new Date(ends).getTime() <= now) return true;
+  }
+  return false;
 }
 
 export type TitlesAccess = {
@@ -490,4 +859,3 @@ export async function titlesAccessFor(user: PublicUser): Promise<TitlesAccess> {
   return { grant, paying, pendingInvoiceId };
 }
 
-export { catalogueById };

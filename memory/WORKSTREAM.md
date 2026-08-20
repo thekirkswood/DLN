@@ -14,19 +14,19 @@ Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + 
 ## Open — lab and desk
 
 7. **Offers:** Design, Strategy, Build as equal columns. Form, not write-to-us. Practice holds the hub description + portfolio. (Landed locally.)
-8. **Invoice desk:** catalogue, compose, waive, issue, A4. Card rail next. Person-first on the studio desk.
+8. **Invoice desk:** Settings holds per-entry amounts + online rail + spare bank; Pay selects those lines onto an invoice for the served client and pings online; desk rooms stay; campus header Campus / Builder / Account. Book this-week; Onboarding cards; Cursor is human. Card provider later.
 9. **Clients:** next named client = GitHub repo, `plots.json`, compose service, Caddy host, Livedns A. DAA reserved only until Ewan lists them.
 10. **Choozlist:** listed, beta contact `create@wishwell.uk`. Own server until the repo is uploaded here.
-11. **Various Titles:** hosted at `https://varioustitles.com` on this VPS (`plot-titles`). Public wall is Building. Studio enter on this book’s session. Honour `titlesGrant` when it opens. Bank-account link with the card rail.
+11. **Various Titles:** hosted at `https://varioustitles.com` on this VPS (`plot-titles`). Public wall is Building. Studio enter on this book’s session. Honour `titlesGrant` when it opens. Billed on this book; bank pay is the rail. Card later.
 12. Swarm public is already swarmfund.com. Retire the old Swarm VPS when that builder is the one we use; DLN subdomain is the growing copy until cutover.
-13. **Notes on plot pages:** hub overall notes are live. Foot-of-page comments on **local** builds join the central queue (see `memory/offline-lab.md`). Do not put a studio comment-admin on the live subdomain.
+13. **Notes on plot pages:** live host has a **suggestion box** (text only). Collect, audit, sweep to a plan, run ourselves. Not a live changer. Local lab foot comments stay the offline builder queue. Do not put a studio comment-admin on the live subdomain.
 14. **SMTP:** so onboard logins and enquiries actually mail. Until then the desk shows the login once.
-15. **Offline lab (landed locally):** campus on `:3010`; `/lab` door; units under `/lab/{slug}`; unit apps on occupancy, sleep at zero; `/admin` → campus Cursor; `/lab/{slug}/admin` → that unit’s inbox. Live VPS unchanged. Run `ops/lab.md`.
+15. **Offline lab:** Debian downstairs hosts LAN campus in production on `:3010` with a health watch; this Cursor disk is `next dev` on localhost. `/lab` door; units under `/lab/{slug}` with honest `/go/{slug}` prefix; unit apps on occupancy here, pinned on Debian; `/admin` → campus Cursor; `/lab/{slug}/admin` → that unit’s inbox. Send is not a worker. Live VPS unchanged. `ops/lab.md`, `memory/audit-campus.md`.
 
 ## Standing checks (every plot ship)
 
 - Memory: protocol (shape of the work) / BLUEPRINT / greenhouse / plots.json / WORKSTREAM / CHANGELOG.
-- Gate 302 for strangers, 200 for the matching cookie, shut after seven days unpaid.
+- Gate 302 for strangers, 200 for the matching cookie, shut after Settings days to pay unpaid.
 - No insult to a live site. No invented status. No secrets in git.
 - Each hosted plot has its own hostname. Do not rebase a live plot onto a hub path. Local lab on :3010 may frame houses under `/go/{slug}/`.
 - Greenhouse enter is the product domain. Client sites stay on the account.

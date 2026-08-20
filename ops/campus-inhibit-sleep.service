@@ -1,0 +1,12 @@
+[Unit]
+Description=Inhibit suspend while campus Cursor session is on this PC
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/systemd-inhibit --what=sleep:idle --who=dln-campus --why=campus-until-debian /usr/bin/sleep infinity
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

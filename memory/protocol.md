@@ -10,25 +10,29 @@
 3. `memory/BLUEPRINT.md`
 4. `memory/greenhouse.md`
 5. `memory/cross-house-comms.md` (campus vs unit Cursors — who owns which queue)
-6. `memory/DIRECTIONS.md`
-7. `memory/WORKSTREAM.md` (open sequenced hub work)
-8. `memory/CHANGELOG.jsonl` (tail — last ~40 lines is enough unless auditing)
-9. `AGENTS.md` + `.cursor/rules/*.mdc`
+6. `memory/compass.md` (which machine is home; tower vs laptop seats)
+7. `memory/DIRECTIONS.md`
+8. `memory/WORKSTREAM.md` (open sequenced hub work)
+9. `memory/CHANGELOG.jsonl` (tail — last ~40 lines is enough unless auditing)
+10. `AGENTS.md` + `.cursor/rules/*.mdc`
+11. Campus vital (outside every repo): `/home/main/_meta/LTM-vital.md` → `/home/main/_meta/github-repos.md` → `/home/main/_meta/github-ops.env` (existence + non-empty `GH_TOKEN=`, never print the value). This Cursor owns `thekirkswood/DLN` only.
 
 ## Write rules
 
 | Event | Where |
 |---|---|
 | Major architecture, new function, IA change | `BLUEPRINT.md` then changelog `k:bp` |
+| Machines / GPU seats / home host | `compass.md` + `BLUEPRINT.md` then changelog |
 | Standing / small direction | `DIRECTIONS.md` then changelog `k:dir` |
 | Any file add / mod / delete | `CHANGELOG.jsonl` (`k:add\|mod\|del`) |
 | Plot added / status change | `greenhouse.md` + `greenhouse/plots.json` + changelog |
 | Brand / voice lock | `brand.md` — never invent marks or colours |
+| GitHub upload / new site version | Bump `memory/ITERATION`, append `memory/iterations.jsonl`, tag `dln-{n}`, changelog `k:ver` |
 
 ## Changelog line (jsonl, agent-dense, not for humans)
 
 ```
-{"t":"ISO8601","k":"add|mod|del|dir|bp|mem","p":"path-or-scope","s":"1-line","d":"why"}
+{"t":"ISO8601","k":"add|mod|del|dir|bp|mem|ver","p":"path-or-scope","s":"1-line","d":"why"}
 ```
 
 - Append only. Never rewrite history.

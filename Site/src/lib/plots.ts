@@ -38,6 +38,13 @@ export async function plotBySlug(slug: string): Promise<Plot | undefined> {
   return (await allPlots()).find((p) => p.slug === slug);
 }
 
+export async function plotByHost(host: string): Promise<Plot | undefined> {
+  const h = host.split(":")[0].toLowerCase();
+  return (await allPlots()).find((p) =>
+    p.hosts.some((row) => row.replace(/^https?:\/\//, "").split("/")[0].toLowerCase() === h),
+  );
+}
+
 export async function hostedPlots(): Promise<Plot[]> {
   return (await allPlots()).filter((p) => hostUrlFor(p) || enterUrlFor(p));
 }

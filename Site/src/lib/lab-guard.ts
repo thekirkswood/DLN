@@ -17,11 +17,14 @@ export async function requireLabStudioApi(req: NextRequest): Promise<
   { user: PublicUser; error?: undefined } | { user?: undefined; error: NextResponse }
 > {
   if (!isLabHost(req.headers.get("host"))) {
-    return { error: NextResponse.json({ ok: false }, { status: 404 }) };
+    return { error: NextResponse.json({ ok: false, error: "not a lab host" }, { status: 404 }) };
   }
   const user = await userFromSession(req.cookies.get(COOKIE)?.value);
-  if (!user || !isStudio(user)) {
-    return { error: NextResponse.json({ ok: false }, { status: 401 }) };
+  if (!user) {
+    return { error: NextResponse.json({ ok: false, error: "sign in" }, { status: 401 }) };
+  }
+  if (!isStudio(user)) {
+    return { error: NextResponse.json({ ok: false, error: "studio only" }, { status: 401 }) };
   }
   return { user };
 }

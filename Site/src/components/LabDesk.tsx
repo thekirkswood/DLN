@@ -41,6 +41,7 @@ export function LabDesk({
   const [files, setFiles] = useState<File[]>([]);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [queued, setQueued] = useState("");
   const [loading, setLoading] = useState(true);
   const fileRef = useRef<HTMLInputElement>(null);
   const threadRef = useRef<HTMLDivElement>(null);
@@ -84,6 +85,7 @@ export function LabDesk({
     if (!text.trim() || sending) return;
     setSending(true);
     setError("");
+    setQueued("");
     const form = new FormData();
     form.set("plot", plot);
     form.set("kind", kind);
@@ -91,21 +93,42 @@ export function LabDesk({
     form.set("page", "/admin");
     form.set("origin", window.location.pathname);
     files.forEach((f) => form.append("files", f));
-    const res = await fetch("/api/lab/messages", {
-      method: "POST",
-      credentials: "include",
-      body: form,
-    });
+    let res: Response;
+    try {
+      res = await fetch("/api/lab/messages", {
+        method: "POST",
+        credentials: "include",
+        body: form,
+      });
+    } catch {
+      setSending(false);
+      setError("Could not reach the campus (connection failed).");
+      return;
+    }
     setSending(false);
+    if (res.status === 401) {
+      window.location.href = `/login?next=${encodeURIComponent(window.location.pathname)}`;
+      return;
+    }
     if (!res.ok) {
       const data = (await res.json().catch(() => ({}))) as { error?: string };
-      setError(data.error || "Could not send.");
+      setError(
+        data.error
+          ? `${res.status}: ${data.error}`
+          : `Could not send (${res.status}).`,
+      );
       return;
     }
     setText("");
     setFiles([]);
     if (fileRef.current) fileRef.current.value = "";
     await load();
+    setError("");
+    setQueued(
+      campus
+        ? "Queued. Campus takes it while someone is signed in."
+        : "Queued. This unit’s Cursor takes it while that instance is sniffing.",
+    );
   }
 
   if (loading) {
@@ -143,8 +166,8 @@ export function LabDesk({
       ) : null}
       <p className="lede">
         {campus
-          ? "This queue is the campus. Units have their own builder. Ewan and Dave are named on every line."
-          : `This queue writes into the ${houseName} unit. That folder’s Cursor acts on it at once. Ewan and Dave are named on every line.`}{" "}
+          ? "This queue is the campus. Units have their own builder. Ewan and Dave are named on every line. While someone is signed in, campus sniff takes the queue."
+          : `This queue writes into the ${houseName} unit. That folder’s Cursor acts while that instance is sniffing. Ewan and Dave are named on every line.`}{" "}
         {pendingCount ? `${pendingCount} waiting.` : "Nothing waiting."}
       </p>
 
@@ -210,6 +233,7 @@ export function LabDesk({
         <button type="submit" disabled={sending}>
           {sending ? "…" : "Send"}
         </button>
+        {queued ? <p className="lab-ok">{queued}</p> : null}
         {error ? <p className="err">{error}</p> : null}
       </form>
     </div>

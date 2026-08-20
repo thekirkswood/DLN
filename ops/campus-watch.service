@@ -1,0 +1,7 @@
+[Unit]
+Description=Probe Design Lab North campus :3010
+After=campus.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/main/DLN/ops/campus-watch.sh

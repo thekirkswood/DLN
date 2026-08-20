@@ -8,15 +8,16 @@ description: Maintains Design Lab North holy long-term memory (BLUEPRINT, DIRECT
 ## End of every turn that touched the repo
 
 1. Append one or more lines to `memory/CHANGELOG.jsonl`:
-   `{"t":"ISO8601","k":"add|mod|del|dir|bp|mem","p":"path","s":"1-line","d":"why"}`
+   `{"t":"ISO8601","k":"add|mod|del|dir|bp|mem|ver","p":"path","s":"1-line","d":"why"}`
 2. If architecture / new function / IA changed → edit `memory/BLUEPRINT.md` first.
 3. If a standing instruction arrived → append dated bullet to `memory/DIRECTIONS.md`.
 4. If a plot changed → `greenhouse/plots.json` and `memory/greenhouse.md`.
 5. If sequenced hub work moved → `memory/WORKSTREAM.md`.
+6. If this turn is a GitHub upload → bump `memory/ITERATION`, append `memory/iterations.jsonl`, tag `dln-{n}`, changelog `k:ver`.
 
 ## Attention to memory
 
-Read earliest → latest per `memory/protocol.md` (includes `cross-house-comms.md`). Do not invent brand facts. Confirm files exist. Then continue the user’s task.
+Read earliest → latest per `memory/protocol.md` (includes `cross-house-comms.md` and `compass.md`). Also the campus vital trio: `/home/main/_meta/LTM-vital.md`, `/home/main/_meta/github-repos.md`, `/home/main/_meta/github-ops.env` (existence + non-empty token — never print). Do not invent brand facts. Confirm files exist. Then continue the user’s task.
 
 **Shape of the work:** if the talk is billing, invoicing, a product, a login, or a stage of the offer, build that system to its implied depth. Stubs that only prove a path exists are a defect.
 

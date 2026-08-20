@@ -2,20 +2,13 @@
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { OFFERS, type Facet, type Need } from "@/data/needs";
+import { OFFERS, HOME_MODULES, type Facet, type Need } from "@/data/needs";
 
 export function HomeOffer() {
-  const [need, setNeed] = useState<Need | null>(null);
   const [slide, setSlide] = useState(0);
+  const [paper, setPaper] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!need) return;
-    document.getElementById("enquire")?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-    });
-  }, [need]);
+  const paperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = trackRef.current;
@@ -39,6 +32,76 @@ export function HomeOffer() {
     };
   }, []);
 
+  const [paperMode, setPaperMode] = useState<"scroll" | "fit" | null>(null);
+
+  useEffect(() => {
+    const el = paperRef.current;
+    if (!el) return;
+    let drag: { x: number; left: number } | null = null;
+
+    function measure() {
+      const track = paperRef.current;
+      if (!track) return;
+      const overflow = track.scrollWidth > track.clientWidth + 4;
+      setPaperMode(overflow ? "scroll" : "fit");
+      const card = track.querySelector(".home-paper");
+      if (!(card instanceof HTMLElement)) return;
+      const gap =
+        parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 14;
+      const step = card.offsetWidth + gap;
+      if (!step) return;
+      const i = Math.round(track.scrollLeft / step);
+      setPaper(Math.max(0, Math.min(HOME_MODULES.length - 1, i)));
+    }
+
+    function onWheel(e: WheelEvent) {
+      const track = paperRef.current;
+      if (!track || track.scrollWidth <= track.clientWidth + 4) return;
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      e.preventDefault();
+      track.scrollLeft += e.deltaY;
+    }
+
+    function onPointerDown(e: PointerEvent) {
+      const track = paperRef.current;
+      if (!track || track.scrollWidth <= track.clientWidth + 4) return;
+      if (e.pointerType === "touch") return;
+      drag = { x: e.clientX, left: track.scrollLeft };
+      track.setPointerCapture(e.pointerId);
+    }
+
+    function onPointerMove(e: PointerEvent) {
+      const track = paperRef.current;
+      if (!track || !drag) return;
+      track.scrollLeft = drag.left - (e.clientX - drag.x);
+    }
+
+    function onPointerUp() {
+      drag = null;
+    }
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    el.addEventListener("scroll", measure, { passive: true });
+    el.addEventListener("wheel", onWheel, { passive: false });
+    el.addEventListener("pointerdown", onPointerDown);
+    el.addEventListener("pointermove", onPointerMove);
+    el.addEventListener("pointerup", onPointerUp);
+    el.addEventListener("pointercancel", onPointerUp);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      el.removeEventListener("scroll", measure);
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("pointerdown", onPointerDown);
+      el.removeEventListener("pointermove", onPointerMove);
+      el.removeEventListener("pointerup", onPointerUp);
+      el.removeEventListener("pointercancel", onPointerUp);
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
   function goTo(i: number) {
     const track = trackRef.current;
     if (!track) return;
@@ -46,28 +109,55 @@ export function HomeOffer() {
     track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
   }
 
+  function goPaper(i: number) {
+    const track = paperRef.current;
+    const card = track?.querySelector(".home-paper");
+    if (!track || !(card instanceof HTMLElement)) return;
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 14;
+    setPaper(i);
+    track.scrollTo({ left: i * (card.offsetWidth + gap), behavior: "smooth" });
+  }
+
   return (
     <section className="home-offer">
       <h1 className="kicker home-kicker wrap">Design Lab North</h1>
+      <div
+        className="home-papers"
+        ref={paperRef}
+        data-mode={paperMode || "scroll"}
+        aria-label="RUUN Framework"
+      >
+        {HOME_MODULES.map((mod) => (
+          <figure key={mod.file} className="home-paper">
+            <img src={`/home/modules/${mod.file}`} alt={mod.name} />
+          </figure>
+        ))}
+      </div>
+      {paperMode === "scroll" ? (
+        <div className="home-paper-dots wrap" role="tablist" aria-label="Framework papers">
+          {HOME_MODULES.map((mod, i) => (
+            <button
+              key={mod.file}
+              type="button"
+              role="tab"
+              aria-selected={paper === i}
+              aria-label={mod.name}
+              className={paper === i ? "is-on" : ""}
+              onClick={() => goPaper(i)}
+            />
+          ))}
+        </div>
+      ) : null}
       <div className="offer-track" ref={trackRef}>
         {OFFERS.map((offer) => (
           <div key={offer.id} className="offer-col">
             <h2>
               <Link href={offer.href}>{offer.name}</Link>
             </h2>
-            <ul className="need-list">
-              {offer.needs.map((item) => (
-                <li key={item.id}>
-                  <button
-                    type="button"
-                    className={need?.id === item.id ? "need-btn is-on" : "need-btn"}
-                    onClick={() => setNeed(item)}
-                  >
-                    {item.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <p className="offer-copy">{offer.copy}</p>
+            <p className="offer-cta">
+              <Link href={offer.href}>Come in on {offer.name}</Link>
+            </p>
           </div>
         ))}
       </div>
@@ -84,16 +174,6 @@ export function HomeOffer() {
           />
         ))}
       </div>
-      {need ? (
-        <div className="wrap">
-          <EnquireForm key={need.id} need={need} onClear={() => setNeed(null)} />
-        </div>
-      ) : null}
-      <p className="home-quiet wrap">
-        <Link href="/practice">The practice</Link>
-        {" · "}
-        <Link href="/greenhouse">Greenhouse</Link>
-      </p>
     </section>
   );
 }
@@ -117,15 +197,22 @@ export function OfferJump({ current }: { current?: Facet }) {
 
 export function EnquireForm({
   need,
+  facet,
   onClear,
 }: {
   need?: Need;
+  facet?: Facet;
   onClear?: () => void;
 }) {
+  const pool = useMemo(() => {
+    if (need) return [need];
+    if (facet) return OFFERS.find((o) => o.id === facet)?.needs || OFFERS[0].needs;
+    return OFFERS.flatMap((o) => o.needs);
+  }, [need, facet]);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [ok, setOk] = useState(false);
-  const [needId, setNeedId] = useState(need?.id || OFFERS[0].needs[0].id);
+  const [needId, setNeedId] = useState(need?.id || pool[0].id);
   const active = useMemo(() => {
     for (const offer of OFFERS) {
       const found = offer.needs.find((n) => n.id === needId);
@@ -177,48 +264,94 @@ export function EnquireForm({
   }
 
   return (
-    <form className="enquire" id="enquire" onSubmit={onSubmit}>
-      <p className="kicker">Tell us</p>
-      <p className="body bill-note">{active.label}</p>
-      {!need ? (
-        <>
-          <label htmlFor="need">What you need</label>
-          <select
-            id="need"
-            value={needId}
-            onChange={(e) => setNeedId(e.target.value)}
-          >
-            {OFFERS.map((offer) => (
-              <optgroup key={offer.id} label={offer.name}>
-                {offer.needs.map((item) => (
+    <details className="enquire-fold" id="enquire">
+      <summary>Tell us</summary>
+      <form className="enquire" onSubmit={onSubmit}>
+        <p className="body bill-note">{active.label}</p>
+        {!need ? (
+          <>
+            <label htmlFor="need">What you need</label>
+            <select
+              id="need"
+              value={needId}
+              onChange={(e) => setNeedId(e.target.value)}
+            >
+              {facet ? (
+                pool.map((item) => (
                   <option key={item.id} value={item.id}>
                     {item.label}
                   </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
-        </>
-      ) : null}
-      <label htmlFor="en-name">Name</label>
-      <input id="en-name" name="name" required autoComplete="name" />
-      <label htmlFor="en-email">Email</label>
-      <input id="en-email" name="email" type="email" required autoComplete="email" />
-      <label htmlFor="en-phone">Phone</label>
-      <input id="en-phone" name="phone" type="tel" autoComplete="tel" />
-      <label htmlFor="en-msg">A little more</label>
-      <textarea id="en-msg" name="message" rows={4} />
-      <div className="actions">
-        <button type="submit" disabled={pending}>
-          {pending ? "…" : "Send"}
-        </button>
-        {onClear ? (
-          <button type="button" className="act-quiet" onClick={onClear}>
-            Cancel
-          </button>
+                ))
+              ) : (
+                OFFERS.map((offer) => (
+                  <optgroup key={offer.id} label={offer.name}>
+                    {offer.needs.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))
+              )}
+            </select>
+          </>
         ) : null}
-      </div>
-      {error ? <p className="err">{error}</p> : null}
-    </form>
+        <p className="enquire-who">
+          <label className="visually-hidden" htmlFor="en-name">
+            Name
+          </label>
+          I’m{" "}
+          <input
+            id="en-name"
+            className="en-name"
+            name="name"
+            type="text"
+            required
+            autoComplete="name"
+            placeholder="name"
+          />
+          .{" "}
+          <label className="visually-hidden" htmlFor="en-email">
+            Email
+          </label>
+          <input
+            id="en-email"
+            className="en-mail"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            placeholder="email"
+          />
+          <span className="enquire-who-join" aria-hidden="true">
+            ·
+          </span>
+          <label className="visually-hidden" htmlFor="en-phone">
+            Phone
+          </label>
+          <input
+            id="en-phone"
+            className="en-tel"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            placeholder="phone"
+          />
+        </p>
+        <label htmlFor="en-msg">A little more</label>
+        <textarea id="en-msg" name="message" rows={4} />
+        <div className="actions">
+          <button type="submit" disabled={pending}>
+            {pending ? "…" : "Send"}
+          </button>
+          {onClear ? (
+            <button type="button" className="act-quiet" onClick={onClear}>
+              Cancel
+            </button>
+          ) : null}
+        </div>
+        {error ? <p className="err">{error}</p> : null}
+      </form>
+    </details>
   );
 }

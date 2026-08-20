@@ -37,7 +37,7 @@ export default async function StrategyPage() {
         {here || live ? " · " : null}
         <Link href="/greenhouse/various-titles">The greenhouse story</Link>.
       </p>
-      <EnquireForm />
+      <EnquireForm facet="strategy" />
     </article>
   );
 }

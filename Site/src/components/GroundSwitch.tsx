@@ -1,14 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-type Ground = "paper" | "ink";
+const GROUNDS = [
+  { id: "paper", hex: "#ffffff", label: "White" },
+  { id: "ink", hex: "#353c44", label: "Charcoal" },
+  { id: "grey", hex: "#e5e5e5", label: "Grey" },
+  { id: "mint", hex: "#e9f5eb", label: "Mint" },
+  { id: "mist", hex: "#eaedee", label: "Mist" },
+  { id: "cream", hex: "#f9f8eb", label: "Cream" },
+  { id: "blush", hex: "#f8f2f6", label: "Blush" },
+] as const;
+
+type Ground = (typeof GROUNDS)[number]["id"];
+
+const GROUND_IDS: Ground[] = GROUNDS.map((g) => g.id);
+
+function isGround(value: string | null): value is Ground {
+  return Boolean(value && (GROUND_IDS as string[]).includes(value));
+}
 
 function readGround(): Ground {
   if (typeof document === "undefined") return "paper";
-  return document.documentElement.getAttribute("data-ground") === "ink"
-    ? "ink"
-    : "paper";
+  const now = document.documentElement.getAttribute("data-ground");
+  return isGround(now) ? now : "paper";
 }
 
 function applyGround(next: Ground) {
@@ -29,8 +44,8 @@ export function GroundSwitch() {
     setGround(readGround());
   }, []);
 
-  function flip() {
-    const next: Ground = ground === "paper" ? "ink" : "paper";
+  function pick(next: Ground) {
+    if (next === ground) return;
     applyGround(next);
     setGround(next);
 
@@ -49,6 +64,7 @@ export function GroundSwitch() {
       el.classList.add("is-off");
       anim.current = window.setTimeout(() => {
         el.classList.remove("is-off");
+        el.classList.remove("is-on");
         anim.current = null;
       }, 280);
     }, 280);
@@ -56,17 +72,20 @@ export function GroundSwitch() {
 
   return (
     <>
-      <button
-        type="button"
-        className="ground-switch"
-        onClick={flip}
-        aria-pressed={ground === "ink"}
-        aria-label={ground === "paper" ? "Switch to ink" : "Switch to paper"}
-      >
-        <span className={ground === "paper" ? "on" : ""}>Paper</span>
-        <i className="gs-cut" aria-hidden="true" />
-        <span className={ground === "ink" ? "on" : ""}>Ink</span>
-      </button>
+      <div className="ground-switch" role="group" aria-label="Site background">
+        {GROUNDS.map((g) => (
+          <button
+            key={g.id}
+            type="button"
+            className={ground === g.id ? "ground-dot is-on" : "ground-dot"}
+            style={{ "--dot": g.hex } as CSSProperties}
+            onClick={() => pick(g.id)}
+            aria-pressed={ground === g.id}
+            aria-label={g.label}
+            title={g.label}
+          />
+        ))}
+      </div>
       <div className="ground-wipe" ref={wipe} aria-hidden="true" />
     </>
   );
