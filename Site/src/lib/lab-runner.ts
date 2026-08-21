@@ -9,6 +9,8 @@ import {
   readFileSync,
   unlinkSync,
   appendFileSync,
+  renameSync,
+  statSync,
 } from "fs";
 import path from "path";
 import { labBasePath, resolveHouse, type LabHouse } from "@/lib/lab";
@@ -36,13 +38,118 @@ type ProcSpec = {
 };
 
 const starting = new Map<string, Promise<HouseRunStatus>>();
-/** slug → leaseId → expiry ms. A unit app runs while this is above zero. */
-const leases = new Map<string, Map<string, number>>();
 const stopTimers = new Map<string, ReturnType<typeof setTimeout>>();
 let sweepArmed = false;
+/** Bumps on each module load so a leftover next-dev interval cannot kill a live unit. */
+const SWEEP_GEN = Date.now();
 
 const HOLD_TTL_MS = 120_000;
 const STOP_GRACE_MS = 12_000;
+const STARTING_TTL_MS = 120_000;
+
+type LeaseFile = Record<string, Record<string, number>>;
+
+function leasesPath() {
+  return path.join(ROOT, "leases.json");
+}
+
+function lockPath() {
+  return path.join(ROOT, "leases.lock");
+}
+
+function sleepSync(ms: number) {
+  const buf = new Int32Array(new SharedArrayBuffer(4));
+  Atomics.wait(buf, 0, 0, ms);
+}
+
+function readLeases(): LeaseFile {
+  try {
+    const data = JSON.parse(readFileSync(leasesPath(), "utf8")) as LeaseFile;
+    if (data && typeof data === "object" && !Array.isArray(data)) return data;
+  } catch {
+    /* missing or junk */
+  }
+  return {};
+}
+
+function writeLeases(data: LeaseFile) {
+  mkdirSync(ROOT, { recursive: true });
+  const tmp = `${leasesPath()}.tmp`;
+  writeFileSync(tmp, `${JSON.stringify(data)}\n`, "utf8");
+  renameSync(tmp, leasesPath());
+}
+
+function pruneData(data: LeaseFile, slug?: string) {
+  const now = Date.now();
+  const slugs = slug ? [slug] : Object.keys(data);
+  for (const s of slugs) {
+    const row = data[s];
+    if (!row) continue;
+    for (const id of Object.keys(row)) {
+      if (row[id] <= now) delete row[id];
+    }
+    if (Object.keys(row).length === 0) delete data[s];
+  }
+}
+
+function withLeases<T>(fn: (data: LeaseFile) => T): T {
+  mkdirSync(ROOT, { recursive: true });
+  const lock = lockPath();
+  const giveUp = Date.now() + 2500;
+  while (Date.now() < giveUp) {
+    try {
+      const fd = openSync(lock, "wx");
+      try {
+        const data = readLeases();
+        const result = fn(data);
+        writeLeases(data);
+        return result;
+      } finally {
+        closeSync(fd);
+        try {
+          unlinkSync(lock);
+        } catch {
+          /* */
+        }
+      }
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException).code;
+      if (code !== "EEXIST") throw err;
+      try {
+        if (Date.now() - statSync(lock).mtimeMs > 4000) unlinkSync(lock);
+      } catch {
+        /* */
+      }
+      sleepSync(20);
+    }
+  }
+  const data = readLeases();
+  return fn(data);
+}
+
+function startingFlag(slug: string) {
+  return path.join(ROOT, `starting-${slug}`);
+}
+
+function markStarting(slug: string, on: boolean) {
+  try {
+    mkdirSync(ROOT, { recursive: true });
+    if (on) writeFileSync(startingFlag(slug), `${Date.now()}\n`, "utf8");
+    else unlinkSync(startingFlag(slug));
+  } catch {
+    /* */
+  }
+}
+
+function isStarting(slug: string): boolean {
+  if (starting.has(slug)) return true;
+  try {
+    const t = parseInt(readFileSync(startingFlag(slug), "utf8").trim(), 10);
+    return Boolean(t) && Date.now() - t < STARTING_TTL_MS;
+  } catch {
+    return false;
+  }
+}
 
 function readyUrl(port: number, slug: string): string {
   if (slug === "swarm-api") return `http://127.0.0.1:${port}/api`;
@@ -193,6 +300,27 @@ async function waitReady(spec: ProcSpec, slug: string, ms = 90000): Promise<bool
   return false;
 }
 
+function sweepGenPath() {
+  return path.join(ROOT, "sweep-gen");
+}
+
+function writeSweepGen() {
+  try {
+    mkdirSync(ROOT, { recursive: true });
+    writeFileSync(sweepGenPath(), `${SWEEP_GEN}\n`, "utf8");
+  } catch {
+    /* */
+  }
+}
+
+function thisSweepIsLive(): boolean {
+  try {
+    return parseInt(readFileSync(sweepGenPath(), "utf8").trim(), 10) === SWEEP_GEN;
+  } catch {
+    return false;
+  }
+}
+
 function writeWantSniff(slug: string, n: number) {
   try {
     mkdirSync(ROOT, { recursive: true });
@@ -207,18 +335,10 @@ function writeWantSniff(slug: string, n: number) {
 }
 
 export function occupancyOf(slug: string): number {
-  pruneLeases(slug);
-  return leases.get(slug)?.size || 0;
-}
-
-function pruneLeases(slug: string) {
-  const m = leases.get(slug);
-  if (!m) return;
-  const now = Date.now();
-  for (const [id, exp] of Array.from(m.entries())) {
-    if (exp <= now) m.delete(id);
-  }
-  if (m.size === 0) leases.delete(slug);
+  return withLeases((data) => {
+    pruneData(data, slug);
+    return Object.keys(data[slug] || {}).length;
+  });
 }
 
 export function holdHouse(slug: string, leaseId: string, ttlMs = HOLD_TTL_MS): number {
@@ -228,21 +348,23 @@ export function holdHouse(slug: string, leaseId: string, ttlMs = HOLD_TTL_MS): n
     clearTimeout(t);
     stopTimers.delete(slug);
   }
-  let m = leases.get(slug);
-  if (!m) {
-    m = new Map();
-    leases.set(slug, m);
-  }
-  m.set(leaseId, Date.now() + ttlMs);
-  writeWantSniff(slug, m.size);
-  return m.size;
+  const n = withLeases((data) => {
+    pruneData(data, slug);
+    if (!data[slug]) data[slug] = {};
+    data[slug][leaseId] = Date.now() + ttlMs;
+    return Object.keys(data[slug]).length;
+  });
+  writeWantSniff(slug, n);
+  return n;
 }
 
 export function releaseHouse(slug: string, leaseId: string): number {
   if (!slug || slug === "dln") return 0;
-  leases.get(slug)?.delete(leaseId);
-  pruneLeases(slug);
-  const n = occupancyOf(slug);
+  const n = withLeases((data) => {
+    if (data[slug]) delete data[slug][leaseId];
+    pruneData(data, slug);
+    return Object.keys(data[slug] || {}).length;
+  });
   writeWantSniff(slug, n);
   if (n === 0) scheduleStop(slug);
   return n;
@@ -257,7 +379,8 @@ function scheduleStop(slug: string) {
     setTimeout(() => {
       stopTimers.delete(slug);
       void (async () => {
-        if (occupancyOf(slug) > 0 || starting.has(slug)) return;
+        if (!thisSweepIsLive()) return;
+        if (occupancyOf(slug) > 0 || isStarting(slug)) return;
         try {
           const rows = await listLabMessages(slug);
           if (rows.some((m) => m.status === "working")) {
@@ -314,6 +437,10 @@ function killPidFile(id: string) {
 }
 
 export async function stopHouse(slug: string): Promise<HouseRun> {
+  if (occupancyOf(slug) > 0 || isStarting(slug)) {
+    logOcc(`skip-stop ${slug} still occupied`);
+    return houseRunStatus(slug);
+  }
   const house = await resolveHouse(slug);
   if (!house || slug === "dln") {
     return houseRunStatus(slug);
@@ -329,12 +456,14 @@ export async function stopHouse(slug: string): Promise<HouseRun> {
 export function armIdleSweep() {
   if (sweepArmed) return;
   sweepArmed = true;
+  writeSweepGen();
   setInterval(() => {
     void (async () => {
+      if (!thisSweepIsLive()) return;
       const { allLabHouses } = await import("@/lib/lab");
       const houses = await allLabHouses();
       for (const h of houses) {
-        if (h.slug === "dln" || occupancyOf(h.slug) > 0 || starting.has(h.slug)) {
+        if (h.slug === "dln" || occupancyOf(h.slug) > 0 || isStarting(h.slug)) {
           continue;
         }
         const st = await houseRunStatus(h.slug);
@@ -376,7 +505,7 @@ export async function houseRunStatus(slug: string): Promise<HouseRun> {
       name: house.name,
       port: house.localPort,
       occupancy: occupancyOf(slug),
-      status: starting.has(slug) ? "starting" : "down",
+      status: isStarting(slug) ? "starting" : "down",
     };
   }
   const prefixOk = await httpUp(readyUrl(house.localPort, slug));
@@ -385,7 +514,7 @@ export async function houseRunStatus(slug: string): Promise<HouseRun> {
     name: house.name,
     port: house.localPort,
     occupancy: occupancyOf(slug),
-    status: prefixOk ? "ready" : starting.has(slug) ? "starting" : "down",
+    status: prefixOk ? "ready" : isStarting(slug) ? "starting" : "down",
   };
 }
 
@@ -431,6 +560,7 @@ export async function ensureHouse(slug: string): Promise<HouseRun> {
   }
 
   const job = (async () => {
+    markStarting(slug, true);
     const specs = await specsFor(house);
     if (!specs.length) return "missing" as HouseRunStatus;
     for (const spec of specs) {
@@ -464,5 +594,6 @@ export async function ensureHouse(slug: string): Promise<HouseRun> {
     return houseRunStatus(slug);
   } finally {
     starting.delete(slug);
+    markStarting(slug, false);
   }
 }

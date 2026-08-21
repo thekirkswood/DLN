@@ -515,16 +515,79 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 
 - Every GitHub upload of a site is a new integer. DLN: `memory/ITERATION`, log `memory/iterations.jsonl`, git tag `dln-{n}`. Other houses use `{slug}-{n}` in their own repo. So a version can be seen, logged, and rolled back. Do not ship unnumbered. First DLN number is **1**.
 
+## 2026-08-20 — method: filter and pipeline as diagrams
 
+- `/method` stays Dave’s facts (three values, four rooms, Various Titles). Direct, with enough pitch to sell. Do not put GBP on the public page.
+- Quality filter and campus pipeline each carry their own chamfered graphic. Idle: the filter token lights each sieve as it drops; the pipeline arrow walks 1→4 then zips the other way back to 1. Hover still takes over on a fine pointer. Play is slow enough to read.
+- Phone and coarse pointer: own formation. Rooms stack, a token runs the left rail, compressed copy sits under each tile and lights with it. Same idle cycle. Tap holds a room briefly then the cycle continues. Do not rely on hover. Desktop facets stay as they are.
+- Method animation plates (filter screens, pipeline rooms) are square corners. Chamfer stays on the rest of the site.
+- “Peers, not turf”: underline **not**. Same size as the rest of the heading.
+- Various Titles close uses the locked VT plates (`various-titles.png` / `-white.png`). Do not redraw.
 
+## 2026-08-20 — localhost ModYu frame; occupancy on disk
 
+- Occupancy is a file (`_meta/lab-houses/leases.json`), not only a Map in the campus Next process. `next dev` reloads used to forget who was in the station and kill ModYu while the iframe was still loading — that shows as Next’s “client-side exception”.
+- A leftover idle-sweep from an old compile must not kill a live unit. Sweep generation is in `_meta/lab-houses/sweep-gen`.
+- Framed unit JS that calls `/api/…` must hit `/go/{slug}/api/…`, not campus `/api/auth/me`. Proxy rewrite includes `/api/` with `/_next/` and Vite roots.
 
+## 2026-08-21 — Work page (Dave, campus desk)
 
+- Public `/work` in the main menu (Home, Method, Practice, Work, Greenhouse). Dave’s gif full width. Page ground is the gif’s dark grey, not Paper. Footer off this page so the plate can sit.
+- After campus HTML on this Cursor disk, push downstairs (`ops/push-campus-downstairs.sh`). Inbox push is not the site. One campus sniff (`ops/sniff-inbox.sh`); do not arm a second sleeper beside it.
 
+## 2026-08-21 — page identifier on campus Send
 
+- Space-specific notes use the same campus input, with a page identifier (Clients, Book, Pay, …) — the same `page` field a client suggestion carries. `/admin` Send was hard-coded `/admin`, so room notes never tagged. Room wells on `/lab` echo the live-host box. One queue: campus inbox. Do not invent a second input.
 
+## 2026-08-21 — home Design list (Dave)
 
+- Home column under **Design** is Dave’s list: Logos, Brand Identity Systems, UI, Design for Print, Packaging. Not the trial paragraph. `/design` page unchanged. `daveCopy` still cached.
+- Home left-to-right is Strategy, Design, Websites. The Build offer page and book still say Build. Home heading for that column is **Websites**.
+- Home **Strategy** list: Brand Strategy, Marketing Strategy, Online Strategy, Start-up Strategy, Brand Audits, Over-arching Strategic Consultancy.
+- Home **Websites** list: Website Builds, Website Modelling, New sites, Rebuilds, Facelifts, Live hosts. Dave’s two stay; the rest is the offer for people not yet online and people who already are. `/build` still says Build. Trial copy stays cached.
 
+## 2026-08-21 — Methodology
+
+- Page title and kicker are **Methodology**. Path stays `/method`. In the footer as Methodology. Not in the main menu.
+
+## 2026-08-21 — home Contact links (Dave)
+
+- Home column links are **Contact our consultants**, **Contact Design**, **Contact the web team**.
+
+## 2026-08-21 — Dave signed out on campus Send
+
+- LAN sessions live on Debian. `push-campus-downstairs.sh` must not rsync `_meta/accounts/` (that file is the cookie book). A full house sync must not overwrite `sessions.json`.
+- The notes tool must not dump `/admin` to `/login` on a poll 401 — that throws away the draft. Banner + new-tab sign in.
+
+## 2026-08-21 — RUUN papers on Methodology
+
+- The seven home papers move to the top of `/method`. Home is the three columns only.
+
+## 2026-08-21 — Practice heading (Dave)
+
+- `/practice` heading is **High-Value Brand Ecosystems**. Under it, mid grey, same size: Plan, Design, Build, Maintain.
+
+## 2026-08-21 — home Websites (Dave)
+
+- Home heading for the build column is **Websites**, not Online. The column link is **Contact the web team**. `/build` still says Build.
+
+## 2026-08-21 — home name copy (Dave)
+
+- Top of home, under the Design Lab North kicker: opening line as the page h1 (Black), then the name sentence at the **same size in mid grey** (like Practice’s Plan, Design, Build, Maintain). Then stacked **Design is how we work** / **Lab is how we think** / **North is how we execute** as site h2s with body. In Design, **strategy**, **packaging**, **print and screen** are Bold. Not a three-column row. Then the three offer columns, same width as that text (42rem).
+- Home Design / Lab / North subheads: **Design**, **Lab**, **North** stay Bold ink; the rest of each line is Regular mid grey. Body sits close under the subhead.
+
+## 2026-08-21 — Practice story (Dave)
+
+- `/practice` order: heading, story (Our Practice, The Landscape & The Graft, Tested Resilience, Wired to the World), then Dave and Ewan bios (full width: name, role, aside, paragraphs), then **Selected Experience** above the client list.
+- Practice line is “in the true Border Riever; Debateable Lands.” (Dave’s spelling).
+- Dave and Ewan bios sit as stacked sections with a 1px mid-grey rule before and after each. Dave’s section is his portrait, then the text. Ewan’s is text until a portrait is given.
+
+## 2026-08-21 — live user pages; home is the studio book
+
+- Put the hub **user pages** live (numbered ship). Updates are DLN public pages. Admin / campus does not live on the VPS; it talks home (`ops/home-tunnel.md`).
+- Accounts keep working across a ship. **Anne Marie first:** her live ModYu book on `modyu.designlabnorth.com` is untouched. Do not rsync `_meta/accounts`, do not rebuild `plot-modyu`. Public hub still refuses the campus puppet.
+- Studio sign-in on the public host authenticates against the **at-home book** (Ed25519 ticket). Remote work and LAN campus are the same Debian files, one writer per house.
+- Client logins are the emails written to us. After studio have audited the enquiry, send a confirmation of account — the password is in that mail. Internal `.local` handles are the exception.
 
 
 

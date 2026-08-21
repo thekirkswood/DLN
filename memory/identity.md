@@ -30,7 +30,7 @@ Conversational, from our side. Plural: Design Lab North are. Pleasure of the wor
 - Dave Kirkwood — designer. Named on `/practice` first, equal with Ewan. Login `dave@designlabnorth.com` (studio). Full desk: every plot, onboard, invoices. Public copy (Dave, 2026-08-19): multi-award-winning designer for branding and marketing, former lecturer, brand and marketing advisor to Lancashire County Council, consultant across the region, public speaker and host, work featured in publications, on TV and radio. Do not say formerly Walsh Simmons. Do not invent extra personal biography.
 - Agents in this repo — builders with long-term memory. Not generic page-makers.
 
-Studio logins use `@designlabnorth.com` (real mail). Client logins may use a real email or an internal `@designlabnorth.local` handle — that is not a mailbox; it is the name on this book, and the same name they use for Various Titles. Do not put passwords in this file.
+Studio logins use `@designlabnorth.com` (real mail). Client logins are the email they wrote us; after audit we send a confirmation of account with the password in that mail. An internal `@designlabnorth.local` handle is the exception — not a mailbox; it is the name on this book, and the same name they use for Various Titles. Do not put passwords in this file.
 
 ## Own properties (studio plots)
 

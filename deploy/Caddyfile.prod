@@ -66,6 +66,22 @@
     reverse_proxy plot-swarm:3000
   }
 
+  @home_desk {
+    host designlabnorth.com www.designlabnorth.com
+    path /lab* /admin* /go* /api/lab*
+  }
+  handle @home_desk {
+    forward_auth web:3000 {
+      uri /api/auth/studio-gate
+      copy_headers Cookie
+    }
+    reverse_proxy host.docker.internal:13010 {
+      header_up Host campus.dln.home
+      header_up X-Forwarded-Host {host}
+      header_up X-Forwarded-Proto {scheme}
+    }
+  }
+
   handle {
     reverse_proxy web:3000
   }

@@ -423,3 +423,111 @@
 {"t": "2026-08-20T14:35:22+01:00", "k": "add", "p": "memory/ITERATION memory/iterations.jsonl dln-iterations.mdc", "s": "Numbered site iterations; first is 1 tag dln-1", "d": "ewan: log, see, troubleshoot uploads"}
 {"t": "2026-08-20T14:35:22+01:00", "k": "dir", "p": "DIRECTIONS.md protocol.md LTM-vital", "s": "Every GitHub site upload is a new integer + tag", "d": "blanket across houses; this Cursor only bumps DLN"}
 {"t": "2026-08-20T14:35:22+01:00", "k": "ver", "p": "dln-1", "s": "Campus iteration 1: desk, pay ping, circle nav, puppet, numbered ships", "d": "first numbered GitHub upload of this campus"}
+{"t":"2026-08-20T19:17:28+01:00","k":"bp","p":"BLUEPRINT.md","s":"/method is short open plus two diagrams (filter, pipeline) then Various Titles","d":"ewan: less sprawl, graphics that carry the text"}
+{"t":"2026-08-20T19:17:28+01:00","k":"dir","p":"DIRECTIONS.md","s":"Method keeps Dave facts; filter and pipeline are unique chamfered graphics; no GBP","d":"cut essay, show the rooms"}
+{"t":"2026-08-20T19:17:28+01:00","k":"mod","p":"method/page.tsx MethodGraphics.tsx globals.css","s":"Method: pair open; quality sieves + campus pipeline with return loop; facets light on hover","d":"engaging without losing the three values and four rooms"}
+{"t":"2026-08-20T19:17:28+01:00","k":"add","p":"Site/src/components/MethodGraphics.tsx","s":"QualityFilter and CampusPipeline as interactive chamfer figures","d":"visual for each section"}
+{"t":"2026-08-20T19:28:11+01:00","k":"bp","p":"BLUEPRINT.md","s":"Method idle play lights the tile the token/arrow is on; hover still takes over","d":"ewan: sync traveler with lights"}
+{"t":"2026-08-20T19:28:11+01:00","k":"dir","p":"DIRECTIONS.md","s":"Filter token lights each sieve as it drops; pipeline arrow walks 1-4 then zips back; hover wins","d":"idle direction, interactive still"}
+{"t":"2026-08-20T19:28:11+01:00","k":"mod","p":"MethodGraphics.tsx globals.css","s":"Idle autoplay: filter token + pipeline rider drive is-on; hover/focus pauses","d":"show direction when not in use"}
+{"t":"2026-08-20T19:33:41+01:00","k":"bp","p":"BLUEPRINT.md","s":"/method phone formation: stacked rooms, left-rail token, one live copy, same idle cycle","d":"ewan: mobile did not work"}
+{"t":"2026-08-20T19:33:41+01:00","k":"dir","p":"DIRECTIONS.md","s":"Method: direct Dave pitch; phone cycles without hover; VT plates; slower play; scale type grows","d":"mobile formation + pitch"}
+{"t":"2026-08-20T19:33:41+01:00","k":"mod","p":"method/page.tsx MethodGraphics.tsx globals.css","s":"Mobile stack+cycle; selly direct copy; VT mark; scale heading grows; slower idle","d":"read on a phone, still interactable"}
+{"t":"2026-08-20T19:36:17+01:00","k":"bp","p":"BLUEPRINT.md","s":"Method phone: compressed copy under each tile, lights with the animation","d":"ewan: like computer, under the tiles"}
+{"t":"2026-08-20T19:36:17+01:00","k":"dir","p":"DIRECTIONS.md","s":"Phone copy sits under each method tile and lights with it; desktop facets stay","d":"mobile formation"}
+{"t":"2026-08-20T19:36:17+01:00","k":"mod","p":"MethodGraphics.tsx globals.css","s":"Phone tile-notes under filter/pipeline plates; is-on with the cycle; hide NowCopy","d":"light with the animation"}
+{"t":"2026-08-20T19:38:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Method animation plates are square corners; site chamfer elsewhere stays","d":"ewan: 90 degree boxes"}
+{"t":"2026-08-20T19:38:00+01:00","k":"mod","p":"globals.css","s":"filter-screen and pipe-stop: square corners, no chamfer clip","d":"animation boxes"}
+{"t":"2026-08-20T19:40:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Peers heading: rule under not; word at top of original slot; heading box unchanged","d":"ewan: graphic underline"}
+{"t":"2026-08-20T19:40:00+01:00","k":"mod","p":"method/page.tsx globals.css","s":"not-rule: sizer holds original width/height; word at top; currentColor rule under","d":"same pixels, line in the leftover"}
+{"t":"2026-08-20T19:43:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"not is full size; crop bottom of glyphs; rule at the cut from leftover ink","d":"ewan: same height, bottom becomes the line"}
+{"t":"2026-08-20T19:43:00+01:00","k":"mod","p":"method/page.tsx globals.css","s":"not-crop: clip-path inset bottom 30%, bar at 70% height 10% currentColor","d":"word unchanged, cut becomes underline"}
+{"t":"2026-08-20T19:52:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Peers heading: plain underline on not","d":"ewan: get rid just underline"}
+{"t":"2026-08-20T19:52:00+01:00","k":"mod","p":"method/page.tsx globals.css","s":"not is a normal underline; crop treatment gone","d":"just underline"}
+{"t":"2026-08-20T23:02:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Occupancy leases on disk; framed /api/ rewritten onto /go/{slug}","d":"localhost ModYu client exception"}
+{"t":"2026-08-20T23:02:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"leases.json is occupancy; sweep-gen after next-dev reload; proxy rewrites /api/","d":"campus was killing ModYu while the iframe loaded"}
+{"t":"2026-08-20T23:02:00+01:00","k":"mod","p":"Site/src/lib/lab-runner.ts","s":"File-backed occupancy + sweep-gen; do not stop an occupied unit","d":"in-memory leases vanished on compile and slept the house"}
+{"t":"2026-08-20T23:02:00+01:00","k":"mod","p":"Site/src/lib/lab-proxy.ts","s":"Rewrite /api/ through /go/{slug} in framed HTML/JS","d":"iframe fetch(/api/auth/me) hit campus, not ModYu"}
+{"t":"2026-08-20T23:02:00+01:00","k":"mod","p":"ops/lab.md audit-campus.md","s":"leases.json + /api/ rewrite noted for frames","d":"same defect"}
+{"t":"2026-08-21T09:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Public /work in main menu; Dave gif full width on gif grey","d":"Dave campus desk: Work page"}
+{"t":"2026-08-21T09:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"/work: menu link, full-size gif, page ground #686868, no footer","d":"Dave notes 1eb93e91 + b7108bdb"}
+{"t":"2026-08-21T09:20:00+01:00","k":"add","p":"Site/src/app/work/page.tsx Site/public/work/dln-work.gif","s":"Work plate with Dave’s gif","d":"create a new page called Work"}
+{"t":"2026-08-21T09:20:00+01:00","k":"mod","p":"Header.tsx Footer.tsx globals.css","s":"Work in public nav; work ground; footer off /work","d":"menu + gif grey + full size"}
+{"t":"2026-08-21T09:42:00+01:00","k":"add","p":"ops/push-campus-downstairs.sh","s":"Named downstairs campus push: rsync DLN + debian-rebuild","d":"inbox push is not the site; Dave’s LAN was 404 /work"}
+{"t":"2026-08-21T09:42:00+01:00","k":"dir","p":"DIRECTIONS.md ops/lab.md","s":"After campus HTML, push-campus-downstairs.sh; one sniff only","d":"ewan: forgotten downstairs + two terminals"}
+{"t":"2026-08-21T09:42:00+01:00","k":"mod","p":"ops/lab.md","s":"Dave/phones are 192.168.0.223:3010; localhost is this Cursor disk","d":"LAN is Debian, not this PC’s address"}
+{"t":"2026-08-21T10:28:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Campus Send carries page id; room wells on /lab echo client suggest","d":"Dave: space-specific /admin input"}
+{"t":"2026-08-21T10:28:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Same campus queue; page identifier on rooms and /admin chips","d":"do not hardcode /admin on every send"}
+{"t":"2026-08-21T10:28:00+01:00","k":"add","p":"Site/src/lib/campus-pages.ts","s":"Named campus page ids + labels","d":"Book/Pay/… share the client page field"}
+{"t":"2026-08-21T10:28:00+01:00","k":"mod","p":"LabDesk.tsx StudioDesk.tsx LabComment.tsx LabHubDock.tsx globals.css","s":"Page-id chips on /admin; room well on /lab; label on notes","d":"space-specific send to central campus"}
+{"t":"2026-08-21T10:32:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home Design column is Dave’s five-line list","d":"note 3f26988d"}
+{"t":"2026-08-21T10:32:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Design home list; Strategy/Build and /design page stay","d":"dave campus send"}
+{"t":"2026-08-21T10:32:00+01:00","k":"mod","p":"needs.ts HomeOffer.tsx globals.css","s":"Design column renders points list under the heading","d":"Logos, Brand Identity Systems, UI, Design for Print, Packaging"}
+{"t":"2026-08-21T10:40:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home columns LTR Strategy, Design, Online; /build stays Build","d":"Dave e7dc7206 + 50c59dda"}
+{"t":"2026-08-21T10:40:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home order Strategy Design Online; Build title on home is Online","d":"home plate only"}
+{"t":"2026-08-21T10:40:00+01:00","k":"mod","p":"needs.ts HomeOffer.tsx","s":"HOME_COLUMNS + homeName Online on build offer","d":"left to right; title change"}
+{"t":"2026-08-21T10:42:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Methodology: footer only, not main menu; path /method","d":"Dave c530c7de + bacce153"}
+{"t":"2026-08-21T10:42:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Method renamed Methodology; off the header, stays in footer","d":"page title + nav"}
+{"t":"2026-08-21T10:42:00+01:00","k":"mod","p":"Header.tsx Footer.tsx method/page.tsx campus-pages.ts","s":"Header drops Method; footer and page say Methodology","d":"same route"}
+{"t":"2026-08-21T10:46:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home CTAs: Contact Strategy / Design / Online","d":"Dave cc6131b3"}
+{"t":"2026-08-21T10:46:00+01:00","k":"mod","p":"HomeOffer.tsx","s":"Come in on → Contact {title} on home columns","d":"Contact Design, Contact Strategy, Contact Online"}
+{"t":"2026-08-21T10:46:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home column links Contact Strategy / Design / Online","d":"Dave cc6131b3"}
+{"t":"2026-08-21T10:55:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"LAN sessions stay on Debian; notes tool must not bounce to login on poll 401","d":"Dave 408ae19a signed out while sending"}
+{"t":"2026-08-21T10:55:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"HTML push downstairs must not overwrite _meta/accounts","d":"LAN cookie book"}
+{"t":"2026-08-21T10:55:00+01:00","k":"mod","p":"ops/push-campus-downstairs.sh ops/sync-to-debian.sh ops/lab.md","s":"Exclude accounts/sessions/presence/leases from LAN HTML push","d":"rsync was wiping Dave cookie"}
+{"t":"2026-08-21T10:55:00+01:00","k":"mod","p":"LabDesk.tsx LabComment.tsx Header.tsx auth.ts","s":"Keep compose on 401; header ignores me blips; atomic session writes","d":"do not dump draft to /login"}
+{"t":"2026-08-21T10:57:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"RUUN papers live on Methodology, not home","d":"Dave 481e58de"}
+{"t":"2026-08-21T10:57:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home drops papers; /method opens with seven RUUN papers","d":"move not copy"}
+{"t":"2026-08-21T10:57:00+01:00","k":"add","p":"RuunPapers.tsx","s":"Extract paper strip from HomeOffer","d":"same swipe/fit behaviour"}
+{"t":"2026-08-21T10:57:00+01:00","k":"mod","p":"HomeOffer.tsx method/page.tsx globals.css","s":"Papers off home; sit at top of Methodology","d":"Dave 481e58de"}
+{"t":"2026-08-21T11:00:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home Strategy and Online are Dave lists like Design","d":"Dave d8bdc2e4 a01529de"}
+{"t":"2026-08-21T11:00:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"All three home columns are lists","d":"trial copy stays cached"}
+{"t":"2026-08-21T11:00:00+01:00","k":"mod","p":"needs.ts","s":"Strategy + Online points; keep homeName Online","d":"home lists; /build still Build"}
+{"t":"2026-08-21T11:03:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Practice h1 High-Value Brand Ecosystems + grey Plan, Design, Build, Maintain","d":"Dave 0f177046"}
+{"t":"2026-08-21T11:03:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Practice heading without Designing; grey line same size","d":"Dave 0f177046"}
+{"t":"2026-08-21T11:03:00+01:00","k":"mod","p":"practice/page.tsx globals.css","s":"Drop Designing; add mid-grey subline at h1 size","d":"Plan, Design, Build, Maintain."}
+{"t":"2026-08-21T11:07:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home Online list grows: New sites, Rebuilds, Facelifts, Live hosts","d":"ewan: two lines looked empty"}
+{"t":"2026-08-21T11:07:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Online column six lines like Strategy","d":"keep Dave’s two"}
+{"t":"2026-08-21T11:07:00+01:00","k":"mod","p":"needs.ts","s":"Online points + New sites Rebuilds Facelifts Live hosts","d":"first sites and better space"}
+{"t":"2026-08-21T11:16:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home heading Websites; CTA Contact the web team","d":"Dave b180770c"}
+{"t":"2026-08-21T11:16:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home columns Strategy Design Websites; web-team CTA","d":"not Contact Online"}
+{"t":"2026-08-21T11:16:00+01:00","k":"mod","p":"needs.ts HomeOffer.tsx","s":"homeName Websites + homeCta Contact the web team","d":"Dave b180770c"}
+{"t":"2026-08-21T12:40:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home opens with Dave’s Design / Lab / North copy","d":"Dave fd34dc23"}
+{"t":"2026-08-21T12:40:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home: name copy then three offer columns","d":"kicker stays"}
+{"t":"2026-08-21T12:40:00+01:00","k":"add","p":"HomeIntro.tsx page.tsx globals.css","s":"Dave home intro at top; offers sit under","d":"wording as sent"}
+{"t":"2026-08-21T12:44:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home intro stacked site h1/h2/body; Practice story four heads","d":"Dave 17f9a97e 67644a6e"}
+{"t":"2026-08-21T12:44:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home stacked name sections; Practice holds Dave’s farm story","d":"not 3-col intro"}
+{"t":"2026-08-21T12:44:00+01:00","k":"mod","p":"HomeIntro.tsx globals.css","s":"Home intro uses site h1/h2/body; bold strategy packaging print and screen","d":"Dave attachment"}
+{"t":"2026-08-21T12:44:00+01:00","k":"mod","p":"practice/page.tsx globals.css","s":"Add Our Practice / Landscape / Resilience / Wired after the pair","d":"Dave 67644a6e"}
+{"t":"2026-08-21T12:47:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Practice bios stacked; Selected Experience above client list","d":"Dave ddf5b03a a292787e"}
+{"t":"2026-08-21T12:47:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Practice: stacked bios then story then Selected Experience","d":"not 50/50 columns"}
+{"t":"2026-08-21T12:47:00+01:00","k":"mod","p":"practice/page.tsx globals.css","s":"New Dave/Ewan copy; story heads; Selected Experience; Storm bold","d":"Dave 3ceef0f6 ddf5b03a a292787e"}
+{"t":"2026-08-21T12:48:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home name sentence same size as h1, mid grey","d":"Dave b9ca08d4"}
+{"t":"2026-08-21T12:48:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home intro: title + same-size grey line","d":"like Practice sub"}
+{"t":"2026-08-21T12:48:00+01:00","k":"mod","p":"HomeIntro.tsx globals.css","s":"home-intro-sub at h1 size, mute","d":"Dave b9ca08d4"}
+{"t":"2026-08-21T12:50:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Practice bios after story, before Selected Experience","d":"Dave bae1cc3b"}
+{"t":"2026-08-21T12:50:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Practice: story then bios then Selected Experience","d":"Dave then Ewan"}
+{"t":"2026-08-21T12:50:00+01:00","k":"mod","p":"practice/page.tsx","s":"Move Dave and Ewan below story, above Selected Experience","d":"Dave bae1cc3b"}
+{"t":"2026-08-21T13:10:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home offer columns share the intro 42rem measure","d":"Dave 668dc4a0"}
+{"t":"2026-08-21T13:10:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home three columns lock to intro width","d":"not full --max"}
+{"t":"2026-08-21T13:10:00+01:00","k":"mod","p":"globals.css","s":"Desktop offer-track max 42rem like home-intro","d":"Dave 668dc4a0"}
+{"t":"2026-08-21T13:15:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Practice: Border Riever; Debateable Lands","d":"Dave 3e254259"}
+{"t":"2026-08-21T13:15:00+01:00","k":"mod","p":"practice/page.tsx","s":"Border river Debatable LANDS → Border Riever; Debateable Lands","d":"Dave wording"}
+{"t":"2026-08-21T13:17:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home Strategy CTA: Contact our consultants","d":"Dave 599f0d1c"}
+{"t":"2026-08-21T13:17:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home CTAs: consultants / Design / web team","d":"not Contact Strategy"}
+{"t":"2026-08-21T13:17:00+01:00","k":"mod","p":"needs.ts","s":"strategy homeCta Contact our consultants","d":"Dave 599f0d1c"}
+{"t":"2026-08-21T13:26:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"design is a verb as much as it is a noun","d":"Dave 78a918e5"}
+{"t":"2026-08-21T13:26:00+01:00","k":"mod","p":"HomeIntro.tsx","s":"verb not a noun → verb as much as it is a noun","d":"Dave 78a918e5"}
+{"t":"2026-08-21T13:28:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Design/Lab/North words bold; rest of subhead mute; body tight under","d":"Dave 369ffec4"}
+{"t":"2026-08-21T13:28:00+01:00","k":"mod","p":"HomeIntro.tsx globals.css","s":"Name words ink 700; rest of h2 mute; smaller h2/p gap","d":"Dave 369ffec4"}
+{"t":"2026-08-21T14:27:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Practice bios: 1px mute rules; Dave portrait then text","d":"Dave 16ce6de7"}
+{"t":"2026-08-21T14:27:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Practice bios have mid-grey rules and Dave’s portrait","d":"Dave 16ce6de7"}
+{"t":"2026-08-21T14:27:00+01:00","k":"add","p":"Site/public/practice/dave-kirkwood.png","s":"Dave portrait on Practice","d":"Dave upload 1787318667822"}
+{"t":"2026-08-21T14:27:00+01:00","k":"mod","p":"practice/page.tsx globals.css","s":"Portrait above Dave; 1px mute rules around both bios","d":"Dave 16ce6de7"}
+{"t":"2026-08-21T23:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Live user pages; desk talks home; email logins after audit","d":"ewan put us live"}
+{"t":"2026-08-21T23:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"VPS user pages; Ed25519 home tickets; client email is login","d":"admin stays at home"}
+{"t":"2026-08-21T23:20:00+01:00","k":"add","p":"ops/home-tunnel.md","s":"Debian autossh reverse listen; dln-home; studio-gate","d":"talk home"}
+{"t":"2026-08-21T23:20:00+01:00","k":"add","p":"Site/src/lib/home-ticket.ts","s":"Ed25519 studio tickets issued at home","d":"at-home blueprint"}
+{"t":"2026-08-21T23:20:00+01:00","k":"mod","p":"auth.ts login OnboardDesk account Header Caddy compose","s":"Public studio talks home; client /account stays; email confirm","d":"Anne Marie plot book untouched"}
+{"t":"2026-08-21T23:20:00+01:00","k":"mod","p":"WORKSTREAM.md identity.md compass.md ops/vps.md","s":"Live hub pages; tunnel; confirmation mail","d":"ewan 2026-08-21"}
+{"t":"2026-08-21T23:24:00+01:00","k":"ver","p":"dln-2","s":"Public user pages live; home tunnel; email accounts after audit","d":"ewan put us live"}

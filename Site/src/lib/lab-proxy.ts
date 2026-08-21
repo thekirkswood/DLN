@@ -60,6 +60,7 @@ function rewriteRootPaths(body: string, base: string): string {
     "/admin-uploads/",
     "/profile-uploads/",
     "/node_modules/",
+    "/api/",
   ];
   let out = body;
   for (const p of roots) {

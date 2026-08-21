@@ -27,20 +27,20 @@ export function Header({
   hasAvatar?: boolean;
   displayName?: string;
 }) {
-  const path = usePathname();
+  const path = usePathname() || "/";
   const [inSession, setInSession] = useState(signedIn);
   const [me, setMe] = useState<Me | null>(
     userId ? { id: userId, displayName } : null,
   );
   const atHome = path === "/";
   const atAccount = path === "/account" || path.startsWith("/account/");
-  const atMethod = path === "/method";
   const atPractice = path === "/practice";
+  const atWork = path === "/work";
   const atGreenhouse = path === "/greenhouse" || path.startsWith("/greenhouse/");
   const atLogin = path === "/login";
   const atLab = path === "/lab" || path.startsWith("/lab/");
   const atAdmin = path === "/admin" || path.startsWith("/admin/");
-  const onLab = lab && studio && inSession;
+  const onLab = studio && inSession;
   const atSuggest = path.startsWith("/suggest");
   const atCampus = onLab && (atLab || atAdmin);
 
@@ -52,18 +52,16 @@ export function Header({
   useEffect(() => {
     let alive = true;
     fetch("/api/auth/me", { credentials: "include", cache: "no-store" })
-      .then((res) => res.json())
-      .then((data: { user?: Me | null }) => {
+      .then(async (res) => {
         if (!alive) return;
+        if (!res.ok) return;
+        const data = (await res.json()) as { user?: Me | null };
         const user = data?.user || null;
         setInSession(Boolean(user));
         setMe(user);
       })
       .catch(() => {
-        if (alive) {
-          setInSession(false);
-          setMe(null);
-        }
+        /* Keep the last known session if campus is briefly down (rebuild). */
       });
     return () => {
       alive = false;
@@ -77,7 +75,15 @@ export function Header({
   const name = me?.displayName || displayName || "Account";
 
   return (
-    <header className={atCampus ? "site-header wrap is-campus" : "site-header wrap"}>
+    <header
+      className={
+        atCampus
+          ? "site-header wrap is-campus"
+          : atWork
+            ? "site-header wrap is-work"
+            : "site-header wrap"
+      }
+    >
       <Link
         className="brand-link"
         href={atCampus ? "/lab" : "/"}
@@ -88,8 +94,8 @@ export function Header({
       {atCampus ? null : (
         <nav>
           {atHome ? null : <Link href="/">Home</Link>}
-          {atMethod ? null : <Link href="/method">Method</Link>}
           {atPractice ? null : <Link href="/practice">Practice</Link>}
+          {atWork ? null : <Link href="/work">Work</Link>}
           {atGreenhouse ? null : <Link href="/greenhouse">Greenhouse</Link>}
         </nav>
       )}
@@ -105,7 +111,7 @@ export function Header({
       ) : atLogin ? null : (
         <Link
           className="nav-signin"
-          href={lab ? "/login?next=/lab" : "/login?next=/account"}
+          href={lab || studio ? "/login?next=/lab" : "/login?next=/account"}
         >
           Sign in
         </Link>

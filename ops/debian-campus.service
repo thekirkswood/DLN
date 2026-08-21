@@ -11,6 +11,7 @@ Environment=PATH=/usr/bin:/bin
 Environment=NODE_ENV=production
 Environment=NEXT_TELEMETRY_DISABLED=1
 EnvironmentFile=-/home/main/DLN/Site/.env.local
+EnvironmentFile=-/home/main/DLN/_meta/secrets/home-dial.env
 ExecStart=/home/main/DLN/ops/campus-lan.sh
 Restart=always
 RestartSec=5

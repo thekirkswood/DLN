@@ -2,13 +2,12 @@
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { OFFERS, HOME_MODULES, type Facet, type Need } from "@/data/needs";
+import { OFFERS, HOME_COLUMNS, offerById, type Facet, type Need } from "@/data/needs";
 
 export function HomeOffer() {
+  const homeOffers = HOME_COLUMNS.map((id) => offerById(id)!);
   const [slide, setSlide] = useState(0);
-  const [paper, setPaper] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
-  const paperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = trackRef.current;
@@ -20,7 +19,7 @@ export function HomeOffer() {
       const w = track.clientWidth;
       if (!w) return;
       const i = Math.round(track.scrollLeft / w);
-      setSlide(Math.max(0, Math.min(OFFERS.length - 1, i)));
+      setSlide(Math.max(0, Math.min(homeOffers.length - 1, i)));
     }
 
     sync();
@@ -32,76 +31,6 @@ export function HomeOffer() {
     };
   }, []);
 
-  const [paperMode, setPaperMode] = useState<"scroll" | "fit" | null>(null);
-
-  useEffect(() => {
-    const el = paperRef.current;
-    if (!el) return;
-    let drag: { x: number; left: number } | null = null;
-
-    function measure() {
-      const track = paperRef.current;
-      if (!track) return;
-      const overflow = track.scrollWidth > track.clientWidth + 4;
-      setPaperMode(overflow ? "scroll" : "fit");
-      const card = track.querySelector(".home-paper");
-      if (!(card instanceof HTMLElement)) return;
-      const gap =
-        parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 14;
-      const step = card.offsetWidth + gap;
-      if (!step) return;
-      const i = Math.round(track.scrollLeft / step);
-      setPaper(Math.max(0, Math.min(HOME_MODULES.length - 1, i)));
-    }
-
-    function onWheel(e: WheelEvent) {
-      const track = paperRef.current;
-      if (!track || track.scrollWidth <= track.clientWidth + 4) return;
-      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-      e.preventDefault();
-      track.scrollLeft += e.deltaY;
-    }
-
-    function onPointerDown(e: PointerEvent) {
-      const track = paperRef.current;
-      if (!track || track.scrollWidth <= track.clientWidth + 4) return;
-      if (e.pointerType === "touch") return;
-      drag = { x: e.clientX, left: track.scrollLeft };
-      track.setPointerCapture(e.pointerId);
-    }
-
-    function onPointerMove(e: PointerEvent) {
-      const track = paperRef.current;
-      if (!track || !drag) return;
-      track.scrollLeft = drag.left - (e.clientX - drag.x);
-    }
-
-    function onPointerUp() {
-      drag = null;
-    }
-
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    el.addEventListener("scroll", measure, { passive: true });
-    el.addEventListener("wheel", onWheel, { passive: false });
-    el.addEventListener("pointerdown", onPointerDown);
-    el.addEventListener("pointermove", onPointerMove);
-    el.addEventListener("pointerup", onPointerUp);
-    el.addEventListener("pointercancel", onPointerUp);
-    window.addEventListener("resize", measure);
-    return () => {
-      ro.disconnect();
-      el.removeEventListener("scroll", measure);
-      el.removeEventListener("wheel", onWheel);
-      el.removeEventListener("pointerdown", onPointerDown);
-      el.removeEventListener("pointermove", onPointerMove);
-      el.removeEventListener("pointerup", onPointerUp);
-      el.removeEventListener("pointercancel", onPointerUp);
-      window.removeEventListener("resize", measure);
-    };
-  }, []);
-
   function goTo(i: number) {
     const track = trackRef.current;
     if (!track) return;
@@ -109,66 +38,41 @@ export function HomeOffer() {
     track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
   }
 
-  function goPaper(i: number) {
-    const track = paperRef.current;
-    const card = track?.querySelector(".home-paper");
-    if (!track || !(card instanceof HTMLElement)) return;
-    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 14;
-    setPaper(i);
-    track.scrollTo({ left: i * (card.offsetWidth + gap), behavior: "smooth" });
-  }
-
   return (
     <section className="home-offer">
-      <h1 className="kicker home-kicker wrap">Design Lab North</h1>
-      <div
-        className="home-papers"
-        ref={paperRef}
-        data-mode={paperMode || "scroll"}
-        aria-label="RUUN Framework"
-      >
-        {HOME_MODULES.map((mod) => (
-          <figure key={mod.file} className="home-paper">
-            <img src={`/home/modules/${mod.file}`} alt={mod.name} />
-          </figure>
-        ))}
-      </div>
-      {paperMode === "scroll" ? (
-        <div className="home-paper-dots wrap" role="tablist" aria-label="Framework papers">
-          {HOME_MODULES.map((mod, i) => (
-            <button
-              key={mod.file}
-              type="button"
-              role="tab"
-              aria-selected={paper === i}
-              aria-label={mod.name}
-              className={paper === i ? "is-on" : ""}
-              onClick={() => goPaper(i)}
-            />
-          ))}
-        </div>
-      ) : null}
       <div className="offer-track" ref={trackRef}>
-        {OFFERS.map((offer) => (
-          <div key={offer.id} className="offer-col">
-            <h2>
-              <Link href={offer.href}>{offer.name}</Link>
-            </h2>
-            <p className="offer-copy">{offer.copy}</p>
-            <p className="offer-cta">
-              <Link href={offer.href}>Come in on {offer.name}</Link>
-            </p>
-          </div>
-        ))}
+        {homeOffers.map((offer) => {
+          const title = offer.homeName || offer.name;
+          const cta = offer.homeCta || `Contact ${title}`;
+          return (
+            <div key={offer.id} className="offer-col">
+              <h2>
+                <Link href={offer.href}>{title}</Link>
+              </h2>
+              {offer.points?.length ? (
+                <ul className="offer-list">
+                  {offer.points.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="offer-copy">{offer.copy}</p>
+              )}
+              <p className="offer-cta">
+                <Link href={offer.href}>{cta}</Link>
+              </p>
+            </div>
+          );
+        })}
       </div>
-      <div className="offer-dots wrap" role="tablist" aria-label="Design, Strategy, Build">
-        {OFFERS.map((offer, i) => (
+      <div className="offer-dots wrap" role="tablist" aria-label="Strategy, Design, Websites">
+        {homeOffers.map((offer, i) => (
           <button
             key={offer.id}
             type="button"
             role="tab"
             aria-selected={slide === i}
-            aria-label={offer.name}
+            aria-label={offer.homeName || offer.name}
             className={slide === i ? "is-on" : ""}
             onClick={() => goTo(i)}
           />

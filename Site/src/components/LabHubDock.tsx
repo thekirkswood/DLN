@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { LabComment } from "@/components/LabComment";
+import { campusPageLabel } from "@/lib/campus-pages";
 
 export function LabHubDock() {
   const path = usePathname() || "/";
@@ -17,7 +18,12 @@ export function LabHubDock() {
   }
   return (
     <div className="lab-hub-dock wrap">
-      <LabComment plot="dln" page={path} compact />
+      <LabComment
+        plot="dln"
+        page={path}
+        pageLabel={campusPageLabel(path)}
+        compact
+      />
     </div>
   );
 }

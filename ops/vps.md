@@ -10,7 +10,8 @@
 - App + plots: Docker Compose (`web`, `plot-modyu`, `plot-swarm`, `plot-titles`)
 - Plot source: `/srv/dln/plots/modyu`, `/srv/dln/plots/swarm`, `/srv/dln/plots/various-titles`
 - Data: `/srv/dln/data/accounts`, `billing`, `enquiries`, `plans`, `modyu-accounts`, `swarm`
-- Enquiries email: optional SMTP in `deploy/.env` (`DLN_SMTP_HOST` etc). Without it, enquiries still land on the studio desk. Onboard logins are emailed to the client’s mailbox when SMTP is set; otherwise the desk shows the login once to copy. No passwords in this file.
+- Enquiries email: optional SMTP in `deploy/.env` (`DLN_SMTP_HOST` etc). Without it, enquiries still land on the studio desk. After an enquiry is audited, onboard emails a **confirmation of account** (login = the email they wrote us, password in that mail) when SMTP is set; otherwise the desk shows the login once to copy. No passwords in this file.
+- Home tunnel: Debian campus dials out to this VPS (`ops/home-tunnel.md`). Restricted user `dln-home`, listen `127.0.0.1:13010` only. Hub ships rebuild `web` (+ edge if Caddy changed). Do not rebuild plot-modyu or rsync `/srv/dln/data/accounts`.
 - DNS: designlabnorth.com + `*.designlabnorth.com` → this IP (Ewan / registrar)
 
 No passwords here. Chat-supplied root password was used once to install the key, then SSH password login is disabled.

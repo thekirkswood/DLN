@@ -4,7 +4,10 @@ set -euo pipefail
 ROOT=/home/main/DLN
 SITE="$ROOT/Site"
 LOCK="$ROOT/_meta/lab-houses/campus-rebuild.lock"
-mkdir -p "$(dirname "$LOCK")"
+UNIT_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
+mkdir -p "$(dirname "$LOCK")" "$UNIT_DIR"
+cp "$ROOT/ops/debian-campus.service" "$UNIT_DIR/campus.service"
+systemctl --user daemon-reload
 printf '%s %s\n' "$$" "$(date -Iseconds)" >"$LOCK"
 cleanup() { rm -f "$LOCK"; }
 trap cleanup EXIT

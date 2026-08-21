@@ -43,7 +43,9 @@ export async function POST(req: NextRequest) {
   const usePersonal = Boolean(body?.usePersonalLogin) && Boolean(personalEmail);
   const email =
     body?.email?.toString().trim().toLowerCase() ||
-    (usePersonal ? personalEmail : localHandleFromName(displayName));
+    (usePersonal || personalEmail
+      ? personalEmail
+      : localHandleFromName(displayName));
 
   const plots = Array.isArray(body?.plots) ? body.plots.map(String) : [];
   const known = new Set((await allPlots()).map((p) => p.slug));
@@ -69,11 +71,11 @@ export async function POST(req: NextRequest) {
       mailbox && !puppet
         ? await sendStudioMail({
             to: mailbox,
-            subject: "Your Design Lab North login",
+            subject: "Your Design Lab North account",
             text: [
               `Hello ${created.user.displayName},`,
               "",
-              "Here is your Design Lab North login.",
+              "This is the confirmation of your Design Lab North account.",
               "",
               `Sign in: ${signIn.replace(/\/$/, "")}/login`,
               `Login: ${created.user.email}`,

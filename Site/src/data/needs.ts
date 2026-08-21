@@ -12,11 +12,20 @@ export type FacetOffer = {
   blurb: string;
   /** Live column body. Trial copy (Ewan, 2026-08-19) until locked. */
   copy: string;
+  /** Home column as a list. When set, the home plate shows these lines, not `copy`. */
+  points?: string[];
+  /** Heading on the home columns only. Offer pages keep `name`. */
+  homeName?: string;
+  /** Home column link. Defaults to Contact {homeName || name}. */
+  homeCta?: string;
   /** Dave’s institute paragraphs. Cached; not shown while the trial is up. */
   daveCopy: string;
   href: string;
   needs: Need[];
 };
+
+/** Home left-to-right. Offer ids stay design / strategy / build. */
+export const HOME_COLUMNS: Facet[] = ["strategy", "design", "build"];
 
 /** Three offers. Walk in at any of them. */
 export const OFFERS: FacetOffer[] = [
@@ -25,6 +34,13 @@ export const OFFERS: FacetOffer[] = [
     name: "Design",
     blurb: "Naming, logo, identity systems.",
     copy: "We formulate high-value brand systems you can actually work with. A name, a logo, and the identity around it, from a first idea or a refresh of what you already have. Before anything is deployed, conceptual marks go into the Sandbox, a controlled simulation where we stress-test the design so it holds for a small business and still holds as you grow. You leave with a durable system, not a look that dates. Come in on Design and we start.",
+    points: [
+      "Logos",
+      "Brand Identity Systems",
+      "UI",
+      "Design for Print",
+      "Packaging",
+    ],
     daveCopy: "We formulate high-value brand systems by balancing rigorous aesthetic discipline with systemic logic, tailoring our frameworks to the precise maturity stage of the enterprise. Prior to technical deployment, conceptual marks and identity components are introduced to The Sandbox — a controlled simulation environment. Within this architecture, we analyse behavioural patterns and stress-test the design against potential systemic friction, ensuring the visual asset scales naturally as a business matures from its initial launch to a complex corporate structure. This calculated approach ensures the visual asset functions not as a transient aesthetic exercise, but as a durable, highly efficient system that inherently respects human attention and eliminates structural resource waste.",
     href: "/design",
     needs: [
@@ -47,8 +63,17 @@ export const OFFERS: FacetOffer[] = [
     name: "Strategy",
     blurb: "Plans, counsel, and resources to learn from.",
     copy: "We initiate the advisory process at once through lectures, workshops, and intensive lab sessions, and write a strategic blueprint you can run. Brand strategy, marketing strategy, a year or three years out. The same evidence, logic, and rigour whether you are starting, changing course, or protecting a long-standing organisation. If you want to learn as you go, Various Titles is there. Come in on Strategy and we map it with you.",
+    points: [
+      "Brand Strategy",
+      "Marketing Strategy",
+      "Online Strategy",
+      "Start-up Strategy",
+      "Brand Audits",
+      "Over-arching Strategic Consultancy",
+    ],
     daveCopy: "We initiate our advisory process immediately through structured lectures, workshops, and intensive lab sessions designed to isolate core brand identity variables across a business’s entire lifecycle. Whether calibrating the foundational hypothesis of a pre-start venture, managing a mid-market transformation, or protecting the legacy of a multi-generational organisation, our method relies on empirical evidence, logic, and data analysis to formulate a resilient strategic blueprint. We systematically evaluate every brand architecture through a triple filter to ensure it optimises commercial capital, supports user wellbeing by reducing cognitive load, and establishes a clear, sustainable foundation for future institutional growth.",
     href: "/strategy",
+    homeCta: "Contact our consultants",
     needs: [
       {
         id: "counsel-growth",
@@ -77,6 +102,16 @@ export const OFFERS: FacetOffer[] = [
     copy: "We construct the site that has to carry it. New, rebuild, or facelift, through an 8-Phase Process in the Greenhouse, a live-hosted environment where you watch and co-author as it grows. You leave notes. We come in. The site changes. When it is ready it can move onto a domain of your own, still tethered to campus so we can re-enter without breaking live work. The method is the same at every scale. Come in on Build if the site is what you need now.",
     daveCopy: "We construct enduring digital infrastructure, translating strategic hypotheses into integrated web platforms and commerce channels built to survive generational shifts. Managed via a proprietary 8-Phase Process, developments are incubated within The Greenhouse, a live-hosted environment where business stakeholders — from early-stage founders to enterprise boards — can observe and co-author technical iterations in real time. This methodology is entirely scale-agnostic and lifecycle-agnostic, applying identical analytical precision to early-stage startups and multi-generational global corporations alike. Following deployment, platforms remain tethered to our campus through a continuous diagnostic loop, permitting immediate re-entry for hot-swapping features and structural problem-solving without interrupting live operations.",
     href: "/build",
+    homeName: "Websites",
+    homeCta: "Contact the web team",
+    points: [
+      "Website Builds",
+      "Website Modelling",
+      "New sites",
+      "Rebuilds",
+      "Facelifts",
+      "Live hosts",
+    ],
     needs: [
       {
         id: "site-ground",

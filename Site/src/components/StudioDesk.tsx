@@ -14,6 +14,8 @@ import type { Invoice, PayRail, Payment, Roll, OnlineRail } from "@/lib/billing"
 import type { StudioSettings } from "@/lib/settings";
 import { enterUrlFor, hostUrlFor, type Plot } from "@/lib/plot-urls";
 import { labStationPath } from "@/lib/lab-host";
+import { LabComment } from "@/components/LabComment";
+import { campusPageId } from "@/lib/campus-pages";
 import type { Enquiry } from "@/lib/enquiries";
 import type { BuildPlan, SiteComment } from "@/lib/plans";
 import type { PublicUser } from "@/lib/auth";
@@ -228,6 +230,19 @@ function StudioDeskLive({
               online={online}
             />
           ) : null}
+
+      <div className="desk-page-note">
+        <LabComment
+          plot="dln"
+          page={campusPageId(desk, person?.id)}
+          pageLabel={
+            person
+              ? `${rooms.find((r) => r.id === desk)?.name || desk} · ${person.displayName}`
+              : rooms.find((r) => r.id === desk)?.name || desk
+          }
+          compact
+        />
+      </div>
     </div>
   );
 }

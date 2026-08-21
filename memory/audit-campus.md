@@ -16,7 +16,7 @@ Honest copy now: queued, waiting for that house’s Cursor. HTTP status is shown
 
 The station iframes `/go/{slug}`. If a unit was already on its port **without** `BASE_PATH=/go/{slug}` (or `VITE_BASE` for Swarm), start was skipped because the port was busy. `httpUp` treated any status under 500 as ready, so a 404 still counted as “up”. The frame then loaded the wrong HTML.
 
-Campus fix: 404 is not ready; respawn with the lab prefix; rewrite `/_next` and Vite `/@` roots through the proxy. Product copy and image linking inside ModYu stay **ModYu Cursor** work.
+Campus fix: 404 is not ready; respawn with the lab prefix; rewrite `/_next`, `/api/`, and Vite `/@` roots through the proxy. Occupancy leases are on disk so a campus reload does not sleep a live station. Product copy and image linking inside ModYu stay **ModYu Cursor** work.
 
 ### 3. Overnight “crash”
 

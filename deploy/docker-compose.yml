@@ -16,6 +16,8 @@ services:
       - ${CADDY_FILE:-./Caddyfile.ip}:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       - web
       - plot-modyu
@@ -50,11 +52,17 @@ services:
       DLN_ENQUIRE_TO: ${DLN_ENQUIRE_TO:-build@designlabnorth.com}
       DLN_ENQUIRE_FROM: ${DLN_ENQUIRE_FROM:-}
       TITLES_PUBLIC_URL: ${TITLES_PUBLIC_URL:-https://varioustitles.com}
+      DLN_HOME_ORIGIN: ${DLN_HOME_ORIGIN:-http://host.docker.internal:13010}
+      DLN_HOME_DIAL_SECRET: ${DLN_HOME_DIAL_SECRET:-}
+      HOME_TICKET_PUB_FILE: ${HOME_TICKET_PUB_FILE:-/app/_meta/secrets/home-ticket.pub}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ${DLN_ACCOUNTS_DIR:-../_meta/accounts}:/app/_meta/accounts
       - ${DLN_BILLING_DIR:-../_meta/billing}:/app/_meta/billing
       - ${DLN_ENQUIRIES_DIR:-../_meta/enquiries}:/app/_meta/enquiries
       - ${DLN_PLANS_DIR:-../_meta/plans}:/app/_meta/plans
+      - ${DLN_HOME_TICKET_PUB:-/srv/dln/data/home-ticket.pub}:/app/_meta/secrets/home-ticket.pub:ro
     expose:
       - "3000"
 

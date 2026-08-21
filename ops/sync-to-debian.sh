@@ -8,7 +8,14 @@
 set -euo pipefail
 DEBIAN="${DEBIAN:-user@192.168.0.223}"
 
-RSYNC=(rsync -aH --info=stats1 --exclude node_modules --exclude .next --exclude dist --exclude .git/objects/pack/*.tmp)
+RSYNC=(rsync -aH --info=stats1
+  --exclude node_modules
+  --exclude .next
+  --exclude dist
+  --exclude .git/objects/pack/*.tmp
+  --exclude _meta/accounts/sessions.json
+  --exclude _meta/lab-houses/studio-presence.json
+  --exclude _meta/lab-houses/leases.json)
 HOUSE_ROOT="${HOUSE_ROOT:-/home/main}"
 # On Debian, client houses live on the 1TB at /srv/clients. /home/main/ModYu is a symlink.
 
@@ -34,10 +41,12 @@ for house in ModYu; do
   "${RSYNC[@]}" "$src/" "$DEBIAN:$HOUSE_ROOT/$house/"
 done
 
-echo "== gitignored account book (SSH, not git) =="
+echo "== gitignored account book (SSH, not git; live sessions stay on Debian) =="
 if [ -d "$HOUSE_ROOT/DLN/_meta/accounts" ]; then
-  ssh "$DEBIAN" "mkdir -p $HOUSE_ROOT/DLN/_meta"
-  "${RSYNC[@]}" "$HOUSE_ROOT/DLN/_meta/accounts/" "$DEBIAN:$HOUSE_ROOT/DLN/_meta/accounts/"
+  ssh "$DEBIAN" "mkdir -p $HOUSE_ROOT/DLN/_meta/accounts"
+  "${RSYNC[@]}" \
+    --exclude sessions.json \
+    "$HOUSE_ROOT/DLN/_meta/accounts/" "$DEBIAN:$HOUSE_ROOT/DLN/_meta/accounts/"
 fi
 
 echo "== install Debian campus units + health watch =="

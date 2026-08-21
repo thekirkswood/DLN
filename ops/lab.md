@@ -1,6 +1,6 @@
 # Local lab — one port
 
-User-facing port is **:3010** on this PC. Ewan uses http://localhost:3010. Dave uses the same port on this PC’s LAN address from his machine. Live VPS, live Caddy, and live plot hosts stay as they are. This PC is the editor. `/lab` 404s on the public host.
+User-facing **localhost** is **:3010** on this Cursor disk. Dave and phones use downstairs: `http://192.168.0.223:3010`. After campus HTML on this disk, push downstairs with `ops/push-campus-downstairs.sh` (rsync DLN + rebuild). That push leaves `_meta/accounts` and the live inbox on Debian — otherwise Dave’s LAN session is wiped. `ops/push-lab-inbox.sh` is the queue only. Live VPS stays as it is. `/lab` 404s on the public host.
 
 ## What Dave and Ewan see
 
@@ -41,7 +41,7 @@ Dave and Ewan do not start ModYu / Various Titles / Swarm by hand. Walk into a u
 
 The campus (`:3010`) stays up. Units are isolated so a crash in one does not take the others. Swarm also starts its API (`:8787`) beside the web (`:5173`) while that unit is occupied.
 
-Logs and pids: `_meta/lab-houses/` (gitignored).
+Logs and pids: `_meta/lab-houses/` (gitignored). Who is in a unit is `leases.json` in that folder — not only memory in the campus process.
 
 If you ever need the raw server: `127.0.0.1:{port}` — but that copy must have been started with the lab prefix, or the frame’s scripts miss.
 

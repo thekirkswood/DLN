@@ -13,10 +13,12 @@ function queuedCopy(plot: string) {
 export function LabComment({
   plot,
   page,
+  pageLabel,
   compact,
 }: {
   plot: string;
   page: string;
+  pageLabel?: string;
   compact?: boolean;
 }) {
   const [text, setText] = useState("");
@@ -53,7 +55,7 @@ export function LabComment({
     const data = (await res.json().catch(() => ({}))) as { error?: string };
     setPending(false);
     if (res.status === 401) {
-      window.location.href = `/login?next=${encodeURIComponent(window.location.pathname)}`;
+      setError("Campus no longer sees this sign-in. Open Sign in in a new tab, then send again here.");
       return;
     }
     if (!res.ok) {
@@ -72,7 +74,9 @@ export function LabComment({
     <form className={compact ? "lab-comment is-compact" : "lab-comment"} onSubmit={onSubmit}>
       <p className="lab-comment-kicker">
         Note on this page
-        {page ? ` · ${page}` : ""}
+        {page ? (
+          <span className="page-id">{pageLabel || page}</span>
+        ) : null}
       </p>
       <div className="lab-kinds" role="group" aria-label="Kind">
         {(["note", "change"] as LabKind[]).map((k) => (

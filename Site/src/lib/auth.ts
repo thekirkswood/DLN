@@ -8,6 +8,7 @@ import {
 } from "crypto";
 import { headers } from "next/headers";
 import { isLabHost } from "@/lib/lab-host";
+import { isHomeTicket, verifyHomeTicket } from "@/lib/home-ticket";
 
 const ROOT = path.join(process.cwd(), "..", "_meta", "accounts");
 const USERS = path.join(ROOT, "users.json");
@@ -278,7 +279,9 @@ async function readJson<T>(file: string): Promise<T[]> {
 
 async function writeJson<T>(file: string, data: T[]) {
   await ensure();
-  await fs.writeFile(file, `${JSON.stringify(data, null, 2)}\n`, "utf8");
+  const tmp = `${file}.${process.pid}.tmp`;
+  await fs.writeFile(tmp, `${JSON.stringify(data, null, 2)}\n`, "utf8");
+  await fs.rename(tmp, file);
 }
 
 function pub(u: User): PublicUser {
@@ -445,6 +448,15 @@ export async function userFromSession(
 ): Promise<PublicUser | null> {
   await ensure();
   if (!token) return null;
+  if (isHomeTicket(token)) {
+    const claims = await verifyHomeTicket(token);
+    if (!claims) return null;
+    const user = await findUserByEmail(claims.email);
+    if (!user || user.role !== claims.role) return null;
+    const pubUser = pub(user);
+    if (!isStudio(pubUser) || !canHubLogin(user)) return null;
+    return pubUser;
+  }
   const sessions = await readJson<Session>(SESSIONS);
   const s = sessions.find((x) => x.token === token);
   if (!s) return null;
@@ -456,7 +468,7 @@ export async function userFromSession(
 }
 
 export async function logout(token: string | undefined) {
-  if (!token) return;
+  if (!token || isHomeTicket(token)) return;
   const sessions = await readJson<Session>(SESSIONS);
   await writeJson(
     SESSIONS,

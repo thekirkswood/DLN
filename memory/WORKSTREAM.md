@@ -14,14 +14,15 @@ Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + 
 ## Open — lab and desk
 
 7. **Offers:** Design, Strategy, Build as equal columns. Form, not write-to-us. Practice holds the hub description + portfolio. (Landed locally.)
-8. **Invoice desk:** Settings holds per-entry amounts + online rail + spare bank; Pay selects those lines onto an invoice for the served client and pings online; desk rooms stay; campus header Campus / Builder / Account. Book this-week; Onboarding cards; Cursor is human. Card provider later.
-9. **Clients:** next named client = GitHub repo, `plots.json`, compose service, Caddy host, Livedns A. DAA reserved only until Ewan lists them.
-10. **Choozlist:** listed, beta contact `create@wishwell.uk`. Own server until the repo is uploaded here.
-11. **Various Titles:** hosted at `https://varioustitles.com` on this VPS (`plot-titles`). Public wall is Building. Studio enter on this book’s session. Honour `titlesGrant` when it opens. Billed on this book; bank pay is the rail. Card later.
-12. Swarm public is already swarmfund.com. Retire the old Swarm VPS when that builder is the one we use; DLN subdomain is the growing copy until cutover.
-13. **Notes on plot pages:** live host has a **suggestion box** (text only). Collect, audit, sweep to a plan, run ourselves. Not a live changer. Local lab foot comments stay the offline builder queue. Do not put a studio comment-admin on the live subdomain.
-14. **SMTP:** so onboard logins and enquiries actually mail. Until then the desk shows the login once.
-15. **Offline lab:** Debian downstairs hosts LAN campus in production on `:3010` with a health watch; this Cursor disk is `next dev` on localhost. `/lab` door; units under `/lab/{slug}` with honest `/go/{slug}` prefix; unit apps on occupancy here, pinned on Debian; `/admin` → campus Cursor; `/lab/{slug}/admin` → that unit’s inbox. Send is not a worker. Live VPS unchanged. `ops/lab.md`, `memory/audit-campus.md`.
+8. **Live user pages:** public hub on the VPS. Studio desk stays home and talks back through the tunnel. Client `/account` on the VPS. Anne Marie’s ModYu book stays on her plot host.
+9. **Invoice desk:** Settings holds per-entry amounts + online rail + spare bank; Pay selects those lines onto an invoice for the served client and pings online; desk rooms stay; campus header Campus / Builder / Account. Book this-week; Onboarding cards; Cursor is human. Card provider later.
+10. **Clients:** next named client = GitHub repo, `plots.json`, compose service, Caddy host, Livedns A. DAA reserved only until Ewan lists them. Login is the email they wrote us; password in the confirmation mail after audit.
+11. **Choozlist:** listed, beta contact `create@wishwell.uk`. Own server until the repo is uploaded here.
+12. **Various Titles:** hosted at `https://varioustitles.com` on this VPS (`plot-titles`). Public wall is Building. Studio enter on this book’s session. Honour `titlesGrant` when it opens. Billed on this book; bank pay is the rail. Card later.
+13. Swarm public is already swarmfund.com. Retire the old Swarm VPS when that builder is the one we use; DLN subdomain is the growing copy until cutover.
+14. **Notes on plot pages:** live host has a **suggestion box** (text only). Collect, audit, sweep to a plan, run ourselves. Not a live changer. Local lab foot comments stay the offline builder queue. Do not put a studio comment-admin on the live subdomain.
+15. **SMTP:** so onboard confirmations and enquiries actually mail. Until then the desk shows the login once.
+16. **Offline lab:** Debian downstairs hosts LAN campus in production on `:3010` with a health watch; this Cursor disk is `next dev` on localhost. `/lab` door; units under `/lab/{slug}` with honest `/go/{slug}` prefix; unit apps on occupancy here, pinned on Debian; `/admin` → campus Cursor; `/lab/{slug}/admin` → that unit’s inbox. Send is not a worker. Live VPS user pages + home tunnel. `ops/lab.md`, `ops/home-tunnel.md`, `memory/audit-campus.md`.
 
 ## Standing checks (every plot ship)
 

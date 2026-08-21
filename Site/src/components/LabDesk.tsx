@@ -4,6 +4,7 @@ import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "re
 import Link from "next/link";
 import { useEnsureHouse } from "@/components/EnsureHouse";
 import { labStationPath } from "@/lib/lab-host";
+import { CAMPUS_PAGES, campusPageLabel } from "@/lib/campus-pages";
 
 type LabKind = "change" | "plan" | "note";
 
@@ -43,23 +44,32 @@ export function LabDesk({
   const [error, setError] = useState("");
   const [queued, setQueued] = useState("");
   const [loading, setLoading] = useState(true);
+  const [authLost, setAuthLost] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const threadRef = useRef<HTMLDivElement>(null);
   const campus = plot === "dln";
+  const [page, setPage] = useState(campus ? "/admin" : `/lab/${plot}/admin`);
   const phase = useEnsureHouse(campus ? null : plot);
 
   const load = useCallback(async () => {
-    const res = await fetch(`/api/lab/messages?plot=${encodeURIComponent(plot)}`, {
-      cache: "no-store",
-      credentials: "include",
-    });
-    if (res.status === 401) {
-      window.location.href = `/login?next=${encodeURIComponent(window.location.pathname)}`;
-      return;
+    try {
+      const res = await fetch(`/api/lab/messages?plot=${encodeURIComponent(plot)}`, {
+        cache: "no-store",
+        credentials: "include",
+      });
+      if (res.status === 401) {
+        setAuthLost(true);
+        setLoading(false);
+        return;
+      }
+      if (!res.ok) return;
+      const data = (await res.json()) as { messages?: LabMessage[] };
+      setAuthLost(false);
+      setMessages(data.messages || []);
+      setLoading(false);
+    } catch {
+      /* Campus rebuild or blip — keep the compose box. */
     }
-    const data = (await res.json()) as { messages?: LabMessage[] };
-    setMessages(data.messages || []);
-    setLoading(false);
   }, [plot]);
 
   useEffect(() => {
@@ -90,7 +100,7 @@ export function LabDesk({
     form.set("plot", plot);
     form.set("kind", kind);
     form.set("text", text.trim());
-    form.set("page", "/admin");
+    form.set("page", page);
     form.set("origin", window.location.pathname);
     files.forEach((f) => form.append("files", f));
     let res: Response;
@@ -107,7 +117,8 @@ export function LabDesk({
     }
     setSending(false);
     if (res.status === 401) {
-      window.location.href = `/login?next=${encodeURIComponent(window.location.pathname)}`;
+      setAuthLost(true);
+      setError("Campus no longer sees this sign-in. Open Sign in in a new tab, then send again here.");
       return;
     }
     if (!res.ok) {
@@ -183,7 +194,7 @@ export function LabDesk({
                 {KIND_LABEL[m.kind]}
                 {" · "}
                 {m.status}
-                {m.page ? ` · ${m.page}` : ""}
+                {m.page ? ` · ${campusPageLabel(m.page)}` : ""}
               </p>
               <p>{m.text}</p>
               {m.images.length ? (
@@ -200,7 +211,45 @@ export function LabDesk({
         )}
       </div>
 
+      {authLost ? (
+        <p className="err">
+          Campus dropped this session.{" "}
+          <a
+            href={`/login?next=${encodeURIComponent(campus ? "/admin" : `/lab/${plot}/admin`)}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Sign in in a new tab
+          </a>
+          , then send again — this draft stays.
+        </p>
+      ) : null}
       <form className="lab-compose" onSubmit={send}>
+        {campus ? (
+          <>
+            <p className="lab-comment-kicker">
+              Note on this page
+              <span className="page-id">{campusPageLabel(page)}</span>
+            </p>
+            <div className="page-ids" role="group" aria-label="Page">
+              {CAMPUS_PAGES.map((p) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  className={page === p.id ? "page-id is-on" : "page-id"}
+                  onClick={() => setPage(p.id)}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          <p className="lab-comment-kicker">
+            Note on this page
+            <span className="page-id">{campusPageLabel(page) || page}</span>
+          </p>
+        )}
         <div className="lab-kinds" role="group" aria-label="Kind">
           {(["change", "plan", "note"] as LabKind[]).map((k) => (
             <button

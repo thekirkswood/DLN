@@ -7,6 +7,7 @@ import { GroundSwitch } from "@/components/GroundSwitch";
 export function Footer() {
   const path = usePathname() || "";
   if (path.startsWith("/suggest")) return null;
+  if (path === "/work") return null;
   if (/^\/lab\/[^/]+/.test(path) && !path.includes("/admin")) return null;
   return (
     <footer className="site-footer wrap">
@@ -15,7 +16,7 @@ export function Footer() {
         <nav>
           <a href="mailto:build@designlabnorth.com">build@designlabnorth.com</a>
           <Link href="/practice">Practice</Link>
-          <Link href="/method">Method</Link>
+          <Link href="/method">Methodology</Link>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
         </nav>

@@ -1,0 +1,25 @@
+[Unit]
+Description=Design Lab North home tunnel (Debian campus → VPS :13010)
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Environment=AUTOSSH_GATETIME=0
+Environment=AUTOSSH_PORT=0
+ExecStart=/usr/bin/autossh -M 0 -N \
+  -o ServerAliveInterval=20 \
+  -o ServerAliveCountMax=3 \
+  -o ExitOnForwardFailure=yes \
+  -o StrictHostKeyChecking=yes \
+  -o IdentitiesOnly=yes \
+  -o UserKnownHostsFile=/home/main/DLN/_meta/secrets/dln-home.known_hosts \
+  -i /home/main/DLN/_meta/secrets/dln-home \
+  -R 127.0.0.1:13010:127.0.0.1:3010 \
+  dln-home@82.165.5.84
+Restart=always
+RestartSec=8
+
+[Install]
+WantedBy=default.target

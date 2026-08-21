@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/session";
-import { allPlots, clientPlots, enterUrlFor, statusLabel } from "@/lib/plots";
-import { canAccessPlot, isStudio, listClients } from "@/lib/auth";
-import { invoicesVisibleTo, rollDueInvoices, titlesAccessFor, liveCatalogue, getPayRail, paymentByInvoice, railIsReady, listRolls, getOnlineRail } from "@/lib/billing";
+import { clientPlots, enterUrlFor, statusLabel } from "@/lib/plots";
+import { canAccessPlot, isStudio } from "@/lib/auth";
+import { invoicesVisibleTo, rollDueInvoices, titlesAccessFor, getPayRail, paymentByInvoice, railIsReady } from "@/lib/billing";
 import { ProfileForm } from "@/components/AccountBilling";
-import { CommentBox, InvoiceList, StudioDesk } from "@/components/StudioDesk";
+import { CommentBox, InvoiceList } from "@/components/StudioDesk";
 import { isLocalHandle } from "@/lib/handles";
-import { listEnquiries } from "@/lib/enquiries";
 import { commentsFor, plansFor } from "@/lib/plans";
 import { labHostFromHeaders } from "@/lib/lab";
 import { bookingsForUser } from "@/lib/diary";
@@ -25,22 +24,14 @@ export default async function AccountPage() {
   await rollDueInvoices();
   const studio = isStudio(user);
   const lab = labHostFromHeaders();
-  const plots = await allPlots();
   const allClientPlots = await clientPlots();
   const sites = allClientPlots.filter((p) => canAccessPlot(user, p.slug));
   const invoices = await invoicesVisibleTo(user);
-  const people = studio ? await listClients() : [];
   const titles = studio ? null : await titlesAccessFor(user);
-  const enquiries = studio ? await listEnquiries() : [];
   const comments = await commentsFor(user);
   const plans = await plansFor(user);
   const claims = await paymentByInvoice();
-  const catalogue = studio ? await liveCatalogue() : [];
   const rail = await getPayRail();
-  const rolls = studio ? await listRolls() : [];
-  const online = studio
-    ? await getOnlineRail()
-    : { provider: "none" as const, autoHost: true, note: "" };
   const sittings = studio ? [] : await bookingsForUser(user.id);
   const receipts = studio ? [] : await receiptsVisibleTo(user);
   const settings = await getSettings();
@@ -70,21 +61,11 @@ export default async function AccountPage() {
       ) : null}
 
       {studio && !lab ? (
-        <StudioDesk
-          people={people}
-          plots={plots}
-          enquiries={enquiries}
-          invoices={invoices}
-          comments={comments}
-          plans={plans}
-          lab={lab}
-          catalogue={catalogue}
-          rail={rail}
-          claims={claims}
-          rolls={rolls}
-          online={online}
-          settings={settings}
-        />
+        <p className="body bill-note">
+          The studio book lives at home, not on this public host.{" "}
+          <Link href="/lab">Open campus</Link> — this host only talks back to
+          the house. Client pages stay here.
+        </p>
       ) : null}
 
       {!studio ? (

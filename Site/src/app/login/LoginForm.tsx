@@ -2,7 +2,6 @@
 
 import { FormEvent, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { isLabHost } from "@/lib/lab-host";
 
 export default function LoginForm() {
   const search = useSearchParams();
@@ -52,6 +51,10 @@ export default function LoginForm() {
         );
       } else if (data?.reason === "hub_locked") {
         setError("That account doesn’t sign in on this host.");
+      } else if (data?.reason === "home_unreachable") {
+        setError(
+          "The house is not answering. Studio sign-in on the public site talks home — try the campus on the LAN, or wait a moment.",
+        );
       } else {
         setError("That sign-in didn’t match.");
       }
@@ -59,21 +62,16 @@ export default function LoginForm() {
     }
     const role = data?.user?.role;
     const studio = role === "owner" || role === "studio";
-    const onLab = isLabHost(window.location.host);
     if (nextParam) {
       const dest = safeNext(nextParam);
-      if (
-        studio &&
-        onLab &&
-        (dest === "/account" || dest.startsWith("/account/"))
-      ) {
+      if (studio && (dest === "/account" || dest.startsWith("/account/"))) {
         window.location.href = "/lab";
         return;
       }
       window.location.href = dest;
       return;
     }
-    window.location.href = studio && onLab ? "/lab" : "/account";
+    window.location.href = studio ? "/lab" : "/account";
   }
 
   return (
@@ -95,9 +93,9 @@ export default function LoginForm() {
         {pending ? "…" : "Enter"}
       </button>
       <p className="note">
-        Your login opens the sites on your account and the billing book. On this
-        studio PC — including from Dave’s machine on the LAN — studio opens the
-        lab.
+        Your login opens the sites on your account and the billing book. Studio
+        opens campus at home — on this LAN, or through the public host talking
+        back to the house.
       </p>
     </form>
   );

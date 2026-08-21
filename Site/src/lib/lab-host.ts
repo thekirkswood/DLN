@@ -37,6 +37,7 @@ export function isLabHost(host?: string | null): boolean {
   const h = hostnameOf(host);
   if (!h) return false;
   if (h === "localhost" || h === "0.0.0.0") return true;
+  if (h === "campus.dln.home") return true;
   if (h.endsWith(".local")) return true;
   if (ipv4Private(h)) return true;
   if (ipv6LoopbackOrPrivate(h)) return true;

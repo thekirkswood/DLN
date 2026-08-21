@@ -34,9 +34,9 @@ export function OnboardDesk({
     <div className="onboard-desk">
       <p className="body bill-note">
         Each form fill on Design, Strategy, or Build lands here as its own
-        card. Check what they wrote — you will have spoken to them — then make
-        the login. A new house is a folder on disk. Open that folder in Cursor
-        yourselves; this desk cannot start that chat.
+        card. The login is the email they wrote us. Check the card — you will
+        have spoken to them — then send the account confirmation. The password
+        is in that mail, not before.
       </p>
       {open.length === 0 ? (
         <p className="body">Nobody in onboarding.</p>
@@ -96,7 +96,7 @@ function OnboardCard({
   const [notes, setNotes] = useState(
     enquiry ? [enquiry.needLabel, enquiry.message].filter(Boolean).join("\n") : "",
   );
-  const [usePersonal, setUsePersonal] = useState(false);
+  const [usePersonal, setUsePersonal] = useState(true);
   const [picked, setPicked] = useState<string[]>([]);
   const [houseName, setHouseName] = useState(enquiry?.name || "");
 
@@ -283,10 +283,10 @@ function OnboardCard({
         <label className="check">
           <input
             type="checkbox"
-            checked={usePersonal}
-            onChange={(e) => setUsePersonal(e.target.checked)}
+            checked={!usePersonal}
+            onChange={(e) => setUsePersonal(!e.target.checked)}
           />
-          Use their mailbox as the login
+          Use an internal @designlabnorth.local handle instead
         </label>
         <p className="body bill-note">Login will be {previewLogin}.</p>
         {plots.length ? (
@@ -313,7 +313,7 @@ function OnboardCard({
           <p className="body">No client plots yet — they can still go on the book.</p>
         )}
         <button type="submit" disabled={Boolean(pending)}>
-          {pending === "login" ? "…" : "Make their login"}
+          {pending === "login" ? "…" : "Confirm account and send login"}
         </button>
       </form>
       {lab ? (
@@ -353,8 +353,8 @@ function OnboardCard({
             <>
               <p className="body">
                 {cred.mailed
-                  ? `Sent to ${cred.personalEmail}. Copy is here if you need it.`
-                  : `Mail didn’t send (no SMTP). Send this to ${cred.personalEmail || "them"} yourselves.`}
+                  ? `Confirmation sent to ${cred.personalEmail}. Copy is here if you need it.`
+                  : `Mail didn’t send (no SMTP). Send this confirmation to ${cred.personalEmail || "them"} yourselves.`}
               </p>
               <p>
                 <strong>Login</strong> {cred.email}

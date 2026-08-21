@@ -13,7 +13,7 @@ Load with the rest of holy memory. Twin facts: [`audit-campus.md`](audit-campus.
 | Tower (2070 Super) | Ewan’s **primary Cursor**. Working copy. `localhost:3010` only (not on the LAN). GPU stays here. |
 | Gaming laptop (3060) | Ewan’s **secondary Cursor** — processing. Same account. Can run closed (lid/inhibit) with Cursor still working. Working copy or Remote SSH into Debian. |
 | Dave’s PC | Dave’s Cursor. Same git path. Not in Ewan’s round-robin. |
-| Public VPS | Internet plots. Unchanged. |
+| Public VPS | Internet plots + DLN **user** pages. Studio desk is not stored here; it talks home. |
 
 The three disks (tower SSD, downstairs NVMe + 1TB, 3060) **backup each other** because every real change is a push to the centre, then a pull. Push: `ops/sync-to-debian.sh`. Pull: `ops/pull-from-debian.sh`. They are not three live writers on one file. Extra 1TB if fitted is more of the same store, not a second live writer.
 
