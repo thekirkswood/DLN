@@ -1,43 +1,64 @@
-import Link from "next/link";
-import { EnquireForm, OfferJump } from "@/components/HomeOffer";
-import { enterUrlFor, plotBySlug } from "@/lib/plots";
-import { labHostFromHeaders, labStationPath } from "@/lib/lab";
+import { EnquireForm } from "@/components/HomeOffer";
 
-export const metadata = { title: "Strategy" };
+export const metadata = { title: "Consultancy and Strategy" };
 
-export default async function StrategyPage() {
-  const titles = await plotBySlug("various-titles");
-  const lab = labHostFromHeaders();
-  const here =
-    lab && titles?.lab?.housePath ? labStationPath("various-titles") : null;
-  const live = titles ? enterUrlFor(titles) : null;
+const THROUGH = [
+  {
+    name: "Consultancy Sessions",
+    text: "Structured one-to-one or group sessions addressing critical issues, rapid brainstorming, initial research analytics and discovery, robust reviewing and critiquing, and strategic planning.",
+  },
+  {
+    name: "Audits & Reviews",
+    text: "Comprehensive evaluation of existing brand systems, design touchpoints, and technical setups to find operational gaps.",
+  },
+  {
+    name: "Direct Feedback & Planning",
+    text: "Clear, straight-talking analysis and structured roadmaps to define project momentum, resources, and budgets.",
+  },
+  {
+    name: "Strategy & Blueprints",
+    text: "Building the foundational architecture for your business positioning, market direction, and workflow systems.",
+  },
+  {
+    name: "Workshops & Symposiums",
+    text: "Immersive, collaborative sessions designed to educate internal teams, break down complex digital challenges, and spark critical decision-making.",
+  },
+] as const;
 
+export default function StrategyPage() {
   return (
     <article className="stage-page wrap">
       <p className="kicker">Strategy</p>
-      <h1 className="page-title">How the identity carries forward.</h1>
-      <p className="lede">
-        Brand strategy and marketing strategy. A one-year plan, a three-year
-        plan. Sit down about growth. Come in here if this is what you need
-        now — Design and Build sit beside it.
-      </p>
-      <OfferJump current="strategy" />
-      <h2>Various Titles</h2>
+      <h1 className="page-title">Consultancy and Strategy</h1>
       <p className="body">
-        A place for ideas: marketing and branding, written plainly. Sit down,
-        and take the pages that belong with that conversation. Enter when you
-        want them.
+        We consult across your entire brand real estate, engineering cohesive
+        systems where every thought, physical asset, and digital deployment
+        works in total alignment.
       </p>
       <p className="body">
-        {here ? (
-          <Link href={here}>Enter Various Titles</Link>
-        ) : live ? (
-          <a href={live}>Enter Various Titles</a>
-        ) : null}
-        {here || live ? " · " : null}
-        <Link href="/greenhouse/various-titles">The greenhouse story</Link>.
+        Whether you need a holistic transformation or targeted support for an
+        isolated challenge, we work flexibly across both the whole and the
+        constituent parts of your organisation. We can diagnose, structure, and
+        advance your project through:
       </p>
-      <EnquireForm facet="strategy" />
+      <ul className="strategy-through">
+        {THROUGH.map((item) => (
+          <li key={item.name}>
+            <strong>{item.name}</strong>
+            {" — "}
+            {item.text}
+          </li>
+        ))}
+      </ul>
+      <h2 className="section-head">Let’s Establish Your Scope</h2>
+      <p className="body">
+        You do not need to have a finalised project brief to reach out. An
+        initial, direct conversation via email is all it takes to map out your
+        current situation and establish precisely what you need. From that
+        first touchpoint, we will help define whether your business requires a
+        deep, full-project strategy or a rapid, specialist intervention.
+      </p>
+      <EnquireForm facet="strategy" open />
     </article>
   );
 }

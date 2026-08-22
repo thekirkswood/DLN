@@ -531,3 +531,78 @@
 {"t":"2026-08-21T23:20:00+01:00","k":"mod","p":"auth.ts login OnboardDesk account Header Caddy compose","s":"Public studio talks home; client /account stays; email confirm","d":"Anne Marie plot book untouched"}
 {"t":"2026-08-21T23:20:00+01:00","k":"mod","p":"WORKSTREAM.md identity.md compass.md ops/vps.md","s":"Live hub pages; tunnel; confirmation mail","d":"ewan 2026-08-21"}
 {"t":"2026-08-21T23:24:00+01:00","k":"ver","p":"dln-2","s":"Public user pages live; home tunnel; email accounts after audit","d":"ewan put us live"}
+{"t":"2026-08-22T08:02:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Strategy title Consultancy and Strategy; Dave consultancy body","d":"Dave 8a9195a4 1d429be6"}
+{"t":"2026-08-22T08:02:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"/strategy is Consultancy and Strategy then Various Titles","d":"Dave strategy notes"}
+{"t":"2026-08-22T08:02:00+01:00","k":"mod","p":"strategy/page.tsx globals.css","s":"Dave strategy body; title Consultancy and Strategy","d":"campus notes 8a9195a4 1d429be6"}
+{"t":"2026-08-22T08:04:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Offer fold is Contact, not Tell us","d":"Dave fdb44952"}
+{"t":"2026-08-22T08:04:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Design/Strategy/Build fold labelled Contact","d":"Dave fdb44952"}
+{"t":"2026-08-22T08:04:00+01:00","k":"mod","p":"HomeOffer.tsx","s":"summary Tell us → Contact","d":"Dave /strategy fdb44952"}
+{"t":"2026-08-22T08:06:00+01:00","k":"mod","p":"needs.ts DIRECTIONS.md","s":"titles-learn label is conversation opener / short message","d":"Dave fbffabb1"}
+{"t":"2026-08-22T08:11:00+01:00","k":"mod","p":"needs.ts DIRECTIONS.md","s":"Strategy Contact dropdown is Dave’s eight openers","d":"Dave 19169433"}
+{"t":"2026-08-22T08:13:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"No Design/Strategy/Build jump under Strategy scope","d":"Dave 52b335fa"}
+{"t":"2026-08-22T08:13:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Strategy page has no offer jump","d":"Dave 52b335fa"}
+{"t":"2026-08-22T08:13:00+01:00","k":"mod","p":"strategy/page.tsx","s":"Removed OfferJump under Let’s Establish Your Scope","d":"Dave 52b335fa"}
+{"t":"2026-08-22T08:14:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Strategy offer page has no Various Titles section","d":"Dave f935a3b0"}
+{"t":"2026-08-22T08:14:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"VT off /strategy; Contact stays","d":"Dave f935a3b0"}
+{"t":"2026-08-22T08:14:00+01:00","k":"mod","p":"strategy/page.tsx","s":"Removed Various Titles block","d":"Dave f935a3b0"}
+{"t":"2026-08-22T08:18:00+01:00","k":"mod","p":"strategy/page.tsx DIRECTIONS.md","s":"Consultancy Sessions first in the through-list","d":"Dave fa7c71d1"}
+{"t":"2026-08-22T08:19:00+01:00","k":"mod","p":"needs.ts DIRECTIONS.md","s":"Contact dropdown starts with Consultancy Session","d":"Dave c10e1d3e"}
+{"t":"2026-08-22T08:24:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Strategy Contact is open; no fold; no repeating need line","d":"Dave 36fd1224"}
+{"t":"2026-08-22T08:24:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Strategy form open on the page; Design/Build still fold","d":"Dave 36fd1224"}
+{"t":"2026-08-22T08:24:00+01:00","k":"mod","p":"HomeOffer.tsx strategy/page.tsx","s":"EnquireForm open prop; Strategy skips Contact summary","d":"Dave 36fd1224"}
+{"t":"2026-08-22T08:24:30+01:00","k":"mod","p":"globals.css","s":"Open Strategy form has the same top measure as the fold","d":"Dave 36fd1224 space"}
+{"t":"2026-08-22T08:35:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"/design matches /strategy shape; open Contact","d":"Dave 3d9fd10b"}
+{"t":"2026-08-22T08:35:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Design page: Dave copy, through-list, open form, six openers","d":"Dave 3d9fd10b"}
+{"t":"2026-08-22T08:35:00+01:00","k":"mod","p":"design/page.tsx needs.ts","s":"Design body + open Contact dropdown","d":"Dave 3d9fd10b"}
+{"t":"2026-08-22T08:37:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"/build is Websites Pipeline; open Contact","d":"Dave 3ceecfa6"}
+{"t":"2026-08-22T08:37:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Build page: pipeline copy, five deliverable openers","d":"Dave 3ceecfa6"}
+{"t":"2026-08-22T08:37:00+01:00","k":"mod","p":"build/page.tsx needs.ts","s":"Websites Pipeline body + open Contact","d":"Dave 3ceecfa6"}
+{"t":"2026-08-22T08:51:00+01:00","k":"mod","p":"needs.ts DIRECTIONS.md","s":"Build Contact dropdown is Dave’s six technical openers","d":"Dave bcbe29c9"}
+{"t":"2026-08-22T08:52:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"/build title Website Builds and hosting; same shape as Strategy","d":"Dave e8e14696 bfd890ca"}
+{"t":"2026-08-22T08:52:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Build title and body from Dave","d":"Dave e8e14696 bfd890ca"}
+{"t":"2026-08-22T08:52:00+01:00","k":"mod","p":"build/page.tsx","s":"Title Website Builds and hosting; Dave through-list and scope","d":"Dave /build notes"}
+{"t":"2026-08-22T09:24:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home Design/Lab/North and offer columns are concertinas","d":"Dave cdceae6d"}
+{"t":"2026-08-22T09:24:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home concertina: arrows; offer headings toggle lists","d":"Dave cdceae6d"}
+{"t":"2026-08-22T09:24:00+01:00","k":"mod","p":"HomeIntro.tsx HomeOffer.tsx globals.css","s":"Independent concertinas; type sizes unchanged","d":"Dave home style guides"}
+{"t":"2026-08-22T09:30:00+01:00","k":"mod","p":"globals.css DIRECTIONS.md","s":"Home concertina: top and bottom keylines only","d":"Dave 1d105246"}
+{"t":"2026-08-22T09:32:00+01:00","k":"mod","p":"globals.css BLUEPRINT.md DIRECTIONS.md","s":"Home offer words: light grey at rest, black hover/open","d":"Dave 25fbb2e4"}
+{"t":"2026-08-22T09:36:00+01:00","k":"mod","p":"globals.css BLUEPRINT.md DIRECTIONS.md","s":"Home concertina: tight title-like leading between Design Lab North","d":"Dave e3ca29f0"}
+{"t":"2026-08-22T09:47:00+01:00","k":"mod","p":"globals.css BLUEPRINT.md DIRECTIONS.md","s":"Concertina: mid-grey keylines; arrows light at rest, mid open/hover","d":"Dave 41236e22"}
+{"t":"2026-08-22T09:52:00+01:00","k":"mod","p":"globals.css BLUEPRINT.md DIRECTIONS.md","s":"Concertina keylines hairline and very light","d":"Dave 2d59246d"}
+{"t":"2026-08-22T09:52:00+01:00","k":"mod","p":"globals.css BLUEPRINT.md DIRECTIONS.md","s":"Equal gap title→concertina and concertina→offer columns","d":"Dave 5137df5f"}
+{"t":"2026-08-22T09:56:00+01:00","k":"mod","p":"globals.css BLUEPRINT.md DIRECTIONS.md","s":"Home mobile offer pager: dots not slider rules","d":"Dave 88e5fa41"}
+{"t":"2026-08-22T13:51:00+01:00","k":"add","p":"page.tsx public/home/dln-home.gif globals.css BLUEPRINT.md DIRECTIONS.md","s":"Home: Dave looping gif full width under intro","d":"Dave f0db2603"}
+{"t":"2026-08-22T13:53:00+01:00","k":"dir","p":"lab-inbox","s":"Dave confirmed home gif placement; already on /","d":"Dave 67a31566"}
+{"t":"2026-08-22T13:54:00+01:00","k":"mod","p":"page.tsx globals.css BLUEPRINT.md DIRECTIONS.md","s":"Home gif bleeds full screen width","d":"Dave 13f1afa1"}
+{"t":"2026-08-22T13:57:00+01:00","k":"mod","p":"public/home/dln-home.gif page.tsx globals.css BLUEPRINT.md DIRECTIONS.md","s":"Home gif swapped; screen-width bleed like Work","d":"Dave fba79ee3"}
+{"t":"2026-08-22T14:30:00+01:00","k":"dir","p":"lab-inbox","s":"Dave asked how to go live; next ship is dln-3 when Ewan says so","d":"Dave 8fad46db"}
+{"t":"2026-08-22T14:35:00+01:00","k":"mod","p":"page.tsx globals.css BLUEPRINT.md DIRECTIONS.md","s":"Home: offers under copy, gif under all copy","d":"Dave 4717f2c3"}
+{"t":"2026-08-22T14:36:00+01:00","k":"dir","p":"lab-inbox","s":"Dave: gig meant gif; placement already done","d":"Dave 7c6e2574"}
+{"t":"2026-08-22T15:03:00+01:00","k":"dir","p":"lab-inbox","s":"Dave asked to repeat last night’s live ship (dln-3); waiting on Ewan","d":"Dave a4b55418"}
+{"t":"2026-08-22T15:26:00+01:00","k":"bp","p":"Footer.tsx GroundSwitch.tsx globals.css BLUEPRINT.md DIRECTIONS.md","s":"Site footer: who left, BKND centre, legal block right","d":"Dave dd83ce8c"}
+{"t":"2026-08-22T16:15:00+01:00","k":"mod","p":"MethodGraphics.tsx DIRECTIONS.md","s":"Methodology pipeline: Prep and Plan (was Lectures & lab)","d":"Dave 1f13b3ff"}
+{"t":"2026-08-22T16:17:00+01:00","k":"mod","p":"MethodGraphics.tsx DIRECTIONS.md","s":"Sandbox line under: Strategize and Play","d":"Dave cb60445f"}
+{"t":"2026-08-22T16:18:00+01:00","k":"mod","p":"MethodGraphics.tsx DIRECTIONS.md","s":"Pipeline: Greenhouse Workstation","d":"Dave ed96863e"}
+{"t":"2026-08-22T16:18:00+01:00","k":"mod","p":"MethodGraphics.tsx DIRECTIONS.md","s":"Diagnostic loop line under: Test, Roll-Out and Governance","d":"Dave ee07bb47"}
+{"t":"2026-08-22T16:20:00+01:00","k":"mod","p":"method/page.tsx DIRECTIONS.md","s":"Campus pipeline intro: Dave 8-stage framework line","d":"Dave 176385ac"}
+{"t":"2026-08-22T16:22:00+01:00","k":"del","p":"method/page.tsx BLUEPRINT.md DIRECTIONS.md","s":"Removed Peers/not turf and same-method-at-every-scale pair","d":"Dave fbd6f2e6"}
+{"t":"2026-08-22T16:28:00+01:00","k":"add","p":"CampusEngine.tsx method/page.tsx globals.css BLUEPRINT.md DIRECTIONS.md","s":"Methodology: 8-stage campus engine concertina","d":"Dave feccb1ec"}
+{"t":"2026-08-22T16:30:00+01:00","k":"mod","p":"CampusEngine.tsx DIRECTIONS.md","s":"8-stage engine opens on all eight to match Dave’s plate","d":"Dave 2f104710"}
+{"t":"2026-08-22T16:31:00+01:00","k":"del","p":"method/page.tsx BLUEPRINT.md DIRECTIONS.md","s":"Removed Various Titles close from Methodology","d":"Dave 92cd8f00"}
+{"t":"2026-08-22T16:42:00+01:00","k":"add","p":"ProjectFlows.tsx method/page.tsx globals.css BLUEPRINT.md DIRECTIONS.md","s":"Methodology: Consultancy/Design/Websites LTR project flows under pipeline","d":"Dave 66a2aad7"}
+{"t":"2026-08-22T16:42:00+01:00","k":"mod","p":"CampusEngine.tsx BLUEPRINT.md DIRECTIONS.md","s":"8-stage engine concertina closed on load","d":"Dave 41744a92"}
+{"t":"2026-08-22T16:42:00+01:00","k":"mod","p":"MethodGraphics.tsx method/page.tsx BLUEPRINT.md DIRECTIONS.md","s":"Quality filter fourth screen: Environmental","d":"Dave 68915656"}
+{"t":"2026-08-22T16:42:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Methodology: four-screen filter, closed engine, three project flows","d":"Dave method plates"}
+{"t":"2026-08-22T16:42:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Project flows + closed concertina + Environmental filter","d":"Dave campus notes"}
+{"t":"2026-08-22T16:50:00+01:00","k":"mod","p":"MethodGraphics.tsx globals.css DIRECTIONS.md","s":"Pipeline arrow loops a tight rectangle; Diagnostic Loop capital L","d":"Dave b29e0449"}
+{"t":"2026-08-22T16:50:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pipeline arrow: out, 90 down, return, 90 up, not reverse on same path","d":"Dave b29e0449"}
+{"t":"2026-08-22T16:52:00+01:00","k":"mod","p":"ProjectFlows.tsx globals.css BLUEPRINT.md DIRECTIONS.md","s":"Method: Consultancy/Design/Websites fold; one pipeline at a time","d":"Dave 869b7f7a"}
+{"t":"2026-08-22T16:52:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Project flows hidden behind three light-grey words like home offers","d":"Dave 869b7f7a"}
+{"t":"2026-08-22T16:52:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Methodology project flows start closed; exclusive word fold","d":"Dave 869b7f7a"}
+{"t":"2026-08-22T16:56:00+01:00","k":"mod","p":"MethodGraphics.tsx globals.css DIRECTIONS.md","s":"Pipeline loop track spans the full width of the four rooms","d":"Dave 18cab385"}
+{"t":"2026-08-22T16:58:00+01:00","k":"mod","p":"ProjectFlows.tsx BLUEPRINT.md DIRECTIONS.md","s":"Method project flows close when clicking off the three words","d":"Dave 1581a45c"}
+{"t":"2026-08-22T21:20:00+01:00","k":"mod","p":"HomeHero.tsx page.tsx globals.css","s":"Home gif leftover strip matches current slide colour; footer stays Paper","d":"Ewan home gap"}
+{"t":"2026-08-22T21:20:00+01:00","k":"mod","p":"HomeOffer.tsx globals.css BLUEPRINT.md DIRECTIONS.md","s":"Home Strategy/Design/Websites always open, centred on the 42rem measure","d":"Ewan home offers"}
+{"t":"2026-08-22T21:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home offers stay open; gif wash fills leftover above footer","d":"Ewan home"}
+{"t":"2026-08-22T21:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home offers not fold buttons; leftover gif strip matches slide","d":"Ewan home"}
+{"t":"2026-08-22T21:24:00+01:00","k":"ver","p":"dln-3","s":"Public hub: home gif wash, open offers, methodology flows; accounts and plots stay","d":"ewan put us live"}

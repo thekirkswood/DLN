@@ -73,6 +73,9 @@ export function GroundSwitch() {
   return (
     <>
       <div className="ground-switch" role="group" aria-label="Site background">
+        <span className="ground-bknd" aria-hidden="true">
+          BKND
+        </span>
         {GROUNDS.map((g) => (
           <button
             key={g.id}

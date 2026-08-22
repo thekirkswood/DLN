@@ -26,28 +26,34 @@ const FILTERS = [
     hint: "Light cells",
     copy: "Light infrastructure. Less waste on the wire, on the server, in the air.",
   },
+  {
+    id: "environmental",
+    name: "Environmental",
+    hint: "Closed loop",
+    copy: "Zero waste, recycling, and respect for the natural world.",
+  },
 ] as const;
 
 const STAGES = [
   {
     id: "lectures",
-    name: "Lectures & lab",
+    name: "Prep and Plan",
     copy: "We start at once. High-intensity workshops that put identity and business logic under pressure.",
   },
   {
     id: "sandbox",
     name: "Sandbox",
-    copy: "A closed loop. Ideas get stress-tested with peers before anything goes live.",
+    copy: "Strategize and Play",
   },
   {
     id: "greenhouse",
-    name: "Greenhouse",
+    name: "Greenhouse Workstation",
     copy: "Grown in a live host through our 8-Phase Process, while you watch and write in.",
   },
   {
     id: "loop",
-    name: "Diagnostic loop",
-    copy: "Hosting is a relationship, not a server bill. We can hot-swap without breaking live trade.",
+    name: "Diagnostic Loop",
+    copy: "Test, Roll-Out and Governance",
   },
 ] as const;
 
@@ -118,7 +124,7 @@ export function QualityFilter() {
       <div
         className="method-figure filter-figure"
         role="img"
-        aria-label="Work dropping through three value screens: commercial, human, and societal"
+        aria-label="Work dropping through four value screens: commercial, human, societal, and environmental"
       >
         <p className="filter-cap">The work</p>
         <div className="filter-stack" ref={stackRef}>
@@ -148,7 +154,7 @@ export function QualityFilter() {
         </div>
         <p className="filter-cap is-out">It holds</p>
       </div>
-      <ul className="method-facets">
+      <ul className="method-facets is-filters">
         {FILTERS.map((row) => (
           <li
             key={row.id}
@@ -164,14 +170,29 @@ export function QualityFilter() {
   );
 }
 
+type Rail = "top" | "right" | "bottom" | "left";
+type Play = { rail: Rail; i: number; rot: number };
+
+function nextPlay(cur: Play): Play {
+  if (cur.rail === "top") {
+    if (cur.i < STAGES.length - 1) return { ...cur, i: cur.i + 1 };
+    return { rail: "right", i: STAGES.length - 1, rot: cur.rot + 90 };
+  }
+  if (cur.rail === "right") {
+    return { rail: "bottom", i: STAGES.length - 1, rot: cur.rot + 90 };
+  }
+  if (cur.rail === "bottom") {
+    if (cur.i > 0) return { ...cur, i: cur.i - 1 };
+    return { rail: "left", i: 0, rot: cur.rot + 90 };
+  }
+  return { rail: "top", i: 0, rot: cur.rot + 90 };
+}
+
 export function CampusPipeline() {
   const reduce = usePrefersReducedMotion();
   const canHover = useCanHover();
   const { held, grab, release } = useGrab<StageId>(canHover);
-  const [play, setPlay] = useState<{ i: number; dir: "fwd" | "back" }>({
-    i: 0,
-    dir: "fwd",
-  });
+  const [play, setPlay] = useState<Play>({ rail: "top", i: 0, rot: 0 });
   const stackRef = useRef<HTMLDivElement>(null);
   const tokenRef = useRef<HTMLSpanElement>(null);
   const btnRefs = useRef<Partial<Record<StageId, HTMLButtonElement | null>>>({});
@@ -179,24 +200,21 @@ export function CampusPipeline() {
   useEffect(() => {
     if (held) {
       const idx = STAGES.findIndex((row) => row.id === held);
-      if (idx >= 0) setPlay({ i: idx, dir: "fwd" });
+      if (idx >= 0) {
+        setPlay((cur) => ({
+          rail: "top",
+          i: idx,
+          rot: Math.round(cur.rot / 360) * 360,
+        }));
+      }
     }
   }, [held]);
 
   useEffect(() => {
     if (held || reduce) return;
-    const zipping = play.dir === "back" && play.i > 0;
-    const ms = zipping ? PIPE_ZIP : PIPE_WALK;
-    const t = window.setTimeout(() => {
-      setPlay((cur) => {
-        if (cur.dir === "fwd") {
-          if (cur.i < STAGES.length - 1) return { i: cur.i + 1, dir: "fwd" };
-          return { i: STAGES.length - 2, dir: "back" };
-        }
-        if (cur.i > 0) return { i: cur.i - 1, dir: "back" };
-        return { i: 1, dir: "fwd" };
-      });
-    }, ms);
+    const corner = play.rail === "right" || play.rail === "left";
+    const ms = corner ? PIPE_ZIP : PIPE_WALK;
+    const t = window.setTimeout(() => setPlay(nextPlay), ms);
     return () => window.clearTimeout(t);
   }, [held, reduce, play]);
 
@@ -204,7 +222,9 @@ export function CampusPipeline() {
     ? Math.max(0, STAGES.findIndex((row) => row.id === held))
     : play.i;
   const on = STAGES[shown].id;
-  const back = !held && play.dir === "back";
+  const rail = held ? "top" : play.rail;
+  const rot = held ? Math.round(play.rot / 360) * 360 : play.rot;
+  const zip = !held && (play.rail === "right" || play.rail === "left");
 
   useLayoutEffect(() => {
     const token = tokenRef.current;
@@ -232,7 +252,7 @@ export function CampusPipeline() {
         role="list"
         aria-label="Four campus rooms, then a return into the lab"
       >
-        <span className={`pipe-vtoken${back ? " is-zip" : ""}`} ref={tokenRef} aria-hidden />
+        <span className={`pipe-vtoken${zip ? " is-zip" : ""}`} ref={tokenRef} aria-hidden />
         {STAGES.map((row, i) => (
           <div key={row.id} className="pipe-cell" role="listitem">
             {i > 0 ? <span className="pipe-join" aria-hidden /> : null}
@@ -255,10 +275,10 @@ export function CampusPipeline() {
           </div>
         ))}
       </div>
-      <p className="pipe-return">
-        <LoopTrack index={shown} back={back} />
-        Back into the lab when it needs us
-      </p>
+      <div className="pipe-return">
+        <LoopTrack rail={rail} index={shown} rot={rot} zip={zip} />
+        <p>Back into the lab when it needs us</p>
+      </div>
       <ul className="method-facets is-four">
         {STAGES.map((row) => (
           <li
@@ -275,15 +295,34 @@ export function CampusPipeline() {
   );
 }
 
-function LoopTrack({ index, back }: { index: number; back: boolean }) {
-  const pct = index / (STAGES.length - 1);
+function LoopTrack({
+  rail,
+  index,
+  rot,
+  zip,
+}: {
+  rail: Rail;
+  index: number;
+  rot: number;
+  zip: boolean;
+}) {
+  const x =
+    rail === "right" ? 1 : rail === "left" ? 0 : index / (STAGES.length - 1);
+  const y = rail === "top" || rail === "left" ? 0 : 1;
 
   return (
-    <span className={`pipe-track${back ? " is-zip" : ""}`}>
-      <span className="pipe-track-line" aria-hidden />
+    <span className={zip ? "pipe-loop is-zip" : "pipe-loop"}>
+      <span className="pipe-loop-top" aria-hidden />
+      <span className="pipe-loop-right" aria-hidden />
+      <span className="pipe-loop-bottom" aria-hidden />
+      <span className="pipe-loop-left" aria-hidden />
       <span
-        className={`pipe-rider${back ? " is-back" : ""}`}
-        style={{ left: `calc(0.55rem + (100% - 1.1rem) * ${pct})` }}
+        className="pipe-rider"
+        style={{
+          left: `calc(0.4rem + (100% - 0.8rem) * ${x})`,
+          top: y === 0 ? "0.18rem" : "calc(100% - 0.18rem)",
+          transform: `translate(-50%, -50%) rotate(${rot}deg)`,
+        }}
         aria-hidden
       />
     </span>
@@ -367,6 +406,21 @@ function Mesh({ kind }: { kind: FilterId }) {
       </svg>
     );
   }
+  if (kind === "societal") {
+    return (
+      <svg className="filter-mesh" viewBox="0 0 160 36" aria-hidden>
+        <path
+          d="M10 4h140l6 6v16l-6 6H10l-6-6V10z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+        {Array.from({ length: 12 }, (_, i) => (
+          <rect key={i} x={16 + i * 11} y={13} width="7" height="10" fill="currentColor" />
+        ))}
+      </svg>
+    );
+  }
   return (
     <svg className="filter-mesh" viewBox="0 0 160 36" aria-hidden>
       <path
@@ -375,9 +429,13 @@ function Mesh({ kind }: { kind: FilterId }) {
         stroke="currentColor"
         strokeWidth="1.6"
       />
-      {Array.from({ length: 12 }, (_, i) => (
-        <rect key={i} x={16 + i * 11} y={13} width="7" height="10" fill="currentColor" />
-      ))}
+      <path
+        d="M38 18h28l6-6 10 12 10-12 6 6h28"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path d="M28 14l10 4-10 4v-2.4h-8v-3.2h8zM132 22l-10-4 10-4v2.4h8v3.2h-8z" fill="currentColor" />
     </svg>
   );
 }

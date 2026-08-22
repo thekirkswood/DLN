@@ -45,16 +45,40 @@ export const OFFERS: FacetOffer[] = [
     href: "/design",
     needs: [
       {
-        id: "identity-ground",
+        id: "design-assets-logo",
         facet: "design",
         label:
-          "I have an idea. I need an identity from the ground. Name, mark, and the system around it.",
+          "I need individual assets or a new core logo mark engineered for our brand.",
       },
       {
-        id: "identity-refresh",
+        id: "design-print",
         facet: "design",
         label:
-          "I have something already. I need it refreshed. Fresh ideas for the identity, without throwing away what still holds.",
+          "We need comprehensive design for print (stationery, literature, or signage layouts).",
+      },
+      {
+        id: "design-packaging",
+        facet: "design",
+        label:
+          "We require high-end, three-dimensional packaging and tactile unboxing design.",
+      },
+      {
+        id: "design-multi-platform",
+        facet: "design",
+        label:
+          "Our brand requires a scalable multi-platform design system to bridge print and screen.",
+      },
+      {
+        id: "design-guidelines",
+        facet: "design",
+        label:
+          "We need an audit or update of our existing master identity guidelines and brand protocols.",
+      },
+      {
+        id: "design-none-above",
+        facet: "design",
+        label:
+          "None of the above (Tell us your specific design challenge in the box below).",
       },
     ],
   },
@@ -76,22 +100,58 @@ export const OFFERS: FacetOffer[] = [
     homeCta: "Contact our consultants",
     needs: [
       {
-        id: "counsel-growth",
+        id: "consultancy-session",
         facet: "strategy",
         label:
-          "I need to sit down about bringing in more business. Brand strategy, marketing strategy.",
+          "I need a Consultancy Session (one-to-one or group session for brainstorming, research analytics, critiquing, or planning).",
       },
       {
-        id: "long-plan",
+        id: "startup-blueprint",
         facet: "strategy",
         label:
-          "I have an identity. I need it carried into a one-year or three-year plan the work can follow.",
+          "I am a startup needing a complete brand identity and strategy blueprint.",
       },
       {
-        id: "titles-learn",
+        id: "identity-outdated",
         facet: "strategy",
         label:
-          "I want to learn. Marketing fundamentals and branding, through Various Titles.",
+          "We are established, but our visual identity and logo look outdated.",
+      },
+      {
+        id: "print-packaging-scale",
+        facet: "strategy",
+        label:
+          "Our print and packaging layouts do not match our digital scale.",
+      },
+      {
+        id: "ecommerce-outgrown",
+        facet: "strategy",
+        label:
+          "We are outgrowing our e-commerce engine and need a robust shopping site.",
+      },
+      {
+        id: "business-site-dashboard",
+        facet: "strategy",
+        label:
+          "We need a high-performance business website with a clean backend dashboard.",
+      },
+      {
+        id: "infra-audit",
+        facet: "strategy",
+        label:
+          "Our global digital infrastructure requires an audit for security and hosting.",
+      },
+      {
+        id: "workshop-review",
+        facet: "strategy",
+        label:
+          "We need an independent review or strategy workshop for our team.",
+      },
+      {
+        id: "none-above",
+        facet: "strategy",
+        label:
+          "None of the above (Tell us your specific challenge in the box below).",
       },
     ],
   },
@@ -114,22 +174,40 @@ export const OFFERS: FacetOffer[] = [
     ],
     needs: [
       {
-        id: "site-ground",
+        id: "web-ecommerce",
         facet: "build",
         label:
-          "I have an idea. I need it built from the ground through to a working site.",
+          "We need a high-performance e-commerce shopping website engineered for our brand.",
       },
       {
-        id: "site-rebuild",
+        id: "web-corporate",
         facet: "build",
         label:
-          "I like the name and the mark. I need the site rebuilt so it can carry them.",
+          "We require a robust corporate business website with a clean backend dashboard.",
       },
       {
-        id: "live-host",
+        id: "web-portfolio",
         facet: "build",
         label:
-          "I need a live host while we build. I leave notes, you come in, the site changes.",
+          "We want a premium portfolio website built to showcase our creative projects.",
+      },
+      {
+        id: "web-infra-audit",
+        facet: "build",
+        label:
+          "Our existing digital infrastructure requires an audit for technical security or hosting updates.",
+      },
+      {
+        id: "web-api-dashboard",
+        facet: "build",
+        label:
+          "We have a complex API or custom data dashboard integration problem that needs resolving.",
+      },
+      {
+        id: "web-none-above",
+        facet: "build",
+        label:
+          "None of the above (Tell us your specific technical challenge in the box below).",
       },
     ],
   },

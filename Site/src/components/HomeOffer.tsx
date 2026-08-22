@@ -46,9 +46,7 @@ export function HomeOffer() {
           const cta = offer.homeCta || `Contact ${title}`;
           return (
             <div key={offer.id} className="offer-col">
-              <h2>
-                <Link href={offer.href}>{title}</Link>
-              </h2>
+              <h2>{title}</h2>
               {offer.points?.length ? (
                 <ul className="offer-list">
                   {offer.points.map((line) => (
@@ -103,10 +101,13 @@ export function EnquireForm({
   need,
   facet,
   onClear,
+  open,
 }: {
   need?: Need;
   facet?: Facet;
   onClear?: () => void;
+  /** Skip the Contact fold and the repeating need line. */
+  open?: boolean;
 }) {
   const pool = useMemo(() => {
     if (need) return [need];
@@ -167,11 +168,11 @@ export function EnquireForm({
     );
   }
 
-  return (
-    <details className="enquire-fold" id="enquire">
-      <summary>Tell us</summary>
+  const fields = (
       <form className="enquire" onSubmit={onSubmit}>
-        <p className="body bill-note">{active.label}</p>
+        {open ? null : (
+          <p className="body bill-note">{active.label}</p>
+        )}
         {!need ? (
           <>
             <label htmlFor="need">What you need</label>
@@ -256,6 +257,20 @@ export function EnquireForm({
         </div>
         {error ? <p className="err">{error}</p> : null}
       </form>
+  );
+
+  if (open) {
+    return (
+      <div className="enquire-open" id="enquire">
+        {fields}
+      </div>
+    );
+  }
+
+  return (
+    <details className="enquire-fold" id="enquire">
+      <summary>Contact</summary>
+      {fields}
     </details>
   );
 }

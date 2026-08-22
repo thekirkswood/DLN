@@ -518,7 +518,7 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 ## 2026-08-20 — method: filter and pipeline as diagrams
 
 - `/method` stays Dave’s facts (three values, four rooms, Various Titles). Direct, with enough pitch to sell. Do not put GBP on the public page.
-- Quality filter and campus pipeline each carry their own chamfered graphic. Idle: the filter token lights each sieve as it drops; the pipeline arrow walks 1→4 then zips the other way back to 1. Hover still takes over on a fine pointer. Play is slow enough to read.
+- Quality filter and campus pipeline each carry their own chamfered graphic. Idle: the filter token lights each sieve as it drops; the pipeline arrow walks 1→4 to the right-hand end of Diagnostic Loop, turns 90° down onto a tight lower path, returns left, turns 90° up under Prep and Plan, then 90° onto the top path again. Hover still takes over on a fine pointer. Play is slow enough to read.
 - Phone and coarse pointer: own formation. Rooms stack, a token runs the left rail, compressed copy sits under each tile and lights with it. Same idle cycle. Tap holds a room briefly then the cycle continues. Do not rely on hover. Desktop facets stay as they are.
 - Method animation plates (filter screens, pipeline rooms) are square corners. Chamfer stays on the rest of the site.
 - “Peers, not turf”: underline **not**. Same size as the rest of the heading.
@@ -588,6 +588,30 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - Accounts keep working across a ship. **Anne Marie first:** her live ModYu book on `modyu.designlabnorth.com` is untouched. Do not rsync `_meta/accounts`, do not rebuild `plot-modyu`. Public hub still refuses the campus puppet.
 - Studio sign-in on the public host authenticates against the **at-home book** (Ed25519 ticket). Remote work and LAN campus are the same Debian files, one writer per house.
 - Client logins are the emails written to us. After studio have audited the enquiry, send a confirmation of account — the password is in that mail. Internal `.local` handles are the exception.
+
+## 2026-08-22 — Websites Pipeline (Dave)
+
+- `/build` title is **Website Builds and hosting**. Body is Dave’s build copy (e-commerce through ironclad hosting) then Let’s Establish Your Scope and open Contact. Dropdown is Dave’s six technical openers. Home still says Websites. Path stays `/build`.
+
+## 2026-08-22 — Design page matches Strategy (Dave)
+
+- `/design` uses the same shape as `/strategy`: Dave’s Design copy, through-list (assets & logos through master identity guidelines), Let’s Establish Your Scope, open Contact with his six design openers. No OfferJump.
+
+## 2026-08-22 — Strategy page (Dave)
+
+- `/strategy` title is **Consultancy and Strategy**. Body is Dave’s Consultancy & Strategy copy (Consultancy Sessions, audits, feedback, blueprints, workshops) then **Let’s Establish Your Scope** and Contact. No Various Titles section. No Design / Strategy / Build jump. Design, Strategy and Websites Contact are open on the page (no fold, no repeating need line). Strategy Contact dropdown starts with Consultancy Session, then Dave’s eight openers (startup blueprint through none of the above).
+
+## 2026-08-22 — home concertina (Dave)
+
+- Home Design / Lab / North is a three-step concertina. Triangle right to open, up to close. Light grey at rest, mid grey when open and on hover. Each step independent; stays open until closed. Top and bottom keylines only, hairline and very light — no rules between Design, Lab and North. Leading between the three lines is tight, like the title (line-height 1.1, not padded as separate rows). Gap from the title block to the concertina equals the gap from the lower keyline to Strategy / Design / Websites. Strategy / Design / Websites stay open: ink titles, not fold buttons, lists and Contact always shown. Same 42rem measure as North, centred at every width — three columns when they fit, one swipeable column (dots, not slider rules) when they cannot. Dave’s looping gif sits the full width of the screen (same bleed as Work) under all the copy. Any leftover strip above the footer takes the current slide colour; the footer stays Paper.
+
+## 2026-08-22 — footer (Dave)
+
+- Across the site (not Work): Design Lab North and build@designlabnorth.com ranged left. BKND and the ground circles centred — BKND smaller and bold. Methodology, Privacy, Terms as a left-ranged block lined up with the right-hand end of the measure. Initial capitals; email lowercase. No Practice in the footer.
+
+## 2026-08-22 — Methodology label (Dave)
+
+- Campus pipeline first room is **Prep and Plan** (was Lectures & lab). Sandbox stays Sandbox in the graphic; the line under it is **Strategize and Play**. Greenhouse graphic and subheading are **Greenhouse Workstation**. **Diagnostic Loop** stays on the graphic; the line under it is **Test, Roll-Out and Governance**. The arrow under the four rooms loops the full width of the graphic: out to the right-hand end of Diagnostic Loop, 90° down, tight return path, 90° up under Prep and Plan, 90° onto the top path. Intro under The campus pipeline is Dave’s 8-stage framework line. No Peers / not turf pair, and no The same method at every scale. Under that intro: **The 8-Stage Campus Engine** concertina (same fold as home, Dave’s plate). Stage 1–8 titles bold; revealed line medium beneath. Default is closed; each can open. Heading bold. No Various Titles section on Methodology. Under the 4-room pipeline: Consultancy / Design / Websites as three light-grey words (same as home Strategy / Design / Websites). On load only the words show; click one to reveal that left-to-right flow; choosing another word closes the last; a click off the words (or Escape) closes all three back to words only. Eight vertical stage blocks in pairs. Orange markers are outputs (not a fourth brand colour in chrome). Quality filter has a fourth screen: Environmental (zero waste, recycling, respect for the natural world).
 
 
 

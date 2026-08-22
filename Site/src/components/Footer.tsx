@@ -11,17 +11,18 @@ export function Footer() {
   if (/^\/lab\/[^/]+/.test(path) && !path.includes("/admin")) return null;
   return (
     <footer className="site-footer wrap">
-      <span>Design Lab North</span>
-      <div className="footer-end">
-        <nav>
-          <a href="mailto:build@designlabnorth.com">build@designlabnorth.com</a>
-          <Link href="/practice">Practice</Link>
-          <Link href="/method">Methodology</Link>
-          <Link href="/privacy">Privacy</Link>
-          <Link href="/terms">Terms</Link>
-        </nav>
+      <div className="footer-who">
+        <p>Design Lab North</p>
+        <a href="mailto:build@designlabnorth.com">build@designlabnorth.com</a>
+      </div>
+      <div className="footer-ground">
         <GroundSwitch />
       </div>
+      <nav className="footer-legal" aria-label="Legal">
+        <Link href="/method">Methodology</Link>
+        <Link href="/privacy">Privacy</Link>
+        <Link href="/terms">Terms</Link>
+      </nav>
     </footer>
   );
 }
