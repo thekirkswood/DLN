@@ -28,6 +28,19 @@
     reverse_proxy plot-modyu:3000
   }
 
+  @pfp_static {
+    host paulfosbury.designlabnorth.com
+    path /assets* /_next/static*
+  }
+  handle @pfp_static {
+    reverse_proxy plot-pfp:3000
+  }
+
+  @pfp host paulfosbury.designlabnorth.com
+  handle @pfp {
+    reverse_proxy plot-pfp:3000
+  }
+
   @swarm_static {
     host swarmfund.designlabnorth.com
     path /assets*
@@ -88,11 +101,11 @@
 }
 
 # HTTP stays up even while certificates obtain.
-http://designlabnorth.com, http://www.designlabnorth.com, http://modyu.designlabnorth.com, http://swarmfund.designlabnorth.com, http://daa.designlabnorth.com {
+http://designlabnorth.com, http://www.designlabnorth.com, http://modyu.designlabnorth.com, http://swarmfund.designlabnorth.com, http://daa.designlabnorth.com, http://paulfosbury.designlabnorth.com {
   import edge
 }
 
-designlabnorth.com, www.designlabnorth.com, modyu.designlabnorth.com, swarmfund.designlabnorth.com, daa.designlabnorth.com {
+designlabnorth.com, www.designlabnorth.com, modyu.designlabnorth.com, swarmfund.designlabnorth.com, daa.designlabnorth.com, paulfosbury.designlabnorth.com {
   tls {
     issuer acme {
       disable_tlsalpn_challenge
@@ -123,6 +136,30 @@ varioustitles.com, www.varioustitles.com {
     redir https://varioustitles.com{uri} permanent
   }
   reverse_proxy plot-titles:3000
+}
+
+# Paul Fosbury Portraits — own domain on this VPS. Ungated parking wall. Subdomain stays on the hub cert.
+http://paulfosburyportraits.com, http://www.paulfosburyportraits.com {
+  encode gzip
+  @www host www.paulfosburyportraits.com
+  handle @www {
+    redir http://paulfosburyportraits.com{uri} permanent
+  }
+  reverse_proxy plot-pfp:3000
+}
+
+paulfosburyportraits.com, www.paulfosburyportraits.com {
+  tls {
+    issuer acme {
+      disable_tlsalpn_challenge
+    }
+  }
+  encode gzip
+  @www host www.paulfosburyportraits.com
+  handle @www {
+    redir https://paulfosburyportraits.com{uri} permanent
+  }
+  reverse_proxy plot-pfp:3000
 }
 
 # Swarm Fund public apex — ungated (app Building lock). Greenhouse copy stays on subdomain with forward_auth.

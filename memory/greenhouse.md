@@ -19,7 +19,19 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Logos: `Site/public/plots/modyu.svg` (paper) + `modyu-white.svg` (ink)
 - Source: GitHub `thekirkswood/modyu` · VPS `/srv/dln/plots/modyu` · Docker plot `plot-modyu`
 - Offline lab: `/home/main/ModYu` · local `:3000` · inbox `_meta/designer-inbox` · framed at `localhost:3010/lab/modyu`. On Debian the live tree is `/srv/clients/ModYu` (symlink at `/home/main/ModYu`).
-- Access: DLN client **record** bound to `modyu` for billing and live suggestions. Anne Marie: `modyu@designlabnorth.com` — **offline puppet** on campus (sign in on lab hosts to see a client account). Do not mail a login. Public hub locked. Live ModYu book stays `modyu.designlabnorth.com` (`modyu_session`, other password). Studio/owner always. Client sites stay off the greenhouse.
+- Access: DLN client **record** bound to `modyu` for billing and live suggestions. Anne Marie: `annmarie.barlow@modyu.com` — **live client** on designlabnorth.com (plot `modyu`). Same account usable on campus for testing — not locked to localhost. Live ModYu book stays `modyu.designlabnorth.com` (`modyu_session`, other password). Studio/owner always. Client sites stay off the greenhouse.
+
+### Paul Fosbury Portraits (`pfp`)
+
+- Party: client. `public`: false.
+- Live: `https://paulfosburyportraits.com` (own domain, ungated). Same plot as the growing copy.
+- Host: `paulfosbury.designlabnorth.com`
+- Kind: rebuild. Status: rebuilding.
+- Voice: Design Lab North are rebuilding Paul Fosbury Portraits.
+- Public wall: Design Lab North mark and the word Building. Not his own mark on the parking page.
+- Source: GitHub `thekirkswood/PFP` · VPS `/srv/dln/plots/pfp` · Docker plot `plot-pfp`
+- Offline lab: `/home/main/PFP` · local `:3030` · inbox `_meta/lab-inbox` · framed at `localhost:3010/lab/pfp`.
+- Access: DLN client record bound to `pfp`. Client sites stay off the greenhouse.
 
 ## Studio plots
 

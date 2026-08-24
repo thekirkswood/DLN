@@ -5,7 +5,7 @@
 # Campus (dln): browser notes live downstairs. This PC's localhost inbox is separate.
 #   ops/sniff-inbox.sh
 # Units:
-#   ops/sniff-inbox.sh modyu | various-titles | swarm
+#   ops/sniff-inbox.sh modyu | various-titles | swarm | pfp
 set -u
 HOUSE="${1:-dln}"
 ROOT="${DLN_ROOT:-/home/main/DLN}"
@@ -21,6 +21,7 @@ case "$HOUSE" in
   modyu) INBOX="/home/main/ModYu/_meta/designer-inbox/wake.flag" ;;
   various-titles) INBOX="/home/main/VariousTitles/_meta/lab-inbox/wake.flag" ;;
   swarm) INBOX="/home/main/SwarmFund/_meta/lab-inbox/wake.flag" ;;
+  pfp) INBOX="/home/main/PFP/_meta/lab-inbox/wake.flag" ;;
   *)
     echo "unknown house: $HOUSE" >&2
     exit 1

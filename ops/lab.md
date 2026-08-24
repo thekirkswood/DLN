@@ -56,12 +56,13 @@ When `wake.flag` changes in that house’s inbox, the Cursor chat **for that fol
 5. One failure does not block the rest
 6. Do not auto-deploy to the VPS
 
-Campus sniff: `ops/sniff-inbox.sh` watches downstairs `http://192.168.0.223:3010` (Mac, phones, LAN). After a stamp, pull the host onto this disk (`ops/pull-from-debian.sh`). `localhost:3010` is the working copy. Unit chats: `ops/sniff-inbox.sh modyu` / `various-titles` / `swarm`.
+Campus sniff: `ops/sniff-inbox.sh` watches downstairs `http://192.168.0.223:3010` (Mac, phones, LAN). After a stamp, pull the host onto this disk (`ops/pull-from-debian.sh`). `localhost:3010` is the working copy. Unit chats: `ops/sniff-inbox.sh modyu` / `various-titles` / `swarm` / `pfp`.
 
 Design Lab North hub: `/home/main/DLN/_meta/lab-inbox/`
 ModYu: `/home/main/ModYu/_meta/designer-inbox/`
 Various Titles: `/home/main/VariousTitles/_meta/lab-inbox/`
 Swarm: `/home/main/SwarmFund/_meta/lab-inbox/`
+Paul Fosbury Portraits: `/home/main/PFP/_meta/lab-inbox/`
 New stations: `{house}/_meta/lab-inbox/`
 
 When two of Ewan’s Cursor seats are already answering (tower and 3060 laptop, both SSH’d into Debian), the **next** jobs cycle between them. Head of the queue and high weight+tokens stay on the tower. See `memory/compass.md`. Dave’s Cursor is his own seat.

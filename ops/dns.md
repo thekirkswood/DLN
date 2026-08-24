@@ -19,9 +19,19 @@ Then **A records** in the Livedns panel (not nameserver rows, not IONOS DNS):
 | `modyu` | A | `82.165.5.84` |
 | `swarmfund` | A | `82.165.5.84` |
 | `daa` | A | `82.165.5.84` |
+| `paulfosbury` | A | `82.165.5.84` |
 | `*` (wildcard) | A | `82.165.5.84` |
 
 Plot hosts are **A records**. They are not nameservers.
+
+`paulfosburyportraits.com` (Livedns, same nameservers):
+
+| Host | Type | Value |
+|---|---|---|
+| `@` | A | `82.165.5.84` |
+| `www` | A | `82.165.5.84` |
+
+Leave MX / SPF / Livemail alone. No AAAA until we have IPv6 on this VPS.
 
 No AAAA until we have IPv6.
 

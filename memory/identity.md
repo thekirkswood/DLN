@@ -42,7 +42,8 @@ Do not paste their full sites into DLN. Greenhouse click goes to the product dom
 
 ## Clients
 
-- **ModYu** — first client plot. Rebuild / facelift. GitHub `thekirkswood/modyu`. Host: `https://modyu.designlabnorth.com`. Greenhouse uses their logo. Anne Marie’s live ModYu book stays on `modyu.designlabnorth.com`. On this campus she is an **offline puppet** (`modyu@designlabnorth.com`, `puppet: true`): sign in on lab hosts to see a client account before deployment. Do not mail or regenerate that login. Public hub stays locked for the puppet.
+- **ModYu** — first client plot. Rebuild / facelift. GitHub `thekirkswood/modyu`. Host: `https://modyu.designlabnorth.com`. Greenhouse uses their logo. Anne Marie’s live ModYu book stays on `modyu.designlabnorth.com`. She signs into **designlabnorth.com** as a normal client (`annmarie.barlow@modyu.com`, plot `modyu`). The same account works on localhost for studio testing — not a campus-only lock.
+- **Paul Fosbury Portraits** — client plot. Rebuild. GitHub `thekirkswood/PFP`. Live: `https://paulfosburyportraits.com`. Growing copy: `https://paulfosbury.designlabnorth.com`. Public wall is the Design Lab North mark and Building. Client login is bound to plot `pfp`.
 - **DAA** — possible future client. Host name `daa.designlabnorth.com` is reserved and redirects to the hub. Do not list in the greenhouse until Ewan says they are a client.
 - More clients are the point of the hub. Add a plot file when Ewan names one. Do not invent clients.
 

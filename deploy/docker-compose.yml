@@ -23,6 +23,7 @@ services:
       - plot-modyu
       - plot-swarm
       - plot-titles
+      - plot-pfp
 
   # Answers DNS only while the registrar NS are the plot hosts.
   # Also needs IONOS Cloud Panel: allow 53/tcp and 53/udp. UFW alone is not enough.
@@ -123,6 +124,20 @@ services:
       VT_PUBLIC_URL: ${TITLES_PUBLIC_URL:-https://varioustitles.com}
       VT_COOKIE_DOMAIN: ${TITLES_COOKIE_DOMAIN:-}
       VT_COOKIE_SECURE: ${TITLES_COOKIE_SECURE:-true}
+    expose:
+      - "3000"
+
+  plot-pfp:
+    build:
+      context: ${PFP_DIR:-/srv/dln/plots/pfp}
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    labels:
+      dln.plot: pfp
+    environment:
+      DLN_ORIGIN: ${PFP_DLN_ORIGIN:-http://web:3000}
+      DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-https://designlabnorth.com}
+      PFP_PUBLIC_URL: ${PFP_PUBLIC_URL:-https://paulfosburyportraits.com}
     expose:
       - "3000"
 

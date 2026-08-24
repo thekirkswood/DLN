@@ -42,7 +42,7 @@ When `_meta/lab-inbox/wake.flag` changes, open `_meta/lab-inbox/messages.json`. 
 
 While someone is signed in on the browser campus, keep `ops/sniff-inbox.sh` running. Do not stamp another unit’s pending queue.
 
-`/lab/modyu/admin` and comments inside ModYu write `/home/main/ModYu/_meta/designer-inbox/` — that is the ModYu Cursor, not this chat. `/lab/various-titles/admin` writes `/home/main/VariousTitles/_meta/lab-inbox/`. `/lab/swarm/admin` writes `/home/main/SwarmFund/_meta/lab-inbox/`. Load that unit’s Cursor to sniff; leave it until you log off that instance, or until processing finishes. The unit **app** only runs while someone is in that unit (and stays up if a job is still `working`); the inbox still listens when the app is asleep.
+`/lab/modyu/admin` and comments inside ModYu write `/home/main/ModYu/_meta/designer-inbox/` — that is the ModYu Cursor, not this chat. `/lab/various-titles/admin` writes `/home/main/VariousTitles/_meta/lab-inbox/`. `/lab/swarm/admin` writes `/home/main/SwarmFund/_meta/lab-inbox/`. `/lab/pfp/admin` writes `/home/main/PFP/_meta/lab-inbox/`. Load that unit’s Cursor to sniff; leave it until you log off that instance, or until processing finishes. The unit **app** only runs while someone is in that unit (and stays up if a job is still `working`); the inbox still listens when the app is asleep.
 
 
 

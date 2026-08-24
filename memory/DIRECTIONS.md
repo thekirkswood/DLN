@@ -504,13 +504,15 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - Ping payment — they enter details in the online system. No manual invoice section on Pay. Bank rail remains in Settings as spare. Draft / issue APIs stay.
 - Charge rows keep the Settings Charge £ plate. Tap still fills the invoice. Do not let the 20px desk-button chrome restyle `.charge-item`. Screenshot Pay beside Settings when this UI moves.
 
-## 2026-08-20 — Anne Marie is an offline puppet
+## 2026-08-24 — Anne Marie real mailbox (live client)
 
-- Credential snow was so we could see a client account before deployment. Keep that path: `modyu@designlabnorth.com` signs into **campus / localhost** only (`puppet: true`).
-- Do not mail, display, or regenerate that login every time. Public hub stays locked for the puppet. Live ModYu book is still hers, separate password.
-- Accessible again: password stays in `SEED.txt` / `sheets/anne-marie-modyu.txt` / `/home/main/_meta/ops-secrets.env`. Login on `localhost:3010` works; public hub returns `campus_only`. Sheet no longer claims public hub login.
-- This Cursor owns `thekirkswood/DLN` only. Campus vital LTM lives at `/home/main/_meta/LTM-vital.md`, repo map `/home/main/_meta/github-repos.md`, PAT path `/home/main/_meta/github-ops.env` (never echo). Push with `/home/main/_meta/bin/gh-push.sh DLN main`.
+- Login email is `annmarie.barlow@modyu.com` on both DLN (live client) and ModYu staff. Former `modyu@designlabnorth.com` absorbed on seed. Passwords unchanged / separate per door.
+- She is **not** a campus-only puppet. Public `designlabnorth.com` must accept her client login. Studio may use the same account on localhost for testing — same functional book, no lock.
+- Cleared `puppet` / `hubLogin:false` on her record. Seed now refuses to re-puppet her mailbox.
 
+## 2026-08-20 — (superseded) Anne Marie is an offline puppet
+
+- Earlier “credential snow / puppet” edit locked public hub login. That was wrong for a paying client. See 2026-08-24 above.
 ## 2026-08-20 — numbered site iterations
 
 - Every GitHub upload of a site is a new integer. DLN: `memory/ITERATION`, log `memory/iterations.jsonl`, git tag `dln-{n}`. Other houses use `{slug}-{n}` in their own repo. So a version can be seen, logged, and rolled back. Do not ship unnumbered. First DLN number is **1**.
@@ -612,6 +614,14 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 ## 2026-08-22 — Methodology label (Dave)
 
 - Campus pipeline first room is **Prep and Plan** (was Lectures & lab). Sandbox stays Sandbox in the graphic; the line under it is **Strategize and Play**. Greenhouse graphic and subheading are **Greenhouse Workstation**. **Diagnostic Loop** stays on the graphic; the line under it is **Test, Roll-Out and Governance**. The arrow under the four rooms loops the full width of the graphic: out to the right-hand end of Diagnostic Loop, 90° down, tight return path, 90° up under Prep and Plan, 90° onto the top path. Intro under The campus pipeline is Dave’s 8-stage framework line. No Peers / not turf pair, and no The same method at every scale. Under that intro: **The 8-Stage Campus Engine** concertina (same fold as home, Dave’s plate). Stage 1–8 titles bold; revealed line medium beneath. Default is closed; each can open. Heading bold. No Various Titles section on Methodology. Under the 4-room pipeline: Consultancy / Design / Websites as three light-grey words (same as home Strategy / Design / Websites). On load only the words show; click one to reveal that left-to-right flow; choosing another word closes the last; a click off the words (or Escape) closes all three back to words only. Eight vertical stage blocks in pairs. Orange markers are outputs (not a fourth brand colour in chrome). Quality filter has a fourth screen: Environmental (zero waste, recycling, respect for the natural world).
+
+## 2026-08-24 — Paul Fosbury Portraits
+
+- Second named client. House `/home/main/PFP`. Plot `pfp`. GitHub `thekirkswood/PFP`.
+- Own domain `paulfosburyportraits.com` and growing copy `paulfosbury.designlabnorth.com` both serve `plot-pfp`. Ungated. Public wall is the Design Lab North mark and Building.
+- Client account bound to `pfp`. Login is the email he wrote us; password on the desk until mail goes. Leave Livemail MX alone when flipping A records.
+- Livedns NS already ours. Flip A `@`/`www` to `82.165.5.84`. Remove AAAA until this VPS has IPv6.
+
 
 
 

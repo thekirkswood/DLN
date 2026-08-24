@@ -606,3 +606,6 @@
 {"t":"2026-08-22T21:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home offers stay open; gif wash fills leftover above footer","d":"Ewan home"}
 {"t":"2026-08-22T21:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home offers not fold buttons; leftover gif strip matches slide","d":"Ewan home"}
 {"t":"2026-08-22T21:24:00+01:00","k":"ver","p":"dln-3","s":"Public hub: home gif wash, open offers, methodology flows; accounts and plots stay","d":"ewan put us live"}
+{"t":"2026-08-24T14:05:00+01:00","k":"add","p":"greenhouse/plots.json plot-pfp Caddy compose","s":"Client plot pfp: paulfosburyportraits.com + paulfosbury.designlabnorth.com","d":"ewan: new client Paul Fosbury"}
+{"t":"2026-08-24T14:05:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse.md identity.md","s":"Second client plot; live domain and DLN sub share plot-pfp parking wall","d":"ewan: own space with a sub"}
+{"t":"2026-08-24T14:05:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"PFP parking: DLN mark + Building; flip A to VPS; leave Livemail MX","d":"standing"}

@@ -37,6 +37,8 @@ We want more **client** plots. Do not invent studio names or clients. Do not put
 | `/not-yours` | cookie | Blanket: not yours. Home after 3 seconds. |
 | `/preview/[slug]` | cookie | Redirects to the live plot URL if one exists. |
 | `modyu.designlabnorth.com` | public + ModYu cookie | Self-contained plot (`plot-modyu`). Own accounts (`modyu_session`). Same logins as local `:3000`. Not behind DLN `forward_auth` — that gate blocked ModYu’s own login. Suggestion box in the footer (text only, not a live editor). Swarm growing copy stays gated. |
+| `paulfosbury.designlabnorth.com` | public | Paul Fosbury Portraits growing copy (`plot-pfp`). Ungated parking wall: Design Lab North mark and Building. Same plot as the live domain. |
+| `paulfosburyportraits.com` | public | Client live host. Ungated. www redirects to apex. Same container as the DLN subdomain. |
 | `swarmfund.designlabnorth.com` | cookie | Growing Swarm plot on this VPS. Public enter is `https://swarmfund.com`. |
 | `daa.designlabnorth.com` | public | Reserved. Redirects to the hub. |
 | `varioustitles.com` | public: building. Studio: DLN session copied onto this host | Resource centre (`plot-titles`). Not behind `forward_auth`. Enter bounce: `/api/auth/titles-enter`. www redirects to apex. |
@@ -59,7 +61,7 @@ We want more **client** plots. Do not invent studio names or clients. Do not put
 - Public studio sign-in **talks home**: VPS asks Debian over the house tunnel (`ops/home-tunnel.md`). Home checks the password against the at-home book and issues an Ed25519 ticket. VPS verifies the ticket with the public key. `/lab` `/admin` `/go` `/api/lab` on `designlabnorth.com` are Caddy-proxied to campus after `GET /api/auth/studio-gate`. Remote work and LAN work are the same Debian files; lease still one writer per house.
 - Copyable login sheets live in gitignored `_meta/accounts/sheets/` (Dave’s computer only for his; Ewan’s master has both studio pairs, live and local). Never put the passwords in this file.
 - **Blanket:** those two logins are studio access on every plot host and subdomain login. Client books on live sites (ModYu patients/clinics, and so on) stay theirs. Hub endpoints: `GET /api/auth/studio`, `POST /api/auth/studio-verify`, `GET /api/auth/studio-gate`. Plots ask the hub; they do not copy passwords.
-- ModYu ops: Anne Marie is a **client record** on this book (`modyu@designlabnorth.com`, plot `modyu` only) and an **offline puppet** (`puppet: true`). Sign in on campus / localhost to see a client account. Do not mail or regenerate that login. Public `designlabnorth.com` still refuses the puppet. The same email is her ModYu admin on the live host; **separate password**. Keep that live book working across hub ships. The old seed `modyu@designlabnorth.local` is obsolete and absorbed. Rotation at launches / key events is later.
+- ModYu ops: Anne Marie is a **client record** on this book (`annmarie.barlow@modyu.com`, plot `modyu` only) and an **offline puppet** (`puppet: true`). Sign in on campus / localhost to see a client account. Do not mail or regenerate that login. Public `designlabnorth.com` still refuses the puppet. The same email is her ModYu admin on the live host; **separate password**. Keep that live book working across hub ships. The old seed `modyu@designlabnorth.local` is obsolete and absorbed. Rotation at launches / key events is later.
 - Client accounts: the email they wrote us is the login. Studio audits the enquiry, then sends a confirmation of account with the password in that mail. An internal `@designlabnorth.local` handle is the exception, not the default. Do not mail puppets.
 - Roles: `owner` (all), `studio` (all), `client` (listed `plots[]` only).
 - Various Titles: DLN customers log in with their Design Lab North address. Billing stays on this book. They must be a paying VT customer (a paid `titlesGrant` line). Bank-account link is the next rail. People who only want VT still get a DLN account and are billed here.
@@ -102,8 +104,8 @@ Do not live-edit hosted plots on every save. Offline staging is the point.
 |---|---|
 | Studio site | Next.js 14 App Router, TypeScript, `Site/` (local `:3010`) |
 | Edge | Caddy. HTTPS live (`Caddyfile.prod`). Plot `/assets` and `/_next/static` skip the gate. Watchdog keeps HTTP up. |
-| Plots | One compose service per **hosted** plot. ModYu at `modyu.designlabnorth.com`. Swarm growing copy at `swarmfund.designlabnorth.com`. Various Titles at `varioustitles.com` (`plot-titles`). |
-| Local | Campus on `:3010` (`ops/campus.service` until Debian). Unit apps start on occupancy with lab prefix (ModYu `:3000`, VT `:3020`, Swarm `:5173` + api `:8787`) and sleep at zero. Occupancy leases live in `_meta/lab-houses/leases.json` (not only in the Next process). The frame proxy also rewrites `/api/` onto `/go/{slug}`. HTML push downstairs (`ops/push-campus-downstairs.sh`) must not overwrite `_meta/accounts` — LAN sessions live on Debian. |
+| Plots | One compose service per **hosted** plot. ModYu at `modyu.designlabnorth.com`. Paul Fosbury Portraits at `paulfosbury.designlabnorth.com` and `paulfosburyportraits.com` (`plot-pfp`). Swarm growing copy at `swarmfund.designlabnorth.com`. Various Titles at `varioustitles.com` (`plot-titles`). |
+| Local | Campus on `:3010` (`ops/campus.service` until Debian). Unit apps start on occupancy with lab prefix (ModYu `:3000`, PFP `:3030`, VT `:3020`, Swarm `:5173` + api `:8787`) and sleep at zero. Occupancy leases live in `_meta/lab-houses/leases.json` (not only in the Next process). The frame proxy also rewrites `/api/` onto `/go/{slug}`. HTML push downstairs (`ops/push-campus-downstairs.sh`) must not overwrite `_meta/accounts` — LAN sessions live on Debian. |
 | VPS | Ubuntu 26, `/srv/dln`, Docker Engine + compose |
 | Source | This PC → GitHub `thekirkswood/DLN` (numbered iteration + tag `dln-{n}`) → VPS. Rsync excluding `.git`, `deploy/.env`, accounts, billing. Counter: `memory/ITERATION`. |
 | DNS | Livedns (`ns1.livedns.co.uk`). VPS is IONOS; DNS is not. |
@@ -135,6 +137,7 @@ ops/                    host facts, no secrets
   data/modyu-accounts/  ModYu app auth (separate)
   data/swarm/     Swarm Fund sqlite
   plots/modyu    ModYu source bind for image builds
+  plots/pfp      Paul Fosbury Portraits source bind (`plot-pfp`)
   plots/swarm    Swarm Fund source bind for image builds
   plots/various-titles  Various Titles source bind (`plot-titles`)
 ```
@@ -150,13 +153,13 @@ Host: `82.165.5.84` (IONOS). SSH key `~/.ssh/id_ed25519_dln`. Secrets never in g
 | Plot | One site (client or studio) — container + host when hosted |
 | Party | `client` or `studio` in `plots.json` |
 | Studio | Us. Cursor. This repo. Swarm, Choozlist, Various Titles. |
-| Client | ModYu now. More to come. |
+| Client | ModYu and Paul Fosbury Portraits now. More to come. |
 | Desk | Owner + studio: pick a person; current builds; bring on from an enquiry |
 | Live host | Growing copy on our subdomain. Notes in, we come in, they watch. |
 | Plan | Swept notes. Run offline. Upload when happy. Patch notes on ship. |
 | Various Titles | Resource centre. A life’s work, for people to learn. Sibling house, hosted at varioustitles.com on this VPS. DLN email is the login. Billed on this book. |
 | Campus | Hub on `:3010`. On this PC until Debian downstairs holds files+ports. Design Lab North. |
-| Unit | One house folder + its Cursor + its app while occupied (ModYu, Various Titles, Swarm, new stations). |
+| Unit | One house folder + its Cursor + its app while occupied (ModYu, PFP, Various Titles, Swarm, new stations). |
 | Compass | Which machine is home (Debian) and which GPU **seat** takes the next job. `memory/compass.md`. |
 | Seat | A live Cursor on tower (2070), laptop (3060), or Dave’s PC, SSH’d into Debian. |
 | Migrate | Client plot leaves onto their own server/URL. Same desk, different upload target. |

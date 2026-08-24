@@ -20,6 +20,24 @@
     }
   },
   {
+    "slug": "pfp",
+    "name": "Paul Fosbury Portraits",
+    "status": "rebuilding",
+    "kind": "rebuild",
+    "party": "client",
+    "hosts": ["paulfosbury.designlabnorth.com", "paulfosburyportraits.com"],
+    "enterUrl": "https://paulfosburyportraits.com",
+    "localPreview": "/lab/pfp",
+    "public": false,
+    "voice": "Design Lab North are rebuilding Paul Fosbury Portraits.",
+    "lab": {
+      "housePath": "/home/main/PFP",
+      "localPort": 3030,
+      "github": "thekirkswood/PFP",
+      "inboxRel": "_meta/lab-inbox"
+    }
+  },
+  {
     "slug": "various-titles",
     "name": "Various Titles",
     "status": "growing",
