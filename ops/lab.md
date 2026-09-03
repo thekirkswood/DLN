@@ -1,6 +1,6 @@
 # Local lab — one port
 
-User-facing **localhost** is **:3010** on this Cursor disk. Dave and phones use downstairs: `http://192.168.0.223:3010`. After campus HTML on this disk, push downstairs with `ops/push-campus-downstairs.sh` (rsync DLN + rebuild). That push leaves `_meta/accounts` and the live inbox on Debian — otherwise Dave’s LAN session is wiped. `ops/push-lab-inbox.sh` is the queue only. Live VPS stays as it is. `/lab` 404s on the public host.
+User-facing **localhost** is **:3010** on this Cursor disk (`npm run dev` — keep it current so changes show at once). Dave and phones use downstairs: `http://192.168.0.223:3010`. After campus HTML on this disk, push downstairs with `ops/push-campus-downstairs.sh` (rsync DLN + rebuild). Even a VPS post: local, then this push, then VPS — home stays exact. That push leaves `_meta/accounts` and the live inbox on Debian — otherwise Dave’s LAN session is wiped. `ops/push-lab-inbox.sh` is the queue only. Live VPS stays as it is. `/lab` 404s on the public host.
 
 ## What Dave and Ewan see
 
@@ -56,13 +56,15 @@ When `wake.flag` changes in that house’s inbox, the Cursor chat **for that fol
 5. One failure does not block the rest
 6. Do not auto-deploy to the VPS
 
-Campus sniff: `ops/sniff-inbox.sh` watches downstairs `http://192.168.0.223:3010` (Mac, phones, LAN). After a stamp, pull the host onto this disk (`ops/pull-from-debian.sh`). `localhost:3010` is the working copy. Unit chats: `ops/sniff-inbox.sh modyu` / `various-titles` / `swarm` / `pfp`.
+Campus sniff: `ops/sniff-inbox.sh` watches downstairs `http://192.168.0.223:3010` (Mac, phones, LAN). After a stamp, pull the host onto this disk (`ops/pull-from-debian.sh`). `localhost:3010` is the working copy. Unit chats: `ops/sniff-inbox.sh modyu` / `various-titles` / `swarm` / `pfp` / `dks` / `daa`. Each unit sniff **pulls** that house’s downstairs inbox (`ops/sync-unit-inbox.sh`) so Dave’s LAN Send is the queue, then wakes. Stamps push back. Do not stamp another unit from the campus chat.
 
 Design Lab North hub: `/home/main/DLN/_meta/lab-inbox/`
 ModYu: `/home/main/ModYu/_meta/designer-inbox/`
 Various Titles: `/home/main/VariousTitles/_meta/lab-inbox/`
 Swarm: `/home/main/SwarmFund/_meta/lab-inbox/`
 Paul Fosbury Portraits: `/home/main/PFP/_meta/lab-inbox/`
+Dave Kirkwood: `/home/main/DKS/_meta/lab-inbox/`
+Digital Adoption Advisor: `/home/main/DAA/_meta/lab-inbox/`
 New stations: `{house}/_meta/lab-inbox/`
 
 When two of Ewan’s Cursor seats are already answering (tower and 3060 laptop, both SSH’d into Debian), the **next** jobs cycle between them. Head of the queue and high weight+tokens stay on the tower. See `memory/compass.md`. Dave’s Cursor is his own seat.

@@ -90,6 +90,15 @@ export async function proxyLab(
 
   const inner = (parts || []).filter(Boolean).join("/");
   const base = labBasePath(slug);
+  if (
+    slug !== "modyu" &&
+    (inner === "admin" || inner.startsWith("admin/"))
+  ) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/lab/${slug}/admin`;
+    url.search = "";
+    return NextResponse.redirect(url);
+  }
   const destPath = inner
     ? `${base}/${inner}`
     : slug === "swarm"

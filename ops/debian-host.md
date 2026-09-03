@@ -6,11 +6,13 @@ Once ethernet is in, this is the quickest host in the house. Units **stay up** (
 
 Do not treat Fasthosts / `dln-vps` as this machine.
 
+From the tower (2070), Mullvad **local network sharing** must be **allow**. If it is **block**, ping/SSH to `.223` look like the laptop is dead (`Destination Port Unreachable`, `Operation not permitted`, connection refused). Check `mullvad lan get` before walking downstairs. MAC `40:c2:ba:78:6c:fb`. SSH `dln-campus` / `user@192.168.0.223` with `~/.ssh/id_ed25519_dln`.
+
 ## Role
 
 | Machine | Role |
 |---|---|
-| This Debian laptop (ethernet) | **Central host.** Studio houses on NVMe `/home/main`. Client houses on the 1TB `/srv/clients`. `:3010` and unit ports sit here. |
+| This Debian laptop (ethernet) | **Central host.** Houses on NVMe `/home/main` (studio and clients) while `/srv/clients` I/O-errors. `:3010` and unit ports sit here. |
 | Tower (2070 Super) | Primary Cursor. Working copy for speed. GPU. Need not host sites. |
 | Gaming laptop (3060) | Secondary Cursor / processing. Same git path. Can run closed. Honour [`ops/house-lease.md`](house-lease.md). |
 | Dave’s PC | Dave’s Cursor, same git. Not in Ewan’s cycle. |
@@ -48,7 +50,7 @@ A recoverable copy of **this PC’s** Choozlist tree (no `node_modules`) is at `
 | RAM | 16 GiB, ~15 GiB available at idle, load ~0 |
 | GPU | Intel Iris Xe only — no NVIDIA |
 | System disk | Samsung 512G NVMe. `/` is **23G** (16G free). `/home` is **441G** almost empty. |
-| Extra disk | 1TB Seagate `dln-clients` at `/srv/clients` (~916G). Old unmounted Ubuntu LVM wiped 2026-08-19. ModYu lives here; `/home/main/ModYu` is a symlink. |
+| Extra disk | 1TB Seagate `dln-clients` at `/srv/clients` (~916G). I/O-errors (2026-08-30, still). **Do not put houses there.** ModYu and DAA sit on the NVMe at `/home/main`. The old `/srv/clients/ModYu` tree is left as-is. |
 | NVMe | 512 MiB write ~1.3 GB/s; read ~7.3 GB/s |
 | CPU crypto | RSA-2048 ~1990 signs/s (fine for TLS and Node) |
 | Node / git / Docker / Caddy | **Not installed** (Apache is) |
@@ -83,7 +85,7 @@ Same sense as the VPS: working copy on the GPU PC → push → Debian pull → s
 
 ## Transfer 2026-08-19
 
-Studio houses on `/home/main/{DLN,VariousTitles,SwarmFund}` (NVMe). Client houses on `/srv/clients` (1TB); `/home/main/ModYu` → `/srv/clients/ModYu`. Node 18. User systemd: **production** campus `:3010` (`next start`, not `next dev`). Watch timer probes `/api/health` and restarts if it misses three times. Units still `next dev` with lab prefix (ModYu `:3000`, VT `:3020`, Swarm `:5173`+`:8787`), pinned warm. Linger + never-sleep on. Push with `./ops/sync-to-debian.sh` (rebuilds campus after the copy). Pull onto a GPU disk with `./ops/pull-from-debian.sh`. npm if package.json moved.
+Studio houses on `/home/main/{DLN,VariousTitles,SwarmFund}` (NVMe). Client houses **also** on the NVMe (`/home/main/ModYu`, `/home/main/DAA`) while `/srv/clients` I/O-errors. Campus **http://192.168.0.223:3010**. Units pinned. 3060 Windows not on the LAN yet — OpenSSH needed (`ops/windows-3060.md`).
 
 ## What this is not
 

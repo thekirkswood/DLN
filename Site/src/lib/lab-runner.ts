@@ -46,6 +46,12 @@ const SWEEP_GEN = Date.now();
 const HOLD_TTL_MS = 120_000;
 const STOP_GRACE_MS = 12_000;
 const STARTING_TTL_MS = 120_000;
+/** First Next compile of `/go/{slug}` often needs longer than a tight fetch abort. */
+const HTTP_UP_MS = 15_000;
+
+function unitsPinned(): boolean {
+  return process.env.DLN_UNITS_PINNED === "1";
+}
 
 type LeaseFile = Record<string, Record<string, number>>;
 
@@ -174,10 +180,18 @@ async function portOpen(port: number): Promise<boolean> {
 
 async function httpUp(url: string): Promise<boolean> {
   try {
-    const res = await fetch(url, { redirect: "manual", signal: AbortSignal.timeout(2500) });
+    const res = await fetch(url, { redirect: "manual", signal: AbortSignal.timeout(HTTP_UP_MS) });
     return res.status < 400;
   } catch {
     return false;
+  }
+}
+
+async function waitPortFree(port: number, ms = 8000): Promise<void> {
+  const start = Date.now();
+  while (Date.now() - start < ms) {
+    if (!(await portOpen(port))) return;
+    await new Promise((r) => setTimeout(r, 200));
   }
 }
 
@@ -202,7 +216,7 @@ async function specsFor(house: LabHouse): Promise<ProcSpec[]> {
         id: "modyu",
         cwd: path.join(house.housePath, "Site"),
         port: 3000,
-        env: { BASE_PATH: base },
+        env: { BASE_PATH: base, NEXT_PUBLIC_BASE_PATH: base },
         cmd: "npm",
         args: ["run", "dev"],
       },
@@ -214,7 +228,7 @@ async function specsFor(house: LabHouse): Promise<ProcSpec[]> {
         id: "various-titles",
         cwd: path.join(house.housePath, "Site"),
         port: 3020,
-        env: { BASE_PATH: base },
+        env: { BASE_PATH: base, NEXT_PUBLIC_BASE_PATH: base },
         cmd: "npm",
         args: ["run", "dev"],
       },
@@ -260,6 +274,7 @@ async function specsFor(house: LabHouse): Promise<ProcSpec[]> {
           port: house.localPort,
           env: {
             BASE_PATH: base,
+            NEXT_PUBLIC_BASE_PATH: base,
             PORT: String(house.localPort),
           },
           cmd: "npm",
@@ -278,7 +293,13 @@ async function spawnSpec(spec: ProcSpec): Promise<void> {
   const fd = openSync(log, "a");
   const child = spawn(spec.cmd, spec.args, {
     cwd: spec.cwd,
-    env: { ...process.env, ...spec.env },
+    env: {
+      ...process.env,
+      // Campus production must not leak into `next dev` — CSS then 500s and the
+      // station sits on “Starting… in its own room.”
+      NODE_ENV: "development",
+      ...spec.env,
+    },
     detached: true,
     stdio: ["ignore", fd, fd],
   });
@@ -371,7 +392,7 @@ export function releaseHouse(slug: string, leaseId: string): number {
 }
 
 function scheduleStop(slug: string) {
-  if (slug === "dln") return;
+  if (slug === "dln" || unitsPinned()) return;
   const prev = stopTimers.get(slug);
   if (prev) clearTimeout(prev);
   stopTimers.set(
@@ -410,10 +431,12 @@ function killPort(port: number) {
   }
 }
 
-function killPidFile(id: string) {
+function killPidFile(id: string): boolean {
   const pidFile = path.join(ROOT, `${id}.pid`);
+  let owned = false;
   try {
     const pid = parseInt(readFileSync(pidFile, "utf8").trim(), 10);
+    owned = true;
     if (pid) {
       try {
         process.kill(-pid, "SIGTERM");
@@ -427,16 +450,21 @@ function killPidFile(id: string) {
       }
     }
   } catch {
-    /* no pid file */
+    /* no pid file — leave a Cursor-started unit on this port alone */
   }
   try {
     unlinkSync(pidFile);
   } catch {
     /* */
   }
+  return owned;
 }
 
 export async function stopHouse(slug: string): Promise<HouseRun> {
+  if (unitsPinned()) {
+    logOcc(`skip-stop ${slug} units-pinned`);
+    return houseRunStatus(slug);
+  }
   if (occupancyOf(slug) > 0 || isStarting(slug)) {
     logOcc(`skip-stop ${slug} still occupied`);
     return houseRunStatus(slug);
@@ -447,8 +475,8 @@ export async function stopHouse(slug: string): Promise<HouseRun> {
   }
   const specs = await specsFor(house);
   for (const spec of specs) {
-    killPidFile(spec.id);
-    killPort(spec.port);
+    const owned = killPidFile(spec.id);
+    if (owned) killPort(spec.port);
   }
   return houseRunStatus(slug);
 }
@@ -457,6 +485,7 @@ export function armIdleSweep() {
   if (sweepArmed) return;
   sweepArmed = true;
   writeSweepGen();
+  if (unitsPinned()) return;
   setInterval(() => {
     void (async () => {
       if (!thisSweepIsLive()) return;
@@ -564,25 +593,21 @@ export async function ensureHouse(slug: string): Promise<HouseRun> {
     const specs = await specsFor(house);
     if (!specs.length) return "missing" as HouseRunStatus;
     for (const spec of specs) {
-      const url = readyUrl(spec.port, spec.id === "swarm-api" ? "swarm-api" : house.slug);
       const open = await portOpen(spec.port);
-      const good =
-        spec.id === "swarm-api"
-          ? open
-          : open && (await httpUp(url));
-      if (open && !good) {
-        logOcc(`respawn ${spec.id} port=${spec.port} lab-prefix-miss`);
-        killPidFile(spec.id);
-        killPort(spec.port);
-        await new Promise((r) => setTimeout(r, 400));
-        await spawnSpec(spec);
-      } else if (!open) {
+      if (!open) {
         logOcc(`spawn ${spec.id} port=${spec.port}`);
         await spawnSpec(spec);
       }
     }
     for (const spec of specs) {
-      const ok = await waitReady(spec, house.slug);
+      let ok = await waitReady(spec, house.slug);
+      if (ok) continue;
+      logOcc(`respawn ${spec.id} port=${spec.port} not-ready`);
+      killPidFile(spec.id);
+      killPort(spec.port);
+      await waitPortFree(spec.port);
+      await spawnSpec(spec);
+      ok = await waitReady(spec, house.slug);
       if (!ok) return "down" as HouseRunStatus;
     }
     return "ready" as HouseRunStatus;

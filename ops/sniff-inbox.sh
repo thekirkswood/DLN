@@ -5,7 +5,8 @@
 # Campus (dln): browser notes live downstairs. This PC's localhost inbox is separate.
 #   ops/sniff-inbox.sh
 # Units:
-#   ops/sniff-inbox.sh modyu | various-titles | swarm | pfp
+#   ops/sniff-inbox.sh modyu | various-titles | swarm | pfp | dks | daa
+# Unit sniff pulls the downstairs inbox (Dave/LAN) then wakes this chat.
 set -u
 HOUSE="${1:-dln}"
 ROOT="${DLN_ROOT:-/home/main/DLN}"
@@ -14,6 +15,7 @@ DEBIAN_KEY="${DEBIAN_KEY:-$HOME/.ssh/id_ed25519_dln}"
 SSH_OPTS=(-o BatchMode=yes -o ConnectTimeout=4 -o IdentitiesOnly=yes -i "$DEBIAN_KEY")
 MERGE="$ROOT/ops/merge-lab-inbox.py"
 PUSH="$ROOT/ops/push-lab-inbox.sh"
+SYNC_UNIT="$ROOT/ops/sync-unit-inbox.sh"
 LAN_INBOX="$ROOT/_meta/lab-houses/lan-inbox"
 LOCAL_INBOX="$ROOT/_meta/lab-inbox"
 case "$HOUSE" in
@@ -22,6 +24,8 @@ case "$HOUSE" in
   various-titles) INBOX="/home/main/VariousTitles/_meta/lab-inbox/wake.flag" ;;
   swarm) INBOX="/home/main/SwarmFund/_meta/lab-inbox/wake.flag" ;;
   pfp) INBOX="/home/main/PFP/_meta/lab-inbox/wake.flag" ;;
+  dks) INBOX="/home/main/DKS/_meta/lab-inbox/wake.flag" ;;
+  daa) INBOX="/home/main/DAA/_meta/lab-inbox/wake.flag" ;;
   *)
     echo "unknown house: $HOUSE" >&2
     exit 1
@@ -41,7 +45,7 @@ prompt_for() {
   if [ "$HOUSE" = dln ]; then
     printf 'AGENT_LOOP_WAKE_dln_inbox {"prompt":"Campus sniff (%s). Browser notes (Mac, phones, LAN IP) are downstairs: read _meta/lab-houses/lan-inbox then stamp the same ids on Debian. localhost:3010 writes this disk then pushes to Debian. Merge inboxes by id — never overwrite a local-only note. If nobody is signed in and nothing is working, idle. Do not stamp another unit queue."}\n' "$why"
   else
-    printf 'AGENT_LOOP_WAKE_%s_inbox {"prompt":"Unit sniff %s (%s). If want-sniff occupancy is 0 and no item is working, idle. Else take every pending item in this house inbox in order. Stay in this filesystem. Do not auto-deploy."}\n' "$HOUSE" "$HOUSE" "$why"
+    printf 'AGENT_LOOP_WAKE_%s_inbox {"prompt":"Unit sniff %s (%s). Pull the downstairs inbox first (ops/sync-unit-inbox.sh pull). Take every pending item in this house inbox in order. Stay in this filesystem. Push stamps downstairs. Do not auto-deploy."}\n' "$HOUSE" "$HOUSE" "$why"
   fi
 }
 
@@ -102,18 +106,49 @@ if [ "$HOUSE" = dln ]; then
   done
 fi
 
-WATCH=("$INBOX" "$SNIFF" "$WANT")
-echo "sniff $HOUSE unit inbox=$INBOX"
+case "$HOUSE" in
+  modyu) DEBIAN_UNIT_WAKE="/home/main/ModYu/_meta/designer-inbox/wake.flag" ;;
+  various-titles) DEBIAN_UNIT_WAKE="/home/main/VariousTitles/_meta/lab-inbox/wake.flag" ;;
+  swarm) DEBIAN_UNIT_WAKE="/home/main/SwarmFund/_meta/lab-inbox/wake.flag" ;;
+  pfp) DEBIAN_UNIT_WAKE="/home/main/PFP/_meta/lab-inbox/wake.flag" ;;
+  dks) DEBIAN_UNIT_WAKE="/home/main/DKS/_meta/lab-inbox/wake.flag" ;;
+  daa) DEBIAN_UNIT_WAKE="/home/main/DAA/_meta/lab-inbox/wake.flag" ;;
+  *) DEBIAN_UNIT_WAKE="" ;;
+esac
+
+echo "sniff $HOUSE unit inbox=$INBOX (Debian + this disk)"
+"$SYNC_UNIT" pull "$HOUSE" 2>/dev/null || true
+LAST_LOCAL_WAKE=$(stat -c %Y "$INBOX" 2>/dev/null || true)
+LAST_DEBIAN_WAKE=$(ssh "${SSH_OPTS[@]}" "$DEBIAN_SNIFF" "stat -c %Y $DEBIAN_UNIT_WAKE" 2>/dev/null || true)
+if [ "$(pending_count "$(dirname "$INBOX")/messages.json")" -gt 0 ]; then
+  prompt_for "pending"
+fi
 while true; do
   if command -v inotifywait >/dev/null 2>&1; then
-    ev=$(inotifywait -t 180 -e modify,close_write,create --format '%w%f' "${WATCH[@]}" 2>/dev/null || true)
+    ev=$(inotifywait -t 8 -e modify,close_write,create --format '%w%f' "$INBOX" 2>/dev/null || true)
     case "$ev" in
-      *wake.flag*) prompt_for "wake" ;;
-      *want-sniff*) prompt_for "occupancy" ;;
-      *) prompt_for "minute" ;;
+      *wake.flag*)
+        "$SYNC_UNIT" push "$HOUSE" 2>/dev/null || true
+        prompt_for "wake"
+        LAST_LOCAL_WAKE=$(stat -c %Y "$INBOX" 2>/dev/null || true)
+        ;;
     esac
   else
-    sleep 180
-    prompt_for "minute"
+    sleep 8
+    localw=$(stat -c %Y "$INBOX" 2>/dev/null || true)
+    if [ -n "$localw" ] && [ "$localw" != "$LAST_LOCAL_WAKE" ]; then
+      "$SYNC_UNIT" push "$HOUSE" 2>/dev/null || true
+      prompt_for "wake"
+      LAST_LOCAL_WAKE=$localw
+    fi
+  fi
+  if [ -n "$DEBIAN_UNIT_WAKE" ]; then
+    remote=$(ssh "${SSH_OPTS[@]}" "$DEBIAN_SNIFF" "stat -c %Y $DEBIAN_UNIT_WAKE" 2>/dev/null || true)
+    if [ -n "$remote" ] && [ "$remote" != "$LAST_DEBIAN_WAKE" ]; then
+      "$SYNC_UNIT" pull "$HOUSE" 2>/dev/null || true
+      prompt_for "debian"
+      LAST_DEBIAN_WAKE=$remote
+      LAST_LOCAL_WAKE=$(stat -c %Y "$INBOX" 2>/dev/null || true)
+    fi
   fi
 done

@@ -117,6 +117,11 @@ export async function addLabMessage(input: {
       detached: true,
       stdio: "ignore",
     }).unref();
+  } else {
+    spawn("/home/main/DLN/ops/sync-unit-inbox.sh", ["push", input.plot], {
+      detached: true,
+      stdio: "ignore",
+    }).unref();
   }
   return message;
 }
@@ -148,6 +153,13 @@ const IMAGE_TYPES = new Set([
   "image/gif",
 ]);
 
+const VIDEO_TYPES = new Set([
+  "video/mp4",
+  "video/webm",
+  "video/quicktime",
+  "video/x-m4v",
+]);
+
 function uploadName(file: Blob): string {
   if ("name" in file && typeof file.name === "string") return file.name;
   return "";
@@ -161,11 +173,19 @@ function extForUpload(file: Blob): string | null {
     if (type === "image/gif") return "gif";
     return "jpg";
   }
+  if (VIDEO_TYPES.has(type) || type.startsWith("video/")) {
+    if (type === "video/webm") return "webm";
+    if (type === "video/quicktime") return "mov";
+    return "mp4";
+  }
   const name = uploadName(file).toLowerCase();
   if (/\.png$/.test(name)) return "png";
   if (/\.jpe?g$/.test(name)) return "jpg";
   if (/\.webp$/.test(name)) return "webp";
   if (/\.gif$/.test(name)) return "gif";
+  if (/\.(mp4|m4v)$/.test(name)) return "mp4";
+  if (/\.webm$/.test(name)) return "webm";
+  if (/\.mov$/.test(name)) return "mov";
   return null;
 }
 
@@ -213,7 +233,13 @@ export async function readLabUpload(
           ? "image/webp"
           : ext === ".gif"
             ? "image/gif"
-            : "image/jpeg";
+            : ext === ".webm"
+              ? "video/webm"
+              : ext === ".mov"
+                ? "video/quicktime"
+                : ext === ".mp4" || ext === ".m4v"
+                  ? "video/mp4"
+                  : "image/jpeg";
     return { buf, type };
   } catch {
     return null;

@@ -1,13 +1,14 @@
 [Unit]
-Description=Various Titles unit (Next :3020, lab prefix)
+Description=Digital Adoption Advisor unit (Next :3050, lab prefix)
 After=network-online.target campus.service
 
 [Service]
 Type=simple
-WorkingDirectory=/home/main/VariousTitles/Site
+WorkingDirectory=/home/main/DAA/Site
 Environment=PATH=/usr/bin:/bin
-Environment=BASE_PATH=/go/various-titles
-Environment=NEXT_PUBLIC_BASE_PATH=/go/various-titles
+Environment=BASE_PATH=/go/daa
+Environment=NEXT_PUBLIC_BASE_PATH=/go/daa
+Environment=NODE_ENV=development
 ExecStart=/usr/bin/npm run dev
 Restart=always
 RestartSec=8

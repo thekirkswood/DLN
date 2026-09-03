@@ -30,15 +30,21 @@ for house in DLN VariousTitles SwarmFund; do
   "${RSYNC[@]}" "$src/" "$DEBIAN:$HOUSE_ROOT/$house/"
 done
 
-echo "== client houses → $DEBIAN:$HOUSE_ROOT (follows /srv/clients symlink on Debian) =="
-for house in ModYu; do
+echo "== client houses → $DEBIAN:$HOUSE_ROOT =="
+# 1TB /srv/clients I/O-errors (2026-08-30, still). Do not follow a symlink onto it.
+# ModYu and DAA sit on the NVMe at /home/main/{house} so /admin can write.
+for house in ModYu DAA; do
   src="$HOUSE_ROOT/$house"
   if [ ! -d "$src" ]; then
     echo "skip missing $src"
     continue
   fi
   echo "-- $house"
-  "${RSYNC[@]}" "$src/" "$DEBIAN:$HOUSE_ROOT/$house/"
+  ssh "$DEBIAN" "if [ -L $HOUSE_ROOT/$house ]; then rm $HOUSE_ROOT/$house; fi; mkdir -p $HOUSE_ROOT/$house"
+  "${RSYNC[@]}" "$src/" "$DEBIAN:$HOUSE_ROOT/$house/" || {
+    echo "rsync $house failed (leave other houses alone)"
+    continue
+  }
 done
 
 echo "== gitignored account book (SSH, not git; live sessions stay on Debian) =="
