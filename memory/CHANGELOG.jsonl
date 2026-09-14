@@ -844,3 +844,10 @@
 {"t": "2026-09-14T21:49:19+01:00", "k": "mod", "p": "Workbench.tsx campus.ts greenhouse page worklines not-found", "s": "Press packs on ticket and header; strip desk asides", "d": "live site is not a chat log"}
 {"t": "2026-09-14T21:49:19+01:00", "k": "mod", "p": "ModyuKitApp epk-docs plots.json", "s": "Journalist copy without builder notes", "d": "Dave pack / ticked / invent a mark off the pack"}
 {"t": "2026-09-14T21:49:19+01:00", "k": "ver", "p": "dln-5", "s": "Press packs on the landing, paged ModYu kit, public copy without desk asides", "d": "numbered ship"}
+{"t": "2026-09-14T22:05:00+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Signed-in plot: live host + press pack; preview under; no Preview button", "d": "Ewan: preview was the same URL as live host"}
+{"t": "2026-09-14T22:05:00+01:00", "k": "bp", "p": "BLUEPRINT.md WORKSTREAM.md", "s": "Campus signed-in: live host window under two doors", "d": "subdomain + that house kit"}
+{"t": "2026-09-14T22:05:00+01:00", "k": "mod", "p": "Workbench.tsx api/auth/me globals.css", "s": "Drop Preview/Enter; live host iframe; plot press pack", "d": "prop live host and pack separately"}
+{"t":"2026-09-14T23:03:37+01:00","k":"dir","p":"DIRECTIONS.md","s":"ModYu kit landing and rail match Dave’s brief","d":"Ewan: close to his /epk; not a PDF page; PDF on desk stories"}
+{"t":"2026-09-14T23:03:37+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"ModYu kit is MAP landing + two-group rail; PDF on stories","d":"chamfered; other houses unchanged"}
+{"t":"2026-09-14T23:03:37+01:00","k":"mod","p":"ModyuKitApp.tsx modyu-kit.ts globals.css epk-cover.ts","s":"Dave landing modules, two-group rail with blurbs, story PDFs","d":"satisfy the brief with our chrome and extra pages"}
+{"t":"2026-09-14T23:15:48+01:00","k":"ver","p":"dln-6","s":"ModYu kit landing matches Dave’s brief; signed-in plot live host and press pack with preview under","d":"numbered ship"}

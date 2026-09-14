@@ -38,7 +38,7 @@ export function modyuNav(): ModyuNavGroup[] {
   return [
     {
       title: "Brand & background",
-      blurb: "Company, founder, culture.",
+      blurb: "Company, founder, culture — not the product sheet.",
       items: [
         { id: "our-story", href: pageHref("our-story"), label: "Our story" },
         { id: "founder", href: pageHref("founder"), label: "Ann-Marie [Founder]" },
@@ -48,17 +48,10 @@ export function modyuNav(): ModyuNavGroup[] {
       ],
     },
     {
-      title: "Campaigns",
-      blurb: "Download each as its own PDF.",
+      title: "Product & service",
+      blurb: "HT4 system, evidence, claims discipline, assets.",
       items: [
         { id: "campaigns", href: pageHref("campaigns"), label: "Stories ready to run" },
-        { id: "angles", href: pageHref("angles"), label: "Further angles" },
-      ],
-    },
-    {
-      title: "Product & service",
-      blurb: "HT4 system, evidence, and claims.",
-      items: [
         { id: "system", href: pageHref("system"), label: "The HT4 system" },
         { id: "evidence", href: pageHref("evidence"), label: "The evidence" },
         { id: "claims", href: pageHref("claims"), label: "What we claim — and won’t" },
@@ -92,7 +85,8 @@ export function isModyuPage(id: string): id is ModyuPageId {
 
 export function pageTitle(doc: EpkDoc, id: ModyuPageId, pitch?: EpkPitch): string {
   if (pitch) return pitch.title;
-  if (id === "home" || id === "campaigns") return "Stories ready to run";
+  if (id === "home") return doc.kitTitle;
+  if (id === "campaigns") return "Stories ready to run";
   if (id === "our-story") return doc.story.title;
   if (id === "founder") return doc.founder?.title || "Ann-Marie [Founder]";
   if (id === "follicle") return doc.satellite?.title || "The Follicle Files";
@@ -109,4 +103,10 @@ export function pageTitle(doc: EpkDoc, id: ModyuPageId, pitch?: EpkPitch): strin
 
 export function extraCampaigns(stories: EpkStory[]): EpkStory[] {
   return stories.filter((row) => !row.seeded);
+}
+
+export function railOn(id: ModyuPageId, pageId: ModyuPageId, section: string): boolean {
+  if (id === "campaigns") return section === "campaigns";
+  if (id === "vault") return pageId === "vault";
+  return pageId === id;
 }

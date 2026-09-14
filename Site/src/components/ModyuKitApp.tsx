@@ -1,13 +1,21 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { isImageHref, isPdfHref, isShared } from "@/lib/assets-view";
-import { firstBanner, firstLogo } from "@/lib/epk-cover";
+import { firstBanner, firstLogo, firstPeople } from "@/lib/epk-cover";
 import { liveStories, type KitContent, type EpkStory } from "@/lib/epk-content-model";
 import type { EpkDoc, EpkPitch } from "@/lib/epk-doc";
-import { extraCampaigns, isModyuPage, modyuNav, pageHref, pageTitle, type ModyuPageId } from "@/lib/modyu-kit";
-import { SECTION_LABEL, sectionItems, type EpkSection } from "@/lib/epk-sections";
+import {
+  extraCampaigns,
+  isModyuPage,
+  modyuNav,
+  pageHref,
+  pageTitle,
+  railOn,
+  type ModyuPageId,
+} from "@/lib/modyu-kit";
+import { sectionItems, type EpkSection } from "@/lib/epk-sections";
 import type { AssetItem } from "@/lib/assets";
 
 function Still({ href, title }: { href: string; title: string }) {
@@ -48,6 +56,7 @@ export function ModyuKitApp({
   const extras = extraCampaigns(liveStories(content));
   const logo = firstLogo(pack);
   const banner = firstBanner(pack);
+  const hero = firstPeople(pack) || banner;
   const section = path[0] || "";
   const id = path[1] || "";
   const print = path[1] === "print" || path[2] === "print";
@@ -110,45 +119,52 @@ export function ModyuKitApp({
     );
   }
 
-  const current =
-    section === "campaigns" && id
-      ? ""
-      : pageId === "home"
-        ? ""
-        : pageHref(pageId);
-
   return (
     <div className="epk epk-map epk-modyu">
       <header className="epk-map__bar">
         <Link className="epk-map__kit" href={pageHref()}>
-          <strong>{doc.product}</strong>
-          <span>{doc.kitTitle}</span>
+          <strong>HT4</strong>
+          <span>Electronic Press Kit</span>
         </Link>
-        <Link className="epk-map__word" href={pageHref()}>
-          {doc.product}
-        </Link>
-        <div className="epk-map__marks">
+        <nav className="epk-map__marks" aria-label="Press kit">
+          <Link href={pageHref("vault")}>Asset vault</Link>
           <Link className="epk-contact-btn chamfer" href={pageHref("contact")}>
             Contact
           </Link>
-        </div>
+        </nav>
       </header>
       <div className="epk-map__body">
         <aside className="epk-rail chamfer">
+          <Link className="epk-rail__brand" href={pageHref()} aria-current={pageId === "home" ? "page" : undefined}>
+            {logo && isImageHref(logo.href) ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={logo.href} alt="ModYu" />
+            ) : null}
+            <span>
+              HT4
+              <small>Electronic Press Kit</small>
+            </span>
+          </Link>
           {modyuNav().map((group) => (
-            <p key={group.title} className="epk-rail__group">
+            <div key={group.title} className="epk-rail__group">
               <span>{group.title}</span>
+              <p className="epk-rail__blurb">{group.blurb}</p>
               {group.items.map((row) => (
                 <Link
                   key={row.href}
                   href={row.href}
-                  aria-current={current === row.href || (pageId === row.id && !id) ? "page" : undefined}
+                  aria-current={railOn(row.id, pageId, section) ? "page" : undefined}
                 >
                   {row.label}
                 </Link>
               ))}
-            </p>
+            </div>
           ))}
+          <p className="epk-nav__host">
+            Hosted by Design Lab North
+            <br />
+            <a href="mailto:design@designlabnorth.com">design@designlabnorth.com</a>
+          </p>
           <p className="epk-rail__foot">
             {studio ? <Link href="/epk">Kits</Link> : null}
             {tagged ? <Link href="/account">Account</Link> : null}
@@ -163,7 +179,7 @@ export function ModyuKitApp({
         </aside>
         <div className="epk-map__main">
           {pageId === "home" ? (
-            <Home doc={doc} extras={extras} />
+            <Home doc={doc} hero={hero?.href} banner={banner?.href} />
           ) : section === "campaigns" && pitch ? (
             <ArticleShell
               kicker="Stories ready to run"
@@ -171,7 +187,9 @@ export function ModyuKitApp({
               title={pitch.title}
               pdfHref={pageHref(`campaigns/${pitch.id}/print`)}
             >
-              <PitchBody pitch={pitch} />
+              <CopyBlock label="Full story pack" text={pitchCopy(pitch)}>
+                <PitchBody pitch={pitch} />
+              </CopyBlock>
             </ArticleShell>
           ) : section === "campaigns" && extra ? (
             <ArticleShell
@@ -180,19 +198,16 @@ export function ModyuKitApp({
               title={extra.title}
               pdfHref={pageHref(`campaigns/${extra.id}/print`)}
             >
-              <StoryBody story={extra} />
+              <CopyBlock label="Full story pack" text={extra.title + "\n\n" + extra.body}>
+                <StoryBody story={extra} />
+              </CopyBlock>
             </ArticleShell>
           ) : pageId === "campaigns" ? (
             <CampaignIndex doc={doc} extras={extras} />
           ) : pageId === "vault" ? (
-            <Vault logos={logos} banners={banners} people={people} files={files} />
+            <Vault logos={logos} banners={banners} people={people} files={files} note={doc.coverNote} />
           ) : (
-            <ArticleShell
-              kicker={railKicker(pageId)}
-              kickerHref={pageHref(pageId)}
-              title={pageTitle(doc, pageId)}
-              pdfHref={pageHref(`${pageId}/print`)}
-            >
+            <ArticleShell kicker={railKicker(pageId)} kickerHref={pageHref()} title={pageTitle(doc, pageId)}>
               <DocBody doc={doc} page={pageId} extras={extras} />
             </ArticleShell>
           )}
@@ -215,10 +230,9 @@ function isShown(content: KitContent, key: "logos" | "banners" | "people" | "fil
 }
 
 function railKicker(id: ModyuPageId): string {
-  if (id === "founder" || id === "our-story" || id === "follicle" || id === "quotes" || id === "about") {
+  if (id === "founder" || id === "our-story" || id === "follicle" || id === "quotes" || id === "about" || id === "angles") {
     return "Brand & background";
   }
-  if (id === "angles") return "Campaigns";
   return "Product & service";
 }
 
@@ -242,7 +256,7 @@ function ArticleShell({
   kicker: string;
   kickerHref: string;
   title: string;
-  pdfHref: string;
+  pdfHref?: string;
   children: ReactNode;
 }) {
   return (
@@ -252,48 +266,213 @@ function ArticleShell({
       </p>
       <h1>{title}</h1>
       {children}
-      <DownloadPdf href={pdfHref} />
+      {pdfHref ? <DownloadPdf href={pdfHref} /> : null}
     </article>
   );
 }
 
-function Home({ doc, extras }: { doc: EpkDoc; extras: EpkStory[] }) {
-  const campaigns = [
-    ...doc.pitches.map((pitch) => ({
-      href: pageHref(`campaigns/${pitch.id}`),
-      kicker: pitch.kicker || "Campaign",
-      title: pitch.title,
-    })),
-    {
-      href: pageHref("founder"),
-      kicker: "About",
-      title: "Ann-Marie — the hairdresser who asked what happens after the surgery",
-    },
-    ...extras.map((row) => ({
-      href: pageHref(`campaigns/${row.id}`),
-      kicker: "Campaign",
-      title: row.title,
-    })),
-  ];
+function CopyBlock({
+  label,
+  text,
+  children,
+}: {
+  label?: string;
+  text: string;
+  children?: ReactNode;
+}) {
+  const [state, setState] = useState<"idle" | "ok" | "err">("idle");
+
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(text);
+      setState("ok");
+      window.setTimeout(() => setState("idle"), 1600);
+    } catch {
+      setState("err");
+      window.setTimeout(() => setState("idle"), 1600);
+    }
+  }
+
+  return (
+    <div className="epk-land-copy chamfer">
+      <div className="epk-land-copy__bar">
+        {label ? <span>{label}</span> : <span />}
+        <button type="button" className="chamfer" onClick={copy}>
+          {state === "ok" ? "Copied" : state === "err" ? "Failed" : "Copy"}
+        </button>
+      </div>
+      <div className="epk-land-copy__body">{children || <p>{text}</p>}</div>
+    </div>
+  );
+}
+
+function pitchCopy(pitch: EpkPitch): string {
+  return [
+    pitch.title,
+    "",
+    pitch.question,
+    "",
+    ...pitch.story,
+    ...(pitch.illustration || []),
+    "",
+    pitch.whyNow ? `Why it matters now — ${pitch.whyNow}` : "",
+    pitch.bestFor ? `Best for — ${pitch.bestFor}` : "",
+    pitch.evidence ? `Evidence & hook — ${pitch.evidence}` : "",
+    pitch.ask ? `Ask us — ${pitch.ask}` : "",
+  ]
+    .filter((line, i, rows) => line !== "" || (i > 0 && rows[i - 1] !== ""))
+    .join("\n")
+    .trim();
+}
+
+type LandCol = { kicker?: string; title: string; body: string; href: string };
+
+function LandPlate({
+  src,
+  kicker,
+  title,
+  lede,
+  columns,
+}: {
+  src?: string;
+  kicker?: string;
+  title?: string;
+  lede?: string;
+  columns: LandCol[];
+}) {
+  return (
+    <section className="epk-land chamfer">
+      {src && isImageHref(src) ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img className="epk-land__img" src={src} alt="" />
+      ) : (
+        <div className="epk-land__img epk-land__img--tone" aria-hidden />
+      )}
+      <div className="epk-land__veil" />
+      <div className="epk-land__copy">
+        {columns.length ? (
+          <div className="epk-land__cols">
+            {columns.map((col) => (
+              <Link key={col.title} href={col.href} className="epk-land__col">
+                {col.kicker ? <p className="epk-land__col-kicker">{col.kicker}</p> : null}
+                <h3>{col.title}</h3>
+                <p>{col.body}</p>
+              </Link>
+            ))}
+          </div>
+        ) : null}
+        {kicker || title || lede ? (
+          <div className="epk-land__read">
+            {kicker ? <p className="kicker">{kicker}</p> : null}
+            {title ? <h1>{title}</h1> : null}
+            {lede ? <p>{lede}</p> : null}
+          </div>
+        ) : null}
+      </div>
+    </section>
+  );
+}
+
+function Home({
+  doc,
+  hero,
+  banner,
+}: {
+  doc: EpkDoc;
+  hero?: string;
+  banner?: string;
+}) {
+  const boilerplate = doc.story.boilerplate?.paras.join("\n\n") || "";
+  const opening = doc.story.paras.join("\n\n");
   return (
     <section className="epk-modyu-home">
-      <p className="kicker">HT4 · Electronic Press Kit</p>
-      <h1>Campaigns</h1>
-      <p className="epk-modyu-lede">
-        Open a page, then download that page as a PDF.
-      </p>
-      <ul className="epk-story-plates is-page">
-        {campaigns.map((row, i) => (
-          <li key={row.href}>
-            <Link href={row.href}>
-              <span className="epk-plate__cap">
-                {String(i + 1).padStart(2, "0")} · {row.kicker}
-                <strong>{row.title}</strong>
-              </span>
+      <LandPlate
+        src={hero}
+        kicker="ModYu · HT4"
+        title="Electronic Press Kit"
+        lede="Stories, facts, quotes and assets — ready to lift into an article without the back-and-forth."
+        columns={[
+          {
+            kicker: "01",
+            title: "Stories ready to run",
+            body: "Four desk-ready narratives with evidence hooks.",
+            href: pageHref("campaigns"),
+          },
+          {
+            kicker: "02",
+            title: "Ann-Marie [Founder]",
+            body: "Biography, angles and interview topics.",
+            href: pageHref("founder"),
+          },
+          {
+            kicker: "03",
+            title: "The Follicle Files",
+            body: "Living media channel for patient and clinician voices.",
+            href: pageHref("follicle"),
+          },
+          {
+            kicker: "04",
+            title: "Asset vault",
+            body: "Logos, founder, product, campaigns.",
+            href: pageHref("vault"),
+          },
+        ]}
+      />
+      <div className="epk-land-stack">
+        {boilerplate ? (
+          <section className="epk-land-panel">
+            <p className="kicker">Boilerplate · ~90 words</p>
+            <CopyBlock label="Standard boilerplate" text={boilerplate} />
+          </section>
+        ) : null}
+        <section className="epk-land-panel">
+          <p className="kicker">Our story</p>
+          {doc.storyCont?.line ? <h2>{doc.storyCont.line}</h2> : null}
+          {doc.storyCont?.sub ? <p className="epk-note">{doc.storyCont.sub}</p> : null}
+          <CopyBlock label="Opening" text={opening} />
+          <p className="epk-article__acts">
+            <Link className="epk-contact-btn chamfer" href={pageHref("our-story")}>
+              Full story
             </Link>
-          </li>
-        ))}
-      </ul>
+          </p>
+        </section>
+        {doc.storyCont?.facts?.length ? (
+          <section>
+            <p className="kicker">Market context</p>
+            <div className="epk-land-stats">
+              {doc.storyCont.facts.map((fact) => (
+                <div key={fact.value} className="epk-land-stat chamfer">
+                  <strong>{fact.value}</strong>
+                  <span>{fact.label}</span>
+                </div>
+              ))}
+            </div>
+            {doc.storyCont.source ? <p className="epk-source">{doc.storyCont.source}</p> : null}
+          </section>
+        ) : null}
+        <section>
+          <p className="kicker">Stories ready to run</p>
+          <div className="epk-land-tiles">
+            {doc.pitches.map((pitch) => (
+              <Link key={pitch.id} className="epk-land-tile chamfer" href={pageHref(`campaigns/${pitch.id}`)}>
+                <h3>{pitch.title}</h3>
+                {pitch.bestFor ? <p>{pitch.bestFor}</p> : null}
+              </Link>
+            ))}
+          </div>
+        </section>
+        <LandPlate
+          src={banner}
+          title="Asset vault"
+          lede={doc.coverNote}
+          columns={[
+            { title: "Logos", body: "Wordmarks and lockups.", href: pageHref("vault") + "#logos" },
+            { title: "Founder", body: "Portrait stills for print and web.", href: pageHref("vault") + "#people" },
+            { title: "Products", body: "Pack shots and system stills.", href: pageHref("vault") + "#banners" },
+            { title: "Campaigns", body: "Editorial stills from live work.", href: pageHref("vault") + "#files" },
+          ]}
+        />
+      </div>
     </section>
   );
 }
@@ -301,41 +480,24 @@ function Home({ doc, extras }: { doc: EpkDoc; extras: EpkStory[] }) {
 function CampaignIndex({ doc, extras }: { doc: EpkDoc; extras: EpkStory[] }) {
   return (
     <section>
-      <p className="kicker">Campaigns</p>
+      <p className="kicker">Product & service</p>
       <h1>Stories ready to run</h1>
       <p className="epk-modyu-lede">
         Each story is written for a journalist to lift. HT4 does not need to be the hero of paragraph one.
       </p>
-      <ul className="epk-story-plates is-page">
-        {doc.pitches.map((pitch, i) => (
-          <li key={pitch.id}>
-            <Link href={pageHref(`campaigns/${pitch.id}`)}>
-              <span className="epk-plate__cap">
-                Story {i + 1}
-                <strong>{pitch.title}</strong>
-              </span>
-            </Link>
-          </li>
-        ))}
-        <li>
-          <Link href={pageHref("founder")}>
-            <span className="epk-plate__cap">
-              About
-              <strong>Ann-Marie [Founder]</strong>
-            </span>
+      <div className="epk-land-tiles">
+        {doc.pitches.map((pitch) => (
+          <Link key={pitch.id} className="epk-land-tile chamfer" href={pageHref(`campaigns/${pitch.id}`)}>
+            <h3>{pitch.title}</h3>
+            {pitch.bestFor ? <p>{pitch.bestFor}</p> : null}
           </Link>
-        </li>
-        {extras.map((row) => (
-          <li key={row.id}>
-            <Link href={pageHref(`campaigns/${row.id}`)}>
-              <span className="epk-plate__cap">
-                Campaign
-                <strong>{row.title}</strong>
-              </span>
-            </Link>
-          </li>
         ))}
-      </ul>
+        {extras.map((row) => (
+          <Link key={row.id} className="epk-land-tile chamfer" href={pageHref(`campaigns/${row.id}`)}>
+            <h3>{row.title}</h3>
+          </Link>
+        ))}
+      </div>
     </section>
   );
 }
@@ -451,6 +613,9 @@ function DocBody({ doc, page, extras }: { doc: EpkDoc; page: ModyuPageId; extras
           </ul>
         ) : null}
         {f.talksNote ? <p className="epk-source">{f.talksNote}</p> : null}
+        <p className="epk-article__acts no-print">
+          <Link href={pageHref("angles")}>Further angles</Link>
+        </p>
       </>
     );
   }
@@ -642,31 +807,37 @@ function Vault({
   banners,
   people,
   files,
+  note,
 }: {
   logos: AssetItem[];
   banners: AssetItem[];
   people: AssetItem[];
   files: AssetItem[];
+  note?: string;
 }) {
+  const vaultLaneLabel: Record<EpkSection, string> = {
+    logos: "Logos",
+    people: "Founder",
+    banners: "Products",
+    files: "Campaigns",
+  };
   const lanes: { id: EpkSection; items: AssetItem[] }[] = (
     [
       { id: "logos" as const, items: logos },
-      { id: "banners" as const, items: banners },
       { id: "people" as const, items: people },
+      { id: "banners" as const, items: banners },
       { id: "files" as const, items: files },
     ] as { id: EpkSection; items: AssetItem[] }[]
   ).filter((row) => row.items.length);
   return (
     <section>
-      <p className="kicker">Assets</p>
+      <p className="kicker">Product & service</p>
       <h1>Asset vault</h1>
-      <p className="epk-modyu-lede">
-        Logos, banners and people stills for this pack. Download a file from here.
-      </p>
+      <p className="epk-modyu-lede">{note || "Logos, founder, product, campaigns."}</p>
       {!lanes.length ? <p>Nothing in the vault yet.</p> : null}
       {lanes.map((lane) => (
-        <div key={lane.id}>
-          <h2>{SECTION_LABEL[lane.id]}</h2>
+        <div key={lane.id} id={lane.id}>
+          <h2>{vaultLaneLabel[lane.id]}</h2>
           <ul className="epk-still-grid">
             {lane.items.map((item) => (
               <li key={item.id}>

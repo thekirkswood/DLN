@@ -935,6 +935,16 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - Put press packs on the main campus landing. Ticket strip under Design / Strategy / Build, and on the campus header line. Door is `/epk`. Do not list kit names on the public home. DAA stays off the greenhouse.
 - The live site is for the public and for clients. Ewan is not the consumer of that site. If a sentence only exists because of the Cursor back-and-forth (pipeline asides, “not a live site yet”, “while we are local”, “open the product not a subdomain”, “ticked onto the pack”, board talk on qualify, “the package stays shut” type lines), it does not go on the site.
 
+## 2026-09-14 — Signed-in plot: live host, press pack, preview under (Ewan)
+
+- Signed-in campus home: **Live host** is the subdomain. **Press pack** is that house’s kit. Two doors, separate. Do not put a Preview button — it was the same URL as live host.
+- The live host sits in a window **under** those doors, so they can see the site on the campus. Header **Press packs** stays.
+
+## 2026-09-14 — ModYu kit landing and rail match Dave’s brief (Ewan)
+
+- Make the journalist kit landing and side menu as close as possible to Dave’s HT4 EPK (his `/epk` and MAP), to satisfy that brief, with our touch: more info, nicer, **not a PDF page** on screen.
+- Nav is his two groups with his blurbs. Landing is his modules (hero plate, boilerplate, story, market, stories, vault). Pages that need to align (desk stories) keep **Download PDF**. Chamfered chrome, not the PDF’s rounded boxes. Do not restyle other houses.
+
 
 
 

@@ -49,6 +49,7 @@ import {
 } from "@/data/campus";
 import { PaperInkChips, applyGround } from "@/components/GroundSwitch";
 import { OnboardChat } from "@/components/OnboardChat";
+import { epkHref, pressKitForPlot } from "@/lib/epk-map";
 
 type Me = { id: string; displayName?: string; avatar?: string; role?: string };
 type PlotPeek = {
@@ -59,6 +60,7 @@ type PlotPeek = {
   hostUrl: string | null;
   enterUrl: string | null;
   sandbox: string;
+  kit: string | null;
 };
 type Door = "design" | "strategy" | "build";
 type Room = Door | "host" | "board" | FacultyId | "engine" | "supplier";
@@ -681,6 +683,7 @@ function Land({
   showBoard?: boolean;
   onPickPlot: (slug: string) => void;
 }) {
+  const kit = plot ? plot.kit || pressKitForPlot(plot.slug) : null;
   return (
     <div className="campus-ticket-wrap">
       <div className="campus-ticket-tabs">
@@ -772,29 +775,26 @@ function Land({
         {plot ? (
           <div className="campus-plot-stuff">
             <p className="bench-kicker">{plot.name}</p>
-            <p className="campus-lead">
-              {plot.status === "rebuilding"
-                ? "The private preview is open with us. The live host is the public site."
-                : "Your site on this account."}
-            </p>
             <div className="campus-plot-doors">
-              {plot.sandbox ? (
-                <a href={plot.sandbox}>Preview</a>
-              ) : null}
               {plot.hostUrl ? (
                 <a href={plot.hostUrl} target="_blank" rel="noreferrer">
                   Live host
                 </a>
               ) : null}
-              {plot.enterUrl && plot.enterUrl !== plot.hostUrl ? (
-                <a href={plot.enterUrl} target="_blank" rel="noreferrer">
-                  Enter
-                </a>
-              ) : null}
+              {kit ? <Link href={epkHref(kit)}>Press pack</Link> : null}
               {showBoard ? (
                 <a href={`/board?plot=${encodeURIComponent(plot.slug)}`}>Board</a>
               ) : null}
             </div>
+            {plot.hostUrl ? (
+              <div className="campus-plot-preview chamfer">
+                <iframe
+                  title={`${plot.name} live host`}
+                  src={plot.hostUrl}
+                  loading="lazy"
+                />
+              </div>
+            ) : null}
           </div>
         ) : null}
       </div>

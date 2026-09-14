@@ -41,3 +41,7 @@ export function firstBanner(items: AssetItem[]): AssetItem | undefined {
     coverItem(items, "campaigns")
   );
 }
+
+export function firstPeople(items: AssetItem[]): AssetItem | undefined {
+  return sectionItems(items, "people").find((item) => isImageHref(item.href)) || coverItem(items, "founder");
+}

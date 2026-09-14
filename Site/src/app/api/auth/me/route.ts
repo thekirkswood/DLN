@@ -2,6 +2,7 @@ import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { COOKIE, isStudio, touchSession } from "@/lib/auth";
 import { appendSessionCookies } from "@/lib/cookie-opts";
+import { pressKitForPlot } from "@/lib/epk-map";
 import { allPlots, enterUrlFor, hostUrlFor } from "@/lib/plots";
 
 export const dynamic = "force-dynamic";
@@ -26,6 +27,7 @@ export async function GET() {
     hostUrl: hostUrlFor(p),
     enterUrl: enterUrlFor(p),
     sandbox: p.localPreview,
+    kit: pressKitForPlot(p.slug),
   }));
   const res = NextResponse.json({ user, plots });
   if (token) {
