@@ -124,11 +124,11 @@ export const daaDoc: EpkDoc = {
         talksIntro: "Start from the situation. The route follows what is actually happening.",
         talks: pack.situations.map((s) => s.title).filter((t): t is string => Boolean(t)),
         talksNote:
-          "Do not invent a quote. Use the bank below, or ask Design Lab North to introduce Mark Barlow.",
+          "Use the quote bank, or write to Design Lab North for an introduction to Mark Barlow.",
       }
     : undefined,
   extras: {
-    intro: "Further angles from the same pack — still not a rebuild of their public site.",
+    intro: "Further angles from the same pack.",
     items: [
       {
         desks: "Executive time",
@@ -155,7 +155,7 @@ export const daaDoc: EpkDoc = {
   system: {
     title: "Colour fields",
     intro: [
-      `The visual system is ${pack.fields.length} colour fields. They are the product of the identity in this pack — not decoration around a different logo.`,
+      `The visual system is ${pack.fields.length} colour fields. They are the identity in this pack.`,
       "Banner art in their materials uses the field stills, not the office photographs.",
     ],
     phases: pack.fields.map((field) => ({
@@ -176,11 +176,8 @@ export const daaDoc: EpkDoc = {
       pack.about.not[0],
     ],
     neverSay: [
-      "Do not say go-live equals value, or that HyperTrack is a platform sale.",
-      "Do not call DAA a software vendor or DAP reseller.",
-      "Do not treat this pack as their live public site.",
-      "Do not use play frames from the library.",
-      "Do not invent a founder quote.",
+      "Go-live is not the same as value, and HyperTrack is not a platform sale.",
+      "DAA is not a software vendor or DAP reseller.",
     ],
   },
   claims: {
@@ -252,7 +249,7 @@ export const daaDoc: EpkDoc = {
         label: "Identity",
         value: `Constructed mark and ${pack.fields.length} colour fields (${pack.fields.map((f) => f.id).join(", ")})`,
       },
-      { label: "This pack", value: "Mark, fields, people, plates, office stills. Play frames stay in the library." },
+      { label: "This pack", value: "Mark, fields, people, plates, office stills." },
       { label: "Enquiries", value: pack.company.email },
       { label: "Hosted by", value: "Design Lab North" },
     ],
@@ -268,7 +265,7 @@ export const daaDoc: EpkDoc = {
     },
     {
       q: "What should we take from the vault?",
-      a: "The shipped mark, the colour fields (including gap), people stills, the plates, and a few office stills. Do not use play frames. Do not treat office photographs as banner art.",
+      a: "The mark, the colour fields (including gap), people stills, the plates, and a few office stills. Banner art is the fields, not the office photographs.",
     },
   ],
   about: {

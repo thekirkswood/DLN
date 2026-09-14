@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { EpkGate } from "@/components/EpkGate";
 import { EpkKitApp } from "@/components/EpkKitApp";
+import { ModyuKitApp } from "@/components/ModyuKitApp";
 import { assetsForKit, listAssets } from "@/lib/assets";
 import { kitAccess } from "@/lib/epk-access";
 import { loadKitContent } from "@/lib/epk-content";
@@ -30,8 +31,9 @@ export default async function EpkKitPage({
   const index = await listAssets();
   const items = assetsForKit(index, id);
   const content = await loadKitContent(id);
+  const KitApp = id === "modyu" ? ModyuKitApp : EpkKitApp;
   return (
-    <EpkKitApp
+    <KitApp
       doc={epkDoc(id)}
       items={items}
       content={content}

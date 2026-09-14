@@ -33,3 +33,11 @@ export function laneStill(
 export function firstLogo(items: AssetItem[]): AssetItem | undefined {
   return sectionItems(items, "logos").find((item) => isImageHref(item.href)) || coverItem(items, "logos");
 }
+
+export function firstBanner(items: AssetItem[]): AssetItem | undefined {
+  return (
+    sectionItems(items, "banners").find((item) => isImageHref(item.href)) ||
+    coverItem(items, "product") ||
+    coverItem(items, "campaigns")
+  );
+}

@@ -26,16 +26,15 @@ export const pfpDoc: EpkDoc = {
     title: "Our Story",
     paras: [
       "Paul Fosbury Portraits is a portrait practice. This pack is the mark and the stills Design Lab North share from that work.",
-      "Design Lab North are rebuilding Paul Fosbury Portraits. This pack does not replace his own site.",
     ],
   },
   pitches: [
     {
       id: "practice",
       kicker: "Portraits",
-      title: "A portrait practice, not a catalogue dump.",
+      title: "A portrait practice.",
       story: [
-        "The stills in this vault are from the work Design Lab North keep for press — the mark, the plates, the portraits we have been given to share. Take those. Do not treat the whole library as the pack.",
+        "The stills in this vault are the mark, the plates, and the portraits Design Lab North share for press.",
       ],
       bestFor: "Local, arts and portrait desks.",
       ask: "Imagery from the vault. Introductions through Design Lab North.",
@@ -45,7 +44,7 @@ export const pfpDoc: EpkDoc = {
     title: "The practice",
     kicker: "Paul Fosbury Portraits",
     paras: [
-      "Portrait practice. Mark, print, and stills from the work. We do not invent extra biography for Paul, and we do not pretend this pack is his current public site.",
+      "Portrait practice. Mark, print, and stills from the work.",
     ],
   },
   quoteBank: [

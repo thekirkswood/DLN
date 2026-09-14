@@ -61,7 +61,7 @@ export const KIT_COPY: KitCopy[] = [
     lede: "Founding designer at Design Lab North.",
     overview: [
       "Dave Kirkwood is a multi-award-winning designer for branding and marketing. He is a former lecturer, a brand and marketing advisor to Lancashire County Council, a consultant across the region, a public speaker and host, with work featured in publications, on television and radio.",
-      "He is founding designer at Design Lab North, equal with Ewan Kirkwood. This pack holds the stills we share for his house. We do not invent a mark.",
+      "He is founding designer at Design Lab North, equal with Ewan Kirkwood. This pack holds the stills we share for his house.",
     ],
     quotes: [
       "Dave Kirkwood is a multi-award-winning designer for branding and marketing.",

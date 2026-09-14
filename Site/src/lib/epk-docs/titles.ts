@@ -35,7 +35,7 @@ export const titlesDoc: EpkDoc = {
       kicker: "Resource",
       title: "Ideas about marketing and branding, written so people can learn.",
       story: [
-        "Various Titles is a resource, not a shop. This pack is the geometric VT mark and the stills Design Lab North share.",
+        "Various Titles is a place for ideas about marketing and branding, written so people can learn. This pack is the geometric VT mark and the stills Design Lab North share.",
       ],
       bestFor: "Design education, brand and methodology desks.",
       ask: "design@designlabnorth.com",

@@ -431,11 +431,12 @@ export function Workbench({
               >
                 H
               </button>
-              <span className="bench-glyph is-mute" title="Named when there is a film.">
-                YT
-              </span>
+              <span className="bench-glyph is-mute">YT</span>
             </>
           ) : null}
+          <Link className="bench-word" href="/epk">
+            Press packs
+          </Link>
           {me ? (
             <Link className="bench-word" href="/account">
               {me.displayName || "Account"}
@@ -759,6 +760,15 @@ function Land({
             );
           })}
         </div>
+        <div className="campus-press">
+          <p className="bench-kicker">Press</p>
+          <p className="campus-lead">
+            Packs for journalists, with stills and files from the work.
+          </p>
+          <div className="campus-plot-doors">
+            <Link href="/epk">Press packs</Link>
+          </div>
+        </div>
         {plot ? (
           <div className="campus-plot-stuff">
             <p className="bench-kicker">{plot.name}</p>
@@ -953,8 +963,7 @@ function PlotWho({
         <p className="bench-kicker">Start with us</p>
         <h1>Who are you?</h1>
         <p className="campus-lead">
-          Size of the work first, then what you are actually here for. This is
-          how we meet you — it is not a live site yet.
+          Size of the work first, then what you are actually here for.
         </p>
         <div className="campus-scales">
           {SCALES.map((s) => (
@@ -1080,10 +1089,9 @@ function HostRoom({ onContact }: { onContact: () => void }) {
       <h1>Hosting</h1>
       <p className="campus-lead">
         Live site, or a private preview, or both. You leave a note. We come in.
-        Tester rate while we are local: one environment is £50 a month. Both
-        open at once is £100. Heavy traffic is a conversation. You can reopen
-        the preview any time: the live site stays up, you pay for the preview
-        while you edit.
+        One environment is £50 a month. Both open at once is £100. Heavy
+        traffic is a conversation. You can reopen the preview any time: the live
+        site stays up, you pay for the preview while you edit.
       </p>
       <div className="bench-host-grid">
         <div>

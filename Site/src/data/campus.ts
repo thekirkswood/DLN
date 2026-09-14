@@ -94,9 +94,7 @@ export function divisionById(id: string): (typeof DIVISIONS)[number] | undefined
 export function pointsForScale(facet: Facet, scale: ScaleId | null): string[] {
   const all = OFFERS.find((o) => o.id === facet)?.points || [];
   if (!scale || scale === "bigger-business" || scale === "corporation") {
-    return scale === "corporation" && facet === "build"
-      ? [...all, "Seats on one board"]
-      : all;
+    return all;
   }
   if (facet === "build") return ["Simple sites", "Interactive Workspaces"];
   if (facet === "design") return ["Logos", "Brand Identity Systems"];
@@ -120,12 +118,12 @@ export function pipelineForScale(scale: ScaleId | null): string[] {
 
 export function lineForScale(scale: ScaleId): string {
   if (scale === "sole-trader") {
-    return "You are a sole trader. We start with a simple site, done properly, and a space people can actually work in. You see Prep and Plan and the live host — not a full corporate board.";
+    return "You are a sole trader. We start with a simple site, done properly, and a space people can actually work in.";
   }
   if (scale === "bigger-business") {
     return "You are a bigger business. Design, Strategy, and Build sit at full depth, with a private preview beside the live site, and more of the eight stages.";
   }
-  return "You are a corporation. The same board, with seats for the people who contribute. Design, marketing, and HR each have a colour. Design Lab North are one studio. Everyone looks at the same board.";
+  return "You are a corporation. Design, marketing, and HR each have a colour. Design Lab North are one studio.";
 }
 
 export function defaultNeedForScale(scale: ScaleId): string {

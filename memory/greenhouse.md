@@ -43,7 +43,7 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Public wall on swarmfund.com is **Building** — Swarm Fund logo and the word Building. Only Ewan and Dave walk in (`swarm-enter`). Same idea as Various Titles.
 - **Cutover (2026-09-08):** Same `plot-swarm` as Various Titles / PFP on this VPS. Caddy already serves apex HTTP. Ewan may flip Livedns A `@`/`www` for swarmfund.com → `82.165.5.84` so public Swarm is on IONOS with the rest. Leave MX / SPF on Livemail. Fasthosts VPS stays until April 2027 as a public preview box — not live Swarm. `swarmfund.designlabnorth.com` stays the gated growing copy.
 - Kind: new. Status: growing.
-- Voice: A hive for cultural discovery and collective backing. A person finds work they believe should exist, signals it, and a like-minded hive weighs whether to swarm. Backing follows belief, not a feed and not an ads marketplace. It is Year Zero: the wall says Building, and only the studio walks in while the hive is assembled. Do not say where it is housed on the public wall.
+- Voice: A hive for cultural discovery and collective backing. A person finds work they believe should exist, signals it, and a like-minded hive weighs whether to swarm. Backing follows belief, not a feed and not an ads marketplace. Do not say where it is housed on the public wall.
 - Logo: `Site/public/plots/swarm.svg` (official hive, amber).
 - Source: local `/home/main/SwarmFund` · VPS `/srv/dln/plots/swarm` · Docker `plot-swarm` · sqlite `/srv/dln/data/swarm`. Ewan handles git.
 - Offline lab: `swarm.dln.local` (`:5173`) · inbox `_meta/lab-inbox` · desk `builder.dln.local/swarm`

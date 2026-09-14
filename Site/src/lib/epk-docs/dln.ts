@@ -35,7 +35,7 @@ export const dlnDoc: EpkDoc = {
       kicker: "Studio",
       title: "Identities, strategy, sites, and print.",
       story: [
-        "People come for Design, Strategy, and Build. Walk in at the one you need. The work may move between them; we do not number them or gatekeep the journey.",
+        "People come for Design, Strategy, and Build. Walk in at the one you need.",
       ],
       bestFor: "Design, regional business and culture desks.",
       ask: "design@designlabnorth.com",
@@ -45,7 +45,7 @@ export const dlnDoc: EpkDoc = {
     title: "The studio",
     kicker: "Design Lab North",
     paras: [
-      "Dave Kirkwood is founding designer. Ewan Kirkwood is builder. Equal. This pack is the studio mark and the stills we share — not another house’s identity.",
+      "Dave Kirkwood is founding designer. Ewan Kirkwood is builder. Equal. This pack is the studio mark and the stills we share.",
     ],
   },
   quoteBank: [

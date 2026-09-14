@@ -831,3 +831,16 @@
 {"t":"2026-09-14T13:46:00+01:00","k":"mod","p":"deploy/sync-to-vps.sh docker-compose.yml","s":"Do not --delete press/assets/epk; persist them as web volumes","d":"live kits and uploads must survive a numbered ship"}
 {"t":"2026-09-14T13:55:00+01:00","k":"mod","p":"Site/src/middleware.ts","s":"Live host 404s /board and /api/board before the page","d":"Next notFound was still 200 HTML; crawlers must see gone"}
 {"t":"2026-09-14T13:58:00+01:00","k":"ver","p":"dln-4","s":"Campus home, print, account, press kits, asset hub; board 404 on live","d":"numbered ship"}
+{"t":"2026-09-14T16:54:53+01:00","k":"dir","p":"DIRECTIONS.md","s":"ModYu and DAA copy as hub text files","d":"Ewan: first HT4 kit and DAA site pack into assets, not auto-stories; titles later"}
+{"t":"2026-09-14T16:54:53+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"Hub holds ModYu HT4 EPK and DAA site pack as text, off kit until ticked","d":"library is not the journalist pack"}
+{"t":"2026-09-14T16:54:53+01:00","k":"add","p":"ops/seed-kit-text.py ops/seed_kit_text_modyu.py","s":"Seeder writes press/{kit}/docs .txt into the asset index","d":"same path as a studio note; share false"}
+{"t":"2026-09-14T16:54:53+01:00","k":"add","p":"Site/public/press/modyu/docs Site/public/press/daa/docs _meta/assets/index.json","s":"19 ModYu + 53 DAA text documents in the hub","d":"LAN and live; not a numbered ship"}
+{"t":"2026-09-14T21:29:24+01:00","k":"dir","p":"DIRECTIONS.md","s":"ModYu kit is Dave’s pages, PDF per page","d":"Ewan: not a scroller; logo+banner on PDF foot only; campaigns incl About Ann-Marie"}
+{"t":"2026-09-14T21:29:24+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"ModYu journalist kit is paged HT4 document; other kits stay MAP","d":"bespoke going forward"}
+{"t":"2026-09-14T21:29:24+01:00","k":"add","p":"Site/src/components/ModyuKitApp.tsx Site/src/lib/modyu-kit.ts","s":"Paged ModYu press pack with Download PDF","d":"Dave’s copy as separate pages"}
+{"t":"2026-09-14T21:29:24+01:00","k":"mod","p":"epk/[kit] epk-cover.ts globals.css","s":"Branch ModYu kit; firstBanner for PDF foot","d":"do not put marks on the on-screen article"}
+{"t": "2026-09-14T21:49:19+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Press packs on landing; public copy is for the public", "d": "Ewan: not desk asides; general public and clients"}
+{"t": "2026-09-14T21:49:19+01:00", "k": "bp", "p": "BLUEPRINT.md WORKSTREAM.md greenhouse.md", "s": "Home press packs door; Swarm voice without Year Zero", "d": "landing includes packs; public is the consumer"}
+{"t": "2026-09-14T21:49:19+01:00", "k": "mod", "p": "Workbench.tsx campus.ts greenhouse page worklines not-found", "s": "Press packs on ticket and header; strip desk asides", "d": "live site is not a chat log"}
+{"t": "2026-09-14T21:49:19+01:00", "k": "mod", "p": "ModyuKitApp epk-docs plots.json", "s": "Journalist copy without builder notes", "d": "Dave pack / ticked / invent a mark off the pack"}
+{"t": "2026-09-14T21:49:19+01:00", "k": "ver", "p": "dln-5", "s": "Press packs on the landing, paged ModYu kit, public copy without desk asides", "d": "numbered ship"}

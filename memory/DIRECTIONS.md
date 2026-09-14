@@ -919,6 +919,22 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - Assets is **not** the press kit. Build a proper asset hub: house and type dropdowns (not a canvas), drag-and-drop, upload, download, delete, write text documents, comments. Intuitive, pretty, modern, chamfered.
 - The EPK **pulls from assets ticked to share**. Stories and promotions are kit sections you can turn off when they are old. Do not mix the library with the journalist pack.
 
+## 2026-09-14 — ModYu and DAA copy as hub text (Ewan)
+
+- Put the first HT4 kit (Dave’s document) back into the asset hub as text files, as if notes had been written in. DAA the same from the site pack. Stories and promotions can be made by hand; the job is to populate the library.
+- Do not auto-build DAA as kit stories. Leave the files **off** the journalist pack until someone ticks **On the press kit**. Various Titles later.
+
+## 2026-09-14 — ModYu kit is Dave’s pages, PDF per page (Ewan)
+
+- The ModYu press pack is Dave’s HT4 document as **separate pages**, not a single scroller. Same copy, set to lift. Click a page, **Download PDF** for that page only.
+- Logos and banners stay in the **asset hub** (sortable). Do not put them on the on-screen article. When someone downloads a PDF, attach a logo and a banner at the **foot of that PDF**.
+- The kit is a place for campaigns. The four desk stories plus an About Ann-Marie campaign. Other houses stay on the MAP chrome until they are made bespoke. Brief: `_meta/HT4_EPK MAP.pdf` (and the ModYu house EPK pages).
+
+## 2026-09-14 — Press packs on the landing; public copy is public (Ewan)
+
+- Put press packs on the main campus landing. Ticket strip under Design / Strategy / Build, and on the campus header line. Door is `/epk`. Do not list kit names on the public home. DAA stays off the greenhouse.
+- The live site is for the public and for clients. Ewan is not the consumer of that site. If a sentence only exists because of the Cursor back-and-forth (pipeline asides, “not a live site yet”, “while we are local”, “open the product not a subdomain”, “ticked onto the pack”, board talk on qualify, “the package stays shut” type lines), it does not go on the site.
+
 
 
 

@@ -4799,26 +4799,126 @@ body:has(.epk-gate) main {
   margin: 2.4rem auto 3rem;
 }
 
-.epk-print img {
+.epk-print img:not(.epk-pdf-foot__logo):not(.epk-pdf-foot__banner) {
   display: block;
   width: 100%;
   height: auto;
   margin: 0 0 1rem;
 }
 
+.epk-modyu-lede {
+  max-width: 38rem;
+  margin: 0 0 1.6rem;
+}
+
+.epk-modyu-page h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.4rem 0 0.4rem;
+}
+
+.epk-modyu-page .epk-pull {
+  margin: 1.1rem 0;
+  padding: 0;
+  border: 0;
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.epk-modyu-page .epk-pull cite {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.epk-plain {
+  margin: 0 0 1rem;
+  padding: 0 0 0 1.1rem;
+}
+
+.epk-plain li {
+  margin: 0 0 0.35rem;
+}
+
+.epk-facts {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0 0 1.6rem;
+}
+
+.epk-facts > div {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 0.8rem;
+}
+
+.epk-facts dt {
+  font-weight: 700;
+}
+
+.epk-facts dd {
+  margin: 0;
+}
+
+.epk-pdf-foot {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: end;
+  margin-top: 2.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.epk-pdf-foot__logo,
+.epk-pdf-foot__banner {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.epk-pdf-foot__logo {
+  max-height: 4.2rem;
+  object-fit: contain;
+  object-position: left bottom;
+}
+
+.epk-pdf-foot__banner {
+  max-height: 5.6rem;
+  object-fit: cover;
+}
+
+.epk-modyu-home .epk-story-plates a {
+  min-height: 7.5rem;
+  padding: 1rem 1.05rem;
+}
+
 @media print {
-  .site-header,
-  .site-footer,
   .epk-top,
   .epk-nav,
   .epk-print a,
-  .epk-print button {
+  .epk-print button,
+  .epk-modyu .epk-map__bar,
+  .epk-modyu .epk-rail,
+  .epk-modyu .epk-map__host,
+  .no-print {
     display: none !important;
   }
 
-  .epk-print {
+  .epk-print,
+  .epk-modyu-print {
     width: auto;
     margin: 0;
+  }
+
+  .epk-pdf-foot {
+    break-inside: avoid;
   }
 }
 
@@ -5159,7 +5259,9 @@ body:has(.epk-gate) main {
 .epk-story-block h1,
 .epk-article h1,
 .epk-still h1,
-.epk-contact h1 {
+.epk-contact h1,
+.epk-modyu-home h1,
+.epk-map__main > section > h1 {
   font-size: 2.2rem;
   font-weight: 900;
   letter-spacing: -0.03em;
@@ -7714,7 +7816,8 @@ body:has(.bench.is-inside) main {
 .bench.is-pulling-in .campus-enter,
 .bench.is-pulling-in .campus-col ul,
 .bench.is-pulling-in .campus-n,
-.bench.is-pulling-in .campus-plot-stuff {
+.bench.is-pulling-in .campus-plot-stuff,
+.bench.is-pulling-in .campus-press {
   max-height: 0;
   opacity: 0;
   margin: 0;
@@ -10821,10 +10924,16 @@ html[data-ground="ink"] .fw-tile img {
   text-overflow: ellipsis;
 }
 
-.campus-plot-stuff {
+.campus-plot-stuff,
+.campus-press {
   margin-top: 1.6rem;
   padding-top: 1rem;
   border-top: 1px solid var(--line);
+}
+
+.campus-press .campus-lead {
+  margin: 0.35rem 0 0.7rem;
+  max-width: 42ch;
 }
 
 .campus-plot-doors a {

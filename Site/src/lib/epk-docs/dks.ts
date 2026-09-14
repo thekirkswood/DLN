@@ -6,7 +6,7 @@ export const dksDoc: EpkDoc = {
   product: "Dave Kirkwood",
   kitTitle: "Electronic Press Kit",
   peopleLine: "Founding designer · Design Lab North",
-  coverNote: "We’ll supply interviews and stills we share for Dave’s house. We do not invent a mark.",
+  coverNote: "We’ll supply interviews and stills we share for Dave’s house.",
   coverLabels: ["Our story", "The work", "Asset vault"],
   lanes: [
     { id: "logos", label: "Logos" },
@@ -26,7 +26,7 @@ export const dksDoc: EpkDoc = {
     title: "Our Story",
     paras: [
       "Dave Kirkwood is a multi-award-winning designer for branding and marketing. He is a former lecturer, a brand and marketing advisor to Lancashire County Council, a consultant across the region, a public speaker and host, with work featured in publications, on television and radio.",
-      "He is founding designer at Design Lab North, equal with Ewan Kirkwood. This pack holds the stills we share for his house. We do not invent a mark.",
+      "He is founding designer at Design Lab North, equal with Ewan Kirkwood. This pack holds the stills we share for his house.",
     ],
   },
   pitches: [
@@ -35,7 +35,7 @@ export const dksDoc: EpkDoc = {
       kicker: "Studio",
       title: "Founding designer at Design Lab North.",
       story: [
-        "Dave Kirkwood is a multi-award-winning designer for branding and marketing. This pack is the stills Design Lab North share — not a second logo we invented for the house.",
+        "Dave Kirkwood is a multi-award-winning designer for branding and marketing. This pack is the stills Design Lab North share.",
       ],
       bestFor: "Design, regional and profile desks.",
       ask: "design@designlabnorth.com",
@@ -63,14 +63,14 @@ export const dksDoc: EpkDoc = {
     rows: [
       { label: "Name", value: "Dave Kirkwood" },
       { label: "Role", value: "Founding designer, Design Lab North" },
-      { label: "This pack", value: "Stills we share. No invented mark." },
+      { label: "This pack", value: "Stills we share for press." },
       { label: "Press", value: "design@designlabnorth.com" },
     ],
   },
   faqs: [
     {
-      q: "Where is the logo?",
-      a: "We do not invent a Dave Kirkwood Studio mark. This pack is the stills we have to share.",
+      q: "What is in this pack?",
+      a: "Stills Design Lab North share for Dave Kirkwood. Interviews on request.",
     },
   ],
   contact: {

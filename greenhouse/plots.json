@@ -69,7 +69,7 @@
     "public": true,
     "logoPaper": "/plots/swarm.svg",
     "logoInk": "/plots/swarm.svg",
-    "voice": "A hive for cultural discovery and collective backing. A person finds work they believe should exist, signals it, and a like-minded hive weighs whether to swarm. Backing follows belief, not a feed and not an ads marketplace. It is Year Zero: the wall says Building, and only the studio walks in while the hive is assembled.",
+    "voice": "A hive for cultural discovery and collective backing. A person finds work they believe should exist, signals it, and a like-minded hive weighs whether to swarm. Backing follows belief, not a feed and not an ads marketplace.",
     "lab": {
       "housePath": "/home/main/SwarmFund",
       "localPort": 5173,

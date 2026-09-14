@@ -263,7 +263,7 @@ export const WORK_LINES: WorkLine[] = [
       },
       {
         name: "Unboxing",
-        text: "The sequence someone actually meets — not a render of a closed carton.",
+        text: "The sequence someone actually meets when they open it.",
       },
     ],
     needId: "design-packaging",
