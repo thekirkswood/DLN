@@ -27,7 +27,7 @@
     "party": "client",
     "hosts": ["paulfosbury.designlabnorth.com", "paulfosburyportraits.com"],
     "enterUrl": "https://paulfosburyportraits.com",
-    "localPreview": "/lab/pfp",
+    "localPreview": "https://paulfosburyportraits.com",
     "public": false,
     "voice": "Design Lab North are rebuilding Paul Fosbury Portraits.",
     "lab": {

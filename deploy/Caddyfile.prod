@@ -81,7 +81,7 @@
 
   @home_desk {
     host designlabnorth.com www.designlabnorth.com
-    path /lab* /admin* /go* /api/lab*
+    path /desk*
   }
   handle @home_desk {
     forward_auth web:3000 {

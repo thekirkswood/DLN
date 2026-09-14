@@ -5,12 +5,25 @@ import {
   isPuppetEmail,
   isStudio,
   login,
-  sessionCookieOptions,
   verifyPassword,
 } from "@/lib/auth";
+import { appendSessionCookies } from "@/lib/cookie-opts";
+import { emitClock } from "@/lib/clock-store";
 import { issueStudioTicketFromHome } from "@/lib/home-dial";
 import { homeOrigin } from "@/lib/home-ticket";
 import { isLabHost } from "@/lib/lab-host";
+
+function reqHost(req: NextRequest): string | null {
+  return req.headers.get("x-forwarded-host") || req.headers.get("host");
+}
+
+function reqProto(req: NextRequest): string | null {
+  return req.headers.get("x-forwarded-proto");
+}
+
+function setSession(res: NextResponse, token: string, req: NextRequest) {
+  appendSessionCookies(res.headers, token, reqHost(req), reqProto(req));
+}
 
 export async function POST(req: NextRequest) {
   const body = (await req.json().catch(() => null)) as {
@@ -23,7 +36,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
 
-  const lab = isLabHost(req.headers.get("host"));
+  const lab = isLabHost(reqHost(req));
   const user = await findUserByEmail(email);
   if (
     user &&
@@ -31,6 +44,13 @@ export async function POST(req: NextRequest) {
     (user.puppet || isPuppetEmail(user.email) || user.hubLogin === false)
   ) {
     if (!user.passwordHash || !verifyPassword(password, user.passwordHash)) {
+      void emitClock({
+        house: "dln",
+        plane: "studio",
+        kind: "studio.login.fail",
+        actor: email,
+        summary: "Sign-in failed",
+      });
       return NextResponse.json({ ok: false }, { status: 401 });
     }
     const puppet = Boolean(user.puppet) || isPuppetEmail(user.email);
@@ -52,21 +72,42 @@ export async function POST(req: NextRequest) {
           { status: 503 },
         );
       }
+      void emitClock({
+        house: "dln",
+        plane: "studio",
+        kind: "studio.login.fail",
+        actor: email,
+        summary: "Sign-in failed",
+      });
       return NextResponse.json({ ok: false }, { status: 401 });
     }
     if (home && "token" in home) {
+      void emitClock({
+        house: "dln",
+        host: "live",
+        plane: "studio",
+        kind: "studio.login.ok",
+        actor: home.user?.email || email,
+        summary: `${home.user?.displayName || email} signed in via home ticket`,
+      });
       const res = NextResponse.json({ ok: true, user: home.user });
-      res.cookies.set(sessionCookieOptions(home.token));
+      setSession(res, home.token, req);
       return res;
     }
   }
 
   const result = await login(email, password);
   if (!result) {
+    void emitClock({
+      house: "dln",
+      plane: "studio",
+      kind: "studio.login.fail",
+      actor: email,
+      summary: "Sign-in failed",
+    });
     return NextResponse.json({ ok: false }, { status: 401 });
   }
   const res = NextResponse.json({ ok: true, user: result.user });
-  const cookie = sessionCookieOptions(result.token);
-  res.cookies.set(cookie);
+  setSession(res, result.token, req);
   return res;
 }

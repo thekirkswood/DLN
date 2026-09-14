@@ -2,29 +2,13 @@
 
 import { FormEvent, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { continueAfterLogin } from "@/lib/login-next";
 
 export default function LoginForm() {
   const search = useSearchParams();
   const nextParam = search.get("next");
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
-
-  function safeNext(value: string) {
-    if (value.startsWith("/") && !value.startsWith("//")) return value;
-    try {
-      const u = new URL(value);
-      const host = u.hostname.toLowerCase();
-      if (
-        (host === "designlabnorth.com" || host.endsWith(".designlabnorth.com")) &&
-        (u.protocol === "https:" || u.protocol === "http:")
-      ) {
-        return value;
-      }
-    } catch {
-      /* fall through */
-    }
-    return "/account";
-  }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -33,6 +17,8 @@ export default function LoginForm() {
     const form = new FormData(e.currentTarget);
     const res = await fetch("/api/auth/login", {
       method: "POST",
+      credentials: "include",
+      cache: "no-store",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: form.get("email"),
@@ -53,25 +39,15 @@ export default function LoginForm() {
         setError("That account doesn’t sign in on this host.");
       } else if (data?.reason === "home_unreachable") {
         setError(
-          "The house is not answering. Studio sign-in on the public site talks home — try the campus on the LAN, or wait a moment.",
+          "The house is not answering. Studio sign-in on the public site talks home — try this site on the LAN, or wait a moment.",
         );
       } else {
         setError("That sign-in didn’t match.");
       }
       return;
     }
-    const role = data?.user?.role;
-    const studio = role === "owner" || role === "studio";
-    if (nextParam) {
-      const dest = safeNext(nextParam);
-      if (studio && (dest === "/account" || dest.startsWith("/account/"))) {
-        window.location.href = "/lab";
-        return;
-      }
-      window.location.href = dest;
-      return;
-    }
-    window.location.href = studio ? "/lab" : "/account";
+    const here = typeof window !== "undefined" ? window.location.origin : "";
+    window.location.href = continueAfterLogin(nextParam || "/account", here);
   }
 
   return (
@@ -93,9 +69,7 @@ export default function LoginForm() {
         {pending ? "…" : "Enter"}
       </button>
       <p className="note">
-        Your login opens the sites on your account and the billing book. Studio
-        opens campus at home — on this LAN, or through the public host talking
-        back to the house.
+        Sign in to your sites and your invoices.
       </p>
     </form>
   );

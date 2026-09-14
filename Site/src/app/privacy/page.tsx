@@ -57,6 +57,10 @@ export default function PrivacyPage() {
           Ordinary server logs: IP, time, path — to keep the host up and to
           notice abuse.
         </li>
+        <li>
+          A press-kit cookie (<code>dln_epk</code>) if someone types an access
+          code at /epk, so that browser can open that house’s pack. No email.
+        </li>
       </ul>
       <p>
         The ground you pick in the footer stays in your browser (local
@@ -76,9 +80,10 @@ export default function PrivacyPage() {
       <p>
         The session cookie is essential. It is httpOnly, scoped to
         designlabnorth.com (including plot subdomains we put it on). It lasts
-        up to ninety days and refreshes while you use the site. It is not an
-        advertising tracker. There is no analytics tag on this site. If that
-        changes, we will say so here first.
+        up to ninety days and refreshes while you use the site. A press-kit
+        cookie lasts thirty days and only names which pack that browser opened.
+        Neither is an advertising tracker. There is no analytics tag on this
+        site. If that changes, we will say so here first.
       </p>
 
       <h2>How long</h2>

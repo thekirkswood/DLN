@@ -6,9 +6,11 @@ import { GroundSwitch } from "@/components/GroundSwitch";
 
 export function Footer() {
   const path = usePathname() || "";
+  if (path === "/blocked" || path.startsWith("/blocked/")) return null;
   if (path.startsWith("/suggest")) return null;
   if (path === "/work") return null;
-  if (/^\/lab\/[^/]+/.test(path) && !path.includes("/admin")) return null;
+  if (path === "/epk" || path.startsWith("/epk/")) return null;
+  if (path === "/" || path === "/app" || path.startsWith("/app/")) return null;
   return (
     <footer className="site-footer wrap">
       <div className="footer-who">
@@ -20,6 +22,7 @@ export function Footer() {
       </div>
       <nav className="footer-legal" aria-label="Legal">
         <Link href="/method">Methodology</Link>
+        <Link href="/epk">Press</Link>
         <Link href="/privacy">Privacy</Link>
         <Link href="/terms">Terms</Link>
       </nav>

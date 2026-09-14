@@ -20,7 +20,9 @@ RSYNC=(rsync -aH --info=stats1
   --exclude _meta/lab-houses/studio-presence.json
   --exclude _meta/lab-houses/leases.json
   --exclude _meta/lab-houses/campus-rebuild.lock
-  --exclude _meta/lab-houses/campus-watch.state)
+  --exclude _meta/lab-houses/campus-watch.state
+  --exclude _meta/assets/
+  --exclude _meta/epk/)
 
 echo "== DLN → $DEBIAN =="
 "${RSYNC[@]}" -e "ssh ${SSH_OPTS[*]}" "$ROOT/" "$DEBIAN:/home/main/DLN/"

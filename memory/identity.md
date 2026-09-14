@@ -22,7 +22,7 @@ Not a client product. Not ModYu, SwarmFund, Various Titles, or any plot’s publ
 
 ## Voice (public)
 
-Conversational, from our side. Plural: Design Lab North are. Pleasure of the work, said differently each time. Proper sentences about the brand. Never slight a live site or its builders. No riddles. No hype. No agency-speak. No GBP on the public wall — the live-host service is described, not priced.
+Conversational, from our side. Plural: Design Lab North are. Pleasure of the work, said differently each time. Proper sentences about the brand. Never slight a live site or its builders. No riddles. No hype. No agency-speak. No GBP on the public wall — the live-host service is described, not priced. **Tester exception (campus `:3010` only, 2026-09-08):** Host may print live or sandbox £50 pm, both together £100 pm, heavy traffic negotiable, and Build costs. Live `designlabnorth.com` keeps the no-GBP rule until a numbered ship.
 
 ## People
 

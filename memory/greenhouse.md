@@ -18,7 +18,7 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Voice: Design Lab North are rebuilding ModYu, the market-leading hair and scalp care brand — for people looking after their scalp before, during, and after transplant.
 - Logos: `Site/public/plots/modyu.svg` (paper) + `modyu-white.svg` (ink)
 - Source: GitHub `thekirkswood/modyu` · VPS `/srv/dln/plots/modyu` · Docker plot `plot-modyu`
-- Offline lab: `/home/main/ModYu` · local `:3000` · inbox `_meta/designer-inbox` · framed at `localhost:3010/lab/modyu`. On Debian the live tree is `/srv/clients/ModYu` (symlink at `/home/main/ModYu`).
+- Offline lab: `/home/main/ModYu` · `modyu.dln.local` (`:3000`) · inbox `_meta/designer-inbox` · desk `builder.dln.local/modyu`. On Debian the live tree is `/srv/clients/ModYu` (symlink at `/home/main/ModYu`).
 - Access: DLN client **record** bound to `modyu` for billing and live suggestions. Anne Marie: `annmarie.barlow@modyu.com` — **live client** on designlabnorth.com (plot `modyu`). Same account usable on campus for testing — not locked to localhost. Live ModYu book stays `modyu.designlabnorth.com` (`modyu_session`, other password). Studio/owner always. Client sites stay off the greenhouse.
 
 ### Paul Fosbury Portraits (`pfp`)
@@ -30,7 +30,7 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Voice: Design Lab North are rebuilding Paul Fosbury Portraits.
 - Public wall: Design Lab North mark and the word Building. Not his own mark on the parking page.
 - Source: GitHub `thekirkswood/PFP` · VPS `/srv/dln/plots/pfp` · Docker plot `plot-pfp`
-- Offline lab: `/home/main/PFP` · local `:3030` · inbox `_meta/lab-inbox` · framed at `localhost:3010/lab/pfp`.
+- Offline lab: `/home/main/PFP` · `pfp.dln.local` (`:3030`) · inbox `_meta/lab-inbox` · desk `builder.dln.local/pfp`.
 - Access: DLN client record bound to `pfp`. Client sites stay off the greenhouse.
 
 ## Studio plots
@@ -38,15 +38,15 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 ### Swarm Fund (`swarm`)
 
 - Party: studio. Ours.
-- Public enter: `https://swarmfund.com` (own domain). On the public hub, greenhouse Enter goes there. On this PC’s lab, Enter opens `/lab/swarm` and starts the local app.
+- Public enter: `https://swarmfund.com` (own domain). On the public hub, greenhouse Enter goes there. Lab desk: `builder.dln.local/swarm`. Named local: `swarm.dln.local`.
 - Growing copy on this VPS: `swarmfund.designlabnorth.com` (gated plot). Host name is `swarmfund`, not `swarm`.
 - Public wall on swarmfund.com is **Building** — Swarm Fund logo and the word Building. Only Ewan and Dave walk in (`swarm-enter`). Same idea as Various Titles.
-- **Cutover status (2026-08-17):** Swarm plot runs on this VPS. Public DNS for `swarmfund.com` still points at the legacy Scran VPS (`77.68.49.132`) where HTTPS was repaired so the apex shows Swarm Fund (not Scran). Caddy is prepared for apex on this host; flip Fasthosts A `@`/`www` → `82.165.5.84` when retiring the legacy box for Swarm.
+- **Cutover (2026-09-08):** Same `plot-swarm` as Various Titles / PFP on this VPS. Caddy already serves apex HTTP. Ewan may flip Livedns A `@`/`www` for swarmfund.com → `82.165.5.84` so public Swarm is on IONOS with the rest. Leave MX / SPF on Livemail. Fasthosts VPS stays until April 2027 as a public preview box — not live Swarm. `swarmfund.designlabnorth.com` stays the gated growing copy.
 - Kind: new. Status: growing.
 - Voice: A hive for cultural discovery and collective backing. A person finds work they believe should exist, signals it, and a like-minded hive weighs whether to swarm. Backing follows belief, not a feed and not an ads marketplace. It is Year Zero: the wall says Building, and only the studio walks in while the hive is assembled. Do not say where it is housed on the public wall.
 - Logo: `Site/public/plots/swarm.svg` (official hive, amber).
 - Source: local `/home/main/SwarmFund` · VPS `/srv/dln/plots/swarm` · Docker `plot-swarm` · sqlite `/srv/dln/data/swarm`. Ewan handles git.
-- Offline lab: local `:5173` · inbox `_meta/lab-inbox` · framed at `localhost:3010/lab/swarm`
+- Offline lab: `swarm.dln.local` (`:5173`) · inbox `_meta/lab-inbox` · desk `builder.dln.local/swarm`
 
 ### Choozlist (`choozlist`)
 
@@ -63,12 +63,12 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 
 - Party: studio. Ours. Public greenhouse copy is Dave’s Proprietary Engine Room text.
 - Sibling house `/home/main/VariousTitles`. Public host `https://varioustitles.com` on this VPS (`plot-titles`). Ungated at the edge. Public wall is Building. Studio (Ewan, Dave) enter on this book’s session (`titles-enter` bounce). GitHub `thekirkswood/vt`. Billing on the DLN book (`titlesGrant`) when it opens.
-- Offline lab: local `:3020` · inbox `_meta/lab-inbox` · framed at `localhost:3010/lab/various-titles`
+- Offline lab: `titles.dln.local` (`:3020`) · inbox `_meta/lab-inbox` · desk `builder.dln.local/various-titles`
 - Source: VPS `/srv/dln/plots/various-titles`. A records for varioustitles.com point at this VPS.
 - Reached through **Strategy** on the hub as well. Consultation can unlock sections; full resource is an upsell. Must be a paying customer (paid grant). Bank link next.
 - Kind: brand. Status: growing. Listed first on the greenhouse wall.
 - Voice: The Proprietary Engine Room. The anchor of our campus authority. Various Titles will be our premium, paywalled repository of operational design methodology, identity blueprints, and communication frameworks. Corporate teams and external agency peers subscribe to trade in our proprietary tools, while our direct studio clients receive complete, unhindered access — equipping internal teams with the exact blueprints needed to scale independently without forced agency dependency.
-- Public greenhouse story. Enter on the public hub: `https://varioustitles.com`. On this PC’s lab, Enter opens `/lab/various-titles`. No “not a shop”. No same-login or shared-billing copy on the public wall.
+- Public greenhouse story. Enter on the public hub: `https://varioustitles.com`. Lab desk: `builder.dln.local/various-titles`. No “not a shop”. No same-login or shared-billing copy on the public wall.
 - Logos: `Site/public/plots/various-titles.png` (paper, mute grey VT) + `various-titles-white.png` (ink). Plates from Ewan 2026-08-17. Do not redraw.
 
 ## Not listed yet

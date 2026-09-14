@@ -16,7 +16,8 @@ import {
   payByIso,
 } from "@/lib/clock";
 import { enterUrlFor, hostUrlFor, type Plot } from "@/lib/plot-urls";
-import { labStationPath } from "@/lib/lab-host";
+import { pressKitForPlot, epkHref } from "@/lib/epk-map";
+import { lanOriginForPlot } from "@/lib/lan-names";
 import type { PublicUser } from "@/lib/auth";
 
 function totalOf(inv: Invoice): number {
@@ -104,7 +105,9 @@ function BuildTiles({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
       {rows.map((plot) => {
         const pub = enterUrlFor(plot);
         const host = hostUrlFor(plot);
-        const same = pub && host && pub.replace(/\/$/, "") === host.replace(/\/$/, "");
+        const local = lanOriginForPlot(plot.slug);
+        const live = pub || host;
+        const kit = pressKitForPlot(plot.slug);
         return (
           <div key={plot.slug} className="lift-plate">
             <div className="lift-plate-face book-card">
@@ -114,27 +117,27 @@ function BuildTiles({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
               </div>
               <p className="book-when">{plot.status}</p>
               <div className="book-acts">
-                {lab && plot.lab?.housePath && plot.lab.localPort ? (
-                  <Link href={labStationPath(plot.slug)}>Open here</Link>
-                ) : lab && plot.lab?.housePath ? (
-                  <span className="status">Folder on disk. Open in Cursor.</span>
-                ) : null}
-                {pub && !same ? (
-                  <a href={pub} target="_blank" rel="noreferrer">
-                    Public
+                {local ? (
+                  <a href={local} target="_blank" rel="noreferrer">
+                    View site
                   </a>
-                ) : null}
-                {host ? (
+                ) : host ? (
                   <a href={host} target="_blank" rel="noreferrer">
-                    {same ? "Open" : "Our host"}
+                    View site
                   </a>
                 ) : pub ? (
                   <a href={pub} target="_blank" rel="noreferrer">
-                    Open
+                    View site
                   </a>
                 ) : (
                   <Link href={plot.localPreview}>Story</Link>
                 )}
+                {live && live !== local ? (
+                  <a href={live} target="_blank" rel="noreferrer">
+                    Open live
+                  </a>
+                ) : null}
+                {kit ? <a href={epkHref(kit)}>View EPK</a> : null}
               </div>
             </div>
           </div>

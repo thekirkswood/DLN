@@ -157,3 +157,14 @@ export function payByIso(dueAt?: string, issuedAt?: string, days = GRACE_DAYS): 
   const n = Number.isFinite(days) && days >= 1 ? days : GRACE_DAYS;
   return addCalendarDays(start, n);
 }
+
+export function payTimeLeft(payBy: string, at = new Date()): string {
+  const ms = new Date(payBy).getTime() - at.getTime();
+  if (!Number.isFinite(ms)) return "";
+  if (ms <= 0) return "now";
+  const days = Math.floor(ms / 86_400_000);
+  const hours = Math.floor((ms % 86_400_000) / 3_600_000);
+  if (days >= 1) return `${days}d ${hours}h`;
+  const mins = Math.floor((ms % 3_600_000) / 60_000);
+  return hours >= 1 ? `${hours}h ${mins}m` : `${mins}m`;
+}

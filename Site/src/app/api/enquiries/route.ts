@@ -10,6 +10,10 @@ export async function POST(req: NextRequest) {
     phone?: string;
     needId?: string;
     message?: string;
+    scale?: string;
+    hereFor?: string[];
+    lines?: string[];
+    access?: string;
   } | null;
   try {
     const row = await createEnquiry(body || {});

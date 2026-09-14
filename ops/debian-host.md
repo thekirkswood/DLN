@@ -25,7 +25,7 @@ See `ops/backup-chooz-then-wipe.md`. Then:
 4. Copy houses: from the 2070, `DEBIAN=main@<lan-ip> ./ops/sync-to-debian.sh`
 5. Copy `_meta/accounts` over SSH (the script does this). Never commit it.
 6. Campus service: `ops/enable-campus-user.sh` then `sudo loginctl enable-linger main`
-7. Bookmark `http://192.168.0.223:3010`. This PC’s campus is localhost only.
+7. Bookmark `http://dln.local` (lab `http://builder.dln.local`). Fallback: `ops/dave-hosts.txt` or `http://192.168.0.223:3010`. This PC’s site is localhost only.
 8. **Pin unit apps warm** on this box (all ports sit). Occupancy-sleep is for when the hub ran on the 2070.
 
 LAN IP will move if DHCP is wild — reserve it on the router, or set a static address.

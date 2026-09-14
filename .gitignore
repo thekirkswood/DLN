@@ -14,6 +14,13 @@ _meta/secrets/
 _meta/lab-inbox/
 _meta/lab-houses/
 _meta/shots/
+_meta/cut/
+_meta/boards/
+_meta/clock/
+_meta/assets/
+_meta/epk/
+Site/public/press/
+_meta/ship/
 **/*.pem
 **/*.key
 SEED.txt

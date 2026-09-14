@@ -14,8 +14,8 @@ type Me = {
 
 export function Header({
   signedIn,
-  studio = false,
-  lab = false,
+  studio,
+  lab,
   userId,
   hasAvatar,
   displayName,
@@ -34,15 +34,14 @@ export function Header({
   );
   const atHome = path === "/";
   const atAccount = path === "/account" || path.startsWith("/account/");
+  const atBoard = path === "/board" || path.startsWith("/board/");
   const atPractice = path === "/practice";
   const atWork = path === "/work";
   const atGreenhouse = path === "/greenhouse" || path.startsWith("/greenhouse/");
   const atLogin = path === "/login";
-  const atLab = path === "/lab" || path.startsWith("/lab/");
-  const atAdmin = path === "/admin" || path.startsWith("/admin/");
-  const onLab = studio && inSession;
+  const atBlocked = path === "/blocked" || path.startsWith("/blocked/");
+  const atEpk = path === "/epk" || path.startsWith("/epk/");
   const atSuggest = path.startsWith("/suggest");
-  const atCampus = onLab && (atLab || atAdmin);
 
   useEffect(() => {
     setInSession(signedIn);
@@ -57,62 +56,53 @@ export function Header({
         if (!res.ok) return;
         const data = (await res.json()) as { user?: Me | null };
         const user = data?.user || null;
-        setInSession(Boolean(user));
-        setMe(user);
+        if (user) {
+          setInSession(true);
+          setMe(user);
+          return;
+        }
+        if (!signedIn) {
+          setInSession(false);
+          setMe(null);
+        }
       })
       .catch(() => {
-        /* Keep the last known session if campus is briefly down (rebuild). */
+        /* Keep the last known session if the hub is briefly down. */
       });
     return () => {
       alive = false;
     };
-  }, [path]);
+  }, [path, signedIn]);
 
-  if (atSuggest) return null;
+  if (atSuggest || atHome || atBlocked || atEpk) return null;
 
   const faceId = me?.id || userId;
   const faceOn = me ? Boolean(me.avatar) : Boolean(hasAvatar);
   const name = me?.displayName || displayName || "Account";
 
   return (
-    <header
-      className={
-        atCampus
-          ? "site-header wrap is-campus"
-          : atWork
-            ? "site-header wrap is-work"
-            : "site-header wrap"
-      }
-    >
-      <Link
-        className="brand-link"
-        href={atCampus ? "/lab" : "/"}
-        aria-label={atCampus ? "Campus" : "Design Lab North home"}
-      >
+    <header className={atWork ? "site-header wrap is-work" : "site-header wrap"}>
+      <Link className="brand-link" href="/" aria-label="Design Lab North home">
         <Mark size="nav" />
       </Link>
-      {atCampus ? null : (
-        <nav>
-          {atHome ? null : <Link href="/">Home</Link>}
-          {atPractice ? null : <Link href="/practice">Practice</Link>}
-          {atWork ? null : <Link href="/work">Work</Link>}
-          {atGreenhouse ? null : <Link href="/greenhouse">Greenhouse</Link>}
-        </nav>
-      )}
+      <nav>
+        {atHome ? null : <Link href="/">Home</Link>}
+        {atPractice ? null : <Link href="/practice">Practice</Link>}
+        {atWork ? null : <Link href="/work">Work</Link>}
+        {atGreenhouse ? null : <Link href="/greenhouse">Greenhouse</Link>}
+      </nav>
       {inSession && faceId ? (
         <AccountMenu
           userId={faceId}
           hasAvatar={faceOn}
           name={name}
-          campus={onLab}
-          atCampus={atCampus}
           atAccount={atAccount}
+          atBoard={atBoard}
+          studio={studio}
+          lab={lab}
         />
       ) : atLogin ? null : (
-        <Link
-          className="nav-signin"
-          href={lab || studio ? "/login?next=/lab" : "/login?next=/account"}
-        >
+        <Link className="nav-signin" href="/login?next=/account">
           Sign in
         </Link>
       )}
@@ -124,16 +114,18 @@ function AccountMenu({
   userId,
   hasAvatar,
   name,
-  campus,
-  atCampus,
   atAccount,
+  atBoard,
+  studio,
+  lab,
 }: {
   userId: string;
   hasAvatar: boolean;
   name: string;
-  campus: boolean;
-  atCampus: boolean;
   atAccount: boolean;
+  atBoard?: boolean;
+  studio?: boolean;
+  lab?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const box = useRef<HTMLDivElement>(null);
@@ -172,9 +164,14 @@ function AccountMenu({
       </button>
       {open ? (
         <div className="nav-menu" role="menu">
-          {campus && !atCampus ? (
-            <Link role="menuitem" href="/lab" onClick={() => setOpen(false)}>
-              Campus
+          {studio && !lab ? (
+            <Link role="menuitem" href="/desk" onClick={() => setOpen(false)}>
+              Home book
+            </Link>
+          ) : null}
+          {studio && lab && !atBoard ? (
+            <Link role="menuitem" href="/board" onClick={() => setOpen(false)}>
+              Board
             </Link>
           ) : null}
           {atAccount ? null : (
@@ -182,11 +179,6 @@ function AccountMenu({
               Account
             </Link>
           )}
-          {atCampus ? (
-            <Link role="menuitem" href="/" onClick={() => setOpen(false)}>
-              Live site
-            </Link>
-          ) : null}
           <a role="menuitem" href="/logout">
             Sign out
           </a>

@@ -8,12 +8,13 @@ Load with the rest of holy memory. Twin facts: [`audit-campus.md`](audit-campus.
 
 | Place | What it is |
 |---|---|
-| Debian downstairs (ethernet) | **Always-on host + browser campus.** NVMe: studio houses. **1TB** `/srv/clients`: clients (ModYu). Sites and `/admin` for Mac/phones/LAN: `http://192.168.0.223:3010`. |
+| Debian downstairs (ethernet) | **Always-on host.** NVMe: studio houses. **1TB** `/srv/clients`: clients (ModYu). Dave’s names: `http://dln.local` and `http://builder.dln.local`. Backup `http://192.168.0.223:3010`. |
 
 | Tower (2070 Super) | Ewan’s **primary Cursor**. Working copy. `localhost:3010` only (not on the LAN). GPU stays here. |
 | Gaming laptop (3060) | Ewan’s **secondary Cursor** — processing. Same account. Can run closed (lid/inhibit) with Cursor still working. Working copy or Remote SSH into Debian. |
 | Dave’s PC | Dave’s Cursor. Same git path. Not in Ewan’s round-robin. |
-| Public VPS | Internet plots + DLN **user** pages. Studio desk is not stored here; it talks home. |
+| Public VPS (IONOS `82.165.5.84`) | Live internet: DLN user pages + client plots + live studio products. Studio desk is not stored here; it talks home. |
+| Fasthosts leftover (`77.68.49.132`) | Paid until April 2027. Public preview / scratch (DAABetter, tests). Not live clients or live Swarm/VT. |
 
 The three disks (tower SSD, downstairs NVMe + 1TB, 3060) **backup each other** because every real change is a push to the centre, then a pull. Push: `ops/sync-to-debian.sh`. Pull: `ops/pull-from-debian.sh`. They are not three live writers on one file. Extra 1TB if fitted is more of the same store, not a second live writer.
 

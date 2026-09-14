@@ -1,29 +1,53 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/session";
-import { clientPlots, enterUrlFor, statusLabel } from "@/lib/plots";
-import { canAccessPlot, isStudio } from "@/lib/auth";
-import { invoicesVisibleTo, rollDueInvoices, titlesAccessFor, getPayRail, paymentByInvoice, railIsReady } from "@/lib/billing";
+import { clientPlots, enterUrlFor, allPlots } from "@/lib/plots";
+import { pressKitForPlot, epkHref } from "@/lib/epk-map";
+import { canAccessPlot, isStudio, listClients } from "@/lib/auth";
+import {
+  invoicesVisibleTo,
+  rollDueInvoices,
+  titlesAccessFor,
+  getPayRail,
+  paymentByInvoice,
+  railIsReady,
+  liveCatalogue,
+  listRolls,
+  getOnlineRail,
+} from "@/lib/billing";
 import { ProfileForm } from "@/components/AccountBilling";
-import { CommentBox, InvoiceList } from "@/components/StudioDesk";
-import { isLocalHandle } from "@/lib/handles";
+import { CommentBox, InvoiceList, StudioDesk } from "@/components/StudioDesk";
+import { AssetsDesk } from "@/components/AssetsDesk";
+import { AssetHub } from "@/components/AssetHub";
+import { EpkChooser } from "@/components/EpkChooser";
+import { kitsForUser } from "@/lib/epk";
+import { kitCopy } from "@/lib/epk-copy";
 import { commentsFor, plansFor } from "@/lib/plans";
-import { labHostFromHeaders } from "@/lib/lab";
+import { formatLondonSlot } from "@/lib/clock";
 import { bookingsForUser } from "@/lib/diary";
 import { receiptsVisibleTo } from "@/lib/receipts";
 import { HOSTS } from "@/lib/hosts";
-import { formatLondonSlot } from "@/lib/clock";
 import { getSettings } from "@/lib/settings";
+import { listEnquiries } from "@/lib/enquiries";
+import { listNotices } from "@/lib/notices";
+import { listOpenInstances } from "@/lib/watch";
+import { listBlocks } from "@/lib/block";
+import { absorbTrapWeb, listTrapWeb } from "@/lib/trap-web";
+import { listAppeals } from "@/lib/appeals";
+import { listShipNotes } from "@/lib/ship-notes";
 
 export const metadata = { title: "Account" };
 export const dynamic = "force-dynamic";
 
-export default async function AccountPage() {
+export default async function AccountPage({
+  searchParams,
+}: {
+  searchParams?: { view?: string; kit?: string; desk?: string };
+}) {
   const user = await getSessionUser();
   if (!user) redirect("/login?next=/account");
   await rollDueInvoices();
   const studio = isStudio(user);
-  const lab = labHostFromHeaders();
   const allClientPlots = await clientPlots();
   const sites = allClientPlots.filter((p) => canAccessPlot(user, p.slug));
   const invoices = await invoicesVisibleTo(user);
@@ -35,6 +59,23 @@ export default async function AccountPage() {
   const sittings = studio ? [] : await bookingsForUser(user.id);
   const receipts = studio ? [] : await receiptsVisibleTo(user);
   const settings = await getSettings();
+  const ships = await listShipNotes();
+
+  const studioBook = studio
+    ? {
+        people: await listClients(),
+        plots: await allPlots(),
+        enquiries: await listEnquiries(),
+        catalogue: await liveCatalogue(),
+        rolls: await listRolls(),
+        online: await getOnlineRail(),
+        notices: await listNotices(),
+        traps: await listOpenInstances(),
+        blocked: await listBlocks(),
+        trapWeb: await absorbTrapWeb().then(() => listTrapWeb()),
+        appeals: await listAppeals(),
+      }
+    : null;
 
   return (
     <article className="account wrap">
@@ -42,8 +83,7 @@ export default async function AccountPage() {
       <h1>{user.displayName}</h1>
       <p className="lede">
         {user.email}
-        {isLocalHandle(user.email) ? " · internal login" : ""}
-        {studio ? " · Ewan and Dave" : " · client"}
+        {studio ? " · Ewan and Dave" : ""}
       </p>
 
       <h2>Profile</h2>
@@ -53,53 +93,115 @@ export default async function AccountPage() {
         hasAvatar={Boolean(user.avatar)}
       />
 
-      {studio && lab ? (
-        <p className="body bill-note">
-          Clients, invoices, and how they pay live on{" "}
-          <Link href="/lab">campus</Link>. This page is us.
-        </p>
-      ) : null}
-
-      {studio && !lab ? (
-        <p className="body bill-note">
-          The studio book lives at home, not on this public host.{" "}
-          <Link href="/lab">Open campus</Link> — this host only talks back to
-          the house. Client pages stay here.
-        </p>
+      {studio && studioBook ? (
+        <section className="campus-book">
+          <h2>Book</h2>
+          <p className="body bill-note">
+            Who we serve, what we charge, the diaries.
+          </p>
+          <StudioDesk
+            people={studioBook.people}
+            plots={studioBook.plots}
+            enquiries={studioBook.enquiries}
+            invoices={invoices}
+            comments={comments}
+            plans={plans}
+            catalogue={studioBook.catalogue}
+            rail={rail}
+            claims={claims}
+            rolls={studioBook.rolls}
+            online={studioBook.online}
+            settings={settings}
+            notices={studioBook.notices}
+            traps={studioBook.traps}
+            blocked={studioBook.blocked}
+            trapWeb={studioBook.trapWeb}
+            appeals={studioBook.appeals}
+          />
+        </section>
       ) : null}
 
       {!studio ? (
         <>
-          <h2>Your site</h2>
-          {sites.length === 0 ? (
-            <p className="body">No sites on this account yet.</p>
-          ) : (
-            <div className="site-ledger">
-              {sites.map((plot) => {
-                const live = enterUrlFor(plot);
-                return (
-                  <div key={plot.slug} className="site-row">
-                    <div className="site-copy">
-                      <h3>{plot.name}</h3>
-                      <div className="status">{statusLabel(plot)}</div>
-                      {live ? (
-                        <Link href={live}>Open site</Link>
-                      ) : (
-                        <span className="note">No host yet.</span>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          {(() => {
+            const view = searchParams?.view || "";
+            const kitIds = kitsForUser(user);
+            const kitTiles = kitIds.map((id) => {
+              const copy = kitCopy(id);
+              return { id, name: copy.name, kicker: copy.kicker, lede: copy.lede };
+            });
+            const locked = searchParams?.kit && kitIds.includes(searchParams.kit)
+              ? searchParams.kit
+              : kitIds[0];
+            return (
+              <>
+                <ul className="epk-tiles account-tiles">
+                  <li>
+                    <a href="/account">
+                      <strong>Sites</strong>
+                      <span>{sites.length}</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/account?view=epks">
+                      <strong>Press kits</strong>
+                      <span>{kitTiles.length}</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/account?view=assets">
+                      <strong>Assets</strong>
+                      <span>Files</span>
+                    </a>
+                  </li>
+                </ul>
+                {view === "assets" ? (
+                  <AssetHub lockedKit={searchParams?.kit && kitIds.includes(searchParams.kit) ? searchParams.kit : undefined} />
+                ) : view === "press" && locked ? (
+                  <AssetsDesk lockedKit={locked} />
+                ) : view === "epks" ? (
+                  kitTiles.length ? (
+                    <EpkChooser kits={kitTiles} />
+                  ) : (
+                    <p className="body">No press kit on this account yet.</p>
+                  )
+                ) : (
+                  <>
+                    <h2>Sites</h2>
+                    {sites.length === 0 ? (
+                      <p className="body">No sites on this account yet.</p>
+                    ) : (
+                      <div className="site-ledger">
+                        {sites.map((plot) => {
+                          const live = enterUrlFor(plot);
+                          const kit = pressKitForPlot(plot.slug);
+                          return (
+                            <div key={plot.slug} className="site-row">
+                              <div className="site-copy">
+                                <h3>{plot.name}</h3>
+                                <p className="site-acts">
+                                  {live ? <a href={live}>Visit site</a> : null}
+                                  {kit ? <a href={epkHref(kit)}>Press kit</a> : null}
+                                  {kit ? (
+                                    <a href={`/account?view=assets&kit=${kit}`}>Assets</a>
+                                  ) : null}
+                                  {kit ? (
+                                    <a href={`/account?view=press&kit=${kit}`}>Edit kit</a>
+                                  ) : null}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </>
+                )}
+              </>
+            );
+          })()}
 
           <h2>Notes</h2>
-          <p className="body bill-note">
-            Leave a note on the live host from here. We read them, turn them
-            into one plan, and come back with an update — including patch notes
-            for what changed.
-          </p>
           {comments.filter((c) => !c.planId).length ? (
             <ul className="note-list">
               {comments
@@ -116,7 +218,7 @@ export default async function AccountPage() {
           )}
           <CommentBox plotSlug={sites[0]?.slug || ""} plotOptions={sites} />
 
-          {plans.filter((p) => p.status === "shipped").length ? (
+          {plans.filter((p) => p.status === "shipped").length || ships.length ? (
             <>
               <h2>What’s new</h2>
               {plans
@@ -125,6 +227,17 @@ export default async function AccountPage() {
                   <div key={p.id} className="plan-card is-shipped">
                     <p className="status">{p.updatedAt.slice(0, 10)}</p>
                     <p className="body">{p.patchNotes || p.title}</p>
+                  </div>
+                ))}
+              {ships
+                .slice()
+                .reverse()
+                .map((s) => (
+                  <div key={s.tag} className="plan-card is-shipped">
+                    <p className="status">
+                      {s.t.slice(0, 10)} · {s.tag}
+                    </p>
+                    <p className="body">{s.s}</p>
                   </div>
                 ))}
             </>

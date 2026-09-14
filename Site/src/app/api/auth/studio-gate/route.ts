@@ -6,13 +6,12 @@ import { publicUrl } from "@/lib/public-url";
 export const dynamic = "force-dynamic";
 
 /**
- * Caddy forward_auth before the VPS proxies /lab to home.
- * 200 only for a studio ticket or session. Clients stay off the desk.
+ * Studio session check. Clients stay off studio APIs.
  */
 export async function GET(req: NextRequest) {
   const user = await userFromSession(cookies().get(COOKIE)?.value);
   if (!user) {
-    return NextResponse.redirect(publicUrl(req, "/login?next=/lab"), 302);
+    return NextResponse.redirect(publicUrl(req, "/login?next=/account"), 302);
   }
   if (!isStudio(user)) {
     return new NextResponse(null, { status: 403 });

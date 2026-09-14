@@ -63,6 +63,9 @@ services:
       - ${DLN_BILLING_DIR:-../_meta/billing}:/app/_meta/billing
       - ${DLN_ENQUIRIES_DIR:-../_meta/enquiries}:/app/_meta/enquiries
       - ${DLN_PLANS_DIR:-../_meta/plans}:/app/_meta/plans
+      - ${DLN_ASSETS_DIR:-../_meta/assets}:/app/_meta/assets
+      - ${DLN_EPK_DIR:-../_meta/epk}:/app/_meta/epk
+      - ${DLN_PRESS_DIR:-../Site/public/press}:/app/Site/public/press
       - ${DLN_HOME_TICKET_PUB:-/srv/dln/data/home-ticket.pub}:/app/_meta/secrets/home-ticket.pub:ro
     expose:
       - "3000"
