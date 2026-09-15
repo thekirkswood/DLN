@@ -1,12 +1,11 @@
 [Unit]
-Description=Various Titles unit (Next :3020, lab prefix)
+Description=Various Titles unit (Next :3020)
 After=network-online.target campus.service
 
 [Service]
 Type=simple
 WorkingDirectory=/home/main/VariousTitles/Site
 Environment=PATH=/usr/bin:/bin
-Environment=BASE_PATH=/go/various-titles
 ExecStart=/usr/bin/npm run dev
 Restart=always
 RestartSec=8

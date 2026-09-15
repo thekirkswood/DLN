@@ -1,4 +1,4 @@
-import { LAN_HOUSES, LAN_IP, isDlnLocalHost } from "@/lib/lan-names";
+import { LAN_HOUSES, LAN_IP, canCarryStudioSession, isDlnLocalHost } from "@/lib/lan-names";
 
 const LAN_PORTS = new Set(["80", "443", ...LAN_HOUSES.map((h) => String(h.port))]);
 
@@ -47,14 +47,7 @@ export function continueAfterLogin(next: string, hereOrigin?: string): string {
         return `${u.pathname}${u.search}${u.hash}` || "/account";
       }
     }
-    const host = u.hostname.toLowerCase();
-    if (
-      isDlnLocalHost(host) ||
-      isPrivateIpv4(host) ||
-      host === "localhost" ||
-      host === "designlabnorth.com" ||
-      host === "www.designlabnorth.com"
-    ) {
+    if (canCarryStudioSession(u)) {
       return `/api/auth/lan-enter?next=${encodeURIComponent(dest)}`;
     }
   } catch {

@@ -1,6 +1,6 @@
 # Builder — site tabs (quote this)
 
-Paste to the Builder Cursor on `:3100` / `http://builder.dln.local`. This Design Lab North Cursor does not edit Builder source. Builder implements it in `/home/main/Repos/Builder`.
+Paste to the Builder Cursor on `:3100` / `http://builder.dln.local`. Short copy: `memory/builder-paste.md`. Do not drag Builder or house chats into this repo. Window `src` on Build is `http://192.168.0.223:{port}/` — same as the campus homepage.
 
 ## What to make
 
@@ -51,7 +51,9 @@ If the iframe is blocked (X-Frame-Options), the **link** still opens a tab. Blan
 
 ## How to talk to campus
 
-Builder is another port (`:3100`). Launch the same way the campus plus-select does: set the iframe `src` to the bind URL for that plane. Cookie `dln_session` already copies across `*.dln.local` when Caddy is on. If a house needs the hub session, go through `/api/auth/lan-enter` as Houses already does.
+Builder is another port (`:3100`). Window `src` is the bind URL for that plane (`http://192.168.0.223:{port}/` or the named host). **Never** `/go/{slug}`, and never the house slug as a path on that port.
+
+Do **not** send the studio ticket through `/api/auth/lan-enter` onto a house origin. Only Design Lab North (`dln.local`, `:3010`) and Builder (`builder.dln.local`, `:3100`) can consume it. Posting it at ModYu or DAA is their 404 page with their font.
 
 Do not load `https://*.designlabnorth.com` in the Builder window while Dave is on the LAN.
 

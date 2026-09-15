@@ -26,6 +26,8 @@ RSYNC=(rsync -aH --info=stats1
 
 echo "== DLN → $DEBIAN =="
 "${RSYNC[@]}" -e "ssh ${SSH_OPTS[*]}" "$ROOT/" "$DEBIAN:/home/main/DLN/"
+echo "== drop occupancy leftovers Debian still had (rsync does not delete) =="
+ssh "${SSH_OPTS[@]}" "$DEBIAN" "rm -rf /home/main/DLN/Site/src/app/admin /home/main/DLN/Site/src/app/lab /home/main/DLN/Site/src/app/go /home/main/DLN/Site/src/app/api/lab; rm -f /home/main/DLN/Site/src/components/LabDesk.tsx /home/main/DLN/Site/src/lib/lab-inbox.ts /home/main/DLN/Site/src/lib/lab-runner.ts /home/main/DLN/Site/src/lib/lab-proxy.ts"
 echo "== rebuild LAN campus =="
 ssh "${SSH_OPTS[@]}" "$DEBIAN" "chmod +x /home/main/DLN/ops/debian-rebuild-campus.sh"
 ssh "${SSH_OPTS[@]}" "$DEBIAN" "/home/main/DLN/ops/debian-rebuild-campus.sh"

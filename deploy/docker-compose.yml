@@ -24,6 +24,7 @@ services:
       - plot-swarm
       - plot-titles
       - plot-pfp
+      - plot-daa
 
   # Answers DNS only while the registrar NS are the plot hosts.
   # Also needs IONOS Cloud Panel: allow 53/tcp and 53/udp. UFW alone is not enough.
@@ -141,6 +142,20 @@ services:
       DLN_ORIGIN: ${PFP_DLN_ORIGIN:-http://web:3000}
       DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-https://designlabnorth.com}
       PFP_PUBLIC_URL: ${PFP_PUBLIC_URL:-https://paulfosburyportraits.com}
+    expose:
+      - "3000"
+
+  plot-daa:
+    build:
+      context: ${DAA_DIR:-/srv/dln/plots/daa}
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    labels:
+      dln.plot: daa
+    environment:
+      DLN_ORIGIN: ${DAA_DLN_ORIGIN:-http://web:3000}
+      DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-https://designlabnorth.com}
+      DAA_PUBLIC_URL: ${DAA_PUBLIC_URL:-https://daa.designlabnorth.com}
     expose:
       - "3000"
 

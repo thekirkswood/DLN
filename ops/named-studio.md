@@ -15,9 +15,9 @@ Dave bookmarks names, not ports. Debian Caddy on **:80** sends them to the sitti
 
 Backup if a name fails: `http://192.168.0.223:3010` (and the same IP with the house’s port).
 
-Campus signed-in plus-select uses those **IP:port** binds in the homepage window, and calls the house if the port is quiet (`ops/wake-house.sh`). Live `designlabnorth.com` uses the same window with public domains. Do not iframe subdomains from the homeserver.
+Campus signed-in plus-select uses those **IP:port** binds in the homepage window, and calls the house if the port is quiet (`ops/wake-house.sh`). Live `designlabnorth.com` uses the same window with public domains. Do not iframe subdomains from the homeserver. Units sit at `/` on that port — never `BASE_PATH=/go/{slug}`.
 
-Cookie `dln_session` is **one value per host**. Named LAN is host-only — do not set `Domain=.dln.local` (special-use TLD; a twin then fights). Lab copies the hub session through `/api/auth/lan-enter`. Live `designlabnorth.com` keeps `.designlabnorth.com`. localhost on Ewan’s tower stays host-only. Max-Age is ninety days. `/api/auth/me` refreshes; middleware does not rewrite the cookie on every click.
+Cookie `dln_session` is **one value per host**. Named LAN is host-only — do not set `Domain=.dln.local` (special-use TLD; a twin then fights). Lab copies the hub session through `/api/auth/lan-enter`. House sites do not — they have no consume route. Live `designlabnorth.com` keeps `.designlabnorth.com`. localhost on Ewan’s tower stays host-only. Max-Age is ninety days. `/api/auth/me` refreshes; middleware does not rewrite the cookie on every click.
 
 ## Debian
 

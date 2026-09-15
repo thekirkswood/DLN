@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isLabHost } from "@/lib/lab-host";
+import { hostnameOf, isLabHost } from "@/lib/lab-host";
+import { builderHref } from "@/lib/lan-names";
 
 function withPath(req: NextRequest, res: NextResponse) {
   res.headers.set("x-dln-path", req.nextUrl.pathname);
@@ -33,6 +34,10 @@ export function middleware(req: NextRequest) {
     (path === "/board" || path.startsWith("/board/") || path.startsWith("/api/board"))
   ) {
     return withPath(req, new NextResponse("Not Found", { status: 404 }));
+  }
+  if (isLabHost(host) && (path === "/lab" || path.startsWith("/lab/"))) {
+    const slug = path.replace(/^\/lab\/?/, "").split("/")[0];
+    return withPath(req, NextResponse.redirect(builderHref(slug, hostnameOf(host)), 302));
   }
   return nextWithPath(req);
 }

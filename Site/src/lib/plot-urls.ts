@@ -23,7 +23,7 @@ export function buildUrlFor(plot: Plot, requestHost?: string | null): string | n
   if (!port) return null;
   const h = hostnameOf(requestHost);
   if (h === "localhost" || h === "127.0.0.1" || h === "0.0.0.0") {
-    return `http://127.0.0.1:${port}`;
+    return backupOrigin(port);
   }
   return backupOrigin(port);
 }

@@ -31,7 +31,7 @@ for house in DLN VariousTitles SwarmFund; do
 done
 
 echo "== client houses → $DEBIAN:$HOUSE_ROOT (follows /srv/clients symlink on Debian) =="
-for house in ModYu; do
+for house in ModYu DAA PFP DKS; do
   src="$HOUSE_ROOT/$house"
   if [ ! -d "$src" ]; then
     echo "skip missing $src"

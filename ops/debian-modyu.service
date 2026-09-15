@@ -1,12 +1,11 @@
 [Unit]
-Description=ModYu unit (Next :3000, lab prefix)
+Description=ModYu unit (Next :3000)
 After=network-online.target campus.service
 
 [Service]
 Type=simple
 WorkingDirectory=/home/main/ModYu/Site
 Environment=PATH=/usr/bin:/bin
-Environment=BASE_PATH=/go/modyu
 ExecStart=/usr/bin/npm run dev
 Restart=always
 RestartSec=8

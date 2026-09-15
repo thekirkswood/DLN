@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-# Houses start themselves when you open them on :3010/lab.
-# The hub (cd Site && npm run dev) is the only process you start by hand.
-# Each house is an isolated child: own folder, own port, own env, lab prefix.
+# Retired occupancy starter. Houses sit on Debian named hosts, at the port root.
+# The lab is Builder — not campus /lab and not /go/{slug}.
 set -euo pipefail
-echo "Start the hub:  /home/main/DLN/ops/enable-campus-user.sh"
-echo "(or: cd /home/main/DLN/Site && npm run dev)"
-echo "Then sign in at http://localhost:3010/lab and open a house."
-echo "The hub starts that house (ModYu :3000, Various Titles :3020, Swarm :5173 + api :8787)."
-echo "Do not start houses without BASE_PATH / VITE_BASE — the frame needs the /go/{slug} prefix."
+echo "Lab: http://builder.dln.local  (backup http://192.168.0.223:3100)"
+echo "Campus: http://dln.local  (backup http://192.168.0.223:3010)"
+echo "Do not start houses with BASE_PATH=/go/{slug}. Units sit at /."
+echo "Paste memory/builder-paste.md into the Builder Cursor. Do not drag that chat here."

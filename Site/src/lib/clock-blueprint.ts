@@ -379,7 +379,8 @@ export async function buildBlueprint(hostHeader: string | null): Promise<Bluepri
         lanClock: named && def.labPath ? `${named}${def.labPath}` : lan && def.labPath ? `${lan}${def.labPath}` : null,
         namedDesk: def.labDesk,
         namedClock: named && def.labPath ? `${named}${def.labPath}` : null,
-        labDesk: def.labDesk?.replace("http://builder.dln.local", "http://localhost:3100") || def.labDesk,
+        labDesk:
+          def.labDesk?.replace("http://builder.dln.local", `http://${LAN_HOST}:3100`) || def.labDesk,
         lanDesk: lanDesk(def.labDesk),
         disk: def.disk,
         github: def.github,

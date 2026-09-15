@@ -36,7 +36,7 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 ### Digital Adoption Advisor (`daa`)
 
 - Party: client. `public`: false. **On the book, off the wall.**
-- Host: `daa.designlabnorth.com` (reserved live hostname; still redirects to the hub until that plot ships).
+- Host: `daa.designlabnorth.com` (live `plot-daa`, ungated). Campus `daa.dln.local` / `:3050`.
 - Kind: rebuild. Status: rebuilding.
 - Voice: Design Lab North are rebuilding Digital Adoption Advisor.
 - Offline lab: `/home/main/DAA` · `daa.dln.local` (`:3050`) · inbox `_meta/lab-inbox` · desk `builder.dln.local/daa`.

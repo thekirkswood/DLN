@@ -73,9 +73,17 @@
     reverse_proxy plot-swarm:3000
   }
 
+  @daa_static {
+    host daa.designlabnorth.com
+    path /assets* /_next/static*
+  }
+  handle @daa_static {
+    reverse_proxy plot-daa:3000
+  }
+
   @daa host daa.designlabnorth.com
   handle @daa {
-    redir http://designlabnorth.com
+    reverse_proxy plot-daa:3000
   }
 
   @titles_www host www.varioustitles.com

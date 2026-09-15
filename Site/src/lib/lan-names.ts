@@ -65,6 +65,44 @@ export function isDlnLocalHost(host?: string | null): boolean {
   return h === PARENT_NAME || h.endsWith(`.${PARENT_NAME}`);
 }
 
+export const BUILDER_NAMED = "http://builder.dln.local";
+export const BUILDER_BACKUP = `http://${LAN_IP}:3100`;
+
+/** Builder sits downstairs. Do not send the tower to localhost:3100. */
+export function builderOrigin(viewerHost?: string | null): string {
+  const h = (viewerHost || "").split(":")[0].toLowerCase().replace(/^\[|\]$/g, "");
+  if (!h || h === "0.0.0.0" || h === "::" || h === "localhost" || h === "127.0.0.1") {
+    return BUILDER_BACKUP;
+  }
+  if (h === "builder.dln.local" || isDlnLocalHost(h)) return BUILDER_NAMED;
+  return BUILDER_BACKUP;
+}
+
+export function builderHref(slug?: string | null, viewerHost?: string | null): string {
+  const origin = builderOrigin(viewerHost).replace(/\/$/, "");
+  const s = (slug || "").replace(/^\/+|\/+$/g, "").split("/")[0];
+  if (!s || s === "admin" || s === "builder") return origin;
+  return `${origin}/${s}`;
+}
+
+/**
+ * Only the hub and the lab can consume a DLN home ticket.
+ * House sites (ModYu, DAA, …) have no /api/auth/lan-consume — posting there is their 404 page.
+ */
+export function canCarryStudioSession(dest: URL): boolean {
+  const host = dest.hostname.toLowerCase();
+  const port = dest.port || (dest.protocol === "https:" ? "443" : "80");
+  if (host === "builder.dln.local" || host === PARENT_NAME) return true;
+  if (host === "designlabnorth.com" || host === "www.designlabnorth.com") return true;
+  if (
+    (host === LAN_IP || host === "127.0.0.1" || host === "localhost") &&
+    (port === "3010" || port === "3100" || port === "80")
+  ) {
+    return true;
+  }
+  return false;
+}
+
 export function daveHostsLine(): string {
   const names = LAN_HOUSES.map((h) => h.host).join(" ");
   return `${LAN_IP} ${names}`;

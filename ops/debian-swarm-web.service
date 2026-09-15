@@ -1,13 +1,12 @@
 [Unit]
-Description=Swarm web (Vite :5173, lab prefix)
+Description=Swarm web (Vite :5173)
 After=network-online.target debian-swarm-api.service
 
 [Service]
 Type=simple
 WorkingDirectory=/home/main/SwarmFund/apps/web
 Environment=PATH=/usr/bin:/bin
-Environment=VITE_BASE=/go/swarm/
-Environment=VITE_API_BASE=/go/swarm/api
+Environment=VITE_BASE=/
 ExecStart=/usr/bin/npm run dev
 Restart=always
 RestartSec=8

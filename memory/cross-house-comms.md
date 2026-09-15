@@ -21,6 +21,10 @@ Chooseless is not on this lab.
 
 Send is a file drop (`wake.flag`). Only Builder sniffs (`Repos/Builder/ops/sniff-inbox.sh`). Do not stamp another house’s pending queue.
 
+## Sheets, not chats
+
+This Design Lab North Cursor writes a paste sheet (`memory/builder-paste.md`, house memory) and stops. Ewan opens the other Cursor and pastes it. Do not drag Builder or ModYu chats into this repo. Do not implement ModYu, DAA, or Builder source from here.
+
 ## Routing rule
 
 If the request is a house’s product, shop, accounts, or “start that house” — **that house’s filesystem**. Do not implement ModYu source while sitting in DLN, or Swarm source while sitting in VT. Jump, then work.

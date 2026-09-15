@@ -973,3 +973,18 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 ## 2026-09-15 — Builder lan-consume must take the studio ticket (Ewan)
 
 - Opening the lab at `192.168.0.223:3100` was looping on `/api/auth/lan-consume`. The hub POSTs a home ticket; the lab only had GET handoff codes and then ignored `dln1.` tokens. Consume accepts POST ticket and GET code. The lab verifies the same home ticket as the hub. One cookie. Middleware does not rewrite it.
+
+## 2026-09-15 — Lab doors stay in Builder; sheets not chats (Ewan)
+
+- Campus Houses / leftover `/lab` was posting the studio ticket onto ModYu, DAA, and the rest. Those apps have no consume route, so you get their 404 with their font. Only Design Lab North and Builder take that ticket. View site for a house is the named host or `http://192.168.0.223:{port}/`. Never `/go/{slug}`.
+- `/lab` on a lab host 302s to Builder. Do not restore the occupancy CMS. Live `designlabnorth.com/lab` stays 404.
+- Formulate a sheet, then jump to the other Cursor and paste it. Do not drag Builder or ModYu chats into this repo. Paste: `memory/builder-paste.md`.
+
+## 2026-09-15 — Lab binds are 192.168.0.223; DAA is live (Ewan)
+
+- Lab buttons must not go to `0.0.0.0:3100`. Builder and Houses use `http://192.168.0.223:{port}/`, same as the campus homepage window.
+- On `designlabnorth.com`, Houses **View site** is the public host, not a LAN link.
+- The Builder window is that same bind. Houses allow Builder and the live hub to iframe them (`frame-ancestors`).
+- `daa.designlabnorth.com` is the DAA site (`plot-daa`), not a redirect to the hub. Push that copy live. Do not drag the DAA chat into this repo.
+
+

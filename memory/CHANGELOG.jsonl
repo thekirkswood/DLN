@@ -883,3 +883,15 @@
 {"t": "2026-09-15T10:05:53+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Lab lan-consume accepts studio home ticket POST", "d": "Ewan: 192.168.0.223:3100/api/auth/lan-consume loop opening Builder"}
 {"t": "2026-09-15T10:05:53+01:00", "k": "mod", "p": "/home/main/Repos/Builder lan-consume auth cookie-opts middleware", "s": "Verify dln1 tickets; POST consume; one cookie; stop middleware rewrite", "d": "hub was POSTing a ticket the lab discarded"}
 {"t":"2026-09-15T10:13:19+01:00","k":"ver","p":"dln-8","s":"HT4 kit explorer and copyable summary; one session cookie so account boxes hold; board still off live","d":"numbered ship"}
+{"t": "2026-09-15T11:12:00+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Lab doors stay in Builder; sheets not chats", "d": "Ewan: house 404s from lan-enter; do not drag Builder/ModYu chats into DLN"}
+{"t": "2026-09-15T11:12:00+01:00", "k": "bp", "p": "BLUEPRINT.md named-studio.md", "s": "/lab on lab host 302s to Builder; lan-enter only hub and lab", "d": "house consume 404 was ModYu/DAA font"}
+{"t": "2026-09-15T11:12:00+01:00", "k": "add", "p": "memory/builder-paste.md", "s": "Paste sheet for the Builder Cursor", "d": "formulate then jump; do not drag chats"}
+{"t": "2026-09-15T11:12:00+01:00", "k": "mod", "p": "HousesDesk login-next lan-names middleware", "s": "View site opens house origin; /lab redirects to Builder", "d": "ticket was POSTed at :3000/:3050 lan-consume"}
+{"t": "2026-09-15T11:12:00+01:00", "k": "mod", "p": "ops/debian-modyu.service debian-vt.service debian-swarm-web.service start-lab-houses.sh", "s": "Drop BASE_PATH=/go prefix from unit files", "d": "downstairs already sits at /; wake must not put the prefix back"}
+{"t": "2026-09-15T11:12:00+01:00", "k": "mod", "p": "cross-house-comms.md AGENTS.md builder-site-tabs.md", "s": "This Cursor writes sheets; does not edit Builder or house source", "d": "keep houses neat"}
+{"t":"2026-09-15T11:36:39+01:00","k":"dir","p":"DIRECTIONS.md","s":"Builder and Houses use 192.168.0.223 not 0.0.0.0; live DAA is plot-daa","d":"Ewan: Lab buttons, Builder windows, live subdomains, push DAA"}
+{"t":"2026-09-15T11:36:39+01:00","k":"bp","p":"BLUEPRINT.md greenhouse.md ops/vps.md","s":"daa.designlabnorth.com serves plot-daa, ungated","d":"was a Caddy redirect to the hub so the window looked like DLN"}
+{"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"deploy/Caddyfile.prod deploy/Caddyfile.ip deploy/docker-compose.yml ops/ship-plot-daa.sh","s":"plot-daa compose service; Caddy reverse_proxy not redir","d":"live DAA copy"}
+{"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"Site/src/lib/lan-names.ts Site/src/lib/plot-urls.ts Site/src/components/HousesDesk.tsx","s":"LAN binds; live View site is the public host; lan-enter not onto plot subdomains","d":"Sites local links and Lab 0.0.0.0"}
+{"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"ops/sync-to-debian.sh ops/push-builder-downstairs.sh","s":"Debian house rsync includes DAA PFP DKS; Builder push wrap","d":"CSP + lab bind downstairs"}
+{"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"memory/builder-paste.md","s":"Paste: iframe src is 223:port same as homepage","d":"do not drag Builder chats"}

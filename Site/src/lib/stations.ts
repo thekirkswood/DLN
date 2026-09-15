@@ -95,7 +95,7 @@ When \`_meta/lab-inbox/wake.flag\` changes, open \`_meta/lab-inbox/messages.json
 
 The campus desk can make this folder. It cannot open Cursor. A human opens this house.
 
-Comments and \`/lab/${slug}/admin\` on localhost:3010 write here. That is this house's Cursor, not the Design Lab North hub chat.
+The design queue is http://builder.dln.local/${slug} (backup :3100/${slug}). That is this house's Cursor, not the Design Lab North hub chat.
 `,
     "utf8",
   );
@@ -123,7 +123,7 @@ Opened as a Design Lab North station. Build the named site here. Do not invent a
     kind: "new",
     party: input.party || "client",
     hosts: [],
-    localPreview: `/lab/${slug}`,
+    localPreview: `http://builder.dln.local/${slug}`,
     public: false,
     voice: `Design Lab North are building ${name}.`,
     lab: {
