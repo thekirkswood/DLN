@@ -895,3 +895,4 @@
 {"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"Site/src/lib/lan-names.ts Site/src/lib/plot-urls.ts Site/src/components/HousesDesk.tsx","s":"LAN binds; live View site is the public host; lan-enter not onto plot subdomains","d":"Sites local links and Lab 0.0.0.0"}
 {"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"ops/sync-to-debian.sh ops/push-builder-downstairs.sh","s":"Debian house rsync includes DAA PFP DKS; Builder push wrap","d":"CSP + lab bind downstairs"}
 {"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"memory/builder-paste.md","s":"Paste: iframe src is 223:port same as homepage","d":"do not drag Builder chats"}
+{"t":"2026-09-15T11:40:28+01:00","k":"ver","p":"dln-9","s":"LAN binds never 0.0.0.0. Live Houses View site is the public host. daa.designlabnorth.com is the DAA site. Board still off live.","d":"numbered ship"}
