@@ -609,6 +609,347 @@
 {"t":"2026-08-24T14:05:00+01:00","k":"add","p":"greenhouse/plots.json plot-pfp Caddy compose","s":"Client plot pfp: paulfosburyportraits.com + paulfosbury.designlabnorth.com","d":"ewan: new client Paul Fosbury"}
 {"t":"2026-08-24T14:05:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse.md identity.md","s":"Second client plot; live domain and DLN sub share plot-pfp parking wall","d":"ewan: own space with a sub"}
 {"t":"2026-08-24T14:05:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"PFP parking: DLN mark + Building; flip A to VPS; leave Livemail MX","d":"standing"}
+{"t":"2026-08-24T14:12:00+01:00","k":"add","p":"studio/social-pass/","s":"One-page social-studio note: pass organic/paid, keep brand/web","d":"Ewan outreach"}
+{"t":"2026-08-24T14:12:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pass social to a few studios in Manchester, Lancashire, Cumbria, southern Scotland; we keep brand, strategy, web, print","d":"Ewan two-way approach"}
+{"t":"2026-08-24T14:32:00+01:00","k":"mod","p":"studio/social-pass/","s":"One filmstrip of the home loop; wash spectrum under the gif and along the page foot","d":"Ewan: previous strip looked brill"}
+{"t":"2026-08-24T14:59:00+01:00","k":"mod","p":"studio/social-pass/","s":"Home gif as one band; wash under the picture; sign-off lead build","d":"Ewan: not six tiles, colour bar under the image"}
+{"t":"2026-08-24T15:08:00+01:00","k":"mod","p":"studio/social-pass/assets/home-hero.jpg","s":"Blend pink D, orange L, yellow/black N, purple phone into one spectrum","d":"Ewan: those three plus the phone, one band"}
+{"t":"2026-08-24T15:20:00+01:00","k":"mod","p":"studio/social-pass/","s":"Restore first filmstrip: six full frames, one jpg, wash under the picture","d":"Ewan: not the blend; the build-time strip"}
+{"t":"2026-08-24T15:28:00+01:00","k":"mod","p":"studio/social-pass/assets/home-strip.jpg","s":"Three tiles: D pink/green, L orange/blue, N yellow stem on purple","d":"Ewan: chop to DLN once, letters split across the six"}
+{"t":"2026-08-24T16:07:00+01:00","k":"mod","p":"studio/social-pass/index.html","s":"Hero is native home gif; six-colour wash at page foot; tiled strip gone","d":"Ewan: export gif, colour bar bottom, remove tiles"}
+{"t":"2026-08-24T16:07:00+01:00","k":"del","p":"studio/social-pass/assets/home-strip.jpg","s":"Removed three-tile D/L/N chop","d":"Ewan: remove these tiles"}
+{"t":"2026-08-24T16:07:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Social-pass hero is native home gif; wash at page foot in loop order","d":"Ewan"}
+{"t":"2026-08-24T17:05:00+01:00","k":"add","p":"Site/src/lib/stripe-billing.ts api/billing/checkout portal webhook","s":"Stripe Checkout: one-off weekly monthly, Apple/Google Pay, portal, webhook, mail from design@","d":"Ewan: whole billing area"}
+{"t":"2026-08-24T17:05:00+01:00","k":"mod","p":"Site/src/lib/billing.ts diary AccountBilling InvoiceDesk","s":"Ping opens Checkout; Book them while serving puts sitting+pay; client Pay online","d":"Ewan billing"}
+{"t":"2026-08-24T17:05:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Stripe is the pay rail; secret on host; bank spare; Book+Pay together","d":"Ewan Stripe"}
+{"t":"2026-08-24T17:05:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Invoices mail from design@; Apple Pay Google Pay; weekly monthly one-off; secret when pasted","d":"Ewan"}
+{"t":"2026-08-24T17:05:00+01:00","k":"mod","p":"WORKSTREAM.md ops/vps.md deploy/docker-compose.yml","s":"Invoice desk Stripe; compose env; VPS env note; secret never git","d":"Ewan"}
+{"t":"2026-08-24T17:24:00+01:00","k":"mod","p":"studio/social-pass/","s":"Three still tiles spelling DLN (green D, orange L, purple N); wash gone; agency not hub","d":"Ewan: gif does not run in PDF; 3 tiles; not a hub"}
+{"t":"2026-08-24T17:24:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Public word is design agency; social-pass is 3 DLN tiles no foot wash","d":"Ewan"}
+{"t":"2026-08-24T17:24:00+01:00","k":"add","p":"ops/enable-vps-home-docker-gate.sh","s":"socat docker0:13010 to 127.0.0.1 so live web can talk home","d":"live studio login fetch failed from container"}
+{"t":"2026-08-24T17:24:00+01:00","k":"mod","p":"auth login cookie home-dial","s":"Cookie Secure follows proto; studio login falls through if house unreachable","d":"HTTP + docker0 could not store/talk home"}
+{"t":"2026-08-24T17:24:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Docker gate for 127.0.0.1 tunnel; proto-aware session cookie","d":"live login"}
+{"t":"2026-08-24T17:24:00+01:00","k":"mod","p":"layout.tsx","s":"Site meta: north design agency, not hub","d":"Ewan: we are a design agency"}
+{"t":"2026-08-24T17:35:00+01:00","k":"mod","p":".dockerignore deploy/sync-to-vps.sh","s":"Keep Site/.env.local and _meta/secrets out of images and VPS rsync","d":"Stripe keys must not bake into web"}
+{"t":"2026-08-24T17:35:00+01:00","k":"mod","p":"Stripe webhook + payment method domain","s":"Registered live webhook and Apple Pay domain; signing secret on hosts only","d":"Billing agent leftover: endpoint and wallets"}
+{"t":"2026-08-25T10:50:00+01:00","k":"mod","p":"Caddyfile.prod Caddyfile.ip home-tunnel.md","s":"Copy session Cookie onto house reverse_proxy so /lab stays signed in","d":"Ewan live login 307 to login"}
+{"t":"2026-08-25T10:50:00+01:00","k":"mod","p":"accounts/sheets","s":"Studio live password is the house/Local line","d":"Live sheet was the unused VPS book"}
+{"t":"2026-08-25T10:50:00+01:00","k":"add","p":"api/billing/self-pay AccountBilling account/page","s":"Studio £1 pay-page test on this login","d":"Ewan: test pay without jumping accounts"}
+{"t":"2026-08-25T10:50:00+01:00","k":"mod","p":"PayDesk InvoiceDesk lab/page","s":"Pay defaults to this login; Ping opens Checkout here","d":"same"}
+{"t":"2026-08-25T10:50:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"House proxy copies Cookie; studio live is house password","d":"live login"}
+{"t":"2026-08-25T10:50:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Studio live=house password; self pay test; Cookie on house proxy","d":"Ewan"}
+{"t":"2026-08-25T11:05:00+01:00","k":"mod","p":"Caddyfile.prod Caddyfile.ip","s":"Do not copy_headers Cookie on studio-gate — it wiped the session before /lab","d":"Ewan live login bounced to login"}
+{"t":"2026-08-25T10:55:00+01:00","k":"mod","p":"BLUEPRINT.md DIRECTIONS.md","s":"Studio-gate must not copy_headers Cookie","d":"earlier line had the wipe inverted"}
+{"t":"2026-08-25T10:55:00+01:00","k":"mod","p":"ops/debian-rebuild-campus.sh Site","s":"Debian campus rebuilt with self-pay and Pay-desk me default; campus active","d":"Ewan: test pay without jumping accounts"}
+{"t":"2026-08-25T11:20:00+01:00","k":"mod","p":"Caddyfile.ip Caddyfile.prod home-tunnel.md","s":"Stop proxying campus /lab HTML onto the hub host","d":"hub /_next vs campus /_next killed Accounts"}
+{"t":"2026-08-25T11:20:00+01:00","k":"mod","p":"PayDesk StudioDesk lab/page Header LoginForm account/page","s":"Restore Pay choose-client; live studio lands on /account; campus only on lab host","d":"do not overwrite working desk to squeeze in pay test"}
+{"t":"2026-08-25T11:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Public /lab 404s; tunnel is login tickets not campus HTML","d":"harmony: live desk was a mixed Next build"}
+{"t":"2026-08-25T11:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Do not HTML-proxy campus onto designlabnorth.com; £1 test stays on /account","d":"Ewan admin broken"}
+{"t":"2026-08-25T11:25:00+01:00","k":"mod","p":"ops/debian-rebuild-campus.sh","s":"If campus build fails, start the last tree instead of leaving :3010 down","d":"failed rebuild killed LAN admin"}
+{"t":"2026-08-25T12:35:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"noreply@ via Fasthosts SMTP 587; do not self-host mail on the VPS","d":"Ewan: auto mail + hosting platform question"}
+{"t":"2026-08-25T12:35:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md ops/vps.md","s":"Machine mail is SMTP submission; MX stays Livemail","d":"port 25 blocked; desk already sends when SMTP is set"}
+{"t":"2026-08-25T12:40:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Own-server mailbox later is possible not easy; not on the site IP; not this VPS","d":"Ewan: migrate to house server with GPU/space"}
+{"t":"2026-08-25T13:05:00+01:00","k":"add","p":"_meta/secrets/smtp.env mail.ts","s":"Livemail SMTP for noreply@; From noreply Reply-To design@","d":"Ewan created the mailbox"}
+{"t":"2026-08-25T13:05:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"noreply@ on Livemail Mail Basic; smtp.livemail.co.uk 587","d":"screenshot"}
+{"t":"2026-08-25T13:12:00+01:00","k":"mod","p":"ops/debian-rebuild-campus.sh","s":"npm ci in Site/ so a thin node_modules is not treated as up to date","d":"27-package install broke campus build"}
+{"t":"2026-08-25T13:20:00+01:00","k":"mod","p":"Site/.env.example mail.ts stripe-billing onboard","s":"Livemail env keys; From noreply; Reply-To design/build; empty SMTP_PASS does not send","d":"Ewan: SMTP format + machine From"}
+{"t":"2026-08-25T13:20:00+01:00","k":"add","p":"Site/src/lib/livemail.ts api/mail MailDesk","s":"Campus Accounts Mail room lists Livemail IMAP (lab studio only)","d":"Ewan: read three boxes in the browser"}
+{"t":"2026-08-25T13:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Accounts rooms include Mail (Livemail IMAP, lab host)","d":"new desk room"}
+{"t":"2026-08-25T13:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Mail room reads Livemail IMAP; build design noreply; passwords in ops env only","d":"Ewan"}
+{"t":"2026-08-25T13:20:00+01:00","k":"mod","p":"WORKSTREAM.md","s":"15 SMTP wired when pass present; IMAP desk on campus","d":"noreply mailbox exists"}
+{"t":"2026-08-25T13:20:00+01:00","k":"mod","p":"deploy/docker-compose.yml ops/vps.md","s":"Machine From noreply on VPS; IMAP stays campus","d":"do not fetch mail on public /account"}
+{"t":"2026-08-25T13:21:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Local stage is the workshop; live is numbered ship or named bugfix then stop; dummy live £1 pay-page is the example of what not to do","d":"Ewan: never put build material on live as a live update"}
+{"t":"2026-08-25T13:21:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Public hub is not a lab; studio £1 self-pay is campus/local workshop; live is ship or named bugfix then stop","d":"same standing; /account self-pay is not a reason to keep editing live"}
+{"t":"2026-08-25T13:21:00+01:00","k":"mod","p":"identity.md compass.md offline-lab.md WORKSTREAM.md","s":"One-line: workshop campus/local; live ship or bugfix then stop","d":"so every agent loads the rhythm"}
+{"t":"2026-08-25T13:21:00+01:00","k":"mod","p":"account/page.tsx api/billing/self-pay","s":"SelfPayButton and self-pay API lab-host only; live studio /account has no dummy pay","d":"extend billing; sample stay on campus; do not sync-to-vps this turn"}
+{"t":"2026-08-25T13:28:00+01:00","k":"add","p":"LoginForm PasswordField login/forgot login/reset","s":"Show password on the sheet; forgot loop with hashed token and reset page","d":"Ewan: login is a room; full forgot not a stub"}
+{"t":"2026-08-25T13:28:00+01:00","k":"add","p":"api/auth/forgot api/auth/reset password-reset.ts","s":"Request email, one-hour one-shot token in gitignored accounts, consume on reset","d":"same"}
+{"t":"2026-08-25T13:28:00+01:00","k":"mod","p":"auth.ts mail.ts privacy","s":"setPassword; studioMailConfigured; privacy names reset tokens and reset mail","d":"extend login; do not smash SMTP"}
+{"t":"2026-08-25T13:28:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"/login/forgot and /login/reset; hashed reset tokens; noreply mail Reply-To build@","d":"new login surface"}
+{"t":"2026-08-25T13:28:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Show password + full forgot loop; local workshop; no VPS this turn","d":"Ewan"}
+{"t":"2026-08-25T13:28:00+01:00","k":"mod","p":"WORKSTREAM.md","s":"15 password-reset links on noreply SMTP","d":"forgot is mail"}
+{"t":"2026-08-25T13:30:00+01:00","k":"mod","p":"ops/debian-rebuild-campus.sh","s":"npm ci includes devDependencies so Next can resolve @/ on LAN build","d":"production npm ci left a thin tree and campus compile failed"}
+{"t":"2026-08-25T13:36:00+01:00","k":"mod","p":"Site/src/app/api/auth/login/route.ts","s":"Studio live does not fall through to leftover VPS hash; house deny=401 unreachable=503","d":"named live login bug; VPS book hash != house"}
+{"t":"2026-08-25T13:36:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Live accounts stay hashed; sheets are studio copies not the live book; no VPS fallthrough","d":"Ewan: encrypt-db / sheets / live login"}
+{"t":"2026-08-25T13:36:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Forgot is client path; studio sheets stay; scrypt already; no fake JSON encryption; Livemail 587","d":"Ewan 2026-08-25"}
+{"t":"2026-08-25T13:36:00+01:00","k":"mod","p":"_meta/secrets/smtp.env","s":"Unquoted systemd format; BUILD mailbox key filled from host env","d":"Livemail IMAP build@; noreply still auth-rejected"}
+{"t":"2026-08-25T13:50:00+01:00","k":"mod","p":"InvoiceDesk PayDesk SettingsDesk","s":"Pay composes category/name/amount/cadence into Stripe Ping; Settings thin Design/Strategy/Build rows","d":"Ewan: cannot add charges; Pay not a Stripe-only invention"}
+{"t":"2026-08-25T13:50:00+01:00","k":"mod","p":"StudioDesk lab/page OnboardDesk","s":"Serving only Clients/Book/Pay; Mail no serving; Open station on Onboarding; no Accounts wells","d":"Ewan campus bugs"}
+{"t":"2026-08-25T13:50:00+01:00","k":"mod","p":"auth.ts plans.ts stripe-billing issue","s":"Guard plots.includes; campus Checkout origin; Ping returns checkoutError","d":"JS crash + Ping must open Checkout"}
+{"t":"2026-08-25T13:50:00+01:00","k":"mod","p":"account/page.tsx","s":"£1 self-pay stays on campus/lab /account with heading","d":"workshop not live"}
+{"t":"2026-08-25T13:50:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Serving not on Mail; Open station Onboarding only; Pay composes into Stripe; no room wells","d":"desk IA"}
+{"t":"2026-08-25T13:50:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Campus Pay compose; Mail no serving; Open station Onboarding; wells off Accounts; £1 on lab account","d":"Ewan"}
+{"t":"2026-08-25T13:50:00+01:00","k":"del","p":"StudioDesk LabComment wells","s":"Removed page-identifier wells from Accounts rooms; /admin LabDesk kept","d":"Ewan: wells on our desk don’t work and are in the wrong place"}
+{"t":"2026-08-25T13:50:00+01:00","k":"del","p":"lab/page.tsx OpenStation","s":"Removed Open station from campus foot; now OnboardDesk only","d":"followed Book/Pay/Settings/Mail"}
+{"t":"2026-08-25T14:10:00+01:00","k":"bp","p":"BLUEPRINT.md identity.md compass.md","s":"Two campuses: live /campus client desk on VPS web; local /lab editor; /account is the person","d":"Ewan 2026-08-25 afternoon architecture"}
+{"t":"2026-08-25T14:10:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Live vs Local Campus; activate-account; webhook-paid-only; dummy local preview; noreply 587 not A-record","d":"Ewan afternoon"}
+{"t":"2026-08-25T14:10:00+01:00","k":"mod","p":"WORKSTREAM.md ops/vps.md","s":"Step 17 move Accounts to live /campus (VPS web, not HTML proxy); onboard is activate mail","d":"sequenced; no half ship"}
+{"t":"2026-08-25T14:10:00+01:00","k":"del","p":"lab/page.tsx lab-door-walk","s":"Removed walk-the-public foot copy and public site/account clutter on local campus","d":"Ewan: no idea why that sentence is there"}
+{"t":"2026-08-25T14:10:00+01:00","k":"mod","p":"stripe-billing.ts account/pay/done webhook","s":"Paid only on Stripe webhook (session paid / PI succeeded); return URL does not mark paid; Checkout Paper/Ink branding","d":"do not mark paid on Ping"}
+{"t":"2026-08-25T14:10:00+01:00","k":"add","p":"activate password-reset onboard auth","s":"Invite token /activate; noreply Activate your account; never return or mail a client password","d":"extend forgot; not a stub"}
+{"t":"2026-08-25T14:15:00+01:00","k":"mod","p":"ops/dns.md","s":"Mail hostname table: mail/smtp/webmail/mcp/exchange Fasthosts IPs; apex stays VPS","d":"Ewan compared davekirkwood Advanced DNS; do not restore automatic DNS"}
+{"t":"2026-08-25T14:15:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Optional Fasthosts mail A extras only; never @/www/plots; app still smtp.livemail.co.uk 587","d":"orange warning wants 88.208.252.9; noreply still Change mailbox password"}
+{"t":"2026-08-25T14:20:00+01:00","k":"add","p":"plot-dks DKS Site Caddyfile.prod Caddyfile.ip docker-compose","s":"davekirkwood.com ungated parking wall (DLN mark + Building) on plot-dks","d":"ewan: dave hosting with us; domain already on VPS"}
+{"t":"2026-08-25T14:20:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse plots.json identity","s":"Hosted personal plot dks at davekirkwood.com; not client; not greenhouse","d":"co-owner personal host"}
+{"t":"2026-08-25T14:20:00+01:00","k":"dir","p":"DIRECTIONS.md ops/dns.md","s":"DKS parking; leave Livemail MX; delete AAAA 2001:8d8:100f:f000::200","d":"IPv6 hits IONOS nginx not this box"}
+{"t":"2026-08-25T14:20:00+01:00","k":"mod","p":"WORKSTREAM.md ops/vps.md ops/lab.md sniff-inbox AGENTS cross-house","s":"dks house /home/main/DKS local :3040; VPS /srv/dln/plots/dks","d":"same pattern as pfp"}
+{"t":"2026-08-25T14:26:00+01:00","k":"mod","p":"deploy/sync-to-vps.sh docker compose web","s":"Hub web only: live /login Show password + Forgot password","d":"Ewan on public Sign in; sheet Local already 200; LAN is a different host"}
+{"t":"2026-08-25T14:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Admin QoL may ship to VPS web while shaping; public pages still numbered","d":"Ewan: fix login/admin on live now"}
+{"t":"2026-08-25T14:28:00+01:00","k":"mod","p":"globals.css PasswordField","s":"Show password control readable (flex, not 20px clipped chip)","d":"Ewan: not on the site; words were there, chrome height ate them"}
+{"t":"2026-08-25T14:28:00+01:00","k":"mod","p":"ops/push-campus-downstairs.sh","s":"LAN rebuild: login show/forgot, activate, walk-copy off, webhook-paid, Pay/Mail already matched","d":"Debian was behind afternoon disk; Ewan on .223:3010; no accounts rsync; no /campus ship"}
+{"t":"2026-08-25T14:35:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"One /campus on live and house; Lab is a room; live rails vs snapped house rails","d":"Ewan: same campus both sides, lab inside, ends snapped offline"}
+{"t":"2026-08-25T14:35:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Same /campus live+house; Lab room; live Stripe/SMTP/IMAP; house rails snapped","d":"Ewan 25 Aug afternoon"}
+{"t":"2026-08-25T14:35:00+01:00","k":"add","p":"Site/src/app/campus/page.tsx campus-mode.ts","s":"Public /campus studio desk; /lab on house redirects here","d":"do not HTML-proxy Debian"}
+{"t":"2026-08-25T14:35:00+01:00","k":"mod","p":"StudioDesk Mail Pay Onboard middleware lab-guard","s":"Lab room; mail APIs on public studio; snap Stripe/IMAP/SMTP on lab host; snap lab doors on live","d":"replicated look, hooks only on VPS"}
+{"t":"2026-08-25T14:35:00+01:00","k":"mod","p":"Header LoginForm account docker-compose.yml ops/vps.md","s":"Studio lands /campus; IMAP env passed into web","d":"live Mail needs host mailbox passwords"}
+{"t":"2026-08-25T14:50:00+01:00","k":"dir","p":"DIRECTIONS.md ops/vps.md","s":"Livemail matches local mailbox pass; quote $ in VPS deploy/.env; build IMAP on web","d":"Compose interpolated SMTP pass to 1 char; Ewan Change-password accepted"}
+{"t":"2026-08-25T14:50:00+01:00","k":"mod","p":"deploy/.env VPS web","s":"Quoted secrets; BUILD_PASS on host; SMTP pass restored to full length","d":"never print; noreply send verified"}
+{"t":"2026-08-25T15:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Campus rooms Clients/Onboarding/Accounting/Mail/Lab; book+bill on person; Work gated until paid","d":"Ewan: pay and booking inside clients; drop Settings"}
+{"t":"2026-08-25T15:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"No Pay/Book/Settings tabs; Accounting counts; Mail select/delete; booking notices","d":"Ewan 25 Aug"}
+{"t":"2026-08-25T15:20:00+01:00","k":"del","p":"StudioDesk Pay Book Settings rooms","s":"Removed top-level Pay, Book, Settings; charge/calendar on client; housekeeping on Accounting","d":"Ewan: we dont need default amounts or play online"}
+{"t":"2026-08-25T15:20:00+01:00","k":"add","p":"AccountingDesk notices hits mail/delete","s":"Accounting KPIs + hours; studio notices; hub page hits; IMAP delete; full list 500","d":"shape of the work not a stub"}
+{"t":"2026-08-25T15:35:00+01:00","k":"mod","p":"onboard hosts.ts OnboardDesk","s":"Internal handle + mailbox: studio emails cannot be client logins; mail still goes to dave@","d":"Ewan: set Dave up as billed recipient"}
+{"t":"2026-08-25T15:35:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Studio mailbox walk-in uses .local login; invoices mail the studio box","d":"dave@ stays campus"}
+{"t":"2026-08-25T15:35:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Bill Dave as client via internal handle; live mail; studio login stays campus","d":"Ewan fake bill to Dave"}
+{"t":"2026-08-25T15:40:00+01:00","k":"add","p":"VPS _meta/accounts Dave client","s":"Walk-in dave.kirkwood@.local mailbox dave@; activate mailed; DLN-2026-0001 pinged £1","d":"Ewan: recipient so Dave sees /account and campus Billing"}
+{"t":"2026-08-25T15:55:00+01:00","k":"del","p":"dave.kirkwood@designlabnorth.local","s":"Removed invented .local client and its test invoice","d":"Ewan: not a shortcut; Dave is design@"}
+{"t":"2026-08-25T15:55:00+01:00","k":"mod","p":"auth.ts hosts.ts account","s":"Studio logins build@ + design@; Dave on Clients book; own invoices on /account","d":"unify house and live mailboxes; same sheet passwords"}
+{"t":"2026-08-25T15:55:00+01:00","k":"bp","p":"BLUEPRINT.md identity.md","s":"build@ owner, design@ studio; Dave billable; no .local for studio","d":"Ewan 25 Aug"}
+{"t":"2026-08-25T15:55:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Logins are build@ and design@ on house and live; bill Dave from Clients","d":"supersedes .local walk-in"}
+{"t":"2026-08-25T16:20:00+01:00","k":"mod","p":"InvoiceDesk StudioDesk","s":"Ping mails the client; desk window no longer jumps to Stripe Checkout","d":"Ewan: why would I pay my own invoice"}
+{"t":"2026-08-25T16:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Ping mails pay link; studio stays on campus","d":"they pay, we don’t"}
+{"t":"2026-08-25T16:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Ping does not open Checkout for studio","d":"Ewan 25 Aug"}
+{"t":"2026-08-25T16:30:00+01:00","k":"mod","p":"billing.ts markCollected","s":"Stripe paid now saves invoice status; heal due invoices that already have receipts","d":"receipt existed while invoice stayed due"}
+{"t":"2026-08-25T16:30:00+01:00","k":"mod","p":"PayButton invoice pay/done","s":"Stripe live: Pay online only; no Record paid; return URL catch-up if webhook lagged","d":"Ewan: automate from Stripe"}
+{"t":"2026-08-25T16:30:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Webhook persists paid; studio does not click paid when Stripe is live","d":"shape of billing"}
+{"t":"2026-08-25T16:30:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Stripe marks invoice paid; drop Record paid / I’ve paid on live","d":"Ewan 25 Aug"}
+{"t":"2026-08-25T17:35:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse.md WORKSTREAM.md","s":"Client /account rooms Account/Write/Billing/Titles; no hub notes; no card portal","d":"Ewan: Anne Marie account sprawly; get someone paying"}
+{"t":"2026-08-25T17:35:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Client account is tabs+cards; suggestions on plot hosts; Stripe Checkout only","d":"Ewan 25 Aug evening"}
+{"t":"2026-08-25T17:35:00+01:00","k":"add","p":"AccountDesk password write APIs","s":"Tabbed client desk; change password; write-in to Onboarding; invoice/sub/receipt cards","d":"emulate campus cards for the person"}
+{"t":"2026-08-25T17:35:00+01:00","k":"del","p":"account CommentBox ManageCardButton","s":"Removed hub note well and Manage card from /account","d":"notes on subdomains; money through Stripe Checkout"}
+{"t":"2026-08-25T17:35:00+01:00","k":"mod","p":"OnboardDesk enquiries.ts needs.ts","s":"fromAccount writes skip create-login; ACCOUNT_TOPICS for existing clients","d":"already a customer space"}
+{"t":"2026-08-25T17:45:00+01:00","k":"mod","p":"VPS web Debian campus","s":"Shipped client account rooms to live hub and LAN; web only, no plots, no accounts rsync","d":"Anne Marie can see the desk; first invoice can go"}
+{"t":"2026-08-25T17:55:00+01:00","k":"bp","p":"BLUEPRINT.md identity.md greenhouse.md","s":"One DLN login: plot role studio=admin observer=client; no second staff password","d":"Ewan: unify hub and subdomain"}
+{"t":"2026-08-25T17:55:00+01:00","k":"dir","p":"DIRECTIONS.md cross-house-comms.md","s":"Plots ask /api/auth/plot; do not mint Ewan/Dave staff rows; parking skip when cookie allows","d":"Ewan 25 Aug evening"}
+{"t":"2026-08-25T17:55:00+01:00","k":"add","p":"plot-access.ts /api/auth/plot plot-enter","s":"Plot identity JSON + enter bounce + gate X-DLN-Role headers","d":"cookie is the check"}
+{"t":"2026-08-25T17:55:00+01:00","k":"mod","p":"ModYu hub-studio auth-server staff-auth admin","s":"Studio cookie is virtual admin; bound client observer; patient book untouched","d":"hub contract consumer; no second login"}
+{"t":"2026-08-25T17:55:00+01:00","k":"mod","p":"plans.ts suggestions AccountDesk Caddyfile","s":"Suggestions stamp signed-in user; Open site via plot-enter; gate copy_headers","d":"one stream"}
+{"t":"2026-08-25T18:05:00+01:00","k":"mod","p":"VPS web plot-modyu edge Debian campus","s":"Shipped plot identity; ModYu trusts DLN cookie as studio/observer; no accounts rsync","d":"unify logins live"}
+{"t":"2026-08-25T18:10:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Sign out is a plain a; never Next Link to /logout; account rooms stay on the client","d":"Ewan: Anne Marie tabs logged her out"}
+{"t":"2026-08-25T18:10:00+01:00","k":"mod","p":"AccountDesk logout globals account page","s":"Tabs are local buttons; Sign out is a; prefetch GET /logout is 204","d":"Link prefetch was signing the person out"}
+{"t":"2026-08-25T18:15:00+01:00","k":"mod","p":"VPS web Debian campus","s":"Shipped account tab/sign-out fix; web only, no plots, no accounts rsync","d":"Anne Marie tabs must stay signed in"}
+{"t":"2026-08-25T19:45:00+01:00","k":"dir","p":"DIRECTIONS.md identity.md greenhouse.md BLUEPRINT.md WORKSTREAM.md","s":"Paul Fosbury live login is email@paulfosbury.com","d":"Ewan: change login then first invoice"}
+{"t":"2026-08-25T19:45:00+01:00","k":"mod","p":"accounts users local VPS Debian","s":"Replaced paul@paulfosburyportraits.com with email@paulfosbury.com; same id and hash","d":"Ping mails the invoice to that box"}
+{"t":"2026-08-25T21:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Charge: four sections; boxed name from home lists; plot only if they own it","d":"Ewan: modyu on every invoice; compose ugly"}
+{"t":"2026-08-25T21:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Campus charge row aligned; never default plot to first on the book","d":"Ewan 25 Aug night"}
+{"t":"2026-08-25T21:20:00+01:00","k":"mod","p":"InvoiceDesk catalogue globals invoice page","s":"Section+boxed picker; amount cadence add line level; plot is theirs","d":"home lists as suggestions; DLN package"}
+{"t":"2026-08-26T10:20:00+01:00","k":"add","p":"Site/src/lib/mail-layout.ts Site/public/brand/mail","s":"Shared Paper/Ink studio mail html+text; social-pass tiles in public","d":"Ewan: nicer automatic mail, not in their face"}
+{"t":"2026-08-26T10:20:00+01:00","k":"mod","p":"mail.ts password-reset stripe-billing diary enquiries","s":"All sendStudioMail through layout; multipart; CID mark+tiles","d":"extend SMTP; keep useful bodies Dave liked"}
+{"t":"2026-08-26T10:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Automatic studio mail: mark, Paper/Ink, tiles on fuller notes, trading-name legal","d":"Ewan 26 Aug"}
+{"t":"2026-08-26T10:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Automatic mail uses shared layout; queries design@/build@; reset stays short","d":"mail look is standing"}
+{"t":"2026-08-26T10:22:00+01:00","k":"mod","p":"VPS web","s":"Shipped studio mail layout to live hub; web only, no plots, no accounts rsync","d":"Ewan looking at live mail"}
+{"t":"2026-08-26T10:44:00+01:00","k":"mod","p":"Site/src/lib/mail-layout.ts","s":"Real mail legal: Ewan+Dave, under Dave Kirkwood Studio, site+mailboxes; short vs full","d":"Ewan: placeholder company details not real"}
+{"t":"2026-08-26T10:44:00+01:00","k":"mod","p":"Site/scripts/send-mail-samples.ts","s":"Samples to design@; Hello Dave; same five [sample] notes","d":"Ewan: send samples to Dave"}
+{"t":"2026-08-26T10:44:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Mail legal in code; live-only edit-auto-emails later; no half UI","d":"Ewan sketched control; do not build this turn"}
+{"t":"2026-08-26T10:44:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Mail legal is Dave Kirkwood Studio trading name; no invented company number","d":"footer facts, not placeholder"}
+{"t":"2026-08-26T10:44:00+01:00","k":"mod","p":"VPS web","s":"Shipped mail legal copy to live hub; web only, no plots, no accounts rsync","d":"copy change then samples then ship"}
+{"t":"2026-08-26T12:55:00+01:00","k":"mod","p":"Site/src/lib/mail-layout.ts","s":"Mail legal: Dave Kirkwood then Ewan Kirkwood","d":"Ewan: put Dave first on the email"}
+{"t":"2026-08-26T12:55:00+01:00","k":"add","p":"Site/src/lib/login-code.ts","s":"Hashed 6-digit client login codes, 10min, cooldown, not mixed with resets","d":"Ewan: ping email with a code, no password faff"}
+{"t":"2026-08-26T12:55:00+01:00","k":"add","p":"Site/src/app/api/auth/code","s":"POST /api/auth/code and /verify; studio never consume a code","d":"live studio still talks home"}
+{"t":"2026-08-26T12:55:00+01:00","k":"mod","p":"Site/src/app/login/LoginForm.tsx","s":"Email me a code is the door; password is the quiet second path","d":"especially when invoiced"}
+{"t":"2026-08-26T12:55:00+01:00","k":"mod","p":"Site/src/lib/stripe-billing.ts","s":"Invoice ping: sign in with a code; pay online still needs no login","d":"nicer when they get invoiced"}
+{"t":"2026-08-26T12:55:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Client email-code login; studio never codes; Dave first on mail legal","d":"Ewan 26 Aug"}
+{"t":"2026-08-26T12:55:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Client codes + Dave-first mail legal; password path kept","d":"login is a way in and a room behind it"}
+{"t":"2026-08-26T13:05:00+01:00","k":"mod","p":"VPS web","s":"Shipped Dave-first mail legal + client login codes; web only, no plots, no accounts rsync","d":"Ewan: Dave first on email; code login for invoiced people"}
+{"t":"2026-08-26T13:05:00+01:00","k":"mod","p":"Debian campus","s":"Same login codes on LAN :3010","d":"downstairs after hub ship"}
+{"t":"2026-08-26T13:12:00+01:00","k":"add","p":"Site/src/lib/enquiries.ts","s":"deleteEnquiry removes a request from the book","d":"Ewan: cannot delete bot onboarding requests"}
+{"t":"2026-08-26T13:12:00+01:00","k":"add","p":"Site/src/app/api/enquiries/route.ts","s":"DELETE /api/enquiries studio; takes the row off the file","d":"Done only archived"}
+{"t":"2026-08-26T13:12:00+01:00","k":"mod","p":"Site/src/components/OnboardDesk.tsx","s":"Delete on open cards and earlier instances; two-click confirm","d":"three bots on the desk"}
+{"t":"2026-08-26T13:12:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Onboarding Delete takes a request off the book; Done archives","d":"Ewan 26 Aug"}
+{"t":"2026-08-26T13:12:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Onboarding Delete vs Done","d":"queue must be able to drop spam"}
+{"t":"2026-08-26T13:17:00+01:00","k":"mod","p":"VPS web","s":"Shipped onboarding Delete; web only, no plots, no accounts rsync","d":"Ewan: cannot delete bot requests"}
+{"t":"2026-08-26T13:17:00+01:00","k":"mod","p":"Debian campus","s":"Same Delete on LAN onboarding","d":"downstairs with hub"}
+{"t":"2026-08-26T13:25:00+01:00","k":"mod","p":"Site/src/app/login/LoginForm.tsx","s":"Password field back on the page; Enter is password; code is extra","d":"Ewan: offline login killed; do not hide the working door"}
+{"t":"2026-08-26T13:25:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Additions sit beside working doors; house password stays on /login","d":"Ewan: do not kill campus login"}
+{"t":"2026-08-26T13:25:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Password is the login door; codes extra for clients","d":"harmony: do not replace working sign-in"}
+{"t":"2026-08-26T13:28:00+01:00","k":"mod","p":"campus.service","s":"Started this PC campus on :3010 (was dead)","d":"offline login needs the house up"}
+{"t":"2026-08-26T13:28:00+01:00","k":"mod","p":"VPS web","s":"Shipped password-on-the-page login; web only, no plots, no accounts rsync","d":"do not kill the house door"}
+{"t":"2026-08-26T13:28:00+01:00","k":"mod","p":"Debian campus","s":"Same password-first login on LAN :3010","d":"Ewan and Dave build here"}
+{"t":"2026-08-26T13:40:00+01:00","k":"add","p":"studio/instagram/","s":"Trial IG set: D Design, L Strategy, N Build covers + carousels","d":"Ewan: see how well we can do Instagram from the tiles"}
+{"t":"2026-08-26T13:40:00+01:00","k":"mod","p":"Site/src/data/needs.ts","s":"Home third column is Build; list includes web apps and development","d":"Ewan: websites plus web apps, under Build"}
+{"t":"2026-08-26T13:40:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Home Build not Websites; IG trial in studio/instagram","d":"Ewan 26 Aug"}
+{"t":"2026-08-26T13:40:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Home columns Strategy / Design / Build","d":"Websites was the old home name"}
+
+{"t":"2026-08-26T14:05:00+01:00","k":"mod","p":"Site/scripts/send-mail-samples.ts","s":"Five [sample] noreply notes queued to design@ (activate, invoice, reset, paid, booking)","d":"Ewan: Dave still had not received the same set that went to build@"}
+{"t":"2026-08-27T09:20:00+01:00","k":"add","p":"ops/mail-deliverability.md","s":"SPF/DKIM/DMARC/PTR sheet; selector mail; no MTA on VPS","d":"noreply landing untrusted"}
+{"t":"2026-08-27T09:20:00+01:00","k":"mod","p":"Site/src/lib/mail.ts","s":"Nodemailer DKIM s=mail, HELO designlabnorth.com, Date/Message-ID","d":"sign before Livemail; do not run a mail server"}
+{"t":"2026-08-27T09:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Keep Livemail path; DKIM selector mail; DNS in mail-deliverability.md","d":"Ewan 27 Aug"}
+{"t":"2026-08-27T09:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Machine mail is Nodemailer+Livemail+DKIM mail; no MTA on VPS","d":"deliverability"}
+{"t":"2026-08-27T13:00:00+01:00","k":"mod","p":"ops/mail-deliverability.md","s":"Fasthosts Advanced DNS clicks; Host Name vs Destination TXT Value","d":"Ewan stuck on the dashboard"}
+{"t":"2026-08-27T13:48:00+01:00","k":"mem","p":"designlabnorth.com DNS","s":"Livedns DKIM mail._domainkey and DMARC live; match our key; PTR still pbiaas.com","d":"Ewan Fasthosts TXT"}
+{"t":"2026-08-27T18:30:00+01:00","k":"add","p":"Site/src/app/api/billing/remind/route.ts","s":"POST studio remind; due invoices only; no new Checkout","d":"Ewan: reminder beside Ping"}
+{"t":"2026-08-27T18:30:00+01:00","k":"mod","p":"Site/src/lib/stripe-billing.ts","s":"Remind mail: still yet to pay + time left; Ping copy unchanged","d":"same layout; do not smash Ping/paid"}
+{"t":"2026-08-27T18:30:00+01:00","k":"mod","p":"Site/src/components/BookApp.tsx AccountBilling Invoice page","s":"Remind on due invoices next to Void","d":"addition beside Ping"}
+{"t":"2026-08-27T18:30:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Invoice Remind sits beside Ping; does not issue or mark paid","d":"Ewan 27 Aug"}
+{"t":"2026-08-27T18:30:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Remind on due invoice: still-to-pay mail with time left","d":"unpaid is part of billing shape"}
+{"t":"2026-08-27T18:32:00+01:00","k":"mod","p":"VPS web","s":"Shipped invoice Remind; web only, no plots, no accounts rsync","d":"mail now authenticates; studio can nudge unpaid"}
+{"t":"2026-08-27T18:32:00+01:00","k":"mod","p":"Debian campus","s":"Same Remind on LAN :3010 (send still snapped)","d":"desk look downstairs"}
+{"t": "2026-08-30T08:25:00+01:00", "k": "bp", "p": "BLUEPRINT.md", "s": "DAA named client plot; preview tenancy; Building on daa.designlabnorth.com", "d": "Ewan named Mark Barlow; Dave exception"}
+{"t": "2026-08-30T08:25:00+01:00", "k": "add", "p": "greenhouse/plots.json", "s": "daa plot: house /home/main/DAA :3050 /lab/daa tenure preview", "d": "client site on the account not the wall"}
+{"t": "2026-08-30T08:25:00+01:00", "k": "mod", "p": "AccountDesk plot-urls plot-types", "s": "preview tenancy chip and system line on Your sites", "d": "automated, not a closer"}
+{"t": "2026-08-30T08:25:00+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "DAA house local then downstairs then VPS ship; email follows", "d": "Ewan 30 Aug"}
+{"t": "2026-08-30T08:25:00+01:00", "k": "mod", "p": "identity greenhouse WORKSTREAM cross-house lab sniff sync", "s": "DAA station, inbox, downstairs client sync", "d": "same capabilities as other units"}
+{"t": "2026-08-30T08:22:00+01:00", "k": "mem", "p": "debian /srv/clients", "s": "1TB I/O error; DAA parked on NVMe /home/main/DAA", "d": "do not force client symlink while disk is sick"}
+{"t": "2026-08-30T08:28:00+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "House approach: ModYu+Choozlist for depth; PFP is wiring only; all-encompassing and fresh", "d": "Ewan 30 Aug; do not restyle DAA this turn"}
+{"t": "2026-08-30T08:28:00+01:00", "k": "mem", "p": ".cursor/rules/vital-ltm.mdc", "s": "Load house-approach.md on attention to memory", "d": "campus doctrine path"}
+{"t": "2026-08-30T08:35:00+01:00", "k": "mod", "p": "_meta/accounts/avatars", "s": "Mark Barlow portrait on campus avatar; email still .local until it arrives", "d": "picture was in Pictures from the 08:11 attach"}
+{"t": "2026-08-31T17:20:00+01:00", "k": "add", "p": "Site/src/components/LabCompose.tsx", "s": "Shared compose: kinds, text, images/video, previews", "d": "Ewan: ModYu desk across the board"}
+{"t": "2026-08-31T17:20:00+01:00", "k": "mod", "p": "LabDesk LabComment lab-inbox file API globals next.config", "s": "Desk and page notes use LabCompose; video uploads stored off JSON", "d": "same module on /admin /lab/*/admin station hub dock"}
+{"t": "2026-08-31T17:20:00+01:00", "k": "bp", "p": "BLUEPRINT.md", "s": "Builder compose is ModYu desk lift (images+video) on campus and every unit", "d": "offline-lab item 2 actually landed"}
+{"t": "2026-08-31T17:20:00+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "One compose module; do not keep a notes-only well", "d": "Ewan 31 Aug"}
+{"t":"2026-09-01T09:52:00+01:00","k":"add","p":"Site/scripts/preview-invoice-remind.ts","s":"Local HTML preview of due-invoice reminders; does not send","d":"Ewan: see the reminder before Paul and Anne Marie"}
+{"t":"2026-09-01T11:20:00+01:00","k":"mod","p":"Site/src/lib/stripe-billing.ts mail samples InvoiceDesk invoice page","s":"Invoice closing: Apple Pay, Google Pay or card; no comma before or until","d":"Ewan re-read reminder bottom bars"}
+{"t":"2026-09-01T11:20:00+01:00","k":"mod","p":"Site/src/lib/auth.ts password-reset.ts onboard activate-site","s":"Onboard mails generated password; Activate site on person; optional change","d":"log straight in; change is their choice"}
+{"t":"2026-09-01T11:20:00+01:00","k":"mod","p":"LoginForm ResetForm privacy OnboardDesk StudioDesk","s":"Change password beside Forgot; activate page optional; desk shows password once","d":"do not force a new password"}
+{"t":"2026-09-01T11:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Onboard: mailed generated password; /activate optional change; Mark on the book","d":"supersedes never-dictate-a-password"}
+{"t":"2026-09-01T11:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Onboard password + Activate site; Mark Barlow live mailbox; no Oxford comma on remind","d":"Ewan 1 Sep"}
+{"t":"2026-09-01T11:20:00+01:00","k":"mod","p":"identity greenhouse WORKSTREAM","s":"Mark login is mark.barlow@digitaladoptionadvisor.io; onboard password standing","d":"email arrived; live book"}
+{"t":"2026-09-01T11:35:00+01:00","k":"mod","p":"VPS web Debian campus","s":"Shipped onboard password + Activate site; Mark on live book; web only, no plots, no accounts rsync","d":"Ewan 1 Sep; click Activate on live campus to mail"}
+{"t":"2026-09-01T11:45:00+01:00","k":"mod","p":"ViewCurtain ViewStage view-copy.css","s":"View curtain+foot: workbench; sandbox temporary; KPIs chargeable","d":"Ewan perception so KPI work is billed"}
+{"t":"2026-09-01T11:45:00+01:00","k":"mod","p":"Site/src/lib/livemail.ts MailDesk","s":"List INBOX by sequence not SEARCH ALL; nested MIME + attachment names","d":"Livemail SEARCH empty; DMARC rua was in the box unseen"}
+{"t":"2026-09-01T11:45:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"/view workbench line; Mail fetches by EXISTS sequence","d":"SEARCH ALL is not a working door on Livemail"}
+{"t":"2026-09-01T11:45:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Workbench View copy; campus Mail sequence fetch; live campus is the mailbox","d":"Ewan 1 Sep DMARC + perception"}
+{"t":"2026-09-01T11:52:00+01:00","k":"mod","p":"VPS web Debian campus","s":"Shipped workbench View copy + Mail sequence fetch; web only","d":"DMARC was in build@ INBOX; SEARCH ALL hid it"}
+{"t":"2026-09-01T12:10:00+01:00","k":"mod","p":"Site/src/lib/livemail.ts MailDesk part route","s":"HTML mail in sandbox; cid images inlined; files download","d":"Ewan: graphics scuffed, attachments missed"}
+{"t":"2026-09-01T12:10:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Mail renders HTML and files","d":"shape: read it as sent"}
+{"t":"2026-09-01T12:10:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Campus Mail HTML + files; do not smash list/remove/sequence","d":"Ewan 1 Sep"}
+{"t":"2026-09-01T12:18:00+01:00","k":"mod","p":"MailDesk globals.css","s":"Show attached pictures when the note did not inline them","d":"Outlook screenshot forwards have files, not cid in the body"}
+{"t":"2026-09-01T12:22:00+01:00","k":"mod","p":"VPS web Debian campus","s":"Shipped Mail HTML, cid, files, attached pictures; web only","d":"Ewan graphics and attachments"}
+{"t":"2026-09-01T12:25:00+01:00","k":"mod","p":"ViewCurtain.tsx","s":"Curtain gold line: Welcome to the sandbox","d":"Ewan: better in the refresh animation"}
+{"t":"2026-09-01T12:25:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"View curtain welcome is sandbox","d":"not the build"}
+{"t":"2026-09-01T12:25:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"View curtain gold line Welcome to the sandbox","d":"Ewan 1 Sep"}
+{"t":"2026-09-01T12:28:00+01:00","k":"mod","p":"campus Debian","s":"Shipped View curtain Welcome to the sandbox; house only","d":"Ewan 1 Sep refresh animation"}
+{"t":"2026-09-01T12:40:00+01:00","k":"mod","p":"plot-daa","s":"Named bugfix: DAA field photos on live, not stretched SVG marks","d":"Ewan client icons overlapping the page"}
+{"t":"2026-09-01T12:40:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"DAA live fields are photographs; do not ship mark SVGs as cover art","d":"Ewan 1 Sep"}
+{"t":"2026-09-01T12:48:00+01:00","k":"mod","p":"VPS accounts mail","s":"Mailed Paul Fosbury onboard login+password; email@paulfosbury.com","d":"Ewan so he can sign in and pay"}
+{"t":"2026-09-01T12:48:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Paul onboard mail same as Mark; new clients get login+password","d":"supersedes Aug 25 no dictated password"}
+{"t":"2026-09-01T12:47:32+01:00","k":"mod","p":"Site/src/lib/stripe-billing.ts remind route StudioDesk","s":"Remind mints a fresh Checkout lasting 24h from send; do not reuse a dead Ping URL","d":"Ewan: why remind if the link is already broken"}
+{"t":"2026-09-01T12:47:32+01:00","k":"bp","p":"BLUEPRINT.md","s":"Remind mints Checkout (24h from send); still does not issue or mark paid","d":"Stripe sessions die 24h after create"}
+{"t":"2026-09-01T12:47:32+01:00","k":"dir","p":"DIRECTIONS.md","s":"Reminder Pay online lasts 24h from that send; mint fresh Checkout","d":"Ewan 1 Sep Paul Fosbury"}
+{"t":"2026-09-01T12:47:32+01:00","k":"mod","p":"WORKSTREAM.md","s":"Invoice desk Remind mints live Checkout 24h from send","d":"named function: a reminder is a working door"}
+{"t":"2026-09-01T12:51:13+01:00","k":"mod","p":"VPS web","s":"Shipped Remind mint-fresh Checkout; mailed Paul DLN-2026-0003 pay link (24h)","d":"named bugfix; web only; invoice still due until Stripe webhook"}
+{"t":"2026-09-01T12:58:00+01:00","k":"add","p":"Site/src/app/pay/[id]/page.tsx","s":"Public /pay/{invoiceId} opens live Checkout on click","d":"Stripe session URLs die in 24h; the letter must not"}
+{"t":"2026-09-01T12:58:00+01:00","k":"mod","p":"Site/src/lib/stripe-billing.ts StudioDesk","s":"Ping/Remind Pay online is the hub door, not a Checkout URL","d":"do not mail a link that expires while they still owe"}
+{"t":"2026-09-01T12:58:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Mail Pay online is /pay/{id}; Checkout minted on click","d":"Anne Marie mailed Stripe link already expired"}
+{"t":"2026-09-01T12:58:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Do not spam Anne Marie; mail pay is hub door; her Stripe button is dead","d":"Ewan 1 Sep can she click through"}
+{"t":"2026-09-01T13:00:23+01:00","k":"mod","p":"VPS web","s":"Shipped /pay/{id} door; did not mail Anne Marie","d":"her mailed Stripe button is expired; account Pay online still works"}
+{"t":"2026-09-01T13:05:33+01:00","k":"bp","p":"BLUEPRINT.md","s":"Pay door /pay/{id}; Checkout on click; onboard never a Stripe URL","d":"Ewan: link our page, mint when they pay"}
+{"t":"2026-09-01T13:05:33+01:00","k":"dir","p":"DIRECTIONS.md","s":"Studio mail hub pay door + onboard login+password; supersedes 24h Checkout in letter","d":"Ewan 1 Sep LTM"}
+{"t":"2026-09-01T13:05:33+01:00","k":"mod","p":"stripe-billing.ts password-reset.ts pay page AGENTS dln-build dln-memory","s":"Ping/Remind mail door only; onboard names /pay if due; Checkout on click","d":"once vs monthly from the lines at click"}
+{"t":"2026-09-01T13:07:33+01:00","k":"mod","p":"VPS web","s":"Shipped hub pay door + onboard pay line; Ping/Remind no longer mint Checkout at send","d":"LTM: create pay screen on click"}
+{"t":"2026-09-01T13:22:51+01:00","k":"mod","p":"VPS Debian accounts/avatars","s":"Paul Fosbury profile PNG onto live + house; did not rsync accounts","d":"Ewan new profile img; copy file only"}
+{"t":"2026-09-01T14:11:35+01:00","k":"add","p":"Site/src/components/WatchDesk.tsx","s":"Watch desk: notice and trap plates that expand","d":"Ewan: bubbles not a dump on Accounting"}
+{"t":"2026-09-01T14:11:35+01:00","k":"mod","p":"AccountingDesk.tsx globals.css campus-pages","s":"Trap doors and Notifications KPIs open Watch; lists off Accounting","d":"click the count plate"}
+{"t":"2026-09-01T14:11:35+01:00","k":"bp","p":"BLUEPRINT.md","s":"Accounting Watch board for notices and trap doors","d":"counts on Accounting, detail on Watch"}
+{"t":"2026-09-01T14:11:35+01:00","k":"dir","p":"DIRECTIONS.md","s":"Watch: expandable bubbles; no trap dump on Accounting","d":"Ewan 1 Sep"}
+{"t":"2026-09-01T14:13:45+01:00","k":"mod","p":"VPS web","s":"Shipped Watch desk; trap and notice plates; Debian SSH refused this push","d":"Ewan accounting bubbles"}
+{"t":"2026-09-01T14:52:34+01:00","k":"mod","p":"AccountingDesk.tsx BookApp.tsx StudioDesk campus","s":"Every Accounting KPI is a door; received/paid share paid invoices; on the book/accounts open Clients","d":"Ewan 1 Sep industry drill-down"}
+{"t":"2026-09-01T14:52:34+01:00","k":"add","p":"Site/src/lib/hit-types.ts","s":"HitBook type for live page hit drill-down","d":"pass byPath not only total"}
+{"t":"2026-09-01T14:52:34+01:00","k":"mod","p":"deploy/docker-compose.yml bootstrap.sh sync-to-vps.sh","s":"Mount and persist _meta/studio; exclude from rsync delete","d":"web rebuilds were wiping traps"}
+{"t":"2026-09-01T14:52:34+01:00","k":"bp","p":"BLUEPRINT.md ops/vps.md","s":"Accounting plates are doors; VPS data/studio holds traps notices hits settings","d":"keep trips across rebuilds"}
+{"t":"2026-09-01T14:52:34+01:00","k":"dir","p":"DIRECTIONS.md","s":"Accounting KPI drill-down; persist studio book; keep existing trap trips","d":"Ewan 1 Sep none when there were some"}
+{"t":"2026-09-01T15:00:00+01:00","k":"mod","p":"VPS web data/studio","s":"Persist studio book; keep trips; Accounting KPI doors; new probes still record","d":"named bugfix; web only; do not rsync accounts"}
+{"t":"2026-09-01T17:34:19+01:00","k":"dir","p":"DIRECTIONS.md compass.md ops/debian-host.md","s":"Tower Mullvad must allow LAN sharing or downstairs looks dead","d":"Ewan 1 Sep campus down from GPU"}
+{"t":"2026-09-01T17:34:19+01:00","k":"mod","p":"campus Debian","s":"LAN campus answering; Watch/Accounting pushed; accounts left on Debian","d":"VPN was blocking LAN; box was already up"}
+{"t":"2026-09-01T17:45:19+01:00","k":"add","p":"Site/src/lib/watch.ts watch-types.ts api/watch/tap","s":"Trap opens a session; every later path from that IP is on the watchlist","d":"Ewan: log all slashes in the instance"}
+{"t":"2026-09-01T17:45:19+01:00","k":"mod","p":"middleware.ts trap-paths.ts trap.ts gate WatchDesk campus","s":"Probe heuristic doors; Watch plates are sessions; hourly learn file","d":"sweep writes _meta/studio/watch-learn.md"}
+{"t":"2026-09-01T17:45:19+01:00","k":"bp","p":"BLUEPRINT.md","s":"Watch trap session + hourly learn; studio watch.json persists","d":"one instance one plate"}
+{"t":"2026-09-01T17:45:19+01:00","k":"dir","p":"DIRECTIONS.md","s":"Trap session watchlist; retro cluster traps; non-door paths not recoverable from old logs","d":"Ewan 1 Sep"}
+{"t":"2026-09-01T17:48:00+01:00","k":"mod","p":"VPS web Debian campus","s":"Shipped trap session watchlist; retro cluster from traps.json","d":"web + LAN; do not rsync accounts"}
+{"t":"2026-09-01T17:52:00+01:00","k":"mod","p":"Site/src/lib/client-ip.ts middleware.ts trap.ts","s":"Watch tap stamps x-dln-watch-ip; live tap stays inside the container","d":"Caddy was stealing the session IP on follow-on slashes"}
+{"t":"2026-09-01T17:52:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Live watch tap stamps client IP so follow-on slashes stay on the session","d":"Ewan 1 Sep trap instances"}
+{"t":"2026-09-01T17:55:00+01:00","k":"mod","p":"VPS web Debian campus","s":"Shipped watch IP stamp; live tap stays in-container","d":"web + LAN; do not rsync accounts"}
+{"t":"2026-09-01T17:58:00+01:00","k":"add","p":"Site/src/lib/watch-from-page.ts layout middleware","s":"HTML pages tap the watchlist in Node so live follow-on slashes are kept","d":"Edge waitUntil fetch missed /privacy on the hub"}
+{"t":"2026-09-01T18:02:00+01:00","k":"mod","p":"VPS web Debian campus","s":"Shipped Node watch tap; live session keeps follow-on paths","d":"web + LAN; do not rsync accounts"}
+{"t":"2026-09-01T18:10:00+01:00","k":"mod","p":"Site/src/lib/watch.ts trap.ts gate WatchDesk","s":"Watchlist keys by account as well as IP; trap cookie on the hub domain","d":"Ewan: watch through accounts too"}
+{"t":"2026-09-01T18:10:00+01:00","k":"mod","p":"deploy/Caddyfile.ip Caddyfile.prod","s":"Trap paths on every host reverse-proxy to hub web","d":"ungated plots were skipping the watchlist"}
+{"t":"2026-09-01T18:10:00+01:00","k":"add","p":"Site/src/lib/login-fail.ts","s":"Eight failed logins from one address rest fifteen minutes","d":"bad players on /login"}
+{"t":"2026-09-01T18:10:00+01:00","k":"mod","p":".gitignore .dockerignore layout globals.css","s":"Ignore deploy env and studio books in images; origin crumbs in CSS and boot script","d":"Ewan: ignores, poach notice, not a lock"}
+{"t":"2026-09-01T18:10:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Watch session is IP or signed-in account; plot traps go to hub","d":"Ewan 1 Sep accounts on watch"}
+{"t":"2026-09-01T18:10:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Watch accounts; gitignore is not a server lock; origin crumbs; login rest","d":"Ewan 1 Sep secure/poach"}
+{"t":"2026-09-01T18:15:00+01:00","k":"mod","p":"VPS web edge Debian campus","s":"Shipped account watch, plot trap routing, login rest, origin crumbs","d":"web+edge; do not rsync accounts"}
+
+
+
+
+
+{"t":"2026-09-02T09:33:00+01:00","k":"mod","p":"ViewStage ViewCurtain ViewDeadline view-copy","s":"View bar: sandbox will be terminated + clock to midnight Sunday","d":"Ewan: countdown on present environment"}
+{"t":"2026-09-02T09:33:10+01:00","k":"bp","p":"BLUEPRINT.md","s":"View foot is terminate countdown to midnight Sunday","d":"Present environment clock"}
+{"t":"2026-09-02T10:05:00+01:00","k":"add","p":"Site/src/lib/billing.ts catalogue.ts plot-access gate","s":"Sandbox line; observer blocked until paid; studio still in","d":"Ewan: 50/month space; no subdomain until paid"}
+{"t":"2026-09-02T10:05:00+01:00","k":"add","p":"InvoiceDesk AccountDesk password-reset stripe-billing","s":"Compose sandbox tick; Launch the sandbox; welcome then pay letters","d":"hub /pay/{id} never Checkout URL"}
+{"t":"2026-09-02T10:05:00+01:00","k":"add","p":"ops/ship-plot-daa.sh ops/vps-sandbox-onboard.sh api/internal/jobs","s":"DAA-only live push; live job attaches Paul/Anne-Marie and onboards Mark","d":"Dave today DAA only; no password in logs"}
+{"t":"2026-09-02T10:05:00+01:00","k":"mod","p":"trap-paths Caddyfile.prod Caddyfile.ip next.config","s":"Trap lab/admin/src/.map; DAA / through gate; no source maps","d":"observer must not rip source"}
+{"t":"2026-09-02T10:05:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse plots.json","s":"Paid sandbox; DAA publicWall Building; Mark no unpaid exception","d":"Ewan 2 Sep onboard"}
+{"t":"2026-09-02T10:05:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Paid sandbox; Mark onboard sequence; Dave DAA-only live push today","d":"Ewan 2 Sep"}
+{"t":"2026-09-02T10:05:10+01:00","k":"mod","p":"cross-house-comms.md","s":"DAA chat may ship plot-daa only on 2 Sep 2026","d":"Ewan out; Dave live DAA"}
+{"t":"2026-09-02T10:20:00+01:00","k":"mod","p":"Site/src/middleware.ts","s":"Localhost internal jobs path is public so VPS web can onboard without a cookie","d":"127.0.0.1 was treated as lab and 401d the Mark job"}
+{"t":"2026-09-02T10:40:00+01:00","k":"mod","p":"VPS web plot-daa","s":"Live DAA workshop shipped; Mark welcome+sandbox invoice mailed; Paul and Anne-Marie invoices stamped sandbox","d":"Ewan: initiate Mark; do not rsync accounts"}
+{"t":"2026-09-02T17:45:00+01:00","k":"mod","p":"Site/src/lib/billing.ts catalogue plot-access gate plot-enter","s":"Sandbox £50 once 14 days from pay; unpaid sandbox does not shut a shop they own","d":"Ewan: Mark once; Anne-Marie ModYu is hers"}
+{"t":"2026-09-02T17:45:00+01:00","k":"add","p":"Site/src/lib/plans.ts InfluenceWell api/account/influence","s":"Influence on account site cards → living draft + next-patch reply; patches.json LTM","d":"client gratification; Dave still lab inbox"}
+{"t":"2026-09-02T17:45:00+01:00","k":"add","p":"ops/vps-mark-sandbox-once.sh api/internal/jobs convertOnce","s":"Live job converts Mark sandbox monthly→once and pauses that roll","d":"do not re-onboard; no password in logs"}
+{"t":"2026-09-02T17:45:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse.md identity.md","s":"Sandbox once + 14-day window; influence/patches; not-yours only wrong account","d":"Ewan 2 Sep product"}
+{"t":"2026-09-02T17:45:00+01:00","k":"dir","p":"DIRECTIONS.md WORKSTREAM.md","s":"Sandbox once; influence; Anne-Marie shop stays hers; patch notes on every plot ship","d":"Ewan 2 Sep"}
+{"t":"2026-09-02T17:45:00+01:00","k":"mod","p":"terms stripe-billing AccountDesk invoices preview LiveSuggest","s":"Copy: two weeks; unpaid space does not take the shop; influence reply on live well","d":"match the product"}
+{"t":"2026-09-02T17:50:00+01:00","k":"mod","p":"VPS web","s":"Hub web shipped: sandbox once, influence, Anne-Marie not-yours fix; Mark daa converted to once","d":"Ewan live test as Anne-Marie; no accounts rsync; no plot rebuild"}
+{"t":"2026-09-02T17:55:00+01:00","k":"mod","p":"AccountDesk globals account page InfluenceWell","s":"Client account is a site-first app: cog profile, patch log, nested billing","d":"Ewan: amateur landing; sites main; don’t twin invoice and sub"}
+{"t":"2026-09-02T17:55:00+01:00","k":"add","p":"Site/src/data/plot-patches.ts plans.patchesFor","s":"Seed client patches from house LTM, dated to when work landed","d":"ModYu looks full by being real; visible unpaid"}
+{"t":"2026-09-02T17:55:00+01:00","k":"add","p":"billing.restoreSandboxMonthly jobs restoreMonthly","s":"Silent restore of a sandbox line to monthly; no mail","d":"do not convert existing clients; learning for new"}
+{"t":"2026-09-02T17:55:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse.md","s":"Account landing is the site + patches; profile behind cog; billing nested","d":"client desk as webapp"}
+{"t":"2026-09-02T17:55:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Do not convert or notify existing payments; account is site+LTM patches","d":"Ewan 2 Sep"}
+{"t":"2026-09-02T18:00:00+01:00","k":"mod","p":"VPS web","s":"Account app live; Mark monthly restored silently; no client mail","d":"Ewan: don’t mess with existing payments"}
+{"t":"2026-09-02T18:05:00+01:00","k":"mod","p":"billing observerMayEnterPlot plot-access AccountDesk preview","s":"Sandbox line on a plot they own still needs pay; bounce is pay door not not-yours","d":"Anne-Marie unpaid must not enter"}
+{"t":"2026-09-02T18:05:00+01:00","k":"mod","p":"Site/src/data/plot-patches.ts","s":"Customer patches: short positive product changes; dropped hotfixes","d":"Ewan: no hotfix patches"}
+{"t":"2026-09-02T18:05:00+01:00","k":"dir","p":"DIRECTIONS.md cross-house-comms ship-plot-daa","s":"Last live hub pass; then offline; Dave plot-daa exception closed","d":"Ewan: stop live-editing; remember"}
+{"t":"2026-09-02T18:05:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse.md","s":"Unpaid sandbox → pay; public ModYu shop stays ungated for patients","d":"pay for the sandbox"}
+{"t":"2026-09-02T18:10:00+01:00","k":"mod","p":"WORKSTREAM.md DIRECTIONS.md","s":"Supersede unpaid Open site; campus is the workshop after this last hub pass","d":"Ewan: last live edit then offline"}
+{"t":"2026-09-02T18:15:00+01:00","k":"mod","p":"VPS web","s":"Last hub pass: unpaid sandbox → pay door; customer patches; then offline","d":"Ewan: last live edit; remember"}
+{"t":"2026-09-02T18:20:00+01:00","k":"mod","p":"notices WatchDesk billing enquiries auth campus","s":"Cleared notices vanish from Watch; log stays; pay/request/account write notices","d":"Ewan: hide cleared; notify when they pay"}
+{"t":"2026-09-02T18:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Clear hides notice; pay and relevant events write one; campus until numbered ship","d":"Ewan 2 Sep"}
+{"t":"2026-09-02T18:20:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Watch is open notices only; notices.json is the log","d":"cleared vanish"}
+{"t":"2026-09-02T18:35:00+01:00","k":"add","p":"block.ts ip-pattern blocked.json WatchDesk ip-gate studio/block","s":"Public trap IPs blocked and listed; log paths; link by doors/UA/street","d":"Ewan: they were still there; block malicious IPs"}
+{"t":"2026-09-02T18:35:00+01:00","k":"mod","p":"notices hideKind trap.ts campus","s":"Trap notices leave Watch (log stays); traps no longer write notices","d":"unread trap plates were the leftover"}
+{"t":"2026-09-02T18:35:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Block scanners; keep list; link IPs; no trap notices","d":"Ewan 2 Sep"}
+{"t":"2026-09-02T18:35:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Blocked book on Watch; trap doors are not notifications","d":"scanner list"}
+{"t":"2026-09-02T21:05:00+01:00","k":"mod","p":"WatchDesk listOpenNotices billing.seedPayNoticeForEmail campus","s":"Never render read/Earlier; seed Paul Paid notice as pay trigger","d":"Ewan: bulky read notices; purchases missing"}
+{"t":"2026-09-02T21:05:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"No Earlier on page; json log until a database; Paul Paid seed; named web bugfix","d":"Ewan 2 Sep"}
+{"t":"2026-09-02T21:05:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Watch dumps nothing read; notices.json is the collect until a DB","d":"keep collecting, hide Earlier"}
+{"t":"2026-09-02T21:10:00+01:00","k":"mod","p":"VPS web","s":"Named bugfix: hide Earlier; Paul Paid notice seeds on campus open","d":"Ewan: read notices still showing on live"}
+{"t":"2026-09-02T21:50:00+01:00","k":"add","p":"trap-web.ts WatchDesk AccountingDesk","s":"Exact rising trap attempts; path bubbles with counts; blocked IPs per slash","d":"Ewan: see the /s and the web grow"}
+{"t":"2026-09-02T21:50:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Trap doors KPI is full attempt count; bubbles per slash","d":"Ewan 2 Sep"}
+{"t":"2026-09-02T21:50:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Watch web of slashes; exact attempts from start; blocked IPs on each door","d":"grow the web"}
+{"t":"2026-09-02T21:55:00+01:00","k":"mod","p":"VPS web","s":"Trap web live: exact attempts, path bubbles, blocked IPs per slash","d":"Ewan: see the /s rise"}
+{"t":"2026-09-02T22:00:00+01:00","k":"dir","p":"DIRECTIONS.md AGENTS.md dln-build lab.md","s":"Local campus first and keep it current; even VPS posts start at home","d":"Ewan: upload local first; status quo exact"}
+{"t":"2026-09-02T22:00:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md compass.md","s":"localhost then downstairs then VPS; home stays exact","d":"local first"}
+{"t":"2026-09-02T22:05:00+01:00","k":"mod","p":"Debian LAN campus + localhost:3010","s":"Pushed current hub downstairs; started this-disk campus","d":"Ewan: local first; see it at home"}
+{"t":"2026-09-02T22:15:00+01:00","k":"del","p":"Site/src/components/ActivateSiteButton.tsx","s":"Removed Activate site from client dossier","d":"mailed a new password; that is not a function"}
+{"t":"2026-09-02T22:15:00+01:00","k":"mod","p":"StudioDesk site-tenure activate-site hits gate AccountingDesk","s":"Dossier shows paid/active; activate-site 410; cumulative hits + plot pages","d":"cookie is the door; paid opens the site; show every path"}
+{"t":"2026-09-02T22:15:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"No password from dossier; Active from pay; cumulative page hits","d":"Ewan 2 Sep Dave admin"}
+{"t":"2026-09-02T22:15:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Paid/active on client sites; hub cookie door; hits lifetime","d":"Activate site retired from profile"}
+{"t":"2026-09-02T22:25:00+01:00","k":"mod","p":"Debian LAN campus + VPS web","s":"Paid/active dossier; cumulative hits; activate-site retired. Home then live hub.","d":"Ewan Dave admin; no accounts rsync; no plot rebuild; no mail"}
+{"t":"2026-09-02T22:35:00+01:00","k":"mod","p":"trap-paths.ts block.ts trap.ts watch.ts WatchDesk","s":"Auto-block known-malicious only; rack other slashes; Clear pokes","d":"Ewan: do not shut curiosity; see what scanners also try"}
+{"t":"2026-09-02T22:35:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Trap doors: block known-malicious; rack others; Clear when not significant","d":"Ewan 2 Sep"}
+{"t":"2026-09-02T22:35:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Watch blocks known-malicious only; curiosity racked not shut","d":"play around is not a ban"}
+{"t":"2026-09-02T22:40:00+01:00","k":"mod","p":"Debian LAN campus + VPS web","s":"Known-malicious auto-block only; curiosity listed not shut","d":"Ewan trap doors; no accounts rsync"}
+{"t":"2026-09-02T22:50:00+01:00","k":"mod","p":"Site/src/middleware.ts","s":"Do not trap /lab /admin on house campus; builders open again","d":"Ewan: DAA PFP VT SF ModYu bubbles 404"}
+{"t":"2026-09-02T22:50:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"House /lab /admin are builders; trap those slashes on public host only","d":"bubbles must open the station"}
+{"t":"2026-09-02T22:52:00+01:00","k":"mod","p":"Debian LAN campus","s":"House builders open; /lab /admin not trapped at home","d":"Dave campus bubbles"}
+{"t":"2026-09-03T09:15:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Leave DLN Cursor on; sniff while signed in; wake on ping not grind","d":"Ewan: Dave on campus especially ModYu DAA DLN"}
+{"t":"2026-09-03T09:15:00+01:00","k":"mod","p":"ops/sniff-inbox.sh","s":"Armed campus sniff for this chat; idle until wake.flag","d":"Dave at /lab/daa downstairs; apps up"}
+{"t":"2026-09-03T12:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Unit sniff pulls Debian inbox; ModYu off dying 1TB; DAA /admin is campus builder","d":"Ewan: /admin DAA and ModYu downstairs waiting"}
+{"t":"2026-09-03T12:20:00+01:00","k":"add","p":"ops/sync-unit-inbox.sh sniff-inbox.sh lab-inbox.ts","s":"Pull/push unit inboxes by id; pending wakes at once","d":"Dave LAN notes sat while sniff watched this disk"}
+{"t":"2026-09-03T12:20:00+01:00","k":"mod","p":"lab-proxy debian-*.service lab-runner LabDesk","s":"/go/{slug}/admin → unit builder except ModYu; NEXT_PUBLIC_BASE_PATH on units","d":"framed concertina dropped /go; desk hung on failed poll"}
+{"t":"2026-09-03T12:20:00+01:00","k":"mod","p":"sync-to-debian.sh compass debian-host.md LTM-vital","s":"ModYu+DAA on NVMe; do not follow 1TB symlink","d":"Debian ModYu _meta EIO; /admin could not write"}
+{"t":"2026-09-03T12:20:00+01:00","k":"mod","p":"DAA Site nav Sighting SituationConcertina middleware","s":"Dave queue: services align no arrows; situations menu; familiar tiles; concertina","d":"ten pending notes downstairs"}
 {"t":"2026-09-06T00:15:00+01:00","k":"bp","p":"BLUEPRINT.md HomeEngine plate","s":"Home is a persistent plate; offer URLs are armed states; gif off the field","d":"Ewan: house is the pitch"}
 {"t":"2026-09-06T00:15:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Public home unfolds; command strip; lamps; TM gif easter egg","d":"engine identity"}
 {"t":"2026-09-06T00:15:00+01:00","k":"add","p":"Site/src/components/HomeEngine.tsx CommandStrip PlateShutter","s":"Plate chassis, 45deg shutter, command strip, session chip, lamps","d":"no blank document"}
@@ -883,3 +1224,4 @@
 {"t": "2026-09-15T10:05:53+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Lab lan-consume accepts studio home ticket POST", "d": "Ewan: 192.168.0.223:3100/api/auth/lan-consume loop opening Builder"}
 {"t": "2026-09-15T10:05:53+01:00", "k": "mod", "p": "/home/main/Repos/Builder lan-consume auth cookie-opts middleware", "s": "Verify dln1 tickets; POST consume; one cookie; stop middleware rewrite", "d": "hub was POSTing a ticket the lab discarded"}
 {"t":"2026-09-15T10:13:19+01:00","k":"ver","p":"dln-8","s":"HT4 kit explorer and copyable summary; one session cookie so account boxes hold; board still off live","d":"numbered ship"}
+{"t":"2026-09-15T10:52:00+01:00","k":"mem","p":"PR1 merge origin/main","s":"Kept Aug24–Sep3 memory; dropped restored /lab admin; inbox sync both ways","d":"PR wanted framed /admin wake; main lab is Builder"}

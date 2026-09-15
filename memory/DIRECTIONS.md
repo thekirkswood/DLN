@@ -618,9 +618,424 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 ## 2026-08-24 — Paul Fosbury Portraits
 
 - Second named client. House `/home/main/PFP`. Plot `pfp`. GitHub `thekirkswood/PFP`.
-- Own domain `paulfosburyportraits.com` and growing copy `paulfosbury.designlabnorth.com` both serve `plot-pfp`. Ungated. Public wall is the Design Lab North mark and Building.
-- Client account bound to `pfp`. Login is the email he wrote us; password on the desk until mail goes. Leave Livemail MX alone when flipping A records.
+- Public `paulfosbury.com` and `paulfosburyportraits.com` serve `plot-pfp` ungated. Wall is the Design Lab North mark and Building.
+- Workshop `paulfosbury.designlabnorth.com` is gated (`forward_auth` plot=pfp).
+- Client account bound to `pfp`. Live login is `email@paulfosbury.com`. Leave Livemail MX alone when flipping A records.
 - Livedns NS already ours. Flip A `@`/`www` to `82.165.5.84`. Remove AAAA until this VPS has IPv6.
+
+## 2026-08-24 — social studios (Ewan)
+
+- We do not run social in the house. Organic and paid social is passed to a few studios in Manchester, Lancashire, Cumbria, southern Scotland. We keep identity, strategy, websites, print. No white-label; they keep the client.
+- Outreach one-pager lives at `studio/social-pass/` (HTML + PDF). Pasteable mail is `email.txt`. Subject: **Social, passed on**. Hero is three still tiles spelling DLN (one letter each; one frame from each colour pair). No colour bar at the foot. Public word is **design agency**, not hub.
+- Public outreach copy: Design Lab North are a **design agency**. Greenhouse architecture may still be a hub of plots in house memory; do not call us a hub on the one-pager or site meta.
+
+## 2026-08-24 — Stripe billing (Ewan)
+
+- Billing is Stripe. Mail invoices and pay links from `design@designlabnorth.com` to the email on the account.
+- One-off, weekly, and monthly. Apple Pay and Google Pay on Checkout. Repeat subscriptions via Stripe. Client portal: Pay online + Manage card.
+- Meeting: put it on the calendar and put payment in (Book them while serving). After a meeting, compose the work on Pay and Ping payment.
+- Paul Fosbury and Anne Marie are already on the book. Do not invent amounts — compose and ping from Pay. Live secret and webhook signing secret are in gitignored host env (never memory, never git).
+
+## 2026-08-25 — studio live login + pay test (Ewan)
+
+- Studio live uses the **house** password (the Local line). The old Live line was the VPS book; live studio talks home. Sheets now match.
+- Do not Caddy-proxy campus `/lab` HTML onto the public host. Hub and campus Next both use `/_next/static`; mixing them kills Accounts (dead room buttons, 404 client avatars). Public `/lab` 404s. Campus is the house network.
+- Studio live sign-in lands on `/account`. £1 pay-page test is that button on this login — do not put the studio user into the Pay client list.
+- Pay Ping still opens Checkout in this window once a **client** is being served.
+
+## 2026-08-25 — machine mail (Ewan)
+
+- Automations (account made, invoice issued, paid) send through SMTP we already have in the app. They do not need a mail server on the VPS.
+- Human mailboxes stay Fasthosts/IONOS Livemail (`ewan@`, `dave@`, `build@`, `design@`). Leave MX / SPF / Livemail alone.
+- Machine From is `noreply@designlabnorth.com`. Reply-To stays `design@` (bills) or `build@` (onboard / enquiry). Do not self-host IMAP or pick up MX.
+- Cheap path: add `noreply@` on the existing Fasthosts package and put SMTP submission (port 587) in gitignored host env. A relay (Amazon SES / Resend) only if that mailbox cannot send.
+- `noreply@designlabnorth.com` is on Livemail Mail Basic. SMTP `smtp.livemail.co.uk` 587. Incoming `mail.livemail.co.uk`. Control panel `https://mcp.livemail.co.uk`. Password lives in gitignored host env — never chat, never git.
+
+## 2026-08-25 — campus Mail room (Ewan)
+
+- Campus Accounts has a **Mail** room (does not replace Clients / Onboarding / Book / Pay / Settings). Studio, lab host only. Not Fasthosts webmail, not `/admin`, not public `/account`.
+- Three Livemail boxes: `build@` (Ewan), `design@` (Dave), `noreply@` (machines). IMAP `mail.livemail.co.uk` 993. Passwords in the campus `_meta` ops sheet and `Site/.env.local` only. noreply IMAP reuses `DLN_SMTP_PASS` unless `DLN_MAIL_NOREPLY_PASS` is set.
+- Empty password on a box: “Password not on the host yet.” Do not dump IMAP errors with credentials.
+- Machine From stays `noreply@`. Reply-To stays `design@` (bills) or `build@` (onboard). Do not invent a plugin marketplace. Livemail IMAP is the system.
+- Later, on a house server with a clean public IP, PTR, and outbound 25: a mailbox stack (IMAP + submission + spam) becomes *possible*. It is still not “put those things in place.” Deliverability, backups, and staying off blocklists are the work. GPU does not make mail. Do not put MX on the same IP as the public sites. Do not start that stack on the current VPS.
+
+## 2026-08-25 — local stage is the workshop; live is a ship or a bugfix (Ewan)
+
+- Build on the **local stage**: this PC `localhost:3010` and the Debian campus on the house LAN. When something is working, numbered hub ship to the VPS. Whatever we discuss after a ship stays on the local stage.
+- Jump onto the live VPS **only** to fix a named bug. Fix that bug. Then **stop thinking about the live site**. Do not keep workshopping on production because the last topic was live.
+- We do not put build material on the live site as a live update. The dummy **£1 self-pay button** on public `/account` was that mistake: a sample pay-page so someone could see a transaction, treated as if live were the workshop. That test belongs on campus/local. Real client Pay online stays on live invoices.
+- Same rhythm as the offline lab and numbered iterations. Now explicit for every agent: campus/local is the workshop; live is a ship, or a named bugfix, then stop.
+
+## 2026-08-25 — login: show password + forgot loop (Ewan)
+
+- On `/login`: **Show password** toggles the field (Hide password when open). Chamfered, Aktiv, Paper/Ink. Not a pill.
+- **Forgot password** is a full loop: `/login/forgot` → time-limited hashed token in gitignored `_meta/accounts/resets.json` → mail from noreply@ (Reply-To build@) → `/login/reset` to set a new password → token consumed. Do not print the new password in the mail.
+- Same public reply whether the address is on the book. Per-email cooldown. Puppets / hubLogin false / .local: do not mail. If SMTP is unset, say mail did not leave (host fact).
+- Account profile has no password field — do not invent a change-password UI. Local workshop; do not ship this to VPS until a numbered iteration.
+
+## 2026-08-25 — campus Pay / Mail / Settings (Ewan)
+
+- Serving only on Clients / Book / Pay. Mail has nothing to do with who we are serving — no serving bar there.
+- Open a station (name + folder) lives **only on Onboarding**. Not at the foot of the whole campus page.
+- Accounts rooms do not carry page-identifier wells. `/admin` stays the Cursor building site.
+- Pay composes for a **client** (not the studio login): category, description they type or pick, amount, cadence (once / weekly / monthly). Ping opens Stripe Checkout and mails. Webhook still marks paid.
+- £1 “Open a pay page for this login” is campus/lab `/account` only — not public VPS, not a reason to edit live.
+- Settings: thinner Design / Strategy / Build rows. Pay is the place you compose. Do not replace Pay with a Stripe-only invention.
+- Local workshop. Do not sync-to-vps. Debian LAN may be rebuilt so Ewan can see it.
+
+## 2026-08-25 — sheets, forgot-password, honest security (Ewan)
+
+- Forgot password is the **client** path. Anne Marie has a real mailbox; she resets there. That makes plaintext **sheets** obsolete for clients like her. Do not delete Ewan/Dave studio sheets without asking — studio still uses them. Sheets are copies for the desk, not the live book.
+- `users.json` already stores **scrypt** hashes (`salt:hash`). Do not store plaintext there. Do not invent “encrypt the JSON with a key in the repo” — that is not lock-and-key.
+- Honest security **now**, on live/server (free): TLS, httpOnly session cookie, hashed passwords, no passwords in git/memory/chat, gitignored `_meta/accounts`, do not rsync accounts onto the VPS as a habit. Local: hashed passwords + gitignore is enough; do not clone a SIEM or enterprise firewall onto the workshop PC.
+- Later paid: a proper database and disk encryption when they have the house server. Not this VPS workshop.
+- Livemail SMTP (machine From noreply@): host `smtp.livemail.co.uk`, submission **587** STARTTLS, username the **full address**, password the **mailbox** password from Fasthosts Mailbox password → Change. Not port 25, not the website A record, not the VPS SSH password. If Livemail rejects login, Change that mailbox password and paste onto `DLN_SMTP_PASS` (and `DLN_MAIL_BUILD_PASS` for IMAP/build). MX/SPF stay Livemail.
+
+## 2026-08-25 — two campuses; activate-account; webhook-paid-only (Ewan, afternoon)
+
+- **Live Campus** is `designlabnorth.com/campus` — VPS `web` Next routes, same build as the public hub. Whole **client handling** lives here: Clients + Onboarding + Book + Pay as **one section** (need a selected client; onboarding is a subset). **Settings** for that system. **Mail** is its own page/tab (Livemail IMAP for build@ / design@ / noreply@) — **no Serving** on Mail. Studio logins from sheets (Ewan, Dave). Client data, Stripe, SMTP, invoices, activate-account — all on the **live server**, one book, safer. Do **not** Caddy-proxy Debian `/lab` HTML onto the hub (hub `/_next` ≠ campus `/_next`).
+- **Local Campus** is `localhost:3010/lab` and LAN `192.168.0.223:3010/lab`. **Site editor only**: units, Open a station, `/admin` Cursor queue, building public DLN and plot files. Dummy/offline accounts so studio can see what a client will see. Not the live billing book.
+- Do not rip LAN Accounts out until live `/campus` exists and is a **numbered ship**. First cuts + LTM now; full move is sequenced WORKSTREAM. Do not add a half `/campus` page to public live. Default: **no VPS ship** unless a named webhook bug.
+- `/account` stays the person’s own profile.
+- Never dictate a password to a client. After review: create the record, **noreply** mails **Activate your account** (they set their own password). Forgot-password is the same idea (invite vs reset). Anne Marie: public email is her live login; she sets her own password in her space. Paul Fosbury: `email@paulfosbury.com` is the live login; Ping mails invoices there. Sheets stay studio copies, not the client password book.
+- Security: live book hashed (scrypt already); TLS; no passwords in git; don’t rsync accounts casually. Real DB encryption later on the house server — not fake JSON encryption.
+- Pay: **paid only when Stripe confirms** (webhook `checkout.session.completed` / `payment_intent.succeeded`). Do not mark paid on Ping/Buy click or on the success return URL. Ping from live Campus talks to live Stripe + noreply SMTP.
+
+## 2026-08-25 — admin QoL on live (Ewan)
+
+- While we are still shaping studio login / campus chrome, those **admin quality-of-life** bits may ship to the VPS `web` container (and LAN) in the same turn. Public marketing pages still wait for a numbered ship. Once the admin split looks right, back to local-then-push.
+- Show password and Forgot password are on live `/login` (hard-refresh if the old sheet is cached). Live `/campus` is **not** built yet.
+
+- Stripe Checkout is Stripe-hosted. Brand it in Dashboard → Settings → Branding (icon/logo) and Settings → Branding → Checkout (Checkout page). Logo: DLN mark (`Site/public/brand/dln-mute.png` on Paper). Colours: Paper `#ffffff`, Ink `#414141`. Business name Design Lab North. Do not invent a logo. Do not add a permanent £1 button on public `/account`.
+- noreply still `smtp.livemail.co.uk:587`, full address as user, mailbox password from Fasthosts Change — **not** the A record. Do not restore Fasthosts automatic DNS (that would point @/www at 88.208.252.9 and take the site off our VPS). If SMTP still rejects, Change password again; don’t break DNS.
+- Harmony: do not smash login show/forgot, Mail IMAP APIs, or Pay composer. Do not proxy `/lab` to Debian. Do not leave Debian campus down if you rebuild LAN.
+
+## 2026-08-25 — Dave Kirkwood personal host (Ewan)
+
+- Dave’s personal site `davekirkwood.com` hosts on this VPS (`plot-dks`, house `/home/main/DKS`). Co-owner, not a client. Not a greenhouse product.
+- Ungated parking wall: Design Lab North mark and Building. Same pattern as Paul Fosbury Portraits. Do not invent his mark or extra biography.
+- A `@`/`www` already point at `82.165.5.84`. Leave MX / SPF / Livemail alone.
+- Remove AAAA for `@` and `www` until this VPS has public IPv6 — Livedns currently has `2001:8d8:100f:f000::200`, which is IONOS nginx, not this box. IPv6 visitors get a 404 until that row is deleted. Let’s Encrypt also prefers AAAA, so HTTPS for this name waits on that delete.
+
+## 2026-08-25 — Fasthosts mail hostnames, not apex (Ewan)
+
+- Optional extra A records only (`mail`/`mailserver` 213.171.216.40, `smtp` 213.171.216.50, `webmail` 213.171.216.231, `mcp` 213.171.195.10, `exchange` 213.171.193.192). Never move `@`, `www`, or plot hosts off 82.165.5.84. Do not Restore Default / Automatic DNS (that wants Fasthosts web 88.208.252.9). App SMTP stays `smtp.livemail.co.uk:587` + full address + mailbox password Change — missing mail A records are not why Livemail rejected noreply. Table: `ops/dns.md`.
+
+## 2026-08-25 — one campus, two ends (Ewan)
+
+- Same `/campus` on live and at home. Lab is a **room** inside it (sites/units). Client handling sits in the same spots on both.
+- **Live** (VPS `web`): ENVs, Stripe, SMTP, IMAP, passwords, activate mail — connected. Lab doors are snapped (those ends live on the house).
+- **House** (localhost + LAN `:3010`): same look so we can edit style and how it works. Stripe, mail send, Livemail are snapped — Ping does not send. Lab doors still open.
+- `/lab` on the house redirects to `/campus`. Public `/lab` `/admin` `/go` stay 404. Do not Caddy-proxy Debian HTML.
+- Studio sign-in lands on `/campus`. `/account` stays the person’s profile.
+- Ship hub `web` for this (admin/campus). Do not rsync accounts. Do not rebuild plots.
+
+## 2026-08-25 — Livemail is the mailbox password, quoted on VPS (Ewan)
+
+- Fasthosts **Mailbox password → Change** is what Livemail accepts. The local env line was already that password; Change made Livemail match it. SMTP 587 + IMAP 993 both answer from this PC.
+- Live `/campus` Mail is the connected end. House `/campus` Mail stays snapped on purpose.
+- Put `DLN_SMTP_PASS` and `DLN_MAIL_BUILD_PASS` on VPS `deploy/.env` (gitignored). **Single-quote values that contain `$`** or Docker Compose eats them.
+- `design@` still has no password on the host until Dave’s mailbox Change is pasted there.
+- Noreply can send. A studio check left for build@.
+
+## 2026-08-25 — campus rooms inside the client (Ewan)
+
+- Top rooms: Clients, Onboarding, Accounting, Mail, Lab. No Pay tab, no Book tab, no Settings tab.
+- Client dossier: Profile, Book, Billing, Work. Charge and calendar on the person. Current invoices then past invoices. Work stays shut until a line is paid (APES / stages when that system is built).
+- Accounting: received, locked-in monthlies/weeklies, accounts, requests, live page hits, hours, notifications. Housekeeping is days to pay + Adobe kit only — no default amounts, no sample play-online.
+- Mail: full inbox sync (up to 500 envelopes), select, remove from campus.
+- Booking writes a studio notice and mails them on live. Later automations can post to the same notice well.
+
+## 2026-08-25 — Dave as a billed client (Ewan)
+
+- Email send works on **live** campus (`designlabnorth.com/campus`). House campus mail stays snapped.
+- `dave@` is studio. To bill him as a person: Onboarding walk-in, mailbox `dave@`, internal handle. Activate + invoices mail `dave@`. He opens `/account` with the `.local` handle, not his studio login. Ewan sees the same invoice on Clients → Dave → Billing.
+- Studio mailbox cannot also be the client login. Tick the internal handle; mail still goes to that box.
+
+## 2026-08-25 — build@ and design@ are the logins (Ewan)
+
+- Studio logins are the live mailboxes: Ewan `build@designlabnorth.com`, Dave `design@designlabnorth.com`. Same on localhost, LAN downstairs, and live. Passwords stay as on the sheets — do not generate new ones.
+- Do not invent `@designlabnorth.local` accounts for Dave or Ewan. The `dave.kirkwood@designlabnorth.local` test login was a mistake; remove it.
+- Dave stays one person: studio desk plus on the Clients book so Ewan can Ping a bill to `design@`. Dave signs in as `design@`, opens `/account`, pays. Ewan signs in as `build@` and bills him from Clients.
+- Old `ewan@` / `dave@` still resolve to the same people if typed. Sheets show `build@` and `design@`.
+
+## 2026-08-25 — Ping does not open pay for studio (Ewan)
+
+- Ping mails the client the Checkout link. Do not send the studio window to Stripe. They pay from the mail or their `/account`. You stay on campus.
+
+## 2026-08-25 — Stripe marks the invoice paid (Ewan)
+
+- Stripe webhook (and a catch-up if Checkout already says paid) writes **paid** on the invoice and a receipt. Studio does not click Record paid / I’ve paid / Paid online for that. Those buttons were the old bank claim. Client due invoice: Pay online only. Paid invoice: paid + receipt.
+
+## 2026-08-25 — Client account rooms (Ewan)
+
+- `/account` was sprawly (profile, site, notes, Titles, sittings, receipts, invoices). Make it campus-like cards and tabs: **Account** (profile, password, their sites), **Write** (sitting / new site / idea — existing customers), **Billing** (invoices prominent, subscriptions, receipts), **Various Titles** (ready; “Nothing unlocked yet”).
+- No note well on the hub account. Suggestions stay on the plot host.
+- No Manage card / Stripe Customer Portal. All money through Checkout.
+- Invoices should be easy to pay as a card. First real invoice can go to Anne Marie once this is live.
+
+## 2026-08-25 — Unify logins (Ewan)
+
+- Offline and live: same Design Lab North login (`build@` / `design@` already). Clients handle password on `/account`.
+- Plot access is that cookie, not a second staff account. Studio = admin on the host. Bound client = observer (site + page suggestions). Parking does not apply to them once the plot reads `/api/auth/plot`.
+- Do not mint plot staff rows for Ewan and Dave. Tell the plot: if these people are signed into DLN, they can come in.
+- ModYu patient/clinic book stays theirs.
+
+## 2026-08-25 — Account tabs must not sign them out (Ewan)
+
+- Never use a Next `<Link>` to `/logout`. Prefetch is a GET, and GET `/logout` clears the cookie. Sign out is a plain `<a href="/logout">`. Prefetch requests to `/logout` must no-op.
+- Account rooms (Account / Write / Billing / Various Titles) switch in the page. They must look like chamfered buttons. Clicking a room must not round-trip the server.
+
+## 2026-08-25 — Paul Fosbury live login (Ewan)
+
+- Paul’s Design Lab North login is `email@paulfosbury.com` (one string). Same on localhost, LAN, and live. Ping mails invoices to that address. Old `paul@paulfosburyportraits.com` is retired. Do not invent a second password; do not mail him a dictated one.
+
+## 2026-08-25 — Paul Fosbury hosts (Ewan)
+
+- Main public site is `paulfosbury.com`. `paulfosburyportraits.com` keeps pointing at the same plot. Both are ungated Building.
+- The gallery shell is built on `paulfosbury.designlabnorth.com`. Only three logins: `build@designlabnorth.com` (Ewan), `design@designlabnorth.com` (Dave), `email@paulfosbury.com` (Paul). Studio use the existing DLN cookie. Paul uses his client cookie (observer). Do not invent a second staff row.
+
+## 2026-08-25 — Charge row on campus (Ewan)
+
+- Invoice lines were tagging **modyu** because compose defaulted to the first plot on the book. A line only binds a site the person owns.
+- Billing compose is one strip: Design / Strategy / Build / DLN, then a boxed “type or pick” (home column lists plus catalogue names; type anything), then amount, cadence, Add line — same height, inside the plate. Description is a box, not an underline. Suggestions must be readable in full.
+
+## 2026-08-26 — automatic studio mail look (Ewan)
+
+- All automatic studio mail shares one Paper/Ink layout: mute mark at the top, hairline, system type (Aktiv cannot be a foundry file in email), optional colourful social-pass tiles on onboard / invoice / paid / booking, light legal (trading name; no invented company number). Reset / recover stays short. Dave liked the amount of text — keep the useful body.
+- Machine From is noreply@. Queries: design@ on bills, build@ on onboard / activate / reset / booking. Multipart html + text. Do not smash SMTP, Stripe, webhook paid, or login.
+
+## 2026-08-26 — auto-mail legal; Mail editor later (Ewan)
+
+- Automatic mail legal is real copy in `mail-layout.ts` (**Dave then Ewan**; trading name under Dave Kirkwood Studio at the moment; site and mailboxes; no invented company number). Look is edited in code for now. A live-only Mail “edit auto emails” control is later — do not duplicate a conflicting offline Mail page.
+
+## 2026-08-26 — client login codes (Ewan)
+
+- Clients sign in with a six-digit code emailed to their mailbox. No password faff — especially when invoiced. Password stays as “Or use a password”. Studio (`build@`, `design@`) never get a code: live studio still talks home. Do not reveal whether an address is on the book. Hashed codes in `_meta/accounts/login-codes.json`, not mixed with resets. Ping invoices mention the code door; paying online still does not need a login.
+
+## 2026-08-26 — house password stays on the login page (Ewan)
+
+- Adding codes must not hide or kill password login. `/login` is email + password + Enter, as it has been. Codes are extra for clients on the same page. Studio (`build@`, `design@`) keep the house password (the Local line on the sheet). The offline campus is where we build — that door has to work. Do not ship an addition that takes a working door off the page.
+
+## 2026-08-26 — delete onboarding requests (Ewan)
+
+- Onboarding must be able to **Delete** a request off the book (bots, junk). Done only archives. Do not leave spam sitting in Earlier instances with no way off.
+
+## 2026-08-26 — home Build, not Websites; Instagram trial (Ewan)
+
+- Home third column is **Build**, not Websites. List includes websites, web apps, rebuilds, facelifts, live hosts, development.
+- Trial Instagram set lives in `studio/instagram/`. Three pinned carousels: D Design, L Strategy, N Build. Do not redraw the tiles. Type on the export is grotesk fallback (Aktiv stays Adobe Fonts).
+
+## 2026-08-27 — noreply deliverability (Ewan)
+
+- Automated mail from `noreply@` was landing as untrusted because Livedns had SPF but **no DKIM and no DMARC**.
+- Keep sending through Nodemailer → Livemail 587. Do **not** install Postfix, Sendmail, or OpenDKIM on the VPS. Recipients see Livemail’s HELO; we set ours to `designlabnorth.com` on the way in.
+- DKIM selector is **`mail`**. Private key gitignored. Paste the Livedns TXT / DMARC / SPF / IONOS PTR from `ops/mail-deliverability.md`. Do not Restore Default DNS. Do not rotate the key without replacing that TXT.
+
+## 2026-08-27 — invoice remind (Ewan)
+
+- Additions sit beside working doors. **Remind** on a due invoice mails the same invoice layout, worded still yet to pay with the time they have left. Do not change Ping, Stripe Checkout, webhook paid, or login. House campus stays snapped for send.
+
+## 2026-08-30 — DAA named; preview tenancy (Ewan)
+
+- Digital Adoption Advisor is a client. House `/home/main/DAA`, port `:3050`, campus `/lab/daa`. Mark Barlow is the party (mark.barlow@digitaladoptionadvisor.io). Company published address stays enquiries@digitaladoptionadvisor.io. Local campus can stay blank; the VPS live DLN site is the account book.
+- Tenure on his account is **preview**: system language, “this workspace is open while the current build is underway.” Not a closer. Dave made the unpaid exception; do not generalise it.
+- `daa.designlabnorth.com` is Building for strangers. Ewan and Dave are studio admin. Mark is observer. Not on the greenhouse wall. `digitaladoptionadvisor.io` stays his until they are ours.
+- Sequence: this disk → downstairs LAN campus → VPS `plot-daa` + Caddy flip on a numbered ship once the local site answers. Do not live-edit the VPS every save.
+- GitHub `thekirkswood/daa` is Ewan’s to open. This Cursor owns that house once the remote exists.
+- Prospect spaces stay rare. Most work is paid first.
+- 2026-08-30: Debian `/srv/clients` (1TB) I/O-errored while opening DAA. DAA sits on the NVMe at `/home/main/DAA`. Do not mkdir under `/srv/clients` until that disk is checked. Leave ModYu alone.
+
+## 2026-08-30 — how we approach a house (Ewan)
+
+- Look at **ModYu** and **Choozlist**, not PFP, when judging how deep a house should be. PFP is quite new: Building + workshop shell. Campus wiring may follow it. The *site* must not.
+- Every new project is all-encompassing and fresh at the same time. Whole picture — do not focus on one thing. Frameworks are a kit; fit the house.
+- Steal plot/gate/inbox/ship. Do not transplant look, tokens, or copy rhythm.
+- Doctrine file: `/home/main/_meta/house-approach.md`. Pointer in campus LTM-vital. Do not restyle DAA from this note in the same turn.
+
+## 2026-08-31 — one compose module (Ewan)
+
+- Campus `/admin`, every `/lab/{slug}/admin`, the station dock, and the hub page note use the same compose as ModYu’s desk: change / plan / note, text, images and video, previews before send. Do not keep a notes-only well beside it. Live `/suggest` stays text only.
+
+## 2026-09-01 — onboard password; Mark Barlow (Ewan)
+
+- Onboard mails the login (their email) and a generated password so they can sign in and see their site straight away. Change is optional — `/activate` or **Change password** beside Forgot. Do not force it. Email is a point of failure; ours are decent enough to start. Studio can tell them to change it on the call. Desk shows the password once. Never persist plaintext. Do not smash password login, codes, Ping, or forgot.
+- **Activate site** on the person (Clients) mails that onboard and binds the plot. House campus stays snapped for send. Live `/campus` is the book.
+- Mark Barlow is on the DLN book: mark.barlow@digitaladoptionadvisor.io, plot `daa` only, preview tenancy. Do not rsync accounts. Invoice reminder closing has no Oxford comma (Apple Pay, Google Pay or card).
+
+## 2026-09-01 — workbench View; campus Mail fetch (Ewan)
+
+- View curtain and foot: this is a workbench. Sandbox host temporary until claimed. KPIs on this space are chargeable. Same line both places. Perception, so KPI work is billed.
+- View foot (2 Sep): “This sandbox will be terminated” plus a ticking clock to midnight Sunday 6 Sep 2026, Europe/London.
+- View curtain gold line (the refresh animation): **Welcome to the sandbox.** Not “the build”. Foot bar stays the workbench line.
+- Campus Mail: Livemail IMAP SEARCH ALL returns empty while the box still has mail (including Microsoft DMARC rua to build@). Fetch by sequence from EXISTS. Nested MIME + attachments named. House campus stays snapped — open Mail on live `/campus`. Do not smash SMTP send.
+
+## 2026-09-01 — Mail graphics and files (Ewan)
+
+- Campus Mail opens the HTML of a note (sandbox iframe) so graphics land. Inline cid images are inlined. Attachments download. Pictures that arrived as files (not cid) still show in the letter. Do not smash list, remove, or IMAP sequence fetch.
+
+## 2026-09-01 — DAA live fields (Ewan)
+
+- DAA live plates use the studio field photographs, not the small mark SVGs stretched as cover. Named plot-daa bugfix. Do not rsync accounts. Do not rebuild other plots.
+
+## 2026-09-01 — Paul onboard mail (Ewan)
+
+- Paul’s login is `email@paulfosbury.com`. He had a hash on the live book and no invite token — the old standing was not to mail a dictated password. That is superseded: onboard / activate-site mails login + generated password in the studio layout (same as Mark). Sent 1 Sep. New clients get that mail so they can sign in and pay. Optional change-password. Do not print the password in chat.
+
+## 2026-09-01 — reminder pay link lasts 24 hours (Ewan)
+
+- Do not Remind with a dead Stripe Checkout. Stripe sessions die 24 hours after **create**, not after the mail. Remind mints a **fresh** Checkout (full 24 hours from that send) and puts that URL in Pay online. Do not issue. Do not mark paid. Do not smash Ping, webhook paid, or login. House campus stays snapped — send on live `/campus`. Paul’s DLN-2026-0003 was the named case.
+
+## 2026-09-01 — mail Pay online is a hub door (Ewan)
+
+- Do not put a Stripe Checkout URL in the letter. It dies in 24 hours while they still owe. Pay online is `designlabnorth.com/pay/{invoiceId}` — Checkout opens when they click. Do not spam. Anne Marie’s mailed Stripe button (DLN-2026-0002) is already expired; do not Remind her unless asked. She can still pay from `/account` Pay online after sign-in. Paul’s fresh Checkout from the 1 Sep remind is a Stripe URL in that one note; next Ping/Remind uses the door. Do not smash Ping, webhook paid, or login.
+
+## 2026-09-01 — studio mail: hub pay door + onboard (Ewan)
+
+Supersedes “Remind mints a Checkout URL that lasts 24 hours from send.” Stripe still dies 24 hours after **create**. We do not put that URL in mail.
+
+**Pay**
+- Letters (Ping, Remind, booking pay, onboard if a bill is due) link to **our** page: `https://designlabnorth.com/pay/{invoiceId}`.
+- Checkout is created **when they click** (or when they hit Pay online on `/account`). Not at send.
+- That screen follows the invoice lines: one-off is a payment; weekly or monthly is a subscription. Apple Pay, Google Pay or card.
+- Do not put `checkout.stripe.com` in onboard, invoice, remind, booking, or reset mail.
+- Do not spam. A reminder is a new letter with the same hub door, not a new Checkout in the body.
+- Paid is still the Stripe webhook. House campus stays snapped for send. Do not smash Ping, webhook paid, or login.
+
+**Onboard / Activate site**
+- Subject **Your Design Lab North account**. Noreply, Reply-To build@.
+- Body: login (the email they wrote us) + generated password so they can sign in and see the site. Change is optional (`/activate` or Change password). Do not force it. Desk shows the password once. Never persist plaintext. Never print it in chat.
+- Never a Checkout URL in this note. If a bill is already due, name the hub pay door — Checkout still waits until they click.
+- Do not mail puppets. Dummy local accounts are preview only.
+
+## 2026-09-01 — Watch: trap doors and notifications (Ewan)
+
+- Accounting shows **counts** only. Trap doors and notifications are plates with the amount. Click takes you to **Watch** (`?desk=accounting&board=watch`). Each entry is its own plate; expand for the rest (path, IP, host, account, user agent on traps; body and Clear on notices). Do not dump the full lists on Accounting. Do not add a new top room. House and live campus both.
+
+## 2026-09-01 — Accounting plates are doors; keep trap trips (Ewan)
+
+- Every Accounting count is clickable. Industry drill-down, not a dump on the landing.
+- **Received** and **Paid invoices** open the same book: past paid invoices. Name opens that client.
+- **On the book** and **Accounts** open Clients.
+- **Monthly locked** / **Weekly locked** open the current subscriptions (the “2” is the running monthlies).
+- **Requests** open Onboarding. **Live page hits** open the public-path counts. Notifications and trap doors still open Watch.
+- Hours and housekeeping stay on the Accounting landing. Do not add a new top room.
+- Trap trips, notices, hits, and settings live in `_meta/studio`. On live, that folder is `/srv/dln/data/studio` on `web` so a rebuild does not wipe the book. Keep existing trips (merge by id). Keep recording new probes as normal. Do not rsync accounts.
+
+## 2026-09-01 — tower Mullvad must allow LAN (Ewan)
+
+- Downstairs campus is `http://192.168.0.223:3010`. If ping says Destination Port Unreachable / Operation not permitted and SSH is “connection refused” from this GPU, check Mullvad **local network sharing** before treating the laptop as off. `mullvad lan get` must be **allow** (`mullvad lan set allow`). The box was up; the VPN was hiding it. Do not bind this GPU’s campus to the LAN.
+
+## 2026-09-01 — trap session watchlist (Ewan)
+
+- When someone hits a trap door, that IP is on the watchlist for two hours after last activity. Every path they try in that instance is logged, not only the doors. Watch shows one plate per session; expand for the slash list.
+- Sweep about hourly (campus open, or after a new door): learn new probe shapes, write `_meta/studio/watch-learn.md` (studio book, gitignored). Do not put IPs in git memory.
+- Retrospective: cluster existing `traps.json` into sessions. Paths they tried that were **not** doors cannot be recovered — the edge did not keep access logs. Going forward those slashes are kept. Live tap stamps the real IP (`x-dln-watch-ip`) so Caddy cannot attach follow-on paths to the container.
+- Watch the **account** as well as the IP. A signed-in client who hits a door stays hot for two hours even if they change address. The plate shows their name. Studio campus walking does not fill the book; a studio session that hits a probe path still does. Caddy sends trap paths on every live host (including ungated plots) to the hub so the DLN cookie is seen.
+- Secrets stay out of git: `_meta/accounts`, `_meta/studio`, `_meta/billing`, `_meta/secrets`, `.env*`, `deploy/.env`, keys. Gitignore is not a lock on a seized server. Public HTML/CSS/JS can be copied; origin crumbs (`dln-kirkwood-origin`, generator meta, `/_dln/canary`) help us notice a lift, they do not stop one. There are no WordPress plugins. Login fails from one address rest after eight tries in fifteen minutes. Do not claim the house is unbreachable.
+
+## 2026-09-02 — Paid sandbox; Mark Barlow onboard (Ewan)
+
+- The workshop subdomain is the **sandbox**. Fifty pounds a month. Observer does not launch until that line is **paid** (webhook). Studio always in. Strangers on DAA still see Building.
+- Compose: tick **Sandbox — this payment opens the subdomain**. Catalogue name Sandbox, £50 monthly.
+- Paul Fosbury’s existing payment (the £100 that also pays off the build) and Anne-Marie’s existing space payment attach as sandbox. They already count.
+- Mark: welcome letter (login + generated password, never print in chat), then the sandbox invoice letter (hub `/pay/{id}`). Access to `daa.designlabnorth.com` opens when paid.
+- Account cards: **Launch the sandbox**. Copy names the in-house ground-up web app. Unpaid: **Pay to launch the sandbox**.
+- Dave, today only (2 Sep 2026): the DAA design chat may push **plot-daa** live (`ops/ship-plot-daa.sh`). No other live house. After today, Ewan numbered ships.
+- Do not ship source maps. Trap `/lab` `/admin` `/src` `.map`. Observer has no developer settings. Inspect element can still copy rendered HTML — we do not pretend otherwise. Watch for trapdoors on this account.
+- Do not rsync accounts. Hub ships rebuild `web` + edge. DAA ship is `plot-daa` only.
+
+## 2026-09-02 — Sandbox once, influence, Anne-Marie (Ewan)
+
+- Mark’s sandbox is **£50 once**, not monthly. Two-week timer from **pay**. Pause that monthly roll. People will not live in the sandbox long.
+- Catalogue Sandbox stays id `host-monthly` so the price overlay still matches. Cadence **once**, `sandboxDays: 14`.
+- Paul stays on his paid **monthly** sandbox — no fourteen-day cut.
+- Anne-Marie still owes the space bill. ModYu is **hers**. Unpaid sandbox must not send her to Not yours, and must not `plotShutFor` the shop. Open site + observer. Implore the pay on the account card (`Space still to pay`) without lying about ownership.
+- Influence sits on the **account site card** (the place they enter the sandbox) and on the live well. Client notes go to a living draft plan, reviewed on campus, shaped with our touch. Immediate reply: understood, next patch. Dave/lab inbox stays the “make it and tell Dave it is done” path.
+- Every subdomain update writes **patch notes** (`recordPlotPatch` / `_meta/plans/patches.json`) as client LTM: what we did, and which of their suggestions landed. Shipped campus plans stamp the same. Agent writes those notes when shipping a plot.
+- Hub ship is `web` only for this. Do not rebuild plot-modyu. Do not rsync accounts.
+
+## 2026-09-02 — Client account is the site (Ewan)
+
+- Landing is **their site**, not profile forms. Picture, name, password live behind a **cog**. Static identity on the bar.
+- **Patches** sit under the site. Visible even unpaid. Drawn from house LTM (`Site/src/data/plot-patches.ts`) plus live `_meta/plans/patches.json`. Post-date to when the work actually landed so ModYu (and the others) look full by being real. Agent writes a patch on every plot ship.
+- Influence stays under the changelog. Same next-patch reply.
+- Billing: do not show a due invoice and a subscription as two identical payments. Nest the invoice under the standing line. `0/1 paid · see invoice DLN-XX`. Collapsible.
+- Rooms feel like a small web app (glider nav, pane rise, profile sheet). Chamfer, no pills, no card shadows.
+- **Do not convert or re-bill existing clients. Do not mail them about cadence.** Payments on the book stay as they are. We are learning the offer for **new** customers. Mark’s monthly was restored silently after a mistaken once-convert.
+- Default room is Sites, even if an invoice is due.
+
+## 2026-09-02 — Pay for the sandbox; patches are product; then offline (Ewan)
+
+- They **pay to have the sandbox**. This supersedes the earlier 2 Sep bullet that left Anne-Marie Open site + observer while unpaid. A sandbox line on a plot they own still blocks observer / Open site / plot-enter until it is paid. Bounce is the **pay door**, never Not yours. ModYu’s public shop stays ungated for patients; Anne-Marie’s signed-in door does not.
+- Patch notes are **customer-facing**: positive, direct, actual product changes, short. **Hotfixes do not get a patch.** Do not log plumbing, cookies, or named bugfixes as patches.
+- Dave’s 2 Sep **plot-daa live push exception is closed**.
+- **This is the last live hub edit of this pass.** After it ships: build on campus / this disk again. Numbered ship or a named bugfix, then stop. Do not keep iterating on the VPS. Do not hotfix live because a chat is about live.
+
+## 2026-09-02 — Cleared notices vanish; pay writes a notice (Ewan)
+
+- Clear a notification and it **leaves Watch**. The row stays in `_meta/studio/notices.json`. Do not show Earlier / Cleared on the site.
+- Relevant events write a notice: **paid** (Stripe webhook or studio clear), public request, write-in, influence, sitting, new client account. Trap doors do **not** write a notice — they live on Watch. Do not notice studio Ping / Remind (they already did it). Zero-total auto-collect does not notice.
+- Campus only until a numbered ship. Do not hotfix live.
+
+## 2026-09-02 — Block scanners; keep the list (Ewan)
+
+- Trap notifications were still on Watch because they were unread, and because traps had their own plates. Hide trap-kind notices (log stays). Do not write new trap notices.
+- **Block** a public scanner IP. Keep them on Watch → Blocked. Still log every path they try after they are shut. Local / LAN addresses can sit on the list; they are not shut.
+- Link addresses that share trap doors, the same client string, or the same /24. One blocked plate can hold several IPs.
+- A signed-in client who hits a door is not auto-blocked (studio can Block). Studio cookie is never shut out.
+- Campus until a numbered ship.
+
+## 2026-09-02 — Watch: no Earlier; Paid for Paul (Ewan)
+
+- Read / Earlier notices never render. Keep collecting in `_meta/studio/notices.json` until a real database is the deep save. Do not dump the log on the page.
+- Purchases write a **Paid** notice. Seed one from Paul Fosbury’s existing paid invoice so Watch can show the trigger. Future Stripe / studio clears do the same. Do not backfill every old invoice as unread.
+- Named bugfix on hub `web` so live campus matches. Then stop.
+
+## 2026-09-02 — Trap web: exact count, path bubbles (Ewan)
+
+- Accounting **Trap doors** is every slash attempt from the start of this book. Exact. It only rises. Do not count only open plates, and do not cap the number.
+- Watch shows one bubble per distinct `/` with the attempt count. Expand: blocked IPs that tried it (then other addresses). Open instances still hold that bot’s slash list. Blocked plates keep the IPs.
+- Collect in `_meta/studio/trap-web.json`. New slashes grow the web. Named hub `web` so live Watch matches.
+
+## 2026-09-02 — Local campus first; keep home exact (Ewan)
+
+- **Normal is local first.** This disk `localhost:3010` (dev, instant). Then downstairs LAN campus `http://192.168.0.223:3010` (`ops/push-campus-downstairs.sh` — do not rsync accounts). Home must see the work before, or at least with, the VPS.
+- Even when told to post to the VPS, **update local first** so the status quo at home is exact. Then VPS. Do not leave downstairs stale because live moved.
+- Keep local campus updated on every hub change. Instant at home is the point.
+
+## 2026-09-02 — Paid is active; no password from the dossier (Ewan)
+
+- **Activate site** on a client’s profile is retired. It mailed a new login and generated a new password. That is not a function. Do not put it back.
+- Login is the Design Lab North account. Cookie `dln_session` is the door onto their plot. Signed in at DLN → they enter. Not signed in → they sign in at DLN. Studio walk in the same way. Do not mint a second password for the site.
+- First-time **Onboarding** may still mail login + generated password **once** when the record is created. Never from a paying client’s dossier. Never because someone clicked Activate.
+- The dossier shows whether the site is **Active** or **Not active** from pay. Paid sandbox (Paul’s £100 monthly) is active. Unpaid space is not. That is the status, not a button.
+- **Live page hits** is the cumulative total from the start of this book, and every counted path listed with its own count. Do not show a truncated small number as the story. Campus, lab, login and account are not counted. Gated plot page views join the same book. It only rises.
+
+## 2026-09-02 — Trap doors: block known-malicious only (Ewan)
+
+- Do not auto-block people who play around and try other slashes (`/admin`, `/lab`, a `.map`, random paths). 404 those doors, rack them on the web, keep the instance while it is hot. Do not shut the address.
+- **Block** only for known-malicious doors (`.env`, git, WordPress, phpMyAdmin, dumps, secrets). When that scanner also tries other things, those slashes sit on the same plate so we can see them.
+- Other addresses on a bubble are tracked in case. They are not blocked for that.
+- **Clear** an open plate when it is just a poke / not significant. The web count still rises. Studio can still Block if it turns out to be a scanner.
+- Auto-bans that were only curiosity (no known-malicious door) are listed, not enforced. Signed-in clients and studio still never auto-block. Local / LAN listed, not shut.
+- House campus (`localhost:3010`, downstairs `:3010`) **is** `/lab` and `/admin`. Do not trap those paths on the lab host — the site-builder bubbles and `/go/{slug}` frames are the work. Public `designlabnorth.com` still 404s and racks `/lab` `/admin`. View stays `/view/{slug}`.
+
+## 2026-09-03 — Leave this Cursor on; sniff, do not grind (Ewan)
+
+- This Design Lab North chat stays open on the home server. It is idle until pinged. That is the point.
+- While studio is on campus, `ops/sniff-inbox.sh` (dln) must be running. It watches downstairs `wake.flag` and this disk. It sleeps. It only wakes this chat when a note lands.
+- Campus `:3010` stays up (this disk + downstairs). Unit apps (ModYu, DAA, …) start when Dave or Ewan walks in and sleep at zero. Do not keep them processing empty.
+- Campus `/admin` notes are this queue. `/lab/modyu/admin` is the ModYu Cursor. `/lab/daa/admin` is the DAA Cursor. Leave those instances open if Dave is in that house. Do not stamp another unit’s pending list from this chat.
+- Do not run a strenuous always-working loop. Awake when `wake.flag` changes, take pending in order, then idle.
+
+## 2026-09-03 — DAA and ModYu /admin downstairs (Ewan)
+
+- Dave on downstairs `http://192.168.0.223:3010`. Unit `/admin` is `/lab/{slug}/admin`. Notes already land; they sat because sniff only watched this disk (and DAA wake, without pulling the queue).
+- Unit sniff (`ops/sniff-inbox.sh daa` / `modyu`) **pulls** the Debian inbox first (`ops/sync-unit-inbox.sh`). Pending wakes at once. Stamps push back downstairs. Campus sniff still does not stamp another unit.
+- DAA `/go/daa/admin` is the campus builder (`/lab/daa/admin`), not a trap. Concertina replaceState keeps `/go/daa`.
+- ModYu downstairs `_meta` was EIO on the 1TB `/srv/clients`. House sits on NVMe `/home/main/ModYu` like DAA. Leave the dead 1TB copy. Do not mkdir there until that disk is healthy.
+
 
 ## 2026-09-06 — Public home is the plate (Ewan)
 

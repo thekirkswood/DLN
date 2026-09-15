@@ -7,6 +7,7 @@ Type=simple
 WorkingDirectory=/home/main/VariousTitles/Site
 Environment=PATH=/usr/bin:/bin
 Environment=BASE_PATH=/go/various-titles
+Environment=NEXT_PUBLIC_BASE_PATH=/go/various-titles
 ExecStart=/usr/bin/npm run dev
 Restart=always
 RestartSec=8

@@ -41,11 +41,15 @@ if [ "$ACTION" = pull ]; then
     "$DEBIAN:$DIR/" "$DIR/" 2>/dev/null || true
   if [ -f "$MERGE" ]; then
     python3 "$MERGE" "$LAN/messages.json" "$DIR/messages.json" 2>/dev/null || true
+    python3 "$MERGE" "$DIR/messages.json" "$LAN/messages.json" 2>/dev/null || true
   fi
   echo "pulled $HOUSE"
   exit 0
 fi
 
+if [ -f "$MERGE" ] && [ -f "$LAN/messages.json" ]; then
+  python3 "$MERGE" "$DIR/messages.json" "$LAN/messages.json" 2>/dev/null || true
+fi
 rsync -aH -e "ssh ${SSH_OPTS[*]}" \
   --exclude wake.flag \
   "$DIR/" "$DEBIAN:$DIR/" 2>/dev/null || true
