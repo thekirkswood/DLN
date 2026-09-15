@@ -864,3 +864,4 @@
 {"t":"2026-09-14T23:58:00+01:00","k":"mod","p":"ModyuKitApp EpkKitApp AssetsDesk EpkStudioStamp globals.css","s":"DLN in kit top bar product slot","d":"this pack is a DLN product"}
 {"t":"2026-09-14T23:58:00+01:00","k":"add","p":"Site/public/kit-stills/modyu/ann-marie-barlow.jpg","s":"Ann-Marie headshot from the DLN book into the ModYu kit","d":"founder-headshot.png is aftercare, not her"}
 {"t":"2026-09-14T23:58:00+01:00","k":"mod","p":"epk-cover.ts epk-doc.ts assets.ts press-harvest.ts","s":"Prefer Ann-Marie as founder; stop treating founder-headshot as people","d":"cover was the first photo with a head"}
+{"t":"2026-09-15T01:21:00+01:00","k":"mod","p":"Site/src/app/account/page.tsx","s":"Customer site update log sits under Sites; notifications are payments and notes only","d":"ship log was filling the notice bubble so people would not open it"}

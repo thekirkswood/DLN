@@ -36,7 +36,6 @@ import { listOpenInstances } from "@/lib/watch";
 import { listBlocks } from "@/lib/block";
 import { absorbTrapWeb, listTrapWeb } from "@/lib/trap-web";
 import { listAppeals } from "@/lib/appeals";
-import { listShipNotes } from "@/lib/ship-notes";
 
 export const metadata = { title: "Account" };
 export const dynamic = "force-dynamic";
@@ -85,7 +84,6 @@ export default async function AccountPage({
   const sittings = studio ? [] : await bookingsForUser(user.id);
   const receipts = studio ? [] : await receiptsVisibleTo(user);
   const settings = await getSettings();
-  const ships = await listShipNotes();
   const rolls = studio ? await listRolls() : await rollsForUser(user);
   const view = searchParams?.view || "";
   const desk = searchParams?.desk || "";
@@ -100,7 +98,7 @@ export default async function AccountPage({
   const due = mine.filter((i) => i.status === "due");
   const openNotes = comments.filter((c) => !c.planId);
   const shipped = plans.filter((p) => p.status === "shipped");
-  const noticeCount = due.length + openNotes.length + shipped.length + ships.length;
+  const noticeCount = due.length + openNotes.length;
 
   const studioBook = studio
     ? {
@@ -256,12 +254,7 @@ export default async function AccountPage({
               graceDays={settings.graceDays}
             />
           ) : view === "notices" ? (
-            <NoticesPanel
-              due={due}
-              notes={openNotes}
-              shipped={shipped}
-              ships={ships}
-            />
+            <NoticesPanel due={due} notes={openNotes} />
           ) : (
             <>
               <h2>Sites</h2>
@@ -292,6 +285,7 @@ export default async function AccountPage({
                   })}
                 </div>
               )}
+              <SiteUpdateLog shipped={shipped} sites={sites} />
             </>
           )}
 
@@ -416,18 +410,45 @@ function PaymentsPanel({
   );
 }
 
+function SiteUpdateLog({
+  shipped,
+  sites,
+}: {
+  shipped: Awaited<ReturnType<typeof plansFor>>;
+  sites: Awaited<ReturnType<typeof clientPlots>>;
+}) {
+  const rows = shipped.slice().sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  return (
+    <>
+      <h2>Updates</h2>
+      {rows.length === 0 ? (
+        <p className="body">Nothing new on your sites yet.</p>
+      ) : (
+        rows.map((p) => {
+          const site = sites.find((s) => s.slug === p.plotSlug);
+          return (
+            <div key={p.id} className="plan-card is-shipped">
+              <p className="status">
+                {p.updatedAt.slice(0, 10)}
+                {site ? ` · ${site.name}` : ""}
+              </p>
+              <p className="body">{p.patchNotes || p.title}</p>
+            </div>
+          );
+        })
+      )}
+    </>
+  );
+}
+
 function NoticesPanel({
   due,
   notes,
-  shipped,
-  ships,
 }: {
   due: Awaited<ReturnType<typeof invoicesVisibleTo>>;
   notes: Awaited<ReturnType<typeof commentsFor>>;
-  shipped: Awaited<ReturnType<typeof plansFor>>;
-  ships: Awaited<ReturnType<typeof listShipNotes>>;
 }) {
-  const empty = !due.length && !notes.length && !shipped.length && !ships.length;
+  const empty = !due.length && !notes.length;
   return (
     <>
       <h2>Notifications</h2>
@@ -463,29 +484,6 @@ function NoticesPanel({
               </li>
             ))}
           </ul>
-        </>
-      ) : null}
-
-      {shipped.length || ships.length ? (
-        <>
-          <h3>What’s new</h3>
-          {shipped.map((p) => (
-            <div key={p.id} className="plan-card is-shipped">
-              <p className="status">{p.updatedAt.slice(0, 10)}</p>
-              <p className="body">{p.patchNotes || p.title}</p>
-            </div>
-          ))}
-          {ships
-            .slice()
-            .reverse()
-            .map((s) => (
-              <div key={s.tag} className="plan-card is-shipped">
-                <p className="status">
-                  {s.t.slice(0, 10)} · {s.tag}
-                </p>
-                <p className="body">{s.s}</p>
-              </div>
-            ))}
         </>
       ) : null}
     </>
