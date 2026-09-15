@@ -444,9 +444,9 @@ export function Workbench({
             Press packs
           </Link>
           {me ? (
-            <Link className="bench-word" href="/account">
+            <a className="bench-word" href="/account">
               {me.displayName || "Account"}
-            </Link>
+            </a>
           ) : (
             <Link className="bench-login" href="/login?next=/" aria-label="Sign in">
               {inside ? (

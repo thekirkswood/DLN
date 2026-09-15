@@ -1,11 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isLabHost } from "@/lib/lab-host";
-import {
-  EPK_COOKIE,
-  SESSION_COOKIE,
-  appendEpkCookies,
-  appendSessionCookies,
-} from "@/lib/cookie-opts";
 
 function withPath(req: NextRequest, res: NextResponse) {
   res.headers.set("x-dln-path", req.nextUrl.pathname);
@@ -31,16 +25,6 @@ function nextWithPath(req: NextRequest) {
   return res;
 }
 
-function shouldRefresh(pathname: string): boolean {
-  if (pathname === "/logout") return false;
-  if (pathname.startsWith("/api/auth/login")) return false;
-  if (pathname.startsWith("/api/auth/lan-consume")) return false;
-  if (pathname.startsWith("/api/epk/enter")) return false;
-  if (pathname.startsWith("/api/epk/leave")) return false;
-  if (pathname.startsWith("/api/epk/stamp")) return false;
-  return true;
-}
-
 export function middleware(req: NextRequest) {
   const host = req.headers.get("x-forwarded-host") || req.headers.get("host");
   const path = req.nextUrl.pathname;
@@ -50,27 +34,7 @@ export function middleware(req: NextRequest) {
   ) {
     return withPath(req, new NextResponse("Not Found", { status: 404 }));
   }
-  const res = nextWithPath(req);
-  if (!shouldRefresh(req.nextUrl.pathname)) return res;
-  const proto = req.headers.get("x-forwarded-proto");
-  const sessions = Array.from(
-    new Set(
-      (req.headers.get("cookie") || "")
-        .split(";")
-        .map((part) => part.trim())
-        .filter((part) => part.startsWith(`${SESSION_COOKIE}=`))
-        .map((part) => part.slice(SESSION_COOKIE.length + 1).trim())
-        .filter(Boolean),
-    ),
-  );
-  if (sessions.length === 1) {
-    appendSessionCookies(res.headers, sessions[0], host, proto);
-  }
-  const epk = req.cookies.get(EPK_COOKIE)?.value;
-  if (epk) {
-    appendEpkCookies(res.headers, epk, host, proto);
-  }
-  return res;
+  return nextWithPath(req);
 }
 
 export const config = {

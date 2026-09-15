@@ -49,21 +49,20 @@ export function HousesDesk() {
               <tr key={row.id}>
                 <td>
                   <strong>{row.name}</strong>
-                  <span className="status">:{row.port}</span>
+                  <span className="houses-url">{row.host}</span>
                 </td>
                 <td>
-                  <a href={carry(local, hub)} target="_blank" rel="noreferrer">
+                  <a className="houses-jump" href={carry(local, hub)} target="_blank" rel="noreferrer">
                     View site
                   </a>
-                  <span className="status">{row.host}</span>
                 </td>
                 <td>
                   {live ? (
                     <>
-                      <a href={live} target="_blank" rel="noreferrer">
+                      <a className="houses-jump" href={live} target="_blank" rel="noreferrer">
                         Open live
                       </a>
-                      <span className="status">{live.replace(/^https?:\/\//, "")}</span>
+                      <span className="houses-url">{live.replace(/^https?:\/\//, "")}</span>
                     </>
                   ) : (
                     "—"
@@ -72,16 +71,17 @@ export function HousesDesk() {
                 <td>
                   {press ? (
                     <>
-                      <a href={epkHref(press)}>View EPK</a>
-                      <span className="status houses-press-live">
-                        <a
-                          href={carry(`https://designlabnorth.com${epkHref(press)}`, hub)}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          Live kit
-                        </a>
-                      </span>
+                      <a className="houses-jump" href={epkHref(press)}>
+                        View EPK
+                      </a>
+                      <a
+                        className="houses-url"
+                        href={carry(`https://designlabnorth.com${epkHref(press)}`, hub)}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Live kit
+                      </a>
                     </>
                   ) : (
                     "—"

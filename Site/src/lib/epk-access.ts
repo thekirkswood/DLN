@@ -47,6 +47,12 @@ export function writeKitCookie(kit: string) {
     expires: named.expires,
     secure: named.secure,
   };
-  cookies().set(named.name, named.value, { ...opts, ...(named.domain ? { domain: named.domain } : {}) });
-  if (named.domain) cookies().set(named.name, named.value, opts);
+  cookies().set(
+    named.name,
+    named.value,
+    named.domain ? { ...opts, domain: named.domain } : opts,
+  );
+  if (named.domain) {
+    cookies().set(named.name, "", { ...opts, maxAge: 0, expires: new Date(0) });
+  }
 }

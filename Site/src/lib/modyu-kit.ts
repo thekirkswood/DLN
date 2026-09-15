@@ -9,6 +9,7 @@ export type ModyuPageId =
   | "quotes"
   | "about"
   | "campaigns"
+  | "ht4"
   | "system"
   | "description"
   | "evidence"
@@ -26,8 +27,15 @@ export type ModyuNavLink = {
 
 export type ModyuNavGroup = {
   title: string;
-  blurb: string;
   items: ModyuNavLink[];
+};
+
+export type Ht4Stage = {
+  id: string;
+  n: string;
+  beat: string;
+  name: string;
+  time: string;
 };
 
 export function pageHref(rest = ""): string {
@@ -39,7 +47,6 @@ export function modyuNav(): ModyuNavGroup[] {
   return [
     {
       title: "Brand & background",
-      blurb: "Company, founder, culture — not the product sheet.",
       items: [
         { id: "founder", href: pageHref("founder"), label: "Ann-Marie [Founder]" },
         { id: "follicle", href: pageHref("follicle"), label: "The Follicle Files" },
@@ -49,7 +56,6 @@ export function modyuNav(): ModyuNavGroup[] {
     },
     {
       title: "Product & service",
-      blurb: "Stories, facts, assets — HT4 pages sit under the HT4 menu.",
       items: [
         { id: "campaigns", href: pageHref("campaigns"), label: "Stories ready to run" },
         { id: "facts", href: pageHref("facts"), label: "Fast facts & FAQ" },
@@ -60,8 +66,15 @@ export function modyuNav(): ModyuNavGroup[] {
   ];
 }
 
-export const ht4Menu: ModyuNavLink[] = [
-  { id: "system", href: pageHref("description"), label: "Description" },
+/** Timeframes match the live HT4 site page. Copy for each stage lives on the kit document. */
+export const ht4Stages: Ht4Stage[] = [
+  { id: "prepare", n: "01", beat: "Prepare", name: "Balance", time: "Day −30 to Day 0" },
+  { id: "protect", n: "02", beat: "Protect", name: "Cleanse", time: "Day 1 to Day 3" },
+  { id: "recover", n: "03", beat: "Recover", name: "Hydrate, Bathe & Comfort", time: "Day 3 to Day 21" },
+  { id: "continue", n: "04", beat: "Continue", name: "Protect & Nourish", time: "Day 21+" },
+];
+
+export const ht4Reads: ModyuNavLink[] = [
   { id: "evidence", href: pageHref("evidence"), label: "The Evidence" },
   { id: "claims", href: pageHref("claims"), label: "What we claim and what we don't" },
   { id: "our-story", href: pageHref("our-story"), label: "Our Story" },
@@ -74,6 +87,7 @@ export const PAGE_IDS = new Set<string>([
   "quotes",
   "about",
   "campaigns",
+  "ht4",
   "system",
   "description",
   "evidence",
@@ -97,7 +111,7 @@ export function pageTitle(doc: EpkDoc, id: ModyuPageId, pitch?: EpkPitch): strin
   if (id === "follicle") return doc.satellite?.title || "The Follicle Files";
   if (id === "quotes") return "Quote bank";
   if (id === "about") return doc.about?.title || "About ModYu";
-  if (id === "system" || id === "description") return doc.system?.title || "The HT4 System Description";
+  if (id === "ht4" || id === "system" || id === "description") return "HT4";
   if (id === "evidence") return doc.evidence?.title || "The Evidence";
   if (id === "claims") return doc.claims?.title || "What we claim and what we don't";
   if (id === "facts") return "Fast facts & FAQ";
@@ -113,8 +127,8 @@ export function extraCampaigns(stories: EpkStory[]): EpkStory[] {
 export function railOn(id: ModyuPageId, pageId: ModyuPageId, section: string): boolean {
   if (id === "campaigns") return section === "campaigns";
   if (id === "vault") return pageId === "vault";
-  if (id === "system" || id === "description") {
-    return pageId === "system" || pageId === "description";
+  if (id === "ht4" || id === "system" || id === "description") {
+    return pageId === "ht4" || pageId === "system" || pageId === "description";
   }
   return pageId === id;
 }

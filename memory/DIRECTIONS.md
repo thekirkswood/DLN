@@ -958,20 +958,18 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - DAA is on the book (`plots.json`, `public: false`) so the toggle cannot lose it. Not a greenhouse card. DKS the same for Dave’s house.
 - Builder gets the same tab behaviour; quote `memory/builder-site-tabs.md`. Do not drop DAA from that rail. Do not restore `/lab`.
 
+## 2026-09-15 — ModYu EPK is HT4; no chat notes on the pack (Ewan)
 
+- Journalist copy is never a leftover from the Cursor conversation. “Not the product sheet”, “HT4 pages sit under the HT4 menu”, and any other aside that only makes sense to us, stay off the kit. Named sections are enough.
+- HT4 is the name they should get used to. Do not repeat it as a dropdown and a rail subtitle and a comment. Top bar: ModYu mark + “ModYu electronic press kit” on the left, **HT4** in the middle (clickable). Side box: **HT4** at the top — the selling point — not “electronic press kit”.
+- HT4 opens its own page: the live ModYu system explorer (coloured frames, matching pictures, panel with copy and still). Stop before reviews. No shop button. Evidence, claims, and our story are reads from that page. Footer hosted by Design Lab North stays.
+- Other kits may still stamp DLN in the centre. This is the ModYu document.
 
+## 2026-09-15 — HT4 summary between explorer and reads; session from the ground (Ewan)
 
+- On the HT4 kit page, the copyable **system summary** sits between the bottom of the stage explorer and the Evidence / What we claim / Our story line. Not above the explorer, not under those reads.
+- Sign in was still dumping Ann-Marie and the account boxes (Sites / Houses, Assets, and the rest) on click, refresh, back, and home then through again. The Domain + host-only twin, and middleware rewriting `dln_session` on every page, were the fight. Ground-up: **one cookie**. Named LAN is host-only. Live still uses `.designlabnorth.com`. Setting a session expires the leftover twin. Middleware does not Set-Cookie. `/api/auth/me` still refreshes. Account boxes are ordinary links so the walk is a real page, not a client cache of Sign in. Do not copy Ann-Marie onto ModYu’s own login.
 
+## 2026-09-15 — Builder lan-consume must take the studio ticket (Ewan)
 
-
-
-
-
-
-
-
-
-
-
-
-
+- Opening the lab at `192.168.0.223:3100` was looping on `/api/auth/lan-consume`. The hub POSTs a home ticket; the lab only had GET handoff codes and then ignored `dln1.` tokens. Consume accepts POST ticket and GET code. The lab verifies the same home ticket as the hub. One cookie. Middleware does not rewrite it.

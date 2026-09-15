@@ -3,13 +3,13 @@
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { isImageHref, isPdfHref, isShared } from "@/lib/assets-view";
-import { EpkStudioStamp } from "@/components/EpkStudioStamp";
 import { firstBanner, firstLogo, firstPeople } from "@/lib/epk-cover";
 import { liveStories, type KitContent, type EpkStory } from "@/lib/epk-content-model";
 import type { EpkDoc, EpkPitch } from "@/lib/epk-doc";
 import {
   extraCampaigns,
-  ht4Menu,
+  ht4Reads,
+  ht4Stages,
   isModyuPage,
   modyuNav,
   pageHref,
@@ -19,6 +19,8 @@ import {
 } from "@/lib/modyu-kit";
 import { sectionItems, type EpkSection } from "@/lib/epk-sections";
 import type { AssetItem } from "@/lib/assets";
+import { HT4_BANNER } from "@/lib/modyu-ht4";
+import { ModyuHt4Explorer } from "@/components/ModyuHt4Explorer";
 
 function Still({ href, title }: { href: string; title: string }) {
   if (isImageHref(href)) {
@@ -69,13 +71,14 @@ export function ModyuKitApp({
       ? "home"
       : section === "logos" || section === "banners" || section === "people" || section === "files"
         ? "vault"
-        : section === "description"
-          ? "system"
+        : section === "description" || section === "system" || section === "ht4"
+          ? "ht4"
           : isModyuPage(section)
           ? section
           : "home";
   const campaignPrint = section === "campaigns" && print && (pitch || extra);
   const pagePrint = print && pageId !== "home" && pageId !== "campaigns" && pageId !== "vault" && !pitch;
+  const onHt4 = pageId === "ht4";
 
   useEffect(() => {
     if (!studio && !tagged) return;
@@ -126,23 +129,19 @@ export function ModyuKitApp({
   return (
     <div className="epk epk-map epk-modyu">
       <header className="epk-map__bar">
-        <div className="epk-map__kit epk-ht4-drop">
-          <details className="epk-ht4">
-            <summary>
-              <strong>HT4</strong>
-              <span className="visually-hidden"> menu</span>
-            </summary>
-            <ul>
-              {ht4Menu.map((row) => (
-                <li key={row.href}>
-                  <Link href={row.href}>{row.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </details>
-          <Link href={pageHref()}>Electronic Press Kit</Link>
-        </div>
-        <EpkStudioStamp />
+        <Link className="epk-map__kit" href={pageHref()}>
+          {logo && isImageHref(logo.href) ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={logo.href} alt="" />
+          ) : null}
+          <span>
+            <strong>ModYu</strong>
+            electronic press kit
+          </span>
+        </Link>
+        <Link className="epk-map__word" href={pageHref("ht4")} aria-current={onHt4 ? "page" : undefined}>
+          HT4
+        </Link>
         <nav className="epk-map__marks" aria-label="Press kit">
           <Link href={pageHref("vault")}>Asset vault</Link>
           <Link className="epk-contact-btn chamfer" href={pageHref("contact")}>
@@ -152,20 +151,12 @@ export function ModyuKitApp({
       </header>
       <div className="epk-map__body">
         <aside className="epk-rail chamfer">
-          <Link className="epk-rail__brand" href={pageHref()} aria-current={pageId === "home" ? "page" : undefined}>
-            {logo && isImageHref(logo.href) ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={logo.href} alt="ModYu" />
-            ) : null}
-            <span>
-              HT4
-              <small>Electronic Press Kit</small>
-            </span>
+          <Link className="epk-rail__brand" href={pageHref("ht4")} aria-current={onHt4 ? "page" : undefined}>
+            HT4
           </Link>
           {modyuNav().map((group) => (
             <div key={group.title} className="epk-rail__group">
               <span>{group.title}</span>
-              <p className="epk-rail__blurb">{group.blurb}</p>
               {group.items.map((row) => (
                 <Link
                   key={row.href}
@@ -223,8 +214,14 @@ export function ModyuKitApp({
             <CampaignIndex doc={doc} extras={extras} />
           ) : pageId === "vault" ? (
             <Vault logos={logos} banners={banners} people={people} files={files} note={doc.coverNote} />
+          ) : pageId === "ht4" ? (
+            <Ht4Page doc={doc} />
           ) : (
-            <ArticleShell kicker={railKicker(pageId)} kickerHref={pageHref()} title={pageTitle(doc, pageId)}>
+            <ArticleShell
+              kicker={railKicker(pageId)}
+              kickerHref={ht4Kicker(pageId) ? pageHref("ht4") : pageHref()}
+              title={pageTitle(doc, pageId)}
+            >
               <DocBody doc={doc} page={pageId} extras={extras} />
             </ArticleShell>
           )}
@@ -247,10 +244,69 @@ function isShown(content: KitContent, key: "logos" | "banners" | "people" | "fil
 }
 
 function railKicker(id: ModyuPageId): string {
-  if (id === "founder" || id === "our-story" || id === "follicle" || id === "quotes" || id === "about" || id === "angles") {
+  if (ht4Kicker(id)) return "HT4";
+  if (id === "founder" || id === "follicle" || id === "quotes" || id === "about" || id === "angles") {
     return "Brand & background";
   }
   return "Product & service";
+}
+
+function ht4Kicker(id: ModyuPageId): boolean {
+  return id === "ht4" || id === "evidence" || id === "claims" || id === "our-story";
+}
+
+function systemCopy(doc: EpkDoc): string {
+  if (!doc.system) return "";
+  return [
+    doc.system.title,
+    "",
+    ...doc.system.intro,
+    "",
+    ...doc.system.phases.flatMap((phase) => [phase.title, phase.body, ""]),
+    doc.system.close || "",
+  ]
+    .filter((line, i, rows) => line !== "" || (i > 0 && rows[i - 1] !== ""))
+    .join("\n")
+    .trim();
+}
+
+function Ht4Page({ doc }: { doc: EpkDoc }) {
+  const summary = systemCopy(doc);
+  return (
+    <article className="epk-ht4-page">
+      <h1 className="visually-hidden">HT4</h1>
+      <div className="epk-ht4-site">
+        <div className="ht4-banner">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={HT4_BANNER} alt="HT4 journey — pre-care through continuous care with the phase packs" />
+        </div>
+        <ModyuHt4Explorer />
+      </div>
+      {doc.system && summary ? (
+        <div className="epk-ht4-summary">
+          <CopyBlock label="System summary" text={summary}>
+            {doc.system.intro.map((para) => (
+              <p key={para.slice(0, 40)}>{para}</p>
+            ))}
+            {doc.system.phases.map((phase) => (
+              <div key={phase.title}>
+                <h2>{phase.title}</h2>
+                <p>{phase.body}</p>
+              </div>
+            ))}
+            {doc.system.close ? <p className="epk-line">{doc.system.close}</p> : null}
+          </CopyBlock>
+        </div>
+      ) : null}
+      <nav className="epk-ht4-reads" aria-label="Read on">
+        {ht4Reads.map((row) => (
+          <Link key={row.href} href={row.href}>
+            {row.label}
+          </Link>
+        ))}
+      </nav>
+    </article>
+  );
 }
 
 function DownloadPdf({ href }: { href: string }) {
@@ -405,15 +461,15 @@ function Home({
     <section className="epk-modyu-home">
       <LandPlate
         src={hero}
-        kicker="ModYu · HT4"
-        title="Electronic Press Kit"
-        lede="Stories, facts, quotes and assets — ready to lift into an article without the back-and-forth."
+        kicker="ModYu electronic press kit"
+        title="HT4"
+        lede="A clinic-led, four-phase aftercare system — and the stories, facts and assets around it."
         columns={[
           {
             kicker: "01",
-            title: "Stories ready to run",
-            body: "Four desk-ready narratives with evidence hooks.",
-            href: pageHref("campaigns"),
+            title: "HT4",
+            body: "Four stages. Four timeframes. How the system works.",
+            href: pageHref("ht4"),
           },
           {
             kicker: "02",
@@ -423,9 +479,9 @@ function Home({
           },
           {
             kicker: "03",
-            title: "The Follicle Files",
-            body: "Living media channel for patient and clinician voices.",
-            href: pageHref("follicle"),
+            title: "Stories ready to run",
+            body: "Four desk-ready narratives with evidence hooks.",
+            href: pageHref("campaigns"),
           },
           {
             kicker: "04",
@@ -685,16 +741,20 @@ function DocBody({ doc, page, extras }: { doc: EpkDoc; page: ModyuPageId; extras
       </>
     );
   }
-  if (page === "system" && doc.system) {
+  if (page === "system" || page === "description" || page === "ht4") {
+    if (!doc.system) return <p>This page is not in the pack.</p>;
     return (
       <>
         {doc.system.intro.map((para) => (
           <p key={para.slice(0, 40)}>{para}</p>
         ))}
-        {doc.system.phases.map((phase) => (
-          <div key={phase.title}>
-            <h2>{phase.title}</h2>
-            <p>{phase.body}</p>
+        {ht4Stages.map((stage, i) => (
+          <div key={stage.id}>
+            <h2>
+              {stage.n} · {stage.beat} — {stage.name}
+            </h2>
+            <p className="epk-note">{stage.time}</p>
+            <p>{doc.system?.phases[i]?.body}</p>
           </div>
         ))}
         {doc.system.close ? <p className="epk-line">{doc.system.close}</p> : null}

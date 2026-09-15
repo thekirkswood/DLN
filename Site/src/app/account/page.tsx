@@ -39,6 +39,7 @@ import { listAppeals } from "@/lib/appeals";
 
 export const metadata = { title: "Account" };
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 function Tile({
   href,
@@ -55,11 +56,11 @@ function Tile({
 }) {
   return (
     <li>
-      <Link href={href} aria-current={on ? "page" : undefined}>
+      <a href={href} aria-current={on ? "page" : undefined}>
         <strong>{label}</strong>
         <span>{hint}</span>
         {bubble ? <em className="tile-bubble">{bubble}</em> : null}
-      </Link>
+      </a>
     </li>
   );
 }
@@ -97,7 +98,6 @@ export default async function AccountPage({
   const mine = studio ? invoices.filter((i) => i.userId === user.id) : invoices;
   const due = mine.filter((i) => i.status === "due");
   const openNotes = comments.filter((c) => !c.planId);
-  const shipped = plans.filter((p) => p.status === "shipped");
   const noticeCount = due.length + openNotes.length;
 
   const studioBook = studio
@@ -285,7 +285,6 @@ export default async function AccountPage({
                   })}
                 </div>
               )}
-              <SiteUpdateLog shipped={shipped} sites={sites} />
             </>
           )}
 
@@ -405,37 +404,6 @@ function PaymentsPanel({
         </p>
       ) : (
         <p className="body bill-note">Nothing unlocked on Various Titles yet.</p>
-      )}
-    </>
-  );
-}
-
-function SiteUpdateLog({
-  shipped,
-  sites,
-}: {
-  shipped: Awaited<ReturnType<typeof plansFor>>;
-  sites: Awaited<ReturnType<typeof clientPlots>>;
-}) {
-  const rows = shipped.slice().sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
-  return (
-    <>
-      <h2>Updates</h2>
-      {rows.length === 0 ? (
-        <p className="body">Nothing new on your sites yet.</p>
-      ) : (
-        rows.map((p) => {
-          const site = sites.find((s) => s.slug === p.plotSlug);
-          return (
-            <div key={p.id} className="plan-card is-shipped">
-              <p className="status">
-                {p.updatedAt.slice(0, 10)}
-                {site ? ` · ${site.name}` : ""}
-              </p>
-              <p className="body">{p.patchNotes || p.title}</p>
-            </div>
-          );
-        })
       )}
     </>
   );

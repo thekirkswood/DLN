@@ -6,6 +6,8 @@ export const SESSION_MAX_AGE = 90 * 24 * 60 * 60;
 export const EPK_COOKIE = "dln_epk";
 export const EPK_MAX_AGE = 30 * 24 * 60 * 60;
 
+const EPOCH = new Date(0);
+
 export type CookieInit = {
   name: string;
   value: string;
@@ -29,9 +31,15 @@ export function cookieSecure(proto?: string | null): boolean {
   return firstHostHeader(proto).toLowerCase() === "https";
 }
 
+/**
+ * Domain attribute, or none.
+ * `.local` is a special-use TLD — `Domain=.dln.local` is often rejected, and a
+ * host-only twin then fights it. Named LAN stays host-only; `/api/auth/lan-enter`
+ * copies the session onto the next name. Live uses `DLN_COOKIE_DOMAIN`.
+ */
 export function sessionCookieDomain(host?: string | null): string | undefined {
   const h = hostnameOf(firstHostHeader(host));
-  if (isDlnLocalHost(h)) return ".dln.local";
+  if (isDlnLocalHost(h)) return undefined;
   const d = process.env.DLN_COOKIE_DOMAIN?.trim();
   return d || undefined;
 }
@@ -44,7 +52,8 @@ function cookieInit(
   proto?: string | null,
   withDomain = true,
 ): CookieInit {
-  const expires = new Date(Date.now() + Math.max(0, maxAge) * 1000);
+  const expires =
+    maxAge <= 0 ? EPOCH : new Date(Date.now() + Math.max(0, maxAge) * 1000);
   const domain = withDomain ? sessionCookieDomain(host) : undefined;
   return {
     name,
@@ -93,17 +102,35 @@ export function cookieHeader(c: CookieInit): string {
   return parts.join("; ");
 }
 
-function appendPair(
+function deadTwin(named: CookieInit, domain?: string): CookieInit {
+  return {
+    ...named,
+    value: "",
+    maxAge: 0,
+    expires: EPOCH,
+    ...(domain ? { domain } : { domain: undefined }),
+  };
+}
+
+/**
+ * One live cookie. Expire the leftover twin so two `dln_session` values cannot
+ * fight (Next collapses duplicate names; browsers send both).
+ */
+function appendLive(
   headers: Headers,
   named: CookieInit,
+  host?: string | null,
 ) {
   headers.append("Set-Cookie", cookieHeader(named));
   if (named.domain) {
-    headers.append("Set-Cookie", cookieHeader({ ...named, domain: undefined }));
+    headers.append("Set-Cookie", cookieHeader(deadTwin(named)));
+    return;
+  }
+  if (isDlnLocalHost(hostnameOf(firstHostHeader(host)))) {
+    headers.append("Set-Cookie", cookieHeader(deadTwin(named, ".dln.local")));
   }
 }
 
-/** Domain cookie plus host-only twin. Browsers that reject Domain=.dln.local still keep this host. */
 export function appendSessionCookies(
   headers: Headers,
   token: string,
@@ -111,7 +138,7 @@ export function appendSessionCookies(
   proto?: string | null,
   maxAge = SESSION_MAX_AGE,
 ) {
-  appendPair(headers, sessionCookieFields(token, maxAge, host, proto));
+  appendLive(headers, sessionCookieFields(token, maxAge, host, proto), host);
 }
 
 export function appendEpkCookies(
@@ -121,10 +148,10 @@ export function appendEpkCookies(
   proto?: string | null,
   maxAge = EPK_MAX_AGE,
 ) {
-  appendPair(headers, epkCookieFields(kitId, host, proto, maxAge));
+  appendLive(headers, epkCookieFields(kitId, host, proto, maxAge), host);
 }
 
-/** Every dln_session value on the request. Host-only and Domain twins can both be present. */
+/** Every dln_session value on the request. Leftover twins may still arrive until they expire. */
 export function sessionTokensFromHeader(cookieHeader?: string | null): string[] {
   const seen = new Set<string>();
   for (const part of (cookieHeader || "").split(";")) {
