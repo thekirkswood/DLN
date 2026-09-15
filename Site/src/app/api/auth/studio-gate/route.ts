@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
+import { getSessionUser } from "@/lib/session";
 import { publicUrl } from "@/lib/public-url";
 
 export const dynamic = "force-dynamic";
@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
  * Studio session check. Clients stay off studio APIs.
  */
 export async function GET(req: NextRequest) {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   if (!user) {
     return NextResponse.redirect(publicUrl(req, "/login?next=/account"), 302);
   }

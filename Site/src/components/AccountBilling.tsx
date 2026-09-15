@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export function CloseEnquiry({ id }: { id: string }) {
@@ -153,6 +153,23 @@ export function IssueButton({ invoiceId }: { invoiceId: string }) {
   );
 }
 
+export function ProfileHead({
+  displayName,
+  userId,
+  hasAvatar,
+}: {
+  displayName: string;
+  userId: string;
+  hasAvatar: boolean;
+}) {
+  return (
+    <div className="account-head">
+      <AvatarSlot userId={userId} hasAvatar={hasAvatar} />
+      <h1>{displayName}</h1>
+    </div>
+  );
+}
+
 export function ProfileForm({
   displayName,
   userId,
@@ -162,47 +179,8 @@ export function ProfileForm({
   userId: string;
   hasAvatar: boolean;
 }) {
-  const router = useRouter();
-  const [name, setName] = useState(displayName);
-  const [error, setError] = useState("");
-  const [pending, setPending] = useState(false);
-
-  async function onName(e: FormEvent) {
-    e.preventDefault();
-    setError("");
-    setPending(true);
-    const res = await fetch("/api/account/profile", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ displayName: name }),
-    });
-    setPending(false);
-    if (!res.ok) {
-      setError("Name didn’t save.");
-      return;
-    }
-    router.refresh();
-  }
-
   return (
-    <div className="profile-card">
-      <AvatarSlot userId={userId} hasAvatar={hasAvatar} onBusy={setPending} onError={setError} />
-      <div>
-        <form onSubmit={onName}>
-          <label htmlFor="displayName">Name</label>
-          <input
-            id="displayName"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <button type="submit" disabled={pending}>
-            {pending ? "…" : "Save"}
-          </button>
-        </form>
-        {error ? <p className="err">{error}</p> : null}
-      </div>
-    </div>
+    <ProfileHead displayName={displayName} userId={userId} hasAvatar={hasAvatar} />
   );
 }
 

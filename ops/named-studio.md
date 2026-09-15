@@ -15,6 +15,8 @@ Dave bookmarks names, not ports. Debian Caddy on **:80** sends them to the sitti
 
 Backup if a name fails: `http://192.168.0.223:3010` (and the same IP with the house’s port).
 
+Campus signed-in plus-select uses those **IP:port** binds in the homepage window, and calls the house if the port is quiet (`ops/wake-house.sh`). Live `designlabnorth.com` uses the same window with public domains. Do not iframe subdomains from the homeserver.
+
 Cookie `dln_session` uses `Domain=.dln.local` on those names so Sign in on `dln.local` follows Dave to `builder.dln.local`, plus a host-only twin. Lab copies the hub session through `/api/auth/lan-enter` if the Domain cookie does not travel. Live `designlabnorth.com` keeps `.designlabnorth.com`. localhost on Ewan’s tower stays host-only. Max-Age is ninety days, refreshed as they walk.
 
 ## Debian

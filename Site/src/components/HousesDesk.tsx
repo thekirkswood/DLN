@@ -4,6 +4,18 @@ import { useEffect, useState } from "react";
 import { HOUSE_LIVE, LAN_HOUSES, LAN_IP, namedOrigin, pressKitId, isDlnLocalHost } from "@/lib/lan-names";
 import { epkHref } from "@/lib/epk-map";
 
+function carry(href: string, hereOrigin: string): string {
+  try {
+    const dest = new URL(href, hereOrigin || "http://dln.local");
+    if (hereOrigin && dest.origin === hereOrigin) {
+      return `${dest.pathname}${dest.search}${dest.hash}` || "/";
+    }
+    return `/api/auth/lan-enter?next=${encodeURIComponent(dest.toString())}`;
+  } catch {
+    return href;
+  }
+}
+
 export function HousesDesk() {
   const [host, setHost] = useState("");
   const [origin, setOrigin] = useState("");
@@ -40,7 +52,7 @@ export function HousesDesk() {
                   <span className="status">:{row.port}</span>
                 </td>
                 <td>
-                  <a href={local} target="_blank" rel="noreferrer">
+                  <a href={carry(local, hub)} target="_blank" rel="noreferrer">
                     View site
                   </a>
                   <span className="status">{row.host}</span>
@@ -60,9 +72,13 @@ export function HousesDesk() {
                 <td>
                   {press ? (
                     <>
-                      <a href={`${hub}${epkHref(press)}`}>View EPK</a>
+                      <a href={epkHref(press)}>View EPK</a>
                       <span className="status houses-press-live">
-                        <a href={`https://designlabnorth.com${epkHref(press)}`} target="_blank" rel="noreferrer">
+                        <a
+                          href={carry(`https://designlabnorth.com${epkHref(press)}`, hub)}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
                           Live kit
                         </a>
                       </span>

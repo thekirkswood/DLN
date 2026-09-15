@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { isImageHref, isPdfHref, isShared } from "@/lib/assets-view";
+import { EpkStudioStamp } from "@/components/EpkStudioStamp";
 import { firstLogo, laneStill } from "@/lib/epk-cover";
 import { isShown, livePromos, liveStories, type KitContent, type EpkStory } from "@/lib/epk-content-model";
 import type { EpkDoc, VaultLaneId } from "@/lib/epk-doc";
@@ -114,9 +115,7 @@ export function EpkKitApp({
           <strong>{doc.product}</strong>
           <span>{doc.kitTitle}</span>
         </Link>
-        <Link className="epk-map__word" href={epkHref(kit)}>
-          {doc.product}
-        </Link>
+        <EpkStudioStamp />
         <div className="epk-map__marks">
           {(logos.length ? logos : mark ? [mark] : []).slice(0, 2).map((row) =>
             isImageHref(row.href) ? (

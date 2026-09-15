@@ -47,7 +47,14 @@ export function continueAfterLogin(next: string, hereOrigin?: string): string {
         return `${u.pathname}${u.search}${u.hash}` || "/account";
       }
     }
-    if (isDlnLocalHost(u.hostname) || isPrivateIpv4(u.hostname) || u.hostname === "localhost") {
+    const host = u.hostname.toLowerCase();
+    if (
+      isDlnLocalHost(host) ||
+      isPrivateIpv4(host) ||
+      host === "localhost" ||
+      host === "designlabnorth.com" ||
+      host === "www.designlabnorth.com"
+    ) {
       return `/api/auth/lan-enter?next=${encodeURIComponent(dest)}`;
     }
   } catch {

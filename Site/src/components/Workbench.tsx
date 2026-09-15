@@ -58,6 +58,10 @@ type PlotPeek = {
   status: string;
   party: string;
   hostUrl: string | null;
+  buildUrl: string | null;
+  previewUrl: string | null;
+  plane?: "build" | "live";
+  port?: number | null;
   enterUrl: string | null;
   sandbox: string;
   kit: string | null;
@@ -558,6 +562,7 @@ export function Workbench({
               ways={ways}
               plot={me ? plots.find((p) => p.slug === lastPlot) || plots[0] || null : null}
               plots={me ? plots : []}
+              lab={lab}
               showBoard={lab && studio}
               onPickPlot={(slug) => {
                 setLastPlot(slug);
@@ -670,6 +675,7 @@ function Land({
   ways,
   plot,
   plots,
+  lab = false,
   showBoard,
   onPickPlot,
 }: {
@@ -680,10 +686,12 @@ function Land({
   ways: Ways;
   plot: PlotPeek | null;
   plots: PlotPeek[];
+  lab?: boolean;
   showBoard?: boolean;
   onPickPlot: (slug: string) => void;
 }) {
   const kit = plot ? plot.kit || pressKitForPlot(plot.slug) : null;
+  const door = plot?.previewUrl || (lab ? plot?.buildUrl : plot?.hostUrl) || null;
   return (
     <div className="campus-ticket-wrap">
       <div className="campus-ticket-tabs">
@@ -776,9 +784,9 @@ function Land({
           <div className="campus-plot-stuff">
             <p className="bench-kicker">{plot.name}</p>
             <div className="campus-plot-doors">
-              {plot.hostUrl ? (
-                <a href={plot.hostUrl} target="_blank" rel="noreferrer">
-                  Live host
+              {door ? (
+                <a href={door} target="_blank" rel="noreferrer">
+                  {lab ? door.replace(/^https?:\/\//, "") : "Live host"}
                 </a>
               ) : null}
               {kit ? <Link href={epkHref(kit)}>Press pack</Link> : null}
@@ -786,18 +794,67 @@ function Land({
                 <a href={`/board?plot=${encodeURIComponent(plot.slug)}`}>Board</a>
               ) : null}
             </div>
-            {plot.hostUrl ? (
-              <div className="campus-plot-preview chamfer">
-                <iframe
-                  title={`${plot.name} live host`}
-                  src={plot.hostUrl}
-                  loading="lazy"
-                />
-              </div>
-            ) : null}
+            {door ? <PlotWindow plot={plot} lab={lab} src={door} /> : null}
           </div>
         ) : null}
       </div>
+    </div>
+  );
+}
+
+function PlotWindow({
+  plot,
+  lab,
+  src,
+}: {
+  plot: PlotPeek;
+  lab: boolean;
+  src: string;
+}) {
+  const [frame, setFrame] = useState(lab ? "" : src);
+  const [note, setNote] = useState(lab ? "Calling the house." : "");
+
+  useEffect(() => {
+    let alive = true;
+    if (!lab) {
+      setFrame(src);
+      setNote("");
+      return;
+    }
+    setFrame("");
+    setNote("Calling the house.");
+    fetch(`/api/houses/wake?plot=${encodeURIComponent(plot.slug)}`, {
+      credentials: "include",
+      cache: "no-store",
+    })
+      .then((res) => res.json())
+      .then((data: { ok?: boolean; called?: boolean; url?: string }) => {
+        if (!alive) return;
+        setFrame(data.url || src);
+        if (data.ok) setNote("");
+        else if (data.called) setNote("Called — if it stays blank, the port is still coming up.");
+        else setNote("Port quiet — the link is the IP.");
+      })
+      .catch(() => {
+        if (!alive) return;
+        setFrame(src);
+        setNote("Port quiet — the link is the IP.");
+      });
+    return () => {
+      alive = false;
+    };
+  }, [lab, plot.slug, src]);
+
+  return (
+    <div className="campus-plot-preview chamfer">
+      {note ? <p className="campus-plot-note">{note}</p> : null}
+      {frame ? (
+        <iframe
+          title={lab ? `${plot.name} build` : `${plot.name} live host`}
+          src={frame}
+          loading="lazy"
+        />
+      ) : null}
     </div>
   );
 }

@@ -20,7 +20,9 @@ export function laneStill(
     return sectionItems(items, "logos").find((item) => isImageHref(item.href)) || coverItem(items, "logos");
   }
   if (lane === "founder") {
-    return sectionItems(items, "people").find((item) => isImageHref(item.href)) || coverItem(items, "founder");
+    const cover = coverItem(items, "founder");
+    if (cover && isImageHref(cover.href)) return cover;
+    return firstPeople(items);
   }
   if (lane === "product") {
     return (
@@ -43,5 +45,7 @@ export function firstBanner(items: AssetItem[]): AssetItem | undefined {
 }
 
 export function firstPeople(items: AssetItem[]): AssetItem | undefined {
-  return sectionItems(items, "people").find((item) => isImageHref(item.href)) || coverItem(items, "founder");
+  const people = sectionItems(items, "people").filter((item) => isImageHref(item.href));
+  const named = people.find((item) => /ann-marie|annmarie/i.test(item.href));
+  return named || coverItem(items, "founder") || people[0];
 }

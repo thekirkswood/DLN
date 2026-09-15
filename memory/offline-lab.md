@@ -30,7 +30,7 @@ Dave’s bookmark: **http://builder.dln.local** (backup `http://192.168.0.223:31
 | Dave Kirkwood Studio | `/home/main/DKS` | `_meta/lab-inbox` | dks.dln.local | `:3040` |
 | DAA | `/home/main/DAA` | `_meta/lab-inbox` | daa.dln.local | `:3050` |
 
-Registry: `/home/main/Repos/Builder/houses.json`. Greenhouse `plots.json` stays public product copy.
+Registry: `/home/main/Repos/Builder/houses.json`. Hub `greenhouse/plots.json` is the **book** (including private client plots such as DAA). The greenhouse **wall** is `public: true` studio products only. Quote `memory/builder-site-tabs.md` for the lab tab strip.
 
 ## Agent loop (Builder Cursor)
 

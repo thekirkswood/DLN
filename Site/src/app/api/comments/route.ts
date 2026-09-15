@@ -1,10 +1,10 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, userFromSession } from "@/lib/auth";
+
+import { getSessionUser } from "@/lib/session";
 import { addComment } from "@/lib/plans";
 
 export async function POST(req: NextRequest) {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   if (!user) return NextResponse.json({ ok: false }, { status: 401 });
   const body = (await req.json().catch(() => null)) as {
     plotSlug?: string;

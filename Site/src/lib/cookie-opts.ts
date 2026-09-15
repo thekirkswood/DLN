@@ -123,3 +123,18 @@ export function appendEpkCookies(
 ) {
   appendPair(headers, epkCookieFields(kitId, host, proto, maxAge));
 }
+
+/** Every dln_session value on the request. Host-only and Domain twins can both be present. */
+export function sessionTokensFromHeader(cookieHeader?: string | null): string[] {
+  const seen = new Set<string>();
+  for (const part of (cookieHeader || "").split(";")) {
+    const cut = part.trim();
+    if (!cut) continue;
+    const eq = cut.indexOf("=");
+    if (eq < 1) continue;
+    const name = cut.slice(0, eq).trim();
+    const value = cut.slice(eq + 1).trim();
+    if (name === SESSION_COOKIE && value) seen.add(value);
+  }
+  return Array.from(seen);
+}

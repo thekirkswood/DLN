@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, userFromSession } from "@/lib/auth";
+
+import { getRequestUser } from "@/lib/session";
 import { clientIpFrom } from "@/lib/client-ip";
 import { ipIsBlocked } from "@/lib/block";
 
@@ -10,7 +11,7 @@ export async function GET(req: NextRequest) {
   if (req.headers.get("x-dln-ip-gate") !== "watch") {
     return new NextResponse(null, { status: 404, headers: { "Cache-Control": "no-store" } });
   }
-  const user = await userFromSession(req.cookies.get(COOKIE)?.value);
+  const user = await getRequestUser(req);
   if (user) {
     return new NextResponse(null, { status: 204, headers: { "Cache-Control": "no-store" } });
   }

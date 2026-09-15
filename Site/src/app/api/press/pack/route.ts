@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
+import { getRequestUser } from "@/lib/session";
 import { listAssets, pressPack, publicHref } from "@/lib/assets";
 import { EPK_COOKIE, canViewKit, isKitId, kitFromCookieValue } from "@/lib/epk";
 import { kitCopyDraft, resolvedKitCopy } from "@/lib/epk-copy-store";
@@ -8,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 /** Press pack for one kit. Studio, tagged client, or a matching EPK cookie. */
 export async function GET(req: NextRequest) {
-  const user = await userFromSession(req.cookies.get(COOKIE)?.value);
+  const user = await getRequestUser(req);
   const cookieKit = kitFromCookieValue(req.cookies.get(EPK_COOKIE)?.value);
   const asked = (req.nextUrl.searchParams.get("kit") || "").trim().toLowerCase();
   const kit = isKitId(asked) ? asked : cookieKit;

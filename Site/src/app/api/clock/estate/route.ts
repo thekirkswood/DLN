@@ -1,15 +1,15 @@
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
 import { buildEstate } from "@/lib/clock-estate";
 import { emitClock } from "@/lib/clock-store";
+import { sessionFromRequest } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const token = cookies().get(COOKIE)?.value || "";
-  const user = await userFromSession(token);
-  if (!user || !isStudio(user)) {
+  const hit = await sessionFromRequest();
+  if (!hit || !isStudio(hit.user)) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
   await emitClock({
@@ -17,11 +17,11 @@ export async function GET() {
     host: "lab",
     plane: "studio",
     kind: "studio.clock.open",
-    actor: user.email,
-    summary: `${user.displayName} opened the overlay`,
+    actor: hit.user.email,
+    summary: `${hit.user.displayName} opened the overlay`,
   });
   const estate = await buildEstate({
-    token,
+    token: hit.token,
     hostHeader: headers().get("host"),
   });
   return NextResponse.json(estate);

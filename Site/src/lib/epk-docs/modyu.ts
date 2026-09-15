@@ -211,7 +211,7 @@ export const modyuDoc: EpkDoc = {
     ],
   },
   system: {
-    title: "The HT4 system",
+    title: "The HT4 System Description",
     intro: [
       "HT4 organises care by patient need, not product type. It follows one connected journey — Prepare, Protect, Recover, Continue — across four phases, because a healing scalp needs different things at different stages and no single product can respond to all of them. The phase timings are built around the published science of when grafts progress from vulnerable to secure.",
     ],
@@ -236,7 +236,7 @@ export const modyuDoc: EpkDoc = {
     close: "Four phases. One connected system.",
   },
   evidence: {
-    title: "Clinical evidence",
+    title: "The Evidence",
     intro:
       "HT4 rests on three complementary bodies of evidence, each doing a distinct job, plus independent testing of the products themselves. Stated plainly — and with the limits kept intact.",
     blocks: [
@@ -271,7 +271,7 @@ export const modyuDoc: EpkDoc = {
     ],
   },
   claims: {
-    title: "Responsible claims",
+    title: "What we claim and what we don't",
     intro: [
       "Being straight about the limits of our products is a core part of what ModYu stands for. It’s also, we think, why the rest of what we say can be trusted.",
     ],

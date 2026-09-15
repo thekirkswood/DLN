@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
+import { getRequestUser } from "@/lib/session";
 import {
   addAssetComment,
   addTextAsset,
@@ -19,7 +20,7 @@ export const runtime = "nodejs";
 const MAX_BYTES = 18 * 1024 * 1024;
 
 export async function GET(req: NextRequest) {
-  const user = await userFromSession(req.cookies.get(COOKIE)?.value);
+  const user = await getRequestUser(req);
   if (!user) return NextResponse.json({ ok: false, error: "sign in" }, { status: 401 });
   const seed = req.nextUrl.searchParams.get("seed") === "1" && isStudio(user);
   const index = seed ? await seedAssets() : await listAssets();
@@ -40,7 +41,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await userFromSession(req.cookies.get(COOKIE)?.value);
+  const user = await getRequestUser(req);
   if (!user) return NextResponse.json({ ok: false, error: "sign in" }, { status: 401 });
   const ctype = req.headers.get("content-type") || "";
   if (ctype.includes("multipart/form-data")) {

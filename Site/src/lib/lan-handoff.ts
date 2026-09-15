@@ -19,9 +19,14 @@ const LAN_PORTS = new Set(["80", "443", ...LAN_HOUSES.map((h) => String(h.port))
 
 export type LanTarget = { origin: string; path: string };
 
+function isLiveHub(host: string): boolean {
+  return host === "designlabnorth.com" || host === "www.designlabnorth.com";
+}
+
 function allowedOrigin(u: URL): boolean {
   const host = u.hostname.toLowerCase();
   const port = u.port || (u.protocol === "https:" ? "443" : "80");
+  if (u.protocol === "https:" && isLiveHub(host) && (port === "443" || !u.port)) return true;
   if (u.protocol !== "http:") return false;
   if (isDlnLocalHost(host) && (port === "80" || LAN_PORTS.has(port))) return true;
   if (host === LAN_IP && LAN_PORTS.has(port)) return true;

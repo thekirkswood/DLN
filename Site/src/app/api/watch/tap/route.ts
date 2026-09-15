@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE } from "@/lib/auth";
+import { sessionTokensFromHeader } from "@/lib/cookie-opts";
 import { clientIpFrom } from "@/lib/trap";
 import { ipIsBlocked, noteBlockedHit } from "@/lib/block";
 import { looksLikeProbe } from "@/lib/trap-paths";
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     path,
     ua,
     cookie: req.cookies.get(WATCH_COOKIE)?.value === "1",
-    token: req.cookies.get(COOKIE)?.value,
+    token: sessionTokensFromHeader(req.headers.get("cookie"))[0],
   });
   return new NextResponse(null, { status: 204 });
 }

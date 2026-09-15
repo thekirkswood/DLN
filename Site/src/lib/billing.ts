@@ -418,6 +418,12 @@ export async function listRolls(): Promise<Roll[]> {
   return readJson<Roll>(ROLLS);
 }
 
+export async function rollsForUser(user: PublicUser): Promise<Roll[]> {
+  const rows = await listRolls();
+  if (isStudio(user)) return rows;
+  return rows.filter((r) => r.userId === user.id);
+}
+
 export async function invoiceById(id: string): Promise<Invoice | undefined> {
   return (await listInvoices()).find((i) => i.id === id);
 }

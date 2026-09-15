@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, canAccessPlot, isStudio, userFromSession } from "@/lib/auth";
+import { canAccessPlot, isStudio } from "@/lib/auth";
+import { getSessionUser } from "@/lib/session";
 import { enterUrlFor, plotBySlug } from "@/lib/plots";
 import { plotShutFor } from "@/lib/billing";
 import { hubOrigin } from "@/lib/public-url";
@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
   if (!plot) {
     return NextResponse.redirect(`${hub}/`, 302);
   }
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   if (!user) {
     const live = enterUrlFor(plot);
     const next = live || `${hub}/greenhouse/${plot.slug}`;

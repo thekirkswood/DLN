@@ -1,15 +1,13 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 import {
   AVATARS,
-  COOKIE,
   findUserById,
   isStudio,
   setAvatar,
-  userFromSession,
 } from "@/lib/auth";
+import { getSessionUser } from "@/lib/session";
 
 const MAX = 8_000_000;
 const EXTS = ["jpg", "jpeg", "png", "webp"] as const;
@@ -44,7 +42,7 @@ function sniff(buf: Buffer, declared: string): string | null {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   if (!user) return NextResponse.json({ ok: false }, { status: 401 });
   const form = await req.formData().catch(() => null);
   const blob = form?.get("file");

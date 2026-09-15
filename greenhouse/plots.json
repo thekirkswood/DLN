@@ -90,5 +90,40 @@
     "logoPaper": "/plots/choozlist.png",
     "logoInk": "/plots/choozlist.png",
     "voice": "The life registry. What you find gets kept: created, browsed, and documented, curated to you and to the people around you. Not another stream to scroll. A place that remembers, for a life that is already underway. It is growing, open to beta testers at create@wishwell.uk."
+  },
+  {
+    "slug": "daa",
+    "name": "Digital Adoption Advisor",
+    "status": "rebuilding",
+    "kind": "rebuild",
+    "party": "client",
+    "hosts": ["daa.designlabnorth.com"],
+    "enterUrl": "https://daa.designlabnorth.com",
+    "localPreview": "http://daa.dln.local",
+    "public": false,
+    "voice": "Design Lab North are rebuilding Digital Adoption Advisor.",
+    "lab": {
+      "housePath": "/home/main/DAA",
+      "localPort": 3050,
+      "github": "thekirkswood/daa",
+      "inboxRel": "_meta/lab-inbox"
+    }
+  },
+  {
+    "slug": "dks",
+    "name": "Dave Kirkwood",
+    "status": "growing",
+    "kind": "brand",
+    "party": "studio",
+    "hosts": ["davekirkwood.com"],
+    "enterUrl": "https://davekirkwood.com",
+    "localPreview": "http://dks.dln.local",
+    "public": false,
+    "voice": "Dave Kirkwood’s site.",
+    "lab": {
+      "housePath": "/home/main/DKS",
+      "localPort": 3040,
+      "inboxRel": "_meta/lab-inbox"
+    }
   }
 ]

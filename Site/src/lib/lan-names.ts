@@ -38,6 +38,13 @@ export function pressKitId(houseId: string): string | null {
   return houseId;
 }
 
+export function lanPortForPlot(slug: string): number | null {
+  if (slug === "swarm" || slug === "swarm-web") {
+    return LAN_HOUSES.find((h) => h.id === "swarm-web")?.port ?? null;
+  }
+  return LAN_HOUSES.find((h) => h.id === slug)?.port ?? null;
+}
+
 export function namedOrigin(id: string): string | null {
   const row = LAN_HOUSES.find((h) => h.id === id);
   return row ? `http://${row.host}` : null;

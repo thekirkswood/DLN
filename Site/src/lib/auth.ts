@@ -8,7 +8,7 @@ import {
 } from "crypto";
 import { headers } from "next/headers";
 import { isLabHost } from "@/lib/lab-host";
-import { isHomeTicket, verifyHomeTicket } from "@/lib/home-ticket";
+import { isHomeTicket, signHomeTicket, verifyHomeTicket } from "@/lib/home-ticket";
 import { emitClock } from "@/lib/clock-store";
 import {
   SESSION_COOKIE,
@@ -391,6 +391,19 @@ export async function createClient(input: {
   return { user: pub(user), password };
 }
 
+export async function portableStudioToken(
+  user: PublicUser,
+  token: string,
+): Promise<string> {
+  if (!isStudio(user) || isHomeTicket(token)) return token;
+  return (
+    (await signHomeTicket({
+      email: user.email,
+      role: user.role === "owner" ? "owner" : "studio",
+    })) || token
+  );
+}
+
 /** Keep a live session from going stale while they walk the site. */
 export async function touchSession(token: string | undefined): Promise<PublicUser | null> {
   const user = await userFromSession(token);
@@ -443,19 +456,29 @@ export async function login(
   const user = users.find((u) => u.email.toLowerCase() === needle);
   if (!user || !verifyPassword(password, user.passwordHash)) return null;
   if (!canHubLogin(user)) return null;
-  const token = randomBytes(32).toString("hex");
   const now = new Date();
   const expires = new Date(now.getTime() + SESSION_DAYS * 86400000);
   user.lastLogin = now.toISOString();
   await writeJson(USERS, users);
-  const sessions = await readJson<Session>(SESSIONS);
-  sessions.push({
-    token,
-    userId: user.id,
-    createdAt: now.toISOString(),
-    expiresAt: expires.toISOString(),
-  });
-  await writeJson(SESSIONS, sessions);
+  let token = "";
+  if (isStudio(pub(user))) {
+    token =
+      (await signHomeTicket({
+        email: user.email,
+        role: user.role === "owner" ? "owner" : "studio",
+      })) || "";
+  }
+  if (!token) {
+    token = randomBytes(32).toString("hex");
+    const sessions = await readJson<Session>(SESSIONS);
+    sessions.push({
+      token,
+      userId: user.id,
+      createdAt: now.toISOString(),
+      expiresAt: expires.toISOString(),
+    });
+    await writeJson(SESSIONS, sessions);
+  }
   void emitClock({
     house: "dln",
     host: "lab",

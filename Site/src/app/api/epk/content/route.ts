@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
+import { getRequestUser } from "@/lib/session";
 import { canEditKit, canViewKit, isKitId } from "@/lib/epk";
 import {
   deletePromo,
@@ -18,7 +19,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  const user = await userFromSession(req.cookies.get(COOKIE)?.value);
+  const user = await getRequestUser(req);
   const kit = (req.nextUrl.searchParams.get("kit") || "").trim().toLowerCase();
   if (!isKitId(kit)) return NextResponse.json({ ok: false, error: "kit" }, { status: 400 });
   const cookieKit = req.cookies.get("dln_epk")?.value;
@@ -36,7 +37,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await userFromSession(req.cookies.get(COOKIE)?.value);
+  const user = await getRequestUser(req);
   if (!user) return NextResponse.json({ ok: false, error: "sign in" }, { status: 401 });
   const body = (await req.json().catch(() => null)) as {
     kit?: string;

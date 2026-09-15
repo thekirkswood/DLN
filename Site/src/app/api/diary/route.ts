@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
+import { getSessionUser } from "@/lib/session";
 import {
   bookingsForUser,
   cancelBooking,
@@ -16,7 +16,7 @@ import { londonStartOfDay } from "@/lib/clock";
 import type { Stage } from "@/data/catalogue";
 
 export async function GET(req: NextRequest) {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   const url = req.nextUrl;
   const mine = url.searchParams.get("mine");
   if (mine) {
@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   if (!user) return NextResponse.json({ ok: false }, { status: 401 });
   const body = (await req.json().catch(() => null)) as {
     action?: string;

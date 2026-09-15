@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE } from "@/lib/auth";
+import { sessionTokensFromHeader } from "@/lib/cookie-opts";
 import { isTrapPath, looksLikeProbe } from "@/lib/trap-paths";
 import { clientIpFrom, recordTrip } from "@/lib/trap";
 import { setWatchCookie } from "@/lib/watch";
@@ -31,7 +31,7 @@ async function catchTrip(req: NextRequest) {
     host,
     path,
     ua: req.headers.get("user-agent") || "",
-    token: req.cookies.get(COOKIE)?.value,
+    token: sessionTokensFromHeader(req.headers.get("cookie"))[0],
   });
   return gone(req);
 }

@@ -1,13 +1,13 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession, createClient, isPuppetEmail } from "@/lib/auth";
+import { isStudio, createClient, isPuppetEmail } from "@/lib/auth";
+import { getSessionUser } from "@/lib/session";
 import { allPlots } from "@/lib/plots";
 import { enquiryById, markEnquiryOnboarded } from "@/lib/enquiries";
 import { localHandleFromName } from "@/lib/handles";
 import { sendStudioMail } from "@/lib/mail";
 
 export async function POST(req: NextRequest) {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   if (!user || !isStudio(user)) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }

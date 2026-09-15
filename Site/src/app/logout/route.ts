@@ -1,12 +1,12 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, logout } from "@/lib/auth";
-import { appendSessionCookies } from "@/lib/cookie-opts";
+import { logout } from "@/lib/auth";
+import { appendSessionCookies, sessionTokensFromHeader } from "@/lib/cookie-opts";
 import { publicUrl } from "@/lib/public-url";
 
 export async function GET(req: NextRequest) {
-  const token = cookies().get(COOKIE)?.value;
-  await logout(token);
+  for (const token of sessionTokensFromHeader(req.headers.get("cookie"))) {
+    await logout(token);
+  }
   const res = NextResponse.redirect(publicUrl(req, "/"), 302);
   appendSessionCookies(
     res.headers,

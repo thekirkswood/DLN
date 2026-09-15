@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
+import { getSessionUser } from "@/lib/session";
 import { addEnquiryMessage, enquiryById } from "@/lib/enquiries";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   } | null;
   const id = body?.id?.trim() || "";
   const text = body?.text?.toString() || "";
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   const studio = Boolean(user && isStudio(user));
   try {
     const row = await addEnquiryMessage({
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const id = req.nextUrl.searchParams.get("id") || "";
   const email = (req.nextUrl.searchParams.get("email") || "").toLowerCase();
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   const row = await enquiryById(id);
   if (!row) return NextResponse.json({ ok: false }, { status: 404 });
   const studio = Boolean(user && isStudio(user));

@@ -8,7 +8,8 @@ export async function generateMetadata({
   params: { slug: string };
 }) {
   const plot = await plotBySlug(params.slug);
-  return { title: plot ? plot.name : "Plot" };
+  if (!plot || !plot.public || plot.party !== "studio") return { title: "Plot" };
+  return { title: plot.name };
 }
 
 export default async function PlotStoryPage({

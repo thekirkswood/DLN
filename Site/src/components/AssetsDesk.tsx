@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { AssetFlags, AssetItem } from "@/lib/assets";
 import { isImageHref, isPdfHref, isShared } from "@/lib/assets-view";
+import { EpkStudioStamp } from "@/components/EpkStudioStamp";
 import { laneStill } from "@/lib/epk-cover";
 import type { KitCover, KitShown } from "@/lib/epk-content-model";
 import { epkHref } from "@/lib/epk-map";
@@ -296,7 +297,7 @@ export function AssetsDesk({ lockedKit }: { lockedKit?: string }) {
             <strong>{kitName}</strong>
             <span>Electronic Press Kit</span>
           </p>
-          <p className="epk-map__word">{kitName}</p>
+          <EpkStudioStamp />
           <div className="epk-map__marks">
             <a className="epk-contact-btn chamfer" href={epkHref(kitFilter)}>
               See it live

@@ -15,9 +15,8 @@ import {
   formatLondonDate,
   payByIso,
 } from "@/lib/clock";
-import { enterUrlFor, hostUrlFor, type Plot } from "@/lib/plot-urls";
+import { enterUrlFor, hostUrlFor, buildUrlFor, type Plot } from "@/lib/plot-urls";
 import { pressKitForPlot, epkHref } from "@/lib/epk-map";
-import { lanOriginForPlot } from "@/lib/lan-names";
 import type { PublicUser } from "@/lib/auth";
 
 function totalOf(inv: Invoice): number {
@@ -105,8 +104,9 @@ function BuildTiles({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
       {rows.map((plot) => {
         const pub = enterUrlFor(plot);
         const host = hostUrlFor(plot);
-        const local = lanOriginForPlot(plot.slug);
+        const local = lab ? buildUrlFor(plot) : null;
         const live = pub || host;
+        const view = lab ? local || host || pub : host || pub;
         const kit = pressKitForPlot(plot.slug);
         return (
           <div key={plot.slug} className="lift-plate">
@@ -117,22 +117,14 @@ function BuildTiles({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
               </div>
               <p className="book-when">{plot.status}</p>
               <div className="book-acts">
-                {local ? (
-                  <a href={local} target="_blank" rel="noreferrer">
-                    View site
-                  </a>
-                ) : host ? (
-                  <a href={host} target="_blank" rel="noreferrer">
-                    View site
-                  </a>
-                ) : pub ? (
-                  <a href={pub} target="_blank" rel="noreferrer">
+                {view ? (
+                  <a href={view} target="_blank" rel="noreferrer">
                     View site
                   </a>
                 ) : (
                   <Link href={plot.localPreview}>Story</Link>
                 )}
-                {live && live !== local ? (
+                {live && live !== view ? (
                   <a href={live} target="_blank" rel="noreferrer">
                     Open live
                   </a>

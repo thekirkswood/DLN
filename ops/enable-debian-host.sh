@@ -12,8 +12,11 @@ cp "$ROOT/ops/debian-modyu.service" "$UNIT_DIR/debian-modyu.service"
 cp "$ROOT/ops/debian-vt.service" "$UNIT_DIR/debian-vt.service"
 cp "$ROOT/ops/debian-swarm-api.service" "$UNIT_DIR/debian-swarm-api.service"
 cp "$ROOT/ops/debian-swarm-web.service" "$UNIT_DIR/debian-swarm-web.service"
+cp "$ROOT/ops/debian-daa.service" "$UNIT_DIR/debian-daa.service"
+cp "$ROOT/ops/debian-pfp.service" "$UNIT_DIR/debian-pfp.service"
+cp "$ROOT/ops/debian-dks.service" "$UNIT_DIR/debian-dks.service"
 systemctl --user daemon-reload
-systemctl --user enable --now campus.service debian-modyu.service debian-vt.service debian-swarm-api.service debian-swarm-web.service campus-watch.timer
+systemctl --user enable --now campus.service debian-modyu.service debian-vt.service debian-swarm-api.service debian-swarm-web.service debian-daa.service debian-pfp.service debian-dks.service campus-watch.timer
 echo "Linger: sudo loginctl enable-linger $USER"
 echo "Never-sleep: sudo $ROOT/ops/never-sleep.sh"
 echo "Campus (production): http://192.168.0.223:3010"

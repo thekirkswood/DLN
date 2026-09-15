@@ -104,6 +104,7 @@ function defaultNote(href: string): string | undefined {
     return "ModYu mark on a dark ground.";
   }
   if (h.includes("/press/modyu/") && /logo/.test(h)) return "ModYu mark.";
+  if (/ann-marie|annmarie/.test(h)) return "Ann-Marie Barlow, ModYu.";
   if (h.includes("people-hero")) return "People still from the ModYu house.";
   if (h.includes("ht4-system-banner") || h.includes("ht4-system.png") || h.includes("ht4-system-main")) {
     return "HT4 system still.";
@@ -159,7 +160,7 @@ export function guessKit(href: string): string | undefined {
 
 function defaultFlags(href: string): AssetFlags {
   if (autoPackHref(href)) {
-    const people = /mark-barlow|greisy-flores|\/people\/council|founder-headshot|ht4-people-hero|people-lead/.test(
+    const people = /ann-marie|annmarie|mark-barlow|greisy-flores|\/people\/council|ht4-people-hero|people-lead/.test(
       href.toLowerCase(),
     );
     const logo =
@@ -168,6 +169,26 @@ function defaultFlags(href: string): AssetFlags {
     return { pack: true, share: true, ...(logo ? { logo: true } : {}), ...(people ? { people: true } : {}) };
   }
   return {};
+}
+
+/** Founder still is Ann-Marie. founder-headshot.png is aftercare product, not her. */
+function healFounderFlags(item: AssetItem): boolean {
+  const n = item.href.toLowerCase();
+  let dirty = false;
+  if (n.includes("founder-headshot") && item.flags.people) {
+    item.flags = { ...item.flags, people: false };
+    dirty = true;
+  }
+  if (
+    /ann-marie|annmarie/.test(n) &&
+    /\.(jpe?g|png|webp|gif)$/.test(n) &&
+    !item.flags.people
+  ) {
+    item.flags = { ...item.flags, people: true, pack: true, share: true };
+    if (!item.note) item.note = defaultNote(item.href);
+    dirty = true;
+  }
+  return dirty;
 }
 
 export { isImageHref, isShared } from "@/lib/assets-view";
@@ -202,6 +223,7 @@ export async function seedAssets(): Promise<AssetIndex> {
         dirty = true;
       }
     }
+    if (healFounderFlags(item)) dirty = true;
     if (autoPackHref(item.href) && !inPack(item)) {
       item.flags = { ...item.flags, ...defaultFlags(item.href) };
       dirty = true;

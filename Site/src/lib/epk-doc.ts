@@ -109,7 +109,7 @@ export function skipVaultHref(href: string): boolean {
 export function vaultLane(href: string, flags?: { logo?: boolean }): VaultLaneId {
   const n = href.toLowerCase();
   if (
-    /founder-headshot|ht4-people|\/portraits\/|\/dave\.png|people-lead|people-measure|people-build|people-manage|\/media\/people\/|mark-barlow|greisy-flores|\/people\/council/.test(
+    /ann-marie|annmarie|ht4-people|\/portraits\/|\/dave\.png|people-lead|people-measure|people-build|people-manage|\/media\/people\/|mark-barlow|greisy-flores|\/people\/council/.test(
       n,
     )
   ) {
@@ -124,7 +124,7 @@ export function vaultLane(href: string, flags?: { logo?: boolean }): VaultLaneId
     return "logos";
   }
   if (
-    /\/products\/|\/phases\/|bottle|clinic-pack|ht4-system|field-(mist|gold|sand|teal|navy|ink|gap)/.test(n)
+    /\/products\/|\/phases\/|bottle|clinic-pack|ht4-system|founder-headshot|field-(mist|gold|sand|teal|navy|ink|gap)/.test(n)
   ) {
     return "product";
   }
@@ -140,13 +140,18 @@ export function itemsForLane<T extends Packish>(items: T[], lane: VaultLaneId, c
 const COVER_PREFER: Record<VaultLaneId, RegExp> = {
   logos: /logo|mark-as-shipped|\/folliclefiles|\/ht4\.png|\/modyu\.png|\/daa\.png|vt-mute|dln-mute|paulfosbury/i,
   product: /bottles-lineup|clinic-pack\.png|ht4-system-main|field-mist/i,
-  founder: /founder-headshot|ht4-people-hero|people-lead|mark-barlow\.jpg/i,
+  founder: /ann-marie|annmarie|people-lead|mark-barlow\.jpg|ht4-people-hero/i,
   campaigns: /about-follicle|ig-home-1|office-01|hero-mask/i,
 };
 
 export function coverItem<T extends Packish>(items: T[], lane: VaultLaneId): T | undefined {
   const pool = itemsForLane(items, lane, 16);
-  return pool.find((item) => COVER_PREFER[lane].test(item.href)) || pool[0];
+  const preferred = pool.find((item) => COVER_PREFER[lane].test(item.href));
+  if (lane === "founder") {
+    const images = pool.filter((item) => /\.(jpe?g|png|webp|gif|svg)$/i.test(item.href));
+    return images.find((item) => COVER_PREFER[lane].test(item.href)) || images[0] || preferred || pool[0];
+  }
+  return preferred || pool[0];
 }
 
 export function coverPicks<T extends Packish>(items: T[], lanes: EpkLane[], perLane = 1): T[] {

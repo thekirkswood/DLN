@@ -3,11 +3,13 @@
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { isImageHref, isPdfHref, isShared } from "@/lib/assets-view";
+import { EpkStudioStamp } from "@/components/EpkStudioStamp";
 import { firstBanner, firstLogo, firstPeople } from "@/lib/epk-cover";
 import { liveStories, type KitContent, type EpkStory } from "@/lib/epk-content-model";
 import type { EpkDoc, EpkPitch } from "@/lib/epk-doc";
 import {
   extraCampaigns,
+  ht4Menu,
   isModyuPage,
   modyuNav,
   pageHref,
@@ -67,7 +69,9 @@ export function ModyuKitApp({
       ? "home"
       : section === "logos" || section === "banners" || section === "people" || section === "files"
         ? "vault"
-        : isModyuPage(section)
+        : section === "description"
+          ? "system"
+          : isModyuPage(section)
           ? section
           : "home";
   const campaignPrint = section === "campaigns" && print && (pitch || extra);
@@ -122,10 +126,23 @@ export function ModyuKitApp({
   return (
     <div className="epk epk-map epk-modyu">
       <header className="epk-map__bar">
-        <Link className="epk-map__kit" href={pageHref()}>
-          <strong>HT4</strong>
-          <span>Electronic Press Kit</span>
-        </Link>
+        <div className="epk-map__kit epk-ht4-drop">
+          <details className="epk-ht4">
+            <summary>
+              <strong>HT4</strong>
+              <span className="visually-hidden"> menu</span>
+            </summary>
+            <ul>
+              {ht4Menu.map((row) => (
+                <li key={row.href}>
+                  <Link href={row.href}>{row.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </details>
+          <Link href={pageHref()}>Electronic Press Kit</Link>
+        </div>
+        <EpkStudioStamp />
         <nav className="epk-map__marks" aria-label="Press kit">
           <Link href={pageHref("vault")}>Asset vault</Link>
           <Link className="epk-contact-btn chamfer" href={pageHref("contact")}>

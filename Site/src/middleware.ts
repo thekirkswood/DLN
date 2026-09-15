@@ -53,9 +53,18 @@ export function middleware(req: NextRequest) {
   const res = nextWithPath(req);
   if (!shouldRefresh(req.nextUrl.pathname)) return res;
   const proto = req.headers.get("x-forwarded-proto");
-  const session = req.cookies.get(SESSION_COOKIE)?.value;
-  if (session) {
-    appendSessionCookies(res.headers, session, host, proto);
+  const sessions = Array.from(
+    new Set(
+      (req.headers.get("cookie") || "")
+        .split(";")
+        .map((part) => part.trim())
+        .filter((part) => part.startsWith(`${SESSION_COOKIE}=`))
+        .map((part) => part.slice(SESSION_COOKIE.length + 1).trim())
+        .filter(Boolean),
+    ),
+  );
+  if (sessions.length === 1) {
+    appendSessionCookies(res.headers, sessions[0], host, proto);
   }
   const epk = req.cookies.get(EPK_COOKIE)?.value;
   if (epk) {

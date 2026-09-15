@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { COOKIE, userFromSession } from "@/lib/auth";
+
+import { getSessionUser } from "@/lib/session";
 import { boardView, plotForUser, saveBit, addInferenceBit, runBoardPrompt } from "@/lib/board";
 import { boardApiStatus, hostOf } from "@/lib/board-gate";
 
@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function GET(req: NextRequest) {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   const gate = boardApiStatus(user, hostOf(req));
   if (gate !== "ok" || !user) return NextResponse.json({ ok: false }, { status: gate === "ok" ? 401 : gate });
   const want = req.nextUrl.searchParams.get("plot") || "";
@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   const gate = boardApiStatus(user, hostOf(req));
   if (gate !== "ok" || !user) return NextResponse.json({ ok: false }, { status: gate === "ok" ? 401 : gate });
   const body = (await req.json().catch(() => null)) as {

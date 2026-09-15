@@ -33,6 +33,15 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Offline lab: `/home/main/PFP` · `pfp.dln.local` (`:3030`) · inbox `_meta/lab-inbox` · desk `builder.dln.local/pfp`.
 - Access: DLN client record bound to `pfp`. Client sites stay off the greenhouse.
 
+### Digital Adoption Advisor (`daa`)
+
+- Party: client. `public`: false. **On the book, off the wall.**
+- Host: `daa.designlabnorth.com` (reserved live hostname; still redirects to the hub until that plot ships).
+- Kind: rebuild. Status: rebuilding.
+- Voice: Design Lab North are rebuilding Digital Adoption Advisor.
+- Offline lab: `/home/main/DAA` · `daa.dln.local` (`:3050`) · inbox `_meta/lab-inbox` · desk `builder.dln.local/daa`.
+- Access: DLN client record bound to `daa`. Mark Barlow. Studio/owner always. Do not list on the greenhouse.
+
 ## Studio plots
 
 ### Swarm Fund (`swarm`)
@@ -71,7 +80,13 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Public greenhouse story. Enter on the public hub: `https://varioustitles.com`. Lab desk: `builder.dln.local/various-titles`. No “not a shop”. No same-login or shared-billing copy on the public wall.
 - Logos: `Site/public/plots/various-titles.png` (paper, mute grey VT) + `various-titles-white.png` (ink). Plates from Ewan 2026-08-17. Do not redraw.
 
-## Not listed yet
+### Dave Kirkwood (`dks`)
+
+- Party: studio. `public`: false. Dave’s site. **On the book toggle, not the greenhouse wall.**
+- Live: `https://davekirkwood.com`. Campus: `dks.dln.local` (`:3040`).
+- Offline lab: `/home/main/DKS` · inbox `_meta/lab-inbox` · desk `builder.dln.local/dks`. No invented mark.
+
+## Not listed on the wall yet
 
 - Future **client** plots — add a plot file when Ewan names them. Do not invent clients. Do not preview-publish empty cards.
 
@@ -83,4 +98,4 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 4. Cookie on `.designlabnorth.com` opens a gated host. Public greenhouse enter is the product domain when one exists.
 5. Public greenhouse is studio products. Client sites live on `/account`.
 6. Client, after the first month: migrate to their own server + DNS.
-7. Swarm public is swarmfund.com. Choozlist stays story until that house has a public host. Various Titles enter is varioustitles.com. DAA is a reserved hostname only.
+7. Swarm public is swarmfund.com. Choozlist stays story until that house has a public host. Various Titles enter is varioustitles.com. DAA and DKS stay on the account book (`public: false`) — not greenhouse cards.

@@ -945,6 +945,19 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - Make the journalist kit landing and side menu as close as possible to Dave’s HT4 EPK (his `/epk` and MAP), to satisfy that brief, with our touch: more info, nicer, **not a PDF page** on screen.
 - Nav is his two groups with his blurbs. Landing is his modules (hero plate, boilerplate, story, market, stories, vault). Pages that need to align (desk stories) keep **Download PDF**. Chamfered chrome, not the PDF’s rounded boxes. Do not restyle other houses.
 
+## 2026-09-14 — Profile boxes and one session across instances (Ewan)
+
+- A person’s profile is pic + name. No name box, no email on the head. Directly under: Sites, Press kits, Assets, Payments, Notifications — chamfered boxes. Payments is the real book (subs, invoices, receipts). Notifications summarises updates and pending pay. A due invoice sits in Notifications and bubbles Payments.
+- Signing in once must hold while they click those boxes and open kits. Do not ask them to log in again on the same walk. Duplicate `dln_session` cookies were fighting; read every value and keep the one that is live. Campus and live share studio identity via the home ticket, not a file only one machine can see. Client books stay on their host. Do not copy Ann-Marie onto ModYu’s own login.
+
+## 2026-09-14 — EPK is a DLN product; founder is Ann-Marie; campus window is ports (Ewan)
+
+- Stamp **DLN** in the centre of the kit top bar (same product slot as the word at the top of a vault box). House name stays left. This pack is our product.
+- ModYu founder is Ann-Marie. Her headshot lives on the DLN book. `founder-headshot.png` is not her — keep it as aftercare product, never as Founder.
+- Signed-in homepage window: **homeserver = IP:port builds** (call the house if the port is quiet). **Live site = public domains / subdomains**. Same chrome. Do not iframe subdomains from the campus — that mix must not return on a ship.
+- DAA is on the book (`plots.json`, `public: false`) so the toggle cannot lose it. Not a greenhouse card. DKS the same for Dave’s house.
+- Builder gets the same tab behaviour; quote `memory/builder-site-tabs.md`. Do not drop DAA from that rail. Do not restore `/lab`.
+
 
 
 

@@ -10,6 +10,7 @@ export type ModyuPageId =
   | "about"
   | "campaigns"
   | "system"
+  | "description"
   | "evidence"
   | "claims"
   | "facts"
@@ -40,7 +41,6 @@ export function modyuNav(): ModyuNavGroup[] {
       title: "Brand & background",
       blurb: "Company, founder, culture — not the product sheet.",
       items: [
-        { id: "our-story", href: pageHref("our-story"), label: "Our story" },
         { id: "founder", href: pageHref("founder"), label: "Ann-Marie [Founder]" },
         { id: "follicle", href: pageHref("follicle"), label: "The Follicle Files" },
         { id: "quotes", href: pageHref("quotes"), label: "Quote bank" },
@@ -49,12 +49,9 @@ export function modyuNav(): ModyuNavGroup[] {
     },
     {
       title: "Product & service",
-      blurb: "HT4 system, evidence, claims discipline, assets.",
+      blurb: "Stories, facts, assets — HT4 pages sit under the HT4 menu.",
       items: [
         { id: "campaigns", href: pageHref("campaigns"), label: "Stories ready to run" },
-        { id: "system", href: pageHref("system"), label: "The HT4 system" },
-        { id: "evidence", href: pageHref("evidence"), label: "The evidence" },
-        { id: "claims", href: pageHref("claims"), label: "What we claim — and won’t" },
         { id: "facts", href: pageHref("facts"), label: "Fast facts & FAQ" },
         { id: "vault", href: pageHref("vault"), label: "Asset vault" },
         { id: "contact", href: pageHref("contact"), label: "Contact" },
@@ -62,6 +59,13 @@ export function modyuNav(): ModyuNavGroup[] {
     },
   ];
 }
+
+export const ht4Menu: ModyuNavLink[] = [
+  { id: "system", href: pageHref("description"), label: "Description" },
+  { id: "evidence", href: pageHref("evidence"), label: "The Evidence" },
+  { id: "claims", href: pageHref("claims"), label: "What we claim and what we don't" },
+  { id: "our-story", href: pageHref("our-story"), label: "Our Story" },
+];
 
 export const PAGE_IDS = new Set<string>([
   "our-story",
@@ -71,6 +75,7 @@ export const PAGE_IDS = new Set<string>([
   "about",
   "campaigns",
   "system",
+  "description",
   "evidence",
   "claims",
   "facts",
@@ -92,9 +97,9 @@ export function pageTitle(doc: EpkDoc, id: ModyuPageId, pitch?: EpkPitch): strin
   if (id === "follicle") return doc.satellite?.title || "The Follicle Files";
   if (id === "quotes") return "Quote bank";
   if (id === "about") return doc.about?.title || "About ModYu";
-  if (id === "system") return doc.system?.title || "The HT4 system";
-  if (id === "evidence") return doc.evidence?.title || "The evidence";
-  if (id === "claims") return doc.claims?.title || "What we claim — and won’t";
+  if (id === "system" || id === "description") return doc.system?.title || "The HT4 System Description";
+  if (id === "evidence") return doc.evidence?.title || "The Evidence";
+  if (id === "claims") return doc.claims?.title || "What we claim and what we don't";
   if (id === "facts") return "Fast facts & FAQ";
   if (id === "angles") return "Further angles";
   if (id === "vault") return "Asset vault";
@@ -108,5 +113,8 @@ export function extraCampaigns(stories: EpkStory[]): EpkStory[] {
 export function railOn(id: ModyuPageId, pageId: ModyuPageId, section: string): boolean {
   if (id === "campaigns") return section === "campaigns";
   if (id === "vault") return pageId === "vault";
+  if (id === "system" || id === "description") {
+    return pageId === "system" || pageId === "description";
+  }
   return pageId === id;
 }

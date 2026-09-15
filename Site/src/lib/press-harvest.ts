@@ -97,6 +97,8 @@ async function harvestFlat(
 }
 
 const SINGLES: { kit: string; src: string; dest: string }[] = [
+  { kit: "modyu", src: `${HOME}/DLN/Site/public/kit-stills/modyu/ann-marie-barlow.jpg`, dest: "press/modyu/people/ann-marie-barlow.jpg" },
+  { kit: "modyu", src: `${HOME}/DLN/_meta/accounts/avatars/f54e8257-65dd-4856-b533-34fa65c88ebd.jpg`, dest: "press/modyu/people/ann-marie-barlow.jpg" },
   { kit: "modyu", src: `${HOME}/DLN/Site/public/plots/modyu.svg`, dest: "press/modyu/modyu.svg" },
   { kit: "modyu", src: `${HOME}/DLN/Site/public/plots/modyu-white.svg`, dest: "press/modyu/modyu-white.svg" },
   { kit: "modyu", src: `${HOME}/DLN/Site/public/brief/PNGs/logos-13.png`, dest: "press/modyu/logos-13.png" },
@@ -200,6 +202,7 @@ export function autoPackHref(href: string): boolean {
   if (n.includes("logo")) return true;
   if (n.includes("mark-as-shipped") || n.includes("swarm-fund-mark")) return true;
   if (/dln-(mute|white|ink)\./.test(n)) return true;
+  if (n.includes("ann-marie") || n.includes("annmarie")) return true;
   if (n.includes("people-hero") || n.includes("ht4-people-banner") || n.includes("founder-headshot")) return true;
   if (n.includes("ht4-system-banner") || n.includes("ht4-system.png") || n.includes("ht4-system-main")) return true;
   if (n.includes("bottles-lineup")) return true;

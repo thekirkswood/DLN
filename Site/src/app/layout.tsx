@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getSessionUser } from "@/lib/session";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
 import { getSettings } from "@/lib/settings";
 import { clientIpFrom } from "@/lib/client-ip";
 import { ipIsBlocked } from "@/lib/block";
@@ -45,7 +45,7 @@ async function gateBlocked() {
   ) {
     return;
   }
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   if (user) return;
   if (await ipIsBlocked(clientIpFrom(headers()))) redirect("/blocked");
 }
