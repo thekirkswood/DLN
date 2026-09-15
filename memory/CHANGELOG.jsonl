@@ -882,3 +882,4 @@
 {"t": "2026-09-15T10:00:33+01:00", "k": "mod", "p": "Site/src/components/Workbench.tsx", "s": "Home account name is an ordinary link", "d": "home then through again was part of the dump path"}
 {"t": "2026-09-15T10:05:53+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Lab lan-consume accepts studio home ticket POST", "d": "Ewan: 192.168.0.223:3100/api/auth/lan-consume loop opening Builder"}
 {"t": "2026-09-15T10:05:53+01:00", "k": "mod", "p": "/home/main/Repos/Builder lan-consume auth cookie-opts middleware", "s": "Verify dln1 tickets; POST consume; one cookie; stop middleware rewrite", "d": "hub was POSTing a ticket the lab discarded"}
+{"t":"2026-09-15T10:13:19+01:00","k":"ver","p":"dln-8","s":"HT4 kit explorer and copyable summary; one session cookie so account boxes hold; board still off live","d":"numbered ship"}
