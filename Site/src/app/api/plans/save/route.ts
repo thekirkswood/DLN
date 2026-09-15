@@ -1,10 +1,10 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
+import { getSessionUser } from "@/lib/session";
 import { savePlan } from "@/lib/plans";
 
 export async function POST(req: NextRequest) {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   if (!user || !isStudio(user)) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }

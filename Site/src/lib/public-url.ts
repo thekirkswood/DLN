@@ -27,7 +27,9 @@ function isHubHostname(host: string): boolean {
     h === "designlabnorth.com" ||
     h === "www.designlabnorth.com" ||
     h === "localhost" ||
-    h === "127.0.0.1"
+    h === "127.0.0.1" ||
+    h === "dln.local" ||
+    h === "campus.dln.home"
   );
 }
 

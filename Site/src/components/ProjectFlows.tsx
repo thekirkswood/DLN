@@ -38,7 +38,7 @@ const FLOWS: Flow[] = [
   {
     id: "consultancy",
     title: "Consultancy",
-    sub: "Addresses the whole, the part and or the sum of the parts",
+    sub: "The whole job, or one piece of it.",
     rows: [
       [{ label: "Full project", from: 0, to: 7, out: "Scope Audit", tip: "end" }],
       [
@@ -84,7 +84,7 @@ const FLOWS: Flow[] = [
   {
     id: "websites",
     title: "Websites",
-    sub: "Addresses the whole, the part and or the sum of the parts",
+    sub: "The whole job, or one piece of it.",
     lead: "Full project for start-ups and businesses needing a refresh or rebuild",
     rows: [
       [{ label: "Full project", from: 0, to: 7, out: "Website", tip: "end" }],

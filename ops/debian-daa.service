@@ -1,14 +1,11 @@
 [Unit]
-Description=Digital Adoption Advisor unit (Next :3050, lab prefix)
+Description=DAA unit (Next :3050)
 After=network-online.target campus.service
 
 [Service]
 Type=simple
 WorkingDirectory=/home/main/DAA/Site
 Environment=PATH=/usr/bin:/bin
-Environment=BASE_PATH=/go/daa
-Environment=NEXT_PUBLIC_BASE_PATH=/go/daa
-Environment=NODE_ENV=development
 ExecStart=/usr/bin/npm run dev
 Restart=always
 RestartSec=8

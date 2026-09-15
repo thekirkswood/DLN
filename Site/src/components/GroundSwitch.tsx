@@ -12,7 +12,7 @@ const GROUNDS = [
   { id: "blush", hex: "#f8f2f6", label: "Blush" },
 ] as const;
 
-type Ground = (typeof GROUNDS)[number]["id"];
+export type Ground = (typeof GROUNDS)[number]["id"];
 
 const GROUND_IDS: Ground[] = GROUNDS.map((g) => g.id);
 
@@ -26,7 +26,7 @@ function readGround(): Ground {
   return isGround(now) ? now : "paper";
 }
 
-function applyGround(next: Ground) {
+export function applyGround(next: Ground) {
   document.documentElement.setAttribute("data-ground", next);
   try {
     localStorage.setItem("dln-ground", next);
@@ -35,18 +35,65 @@ function applyGround(next: Ground) {
   }
 }
 
+export function PaperInkChips() {
+  const [ground, setGround] = useState<Ground>("paper");
+
+  useEffect(() => {
+    const now = readGround();
+    if (now === "ink") {
+      setGround("ink");
+      return;
+    }
+    if (now !== "paper") applyGround("paper");
+    setGround("paper");
+  }, []);
+
+  function pick(next: "paper" | "ink") {
+    applyGround(next);
+    setGround(next);
+    window.dispatchEvent(new CustomEvent("dln-pick-ground", { detail: next }));
+  }
+
+  return (
+    <div className="bench-grounds" role="group" aria-label="Paper or Ink">
+      <button
+        type="button"
+        className={
+          ground === "paper" ? "bench-chip is-paper is-on" : "bench-chip is-paper"
+        }
+        aria-pressed={ground === "paper"}
+        aria-label="Paper"
+        onClick={() => pick("paper")}
+      />
+      <button
+        type="button"
+        className={
+          ground === "ink" ? "bench-chip is-ink is-on" : "bench-chip is-ink"
+        }
+        aria-pressed={ground === "ink"}
+        aria-label="Ink"
+        onClick={() => pick("ink")}
+      />
+    </div>
+  );
+}
+
 export function GroundSwitch() {
   const [ground, setGround] = useState<Ground>("paper");
   const wipe = useRef<HTMLDivElement>(null);
   const anim = useRef<number | null>(null);
+  const groundRef = useRef<Ground>("paper");
 
   useEffect(() => {
-    setGround(readGround());
+    const now = readGround();
+    setGround(now);
+    groundRef.current = now;
   }, []);
 
   function pick(next: Ground) {
-    if (next === ground) return;
+    if (next === groundRef.current) return;
     applyGround(next);
+    groundRef.current = next;
     setGround(next);
 
     const el = wipe.current;
@@ -69,6 +116,15 @@ export function GroundSwitch() {
       }, 280);
     }, 280);
   }
+
+  useEffect(() => {
+    function onPick(e: Event) {
+      const id = (e as CustomEvent<string>).detail;
+      if (isGround(id)) pick(id);
+    }
+    window.addEventListener("dln-pick-ground", onPick);
+    return () => window.removeEventListener("dln-pick-ground", onPick);
+  }, []);
 
   return (
     <>

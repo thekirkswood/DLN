@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
+import { sessionFromRequest } from "@/lib/session";
 import {
   issueHandoff,
   safeVtPath,
@@ -14,12 +14,11 @@ export async function GET(req: NextRequest) {
   const next = safeVtPath(req.nextUrl.searchParams.get("next"));
   const building = titlesBuildingUrl();
   try {
-    const user = await userFromSession(cookies().get(COOKIE)?.value);
-    const token = cookies().get(COOKIE)?.value;
-    if (!user || !token || !isStudio(user)) {
+    const hit = await sessionFromRequest();
+    if (!hit || !isStudio(hit.user)) {
       return NextResponse.redirect(building, 302);
     }
-    const code = await issueHandoff(token);
+    const code = await issueHandoff(hit.token);
     return NextResponse.redirect(titlesCallbackUrl(code, next), 302);
   } catch {
     return NextResponse.redirect(building, 302);

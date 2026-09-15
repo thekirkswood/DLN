@@ -1,0 +1,5 @@
+# Dave’s Mac fallback if mDNS ignores the names.
+# One line. Paste into /etc/hosts (needs an admin password).
+# Do not put these on public DNS.
+
+192.168.0.223 dln.local builder.dln.local modyu.dln.local titles.dln.local swarm.dln.local pfp.dln.local dks.dln.local daa.dln.local

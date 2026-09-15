@@ -33,7 +33,7 @@ export const OFFERS: FacetOffer[] = [
     id: "design",
     name: "Design",
     blurb: "Naming, logo, identity systems.",
-    copy: "We formulate high-value brand systems you can actually work with. A name, a logo, and the identity around it, from a first idea or a refresh of what you already have. Before anything is deployed, conceptual marks go into the Sandbox, a controlled simulation where we stress-test the design so it holds for a small business and still holds as you grow. You leave with a durable system, not a look that dates. Come in on Design and we start.",
+    copy: "A name, a logo, and the identity around it — from a first idea, or a refresh of what you already run. You leave with a system that still holds as you grow, not a look that dates. Come in on Design and we start.",
     points: [
       "Logos",
       "Brand Identity Systems",
@@ -43,42 +43,37 @@ export const OFFERS: FacetOffer[] = [
     ],
     daveCopy: "We formulate high-value brand systems by balancing rigorous aesthetic discipline with systemic logic, tailoring our frameworks to the precise maturity stage of the enterprise. Prior to technical deployment, conceptual marks and identity components are introduced to The Sandbox — a controlled simulation environment. Within this architecture, we analyse behavioural patterns and stress-test the design against potential systemic friction, ensuring the visual asset scales naturally as a business matures from its initial launch to a complex corporate structure. This calculated approach ensures the visual asset functions not as a transient aesthetic exercise, but as a durable, highly efficient system that inherently respects human attention and eliminates structural resource waste.",
     href: "/design",
+    homeCta: "Contact Design",
     needs: [
       {
         id: "design-assets-logo",
         facet: "design",
-        label:
-          "I need individual assets or a new core logo mark engineered for our brand.",
+        label: "I need a logo that will still hold as we grow.",
       },
       {
         id: "design-print",
         facet: "design",
-        label:
-          "We need comprehensive design for print (stationery, literature, or signage layouts).",
+        label: "I need print — stationery, literature, or signage.",
       },
       {
         id: "design-packaging",
         facet: "design",
-        label:
-          "We require high-end, three-dimensional packaging and tactile unboxing design.",
+        label: "I need packaging: box, label, and the unboxing.",
       },
       {
         id: "design-multi-platform",
         facet: "design",
-        label:
-          "Our brand requires a scalable multi-platform design system to bridge print and screen.",
+        label: "I need screens that match the print — one system.",
       },
       {
         id: "design-guidelines",
         facet: "design",
-        label:
-          "We need an audit or update of our existing master identity guidelines and brand protocols.",
+        label: "I need our identity guidelines audited or updated.",
       },
       {
         id: "design-none-above",
         facet: "design",
-        label:
-          "None of the above (Tell us your specific design challenge in the box below).",
+        label: "None of the above — I’ll write it below.",
       },
     ],
   },
@@ -86,12 +81,12 @@ export const OFFERS: FacetOffer[] = [
     id: "strategy",
     name: "Strategy",
     blurb: "Plans, counsel, and resources to learn from.",
-    copy: "We initiate the advisory process at once through lectures, workshops, and intensive lab sessions, and write a strategic blueprint you can run. Brand strategy, marketing strategy, a year or three years out. The same evidence, logic, and rigour whether you are starting, changing course, or protecting a long-standing organisation. If you want to learn as you go, Various Titles is there. Come in on Strategy and we map it with you.",
+    copy: "A working session, a workshop, or a written plan you can run — start-up, a change of course, or a long-standing organisation. Brand, marketing, audits. Come in on Strategy and we map it with you.",
     points: [
+      "How we work",
+      "Start-up Strategy",
       "Brand Strategy",
       "Marketing Strategy",
-      "Online Strategy",
-      "Start-up Strategy",
       "Brand Audits",
       "Over-arching Strategic Consultancy",
     ],
@@ -102,112 +97,105 @@ export const OFFERS: FacetOffer[] = [
       {
         id: "consultancy-session",
         facet: "strategy",
-        label:
-          "I need a Consultancy Session (one-to-one or group session for brainstorming, research analytics, critiquing, or planning).",
+        label: "I need a working session — one-to-one or with the group.",
       },
       {
         id: "startup-blueprint",
         facet: "strategy",
-        label:
-          "I am a startup needing a complete brand identity and strategy blueprint.",
+        label: "I am starting out and need a brand and a plan.",
       },
       {
         id: "identity-outdated",
         facet: "strategy",
-        label:
-          "We are established, but our visual identity and logo look outdated.",
+        label: "We are established, but the identity looks dated.",
       },
       {
         id: "print-packaging-scale",
         facet: "strategy",
-        label:
-          "Our print and packaging layouts do not match our digital scale.",
+        label: "Our print and pack do not match the site.",
       },
       {
         id: "ecommerce-outgrown",
         facet: "strategy",
-        label:
-          "We are outgrowing our e-commerce engine and need a robust shopping site.",
+        label: "We have outgrown the shop and need a better one.",
       },
       {
         id: "business-site-dashboard",
         facet: "strategy",
-        label:
-          "We need a high-performance business website with a clean backend dashboard.",
+        label: "We need a business site with a desk behind it.",
       },
       {
         id: "infra-audit",
         facet: "strategy",
-        label:
-          "Our global digital infrastructure requires an audit for security and hosting.",
+        label: "We need the hosting and security looked at.",
       },
       {
         id: "workshop-review",
         facet: "strategy",
-        label:
-          "We need an independent review or strategy workshop for our team.",
+        label: "We need an independent review or a workshop for the team.",
+      },
+      {
+        id: "social-supplier",
+        facet: "strategy",
+        label: "We are applying to the approved supplier list.",
       },
       {
         id: "none-above",
         facet: "strategy",
-        label:
-          "None of the above (Tell us your specific challenge in the box below).",
+        label: "None of the above — I’ll write it below.",
       },
     ],
   },
   {
     id: "build",
     name: "Build",
-    blurb: "New sites, rebuilds, facelifts.",
-    copy: "We construct the site that has to carry it. New, rebuild, or facelift, through an 8-Phase Process in the Greenhouse, a live-hosted environment where you watch and co-author as it grows. You leave notes. We come in. The site changes. When it is ready it can move onto a domain of your own, still tethered to campus so we can re-enter without breaking live work. The method is the same at every scale. Come in on Build if the site is what you need now.",
+    blurb: "Simple sites, applications, and the infrastructure they run on.",
+    copy: "The site that has to carry it — new, rebuild, or facelift. You leave a note. We come in. The live site stays up. When it is ready it can move onto a domain of your own, and we still host it while it grows. Come in on Build if the site is what you need now.",
     daveCopy: "We construct enduring digital infrastructure, translating strategic hypotheses into integrated web platforms and commerce channels built to survive generational shifts. Managed via a proprietary 8-Phase Process, developments are incubated within The Greenhouse, a live-hosted environment where business stakeholders — from early-stage founders to enterprise boards — can observe and co-author technical iterations in real time. This methodology is entirely scale-agnostic and lifecycle-agnostic, applying identical analytical precision to early-stage startups and multi-generational global corporations alike. Following deployment, platforms remain tethered to our campus through a continuous diagnostic loop, permitting immediate re-entry for hot-swapping features and structural problem-solving without interrupting live operations.",
     href: "/build",
-    homeName: "Websites",
     homeCta: "Contact the web team",
     points: [
-      "Website Builds",
-      "Website Modelling",
-      "New sites",
-      "Rebuilds",
-      "Facelifts",
-      "Live hosts",
+      "Simple sites",
+      "Interactive Workspaces",
+      "Custom Web Applications",
+      "System Modernization",
+      "Systems",
     ],
     needs: [
       {
+        id: "web-simple-site",
+        facet: "build",
+        label: "We need a simple site, done properly.",
+      },
+      {
         id: "web-ecommerce",
         facet: "build",
-        label:
-          "We need a high-performance e-commerce shopping website engineered for our brand.",
+        label: "We need a shop that can take the orders.",
       },
       {
         id: "web-corporate",
         facet: "build",
-        label:
-          "We require a robust corporate business website with a clean backend dashboard.",
+        label: "We need a business site with a desk behind it.",
       },
       {
         id: "web-portfolio",
         facet: "build",
-        label:
-          "We want a premium portfolio website built to showcase our creative projects.",
+        label: "We need a site that shows the work.",
       },
       {
         id: "web-infra-audit",
         facet: "build",
-        label:
-          "Our existing digital infrastructure requires an audit for technical security or hosting updates.",
+        label: "Our live site stays up — we need the next one beside it.",
       },
       {
         id: "web-api-dashboard",
         facet: "build",
-        label:
-          "We have a complex API or custom data dashboard integration problem that needs resolving.",
+        label: "We need sign-in, data, or the desk behind the site.",
       },
       {
         id: "web-none-above",
         facet: "build",
-        label:
-          "None of the above (Tell us your specific technical challenge in the box below).",
+        label: "None of the above — I’ll write it below.",
       },
     ],
   },

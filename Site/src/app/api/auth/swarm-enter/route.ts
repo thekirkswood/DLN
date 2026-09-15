@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { isStudio } from "@/lib/auth";
+import { sessionFromRequest } from "@/lib/session";
 import {
   issueSwarmHandoff,
   safeSwarmPath,
@@ -15,12 +15,11 @@ export async function GET(req: NextRequest) {
   const next = safeSwarmPath(req.nextUrl.searchParams.get("next"));
   const building = swarmBuildingUrl();
   try {
-    const token = cookies().get(COOKIE)?.value;
-    const user = await userFromSession(token);
-    if (!user || !token || !isStudio(user)) {
+    const hit = await sessionFromRequest();
+    if (!hit || !isStudio(hit.user)) {
       return NextResponse.redirect(building, 302);
     }
-    const code = await issueSwarmHandoff(token);
+    const code = await issueSwarmHandoff(hit.token);
     return NextResponse.redirect(swarmCallbackUrl(code, next), 302);
   } catch {
     return NextResponse.redirect(building, 302);

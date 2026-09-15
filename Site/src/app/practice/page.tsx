@@ -6,7 +6,7 @@ export default function PracticePage() {
   return (
     <article className="practice wrap">
       <p className="kicker">Practice</p>
-      <h1>High-Value Brand Ecosystems</h1>
+      <h1>Identities, strategy, sites, and print</h1>
       <p className="practice-sub">Plan, Design, Build, Maintain.</p>
       <p className="lede">
         DLN creates Identities, marketing strategies, brand redesigns and
@@ -89,12 +89,6 @@ export default function PracticePage() {
       </p>
 
       <section className="practice-person">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className="practice-portrait"
-          src="/practice/dave-kirkwood.png"
-          alt="Dave Kirkwood"
-        />
         <h2>Dave Kirkwood</h2>
         <p className="practice-role">
           Co-Founder | Award-Winning Designer &amp; Marketeer

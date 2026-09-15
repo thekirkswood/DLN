@@ -1,0 +1,339 @@
+{
+  "version": "2026-09-13",
+  "source": "DAA/_meta/assets/daa.json",
+  "company": {
+    "name": "Digital Adoption Advisor",
+    "legal": "DA ADVISOR LIMITED",
+    "number": "14226356",
+    "email": "enquiries@digitaladoptionadvisor.io",
+    "party": "Mark Barlow",
+    "address": [
+      "Bartle House",
+      "9 Oxford Court",
+      "Manchester",
+      "M2 3WQ"
+    ],
+    "line": "Business value after go-live",
+    "voice": "Technology can go live. Transformation can finish. Value still has to survive."
+  },
+  "fields": [
+    {
+      "id": "sand",
+      "src": "/brand/fields/field-sand.png",
+      "ground": "#c4b396"
+    },
+    {
+      "id": "navy",
+      "src": "/brand/fields/field-navy.png",
+      "ground": "#0f2537"
+    },
+    {
+      "id": "mist",
+      "src": "/brand/fields/field-mist.png",
+      "ground": "#c8ced1"
+    },
+    {
+      "id": "teal",
+      "src": "/brand/fields/field-teal.png",
+      "ground": "#143a42"
+    },
+    {
+      "id": "gold",
+      "src": "/brand/fields/field-gold.png",
+      "ground": "#b8893a"
+    },
+    {
+      "id": "ink",
+      "src": "/brand/fields/field-ink.png",
+      "ground": "#08151f"
+    },
+    {
+      "id": "gap",
+      "src": "/brand/fields/field-gap.jpg",
+      "ground": "#0f2537"
+    }
+  ],
+  "groups": [
+    {
+      "id": "transition",
+      "title": "Transition & Handover",
+      "line": "When a programme is moving into operations and the question is whether ownership, behaviours, evidence and governance will survive the transition."
+    },
+    {
+      "id": "live",
+      "title": "Operational Improvement",
+      "line": "When the organisation is already live and needs to strengthen Digital Adoption capability or recover value that is leaking in operation."
+    },
+    {
+      "id": "strategic",
+      "title": "Strategic Value",
+      "line": "When the question is broader than one bounded issue, or when continuing value assurance and governance are required."
+    }
+  ],
+  "offerings": [
+    {
+      "id": "operational-readiness",
+      "badge": "OR",
+      "group": {
+        "id": "transition",
+        "title": "Transition & Handover",
+        "line": "When a programme is moving into operations and the question is whether ownership, behaviours, evidence and governance will survive the transition."
+      },
+      "title": "Operational Readiness",
+      "line": "Is the receiving organisation genuinely ready to inherit the transformation?",
+      "question": "The programme is ending. Is the receiving organisation genuinely ready to take over?",
+      "lede": "The programme is ending. Is the receiving organisation genuinely ready to take over?"
+    },
+    {
+      "id": "intelligent-change-transition",
+      "badge": "ICT",
+      "group": {
+        "id": "transition",
+        "title": "Transition & Handover",
+        "line": "When a programme is moving into operations and the question is whether ownership, behaviours, evidence and governance will survive the transition."
+      },
+      "title": "Intelligent Change Transition",
+      "line": "Will critical behaviours persist when programme support withdraws?",
+      "question": "Will the new behaviours and ways of working survive after the programme leaves?",
+      "lede": "Will the new behaviours and ways of working survive after the programme leaves?"
+    },
+    {
+      "id": "value-evidence-governance-handover",
+      "badge": "VE+GH",
+      "group": {
+        "id": "transition",
+        "title": "Transition & Handover",
+        "line": "When a programme is moving into operations and the question is whether ownership, behaviours, evidence and governance will survive the transition."
+      },
+      "title": "Value Evidence & Governance Handover",
+      "line": "Who owns the evidence, measures and decisions after the programme closes?",
+      "question": "When the programme closes, who owns the evidence, measures and decisions that keep value visible?",
+      "lede": "When the programme closes, who owns the evidence, measures and decisions that keep value visible?"
+    },
+    {
+      "id": "digital-adoption-coe",
+      "badge": "CoE",
+      "group": {
+        "id": "live",
+        "title": "Operational Improvement",
+        "line": "When the organisation is already live and needs to strengthen Digital Adoption capability or recover value that is leaking in operation."
+      },
+      "title": "Digital Adoption CoE Design & Build",
+      "line": "Treat Digital Adoption as an enterprise capability, not a tool team.",
+      "question": "Has Digital Adoption become a tool function instead of an enterprise capability?",
+      "lede": "Has Digital Adoption become a tool function instead of an enterprise capability?"
+    },
+    {
+      "id": "value-performance-optimisation",
+      "badge": "VP+O",
+      "group": {
+        "id": "live",
+        "title": "Operational Improvement",
+        "line": "When the organisation is already live and needs to strengthen Digital Adoption capability or recover value that is leaking in operation."
+      },
+      "title": "Value Performance & Optimisation",
+      "line": "A bounded live domain where expected value is leaking.",
+      "question": "You are live. Where is expected value leaking — and what is actually causing it?",
+      "lede": "You are live. Where is expected value leaking — and what is actually causing it?"
+    },
+    {
+      "id": "value-optimisation-review",
+      "badge": "VOR",
+      "group": {
+        "id": "strategic",
+        "title": "Strategic Value",
+        "line": "When the question is broader than one bounded issue, or when continuing value assurance and governance are required."
+      },
+      "title": "Value Optimisation Review",
+      "line": "A broader enterprise value question that will not sit inside one handover or process.",
+      "question": "When the value question is broader than one process, one handover or one operational issue, where is value being created, constrained or lost across the enterprise?",
+      "lede": "When the value question is broader than one process, one handover or one operational issue, where is value being created, constrained or lost across the enterprise?"
+    },
+    {
+      "id": "value-assurance-office",
+      "badge": "VAO",
+      "group": {
+        "id": "strategic",
+        "title": "Strategic Value",
+        "line": "When the question is broader than one bounded issue, or when continuing value assurance and governance are required."
+      },
+      "title": "Value Assurance Office",
+      "line": "Continuing value assurance and governance — not an automatic next step.",
+      "question": "The value baseline exists. How will the organisation continue to govern, assure and improve value as conditions change?",
+      "lede": "The value baseline exists. How will the organisation continue to govern, assure and improve value as conditions change?"
+    }
+  ],
+  "situations": [
+    {
+      "id": "programme-to-operations",
+      "title": "The programme is ending, but we are not sure the business is ready to take over.",
+      "question": null
+    },
+    {
+      "id": "making-change-stick",
+      "title": "We are worried the new behaviours will fade when change support leaves.",
+      "question": null
+    },
+    {
+      "id": "value-evidence-governance-handover",
+      "title": "Our value measures and governance still belong to the programme.",
+      "question": null
+    },
+    {
+      "id": "digital-adoption-capability",
+      "title": "Digital Adoption has become a tool function rather than an enterprise capability.",
+      "question": null
+    },
+    {
+      "id": "recovering-value-after-go-live",
+      "title": "We are live, but expected value is leaking.",
+      "question": null
+    },
+    {
+      "id": "adoption-evidence-business-outcomes",
+      "title": "We have adoption data, but cannot connect it confidently to business outcomes.",
+      "question": null
+    },
+    {
+      "id": "enterprise-value-diagnosis",
+      "title": "We need a broader view of where enterprise value is being created, constrained or lost.",
+      "question": null
+    },
+    {
+      "id": "value-assurance-governance",
+      "title": "We need an ongoing way to govern and assure value.",
+      "question": null
+    }
+  ],
+  "about": {
+    "h1": "Specialist services for the gap between transformation and sustained value.",
+    "ledes": [
+      "DAA provides specialist Digital Adoption and Value services for organisations navigating the point where technology-enabled change has to become operating reality.",
+      "We work with executive and operational leaders, internal teams and transformation partners to resolve specific readiness, adoption, transition, evidence, performance and assurance problems through evidence-driven consulting."
+    ],
+    "here": [
+      "Technology implementation can create new capability, but implementation alone does not guarantee that the organisation will sustain the behaviours, ownership, performance, evidence and governance required to realise the intended outcome.",
+      "DAA works in that gap. We help organisations understand what is actually happening, distinguish evidence from assumption, make value and operating conditions visible, and choose proportionate actions that strengthen the ability to realise and sustain business outcomes.",
+      "Our commercial purpose is broader than any one technology or transformation method. Digital Adoption remains an important part of DAA’s capability and practical expertise, but it sits within a wider value perspective that includes operations, process, governance, performance, people, products, platforms and evidence.",
+      "DAA is designed to work with the ecosystem a client already has. Technology platforms, implementation partners and internal teams may provide much of what is needed. DAA can be brought in where a specific specialist problem still needs focused attention, challenge or decision support."
+    ],
+    "principles": [
+      "Client outcomes before consulting activity. The purpose of an engagement is to improve the client’s ability to make decisions and achieve meaningful business outcomes, not simply to complete a consulting process.",
+      "Evidence before assumption. DAA seeks to make clear what is established, what is interpreted, what remains uncertain and what additional evidence may be needed before a conclusion is justified.",
+      "Business before technology. Technology is an enabler of organisational capability and value. We begin with the business question, operating context and outcome rather than assuming the technology is the problem or the answer.",
+      "Understand before recommending. DAA uses discovery, stakeholder engagement and evidence validation to develop sufficient understanding before forming recommendations.",
+      "Multidisciplinary by design. DAA draws on expertise across Digital Adoption, operations, process, governance, value, performance, people, platforms and analytics according to the problem being addressed.",
+      "Transparent decision support. Clients should be able to understand the basis for DAA’s conclusions, where confidence is strong and where uncertainty remains.",
+      "DAA is not a software vendor and does not ask clients to buy an internal DAA technology platform. Our internal operating and engineering capabilities support the consistency and discipline of delivery; they are not the customer proposition.",
+      "DAA is also not organised around forcing every client through the same consulting pathway. A focused Session, a bounded intervention, a Value Optimisation Review or a Value Assurance Office engagement may each be appropriate depending on the problem and the required consequence. Sometimes no further DAA engagement is the right outcome."
+    ],
+    "not": [
+      "DAA is not a software vendor and does not ask clients to buy an internal DAA technology platform. Our internal operating and engineering capabilities support the consistency and discipline of delivery; they are not the customer proposition.",
+      "DAA is also not organised around forcing every client through the same consulting pathway. A focused Session, a bounded intervention, a Value Optimisation Review or a Value Assurance Office engagement may each be appropriate depending on the problem and the required consequence. Sometimes no further DAA engagement is the right outcome."
+    ],
+    "start": [
+      "You do not need to know the name of the DAA service you need. Start with what is happening in the organisation, what is at risk or unclear, and the decision you need to make."
+    ]
+  },
+  "hypertrack": {
+    "kicker": "HyperTrack™",
+    "title": "Surface the unknowns while the programme is still in flight.",
+    "ledes": [
+      "HyperTrack™ is DAA’s named fast-start advisory for SAP cloud programmes. It is not a platform sale and not a promise that go-live equals value.",
+      "The work is to make ownership, behaviour and evidence visible early — SuccessFactors, S/4HANA or Concur — so the organisation is not discovering the real operating problem in hypercare."
+    ],
+    "for": [
+      "Cloud programmes still fail in the same place: after the technology is live, the business cannot yet carry the outcome. HyperTrack is a structured way to look at that gap while there is still time to act.",
+      "It sits beside the implementation partner, not instead of them. DAA remains independent of DAP vendors and of the SI delivering the build."
+    ],
+    "leave": [
+      "A clear view of where adoption, ownership and evidence are already drifting; the questions executives should be asking before handover; and a proportionate next step — a Session, a bounded intervention, or no further DAA work."
+    ],
+    "clouds": [
+      {
+        "label": "SuccessFactors",
+        "line": "People processes going live still have to be owned, used and evidenced.",
+        "body": "SuccessFactors programmes often treat adoption as training completion. HyperTrack looks at whether managers and employees will actually run the new processes when the project team leaves, and whether HR and the business share a picture of value."
+      },
+      {
+        "label": "S/4HANA",
+        "line": "A live ERP is not the same as an operating model that realises the case.",
+        "body": "S/4HANA go-lives produce usage data and still miss the executive question: is the organisation operating better? HyperTrack is an early look at workarounds, process ownership and the evidence that will (or will not) survive handover."
+      },
+      {
+        "label": "Concur",
+        "line": "Travel and expense change fails in the habits, not in the licence.",
+        "body": "Concur is a small surface with a large behavioural load. HyperTrack treats it as an operating change: policy, exceptions, coaching and whether finance will own the outcome after the programme closes."
+      }
+    ]
+  },
+  "sessions": {
+    "h1": "DAA Sessions",
+    "ledes": [
+      "You know there is a problem or decision to work through, but you may not yet need a larger engagement.",
+      "DAA Sessions is a focused way to work through a bounded executive or operating question with relevant DAA expertise. Three simple formats make it clear how much working time is involved and, most importantly, what you leave with. Each is designed to create useful standalone value and a tangible output."
+    ],
+    "note": "Sessions are not an eighth service.",
+    "formats": [
+      {
+        "time": "2 hours",
+        "name": "Executive Session",
+        "for": "One bounded executive problem or decision, usually one-to-one or with a very small group.",
+        "happens": "Structured expert challenge and advisory discussion around the question and the evidence or assumptions shaping it.",
+        "leave": "A concise challenge summary, decision questions, value-risk hypotheses or a clearly framed set of next actions."
+      },
+      {
+        "time": "Half day or full day",
+        "name": "Advisory Session",
+        "for": "A client-specific issue that benefits from facilitated diagnosis, challenge and applied working.",
+        "happens": "The group works through the situation, competing interpretations, ownership, evidence and practical options.",
+        "leave": "A bounded client-specific output such as an opportunity map, ownership/governance map, maturity perspective or prioritised action hypotheses."
+      },
+      {
+        "time": "1 day",
+        "name": "Masterclass",
+        "for": "Building shared understanding and applying a Digital Adoption, value or other specialist discipline to the client context.",
+        "happens": "Structured education combined with practical application rather than generic classroom training.",
+        "leave": "An applied perspective, decision questions and an action-priority or learning/action plan relevant to the organisation."
+      }
+    ]
+  },
+  "council": {
+    "h1": "DAA Council",
+    "eyebrow": "A deliberately broad practitioner community",
+    "ledes": [
+      "Serious enterprise value problems rarely belong to one discipline.",
+      "The DAA Council brings together a carefully curated multidisciplinary community of senior practitioners across the disciplines that shape enterprise value after go-live. It gives DAA the breadth to assemble the right combination of perspectives around the problem, from transformation and Digital Adoption to operations, process, governance, performance, platforms, people and analytics.",
+      "Broad by design. Selective in composition. Shaped around the problem."
+    ],
+    "why": [
+      "Enterprise value is created and lost across the way work is designed, governed, executed, measured and improved. A single functional lens can miss important dependencies or lead to an intervention that treats a visible symptom rather than the wider operating condition.",
+      "The Council is designed to give DAA substantial breadth across complementary practitioner disciplines, while maintaining a selective approach to the capability represented within it. That means a client problem can be considered from the perspectives it actually needs rather than from the limits of a single consulting speciality. The Council is a capability community, not a directory or an automatic entitlement to any individual practitioner."
+    ]
+  },
+  "advisors": [
+    {
+      "slug": "mark-barlow",
+      "name": "Mark Barlow",
+      "role": "Digital Adoption Pioneer",
+      "email": "mark.barlow@digitaladoptionadvisor.io",
+      "lede": "Mark founded Digital Adoption Advisor after more than two hundred deployments taught the same lesson: technology can go live while the organisation is still unable to carry the outcome.",
+      "body": [
+        "The work is independent of DAP vendors. DAA is not selling a platform, and Mark’s public writing is about the operating conditions after go-live — ownership, behaviour, evidence, governance — not about a product category."
+      ],
+      "image": "/media/people/mark-barlow.jpg"
+    },
+    {
+      "slug": "greisy-flores",
+      "name": "Greisy Flores",
+      "role": "Sessions",
+      "email": null,
+      "lede": "Greisy works the DAA Sessions: bounded executive time, a real question, a tangible output. Not a disguised discovery call.",
+      "body": [
+        "Sessions are 2 hours, a half day, or a day. The format follows the question. Greisy’s room is that working time — not a speaker circuit and not a membership pitch.",
+        "If a Session shows that a larger DAA route is needed, that is a separate decision."
+      ],
+      "image": "/media/people/greisy-flores.jpg"
+    }
+  ]
+}

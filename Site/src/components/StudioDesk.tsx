@@ -8,22 +8,43 @@ import { BookApp, InvoiceBoard } from "@/components/BookApp";
 import { SettingsDesk } from "@/components/SettingsDesk";
 import { PayDesk } from "@/components/PayDesk";
 import { OnboardDesk } from "@/components/OnboardDesk";
+import { WatchDesk } from "@/components/WatchDesk";
+import { ClockDesk } from "@/components/ClockDesk";
+import { AssetsDesk } from "@/components/AssetsDesk";
+import { AssetHub } from "@/components/AssetHub";
+import { HousesDesk } from "@/components/HousesDesk";
+import { EpkDesk } from "@/components/EpkDesk";
+import { pressKitForPlot, epkHref } from "@/lib/epk-map";
 import { AvatarSlot } from "@/components/AccountBilling";
 import { type CatalogueItem } from "@/data/catalogue";
 import type { Invoice, PayRail, Payment, Roll, OnlineRail } from "@/lib/billing";
 import type { StudioSettings } from "@/lib/settings";
-import { enterUrlFor, hostUrlFor, type Plot } from "@/lib/plot-urls";
-import { labStationPath } from "@/lib/lab-host";
-import { LabComment } from "@/components/LabComment";
-import { campusPageId } from "@/lib/campus-pages";
+import { enterUrlFor, hostUrlFor, buildUrlFor, type Plot } from "@/lib/plot-urls";
 import type { Enquiry } from "@/lib/enquiries";
 import type { BuildPlan, SiteComment } from "@/lib/plans";
 import type { PublicUser } from "@/lib/auth";
+import type { BlockRow } from "@/lib/block";
+import type { StudioNotice } from "@/lib/notices";
+import type { TrapWeb } from "@/lib/trap-sort";
+import type { WatchInstance } from "@/lib/watch-types";
+import type { BlockAppeal } from "@/lib/appeals";
 
 type Person = PublicUser;
-type DeskRoom = "clients" | "onboarding" | "book" | "pay" | "settings";
+type DeskRoom = "clients" | "onboarding" | "book" | "pay" | "settings" | "watch" | "clock" | "houses" | "assets" | "epk" | "notifications";
 
-const ROOMS: DeskRoom[] = ["clients", "onboarding", "book", "pay", "settings"];
+const ROOMS: DeskRoom[] = [
+  "clients",
+  "onboarding",
+  "book",
+  "pay",
+  "settings",
+  "watch",
+  "clock",
+  "houses",
+  "assets",
+  "epk",
+  "notifications",
+];
 
 function asRoom(raw: string | null, fallback: DeskRoom): DeskRoom {
   return ROOMS.includes(raw as DeskRoom) ? (raw as DeskRoom) : fallback;
@@ -43,6 +64,11 @@ type DeskProps = {
   rolls?: Roll[];
   online?: OnlineRail;
   settings: StudioSettings;
+  notices?: StudioNotice[];
+  traps?: WatchInstance[];
+  blocked?: BlockRow[];
+  trapWeb?: TrapWeb;
+  appeals?: BlockAppeal[];
 };
 
 export function StudioDesk(props: DeskProps) {
@@ -67,17 +93,31 @@ function StudioDeskLive({
   rolls = [],
   online = { provider: "none", autoHost: true, note: "" },
   settings,
+  notices = [],
+  traps = [],
+  blocked = [],
+  trapWeb,
+  appeals = [],
 }: DeskProps) {
   const router = useRouter();
-  const path = usePathname() || "/lab";
+  const path = usePathname() || "/account";
   const params = useSearchParams();
   const waiting = enquiries.filter((e) => e.status === "new");
   const fallback: DeskRoom = waiting.length ? "onboarding" : "clients";
-  const desk = asRoom(params.get("desk"), fallback);
   const who = params.get("who") || "";
+  const kit = params.get("kit") || "";
   const person = people.find((p) => p.id === who) || null;
+  const [desk, setDesk] = useState<DeskRoom>(() => asRoom(params.get("desk"), fallback));
+
+  useEffect(() => {
+    const raw =
+      params.get("desk") ||
+      (typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("desk") : null);
+    if (raw && ROOMS.includes(raw as DeskRoom)) setDesk(raw as DeskRoom);
+  }, [params]);
 
   function go(nextDesk: DeskRoom, nextWho: string | null = who || null) {
+    setDesk(nextDesk);
     const q = new URLSearchParams();
     q.set("desk", nextDesk);
     if (nextWho) q.set("who", nextWho);
@@ -96,12 +136,13 @@ function StudioDeskLive({
       hint: waiting.length ? `${waiting.length} waiting` : "Quiet",
     },
     { id: "book", name: "Book", hint: "Diaries" },
-    {
-      id: "pay",
-      name: "Pay",
-      hint: person ? person.displayName : "Choose a client",
-    },
     { id: "settings", name: "Settings", hint: "Amounts" },
+    {
+      id: "watch",
+      name: "Watch",
+      hint: traps.length ? `${traps.length} open` : "Quiet",
+    },
+    { id: "clock", name: "Clock", hint: "Estate" },
   ];
 
   return (
@@ -231,18 +272,85 @@ function StudioDeskLive({
             />
           ) : null}
 
-      <div className="desk-page-note">
-        <LabComment
-          plot="dln"
-          page={campusPageId(desk, person?.id)}
-          pageLabel={
-            person
-              ? `${rooms.find((r) => r.id === desk)?.name || desk} · ${person.displayName}`
-              : rooms.find((r) => r.id === desk)?.name || desk
-          }
-          compact
-        />
-      </div>
+          {desk === "watch" ? (
+            <WatchDesk
+              notices={notices}
+              traps={traps}
+              blocked={blocked}
+              web={trapWeb}
+              appeals={appeals}
+            />
+          ) : null}
+
+          {desk === "clock" ? <ClockDesk /> : null}
+
+          {desk === "houses" ? <HousesDesk /> : null}
+
+          {desk === "assets" ? <AssetHub /> : null}
+
+          {desk === "epk" ? (kit ? <AssetsDesk lockedKit={kit} /> : <EpkDesk />) : null}
+
+          {desk === "notifications" ? (
+            <StudioNotices invoices={invoices} notices={notices} people={people} />
+          ) : null}
+
+    </div>
+  );
+}
+
+function StudioNotices({
+  invoices,
+  notices,
+  people,
+}: {
+  invoices: Invoice[];
+  notices: StudioNotice[];
+  people: Person[];
+}) {
+  const due = invoices.filter((i) => i.status === "due");
+  const nameOf = (id: string) => people.find((p) => p.id === id)?.displayName || "Client";
+  return (
+    <div className="studio-notices">
+      <h2>Notifications</h2>
+      {!due.length && !notices.length ? <p className="body">Nothing waiting.</p> : null}
+      {due.length ? (
+        <>
+          <h3>Payments due</h3>
+          <ul className="note-list">
+            {due.map((inv) => (
+              <li key={inv.id}>
+                <span className="status">{inv.dueAt?.slice(0, 10) || "Due"}</span>
+                <p>
+                  {nameOf(inv.userId)} · invoice {inv.number}.{" "}
+                  <Link href={`/account?desk=pay&who=${inv.userId}`}>Open on Payments</Link>
+                  {" · "}
+                  <Link href={`/account/invoices/${inv.id}`}>Invoice</Link>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+      {notices.length ? (
+        <>
+          <h3>Updates</h3>
+          <ul className="note-list">
+            {notices.slice(0, 24).map((n) => (
+              <li key={n.id}>
+                <span className="status">
+                  {n.t.slice(0, 16).replace("T", " ")}
+                  {n.read ? "" : " · new"}
+                  {n.kind === "pay" ? " · payment" : ""}
+                </span>
+                <p>
+                  {n.title}
+                  {n.body ? ` — ${n.body}` : ""}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
     </div>
   );
 }
@@ -257,7 +365,10 @@ function BuildList({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
       {rows.map((plot) => {
         const pub = enterUrlFor(plot);
         const host = hostUrlFor(plot);
-        const same = pub && host && pub.replace(/\/$/, "") === host.replace(/\/$/, "");
+        const local = lab ? buildUrlFor(plot) : null;
+        const live = pub || host;
+        const view = lab ? local || host || pub : host || pub;
+        const kit = pressKitForPlot(plot.slug);
         return (
           <div key={plot.slug} className="build-row">
             <div>
@@ -267,27 +378,19 @@ function BuildList({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
               </span>
             </div>
             <div className="build-jumps">
-              {lab && plot.lab?.housePath && plot.lab.localPort ? (
-                <Link href={labStationPath(plot.slug)}>Open here</Link>
-              ) : lab && plot.lab?.housePath ? (
-                <span className="status">Folder on disk. Open in Cursor.</span>
-              ) : null}
-              {pub && !same ? (
-                <a href={pub} target="_blank" rel="noreferrer">
-                  Public
-                </a>
-              ) : null}
-              {host ? (
-                <a href={host} target="_blank" rel="noreferrer">
-                  {same ? "Open" : "Our host"}
-                </a>
-              ) : pub ? (
-                <a href={pub} target="_blank" rel="noreferrer">
-                  Open
+              {view ? (
+                <a href={view} target="_blank" rel="noreferrer">
+                  View site
                 </a>
               ) : (
                 <Link href={plot.localPreview}>Story</Link>
               )}
+              {live && live !== view ? (
+                <a href={live} target="_blank" rel="noreferrer">
+                  Open live
+                </a>
+              ) : null}
+              {kit ? <a href={epkHref(kit)}>View EPK</a> : null}
             </div>
           </div>
         );
@@ -330,7 +433,7 @@ function PersonPanel({
     .map((p) => ({ slug: p.slug, name: p.name }));
   const defaultPlot = theirPlots[0]?.slug || plotOpts[0]?.slug || "";
   const openNotes = comments.filter((c) => !c.planId);
-  const titlesHref = lab ? labStationPath("various-titles") : "https://varioustitles.com";
+  const titlesHref = "https://varioustitles.com";
 
   return (
     <div className="person-panel">

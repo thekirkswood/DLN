@@ -1037,19 +1037,354 @@ Supersedes “Remind mints a Checkout URL that lasts 24 hours from send.” Stri
 - ModYu downstairs `_meta` was EIO on the 1TB `/srv/clients`. House sits on NVMe `/home/main/ModYu` like DAA. Leave the dead 1TB copy. Do not mkdir there until that disk is healthy.
 
 
+## 2026-09-06 — Public home is the plate (Ewan)
 
+- The URL is the engine. Idle letter, then unfold into Dave’s three chambers. `/design` `/strategy` `/build` are armed states of home.
+- That plate lives on **DLNAPP** (`:3011`) until cutover. Current campus `/` stays Dave’s letter and columns.
+- No looping gif on `/`. Gif lives as a long-press on the mark’s TM join.
+- Brief is the on-plate command strip (sentence fields, composing draft, already-on-the-book, no thank-you page).
+- Lamps only for true state. Ink is the machine room under Paper, reversed from BKND.
+- Client plots stay off this wall. Reduced motion: instant cut, no jig.
 
+## 2026-09-06 — Two tracks: house and engine (Ewan)
 
+- Current campus on `http://192.168.0.223:3010` stays Dave’s house. Build column names engines (Interactive Workspaces, Custom Web Applications, System Modernization, API and Database Architecture, Managed Infrastructure, Platform Engineering). Heading is Build, not Websites. Looping gif stays off `/`.
+- Pitch engine is a sibling at `/home/main/DLNAPP`, LAN `http://192.168.0.223:3011`. Same pattern as DAABetter beside DAA. Do not list it on the greenhouse until Ewan says so. Do not rebase live campus onto `/app`.
+- Isolation is ports on `192.168.0.223`, not a new IP per app. Tower campus stays loopback `:3010` so Cursor is not a second LAN house.
 
+## 2026-09-06 — App, not a busier homepage (Ewan)
 
+- Simple sites stay on the Build wall. We do them well because they are simple for us. That line encourages the work; it is not a lesser offer.
+- DLNAPP must absorb the **whole house** (Practice, Work, Greenhouse, Design, Strategy, Build, Methodology) in one coordinated chassis. Home stays Dave’s letter and columns — still, not an unfold that dumps the board.
+- Technical prowess is the rooms working as software (shutter, live brief, session), not a strange homepage. Campus `:3010` remains the showable letter until cutover.
 
+## 2026-09-06 — No :3011, a real game (Ewan)
 
+- Port 3011 is pointless. Stop `dlnapp.service`. The house is `:3010`.
+- A slider is not a webapp. Home columns stay three columns; no swipe-dots.
+- Home carries **Cut**: an actual game loop (canvas, physics, six lamps, ink hazards). That is the proof the plate can run software, not a second brochure.
+- Cut chrome is the box, Play, and a global best. Best lives in `_meta/cut/best.json` on the house that is serving (`GET`/`POST` `/api/plate/best`). Everyone on that host sees the same time.
 
+## 2026-09-06 — Practice: no Dave portrait (Dave)
 
+- Remove the photograph of Dave Kirkwood from `/practice`. Name and bio stay. Do not put the portrait back. Campus downstairs first; no VPS ship from this note.
 
+## 2026-09-07 — Campus house (Ewan)
 
+- Second approach on the **tester** (`http://192.168.0.223:3010`). Live `designlabnorth.com` is not this work. Port 3011 stays dead.
+- The house is an app, not a letter. Chassis from Dave’s stills in `/home/main/NewSiteBrief`: mark, Design / Strategy / Build, Host, Login. Left rail (browser) is the three lists; phone is the stage only.
+- The unifying word is **Campus**, with a chamfered **Add**. Dave’s sentence stays as the stage title. Cut is off this home.
+- Add starts a line: who they are, scale (sole trader / bigger business / corporation), what they want. The stage then tailors Design / Strategy / Build. Writes the existing enquiry book.
+- Signed-in clients get a **brand board** (`/board`): bits left/top, playfield centre, funnel bottom. One board per plot. Client divisions are coloured; studio and bots are neutral (`actor: "campus"`).
+- Tester Host may print Basic £50 pm. Other catalogue pounds stay off the wall unless a still or Ewan names them. Live VPS keeps no-GBP until a numbered ship.
+- Feedback: board forms first; a DLN-issued mailbox later as part of Host; do not scrape a client’s private mail. Swarm / Choozlist / Various Titles stay greenhouse products — DLN is the development library.
 
+## 2026-09-07 — Stills-faithful house (Ewan)
 
+- The stripped Campus chassis on `:3010` is rejected. It took chrome words and left the workbench empty. Do not iterate `CampusHouse.tsx`.
+- **NewSiteBrief** is the brief. Sept stills are a workbench full of work: service modules with geometric icons; Design portfolio; Solport Sessions; Host with H plate and server photograph; Merz Barn research board.
+- Restore Dave’s letter on tester home until that app can be walked. Stills-faithful rebuild lives at `/app`. Live VPS unchanged. Port 3011 stays dead.
+- Readable pack: PNG/JPG/PDF/Portfolio/Frameworks. PSD layers, Pages, Premiere project are not readable here — export PNG/PDF if a lock lives in them.
 
+## 2026-09-07 — Ground-up space, 192 plate stays (Ewan)
 
+- Tester home on `http://192.168.0.223:3010` `/` is the current plate and **stays** Dave’s letter. Do not cut it over. Live `designlabnorth.com` unchanged. Port 3011 stays dead. Do not iterate `CampusHouse.tsx`.
+- The ground-up webapp is `/app`, rebuilt from NewSiteBrief as a system: seven faculties as rooms, VT as the Various Titles library (greenhouse, not an eighth faculty), living stage from the August motion, plate library from `logos.ai`, Solport / Host / Merz / portfolio, Approved Supplier as a real enquire line.
 
+## 2026-09-07 — `/app` first impression (Ewan)
+
+- Tester `/app` landing is **Campus** on Paper: Design / Strategy / Build as three doors. No flickering wash, no logo boxes, no dump on first view.
+- Header: Campus, the three doors, **Add plot to campus**. Add plot asks who you are (sole trader / bigger business / corporation), writes the book, then opens their space. Not a live Docker plot.
+- Rooms stay behind the doors. Letter on `/` stays frozen. No VPS ship.
+
+## 2026-09-07 — `/app` ticket (Ewan)
+
+- You land **on** Campus. No Campus in the top bar. Logo or refresh returns to the start. Phone must scroll.
+- Ticket: Campus tab; inverse plus tab **Add your own plot**. Dave’s sentence. 01 Design / 02 Strategy / 03 Build as unboxed columns with the old lists shown in full (no cycling line), then Enter. Clicking the numbers scrambles colourways (and Paper/Ink).
+- Inside: stills left bars (plates as graphics). Only the room you are in is open on the left; the others sit small. Each left line opens its own centre (not the same list twice). Solport meters, how-we-work token. Add plot is the plus, not header clutter. Board stays on `/board` / account.
+- Social: Design Lab North choose not to get mired in social media execution. Regional partner list. Public wording stays DLN voice.
+- `Blank.pages` and `arial.prproj` are archive. `.DS_Store` is never copied.
+
+## 2026-09-07 — `/app` lists stay still (Ewan)
+
+- Ticket columns keep the full Design / Strategy / Build lists on the page. Do not cycle a single line through those points. Enter still goes inside.
+
+## 2026-09-07 — `/app` left rail is the menu (Ewan)
+
+- Inside Design, Strategy, or Build, only that left block is open. The other two sit smaller.
+- Do not repeat the left list in the middle. Left clicks open a distinct centre (stills, folds, Solport, Host, engine). Top bar only switches the room.
+
+## 2026-09-07 — Campus is home (Ewan, Dave)
+
+- Tester `:3010` `/` is the campus workbench. `/app` redirects there. Live `designlabnorth.com` stays the old house until a numbered ship.
+- Dave’s letter stays at `/letter` as an instance to take from. Do not delete it.
+- `/admin` stays the campus building site (Dave and Ewan). A separate builder house with its own IP is later — do not invent it now.
+- Keep the book: campus `/lab`, account, board, pay. Do not roll logins back from an older memory pass. Attach stills, clips, and voice on `/admin`.
+
+## 2026-09-07 — Add plot asks what they are here for; inside is Paper/Ink (Ewan)
+
+- Front ticket stays. Liked.
+- **Add your own plot** goes beyond sole trader / bigger business / corporation. After scale: what they are here for (Design / Strategy / Build, then specific lines), then how we open campus (new work, live plot, already a client, board, learn, Approved Supplier). Writes the book with those answers. Opens the matching door — sign-in, Host, engine, supplier, or the first chosen line. Not a stub.
+- Inside (left rail and rooms): Paper and Ink only. No greens, pinks, oranges, scramble pigment. Landing 01 / 02 / 03 colour scramble stays.
+
+## 2026-09-07 — Brand plates sit on the work (Ewan)
+
+- The logos that sat in a row above Design / Strategy / Build are brands, not rail chrome. Take them off the left dump.
+- Place each where it is relevant, named: Paul Fosbury, ModYu, AH UM, Applearn, ATTW, MERZ / MerzMan, Solport, and the construction plates (rounding, diagnostic, vision, the three-door glyph). Unknown marks stay “Selected identity” — do not invent a client. DAA stays off the public wall.
+
+## 2026-09-07 — Left-locked rooms; board inference; Build is the thing (Ewan)
+
+- Design / Strategy / Build sit locked on the left of the interior, not as top-bar buttons. Phone: those three plus the line list, then the selected stage.
+- A line’s centre is a list of examples on the left of the stage and the selected piece at high resolution in the middle. Design for print is that page — not a screenshot of the old mock sitting in a gallery.
+- Screenshots of the older public DLN page are context. They are not proof of this campus. Do not put them up as the work.
+- The identity-statements script (mission through philosophy) is inference for the plot board: a growing branded profile that contextualises prompts they run. Not body copy on Brand Strategy.
+- Interactive Workspaces is an interactive room (pointer, scroll, add-a-feature). Custom apps carry a labelled checkout movie-set (no card, no processor brand). Each Build line does its own relevant thing.
+- ffmpeg is how we can turn our own site stills into GIFs later (ModYu test shop, campus sets). Do not film a live processor. Do not edit the ModYu repo from this Cursor.
+- Ticket: Campus locked to the left of the main box. + Add your own plot slightly smaller on higher resolutions so more of the box shows. Phone plus stays as it is.
+
+## 2026-09-07 — Framework GIF, gameboard, Watch, blocked, onboarding chat (Ewan)
+
+- Numbered framework plates: crop the glyphs, loop them as a GIF next to the DLN mark, and as the loading icon. It is the framework.
+- The board is that gameboard: zoom into topics, scale of business, actions and their effects. Inference book stays on the left.
+- Blocked IPs on designlabnorth.com get a simple why-unblock box. Likely ignored. Signed-in people are not blocked; studio must see those probes.
+- Trapdooring: sort by slash depth, when, and related paths. Own Watch bit. Individual attempts stay, folded.
+- Onboarding chat: someone will get back to you, you will get an email. In-site notifications for the rest; email only important things or upsells.
+- Homepage lines click through. Signed-in campus is the same ticket with the last plot named where plus was, plus sandbox / live host.
+- DMARC TXT must not publish `build@`. `rua=mailto:dmarc@designlabnorth.com`, `p=none`. You cannot encrypt a reporting address into DNS.
+
+## 2026-09-07 — Grey ticket, no rolling icon, appy interior (Ewan, Dave)
+
+- Take the looping framework GIF off the mark, the loading screen, and the favicon. It does not work as chrome. Numbered glyphs stay on the board.
+- Homepage ticket: no pigment. Contrast Design / Strategy / Build with shades of grey. 01 / 02 / 03 may still scramble greys and flip Paper/Ink.
+- Enter Design / Strategy / Build with a chamfered wipe, not a hard cut.
+- The listing of examples was crowded. Keep picking a piece of work; put examples on a filmstrip under a full-bleed shot. Lead, body, and folds sit behind About, not under the work.
+- Turn the interior up toward an app shell: locked viewport, compact chrome, the work fills the stage. Not a marketing article.
+
+## 2026-09-08 — Ticket lists free; grey only on 01–03 and Enter; rail dropdown (Ewan)
+
+- Front ticket stays the open lists on one field. Not three grey boxes. Grey only on the number and Enter Design / Strategy / Build. Titles and line names stay ink. 01 / 02 / 03 still scramble those greys and Paper/Ink.
+- Inside: Design / Strategy / Build keep their plates. The line list hangs under the open name as part of that door, not a separate block underneath the three.
+
+## 2026-09-08 — Floating mark; Paper/Ink chips; pull into Build (Ewan)
+
+- DLN mark floats. No box. The PNGs are already transparent; do not put mix-blend on them (that paints the canvas as a rectangle). Paper/Ink only on campus: two squares to the right of the mark, sitting on the 1px header line. Click switches. `dln-ground` is localStorage, not a cookie. 01/02/03 scramble greys for the current ground only — they do not flip Paper/Ink.
+- Enter Design / Strategy / Build a little bigger. Ticket sentence: slight grey shifts on the working words so it is not one block.
+- Design and Strategy interiors stay Dave’s. Mess with Build.
+- Kill the chamfered full-screen wipe. It read as a brochure / Word clip-art. Enter is one motion: the ticket menu pulls aside and becomes the left rail.
+- Build rooms are point / evidence / explain. Statements, not studio notebooks. We say the thing, show it, then explain. No Solport, no movie-set checkout, no live-set notes box as proof of Interactive Workspaces. Pointer demo may stay with statement lines. Phone: say it follows a tap.
+- Build lines: Simple sites, Interactive workspaces, Custom web applications, System modernization, Systems. Host stays as the rail extra under Build. Drop Managed infrastructure as a heading (hosting is that). Drop Platform engineering as a Build heading; the eight-stage process is Strategy “How we work”, not inside a Build line.
+- Simple sites: old-fashioned top-bar / words-in-the-middle cards, plus stills. Apps: a simple web-app sketch. Modernization: their live wall (clunky) beside the sandbox; a note; it lands; changelog. Customer-facing, not a pitch to Dave. Do not slight the live site.
+- Generated clips (FAL stills / GIFs / video per Build line) later, with Ewan, from a plan. Do not wire FAL into the site until that sitting. Token spend is his call.
+
+## 2026-09-08 — Swarm apex onto the IONOS VPS (Ewan)
+
+- Public swarmfund.com lives on this VPS with the other plots (`plot-swarm`, ungated at the edge; Building lock in the app).
+- Ewan changes Livedns A `@` and `www` for swarmfund.com to `82.165.5.84`. Do not touch MX, SPF, or nameservers. No AAAA.
+- `swarmfund.designlabnorth.com` stays the gated growing copy.
+
+## 2026-09-08 — Two public boxes until April 2027 (Ewan)
+
+- Fasthosts “My VPS” (`77.68.49.132`, 2 vCore / 4 GB) is paid until **April 2027**. Do not cancel it. Livemail is separate and stays.
+- IONOS (`82.165.5.84`, 32 GB) is the **live internet host**: DLN hub, every client plot, and live studio products (Swarm, Various Titles). It is not strained. Do not move Swarm or VT onto Fasthosts to “take load off”.
+- Fasthosts is a **public preview / scratch box**: DAABetter, tests, “look at this”. Not a second production greenhouse. Do not mix live product domains with throwaway tests on that 4 GB machine.
+- Campus downstairs is LAN preview. Fasthosts is the URL you can send anyone without touching live.
+- Do not turn on Plesk. Same shape as live if it needs a site: Caddy (or the nginx already there) + one hostname per experiment.
+- April 2027: cancel Fasthosts unless Ewan wants to keep a public scratch box.
+
+## 2026-09-08 — Enter stacks; Build copy for clients (Ewan)
+
+- Enter Design / Strategy / Build a touch smaller than the last bump (still bigger than the first size).
+- Enter animation: the three doors reorder into the left menu (stack, not a horizontal squash). Phone: same stack, toward the top rail.
+- Contact Design / Contact our consultants / Contact the web team sit at the bottom of each rail list and look like a form (underline, not a page line).
+- Build graphics stay. Copy talks to a client. Simple sites: they are simple sites. Workspaces: encompassing — rooms you can work inside of — do not repeat the lead inside the box. Modernization: live wall and sandbox start the same; note under the live wall; change happens in the sandbox; Push updates the live wall. Systems: API joins whatever they run, not only mail/pay/stock/maps; a short list of the rest.
+
+## 2026-09-08 — Enter is the rail; Build formats; sandbox reopen (Ewan)
+
+- Enter: lists, sentence, numbers and Enter links collapse so the three names become the left rail. Do not stack full-height columns down the screen. If a motion cannot be the same menu, do not fake it.
+- Simple sites: format cards, not “a simple site” on every one. Gallery (picture boxes + dots that swipe), shop front (boxes + £), a page, a diary.
+- Interactive workspaces: their brand, home, space. Imagination is the limit. A backend that fits the brand. Do not say The Board here — that is the signed-in profile room.
+- Custom web applications: the Plot rectangle morphs through a few layouts (menu, dots, Plot move) so it reads as an app, not a website.
+- Modernization: live wall stays still until Push. Quote already under the sandbox. Leave the note writes `.1` / `.2` under the sandbox, outside the quote. Those notes then land in the sandbox. Push copies sandbox onto the live wall.
+- Systems API: add the ability first; joining what they already run is also true.
+- Sandbox can be reopened at any time while live stays up. Tester Host: £50 one environment, £100 both. Live VPS still no GBP until a numbered ship.
+
+## 2026-09-08 — Design and Strategy sit like Build (Ewan)
+
+- Modernization: after Leave the note on “Change the title.” the quote becomes “Sit the body in a different colour.” Then Leave the note adds `.2`.
+- Interactive workspaces: a desk (incoming / in work / done) plus the seven-step job flow. Cursor tracking can stay. Not The Board.
+- Logos: mark centred on the full-screen plate. Add house marks (ModYu, Swarm Fund, Choozlist, Various Titles, DAA). Dave Kirkwood Studio has no mark in the pack — do not invent one. Caption bottom-right stays.
+- Identity systems: identity on devices (card, phone, laptop), not a random gallery. UI is a usable interface. Print is books and literature. Packaging is bottles and packs (ModYu).
+- Strategy: How we work at the top of the rail and the door lands there. Eight stages switch the heading and body — do not scroll a long list. Start-up under How we work. No Online Strategy as its own item (online is inside brand and marketing). Brand = core (phone, social, mail). Marketing = how it goes out (books, bottles, boards). Audits = current → we come in → clearer. Over-arching = the same sitting with more layers, our rings not Dave’s brief pies. Do not lecture CHSE on the public How we work wall.
+- DAA on Logos is not a greenhouse listing. Still not a public client until named.
+
+## 2026-09-08 — Flesh the rooms; phone rail; campus tab (Ewan)
+
+- Identity systems: one desk of devices (card, phone, laptop) with the real stills in them. No gallery underneath.
+- UI: a usable screen. Tabs switch the work; menu is a control. The still lives in the window, not as a filmstrip under it.
+- How we work: keep switching the stage. Bring back a plate, a walking track, the four glyphs, and the pipeline outputs. More copy on each stage.
+- Start-up: a two-hour sitting. Four half-hours, clock filling to 2:00, and why for each beat.
+- Brand / marketing: beats change the copy on the surfaces, not only the logo. Audits: walk Look / Sit / Write in the arrow.
+- Phone: left list collapses to a simple arrow so the work has the width. Drill, then it shuts again.
+- Campus ticket on a phone: Campus tab stays on the left of the block, as on a browser — not stacked huge above. Ticket sits higher.
+- Paper/Ink chips: a box with no bottom, cut off on the header line. Those grounds will not stay forever.
+- **Clock** (2026-09-11): estate overlay on `/account?desk=clock`. In-situ faces on swarmfund, varioustitles, davekirkwood. Not `/admin`. Not Watch. Not the lab queue. Ask answers first/last/count. Public walls stay Building.
+- **Clock Blueprint** (2026-09-11): Clock’s Blueprint pane (and the port lining above the faces) is the map of every hosted local port, the Debian LAN twins, live URLs, lab desks, and how the houses join. Keep it truthful when a port is added or stopped.
+
+## 2026-09-12 — Public copy: you, short, Dave’s substance (Ewan)
+
+- Public walls speak to **you**. Lead with what you get. Studio jargon (plot, sandbox, sitting, faculty, rail, the book, campus-as-product) stays in signed-in / studio UI. Translate: private preview beside the live site; working session; we host it while it grows.
+- Room pattern: hook / two-sentence body / folds. Through-pages clone room hooks from `worklines.ts`. Do not paste `daveCopy` live — it stays archive in `needs.ts`.
+- Dave’s landing sentence stays. Practice title is plain (Identities, strategy, sites, and print); farm, Storm, bios stay locked. How we work stages keep Dave’s eight names; bodies are payoff lines. Host tester rates stay £50 / £100. Not a numbered GitHub iteration until Ewan asks.
+
+## 2026-09-12 — Workspaces desk plays the job (Ewan)
+
+- Interactive workspaces: keep incoming / in work / done and the seven-step flow. The middle is not a text swap. Each job is a shape play (note wall filling, session slots rising, stills stacking then lining up). Auto-walks; Next action and the ticks still drive it. Cursor tracking stays, behind the type. Not The Board.
+
+## 2026-09-13 — Named local studio (Ewan)
+
+- Dave bookmarks **`.local` names on the LAN**, not changing ports. `.localhost` only hits the typing machine. Parent `dln.local` so `dln_session` can follow (`Domain=.dln.local` on those hosts only). Backup remains `192.168.0.223:port`.
+- Builder is the offline desk (`builder.dln.local`). One house view. Page chips on every house, including **Press** (the hub kit, same page the access code opens). **View EPK** at the top opens that kit. Links sheet is `/links` on the lab and Houses on the book. Sniff in the Builder Cursor. Ordinary Send does not deploy.
+- Live `designlabnorth.com/desk` talks to the downstairs book. Client `/account` stays on the VPS. Clock shows a live overlay (iteration / tag / home enquiries). Do not rsync VPS accounts onto Debian.
+- **Push to git and live** and **Hotfix** are named buttons. Confirm phrase is the gate. Numbered `dln-{n}` ships. Bugbot is not the listen loop.
+- Assets room on `/account`: visual plates with thumbnails. Flag logo / banner / post / pack and assign a house. `/epk` is the in-house press gate (code → that house’s kit). `/api/press/pack` needs the kit cookie or studio — not a public dump. The Board uses this same store — do not invent a second library.
+- New houses **pre-folder** `Site/public/assets/{brand,people,products,press}` (ModYu’s tree is the backbone). Harvest copies those names onto `Site/public/press/{kit}`. `ops/press-folders.md`.
+- Named LAN: Caddy owns `:80` on downstairs; Apache is off. Dave: `http://dln.local`. Backup `http://192.168.0.223:3010`.
+- Do not call the Dave-facing host “campus”. Do not fold Builder into the public site. Do not put Cursor on the VPS.
+
+## 2026-09-13 — Press kits on the hub (Ewan)
+
+- `/epk` is the funnel: one code, one house pack, DLN chrome. Not a rebuild of ModYu’s own site. Assets desk is a visual grid so we can flag stills. Pack JSON is not public.
+
+## 2026-09-13 — House stills in Assets; Houses sheet (Ewan)
+
+- Each house’s real stills populate that house in Assets (ModYu products/people, DAA mark + fields, PFP plate, Swarm/VT marks, DLN brand). Share to pack → `/epk/{kit}` looks like the press PDF (cover, vault, contact).
+- Do not dump brief screenshots into other houses. DAA mark work sits in DAA.
+- **Houses** room: local name + live URL for Dave. He signs in with his studio login.
+- Pull stills from the houses themselves (ModYu `assets/*`, DAA `brand` + `media` + logo-tests, PFP plates, Swarm/VT brand). Library vs pack. `/epk` is one code per house. Studio signed-in can open any kit.
+
+## 2026-09-13 — Press in the lab; pre-folder assets (Ewan)
+
+- See the kit **in the lab**, not only on `/account` Assets. Press is a page chip like Design / Strategy / Build. The iframe is the hub `/epk/{kit}` (what the code opens), not ModYu’s own `/epk`.
+- **View EPK** at the top of a house desk opens that hub kit.
+- Compose carries a press box: pack stills, then the library when Press is selected. Same harvest tree.
+- Builder on localhost or the LAN IP must iframe `192.168.0.223:{port}` — named hosts 404 as “IP address could not be found” off the LAN DNS.
+- Dave’s click sheet lives on Houses (`/account?desk=houses`) and on the lab at `/links`. Lab is builder.dln.local. House is dln.local.
+- When we build a site, **pre-folder** `Site/public/assets/{brand,people,products,press}` so harvest and the front end share names. `ops/press-folders.md`. ModYu’s assets tree is the backbone. Do not dump brief junk into other kits.
+
+## 2026-09-13 — EPK overview quotes; captions on stills (Ewan)
+
+- Disclaimer (“stills and files Design Lab North keep for press / does not replace their own site”) sits **small with contact**, not in the overview.
+- Overview is longer and quote-ready: “ModYu is…” then quotations from us, same shape on every kit.
+- Click a vault still: title and related text beside it. Studio writes that caption in Assets. Pack JSON carries `note`.
+
+## 2026-09-13 — EPK as a studio room (Ewan)
+
+- `/epk` stays the public funnel: code in, that house’s kit. Journalists do not see a list.
+- Studio (Ewan, Dave only) see **EPKs** — on `/epk` when signed in, and as a book room. Same generated columns for everyone; then go in and **edit the space** (copy, extra paragraphs, captions) so a kit can be bespoke. Overlay in `_meta/epk/copy.json`. Cookie is still `dln_session` for that edit.
+- Client / user accounts never see the studio EPK index. They get **View site** and **View EPK** on the site they are tagged to, from their account. View EPK opens that kit already chosen.
+- Kits sit on the hub (`dln.local/epk/{kit}`, live `designlabnorth.com/epk/{kit}` after a numbered ship). Click launches. Do not rely on embedding other houses in the lab window — View site opens a tab.
+- Do not put a harvest lecture in the lab compose. The Press box copy (“same stills the access code opens / ModYu’s assets folders”) is gone. Press is View EPK plus the kit page.
+
+## 2026-09-13 — HT4 EPK MAP is the kit (Ewan)
+
+- `/home/main/DLN/_meta/HT4_EPK MAP.pdf` is the framework: left rail, four cover lanes, our story, ISHRS facts, four pitches, founder, further angles, HT4 system, evidence, we can say / we never say, quote bank, fast facts & FAQ, contact, vault, About ModYu, The Follicle Files.
+- Replicate that as the delivered ModYu kit. Same chrome for every house. DAA gets the columns with evidenced rebuild copy and identity stills only — no invented founder quotes, no play frames, not on the greenhouse wall. Other kits stay thinner on the same map.
+- Claims stay as written. Ann-Marie’s press email is in the pack because the map names it. Hosted by Design Lab North.
+
+## 2026-09-13 — Unique kit per house (Ewan)
+
+- The HT4 EPK MAP is a **module / chassis** (left rail, cover lanes, stories, vault, contact). It is not one shared pack that every View EPK link opens.
+- Each house has its **own unique kit** at `/epk/{that kit}` — unique copy, unique vault, unique title. Kits: dln, modyu, pfp, dks, swarm, daa, titles. Lab and Choozlist have none.
+- View EPK / Open / Press chips open **that** house’s URL only. A DAA link must open Digital Adoption Advisor. A Paul Fosbury link must open Paul Fosbury Portraits. Never collapse onto whichever pack was last unlocked.
+- A press cookie for house A never opens house B. Visiting `/epk/daa` with a ModYu cookie stays on the DAA gate. A code typed on a kit URL that belongs to a different house is refused and does not set the cookie.
+- Bare `/epk` may still send a journalist who already has a valid cookie to **their** kit. That is return-to-pack, not a shared module.
+- Unique copy is evidenced house facts only. Do not paste HT4 pitches onto DAA or PFP. Do not invent a Dave Kirkwood mark. Do not put DAA on the greenhouse wall.
+
+## 2026-09-13 — Session stays while they walk (Ewan)
+
+- Sign in was asking again after a few clicks, even just the next page. That is a defect. The book stays signed in.
+- Cookie `dln_session` lasts **ninety days** and is **refreshed on every page**. Not a few minutes. Half an hour is the floor for a one-time lab copy code, not the session itself.
+- Sign in may return to `builder.dln.local` (and the LAN IP ports). Do not throw those `next` URLs away and dump them on `/account`.
+- Lab copies the hub session (`/api/auth/lan-enter` → consume on that host). Domain `.dln.local` plus a host-only twin. `Secure` only on HTTPS.
+- The header must not flip to Sign in because `/api/auth/me` came back empty if the page already knew they were in.
+
+## 2026-09-13 — DAA pack feeds the DAA EPK (Ewan)
+
+- `_meta/assets/daa.json` in the DAA house is the content pack for a better Digital Adoption Advisor kit. Do not rewrite DAA from this Cursor. Cut a slim hub file (`Site/src/data/daa-epk.json`) and populate `/epk/daa` from it.
+- Unique copy only: company, situations, offerings, HyperTrack™, Sessions, Council, Mark Barlow / Greisy Flores as named in the pack. No invented founder quotes. No HT4 pitches. Play frames stay in the library. DAA stays off the greenhouse wall.
+- Vault: shipped mark, colour fields including gap, people stills, plates, office-01–04. Not the whole media library. Banner art is the fields, not office photographs.
+
+## 2026-09-14 — EPK overhaul (Ewan)
+
+- `/epk` has three doors. Not logged in: a code. That code opens that house’s kit, or a promotion if the code belongs to a promotion. Client account: tiles for kits flagged on the account (Ann-Marie → ModYu as one box; several sites → several boxes). Studio: every kit.
+- Account Press kit and campus View EPK stay on this host. Session is enough. Do not send them to live `designlabnorth.com` to type a code again. Campus boxes must not bounce a signed-in person through `/login`.
+- Assets is one library for studio and client — images and PDFs. Clients add files. Inside Assets: an EPK station with Overview, Logos, Banners, People, Stories, Promotions. Flag a still. Write a title and a note. Stories = text + picture, Save as PDF. Promotions = their own URL and journalist code.
+- The journalist kit is a menu, not a blob of pictures and not the HT4 scroll pasted onto every house. Unique seed copy stays in `epk-docs`. Do not put pipeline asides on the client or studio UI (“this sits on the house”, “not interactable”). Named sections are enough.
+- Do not put DAA on the greenhouse. Do not rewrite DAA from this Cursor.
+
+## 2026-09-14 — EPK MAP look + framework editor (Ewan)
+
+- The journalist kit must look like `_meta/HT4_EPK MAP.pdf`, with the current doors and pages. Not a numbered overview (Logos 6 / Banners 0). Not a blank list. Cover: three hero stills, story plates, asset vault strip. Our story is its own page (editorial + census tiles). Left rail opens those pages. Promotions and stories stay their own thing. Chamfered chrome, not the PDF’s rounded boxes.
+- Assets is the same framework, in edit: click a hero to pick the cover still; vault plates On the kit / Off; inside Logos / Banners / People a visual grid with Add and Remove; build stories and promotions here. The live pack is what this board says is available.
+- How a still becomes a logo / banner / person: Add it into that section (flags), or Remove it. Cover stills are picked onto the three heroes. Do not go back to text-only tabs.
+
+## 2026-09-14 — Board off live; asset hub; EPK from shared files (Ewan)
+
+- Push the campus, print, account, and press kits live. **Do not ship `/board`.** It is rudimentary. Campus studio only while we build it. On `designlabnorth.com` it must not exist (404, not in the header, not a plot door).
+- Assets is **not** the press kit. Build a proper asset hub: house and type dropdowns (not a canvas), drag-and-drop, upload, download, delete, write text documents, comments. Intuitive, pretty, modern, chamfered.
+- The EPK **pulls from assets ticked to share**. Stories and promotions are kit sections you can turn off when they are old. Do not mix the library with the journalist pack.
+
+## 2026-09-14 — ModYu and DAA copy as hub text (Ewan)
+
+- Put the first HT4 kit (Dave’s document) back into the asset hub as text files, as if notes had been written in. DAA the same from the site pack. Stories and promotions can be made by hand; the job is to populate the library.
+- Do not auto-build DAA as kit stories. Leave the files **off** the journalist pack until someone ticks **On the press kit**. Various Titles later.
+
+## 2026-09-14 — ModYu kit is Dave’s pages, PDF per page (Ewan)
+
+- The ModYu press pack is Dave’s HT4 document as **separate pages**, not a single scroller. Same copy, set to lift. Click a page, **Download PDF** for that page only.
+- Logos and banners stay in the **asset hub** (sortable). Do not put them on the on-screen article. When someone downloads a PDF, attach a logo and a banner at the **foot of that PDF**.
+- The kit is a place for campaigns. The four desk stories plus an About Ann-Marie campaign. Other houses stay on the MAP chrome until they are made bespoke. Brief: `_meta/HT4_EPK MAP.pdf` (and the ModYu house EPK pages).
+
+## 2026-09-14 — Press packs on the landing; public copy is public (Ewan)
+
+- Put press packs on the main campus landing. Ticket strip under Design / Strategy / Build, and on the campus header line. Door is `/epk`. Do not list kit names on the public home. DAA stays off the greenhouse.
+- The live site is for the public and for clients. Ewan is not the consumer of that site. If a sentence only exists because of the Cursor back-and-forth (pipeline asides, “not a live site yet”, “while we are local”, “open the product not a subdomain”, “ticked onto the pack”, board talk on qualify, “the package stays shut” type lines), it does not go on the site.
+
+## 2026-09-14 — Signed-in plot: live host, press pack, preview under (Ewan)
+
+- Signed-in campus home: **Live host** is the subdomain. **Press pack** is that house’s kit. Two doors, separate. Do not put a Preview button — it was the same URL as live host.
+- The live host sits in a window **under** those doors, so they can see the site on the campus. Header **Press packs** stays.
+
+## 2026-09-14 — ModYu kit landing and rail match Dave’s brief (Ewan)
+
+- Make the journalist kit landing and side menu as close as possible to Dave’s HT4 EPK (his `/epk` and MAP), to satisfy that brief, with our touch: more info, nicer, **not a PDF page** on screen.
+- Nav is his two groups with his blurbs. Landing is his modules (hero plate, boilerplate, story, market, stories, vault). Pages that need to align (desk stories) keep **Download PDF**. Chamfered chrome, not the PDF’s rounded boxes. Do not restyle other houses.
+
+## 2026-09-14 — Profile boxes and one session across instances (Ewan)
+
+- A person’s profile is pic + name. No name box, no email on the head. Directly under: Sites, Press kits, Assets, Payments, Notifications — chamfered boxes. Payments is the real book (subs, invoices, receipts). Notifications summarises updates and pending pay. A due invoice sits in Notifications and bubbles Payments.
+- Signing in once must hold while they click those boxes and open kits. Do not ask them to log in again on the same walk. Duplicate `dln_session` cookies were fighting; read every value and keep the one that is live. Campus and live share studio identity via the home ticket, not a file only one machine can see. Client books stay on their host. Do not copy Ann-Marie onto ModYu’s own login.
+
+## 2026-09-14 — EPK is a DLN product; founder is Ann-Marie; campus window is ports (Ewan)
+
+- Stamp **DLN** in the centre of the kit top bar (same product slot as the word at the top of a vault box). House name stays left. This pack is our product.
+- ModYu founder is Ann-Marie. Her headshot lives on the DLN book. `founder-headshot.png` is not her — keep it as aftercare product, never as Founder.
+- Signed-in homepage window: **homeserver = IP:port builds** (call the house if the port is quiet). **Live site = public domains / subdomains**. Same chrome. Do not iframe subdomains from the campus — that mix must not return on a ship.
+- DAA is on the book (`plots.json`, `public: false`) so the toggle cannot lose it. Not a greenhouse card. DKS the same for Dave’s house.
+- Builder gets the same tab behaviour; quote `memory/builder-site-tabs.md`. Do not drop DAA from that rail. Do not restore `/lab`.
+
+## 2026-09-15 — ModYu EPK is HT4; no chat notes on the pack (Ewan)
+
+- Journalist copy is never a leftover from the Cursor conversation. “Not the product sheet”, “HT4 pages sit under the HT4 menu”, and any other aside that only makes sense to us, stay off the kit. Named sections are enough.
+- HT4 is the name they should get used to. Do not repeat it as a dropdown and a rail subtitle and a comment. Top bar: ModYu mark + “ModYu electronic press kit” on the left, **HT4** in the middle (clickable). Side box: **HT4** at the top — the selling point — not “electronic press kit”.
+- HT4 opens its own page: the live ModYu system explorer (coloured frames, matching pictures, panel with copy and still). Stop before reviews. No shop button. Evidence, claims, and our story are reads from that page. Footer hosted by Design Lab North stays.
+- Other kits may still stamp DLN in the centre. This is the ModYu document.
+
+## 2026-09-15 — HT4 summary between explorer and reads; session from the ground (Ewan)
+
+- On the HT4 kit page, the copyable **system summary** sits between the bottom of the stage explorer and the Evidence / What we claim / Our story line. Not above the explorer, not under those reads.
+- Sign in was still dumping Ann-Marie and the account boxes (Sites / Houses, Assets, and the rest) on click, refresh, back, and home then through again. The Domain + host-only twin, and middleware rewriting `dln_session` on every page, were the fight. Ground-up: **one cookie**. Named LAN is host-only. Live still uses `.designlabnorth.com`. Setting a session expires the leftover twin. Middleware does not Set-Cookie. `/api/auth/me` still refreshes. Account boxes are ordinary links so the walk is a real page, not a client cache of Sign in. Do not copy Ann-Marie onto ModYu’s own login.
+
+## 2026-09-15 — Builder lan-consume must take the studio ticket (Ewan)
+
+- Opening the lab at `192.168.0.223:3100` was looping on `/api/auth/lan-consume`. The hub POSTs a home ticket; the lab only had GET handoff codes and then ignored `dln1.` tokens. Consume accepts POST ticket and GET code. The lab verifies the same home ticket as the hub. One cookie. Middleware does not rewrite it.

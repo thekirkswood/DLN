@@ -1,12 +1,13 @@
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
-import { COOKIE, isStudio, userFromSession } from "@/lib/auth";
+import { NextRequest, NextResponse } from "next/server";
+import { isStudio } from "@/lib/auth";
+import { sessionFromRequestOrBearer } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
 /** Studio check for Swarm Fund Building unlock (owner / studio only). */
-export async function GET() {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+export async function GET(req: NextRequest) {
+  const hit = await sessionFromRequestOrBearer(req);
+  const user = hit?.user;
   if (!user) return NextResponse.json({ ok: false }, { status: 401 });
   return NextResponse.json({
     ok: true,

@@ -4,7 +4,7 @@
 - SSH: `dln-vps` (`~/.ssh/config`) · key `~/.ssh/id_ed25519_dln`
 - OS: Ubuntu 26
 - Layout: `/srv/dln`
-- Edge: Caddy 80 (live `Caddyfile.ip`). 443 closed until a real cert. Watchdog `deploy/watchdog.sh`.
+- Edge: Caddy live `Caddyfile.prod` (80 + 443). Watchdog `deploy/watchdog.sh` (HTTP fallback `Caddyfile.ip`).
 - App + plots: Docker Compose (`web`, `plot-modyu`, `plot-swarm`, `plot-titles`, `plot-pfp`; `dns` only while registrar NS are plot hosts)
 - IONOS Cloud Panel firewall must allow 80 (and 53 tcp/udp only if this box is the public NS). UFW is not the outer firewall.
 - App + plots: Docker Compose (`web`, `plot-modyu`, `plot-swarm`, `plot-titles`, `plot-pfp`)
@@ -12,6 +12,10 @@
 - Data: `/srv/dln/data/accounts`, `billing`, `enquiries`, `plans`, `modyu-accounts`, `swarm`
 - Enquiries email: optional SMTP in `deploy/.env` (`DLN_SMTP_HOST` etc). Without it, enquiries still land on the studio desk. After an enquiry is audited, onboard emails a **confirmation of account** (login = the email they wrote us, password in that mail) when SMTP is set; otherwise the desk shows the login once to copy. No passwords in this file.
 - Home tunnel: Debian campus dials out to this VPS (`ops/home-tunnel.md`). Restricted user `dln-home`, listen `127.0.0.1:13010` only. Hub ships rebuild `web` (+ edge if Caddy changed). Do not rebuild plot-modyu or rsync `/srv/dln/data/accounts`.
-- DNS: designlabnorth.com + `*.designlabnorth.com` → this IP (Ewan / registrar). Client own-domain: `paulfosburyportraits.com` A `@`/`www` → this IP; leave MX on Livemail.
+- DNS: designlabnorth.com + `*.designlabnorth.com` → this IP (Ewan / registrar). Own-domain A `@`/`www` → this IP: `paulfosburyportraits.com`, `varioustitles.com`, `swarmfund.com` (apex cutover). Leave MX / SPF on Livemail.
+
+## Fasthosts leftover (`77.68.49.132`)
+
+Paid until April 2027 (2 vCore / 4 GB). SSH `partner-space`. **Public preview / scratch only** (DAABetter, tests, show-something). Not live DLN, not client plots, not production Swarm or Various Titles. Livemail is not this VPS. Do not enable Plesk.
 
 No passwords here. Chat-supplied root password was used once to install the key, then SSH password login is disabled.

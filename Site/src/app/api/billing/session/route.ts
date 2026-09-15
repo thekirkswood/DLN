@@ -1,11 +1,11 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, userFromSession } from "@/lib/auth";
+
+import { getSessionUser } from "@/lib/session";
 import { buySession } from "@/lib/billing";
 import type { Stage } from "@/data/catalogue";
 
 export async function POST(req: NextRequest) {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   if (!user) return NextResponse.json({ ok: false }, { status: 401 });
   const body = (await req.json().catch(() => null)) as { facet?: string } | null;
   const facet = body?.facet;

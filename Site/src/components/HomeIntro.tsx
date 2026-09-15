@@ -8,13 +8,8 @@ const STEPS = [
     rest: " is how we work.",
     body: (
       <>
-        To us, design is a verb as much as it is a noun. It is the intentional
-        architecture of a business. As award-winning designers and marketeers,
-        we shape the overarching business <strong>strategy</strong>, craft
-        tactile <strong>packaging</strong>, and create seamless user
-        experiences across <strong>print and screen</strong>. We don’t just
-        make things look beautiful—we engineer cohesive systems that work from
-        first thought to final code and beyond.
+        Design is a verb as much as a noun. Strategy, packaging, print and
+        screen — the same identity, in the places people meet you.
       </>
     ),
   },
@@ -23,12 +18,8 @@ const STEPS = [
     rest: " is how we think.",
     body: (
       <>
-        We approach our work with strict academic rigour, breaking down complex
-        digital and marketing challenges into specialist areas to achieve
-        absolute excellence in each. We are a small outfit, but through
-        inclusive collaboration with our peers in your businesses and
-        organisations, we experiment, test, and innovate to ensure your brand
-        is delivering value and future-proofed.
+        We break the work down, try it, and keep what holds. Small studio.
+        Your people in the room with us.
       </>
     ),
   },
@@ -37,10 +28,8 @@ const STEPS = [
     rest: " is how we execute.",
     body: (
       <>
-        Physically rooted on the border between England and Scotland, we embody
-        a fiercely independent, remote-community attitude. We don’t suffer from
-        corporate group-think. We get on with the job with grit, resilience,
-        and an unwavering determination to execute.
+        On the border between England and Scotland. Independent. We get on
+        with the job.
       </>
     ),
   },
@@ -61,8 +50,7 @@ export function HomeIntro() {
         screen and in print.
       </h1>
       <p className="home-intro-sub">
-        Our name isn’t a corporate buzzword; it is the exact methodology we
-        bring to every strategy, digital build, and creative execution.
+        Three words. How we work, how we think, how we execute.
       </p>
       <div className="home-concertina">
         {STEPS.map((step, i) => (

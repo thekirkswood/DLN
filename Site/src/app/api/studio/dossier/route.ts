@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { COOKIE, isStudio, findUserById, userFromSession } from "@/lib/auth";
+import { isStudio, findUserById } from "@/lib/auth";
+import { getSessionUser } from "@/lib/session";
 import {
   addDossierResource,
   getDossier,
@@ -10,7 +10,7 @@ import {
 } from "@/lib/dossiers";
 
 async function studio() {
-  const user = await userFromSession(cookies().get(COOKIE)?.value);
+  const user = await getSessionUser();
   if (!user || !isStudio(user)) return null;
   return user;
 }

@@ -4,7 +4,7 @@ import type { Plot } from "@/lib/plot-types";
 import { enterUrlFor, hostUrlFor } from "@/lib/plot-urls";
 
 export type { Plot } from "@/lib/plot-types";
-export { enterUrlFor, hostUrlFor, statusLabel } from "@/lib/plot-urls";
+export { enterUrlFor, hostUrlFor, buildUrlFor, previewUrlFor, statusLabel } from "@/lib/plot-urls";
 
 const FILE = path.join(process.cwd(), "..", "greenhouse", "plots.json");
 

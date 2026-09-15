@@ -46,6 +46,16 @@
     reverse_proxy plot-pfp:3000
   }
 
+  @swarm_www host www.swarmfund.com
+  handle @swarm_www {
+    redir http://swarmfund.com{uri} permanent
+  }
+
+  @swarm_live host swarmfund.com
+  handle @swarm_live {
+    reverse_proxy plot-swarm:3000
+  }
+
   @swarm_static {
     host swarmfund.designlabnorth.com
     path /assets*
@@ -96,7 +106,7 @@
 
   @home_desk {
     host designlabnorth.com www.designlabnorth.com
-    path /lab* /admin* /go* /api/lab*
+    path /desk*
   }
   handle @home_desk {
     forward_auth web:3000 {

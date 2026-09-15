@@ -42,13 +42,13 @@ const STAGES = [
   },
   {
     id: "sandbox",
-    name: "Sandbox",
-    copy: "Strategize and Play",
+    name: "Private preview",
+    copy: "The next version beside the live site. You watch. You write in.",
   },
   {
     id: "greenhouse",
-    name: "Greenhouse Workstation",
-    copy: "Grown in a live host through our 8-Phase Process, while you watch and write in.",
+    name: "Live host",
+    copy: "Grown in public while you watch and write in.",
   },
   {
     id: "loop",

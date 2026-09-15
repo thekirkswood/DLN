@@ -13,28 +13,21 @@ export default function MethodPage() {
       <p className="kicker">Methodology</p>
       <h1>How we work</h1>
       <p className="lede">
-        Design Lab North are an independent design and build institute, based
-        on a campus in the Anglo-Scottish borders. We architect identities,
-        sites, and commerce channels that have to last — for leaders who want
-        velocity, certainty, and proof. Awards and clicks are not the score.
-        Permanent, systemic adoption is.
+        The work has to last. Ugly and wasteful are out. You always know where
+        you are in the eight stages. Awards and clicks are not the score.
       </p>
 
       <h2 className="method-block">The quality filter</h2>
       <p>
-        Every project runs through four dimensions of value: clean, enduring,
-        resource-efficient, and respectful of the natural world. We reject the
-        ugly, the wasteful, and the grab for attention. Bad design is bad
-        business.
+        Every job is checked: is it clean, will it last, does it waste less,
+        does it respect the natural world. Ugly and wasteful are out.
       </p>
       <QualityFilter />
 
-      <h2 className="method-block">The campus pipeline</h2>
+      <h2 className="method-block">The eight stages</h2>
       <p>
-        While our uniform 8-stage framework never changes, the practical
-        pipeline path and final physical or digital outputs adjust dynamically
-        to meet the specific requirements of each creative and technical
-        discipline:
+        The eight stages stay the same. What we make at the end changes with
+        the job.
       </p>
       <CampusEngine />
       <CampusPipeline />

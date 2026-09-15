@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { LabHubDock } from "@/components/LabHubDock";
-import { StudioPresence } from "@/components/StudioPresence";
 import { getSessionUser } from "@/lib/session";
 import { isStudio } from "@/lib/auth";
-import { labHostFromHeaders } from "@/lib/lab";
 import { getSettings } from "@/lib/settings";
+import { clientIpFrom } from "@/lib/client-ip";
+import { ipIsBlocked } from "@/lib/block";
+import { isLabHost } from "@/lib/lab-host";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s · Design Lab North",
   },
   description:
-    "A north design hub for identities, marketing, redesigns, facelifts, and the sites that have to carry them.",
+    "We build, scale, and secure resilient brand identity presences on screen and in print.",
   metadataBase: new URL(process.env.DLN_PUBLIC_URL || "http://localhost:3010"),
   icons: {
     icon: "/brand/dln-mute.png",
@@ -33,12 +35,28 @@ function adobeKitHref(fromSettings = ""): string | null {
   return `https://use.typekit.net/${kit}.css`;
 }
 
+async function gateBlocked() {
+  const path = headers().get("x-dln-path") || "";
+  if (
+    !path ||
+    path === "/blocked" ||
+    path.startsWith("/blocked/") ||
+    path.startsWith("/api/")
+  ) {
+    return;
+  }
+  const user = await getSessionUser();
+  if (user) return;
+  if (await ipIsBlocked(clientIpFrom(headers()))) redirect("/blocked");
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  await gateBlocked();
   const user = await getSessionUser();
-  const lab = labHostFromHeaders();
   const studio = Boolean(user && isStudio(user));
+  const lab = isLabHost(headers().get("x-forwarded-host") || headers().get("host"));
   const adobe = adobeKitHref((await getSettings()).adobeKit);
   return (
     <html lang="en-GB" suppressHydrationWarning>
@@ -56,8 +74,6 @@ export default async function RootLayout({
           displayName={user?.displayName}
         />
         <main>{children}</main>
-        {lab && studio ? <StudioPresence /> : null}
-        {lab && studio ? <LabHubDock /> : null}
         <Footer />
       </body>
     </html>

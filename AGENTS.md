@@ -28,7 +28,7 @@ User systemd (`Restart=always`) until Debian downstairs is the host:
 
 Or: `cd Site && npm run dev`
 
-http://localhost:3010 — the user-facing local port (Dave can use this PC’s LAN address on the same port). Greenhouse at `/greenhouse`, login at `/login`, lab at `/lab` (studio). How to frame the other houses: `ops/lab.md`. Audit: `memory/audit-campus.md`. Debian later: `ops/debian-host.md`.
+http://localhost:3010 — Ewan’s tower (not on the LAN). Dave: **http://dln.local** (backup `http://192.168.0.223:3010`). Greenhouse at `/greenhouse`, login at `/login`. The lab is a separate always-on app: `/home/main/Repos/Builder` on **`:3100`** / **http://builder.dln.local**. How to run the lab: that repo’s `AGENTS.md`. Named hosts: `ops/named-studio.md`. Debian: `ops/debian-host.md`.
 
 ## Accounts
 
@@ -36,13 +36,11 @@ http://localhost:3010 — the user-facing local port (Dave can use this PC’s L
 
 ## Wake (this house)
 
-When `_meta/lab-inbox/wake.flag` changes, open `_meta/lab-inbox/messages.json`. If `_meta/edit-lease.json` is held by another seat, **stop** ([`ops/house-lease.md`](ops/house-lease.md)). Take every `pending` item **in order**. Set `working`, do the work in **this** filesystem (`/home/main/DLN`). Honour memory. Stamp `done` or `error` with a `reply`. One failure does not block the rest. Do not auto-deploy.
+The design queue for DLN is the lab at `/home/main/Repos/Builder` (`http://localhost:3100/dln`). That Cursor sniffs `_meta/lab-inbox/wake.flag` and jumps here.
 
-**Browser campus** (Mac, phones, any LAN address) is downstairs: `http://192.168.0.223:3010`. This chat sniffs `_meta/lab-houses/lan-inbox` and stamps Debian’s inbox. **localhost:3010** writes this disk and pushes that inbox to Debian. Merge by id — never overwrite a local-only note.
+When this chat is asked to take pending items: open `_meta/lab-inbox/messages.json`. If `_meta/edit-lease.json` is held by another seat, **stop** ([`ops/house-lease.md`](ops/house-lease.md)). Take every `pending` item **in order**. Set `working`, do the work in **this** filesystem (`/home/main/DLN`). Honour memory. Stamp `done` or `error` with a `reply`. Kind `hotfix` then `ship` are the numbered live path: `ops/hotfix-eval.sh` then `ops/ship-live.sh` (confirm already in `_meta/ship/request.json`). Ordinary change / plan / note must not deploy. One failure does not block the rest.
 
-While someone is signed in on the browser campus, keep `ops/sniff-inbox.sh` running. Do not stamp another unit’s pending queue.
-
-`/lab/modyu/admin` and comments inside ModYu write `/home/main/ModYu/_meta/designer-inbox/` — that is the ModYu Cursor, not this chat. `/lab/various-titles/admin` writes `/home/main/VariousTitles/_meta/lab-inbox/`. `/lab/swarm/admin` writes `/home/main/SwarmFund/_meta/lab-inbox/`. `/lab/pfp/admin` writes `/home/main/PFP/_meta/lab-inbox/`. Load that unit’s Cursor to sniff; leave it until you log off that instance, or until processing finishes. The unit **app** only runs while someone is in that unit (and stays up if a job is still `working`); the inbox still listens when the app is asleep.
+Do not run a sniffer in this chat. The lab sniffer is `/home/main/Repos/Builder/ops/sniff-inbox.sh`. Do not stamp another house’s pending queue.
 
 
 

@@ -1,14 +1,12 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 import {
   AVATARS,
-  COOKIE,
   findUserById,
   isStudio,
-  userFromSession,
 } from "@/lib/auth";
+import { getSessionUser } from "@/lib/session";
 
 const MIME: Record<string, string> = {
   jpg: "image/jpeg",
@@ -21,7 +19,7 @@ export async function GET(
   _req: Request,
   { params }: { params: { userId: string } },
 ) {
-  const viewer = await userFromSession(cookies().get(COOKIE)?.value);
+  const viewer = await getSessionUser();
   if (!viewer) return new NextResponse(null, { status: 401 });
   if (viewer.id !== params.userId && !isStudio(viewer)) {
     return new NextResponse(null, { status: 403 });

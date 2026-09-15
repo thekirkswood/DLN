@@ -1,10 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { plotBySlug, enterUrlFor, statusLabel } from "@/lib/plots";
-import { getSessionUser } from "@/lib/session";
-import { isStudio } from "@/lib/auth";
-import { labHostFromHeaders, labStationPath } from "@/lib/lab";
-import { EnsureHouse } from "@/components/EnsureHouse";
 
 export async function generateMetadata({
   params,
@@ -12,7 +8,8 @@ export async function generateMetadata({
   params: { slug: string };
 }) {
   const plot = await plotBySlug(params.slug);
-  return { title: plot ? plot.name : "Plot" };
+  if (!plot || !plot.public || plot.party !== "studio") return { title: "Plot" };
+  return { title: plot.name };
 }
 
 export default async function PlotStoryPage({
@@ -23,11 +20,6 @@ export default async function PlotStoryPage({
   const plot = await plotBySlug(params.slug);
   if (!plot || !plot.public || plot.party !== "studio") notFound();
   const live = enterUrlFor(plot);
-  const lab = labHostFromHeaders();
-  const user = await getSessionUser();
-  const studio = user ? isStudio(user) : false;
-  const here =
-    lab && plot.lab?.housePath ? labStationPath(plot.slug) : null;
 
   return (
     <article className="story-page wrap">
@@ -59,21 +51,9 @@ export default async function PlotStoryPage({
         </p>
       ) : null}
       <div className="actions">
-        {lab && studio && plot.lab?.housePath ? (
-          <EnsureHouse slug={plot.slug} />
-        ) : null}
-        {here ? (
-          <Link className="act act-fill" href={here}>
-            Enter
-          </Link>
-        ) : live ? (
+        {live ? (
           <Link className="act act-fill" href={live}>
             Enter
-          </Link>
-        ) : null}
-        {here && live ? (
-          <Link className="act" href={live}>
-            Live
           </Link>
         ) : null}
       </div>

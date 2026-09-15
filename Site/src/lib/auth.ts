@@ -8,7 +8,14 @@ import {
 } from "crypto";
 import { headers } from "next/headers";
 import { isLabHost } from "@/lib/lab-host";
-import { isHomeTicket, verifyHomeTicket } from "@/lib/home-ticket";
+import { isHomeTicket, signHomeTicket, verifyHomeTicket } from "@/lib/home-ticket";
+import { emitClock } from "@/lib/clock-store";
+import {
+  SESSION_COOKIE,
+  SESSION_MAX_AGE,
+  cookieSecure,
+  sessionCookieFields,
+} from "@/lib/cookie-opts";
 
 const ROOT = path.join(process.cwd(), "..", "_meta", "accounts");
 const USERS = path.join(ROOT, "users.json");
@@ -16,10 +23,15 @@ const SESSIONS = path.join(ROOT, "sessions.json");
 const SEED = path.join(ROOT, "SEED.txt");
 export const AVATARS = path.join(ROOT, "avatars");
 
-export const COOKIE = "dln_session";
+export const COOKIE = SESSION_COOKIE;
 const SESSION_DAYS = 90;
 
 export type Role = "owner" | "studio" | "client";
+
+export type BoardSeat = {
+  plot: string;
+  division: "design" | "marketing" | "hr";
+};
 
 export type User = {
   id: string;
@@ -28,6 +40,8 @@ export type User = {
   displayName: string;
   role: Role;
   plots: string[];
+  /** Client seats on a plot board. Studio does not use this — they are campus. */
+  seats?: BoardSeat[];
   createdAt: string;
   avatar?: string;
   /** Mailbox. Login may be a .local handle. */
@@ -39,6 +53,8 @@ export type User = {
   hubLogin?: boolean;
   /** Campus/lab test client. Sign in on lab hosts to see a client account. Never mail or regenerate a login. */
   puppet?: boolean;
+  /** Last successful hub sign-in. Clock fact. Never a secret. */
+  lastLogin?: string;
 };
 
 export type PublicUser = Omit<User, "passwordHash">;
@@ -50,25 +66,33 @@ type Session = {
   expiresAt: string;
 };
 
-function cookieDomain(): string | undefined {
-  const d = process.env.DLN_COOKIE_DOMAIN?.trim();
-  return d || undefined;
+export function cookieSecureFromProto(proto: string | null): boolean {
+  return cookieSecure(proto);
 }
 
-export function sessionCookieOptions(token: string, maxAge = SESSION_DAYS * 24 * 60 * 60) {
-  const secure = process.env.DLN_COOKIE_SECURE === "true";
-  const expires = new Date(Date.now() + maxAge * 1000);
-  return {
-    name: COOKIE,
-    value: token,
-    httpOnly: true,
-    sameSite: "lax" as const,
-    path: "/",
-    maxAge,
-    expires,
-    secure,
-    ...(cookieDomain() ? { domain: cookieDomain() } : {}),
-  };
+export function sessionCookieOptions(
+  token: string,
+  maxAge = SESSION_MAX_AGE,
+  host?: string | null,
+  proto?: string | null,
+) {
+  let resolved = host;
+  let resolvedProto = proto;
+  if (resolved === undefined || resolvedProto === undefined) {
+    try {
+      const h = headers();
+      if (resolved === undefined) {
+        resolved = h.get("x-forwarded-host") || h.get("host");
+      }
+      if (resolvedProto === undefined) {
+        resolvedProto = h.get("x-forwarded-proto");
+      }
+    } catch {
+      resolved = resolved ?? null;
+      resolvedProto = resolvedProto ?? null;
+    }
+  }
+  return sessionCookieFields(token, maxAge, resolved, resolvedProto);
 }
 
 export function generatePassword(): string {
@@ -186,7 +210,8 @@ function markPuppetClients(users: User[]): boolean {
 
 function requestIsLab(): boolean {
   try {
-    return isLabHost(headers().get("host"));
+    const h = headers();
+    return isLabHost(h.get("x-forwarded-host") || h.get("host"));
   } catch {
     return false;
   }
@@ -366,6 +391,19 @@ export async function createClient(input: {
   return { user: pub(user), password };
 }
 
+export async function portableStudioToken(
+  user: PublicUser,
+  token: string,
+): Promise<string> {
+  if (!isStudio(user) || isHomeTicket(token)) return token;
+  return (
+    (await signHomeTicket({
+      email: user.email,
+      role: user.role === "owner" ? "owner" : "studio",
+    })) || token
+  );
+}
+
 /** Keep a live session from going stale while they walk the site. */
 export async function touchSession(token: string | undefined): Promise<PublicUser | null> {
   const user = await userFromSession(token);
@@ -413,20 +451,42 @@ export async function login(
   password: string,
 ): Promise<{ user: PublicUser; token: string } | null> {
   await ensure();
-  const user = await findUserByEmail(email);
+  const users = await readJson<User>(USERS);
+  const needle = email.trim().toLowerCase();
+  const user = users.find((u) => u.email.toLowerCase() === needle);
   if (!user || !verifyPassword(password, user.passwordHash)) return null;
   if (!canHubLogin(user)) return null;
-  const token = randomBytes(32).toString("hex");
   const now = new Date();
   const expires = new Date(now.getTime() + SESSION_DAYS * 86400000);
-  const sessions = await readJson<Session>(SESSIONS);
-  sessions.push({
-    token,
-    userId: user.id,
-    createdAt: now.toISOString(),
-    expiresAt: expires.toISOString(),
+  user.lastLogin = now.toISOString();
+  await writeJson(USERS, users);
+  let token = "";
+  if (isStudio(pub(user))) {
+    token =
+      (await signHomeTicket({
+        email: user.email,
+        role: user.role === "owner" ? "owner" : "studio",
+      })) || "";
+  }
+  if (!token) {
+    token = randomBytes(32).toString("hex");
+    const sessions = await readJson<Session>(SESSIONS);
+    sessions.push({
+      token,
+      userId: user.id,
+      createdAt: now.toISOString(),
+      expiresAt: expires.toISOString(),
+    });
+    await writeJson(SESSIONS, sessions);
+  }
+  void emitClock({
+    house: "dln",
+    host: "lab",
+    plane: "studio",
+    kind: "studio.login.ok",
+    actor: user.email,
+    summary: `${user.displayName} signed in`,
   });
-  await writeJson(SESSIONS, sessions);
   return { user: pub(user), token };
 }
 
@@ -441,6 +501,14 @@ export async function verifyStudioLogin(
   const pubUser = pub(user);
   if (!isStudio(pubUser)) return null;
   return pubUser;
+}
+
+export async function userFromSessionFingerprint(
+  fp: string | undefined | null,
+): Promise<PublicUser | null> {
+  const v = (fp || "").trim();
+  if (!v) return null;
+  return findUserById(v);
 }
 
 export async function userFromSession(
@@ -470,8 +538,20 @@ export async function userFromSession(
 export async function logout(token: string | undefined) {
   if (!token || isHomeTicket(token)) return;
   const sessions = await readJson<Session>(SESSIONS);
+  const s = sessions.find((x) => x.token === token);
   await writeJson(
     SESSIONS,
-    sessions.filter((s) => s.token !== token),
+    sessions.filter((x) => x.token !== token),
   );
+  if (s) {
+    const user = await findUserById(s.userId);
+    void emitClock({
+      house: "dln",
+      host: "lab",
+      plane: "studio",
+      kind: "studio.logout",
+      actor: user?.email || s.userId,
+      summary: `${user?.displayName || s.userId} signed out`,
+    });
+  }
 }

@@ -43,6 +43,7 @@ if [ "$ACTION" = pull ]; then
     python3 "$MERGE" "$LAN/messages.json" "$DIR/messages.json" 2>/dev/null || true
     python3 "$MERGE" "$DIR/messages.json" "$LAN/messages.json" 2>/dev/null || true
   fi
+  echo "pulled $HOUSE"
   exit 0
 fi
 
@@ -52,3 +53,4 @@ fi
 rsync -aH -e "ssh ${SSH_OPTS[*]}" \
   --exclude wake.flag \
   "$DIR/" "$DEBIAN:$DIR/" 2>/dev/null || true
+echo "pushed $HOUSE"

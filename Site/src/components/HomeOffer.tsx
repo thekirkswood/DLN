@@ -1,46 +1,15 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { OFFERS, HOME_COLUMNS, offerById, type Facet, type Need } from "@/data/needs";
 
 export function HomeOffer() {
   const homeOffers = HOME_COLUMNS.map((id) => offerById(id)!);
-  const [slide, setSlide] = useState(0);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-
-    function sync() {
-      const track = trackRef.current;
-      if (!track) return;
-      const w = track.clientWidth;
-      if (!w) return;
-      const i = Math.round(track.scrollLeft / w);
-      setSlide(Math.max(0, Math.min(homeOffers.length - 1, i)));
-    }
-
-    sync();
-    el.addEventListener("scroll", sync, { passive: true });
-    window.addEventListener("resize", sync);
-    return () => {
-      el.removeEventListener("scroll", sync);
-      window.removeEventListener("resize", sync);
-    };
-  }, []);
-
-  function goTo(i: number) {
-    const track = trackRef.current;
-    if (!track) return;
-    setSlide(i);
-    track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
-  }
 
   return (
     <section className="home-offer">
-      <div className="offer-track" ref={trackRef}>
+      <div className="offer-track">
         {homeOffers.map((offer) => {
           const title = offer.homeName || offer.name;
           const cta = offer.homeCta || `Contact ${title}`;
@@ -62,19 +31,6 @@ export function HomeOffer() {
             </div>
           );
         })}
-      </div>
-      <div className="offer-dots wrap" role="tablist" aria-label="Strategy, Design, Websites">
-        {homeOffers.map((offer, i) => (
-          <button
-            key={offer.id}
-            type="button"
-            role="tab"
-            aria-selected={slide === i}
-            aria-label={offer.homeName || offer.name}
-            className={slide === i ? "is-on" : ""}
-            onClick={() => goTo(i)}
-          />
-        ))}
       </div>
     </section>
   );

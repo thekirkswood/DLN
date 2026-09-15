@@ -6,6 +6,7 @@ import { CloseEnquiry } from "@/components/AccountBilling";
 import { formatLondonDate } from "@/lib/clock";
 import { localHandleFromName } from "@/lib/handles";
 import type { Enquiry } from "@/lib/enquiries";
+import { OnboardChat } from "@/components/OnboardChat";
 import type { Plot } from "@/lib/plot-urls";
 
 type Cred = {
@@ -27,7 +28,9 @@ export function OnboardDesk({
   lab?: boolean;
 }) {
   const open = enquiries.filter((e) => e.status === "new");
-  const done = enquiries.filter((e) => e.status !== "new");
+  const done = enquiries.filter(
+    (e) => e.status === "closed" || e.status === "onboarded",
+  );
   const clientPlots = plots.filter((p) => p.party === "client");
 
   return (
@@ -235,6 +238,12 @@ function OnboardCard({
           <p className="onboard-card-facet">{enquiry.facet}</p>
           <p className="status">{formatLondonDate(enquiry.createdAt)}</p>
           <p className="body">{enquiry.needLabel}</p>
+          <OnboardChat
+            enquiryId={enquiry.id}
+            email={enquiry.email}
+            initial={enquiry.thread || []}
+            studio
+          />
           {enquiry.message ? <p className="body">{enquiry.message}</p> : null}
         </>
       ) : (

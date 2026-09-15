@@ -1,6 +1,6 @@
 /** Hostname from a Host header or window.location.host (may include a port). */
 export function hostnameOf(host?: string | null): string {
-  const raw = (host || "").trim().toLowerCase();
+  const raw = (host || "").trim().toLowerCase().split(",")[0].trim();
   if (!raw) return "";
   if (raw.startsWith("[")) {
     const end = raw.indexOf("]");
@@ -30,20 +30,19 @@ function ipv6LoopbackOrPrivate(h: string): boolean {
 }
 
 /**
- * The offline lab is this PC — loopback or the LAN address Dave uses from his machine.
- * Public hosts (designlabnorth.com and the plot names) stay 404 for /lab.
+ * Loopback or LAN — used for puppet campus-only logins.
+ * Named studio is dln.local / *.dln.local (Debian Caddy :80).
+ * The lab itself is /home/main/Repos/Builder on :3100, not these hosts.
  */
 export function isLabHost(host?: string | null): boolean {
   const h = hostnameOf(host);
   if (!h) return false;
   if (h === "localhost" || h === "0.0.0.0") return true;
   if (h === "campus.dln.home") return true;
+  if (h === "dln.local" || h.endsWith(".dln.local")) return true;
   if (h.endsWith(".local")) return true;
   if (ipv4Private(h)) return true;
   if (ipv6LoopbackOrPrivate(h)) return true;
   return false;
 }
 
-export function labStationPath(slug: string): string {
-  return slug === "dln" ? "/admin" : `/lab/${slug}`;
-}
