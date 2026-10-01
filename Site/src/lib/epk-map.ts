@@ -23,10 +23,18 @@ export function epkHref(kit: string, rest = ""): string {
   return tail ? `/epk/${kit}/${tail}` : `/epk/${kit}`;
 }
 
-/** Journalist dest after a code. Must stay on that kit. */
+/** Journalist dest after a code. Same-kit hub path, or absolute plot handoff. */
 export function safeEpkNext(kit: string, next?: string | null): string {
   const fallback = epkHref(kit);
   const raw = (next || "").trim();
+  if (!raw) return fallback;
+  // Allowlisted plot handoff (bespoke ModYu EPK etc.)
+  if (
+    raw.startsWith("https://modyu.designlabnorth.com/api/epk/handoff") ||
+    raw.startsWith("https://modyu.designlabnorth.com/epk")
+  ) {
+    return raw;
+  }
   if (!raw.startsWith("/")) return fallback;
   if (raw === fallback || raw.startsWith(`${fallback}/`)) return raw;
   return fallback;

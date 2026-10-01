@@ -28,3 +28,4 @@ SEED.txt
 *.log
 ops/local.secret
 Site/tsconfig.tsbuildinfo
+_meta/epk/handoff.secret
