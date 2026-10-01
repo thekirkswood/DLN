@@ -19,8 +19,10 @@ export function generateMetadata({ params }: { params: { kit: string } }) {
 
 export default async function EpkKitPage({
   params,
+  searchParams,
 }: {
   params: { kit: string; path?: string[] };
+  searchParams?: { hub?: string };
 }) {
   const id = params.kit.toLowerCase();
   if (!isKitId(id)) notFound();
@@ -31,8 +33,9 @@ export default async function EpkKitPage({
   }
 
   // Bespoke plot kit takes over the generated hub shell for journalists.
-  // Studio can still open ?hub=1 to edit the generated base on the hub.
-  if (kitExternalOrigin(id) && !access.studio) {
+  // Studio can open ?hub=1 to keep the generated base on the hub.
+  const stayOnHub = searchParams?.hub === "1" && access.studio;
+  if (kitExternalOrigin(id) && !stayOnHub) {
     const handoff = await kitHandoffHref(id, "/epk");
     if (handoff) redirect(handoff);
   }

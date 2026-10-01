@@ -32,6 +32,7 @@ Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + 
 20. **Funnel mail:** Forms first. IMAP later. No private Gmail scrape.
 21. **Builder house:** `/home/main/Repos/Builder` on **`:3100`** / `builder.dln.local`. Always-on lab. Campus `/admin` and `/lab/{slug}/admin` are gone. DLN local matches live.
 22. **Named local studio:** Dave bookmarks `dln.local` names (Debian Caddy :80). Cookie `Domain=.dln.local` on those hosts. Live `/desk` tunnels the home book. Clock live overlay. Houses sheet (View site / Open live / View EPK) on the book and on the lab `/links`. **Assets is the house library** (dropdowns, drag-and-drop, text notes, comments, download, delete uploads, tick share). **ModYu journalist kit matches Dave’s landing and two-group rail** (MAP / his `/epk`); on-screen is not a PDF; Download PDF on desk stories, logo+banner on the PDF foot only. **ModYu and DAA text is in the hub**. Various Titles later. **EPKs pull only shared assets** into the MAP editor for other houses. `/epk` is the in-house press-kit gate. Each kit is unique at `/epk/{kit}`. A cookie for one house never opens another. DAA kit is fed from that house’s `_meta/assets/daa.json` (slim copy in the hub). Lab launches View site / View EPK; no harvest box in compose. Ordinary Send does not deploy. **Board stays off the live ship.**
+23. **Board campus (scope first):** `/board` 3D overview; `/board/{faculty}` and `/board/{faculty}/{topic}` rooms; `/board/plot` book. Play honed per room later. Not live.
 
 ## Standing checks (every plot ship)
 
@@ -40,3 +41,7 @@ Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + 
 - No insult to a live site. No invented status. No secrets in git.
 - Each hosted plot has its own hostname. Do not rebase a live plot onto a hub path. Named LAN hosts: `ops/named-studio.md`.
 - Greenhouse enter is the product domain. Client sites stay on the account.
+
+## EPK generator (2026-10-01)
+
+Learn from ModYu plot kit (`modyu.designlabnorth.com/epk`): labelled asset vault, story rails, picture palette, HT4 About + Shop RRP, transparent downloadable PNGs. Hub auto kits should adopt; bespoke plots override via `KIT_EXTERNAL_PRESS` handoff.
