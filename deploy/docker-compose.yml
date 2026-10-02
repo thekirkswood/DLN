@@ -92,13 +92,14 @@ services:
     expose:
       - "3000"
 
-  # Client preview — same build as plot-modyu, code gate on. Live shop stays ungated.
+  # Client preview — same Dockerfile with SANDBOX_GATE baked. Live shop stays ungated.
   plot-modyu-sandbox:
     build:
       context: ${MODYU_DIR:-/srv/dln/plots/modyu}
       dockerfile: deploy/Dockerfile
       args:
         BASE_PATH: ${MODYU_BASE_PATH:-}
+        SANDBOX_GATE: "1"
     restart: unless-stopped
     labels:
       dln.plot: modyu-sandbox
@@ -109,6 +110,7 @@ services:
       - ${MODYU_SANDBOX_META:-/srv/dln/data/modyu-sandbox}:/app/_meta/sandbox
     environment:
       SANDBOX_GATE: "1"
+      NEXT_PUBLIC_SANDBOX_GATE: "1"
       SANDBOX_CODE: ${MODYU_SANDBOX_CODE:-MODYU-VIEW}
       MODYU_COOKIE_SECURE: ${MODYU_COOKIE_SECURE:-true}
       DLN_ORIGIN: ${MODYU_DLN_ORIGIN:-http://web:3000}

@@ -17,10 +17,14 @@ Then **A records** in the Livedns panel (not nameserver rows, not IONOS DNS):
 | `@` (apex / designlabnorth.com) | A | `82.165.5.84` |
 | `www` | A | `82.165.5.84` |
 | `modyu` | A | `82.165.5.84` |
+| `modyu-sandbox` | A | `82.165.5.84` |
+| `sandbox.modyu` | A | `82.165.5.84` |
 | `swarmfund` | A | `82.165.5.84` |
 | `daa` | A | `82.165.5.84` |
 | `paulfosbury` | A | `82.165.5.84` |
 | `*` (wildcard) | A | `82.165.5.84` |
+
+Client preview hosts (`modyu-sandbox` and/or `sandbox.modyu`) need those A records before Let’s Encrypt can issue. Prefer the one-label `modyu-sandbox` if the panel won’t take nested `sandbox.modyu`.
 
 Plot hosts are **A records**. They are not nameservers.
 
