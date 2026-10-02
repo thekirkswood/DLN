@@ -12,7 +12,6 @@ $TTL 60
 	IN	A	82.165.5.84
 www	IN	A	82.165.5.84
 modyu	IN	A	82.165.5.84
-sandbox.modyu	IN	A	82.165.5.84
 swarmfund	IN	A	82.165.5.84
 daa	IN	A	82.165.5.84
 *	IN	A	82.165.5.84

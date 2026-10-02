@@ -21,7 +21,6 @@ services:
     depends_on:
       - web
       - plot-modyu
-      - plot-modyu-sandbox
       - plot-swarm
       - plot-titles
       - plot-pfp
@@ -72,28 +71,9 @@ services:
     expose:
       - "3000"
 
+  # Code gate on the plot host: organic visitors enter a sayable code;
+  # dln_session / modyu desk cookies bypass. No second container.
   plot-modyu:
-    build:
-      context: ${MODYU_DIR:-/srv/dln/plots/modyu}
-      dockerfile: deploy/Dockerfile
-      args:
-        BASE_PATH: ${MODYU_BASE_PATH:-}
-    restart: unless-stopped
-    labels:
-      dln.plot: modyu
-    volumes:
-      - ${MODYU_ACCOUNTS_DIR:-/srv/dln/data/modyu-accounts}:/app/_meta/accounts
-      - ${MODYU_ORDERS_DIR:-/srv/dln/data/modyu-orders}:/app/_meta/orders
-      - ${MODYU_ANALYTICS_DIR:-/srv/dln/data/modyu-analytics}:/app/_meta/analytics
-    environment:
-      MODYU_COOKIE_SECURE: ${MODYU_COOKIE_SECURE:-true}
-      DLN_ORIGIN: ${MODYU_DLN_ORIGIN:-http://web:3000}
-      DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-https://designlabnorth.com}
-    expose:
-      - "3000"
-
-  # Client preview — same Dockerfile with SANDBOX_GATE baked. Live shop stays ungated.
-  plot-modyu-sandbox:
     build:
       context: ${MODYU_DIR:-/srv/dln/plots/modyu}
       dockerfile: deploy/Dockerfile
@@ -102,7 +82,7 @@ services:
         SANDBOX_GATE: "1"
     restart: unless-stopped
     labels:
-      dln.plot: modyu-sandbox
+      dln.plot: modyu
     volumes:
       - ${MODYU_ACCOUNTS_DIR:-/srv/dln/data/modyu-accounts}:/app/_meta/accounts
       - ${MODYU_ORDERS_DIR:-/srv/dln/data/modyu-orders}:/app/_meta/orders

@@ -46,8 +46,6 @@ Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + 
 
 Learn from ModYu plot kit (`modyu.designlabnorth.com/epk`): labelled asset vault, story rails, picture palette, HT4 About + Shop RRP, transparent downloadable PNGs. Hub auto kits should adopt; bespoke plots override via `KIT_EXTERNAL_PRESS` handoff.
 
-## Client sandbox pattern (2026-10-02)
+## Client preview gate (2026-10-02)
 
-ModYu: `sandbox.modyu.designlabnorth.com` → `plot-modyu-sandbox` (`SANDBOX_GATE=1`, code `MODYU_SANDBOX_CODE` / volume `/srv/dln/data/modyu-sandbox`). Live shop on `modyu.designlabnorth.com` stays ungated. Extrapolate: second compose service + Caddy host `sandbox.<plot>.designlabnorth.com` + plot-local cookie + sayable seed.
-
-Livedns A still required for public name: `sandbox.modyu` → `82.165.5.84` (same as other plot hosts). Until then, gate works on-VPS via Host header; public HTTPS waits on that A record + ACME.
+ModYu uses the plot host itself (`modyu.designlabnorth.com`) with an in-app code gate — no second container or `-sandbox` URL. Organic → `/enter` + sayable code; `dln_session` / desk cookies bypass. Compose: `SANDBOX_GATE=1` on `plot-modyu`. Extrapolate the same way on each plot host.

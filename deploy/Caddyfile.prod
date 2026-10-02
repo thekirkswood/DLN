@@ -28,23 +28,6 @@
     reverse_proxy plot-modyu:3000
   }
 
-  @modyu_sandbox_static {
-    host sandbox.modyu.designlabnorth.com modyu-sandbox.designlabnorth.com
-    path /assets* /_next/static*
-  }
-  handle @modyu_sandbox_static {
-    reverse_proxy plot-modyu-sandbox:3000 {
-      header_up X-DLN-Sandbox 1
-    }
-  }
-
-  @modyu_sandbox host sandbox.modyu.designlabnorth.com modyu-sandbox.designlabnorth.com
-  handle @modyu_sandbox {
-    reverse_proxy plot-modyu-sandbox:3000 {
-      header_up X-DLN-Sandbox 1
-    }
-  }
-
   @pfp_static {
     host paulfosbury.designlabnorth.com
     path /assets* /_next/static*
@@ -126,11 +109,11 @@
 }
 
 # HTTP stays up even while certificates obtain.
-http://designlabnorth.com, http://www.designlabnorth.com, http://modyu.designlabnorth.com, http://sandbox.modyu.designlabnorth.com, http://modyu-sandbox.designlabnorth.com, http://swarmfund.designlabnorth.com, http://daa.designlabnorth.com, http://paulfosbury.designlabnorth.com {
+http://designlabnorth.com, http://www.designlabnorth.com, http://modyu.designlabnorth.com, http://swarmfund.designlabnorth.com, http://daa.designlabnorth.com, http://paulfosbury.designlabnorth.com {
   import edge
 }
 
-designlabnorth.com, www.designlabnorth.com, modyu.designlabnorth.com, sandbox.modyu.designlabnorth.com, modyu-sandbox.designlabnorth.com, swarmfund.designlabnorth.com, daa.designlabnorth.com, paulfosbury.designlabnorth.com {
+designlabnorth.com, www.designlabnorth.com, modyu.designlabnorth.com, swarmfund.designlabnorth.com, daa.designlabnorth.com, paulfosbury.designlabnorth.com {
   tls {
     issuer acme {
       disable_tlsalpn_challenge
