@@ -1,7 +1,7 @@
 $ORIGIN designlabnorth.com.
 $TTL 60
 @	IN	SOA	modyu.designlabnorth.com. admin.designlabnorth.com. (
-			2026081501 ; serial
+			2026100201 ; serial
 			300
 			60
 			604800
@@ -12,6 +12,7 @@ $TTL 60
 	IN	A	82.165.5.84
 www	IN	A	82.165.5.84
 modyu	IN	A	82.165.5.84
+sandbox.modyu	IN	A	82.165.5.84
 swarmfund	IN	A	82.165.5.84
 daa	IN	A	82.165.5.84
 *	IN	A	82.165.5.84

@@ -21,6 +21,7 @@ services:
     depends_on:
       - web
       - plot-modyu
+      - plot-modyu-sandbox
       - plot-swarm
       - plot-titles
       - plot-pfp
@@ -85,6 +86,30 @@ services:
       - ${MODYU_ORDERS_DIR:-/srv/dln/data/modyu-orders}:/app/_meta/orders
       - ${MODYU_ANALYTICS_DIR:-/srv/dln/data/modyu-analytics}:/app/_meta/analytics
     environment:
+      MODYU_COOKIE_SECURE: ${MODYU_COOKIE_SECURE:-true}
+      DLN_ORIGIN: ${MODYU_DLN_ORIGIN:-http://web:3000}
+      DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-https://designlabnorth.com}
+    expose:
+      - "3000"
+
+  # Client preview — same build as plot-modyu, code gate on. Live shop stays ungated.
+  plot-modyu-sandbox:
+    build:
+      context: ${MODYU_DIR:-/srv/dln/plots/modyu}
+      dockerfile: deploy/Dockerfile
+      args:
+        BASE_PATH: ${MODYU_BASE_PATH:-}
+    restart: unless-stopped
+    labels:
+      dln.plot: modyu-sandbox
+    volumes:
+      - ${MODYU_ACCOUNTS_DIR:-/srv/dln/data/modyu-accounts}:/app/_meta/accounts
+      - ${MODYU_ORDERS_DIR:-/srv/dln/data/modyu-orders}:/app/_meta/orders
+      - ${MODYU_ANALYTICS_DIR:-/srv/dln/data/modyu-analytics}:/app/_meta/analytics
+      - ${MODYU_SANDBOX_META:-/srv/dln/data/modyu-sandbox}:/app/_meta/sandbox
+    environment:
+      SANDBOX_GATE: "1"
+      SANDBOX_CODE: ${MODYU_SANDBOX_CODE:-MODYU-VIEW}
       MODYU_COOKIE_SECURE: ${MODYU_COOKIE_SECURE:-true}
       DLN_ORIGIN: ${MODYU_DLN_ORIGIN:-http://web:3000}
       DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-https://designlabnorth.com}
