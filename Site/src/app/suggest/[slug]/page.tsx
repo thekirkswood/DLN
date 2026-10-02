@@ -1,5 +1,6 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { plotBySlug } from "@/lib/plots";
+import { getSessionUser } from "@/lib/session";
 import { LiveSuggest } from "@/components/LiveSuggest";
 
 export const dynamic = "force-dynamic";
@@ -11,6 +12,10 @@ export default async function SuggestPlot({
   params: { slug: string };
   searchParams: { embed?: string };
 }) {
+  const user = await getSessionUser();
+  if (!user) {
+    redirect(`/login?next=/suggest/${encodeURIComponent(params.slug)}`);
+  }
   const plot = await plotBySlug(params.slug);
   if (!plot || plot.party !== "client") notFound();
   return (

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isStudio } from "@/lib/auth";
 import { addLiveSuggestion } from "@/lib/plans";
 import { allPlots } from "@/lib/plots";
+import { getRequestUser } from "@/lib/session";
 
 const hits = new Map<string, number[]>();
 
@@ -33,7 +35,8 @@ async function allowOrigin(origin: string | null): Promise<string | null> {
       host === "localhost:3010" ||
       host === "localhost:3000" ||
       host === "127.0.0.1:3010" ||
-      host === "192.168.0.223:3010"
+      host === "192.168.0.223:3010" ||
+      host === "modyu.designlabnorth.com"
     ) {
       return origin;
     }
@@ -57,6 +60,7 @@ async function cors(req: NextRequest, res: NextResponse) {
     res.headers.set("Access-Control-Allow-Origin", origin);
     res.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.headers.set("Access-Control-Allow-Headers", "Content-Type");
+    res.headers.set("Access-Control-Allow-Credentials", "true");
     res.headers.set("Vary", "Origin");
   }
   return res;
@@ -70,6 +74,10 @@ export async function POST(req: NextRequest) {
   if (tooMany(clientIp(req))) {
     return cors(req, NextResponse.json({ ok: false }, { status: 429 }));
   }
+  const user = await getRequestUser(req);
+  if (!user) {
+    return cors(req, NextResponse.json({ ok: false, error: "auth" }, { status: 401 }));
+  }
   const body = (await req.json().catch(() => null)) as {
     plotSlug?: string;
     body?: string;
@@ -80,8 +88,19 @@ export async function POST(req: NextRequest) {
   if (body?.company) {
     return cors(req, NextResponse.json({ ok: true }));
   }
+  const plotSlug = (body?.plotSlug || "").trim();
+  if (
+    !isStudio(user) &&
+    !(user.plots || []).map((p) => p.toLowerCase()).includes(plotSlug.toLowerCase())
+  ) {
+    return cors(req, NextResponse.json({ ok: false, error: "forbidden" }, { status: 403 }));
+  }
   try {
-    const row = await addLiveSuggestion(body || {});
+    const row = await addLiveSuggestion({
+      ...(body || {}),
+      fromName: body?.fromName || user.displayName,
+      authorId: user.id,
+    });
     return cors(req, NextResponse.json({ ok: true, id: row.id }));
   } catch (err) {
     const msg = err instanceof Error ? err.message : "";

@@ -28,6 +28,7 @@ export function LiveSuggest({
       typeof window !== "undefined" ? window.location.pathname : undefined;
     const res = await fetch("/api/suggestions", {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         plotSlug,
@@ -37,6 +38,11 @@ export function LiveSuggest({
         company: honey,
       }),
     });
+    if (res.status === 401) {
+      setPending(false);
+      setError("Sign in to Design Lab North to send a change request.");
+      return;
+    }
     setPending(false);
     if (!res.ok) {
       setError("That didn’t land. Try again in a moment.");

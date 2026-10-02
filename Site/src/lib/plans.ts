@@ -135,6 +135,8 @@ export async function addLiveSuggestion(input: {
   body?: string;
   page?: string;
   fromName?: string;
+  /** Logged-in Design Lab North account that filed the request. */
+  authorId?: string;
 }): Promise<SiteComment> {
   const { clientForPlot } = await import("@/lib/auth");
   const { plotBySlug } = await import("@/lib/plots");
@@ -147,10 +149,11 @@ export async function addLiveSuggestion(input: {
   const owner = await clientForPlot(plotSlug);
   if (!owner) throw new Error("missing");
   const fromName = (input.fromName || "").trim().slice(0, 80) || undefined;
+  const authorId = (input.authorId || "").trim() || "live";
   const row: SiteComment = {
     id: randomUUID(),
     userId: owner.id,
-    authorId: "live",
+    authorId,
     plotSlug,
     body,
     page: input.page?.trim().slice(0, 160) || undefined,
