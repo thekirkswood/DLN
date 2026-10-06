@@ -80,6 +80,7 @@ services:
       args:
         BASE_PATH: ${MODYU_BASE_PATH:-}
         SANDBOX_GATE: "1"
+        MODYU_ANGLE: ${MODYU_ANGLE:-ingredients}
     restart: unless-stopped
     labels:
       dln.plot: modyu
@@ -92,6 +93,8 @@ services:
       SANDBOX_GATE: "1"
       NEXT_PUBLIC_SANDBOX_GATE: "1"
       SANDBOX_CODE: ${MODYU_SANDBOX_CODE:-MODYU-VIEW}
+      MODYU_ANGLE: ${MODYU_ANGLE:-ingredients}
+      NEXT_PUBLIC_MODYU_ANGLE: ${MODYU_ANGLE:-ingredients}
       MODYU_COOKIE_SECURE: ${MODYU_COOKIE_SECURE:-true}
       DLN_ORIGIN: ${MODYU_DLN_ORIGIN:-http://web:3000}
       DLN_PUBLIC_URL: ${DLN_PUBLIC_URL:-https://designlabnorth.com}
