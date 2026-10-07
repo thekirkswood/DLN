@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <title>Social loop — sign-off</title>
+  <style>
+    :root {
+      --ground: #fff;
+      --ink: #414141;
+      --mute: #6e6e6e;
+      --line: #d4d4d4;
+      --cut: 9px;
+      --font: "aktiv-grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--ground); color: var(--ink); font-family: var(--font); }
+    body { max-width: 1180px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    .kicker {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--mute); margin-bottom: 0.6rem;
+    }
+    h1 { font-size: 28px; font-weight: 900; margin-bottom: 0.8rem; }
+    p { font-size: 16px; line-height: 1.45; }
+    .lede { color: var(--mute); margin-bottom: 1.2rem; max-width: 46em; }
+    h2 { font-size: 18px; font-weight: 700; margin: 2.2rem 0 0.8rem; }
+    .links { margin: 0 0 1.4rem; font-size: 15px; }
+    .links a { color: var(--ink); margin-right: 1.1rem; }
+    .beats { display: grid; gap: 1.2rem; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 800px) { .row { grid-template-columns: 1fr; } }
+    figure {
+      border: 1px solid var(--line);
+      clip-path: polygon(
+        var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut),
+        100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+        var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+      );
+    }
+    figure img { display: block; width: 100%; }
+    figcaption { padding: 0.65rem 0.85rem 0.85rem; font-size: 14px; border-top: 1px solid var(--line); }
+    figcaption b { font-weight: 700; }
+    figcaption span { color: var(--mute); }
+  </style>
+</head>
+<body>
+  <p class="kicker">Design Lab North · studio pack · you, not they</p>
+  <h1>Three notes, then a blip</h1>
+  <p class="lede">
+    You type in the sandbox. Each enter cements a colour. After three, you push — live matches in one hit. No swipe. The large line under “Said on the film” is narration. Silent cut has that track off.
+  </p>
+  <p class="links">
+    <a href="loop.html">Landscape · narration</a>
+    <a href="loop.html?captions=off">Landscape · silent</a>
+    <a href="loop.html?orient=portrait">Portrait · narration</a>
+    <a href="loop.html?orient=portrait&amp;captions=off">Portrait · silent</a>
+  </p>
+
+  <h2>Landscape · narration</h2>
+  <div class="beats">
+    <figure>
+      <img src="01-idle.png" alt="Idle. Live is up. Sandbox is empty." />
+      <figcaption><b>Idle</b> — <span>You get a live site. And a constant sandbox.</span></figcaption>
+    </figure>
+    <figure>
+      <img src="02-note.png" alt="First note cemented in the sandbox." />
+      <figcaption><b>Note 1</b> — <span>You leave a note.</span></figcaption>
+    </figure>
+    <figure>
+      <img src="03-n2.png" alt="Second note cemented." />
+      <figcaption><b>Note 2</b> — <span>You leave another.</span></figcaption>
+    </figure>
+    <figure>
+      <img src="04-n3.png" alt="Three notes in the sandbox. Live unchanged." />
+      <figcaption><b>Note 3</b> — <span>We take it in.</span></figcaption>
+    </figure>
+    <figure>
+      <img src="05-push.png" alt="Push. Live still the old site." />
+      <figcaption><b>Push</b> — <span>You choose when it is pushed.</span></figcaption>
+    </figure>
+    <figure>
+      <img src="06-live.png" alt="Live matches the sandbox in one hit." />
+      <figcaption><b>Live</b> — <span>Your live site stays up. The sandbox stays open.</span></figcaption>
+    </figure>
+  </div>
+
+  <h2>Portrait</h2>
+  <p class="lede">Sandbox on top. Same clunks. Live snaps after push.</p>
+  <div class="beats">
+    <div class="row">
+      <figure>
+        <img src="p-01-idle.png" alt="Portrait idle." />
+        <figcaption><b>P1</b> — <span>Idle</span></figcaption>
+      </figure>
+      <figure>
+        <img src="p-02-note.png" alt="Portrait first note." />
+        <figcaption><b>P2</b> — <span>Note 1</span></figcaption>
+      </figure>
+    </div>
+    <div class="row">
+      <figure>
+        <img src="p-03-n2.png" alt="Portrait second note." />
+        <figcaption><b>P3</b> — <span>Note 2</span></figcaption>
+      </figure>
+      <figure>
+        <img src="p-04-n3.png" alt="Portrait three notes." />
+        <figcaption><b>P4</b> — <span>Note 3</span></figcaption>
+      </figure>
+    </div>
+    <div class="row">
+      <figure>
+        <img src="p-05-push.png" alt="Portrait push." />
+        <figcaption><b>P5</b> — <span>Push</span></figcaption>
+      </figure>
+      <figure>
+        <img src="p-06-live.png" alt="Portrait live matches." />
+        <figcaption><b>P6</b> — <span>Live</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <h2>Silent (for voice later)</h2>
+  <p class="lede">Same motion. No “Said on the film” track.</p>
+  <div class="row">
+    <figure>
+      <img src="silent-land.png" alt="Landscape silent, three notes ready to push." />
+      <figcaption><b>Landscape silent</b></figcaption>
+    </figure>
+    <figure>
+      <img src="silent-port.png" alt="Portrait silent, three notes ready to push." />
+      <figcaption><b>Portrait silent</b></figcaption>
+    </figure>
+  </div>
+</body>
+</html>

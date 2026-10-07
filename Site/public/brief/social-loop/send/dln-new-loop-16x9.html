@@ -1,0 +1,498 @@
+<!-- Design Lab North. Single file — open in a browser. Nothing else to attach. -->
+<!DOCTYPE html>
+<html lang="en-GB" data-orient="landscape">
+<head>
+  <meta charset="utf-8" />
+  <title>DLN loop — new</title>
+  <style>
+    :root {
+      --ground: #ffffff;
+      --ink: #414141;
+      --mute: #6e6e6e;
+      --line: #d4d4d4;
+      --cut: 16px;
+      --c1: #2c2c2c;
+      --c2: #3d6b8a;
+      --c3: #a0563a;
+      --font: "aktiv-grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--ground);
+      color: var(--ink);
+      font-family: var(--font);
+      height: 100%;
+      overflow: hidden;
+    }
+    body { display: flex; align-items: center; justify-content: center; }
+    .stage {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      display: grid;
+      grid-template-rows: auto 1fr;
+      padding: 3.6% 4.6% 3.2%;
+      gap: 2.2%;
+    }
+    html[data-orient="portrait"] .stage {
+      width: min(100vw, calc(100vh * 9 / 16));
+      height: min(100vh, calc(100vw * 16 / 9));
+      padding: 6% 7% 5.4%;
+    }
+    .kicker {
+      font-size: clamp(11px, 1.15vw, 15px);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    html[data-orient="portrait"] .kicker { font-size: clamp(11px, 2.4vw, 14px); }
+    .board {
+      display: grid;
+      grid-template-columns: 7.5% 1fr;
+      gap: 2.2%;
+      min-height: 0;
+    }
+    html[data-orient="portrait"] .board {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 3.2%;
+    }
+    .patches {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      min-width: 0;
+    }
+    html[data-orient="portrait"] .patches {
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 1rem;
+    }
+    .patch {
+      border: 1px solid var(--line);
+      padding: 0.65rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+      opacity: 0;
+    }
+    html[data-orient="portrait"] .patch { width: 22%; padding: 0.55rem 0.65rem; }
+    .patch.is-on { opacity: 1; }
+    .slip {
+      display: block;
+      height: 8px;
+      width: 100%;
+      opacity: 0;
+      clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 0 100%, 0 4px);
+    }
+    .slip.is-on { opacity: 1; }
+    #patchA .slip[data-n="1"] { background: var(--c1); }
+    #patchA .slip[data-n="2"] { background: var(--c2); }
+    #patchA .slip[data-n="3"] { background: var(--c3); }
+    #patchB .slip[data-n="1"],
+    #patchB .slip[data-n="2"] { background: var(--c2); }
+    #patchB .slip[data-n="3"] { background: var(--c3); }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.2%;
+      min-height: 0;
+      position: relative;
+    }
+    html[data-orient="portrait"] .pair {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 4.5%;
+    }
+    .room {
+      border: 1px solid var(--line);
+      clip-path: polygon(
+        var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut),
+        100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+        var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+      );
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-width: 0;
+      min-height: 0;
+      background: var(--ground);
+      position: relative;
+    }
+    .room h2 {
+      font-size: clamp(11px, 1.05vw, 14px);
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mute);
+      padding: 2.4% 3.2%;
+      border-bottom: 1px solid var(--line);
+    }
+    html[data-orient="portrait"] .room h2 { font-size: clamp(11px, 2.2vw, 13px); }
+    .skin { min-height: 0; overflow: hidden; }
+    .site {
+      padding: 5.5% 6.5%;
+      display: grid;
+      align-content: start;
+      gap: 4.2%;
+    }
+    html[data-orient="portrait"] .site { padding: 6.5% 7.5%; gap: 4.8%; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mark {
+      display: none;
+      width: 17%;
+      aspect-ratio: 2.4 / 1;
+      background: var(--c1);
+      clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
+    }
+    .mark.is-on { display: block; }
+    .chips {
+      display: flex;
+      gap: 6px;
+    }
+    .chip {
+      display: none;
+      width: 12px;
+      height: 12px;
+      clip-path: polygon(3px 0, calc(100% - 3px) 0, 100% 3px, 100% 100%, 0 100%, 0 3px);
+    }
+    .chip.is-on { display: block; }
+    .chip[data-n="1"] { background: var(--c1); }
+    .chip[data-n="2"] { background: var(--c2); }
+    .chip[data-n="3"] { background: var(--c3); }
+    .nav {
+      display: none;
+      gap: 8px;
+    }
+    .nav.is-on { display: flex; }
+    .nav i {
+      width: 22px;
+      height: 5px;
+      background: var(--ink);
+      opacity: 0.55;
+    }
+    .work {
+      display: none;
+      grid-template-columns: minmax(0, 40%);
+      gap: 3.5%;
+    }
+    .work.is-on { display: grid; }
+    .work.is-two { grid-template-columns: 1fr 1fr; }
+    .work.is-three { grid-template-columns: 1fr 1fr 1fr; }
+    .work > * { min-width: 0; }
+    .plate {
+      display: none;
+      aspect-ratio: 1 / 1;
+      background: var(--c2);
+      clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+    }
+    .work.is-on .plate.hero { display: block; }
+    .work.is-two .plate.mid { display: block; }
+    .work.is-three .plate.mid,
+    .work.is-three .plate.thumb { display: block; }
+    .line {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 12px;
+      position: relative;
+    }
+    .line[data-n="1"] { --c: var(--c1); --w: 58%; --w2: 34%; }
+    .line[data-n="2"] { --c: var(--c2); --w: 44%; --w2: 40%; }
+    .line[data-n="3"] { --c: var(--c3); --w: 71%; --w2: 48%; }
+    .line[data-n="3"] .stroke.alt { display: none; }
+    .stroke {
+      display: block;
+      height: 11px;
+      width: 0;
+      background: var(--ink);
+      opacity: 0;
+      visibility: hidden;
+      clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%, 0 5px);
+    }
+    .sandbox .line.is-type .stroke:not(.alt) {
+      visibility: visible;
+      width: var(--w);
+      opacity: 0.34;
+      background: var(--ink);
+      transition: width 0.34s steps(7);
+    }
+    .line.is-set .stroke:not(.alt) {
+      visibility: visible;
+      width: var(--w);
+      opacity: 1;
+      background: var(--c);
+      transition: none;
+    }
+    .line.is-set.is-rev[data-n="3"] .stroke:not(.alt) { width: 40%; height: 20px; }
+    .line[data-n="3"].is-rev .stroke.alt {
+      display: block;
+      visibility: visible;
+      width: 26%;
+      height: 11px;
+      opacity: 1;
+      background: var(--c3);
+    }
+    .ghost {
+      display: none;
+      height: 11px;
+      width: 0;
+      background: var(--ink);
+      opacity: 0.34;
+      clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%, 0 5px);
+    }
+    .sandbox .line.is-retype {
+      min-height: 30px;
+      padding-bottom: 16px;
+    }
+    .sandbox .line.is-retype .ghost {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 16px;
+      width: var(--w2);
+      visibility: visible;
+      transition: width 0.34s steps(7);
+    }
+    .caret {
+      display: none;
+      width: 2px;
+      height: 14px;
+      background: var(--ink);
+      flex: 0 0 2px;
+    }
+    .sandbox .line.is-caret .caret,
+    .sandbox .line.is-type .caret,
+    .sandbox .line.is-retype .caret {
+      display: block;
+      animation: blink 0.64s steps(1) infinite;
+    }
+    .sandbox .line.is-retype .caret {
+      position: absolute;
+      left: var(--w2);
+      top: 14px;
+      margin-left: 6px;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .live .site:not(.is-done),
+    .live .site:not(.is-done) * { visibility: hidden !important; }
+    .push {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      top: 50%;
+      translate: -50% -50%;
+      font-size: clamp(10px, 0.95vw, 13px);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ground);
+      background: var(--ink);
+      padding: 0.65em 1.1em;
+      clip-path: polygon(
+        8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px),
+        calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px
+      );
+      opacity: 0;
+      pointer-events: none;
+    }
+    .stage.is-push .push,
+    .stage.is-live .push,
+    .stage.is-push2 .push,
+    .stage.is-live2 .push { opacity: 1; }
+    html[data-freeze] * { transition: none !important; }
+    html[data-freeze] .line.is-caret .caret,
+    html[data-freeze] .line.is-type .caret,
+    html[data-freeze] .line.is-retype .caret { animation: none !important; opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="stage is-idle" id="stage">
+    <p class="kicker">Design / Build → Host</p>
+    <div class="board">
+      <aside class="patches" aria-hidden="true">
+        <div class="patch" id="patchA">
+          <i class="slip" data-n="1"></i>
+          <i class="slip" data-n="2"></i>
+          <i class="slip" data-n="3"></i>
+        </div>
+        <div class="patch" id="patchB">
+          <i class="slip" data-n="1"></i>
+          <i class="slip" data-n="2"></i>
+          <i class="slip" data-n="3"></i>
+        </div>
+      </aside>
+      <div class="pair">
+        <article class="room sandbox">
+          <h2>Sandbox</h2>
+          <div class="skin">
+            <div class="site" id="sand">
+              <div class="brand">
+                <i class="mark"></i>
+                <div class="chips">
+                  <i class="chip" data-n="1"></i>
+                  <i class="chip" data-n="2"></i>
+                  <i class="chip" data-n="3"></i>
+                </div>
+              </div>
+              <div class="nav"><i></i><i></i><i></i></div>
+              <div class="work">
+                <i class="plate hero"></i>
+                <i class="plate mid"></i>
+                <i class="plate thumb"></i>
+              </div>
+              <div class="line" data-n="1"><b class="stroke"></b><i class="ghost"></i><i class="caret"></i></div>
+              <div class="line" data-n="2"><b class="stroke"></b><i class="ghost"></i><i class="caret"></i></div>
+              <div class="line" data-n="3"><b class="stroke"></b><b class="stroke alt"></b><i class="ghost"></i><i class="caret"></i></div>
+            </div>
+          </div>
+        </article>
+        <article class="room live">
+          <h2>Live</h2>
+          <div class="skin">
+            <div class="site" id="liveNow">
+              <div class="brand">
+                <i class="mark"></i>
+                <div class="chips">
+                  <i class="chip" data-n="1"></i>
+                  <i class="chip" data-n="2"></i>
+                  <i class="chip" data-n="3"></i>
+                </div>
+              </div>
+              <div class="nav"><i></i><i></i><i></i></div>
+              <div class="work">
+                <i class="plate hero"></i>
+                <i class="plate mid"></i>
+                <i class="plate thumb"></i>
+              </div>
+              <div class="line" data-n="1"><b class="stroke"></b></div>
+              <div class="line" data-n="2"><b class="stroke"></b></div>
+              <div class="line" data-n="3"><b class="stroke"></b><b class="stroke alt"></b></div>
+            </div>
+          </div>
+        </article>
+        <span class="push">Push</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const baked = document.documentElement.getAttribute("data-orient");
+    const orient = q.get("orient") === "portrait" || (!q.has("orient") && baked === "portrait")
+      ? "portrait"
+      : "landscape";
+    document.documentElement.dataset.orient = orient;
+
+    const stage = document.getElementById("stage");
+    const live = document.getElementById("liveNow");
+    const sand = document.getElementById("sand");
+    const patchA = document.getElementById("patchA");
+    const patchB = document.getElementById("patchB");
+
+    const beats = [
+      { t: 0, name: "idle", set: 0, rev: 0, type: 0, retype: 0, caret: 1, live: false, liveRev: false },
+      { t: 450, name: "c1", set: 0, rev: 0, type: 0, retype: 0, caret: 1, live: false, liveRev: false },
+      { t: 900, name: "t1", set: 0, rev: 0, type: 1, retype: 0, caret: 1, live: false, liveRev: false },
+      { t: 1450, name: "n1", set: 1, rev: 0, type: 0, retype: 0, caret: 0, live: false, liveRev: false },
+      { t: 2000, name: "c2", set: 1, rev: 0, type: 0, retype: 0, caret: 2, live: false, liveRev: false },
+      { t: 2450, name: "t2", set: 1, rev: 0, type: 2, retype: 0, caret: 2, live: false, liveRev: false },
+      { t: 3000, name: "n2", set: 2, rev: 0, type: 0, retype: 0, caret: 0, live: false, liveRev: false },
+      { t: 3600, name: "c3", set: 2, rev: 0, type: 0, retype: 0, caret: 3, live: false, liveRev: false },
+      { t: 4050, name: "t3", set: 2, rev: 0, type: 3, retype: 0, caret: 3, live: false, liveRev: false },
+      { t: 4600, name: "n3", set: 3, rev: 0, type: 0, retype: 0, caret: 0, live: false, liveRev: false },
+      { t: 5400, name: "push", set: 3, rev: 0, type: 0, retype: 0, caret: 0, live: false, liveRev: false },
+      { t: 5850, name: "live", set: 3, rev: 0, type: 0, retype: 0, caret: 0, live: true, liveRev: false },
+      { t: 7800, name: "c1b", set: 3, rev: 0, type: 0, retype: 0, caret: 2, live: true, liveRev: false },
+      { t: 8350, name: "t1b", set: 3, rev: 0, type: 0, retype: 2, caret: 2, live: true, liveRev: false },
+      { t: 9000, name: "n1b", set: 3, rev: 1, type: 0, retype: 0, caret: 0, live: true, liveRev: false },
+      { t: 9650, name: "c2b", set: 3, rev: 1, type: 0, retype: 0, caret: 2, live: true, liveRev: false },
+      { t: 10200, name: "t2b", set: 3, rev: 1, type: 0, retype: 2, caret: 2, live: true, liveRev: false },
+      { t: 10850, name: "n2b", set: 3, rev: 2, type: 0, retype: 0, caret: 0, live: true, liveRev: false },
+      { t: 11500, name: "c3b", set: 3, rev: 2, type: 0, retype: 0, caret: 3, live: true, liveRev: false },
+      { t: 12050, name: "t3b", set: 3, rev: 2, type: 0, retype: 3, caret: 3, live: true, liveRev: false },
+      { t: 12700, name: "n3b", set: 3, rev: 3, type: 0, retype: 0, caret: 0, live: true, liveRev: false },
+      { t: 13600, name: "push2", set: 3, rev: 3, type: 0, retype: 0, caret: 0, live: true, liveRev: false },
+      { t: 14050, name: "live2", set: 3, rev: 3, type: 0, retype: 0, caret: 0, live: true, liveRev: true },
+    ];
+    const CYCLE = 17200;
+
+    function on(el, yes) { if (el) el.classList.toggle("is-on", yes); }
+
+    function paint(root, b, input) {
+      const mark = root.querySelector(".mark");
+      const nav = root.querySelector(".nav");
+      const work = root.querySelector(".work");
+      root.querySelectorAll(".line").forEach((el, i) => {
+        const n = i + 1;
+        el.className = "line";
+        if (b.set >= n) el.classList.add("is-set");
+        if (n === 3 && b.rev >= 3) el.classList.add("is-rev");
+        if (!input) return;
+        if (b.retype === n) el.classList.add("is-retype");
+        else if (b.type === n) el.classList.add("is-type");
+        else if (b.caret === n) el.classList.add("is-caret");
+      });
+      root.querySelectorAll(".chip").forEach((el, i) => on(el, b.set >= i + 1));
+      on(mark, b.set >= 1);
+      on(nav, b.set >= 2);
+      on(work, b.set >= 2);
+      if (work) {
+        work.classList.toggle("is-two", b.rev >= 1);
+        work.classList.toggle("is-three", b.rev >= 2);
+      }
+    }
+
+    function paintPatches(b) {
+      patchA.classList.toggle("is-on", b.set >= 1);
+      patchB.classList.toggle("is-on", b.rev >= 1);
+      patchA.querySelectorAll(".slip").forEach((el, i) => on(el, b.set >= i + 1));
+      patchB.querySelectorAll(".slip").forEach((el, i) => on(el, b.rev >= i + 1));
+    }
+
+    function apply(b) {
+      stage.className = "stage is-" + b.name;
+      paint(sand, b, true);
+      paintPatches(b);
+      live.classList.toggle("is-done", b.live);
+      if (b.live) {
+        const shown = b.liveRev ? b : beats.find((x) => x.name === "live");
+        paint(live, shown, false);
+      } else {
+        paint(live, beats[0], false);
+      }
+    }
+
+    function beatAt(t) {
+      let i = 0;
+      while (i < beats.length - 1 && t >= beats[i + 1].t) i += 1;
+      return beats[i];
+    }
+
+    const freeze = q.get("beat");
+    const freezeT = q.get("t");
+    if (freeze || freezeT != null) document.documentElement.dataset.freeze = "1";
+    if (freeze) {
+      apply(beats.find((x) => x.name === freeze) || beats[0]);
+    } else if (freezeT != null) {
+      apply(beatAt(Number(freezeT)));
+    } else {
+      let last = "";
+      const t0 = performance.now();
+      function tick(now) {
+        const b = beatAt((now - t0) % CYCLE);
+        if (b.name !== last) {
+          last = b.name;
+          apply(b);
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  </script>
+</body>
+</html>

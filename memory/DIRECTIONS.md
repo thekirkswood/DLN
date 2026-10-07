@@ -987,4 +987,8 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - The Builder window is that same bind. Houses allow Builder and the live hub to iframe them (`frame-ancestors`).
 - `daa.designlabnorth.com` is the DAA site (`plot-daa`), not a redirect to the hub. Push that copy live. Do not drag the DAA chat into this repo.
 
+## 2026-10-07 — Three-door social films (Ewan)
+
+Map: `memory/social-video-blueprint.md`. Existing HTML/GIF loops are a 3–4s chunk of 15–20s films, said differently per door — entrepreneurs (space/walk); small business new (empty live, two Pushes); small business refresh (look-first, sit with live, never slight it). Ewan on camera is a variant after graphic lock; key only over our stills. Deep files: `memory/entrepreneur-film.md`, `memory/social-avenue-small-business-new.md`, `memory/social-refresh.md`. Lock: `memory/social-avenues.md`. Do not mix pitches. Do not generate stills in the same pass. Not a public header door. Not a posting calendar.
+
 

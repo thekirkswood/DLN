@@ -896,3 +896,11 @@
 {"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"ops/sync-to-debian.sh ops/push-builder-downstairs.sh","s":"Debian house rsync includes DAA PFP DKS; Builder push wrap","d":"CSP + lab bind downstairs"}
 {"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"memory/builder-paste.md","s":"Paste: iframe src is 223:port same as homepage","d":"do not drag Builder chats"}
 {"t":"2026-09-15T11:40:28+01:00","k":"ver","p":"dln-9","s":"LAN binds never 0.0.0.0. Live Houses View site is the public host. daa.designlabnorth.com is the DAA site. Board still off live.","d":"numbered ship"}
+{"t":"2026-10-07T16:10:00+01:00","k":"add","p":"memory/social-video-blueprint.md","s":"Three-door 15-20s film map: entrepreneur / new / refresh; loop as 3-4s chunk; hybrid shoot variants","d":"Ewan: exhaustive plan, three agents, do not mix pitches"}
+{"t":"2026-10-07T16:10:00+01:00","k":"add","p":"memory/social-avenues.md","s":"Studio-ads lock plus pointer to three-door map","d":"index for pieces 1-4"}
+{"t":"2026-10-07T16:10:00+01:00","k":"add","p":"memory/entrepreneur-film.md","s":"Piece 2 entrepreneur film: space/walk; host loop as 3-4s chunk; UK 2024-26 sources","d":"entrepreneur door"}
+{"t":"2026-10-07T16:10:00+01:00","k":"add","p":"memory/social-avenue-small-business-new.md","s":"Piece 3 film around sped new.html; UK SME first-site research","d":"new-business door"}
+{"t":"2026-10-07T16:10:00+01:00","k":"add","p":"memory/social-refresh.md","s":"Piece 4 look-first plates; host loop as tail; never slight live","d":"refresh door"}
+{"t":"2026-10-07T16:10:00+01:00","k":"add","p":"Site/public/brief/social-loop/","s":"Host and new-customer HTML/GIF loops, review pack, send zips","d":"in-house cycles the films wrap"}
+{"t":"2026-10-07T16:10:00+01:00","k":"dir","p":"DIRECTIONS.md WORKSTREAM.md","s":"Three-door social films; sign-off before generate","d":"Ewan social generation"}
+{"t":"2026-10-07T16:10:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Studio ads three-door film map path","d":"new function pointer"}

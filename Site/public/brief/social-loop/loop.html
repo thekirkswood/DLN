@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-orient="landscape">
+<head>
+  <meta charset="utf-8" />
+  <title>DLN loop — sandbox to live</title>
+  <style>
+    :root {
+      --ground: #ffffff;
+      --ink: #414141;
+      --mute: #6e6e6e;
+      --line: #d4d4d4;
+      --cut: 16px;
+      --c1: #2c2c2c;
+      --c2: #3d6b8a;
+      --c3: #a0563a;
+      --font: "aktiv-grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--ground);
+      color: var(--ink);
+      font-family: var(--font);
+      height: 100%;
+      overflow: hidden;
+    }
+    body { display: flex; align-items: center; justify-content: center; }
+    .stage {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      display: grid;
+      grid-template-rows: auto 1fr;
+      padding: 3.6% 4.6% 3.2%;
+      gap: 2.2%;
+    }
+    html[data-orient="portrait"] .stage {
+      width: min(100vw, calc(100vh * 9 / 16));
+      height: min(100vh, calc(100vw * 16 / 9));
+      padding: 6% 7% 5.4%;
+    }
+    .kicker {
+      font-size: clamp(11px, 1.15vw, 15px);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    html[data-orient="portrait"] .kicker { font-size: clamp(11px, 2.4vw, 14px); }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.2%;
+      min-height: 0;
+      position: relative;
+    }
+    html[data-orient="portrait"] .pair {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 4.5%;
+    }
+    .room {
+      border: 1px solid var(--line);
+      clip-path: polygon(
+        var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut),
+        100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+        var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+      );
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-width: 0;
+      min-height: 0;
+      background: var(--ground);
+      position: relative;
+    }
+    .room h2 {
+      font-size: clamp(11px, 1.05vw, 14px);
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mute);
+      padding: 2.4% 3.2%;
+      border-bottom: 1px solid var(--line);
+    }
+    html[data-orient="portrait"] .room h2 { font-size: clamp(11px, 2.2vw, 13px); }
+    .skin { min-height: 0; }
+    .site {
+      padding: 6% 7%;
+      display: grid;
+      align-content: start;
+      gap: 5.5%;
+    }
+    html[data-orient="portrait"] .site { padding: 7% 8%; gap: 6%; }
+    .mark {
+      width: 18%;
+      aspect-ratio: 2.4 / 1;
+      background: var(--ink);
+      clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%, 0 10px);
+      opacity: 0.72;
+    }
+    .line {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 14px;
+    }
+    .line[data-n="1"] { --c: var(--c1); --w: 74%; }
+    .line[data-n="2"] { --c: var(--c2); --w: 52%; }
+    .line[data-n="3"] { --c: var(--c3); --w: 63%; }
+    .stroke {
+      display: block;
+      height: 12px;
+      width: 0;
+      background: var(--ink);
+      opacity: 0;
+      visibility: hidden;
+      clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%, 0 6px);
+    }
+    .sandbox .line.is-type .stroke {
+      visibility: visible;
+      width: var(--w);
+      opacity: 0.34;
+      background: var(--ink);
+      transition: width 0.34s steps(7);
+    }
+    .sandbox .line.is-set .stroke {
+      visibility: visible;
+      width: var(--w);
+      opacity: 1;
+      background: var(--c);
+      transition: none;
+    }
+    .caret {
+      display: none;
+      width: 2px;
+      height: 16px;
+      background: var(--ink);
+      flex: 0 0 2px;
+    }
+    .sandbox .line.is-caret .caret,
+    .sandbox .line.is-type .caret {
+      display: block;
+      animation: blink 0.64s steps(1) infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    .live .stroke {
+      visibility: visible;
+      width: var(--w);
+      opacity: 1;
+      background: var(--line);
+      transition: none;
+    }
+    .live .site.is-done .line[data-n="1"] .stroke { background: var(--c1); }
+    .live .site.is-done .line[data-n="2"] .stroke { background: var(--c2); }
+    .live .site.is-done .line[data-n="3"] .stroke { background: var(--c3); }
+    .push {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      top: 50%;
+      translate: -50% -50%;
+      font-size: clamp(10px, 0.95vw, 13px);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ground);
+      background: var(--ink);
+      padding: 0.65em 1.1em;
+      clip-path: polygon(
+        8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px),
+        calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px
+      );
+      opacity: 0;
+      pointer-events: none;
+    }
+    .stage.is-push .push,
+    .stage.is-live .push { opacity: 1; }
+    html[data-freeze] * { transition: none !important; }
+    html[data-freeze] .line.is-caret .caret,
+    html[data-freeze] .line.is-type .caret { animation: none !important; opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="stage is-idle" id="stage">
+    <p class="kicker">Design / Build → Host</p>
+    <div class="pair">
+      <article class="room sandbox">
+        <h2>Sandbox</h2>
+        <div class="skin">
+          <div class="site" id="sand">
+            <i class="mark"></i>
+            <div class="line" data-n="1"><b class="stroke"></b><i class="caret"></i></div>
+            <div class="line" data-n="2"><b class="stroke"></b><i class="caret"></i></div>
+            <div class="line" data-n="3"><b class="stroke"></b><i class="caret"></i></div>
+          </div>
+        </div>
+      </article>
+      <article class="room live">
+        <h2>Live</h2>
+        <div class="skin">
+          <div class="site" id="liveNow">
+            <i class="mark"></i>
+            <div class="line" data-n="1"><b class="stroke"></b></div>
+            <div class="line" data-n="2"><b class="stroke"></b></div>
+            <div class="line" data-n="3"><b class="stroke"></b></div>
+          </div>
+        </div>
+      </article>
+      <span class="push">Push</span>
+    </div>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const baked = document.documentElement.getAttribute("data-orient");
+    const orient = q.get("orient") === "portrait" || (!q.has("orient") && baked === "portrait")
+      ? "portrait"
+      : "landscape";
+    document.documentElement.dataset.orient = orient;
+
+    const stage = document.getElementById("stage");
+    const live = document.getElementById("liveNow");
+    const sandLines = [...document.querySelectorAll("#sand .line")];
+
+    const beats = [
+      { t: 0, name: "idle", set: 0, type: 0, caret: 0, push: false, live: false },
+      { t: 450, name: "c1", set: 0, type: 0, caret: 1, push: false, live: false },
+      { t: 900, name: "t1", set: 0, type: 1, caret: 1, push: false, live: false },
+      { t: 1450, name: "n1", set: 1, type: 0, caret: 0, push: false, live: false },
+      { t: 1900, name: "c2", set: 1, type: 0, caret: 2, push: false, live: false },
+      { t: 2350, name: "t2", set: 1, type: 2, caret: 2, push: false, live: false },
+      { t: 2900, name: "n2", set: 2, type: 0, caret: 0, push: false, live: false },
+      { t: 3350, name: "c3", set: 2, type: 0, caret: 3, push: false, live: false },
+      { t: 3800, name: "t3", set: 2, type: 3, caret: 3, push: false, live: false },
+      { t: 4350, name: "n3", set: 3, type: 0, caret: 0, push: false, live: false },
+      { t: 5100, name: "push", set: 3, type: 0, caret: 0, push: true, live: false },
+      { t: 5550, name: "live", set: 3, type: 0, caret: 0, push: true, live: true },
+    ];
+    const CYCLE = 8200;
+
+    function apply(b) {
+      stage.className = "stage is-" + b.name;
+      sandLines.forEach((el, i) => {
+        const n = i + 1;
+        el.className = "line";
+        if (b.set >= n) el.classList.add("is-set");
+        else if (b.type === n) el.classList.add("is-type");
+        else if (b.caret === n) el.classList.add("is-caret");
+      });
+      live.classList.toggle("is-done", b.live);
+    }
+
+    function beatAt(t) {
+      let i = 0;
+      while (i < beats.length - 1 && t >= beats[i + 1].t) i += 1;
+      return beats[i];
+    }
+
+    const freeze = q.get("beat");
+    const freezeT = q.get("t");
+    if (freeze || freezeT != null) document.documentElement.dataset.freeze = "1";
+    if (freeze) {
+      apply(beats.find((x) => x.name === freeze) || beats[0]);
+    } else if (freezeT != null) {
+      apply(beatAt(Number(freezeT)));
+    } else {
+      let last = "";
+      const t0 = performance.now();
+      function tick(now) {
+        const b = beatAt((now - t0) % CYCLE);
+        if (b.name !== last) {
+          last = b.name;
+          apply(b);
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  </script>
+</body>
+</html>

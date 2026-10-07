@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <title>Social loop — sign-off</title>
+  <style>
+    :root {
+      --ground: #fff;
+      --ink: #414141;
+      --mute: #6e6e6e;
+      --line: #d4d4d4;
+      --cut: 9px;
+      --font: "aktiv-grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--ground); color: var(--ink); font-family: var(--font); }
+    body { max-width: 1180px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    .kicker {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--mute); margin-bottom: 0.6rem;
+    }
+    h1 { font-size: 28px; font-weight: 900; margin-bottom: 0.8rem; }
+    p { font-size: 16px; line-height: 1.45; }
+    .lede { color: var(--mute); margin-bottom: 1.2rem; max-width: 46em; }
+    h2 { font-size: 18px; font-weight: 700; margin: 2.2rem 0 0.8rem; }
+    .links { margin: 0 0 1.4rem; font-size: 15px; }
+    .links a { color: var(--ink); margin-right: 1.1rem; }
+    .beats { display: grid; gap: 1.2rem; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 800px) { .row { grid-template-columns: 1fr; } }
+    figure {
+      border: 1px solid var(--line);
+      clip-path: polygon(
+        var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut),
+        100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+        var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)
+      );
+    }
+    figure img { display: block; width: 100%; }
+    figcaption { padding: 0.65rem 0.85rem 0.85rem; font-size: 14px; border-top: 1px solid var(--line); }
+    figcaption b { font-weight: 700; }
+    figcaption span { color: var(--mute); }
+  </style>
+</head>
+<body>
+  <p class="kicker">Design Lab North · studio pack</p>
+  <h1>Host loop, and a new-customer loop</h1>
+  <p class="lede">
+    Picture only. Same clunks: notes, Push, live blips. For <b>new customers</b> live starts empty — identity, one square, words, then the first push. Notes sit in a side key, not in the windows. After it is live: one square becomes two, then three, then the clay bar changes, then you push again. The host loop is for when a site is already up.
+  </p>
+  <p class="links">
+    <a href="new.html">New · landscape</a>
+    <a href="new.html?orient=portrait">New · portrait</a>
+    <a href="dln-new-loop.zip">New zip</a>
+    <a href="loop.html">Host · landscape</a>
+    <a href="loop.html?orient=portrait">Host · portrait</a>
+    <a href="dln-host-loop.zip">Host zip</a>
+  </p>
+
+  <h2>New customers</h2>
+  <p class="lede">Live is blank until you say go. Three notes build one page (one slate square). Those bars sit in a side key. First Push. Then three more notes: two squares, three squares, clay bar. A second key. Push again.</p>
+  <div class="beats">
+    <div class="row">
+      <figure>
+        <img src="new-01-idle.png" alt="New customer idle. Live is empty." />
+        <figcaption><b>Idle</b> — <span>Nothing live yet</span></figcaption>
+      </figure>
+      <figure>
+        <img src="new-04-n3.png" alt="Words in. Live still empty." />
+        <figcaption><b>Notes 1–3</b> — <span>Page in. Live still empty</span></figcaption>
+      </figure>
+    </div>
+    <div class="row">
+      <figure>
+        <img src="new-05-push.png" alt="First push. Live still empty." />
+        <figcaption><b>Push</b> — <span>First go</span></figcaption>
+      </figure>
+      <figure>
+        <img src="new-06-live.png" alt="First live. Both rooms match the first page." />
+        <figcaption><b>Live</b> — <span>First version</span></figcaption>
+      </figure>
+    </div>
+    <div class="row">
+      <figure>
+        <img src="new-07-n1b.png" alt="New ink section in the sandbox. Live still the first version." />
+        <figcaption><b>Two squares</b> — <span>First edit. Live stays on one square</span></figcaption>
+      </figure>
+      <figure>
+        <img src="new-08-n2b.png" alt="Edit in the sandbox. Plates change shape. Live unchanged." />
+        <figcaption><b>Three squares</b> — <span>Second edit. Live still first version</span></figcaption>
+      </figure>
+    </div>
+    <div class="row">
+      <figure>
+        <img src="new-10-push2.png" alt="Second push. Live still the first version." />
+        <figcaption><b>Push again</b> — <span>Live still the first version</span></figcaption>
+      </figure>
+      <figure>
+        <img src="new-11-live2.png" alt="Second live. Matches the revised sandbox." />
+        <figcaption><b>Live again</b> — <span>Matches the sandbox. Sandbox stays</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <h2>Host loop · landscape</h2>
+  <div class="beats">
+    <figure>
+      <img src="01-idle.png" alt="Idle. Live is up. Sandbox is empty." />
+      <figcaption><b>Idle</b></figcaption>
+    </figure>
+    <figure>
+      <img src="02-note.png" alt="First note cemented in the sandbox." />
+      <figcaption><b>Note 1</b></figcaption>
+    </figure>
+    <figure>
+      <img src="03-n2.png" alt="Second note cemented." />
+      <figcaption><b>Note 2</b></figcaption>
+    </figure>
+    <figure>
+      <img src="04-n3.png" alt="Three notes in the sandbox. Live unchanged." />
+      <figcaption><b>Note 3</b></figcaption>
+    </figure>
+    <figure>
+      <img src="05-push.png" alt="Push. Live still the old site." />
+      <figcaption><b>Push</b></figcaption>
+    </figure>
+    <figure>
+      <img src="06-live.png" alt="Live matches the sandbox in one hit." />
+      <figcaption><b>Live</b></figcaption>
+    </figure>
+  </div>
+
+  <h2>New customers · portrait</h2>
+  <p class="lede">Sandbox on top. Side keys. One square, then two, then three, then Push again.</p>
+  <div class="beats">
+    <div class="row">
+      <figure>
+        <img src="p-new-06-live.png" alt="Portrait first live." />
+        <figcaption><b>First live</b></figcaption>
+      </figure>
+      <figure>
+        <img src="p-new-08-n2b.png" alt="Portrait sandbox edited, live still first version." />
+        <figcaption><b>Edit</b> — <span>Live still first version</span></figcaption>
+      </figure>
+    </div>
+    <div class="row">
+      <figure>
+        <img src="p-new-10-push2.png" alt="Portrait second push." />
+        <figcaption><b>Push again</b></figcaption>
+      </figure>
+      <figure>
+        <img src="p-new-11-live2.png" alt="Portrait second live matches." />
+        <figcaption><b>Live again</b></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <h2>Host loop · portrait</h2>
+  <p class="lede">Sandbox on top. Same clunks. Live snaps after push.</p>
+  <div class="beats">
+    <div class="row">
+      <figure>
+        <img src="p-01-idle.png" alt="Portrait idle." />
+        <figcaption><b>P1</b> — <span>Idle</span></figcaption>
+      </figure>
+      <figure>
+        <img src="p-02-note.png" alt="Portrait first note." />
+        <figcaption><b>P2</b> — <span>Note 1</span></figcaption>
+      </figure>
+    </div>
+    <div class="row">
+      <figure>
+        <img src="p-03-n2.png" alt="Portrait second note." />
+        <figcaption><b>P3</b> — <span>Note 2</span></figcaption>
+      </figure>
+      <figure>
+        <img src="p-04-n3.png" alt="Portrait three notes." />
+        <figcaption><b>P4</b> — <span>Note 3</span></figcaption>
+      </figure>
+    </div>
+    <div class="row">
+      <figure>
+        <img src="p-05-push.png" alt="Portrait push." />
+        <figcaption><b>P5</b> — <span>Push</span></figcaption>
+      </figure>
+      <figure>
+        <img src="p-06-live.png" alt="Portrait live matches." />
+        <figcaption><b>P6</b> — <span>Live</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</body>
+</html>
