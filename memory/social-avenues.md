@@ -1,12 +1,14 @@
 # Social avenues — Design Lab North
 
-Studio ads for us. Not a client social-media service. UK English. Design Lab North **are**. Do not say iterative. Do not print GBP. Do not mention Cursor or the desk. **Sandbox** is the public word on this line.
+Studio ads for us. Not a client social-media service. UK English. Design Lab North **are**. Do not print GBP. Do not mention Cursor or the desk. **Sandbox** is the public word on this line.
+
+Ads speak as a brand to a person. Never as a note to whoever dictated the prompt. No fourth wall. **Iterative** is fine when a person would say it about their site; never as a kicker or a brief-leak. **Space** on this line means a web space people use, with the next line attached — not “a room an investor can sit in.”
 
 **Three-door map:** `memory/social-video-blueprint.md` (how 15–20s films wrap the loops; demographics; Ewan-on-camera variants). Deep files: `memory/entrepreneur-film.md`, `memory/social-avenue-small-business-new.md`, `memory/social-refresh.md`.
 
 **Gate:** Ewan sees the frames and marks the prompts before any model is called. Do not generate stills or video in the same pass as the plan.
 
-**Piece 1 is drawn in house.** Two chamfered rooms. Three notes type into the sandbox (caret, grey bar, enter cements a colour). Push, then live **blips** to match — no swipe. Omni is the wrong tool for this loop. Sandbox **leads**: left on 16:9, top on 9:16. Do not print the word iterative; the three notes *are* the engagement.
+**Piece 1 is drawn in house.** Two chamfered rooms. Three notes type into the sandbox (caret, grey bar, enter cements a colour). Push, then live **blips** to match — no swipe. Omni is the wrong tool for this loop. Sandbox **leads**: left on 16:9, top on 9:16. Do not caption the three notes as a process. They are the picture, not a lecture.
 
 Sign-off pack: `/brief/social-loop/review.html`. Cycle: `loop.html` / `new.html`. Send new-customer: `/brief/social-loop/dln-new-loop.zip` (self-contained HTML + greyscale GIF, 16:9 and 9:16). Host zip still at `dln-host-loop.zip`. Picture only — no in-frame film line (it clips on social). Voice and captions later if wanted.
 
@@ -68,16 +70,18 @@ If a take is close, we edit in conversation. We do not regenerate from scratch. 
 
 Record after the silent master. Not sent to Omni.
 
-**Entrepreneurs.** Design Lab North are a space for the idea. Not only a site — a room an investor can sit in. A sandbox while you talk, a live presence when you say go. Tried, human-made, years in the work. You leave the note. We build. You choose when it is pushed.
+**Entrepreneurs (20s).** They're going to look you up after you talk. A deck isn't a space they can use. We build you one — a site, and a sandbox while you're still working. You can keep going without taking the live site down. Leave a note. You say when it goes live.
 
-**Small business — new.** We start with your brand. What we make is yours, not a template. You have a live site and a sandbox beside it. Leave a note. We take it into the build. You say when it goes live.
+**Entrepreneurs (15s).** They're going to look you up. What's there — a deck, or a space they can actually use? Leave a note. We build. You say when it's live.
 
-**Small business — refresh.** We look first. Market, conflict, competitor. Then we sit with what you already have live. The sandbox takes the next pass. You choose when the live site moves. We do not talk down what is up now.
+**Small business — new.** You haven't got a proper site yet. That's fine. We start with your brand. What we make is yours. Leave a note. You say when it goes live.
+
+**Small business — refresh.** We look first. At the market, at what's already live. The next pass sits beside it until you say move. We don't talk down what's up now.
 
 ## After piece 1 is marked
 
 - Omni 1.1 Flash, image-to-video, paid AI Studio project (Free Tier is zero for Omni).
-- Then pieces 2–4 as **different pictures**, with this loop as a tail where it helps. Piece 2 architecture: new space/walk for ~75% of a 15–20s film; sped-up host loop as a 3–4s chunk. Sign stills in that file before any draw.
+- Then pieces 2–4 as **different pictures**, with this loop as a tail where it helps. Piece 2: dialogue first; picture is a web space they can use, not an architectural room. Sped-up host loop as a 3–4s chunk. Sign stills before any generate.
 - Channels later. This is not a posting calendar.
 
 ## What this is not

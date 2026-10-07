@@ -115,14 +115,15 @@ Our bed already says this without their jargon. Stay on our sentences.
 | Looking cheap | Paper/Ink, Aktiv Grotesk, 45° chamfer, empty live that becomes a designed page | Gloss, stock office, pill buttons, drop shadows |
 | Looking like Wix / a builder theme | Schematic unique page (one square, then two, then three) that is clearly *made* | Name Wix, Squarespace, or any builder. Never slight someone else’s live site — this door has none yet, and we still do not punch DIY. Free-plan ads-in-the-footer as a credibility tax is a real UK warning ([wonder-media](https://wonder-media.co.uk/website-platform-choice-small-business); [Startups.co.uk builders](https://startups.co.uk/websites/builders/best-website-builders-uk/)) — we answer with “yours”, not with a dunk. |
 | Not knowing what they need | We start with the brand. Three notes. First live is enough. They did not have to write a spec. | “Discovery workshop”, “requirements”, numbered methodology |
-| Being sold a system they do not understand | Side keys = notes. Push = you. Live = the site. | System, pipeline, stack, CMS, iterative, agile, sprint, portal, dashboard |
+| Being sold a system they do not understand | Side keys = notes. Push = you. Live = the site. | System, pipeline, stack, CMS, agile, sprint, portal, dashboard. Iterative as a kicker |
 | London agency will talk over them | Ewan on camera optional; North in the name; you-voice | “Unlike London…”, “award-winning”, “high-value ecosystems” |
 | It will never go live / they will be stuck in preview | Empty live, then a real first Push, then a second Push they choose | Endless sandbox with no live |
 | They will have to learn an editor | Note → we take it in → they say Push | “Easy to update yourself” |
 
 ### Never-say (film, captions, targeting copy, thumbnail)
 
-- **iterative**, iteration, agile, sprint, version 1.2, “we iterate”
+- **iterative** as a caption chip or a process label. Fine in speech if a person would say it: you can keep going without taking live down. Never “we iterate” as a slogan
+- agile, sprint, version 1.2
 - **system**, ecosystem, framework, stack, CMS, portal, dashboard, workflow
 - **they / their** as the viewer (ads say **you / your**)
 - **GBP**, packages, monthly host numbers, “from £…”
@@ -245,7 +246,7 @@ Times from `Site/public/brief/social-loop/new.html`. Live room is `visibility: h
 
 Sign-off stills already exist for those beats: `new-01-idle.png` … `new-11-live2.png` and portrait `p-new-*`. Review copy: `review.html`.
 
-### How to show empty → first live **without saying iterative**
+### How to show empty → first live **without a process lecture**
 
 Do not say two versions. Say **first it is yours, then it can grow, and you say when**.
 

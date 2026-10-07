@@ -991,4 +991,8 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 
 Map: `memory/social-video-blueprint.md`. Existing HTML/GIF loops are a 3–4s chunk of 15–20s films, said differently per door — entrepreneurs (space/walk); small business new (empty live, two Pushes); small business refresh (look-first, sit with live, never slight it). Ewan on camera is a variant after graphic lock; key only over our stills. Deep files: `memory/entrepreneur-film.md`, `memory/social-avenue-small-business-new.md`, `memory/social-refresh.md`. Lock: `memory/social-avenues.md`. Do not mix pitches. Do not generate stills in the same pass. Not a public header door. Not a posting calendar.
 
+## 2026-10-07 — Social films are dialogue; iterative is not banned (Ewan)
+
+Piece 2 opener is speech that finishes: they're going to look you up; a deck isn't a **space they can use** (web space, site + sandbox). “A room an investor can sit in” is out — no next line on a phone, and they are not in a room. Ads talk as a brand to a person. Never as a note to whoever dictated the prompt. No fourth wall. No mechanic labels dumped as captions. **Iterative** is allowed in the right context (keep going without taking live down). It was jarring when used as a brief-leak. Do not hard-ban the word; do not chip it.
+
 

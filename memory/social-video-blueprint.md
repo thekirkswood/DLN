@@ -13,7 +13,11 @@ Studio ads for **us**. Not a client social-media service. Not a posting calendar
 | `memory/social-refresh.md` | Piece 4 look-first, exhaustive |
 | `Site/public/brief/social-loop/` | Drawn loops: host `loop.html`, new-customer `new.html`, review pack, send zips |
 
-UK English. Design Lab North **are**. Ads say **you**. Public word **sandbox**. No GBP. No Cursor. No desk. No invented awards or clients. Dave is designer. Ewan is **builder**. Never slight a live site or who built it. Do not say iterative.
+UK English. Design Lab North **are**. Ads say **you**. Public word **sandbox**. No GBP. No Cursor. No desk. No invented awards or clients. Dave is designer. Ewan is **builder**. Never slight a live site or who built it.
+
+**Speech, not a brief.** An ad is a brand talking to a person. It is never a note to whoever dictated the prompt. No fourth wall. No labels for our own mechanics. **Iterative** is allowed when a person would say it about their site (you can keep going without taking live down). It is not a kicker, a feature chip, or a ban-list leak.
+
+**Dialogue first (piece 2 and the others).** Copy must finish. “A room an investor can sit in” is out — on a phone it has no next line, and they are not in a room. **Space** means a **web space** people use: a site they can send, a sandbox beside it. Structure the word; do not hang it in the air.
 
 ---
 
@@ -61,16 +65,16 @@ Piece 1 is not a market. It is the shared motion. Pieces 2, 3, and 4 are the thr
 
 | | Entrepreneurs (2) | New business (3) | Refresh (4) |
 |---|---|---|---|
-| **Who** | Founders who need a room another person can sit in (angel, first round, grant, diligence) | Owner-operators with no proper public face yet | Established firms with something already live |
+| **Who** | Founders who need a **web space** another person can actually use (angel, first round, grant, diligence) | Owner-operators with no proper public face yet | Established firms with something already live |
 | **Age weight** | Late 20s–early 40s, tail to 55 | 40–59 spine (solo self-employed average ~48) | 35–64, weighted 40–55 |
-| **Lead** | A **space**, not only a site | **Your brand first**; unique, not a template | **We look first** — then we sit with what is up |
-| **Sandbox means** | The room **while you talk**. Investor is not in the workshop | The working copy beside an empty-then-live site | The **next pass**, beside a live wall that stays until you say |
+| **Lead** | Spoken: they will look you up — a **space they can use**, not a deck | **Your brand first**; unique, not a template | **We look first** — then we sit with what is up |
+| **Sandbox means** | The working copy **while you talk**. They see live when you say | The working copy beside an empty-then-live site | The **next pass**, beside a live wall that stays until you say |
 | **Live means** | The **presence** you show when you say go | The first public face, then the next squares when you push again | What is already trading; it **blips** only when you choose |
 | **Loop used** | Host loop, last quarter, sped ~3.5–4s. May sit **inset** in a room | `new.html` whole two-Push cycle, sped ~4s (15s) / ~5s (20s) | Host loop as **tail** after look + sit. Never empty live |
-| **Must draw** | Chamfered **room** / walk (Story → Proof → Presence) / door. Not a CMS | Hook on empty Live; hold on second live; end board. Loop exists | **Market / conflict / competitor** plates, then sit. Loop exists |
-| **Never** | “We build websites” as the lead. Fake dashboard. Pitch-deck theatre | “System.” Empty Live looking broken. Wix-dunking | Dunk the live wall. Before/after ugly→pretty. Cousin jokes |
+| **Must draw** | Web space they can use (pages / walk-through), not an empty architectural room with a poster line | Hook on empty Live; hold on second live; end board. Loop exists | **Market / conflict / competitor** plates, then sit. Loop exists |
+| **Never** | “A room an investor can sit in.” Prompt-echo. Fourth wall. Fake dashboard | Prompt-echo. Empty Live looking broken. Wix-dunking | Dunk the live wall. Before/after ugly→pretty. Cousin jokes |
 | **Channel spine** | LinkedIn first, Reels second, Shorts same silent picture. TikTok late | Facebook + Instagram 35–54. YouTube proof. TikTok younger test | Facebook / Instagram / LinkedIn. WhatsApp is the family-firm close. TikTok not primary |
-| **Face** | Optional and late. First line is the room, not his name | Optional on 20s. Builder, not designer | Optional hybrid. Looking *out* at the street, never grimacing at a laptop |
+| **Face** | Dialogue approach: talking is the lead; graphics are the space. First line is their problem, not his name | Optional on 20s. Builder, not designer | Optional hybrid. Looking *out* at the street, never grimacing at a laptop |
 
 Do not put ModYu, PFP, DAA, or any real competitor screenshot in these ads. Schematic windows only. Photoreal offices were already thrown away.
 
@@ -78,41 +82,63 @@ Do not put ModYu, PFP, DAA, or any real competitor screenshot in these ads. Sche
 
 ## Avenue A — Entrepreneurs (piece 2)
 
-**Locked bed:** Design Lab North are a space for the idea. Not only a site — a room an investor can sit in. A sandbox while you talk, a live presence when you say go. Tried, human-made, years in the work. You leave the note. We build. You choose when it is pushed.
+**Dialogue (20s).** Spoken. Completes. Space = a web space they can use.
+
+> They're going to look you up after you talk.  
+> A deck isn't a space they can use.  
+> We build you one — a site, and a sandbox while you're still working.  
+> You can keep going without taking the live site down.  
+> Leave a note. You say when it goes live.
+
+**15s** drops the keep-going line:
+
+> They're going to look you up.  
+> What's there — a deck, or a space they can actually use?  
+> Leave a note. We build. You say when it's live.
+
+Do not print “a room an investor can sit in.” Do not hang **space** without the site. The keep-going line *is* iterative, said like a person. If the word **iterative** itself is spoken, only there: “You can iterate without taking the live site down.” Never as a caption chip.
 
 ### Who, from the research (UK 2024–26)
 
-Not GEM’s mass of “everyday entrepreneurs” (5.7m private firms; 75% have no employees). This door is people assembling a **room for several people to walk**.
+Not GEM’s mass of “everyday entrepreneurs” (5.7m private firms; 75% have no employees). This door is people who need a **web space another person can actually use**.
 
 - **First-time equity:** 2,730 UK companies raised a first round in 2025; median first round down to £200k (H1 2026 £170k). More first-time **deals** outside London than in it. Manchester the largest non-London count. They need a presence *before* the meeting.
 - **SEIS / angels:** rounds built from many small tickets; “nobody invests on just a PowerPoint slide.” Solo UK founders are unusually common in VC-backed firms. Fear: looking like one person with a Notion page.
 - **Age:** investor-attracting viewer mostly late 20s–early 40s. Not a teen film. Not a grey-temple corporate film.
-- **Press-kit-shaped space is rare:** of 334 already-funded UK startups, only 13.2% had a press/news page. That is the opening — not “you need a website.”
+- **Press-kit-shaped space is rare:** of 334 already-funded UK startups, only 13.2% had a press/news page. The opening is still not “you need a website.” It is: they will look you up, and a deck is not a space they can use.
 
 Amounts stay in the research file. Not on the film. Do not gender the voice. Do not say where the house lives. North is allowed in the *weight* of the work, not as a costume.
 
-Full groups, never-say, and sources: `memory/entrepreneur-film.md`.
+Full groups and sources: `memory/entrepreneur-film.md`.
 
-### 20s picture (15s drops Proof as a chamber)
+### 20s picture under the talk (15s tightens the walk)
 
-| s | Picture |
-|---|---|
-| 0.0–1.5 | Empty chamfered **room**, door shut. Large words: **A room an investor can sit in.** No logo. |
-| 1.5–9.0 | Walk: Story plates → Proof (person-block, **no invented number**) → Presence. Door still shut. |
-| 9.0–12.5 | Note types in the room (same caret/cement as piece 1). The room does **not** change itself. |
-| 12.5–16.5 | Sped host loop (~4s). Or inset as a chamfered panel on the back wall. |
-| 16.5–18.5 | Back to the room. Door opens. |
-| 18.5–20.0 | Mute mark on Paper. **You leave a note. You choose when it is pushed.** |
+Speech leads. Picture is the **web space**, not an empty architectural room with a poster.
 
-**Hooks to test:** (1) A room an investor can sit in. (2) Not only a site. Drop “Hi, we’re Design Lab North” and “Need a website?”
+| s | Picture | Heard / caption (speech) |
+|---|---|---|
+| 0.0–1.5 | Ewan to camera, or a blank Paper field becoming a site-shaped frame. No logo. | They're going to look you up after you talk. |
+| 1.5–5.0 | A deck-shaped plate, small. The site-shaped space opens around it. Pages, not a corridor. | A deck isn't a space they can use. |
+| 5.0–9.0 | Walk the space as **pages**: story, proof (no invented number), presence. | We build you one — a site, and a sandbox while you're still working. |
+| 9.0–12.0 | Note types in the sandbox (same clunk as piece 1). Live does not move itself. | You can keep going without taking the live site down. |
+| 12.0–16.0 | Sped host loop (~4s). Sandbox / Live / Push. | *(loop is the proof; do not narrate the clunks)* |
+| 16.0–20.0 | Back to Ewan or the live space matching. Mute mark late. | Leave a note. You say when it goes live. |
 
-**Draw first:** graphic-only room (variant A). Ewan on a plain wall is optional after that. Key him only over **our** HTML room — throw the take away if a tool invents furniture.
+**Hook:** “They're going to look you up.” Completes in the next line. Drop “Hi, we’re Design Lab North” and “Need a website?”
+
+**Draw / shoot:** dialogue first. Graphic-only mute still has to *speak* in captions. Ewan on a plain wall is the natural cut for this door. Key him only over **our** web-space stills — throw the take away if a tool invents furniture.
 
 ---
 
 ## Avenue B — Small business, new (piece 3)
 
-**Locked bed:** We start with your brand. What we make is yours, not a template. You have a live site and a sandbox beside it. Leave a note. We take it into the build. You say when it goes live.
+**Dialogue (15s):**
+
+> You haven't got a proper site yet. That's fine.  
+> We start with your brand. What we make is yours.  
+> Leave a note. You say when it goes live.
+
+Same offer as the old bed. Said like a person. No “system.” Iterative only if we ever need the keep-going sense on a longer cut — not as a label on the two Pushes.
 
 ### Who, from the research
 
@@ -141,7 +167,13 @@ Native `new.html` is 17.2s — too long as the whole ad. Recapture **colour** HT
 
 ## Avenue C — Small business, refresh / rebrand / rebuild (piece 4)
 
-**Locked bed:** We look first. Market, conflict, competitor. Then we sit with what you already have live. The sandbox takes the next pass. You choose when the live site moves. We do not talk down what is up now.
+**Dialogue (15s):**
+
+> We look first. At the market, at what's already live.  
+> The next pass sits beside it until you say move.  
+> We don't talk down what's up now.
+
+“Market, conflict, competitor” can stay as picture titles. Do not read them as a checklist to the desk.
 
 ### Who, from the research
 
@@ -212,14 +244,11 @@ End action: understand the object, then leave a note / come to `designlabnorth.c
 
 Do not generate in the same pass as a plan. Sequence:
 
-1. **Ewan marks this map** — especially: default piece-2 opener; graphic-only vs face on first posts; loop inset vs full-bleed on piece 2; piece-3 15s with or without a face; piece-4 look-first stills as the next draw.
+1. **Dialogue is locked** (this pass). Piece 2 opener is speech that finishes, not a poster room.
 2. **Phone-test the existing loops at speed** (host ~2×; new ~4× on 9:16). If the clunks die, we recut speed, we do not throw the rooms away.
-3. **Draw the missing pictures in house** (same desk as `loop.html`):
-   - Piece 4 **R1–R3** first if we want the refresh door soon (look-first is the undrawn lead).
-   - Piece 2 **room / walk / door** (E-01–E-14 in that file).
-   - Piece 3 hook / hold / end around existing `new.html`.
-4. Silent review pages beside `review.html`. Picture only.
-5. Ewan marks stills. Then in-betweens / GIF for **new** pictures. Then assemble 15s and 20s silent masters. Then captions. Then optional VO / hybrid.
+3. **Piece 2 next to draw:** web space / pages under the talk — not an empty architectural room. Then piece 3 film around `new.html`, then piece 4 look-first plates.
+4. Silent review pages beside `review.html`. No baked film-line paragraph in the windows. Captions are speech.
+5. Ewan marks stills. Then in-betweens / GIF. Then 15s and 20s. Voice on the locked beds.
 6. Send zips later, same pattern as `dln-host-loop.zip` and `dln-new-loop.zip`.
 
 Piece 3’s **rooms** are drawn; its **film** is not assembled. Piece 1 is drawn; it is not a market film on its own. Pieces 2 and 4 still need new furniture.
@@ -230,10 +259,10 @@ Piece 3’s **rooms** are drawn; its **film** is not assembled. Piece 1 is drawn
 
 **Picture**
 
-1. Piece 2 opener: “A room an investor can sit in” or “Not only a site”? Any ban on **investor** in paid?
-2. Host loop on piece 2: smash-cut chunk or inset in the room?
-3. Piece 4: confirm look-first plates are the next HTML to draw (before the entrepreneur room), or the other way round.
-4. Push chip: sharper cut, or a line / door, if it still reads as a pill.
+1. Piece 2 opener is **They're going to look you up** — mark if the second line stays “a deck, or a space they can actually use.”
+2. Host loop on piece 2: smash-cut chunk or inset in the web space?
+3. Spoken **iterative** (“You can iterate without taking the live site down”) on the 20s only, or keep-going without the word?
+4. Push chip: sharper cut, or a line, if it still reads as a pill.
 
 **Face**
 
