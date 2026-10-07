@@ -896,3 +896,6 @@
 {"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"ops/sync-to-debian.sh ops/push-builder-downstairs.sh","s":"Debian house rsync includes DAA PFP DKS; Builder push wrap","d":"CSP + lab bind downstairs"}
 {"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"memory/builder-paste.md","s":"Paste: iframe src is 223:port same as homepage","d":"do not drag Builder chats"}
 {"t":"2026-09-15T11:40:28+01:00","k":"ver","p":"dln-9","s":"LAN binds never 0.0.0.0. Live Houses View site is the public host. daa.designlabnorth.com is the DAA site. Board still off live.","d":"numbered ship"}
+{"t":"2026-10-07T15:55:00+01:00","k":"add","p":"memory/entrepreneur-film.md","s":"Piece 2 entrepreneur film blueprint: 15-20s space/walk; host loop as 3-4s chunk; UK 2024-26 sources; no generate","d":"Ewan: exhaustive plan for entrepreneur door only"}
+{"t":"2026-10-07T15:55:00+01:00","k":"dir","p":"DIRECTIONS.md WORKSTREAM.md","s":"Piece 2 15-20s film plan; sign-off before generate; do not mix doors","d":"entrepreneur avenue research"}
+{"t":"2026-10-07T15:55:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Social entrepreneur film plan path","d":"pointer only"}

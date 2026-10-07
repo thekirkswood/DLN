@@ -987,4 +987,8 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - The Builder window is that same bind. Houses allow Builder and the live hub to iframe them (`frame-ancestors`).
 - `daa.designlabnorth.com` is the DAA site (`plot-daa`), not a redirect to the hub. Push that copy live. Do not drag the DAA chat into this repo.
 
+## 2026-10-07 — Entrepreneur film plan only (piece 2)
+
+Exhaustive blueprint in `memory/entrepreneur-film.md`. Entrepreneurs only — not small-business new or refresh. 15–20s mute-first film; existing host loop is a sped-up 3–4s chunk. New picture is a space / walk / form, not a CMS demo. Sign-off stills listed, not generated. Not a posting calendar. Not a public header door.
+
 

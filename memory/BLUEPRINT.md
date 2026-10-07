@@ -8,7 +8,7 @@ Design Lab North is a **hub of multiple sites**, and a lab. People come for **De
 
 - **Design** — identity: naming, logo, identity systems. From the ground, or a refresh.
 - **Strategy** — consultancy: brand strategy, marketing strategy, audits, workshops, blueprints. Sit-down counsel. Various Titles is a greenhouse product, not a section on this offer page.
-- **Build** — the site. From the ground, or a rebuild. Then a **live host** on a Design Lab North subdomain: they leave notes, we come in, the site changes while they watch. Work is done **offline** (this PC / later a home server), then uploaded as a bigger step — never live-edit the hosted copy every save. When they are ready, migrate onto their own domain; we keep coming in the same way from our desk. Smaller sites can share a server later. Ewan charges the build and the live host. Dave charges branding and marketing for that work.
+- **Build** — the site. From the ground, or a rebuild. Then a **live host** on a Design Lab North subdomain: they leave notes, we come in, the site changes while they watch. Work is done **offline** (this PC / later a home server), then uploaded as a bigger step — never live-edit the hosted copy every save. When they are ready, migrate onto their own domain; we keep coming in the same way from our desk. Smaller sites can share a server later. Ewan charges the build and the live host. Dave charges branding and marketing for that work. Studio ads for ourselves (not a client social service): entrepreneur door film plan in `memory/entrepreneur-film.md`.
 
 The greenhouse is **our products** (Swarm Fund, Choozlist, Various Titles). Client sites live on the account, not the greenhouse wall. Isolation: one Docker plot per hosted client site.
 
