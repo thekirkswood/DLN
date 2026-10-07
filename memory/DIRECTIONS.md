@@ -995,4 +995,8 @@ Map: `memory/social-video-blueprint.md`. Existing HTML/GIF loops are a 3–4s ch
 
 Piece 2 opener is speech that finishes: they're going to look you up; a deck isn't a **space they can use** (web space, site + sandbox). “A room an investor can sit in” is out — no next line on a phone, and they are not in a room. Ads talk as a brand to a person. Never as a note to whoever dictated the prompt. No fourth wall. No mechanic labels dumped as captions. **Iterative** is allowed in the right context (keep going without taking live down). It was jarring when used as a brief-leak. Do not hard-ban the word; do not chip it.
 
+## 2026-10-07 — Talk to people; no deck; no poetry (Ewan)
+
+Deck is a slide pack. Do not say it on the film. The last beds were poetry — people will not intuit them. Talk: do you want a modern approach? Years in the industry. A system you can put as much into as you want; it goes into the actual making of your web space, the environment you sell from. Probe, influence, emotion, trust. Picture is pretty, moving, simple, on brand (the loops). Three doors, three questions. Rewrite lives in `memory/social-video-blueprint.md` and the voice beds in `memory/social-avenues.md`.
+
 

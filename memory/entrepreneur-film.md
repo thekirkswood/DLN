@@ -2,7 +2,7 @@
 
 Studio ads for **us**. Not a client social-media service. Not small-business new. Not refresh. Gate: **plan only**. Do not generate stills or video from this file. Ewan marks frames and prompts before any model is called.
 
-Locked pitch: a **web space** they can actually use — a site they can send, a sandbox while they are still working. Kin to press kits, different style. Can be a sandbox, a form, a walk-through — not only a public homepage. Voice is **dialogue**: spoken, finishes the thought. Not a poster. Not “a room an investor can sit in.”
+Locked pitch: talk to them. Do you want a modern approach to how people find you? Years in this industry. A system you can put as much into as you want — it goes into the actual making of your web space, the place you sell from. You say when it goes live. Not a poster. Not “deck.” Not “a room an investor can sit in.” Not poetry.
 
 Public word for the working copy is **sandbox**. Host package is live site + constant sandbox. You leave a note, we take it into a human-led build, you choose when to push. Ewan’s public word is **builder**. Ads say **you**. Design Lab North **are**. UK English. No agency-speak, no hype, no riddles. Do not print amounts. Do not mention how sites are made internally. Do not invent awards, clients, or where the house lives.
 
@@ -112,14 +112,12 @@ House locks:
 
 Use, in this order of safety:
 
-- **They're going to look you up** — the opener. Completes in the next line.
-- **Space** — a web space they can use. Always attach the site. Never hang it.
-- **Site** — what they send. Ordinary word.
-- **Deck** — what is not enough, said without mockery.
-- **Sandbox** — while you're still working; public word for the working copy.
-- **Note** — you leave it; we build.
-- **Push / you say when** — you choose.
-- **Keep going / iterate** — only as: without taking the live site down. Never as a chip.
+- **Do you want a modern approach…** — the opener. A yes they already want.
+- **Years in this industry** — trust. True of the studio. Not invented awards.
+- **System you can put as much into as you want** — involvement. Ordinary talk.
+- **Web space / where you sell** — the place. Ordinary words.
+- **Sandbox** — public word for the working copy, when the picture shows it.
+- **You say when** — control. Trust.
 
 Use sparingly:
 
@@ -259,18 +257,17 @@ Four new graphic objects. All Paper/Ink, Aktiv Grotesk, 45° chamfer, no pills/s
 
 | s | Picture | Why |
 |---|---|---|
-| **0.0–1.5** | Ewan to camera, or Paper becoming a site-shaped frame. No logo. Caption is **speech**: They're going to look you up after you talk. | Hook that has a next line. |
-| **1.5–5.0** | A deck-shaped plate, small. The web space opens around it. | A deck isn't a space they can use. |
-| **5.0–9.0** | Walk as **pages**: Story, Proof (bar, no invented number), Presence. | We build you one — a site, and a sandbox while you're still working. |
-| **9.0–12.0** | Note in the sandbox (same clunk as piece 1). Live does not move itself. | You can keep going without taking the live site down. |
-| **12.0–16.0** | **Loop chunk** (sped-up ~4s). Sandbox leads. No campus kicker. | Proof. Do not narrate the clunks. |
-| **16.0–20.0** | Back to Ewan or matched live. Mute mark late. | Leave a note. You say when it goes live. |
+| **0.0–2.0** | Ewan to camera, or the rooms already moving. No logo. | Do you want a modern approach to how people find you? |
+| **2.0–6.0** | Notes into the sandbox. Pretty, simple, on brand. | Years in this industry. A system you can put as much into as you want. |
+| **6.0–12.0** | Sped host loop. Notes, Push, live blips. | You put in as much as you want. It goes into the actual making of it. |
+| **12.0–16.0** | Live matches. | Your web space — where you sell. |
+| **16.0–20.0** | Hold. Mute mark late. | You say when it goes live. |
 
-Voice under, 20s, you-address:
+Voice under, 20s:
 
-> They're going to look you up after you talk. A deck isn't a space they can use. We build you one — a site, and a sandbox while you're still working. You can keep going without taking the live site down. Leave a note. You say when it goes live.
+> Do you want a modern approach to how people find you? Years in this industry. A system you can put as much into as you want. You put in as much as you want. It goes into the actual making of it. Your web space — where you sell. You say when it goes live.
 
-Spoken ~12–14s at a calm UK pace. **Do not rush it to fill 20s.** Leave air. Optional: swap the keep-going line for “You can iterate without taking the live site down” — same sense, only if it sounds like him, never as a chip.
+Spoken calm. Leave air. Do not rush. No deck. No poetry.
 
 ### 5.3 15-second cut (paid / Reels)
 
@@ -278,21 +275,20 @@ Drop chamber 2 as a separate beat; Proof is a single plate inside Story, or drop
 
 | s | Picture |
 |---|---|
-| **0.0–1.5** | Same hook: They're going to look you up. |
-| **1.5–5.0** | Deck vs space. Walk: Story + Presence only |
-| **5.0–8.0** | Note in the sandbox |
-| **8.0–12.0** | Loop chunk sped-up (~4s) |
-| **12.0–15.0** | Mark + You say when it's live |
+| **0.0–2.0** | The question |
+| **2.0–8.0** | Loop chunk sped-up |
+| **8.0–12.0** | Live matching — the place they sell from |
+| **12.0–15.0** | Mark + You say when it goes live |
 
 Voice 15s:
 
-> They're going to look you up. What's there — a deck, or a space they can actually use? Leave a note. We build. You say when it's live.
+> Do you want a modern approach to how people find you? Years in this industry. A system you can put as much into as you want. Your web space — where you sell. You say when it goes live.
 
 ### 5.4 Alternative architecture (if Ewan is on camera)
 
 | s | Picture |
 |---|---|
-| **0.0–1.5** | Ewan, tight, Paper/Ink graphic field. First words on his mouth **and** caption: They're going to look you up. No name super. |
+| **0.0–1.5** | Ewan, tight, Paper/Ink graphic field. First words on his mouth **and** caption: Do you want a modern approach to how people find you? No name super. |
 | **1.5–8.0** | Cutaway to the walk / room (graphic). His voice continues. |
 | **8.0–12.0** | Loop chunk |
 | **12.0–15/20** | Back to Ewan, then mark |
@@ -375,25 +371,24 @@ UK English. Design Lab North **are**. **You**. No they.
 
 Locked in `memory/social-avenues.md` and the three-door map. Speech, not a manifesto.
 
-> They're going to look you up after you talk. A deck isn't a space they can use. We build you one — a site, and a sandbox while you're still working. You can keep going without taking the live site down. Leave a note. You say when it goes live.
+> Do you want a modern approach to how people find you? Years in this industry. A system you can put as much into as you want. You put in as much as you want. It goes into the actual making of it. Your web space — where you sell. You say when it goes live.
 
 If it is long on the 15s cut, use 7.2.
 
 ### 7.2 Short bed (15s)
 
-> They're going to look you up. What's there — a deck, or a space they can actually use? Leave a note. We build. You say when it's live.
+> Do you want a modern approach to how people find you? Years in this industry. A system you can put as much into as you want. Your web space — where you sell. You say when it goes live.
 
 ### 7.3 Mute-first caption track (no VO, or VO ignored)
 
-Large words, one beat at a time, **speech**, not a poster:
+Large words, one beat at a time, **the talk**, not a poem:
 
 | Time (20s) | On-picture words |
 |---|---|
-| 0.0–1.5 | They're going to look you up |
-| 1.5–5.0 | A deck isn't a space they can use |
-| 5.0–9.0 | *(none — let the pages read)* |
-| 9.0–12.0 | You can keep going |
-| 12.0–16.0 | *(none — loop is already labelled Sandbox / Live / Push)* |
+| 0.0–2.0 | Do you want a modern approach? |
+| 2.0–6.0 | Years in this industry |
+| 6.0–12.0 | You put in as much as you want |
+| 12.0–16.0 | Where you sell |
 | 16.0–20.0 | You say when it goes live |
 
 If VO is present, **do not** duplicate the whole paragraph on screen. Either VO **or** the large-word track, plus optional burnt subs of VO in a small safe band for accessibility.
@@ -413,7 +408,7 @@ Not: Vision. Ecosystem. Journey. MVP. Pitch. Unlock.
 
 Not a calendar. One block, reusable:
 
-> They're going to look you up. We build you a space they can actually use — a site, and a sandbox while you're still working.  
+> Do you want a modern approach to how people find you? A system you can put as much into as you want. Your web space — where you sell.  
 > Leave a note: build@designlabnorth.com
 
 Do not paste a fortnight of posts.
@@ -428,13 +423,11 @@ Must work **muted**, with **one line** of type, **no logo**. LinkedIn: skip bump
 
 Test these as stills (sign-off, not generate-to-finish):
 
-1. **They're going to look you up.** Ewan, or Paper becoming a site-shaped frame. (Default.)
-2. **What's there — a deck, or a space they can actually use?** Deck small inside the space. Do not mock the deck.
-3. **A deck isn't a space they can use.** Same picture, statement not question.
+1. **Do you want a modern approach to how people find you?** Ewan, or the loop already moving. (Default.)
+2. **Years in this industry.** Trust, not a lecture.
+3. **You put in as much as you want.** Involvement. The system.
 
-**Drop:** “A room an investor can sit in.” “Hi, we’re Design Lab North.” “Need a website?” “Stop looking like a template.” Any line that has no next beat. Any line that only makes sense to the desk.
-
-Do not open on **investor**. They will look you up — that is the door. The space is a site they can use.
+**Drop:** “Deck.” “A room an investor can sit in.” “Hi, we’re Design Lab North.” “Need a website?” Any line they have to decode. Any line that only makes sense to the desk.
 
 ### 8.2 Ends — what they do
 
@@ -478,7 +471,7 @@ What they should **not** be asked to do at the end: book a call, download a PDF,
 
 - **Silent test:** mute, first 3 seconds, stranger can say what the object is.
 - **Skip test:** first frame is speech or a site-shaped space, not a logo, not an empty architectural room.
-- **Door test:** look-you-up vs deck-isn't-a-space as opener stills.
+- **Door test:** modern-approach question vs years-in-the-industry as first line.
 - **Loop placement test:** smash-cut vs inset in the web space (variant B).
 - **Word test:** keep-going vs spoken “iterate” on the 20s only.
 - **15 vs 20:** completion, not views. If 20s dies at second 8, the walk is too slow, not too long.
@@ -488,7 +481,7 @@ Do not run a four-week content grid to learn this. Two stills and two cuts.
 
 ### 9.3 Open questions for Ewan
 
-1. Default opener is **They're going to look you up** — mark the second line.
+1. Default opener is **Do you want a modern approach to how people find you?** — mark if any line still sounds like us, not them.
 2. Dialogue is the lead: Ewan on camera as the natural cut, graphics as the space. Graphic-only mute still has to speak in captions.
 3. If hybrid: plain wall, or keyed only over **our** web-space stills?
 4. Host loop inset in the space, or full-bleed end chunk?
@@ -520,9 +513,9 @@ Do not Omni the two-window loop. Do not Omni a photoreal office. If a model is u
 
 | ID | Ratio | Frame | Purpose |
 |---|---|---|---|
-| E-01 | 16:9 + 9:16 | Ewan, or Paper becoming a site-shaped frame. No logo | Hook A |
-| E-02 | both | Caption: They're going to look you up | Hook + speech |
-| E-03 | both | Deck small inside the space: A deck isn't a space they can use | Second line |
+| E-01 | 16:9 + 9:16 | Ewan, or the rooms moving. No logo | Hook A |
+| E-02 | both | Caption: Do you want a modern approach? | Hook + speech |
+| E-03 | both | Caption: Years in this industry | Trust |
 | E-04 | both | Page Story | Walk |
 | E-05 | both | Page Proof (person-block + bar, no invented number) | Walk |
 | E-06 | both | Page Presence | Walk |

@@ -2,7 +2,7 @@
 
 Studio ads for us. Not a client social-media service. UK English. Design Lab North **are**. Do not print GBP. Do not mention Cursor or the desk. **Sandbox** is the public word on this line.
 
-Ads speak as a brand to a person. Never as a note to whoever dictated the prompt. No fourth wall. **Iterative** is fine when a person would say it about their site; never as a kicker or a brief-leak. **Space** on this line means a web space people use, with the next line attached — not “a room an investor can sit in.”
+Talk to people. Probe. Influence. Emotion, then trust. Never a note to whoever dictated the prompt. No fourth wall. No poetry. No **deck**. **Space** means the web space they sell from. **System** means they can put as much in as they want and it goes into the actual making. **Iterative** is fine in that keep-going sense; never as a chip.
 
 **Three-door map:** `memory/social-video-blueprint.md` (how 15–20s films wrap the loops; demographics; Ewan-on-camera variants). Deep files: `memory/entrepreneur-film.md`, `memory/social-avenue-small-business-new.md`, `memory/social-refresh.md`.
 
@@ -19,11 +19,11 @@ Four films, not one.
 | Piece | Picture | Voice | Status |
 |---|---|---|---|
 | **1. Shared loop** | Sandbox left (portrait: top). Three notes → Push → live blips. Picture only. ~8s, 16:9 and 9:16. | Three VO beds on this master if we add voice | In-house cycle; waiting look |
-| **2. Entrepreneurs** | A digital *space* that can attract investors. Kin to press kits, different style. Can be a sandbox, a form, a walk-through — not only a public site. | Systemic: tried human-made system, years in the work | Plan: `memory/entrepreneur-film.md`. Not drawn |
+| **2. Entrepreneurs** | Loop as the pretty moving picture; talk is a modern approach, years in the industry, a system they put work into, the place they sell from | Probe + trust. No deck. No poetry | Plan: `memory/entrepreneur-film.md`. Not drawn |
 | **3. Small business — new** | Live starts empty. Notes 1–3: identity, one slate square, words. Bars sit in a side key (not in the windows). First Push → first live. Then 1→2 squares, 2→3 squares, clay bar; second key; second Push. `new.html` | Plain. Unique to them. No “system” language | In-house cycle. Film plan: `memory/social-avenue-small-business-new.md` |
 | **4. Small business — refresh** | Analytical first: market, conflict, competitor. Sit with what is already live. Host loop is the **tail**, not the lead. Plan: `memory/social-refresh.md` | Facelift / rebuild said plainly. Never slight the live site | Plan written. Not drawn |
 
-Ads say **you**, not they. Everyone is shown: live + constant sandbox, you leave a note, we take it into a human-led build, you choose when to push. The **lead** changes with the door. Do not mix the pitches.
+Ads say **you**, not they. Everyone is shown: live + constant sandbox, you put in as much as you want, it goes into the actual making, you say when. The **lead** changes with the door. Do not mix the pitches.
 
 Piece 1 is **picture only**. Do not bake a film line into the frame.
 
@@ -70,13 +70,11 @@ If a take is close, we edit in conversation. We do not regenerate from scratch. 
 
 Record after the silent master. Not sent to Omni.
 
-**Entrepreneurs (20s).** They're going to look you up after you talk. A deck isn't a space they can use. We build you one — a site, and a sandbox while you're still working. You can keep going without taking the live site down. Leave a note. You say when it goes live.
+**Entrepreneurs.** Do you want a modern approach to how people find you? Years in this industry. A system you can put as much into as you want. Your web space — where you sell. You say when it goes live.
 
-**Entrepreneurs (15s).** They're going to look you up. What's there — a deck, or a space they can actually use? Leave a note. We build. You say when it's live.
+**Small business — new.** Do you want this done properly from the start? Years in the work. Your brand, not a template. You put in as much as you want. It goes into the actual making of your site — the place you sell from.
 
-**Small business — new.** You haven't got a proper site yet. That's fine. We start with your brand. What we make is yours. Leave a note. You say when it goes live.
-
-**Small business — refresh.** We look first. At the market, at what's already live. The next pass sits beside it until you say move. We don't talk down what's up now.
+**Small business — refresh.** Do you want a modern approach without talking down what's already up? We look first. Years in this industry. You put in as much as you want. The next pass sits beside live until you say move.
 
 ## After piece 1 is marked
 
