@@ -987,4 +987,101 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - The Builder window is that same bind. Houses allow Builder and the live hub to iframe them (`frame-ancestors`).
 - `daa.designlabnorth.com` is the DAA site (`plot-daa`), not a redirect to the hub. Push that copy live. Do not drag the DAA chat into this repo.
 
+## 2026-09-28 — Board is a campus of rooms (Ewan)
+
+- Lay the whole board first, then hone play one room at a time. Overview `/board` is a 3D campus (CSS, not a game engine): seven frameworks stand as rooms, the plot book in the middle.
+- Each avenue has its own page. Each topic has its own page. The communal plot book stays at `/board/plot`. A `?plot=` on the overview redirects there.
+- Still 404 on `designlabnorth.com`. Campus studio only while we build it.
+
+## 2026-10-02 — Full board on the table (Ewan)
+
+- Keep the CSS 3D tabletop (tilt + drag yaw). Every topic and every scale action is its own place on the overview, not only the seven rooms plus plot.
+- Pieces follow the stage: radii in `%`, sizes in `clamp()` / `vmin`. 8 Process takes a wider outer arc because it has eight topics.
+- Scale chips swap the inner ring. Play in each room still comes later. Still 404 on the live host.
+
+## 2026-10-02 — MAP table from the binder (Ewan)
+
+- Overview follows Binder3: landscape along the top, identity + Narrative/Sensory left, the thing itself centre, eight-stage stack under it, customers right. Keep the 3D desk tilt.
+- Do not copy dummy briefing lines from the PDF. The pad is ownership, process, the board, the host, guardianship.
+- Paper/Ink and chamfer, not the binder’s mint construction sheet. Still 404 on the live host.
+
+## 2026-10-02 — A.P.E.S. pack onto the faculty room (Ewan)
+
+- Source pack at `/home/main/Downloads/Swarm-Apes/` (APES2, emotional-agentic paper, TaskEx / hive diagrams, walkthrough, Additionals). Ingest into **`/board/apes`**, not as a Swarm product site in this repo.
+- Letters on the MAP table are the four mindsets: Analytical, Practical, Emotional, Social. Creative / Critical / Decision / 360 stay as kinds of task that still walk all four.
+- TaskEx is the operational loop of this faculty (decompose → memory). Interrogation cycle is Analyse / Probe / Evaluate / Synthesize plus cards.
+- Do not put hive tokens, revenue ecology, or the DAA vNext HTML onto the DLN campus. Swarm Fund stays the greenhouse product. Do not list extra shells on the greenhouse until Ewan says. Do not overwrite live DAA.
+
+## 2026-10-02 — Do not production-build over a live campus (recovery)
+
+- `npm run build` in `Site/` writes the same `.next` the campus on `:3010` is serving. That 500s home and `/board` (`Cannot find module './9380.js'`). Compile-check only: stop campus, build, delete `.next`, start `npm run dev` again. Do not ship from that compile.
+
+## 2026-10-02 — Board is a living MAP, in five steps (Ewan)
+
+The arrangement is the table. Populate first. Then make it functional and smart. Sheet copy is for the board to learn from, not a lecture.
+
+1. **Sheets.** Every place on the table is a page of what that place means. Clicking must land. This is the step now.
+2. **Hide the teaching.** That copy sits behind the page as context. They do not read the framework first.
+3. **Entry.** Each cell has a prompt, a box, a talk-to. They put work in. It answers with the whole plot plus that cell. Tailored.
+4. **Views and assets.** The thing itself expands to a short view of *their* work. Click through for the full cell. Pictures they add, and pictures generated on a pathway, sit on the cell.
+5. **Engines.** Each landscape subhead gets its own thorough system (social engine on Cultural/Social first). Left identity they populate. Process at the bottom is the machine in Design Lab North’s voice. The board maps it.
+
+Do not stub an empty box and call it entry. Finish the sheets before hiding them.
+
+- Campus on `:3010` is `campus.service` (Restart=always). Do not `npm run build` over that `.next`. If the desk looks dead, it is usually Next compiling a heavy page (`/board/plot`) and blocking every other request — restart the unit, do not assume the sheets vanished.
+
+## 2026-10-02 — Cell pages are the plot’s reading (Ewan)
+
+Quiz boxes and “prompt later” were a defect. Each cell page is a pass of meaning **and** a concise summary from what the plot already holds (identity bits, other cells, host, notes). Teaching sits behind the page. More context is a Hold field that writes to the plot file. Talk-to still waits — do not fake it. Do not open `/board/plot` (BrandBoard) while walking cells.
+
+## 2026-10-03 — Board knowledge scan before a plug-in LLM (Ewan)
+
+Do not train a model. Front face later: plug-in LLMs, generate onto the board and the brand space, talk-to on every cell. First: same extent of knowledge. Scan file is `memory/board-knowledge.md` (Dave’s Swarm-Apes pack + Binder3 + what campus actually holds). Swarm hive/tokens and DAA vNext stay off this campus. Mark the scan; do not treat it as public copy.
+
+## 2026-10-06 — Swarm-Apes pack is Builder, not campus (Ewan)
+
+The folder `/home/main/Downloads/Swarm-Apes/` (A.P.E.S. papers, binders, hive diagrams, walkthrough, evolution, Obvious Questions, DAA vNext HTML) is **lab / house product**. Paste `memory/builder-paste.md` into the Builder Cursor. Swarm Fund work is `/home/main/SwarmFund` (`:5173`). DAA demo is `/home/main/DAA` (`:3050`). After edits, Builder runs `ops/apply-house.sh {slug}` so downstairs hosts the change.
+
+This **supersedes** ingesting that pack into `/board/apes` as a Swarm product site. Campus `/board` keeps the MAP table and the A.P.E.S. faculty as Design Lab North framework. Do not copy hive tokens, revenue ecology, or the DAA HTML onto campus. Do not implement Swarm or DAA source from this Cursor.
+
+House host is Debian `192.168.0.223`. Builder sits on `:3100`. Unit ports sit. This GPU Cursor is the desk, not the always-on host. DLN campus edits from here land downstairs with `ops/push-campus-downstairs.sh`.
+
+## 2026-10-06 — Hosting is one package (Ewan)
+
+You buy a live site with us, and you always have a sandbox you can talk to all day. That is the whole point. Host is **live site / constant sandbox** — one package, not live-or-sandbox, not a second fee to reopen a preview. Do not say iterative. Price follows traffic: a busier site pays more. No £50 / £100 split. No GBP on the public wall unless Ewan names a figure. Catalogue host-weekly / host-monthly are that package; the desk sets the amount from traffic.
+
+## 2026-10-07 — Social avenues (Ewan)
+
+Our content, not a client social service. Plan: `memory/social-avenues.md`. Three doors: entrepreneurs; small business new; small business refresh. Ads say **you**. Everyone sees live + constant sandbox, you leave a note, we take it in, you choose when to push, expert years in the trade. Entrepreneurs: a digital space to attract investors (press-kit kin, different style; can be a sandbox, need not be a site). SBO new: understand the brand first, unique, portfolio, simple sandbox→live animation — no dense “system” language. Refresh: analytical first (market, conflict, competitor); sit with the live site, never slight it. Generate in house in DLN style (Aktiv Grotesk, Paper/Ink, chamfer). For this line, **sandbox** is the public word. Do not mix the pitches.
+
+Shared loop is a **silent** master, then three narrations. 2026 model pick lives in this Cursor’s agent store `video-gen/` (temporary — do not treat as holy). Current pick: Gemini Omni 1.1 Flash, first/last frame from our motion, not a photoreal office. Sora is retired. Veo 3.1 Gemini preview ids shut 22 Oct 2026; Vertex GA remains if we want native sound on a later piece. Token spend is Ewan’s call. Still do not wire FAL into the site.
+
+**Sign-off before generate.** Show frames and prompts. Do not stills-then-Omni in one pass. Pack: `Site/public/brief/social-loop/`. **Piece 1 is in-house** (sandbox leads: left / top). Three notes type and cement in colour; Push; live **blips** — no slow swipe. Omni is not for this simple loop. **Ads say you, not they.** Picture only — no in-frame film line (clips on social). Voice and captions later if wanted. Send pack: `Site/public/brief/social-loop/dln-new-loop.zip` (new-customer HTML + greyscale GIF, 16:9 and 9:16, no local pics). Host zip remains `dln-host-loop.zip`. **Piece 3 (new customers):** live starts empty; first three notes keep their original clock (identity, one slate square, words) then first Push and first live. Note bars sit in a side key, not in the windows. After that: one square becomes two, then three, then the clay bar, then a second Push. Do not print iterative. Board `/board/apes/social` is MAP, not this campaign. Not a public header door.
+
+## 2026-10-07 — One sitting copy per house (Ewan)
+
+Builder on `:3100` iframes the downstairs sitting ports. There is not a second Builder copy of a site. Tower Cursor trees are working copies; `ops/apply-house.sh` lands them on Debian. Do not leave Debian on an older git while the tower has the current one (ModYu 2026-10-06 storefront was that drift). Solport (`:3070`) and Swimming Through Leaves (`:3060`) sit on the lab rail. One sniffer: Builder `ops/sniff-inbox.sh` in that Cursor. Do not arm extra sniff processes. Leftovers (`DLNAPP`, tower `DAABetter`, `/srv/clients` stub, Downloads photo dumps) are not sitting sites — do not delete them unless Ewan says.
+
+## 2026-10-07 — Lab views are IP:port (Ewan)
+
+Named LAN hosts (`dln.local`, `*.dln.local`) are not used in Builder. They do not reliably resolve. Every house window, View site, and hub handoff in the lab is `http://192.168.0.223:{port}`. Dave bookmarks that IP. Do not send the iframe to a `.local` name.
+
+## 2026-10-07 — Refresh film plan (piece 4)
+
+Small business refresh / rebrand / rebuild: exhaustive plan in `memory/social-refresh.md`. Look first (market, conflict, competitor), then sit with what is already live, then `loop.html` as tail. Host loop is not the lead. Never slight the live site. Distinct from `new.html`. Plan only — no stills or video until Ewan marks frames and prompts.
+
+## 2026-10-07 — Entrepreneur film plan only (piece 2)
+
+Exhaustive blueprint in `memory/entrepreneur-film.md`. Entrepreneurs only — not small-business new or refresh. 15–20s mute-first film; existing host loop is a sped-up 3–4s chunk. New picture is a space / walk / form, not a CMS demo. Sign-off stills listed, not generated. Not a posting calendar. Not a public header door.
+
+## 2026-10-07 — Board is a campaign, not a sitting (Ewan)
+
+The table is already the geography. A pretty 3D shell with one text box in every room is not the board. Each place is a unique room: landscape, identity, the thing itself, the stack, eight customer seats. People spend hours putting work in. Images, text, input, showcases, generate-from-this-brand (studio key later — do not fake). Interconnect. Multi-format. Continuity is `memory/board-campaign.md`, not the chat. One pass is one faculty or half of one. Do not “do the board” in half an hour. Stay on this Cursor; Cloud Agents / Automations can tick a written pass overnight. Do not migrate the house to get a longer brain. Still 404 on the live host.
+
+## 2026-10-07 — Small business new film plan (piece 3)
+
+15–20s studio ad for **first site / first brand only**. Plan: `memory/social-avenue-small-business-new.md`. Existing `new.html` is a 3–4s chunk (sped two-Push cycle), about a quarter of the film. Do not generate stills or video until Ewan marks frames. Do not mix entrepreneurs or refresh. Ads say **you**. Sandbox is the public word. No system language, no GBP, no Cursor, no desk, no awards in the ad.
+
+
+
 
