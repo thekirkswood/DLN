@@ -12,7 +12,7 @@ A hub of multiple sites, and a greenhouse. Public offer is **Design** (identity)
 
 ## How we charge (standing)
 
-Ewan charges the sit-down on **Build**, the initial build, and the **live host**. Dave charges branding and marketing, and sittings on **Design** and **Strategy**. Sittings are booked on the studio Book, not on the public pages. Each catalogue entry has its own amount, edited and saved on **Settings**. Empty is £0, not a global default. **Pay** shows the same list plus Other — a Reason and a Charge for the situation. Do not print GBP on the public site.
+Ewan charges the sit-down on **Build**, the initial build, and the **host**. Dave charges branding and marketing, and sittings on **Design** and **Strategy**. Host is **live and sandbox as one** — £75 a month on the book (campus may print it). The site (Build sitting + build) is £350; the look and the site (Design sitting + Build sitting + build) is two-thirds higher, £580. The whole walk (Strategy + Design + Build + host) is a line on Settings until we lock the amount. Build sitting is half an hour or an hour — the chat that starts the site. Design and Build on the Host wall write to `design@` / `build@`. Strategy talks are **£275** an hour or **£500** for two hours. Do not call these packages on the wall — they are how you come in. Strategy + Build without Design is not a walk on the wall — it comes up in a sitting, then we put them through to Build. Comments in the evening become a rolling update if there are any. A hotfix is something wrong now; we try to audit it within the hour. Sittings are booked on the studio Book, not on the public pages. Each catalogue entry has its own amount, edited and saved on **Settings**. Empty is £0, not a global default. **Pay** shows the same list plus Other — a Reason and a Charge for the situation. Do not print GBP on the public VPS.
 
 Work is staged **offline**. Notes become one plan. Ewan runs the plan when it is ready. A bigger update is uploaded when it is happy — with patch notes. We do not push every save to the live host. Later: own domain, same rhythm; smaller sites can share a server.
 
@@ -22,7 +22,7 @@ Not a client product. Not ModYu, SwarmFund, Various Titles, or any plot’s publ
 
 ## Voice (public)
 
-Conversational, from our side. Plural: Design Lab North are. Pleasure of the work, said differently each time. Proper sentences about the brand. Never slight a live site or its builders. No riddles. No hype. No agency-speak. No GBP on the public wall — the live-host service is described, not priced. **Tester exception (campus `:3010` only, 2026-09-08):** Host may print live or sandbox £50 pm, both together £100 pm, heavy traffic negotiable, and Build costs. Live `designlabnorth.com` keeps the no-GBP rule until a numbered ship.
+Conversational, from our side. Plural: Design Lab North are. Pleasure of the work, said differently each time. Proper sentences about the brand. Never slight a live site or its builders. No riddles. No hype. No agency-speak. No GBP on the public wall — the live-host service is described, not priced. **Tester exception (campus `:3010` / `dln.local` / `192.168.0.223` only, 2026-10-08):** Host may print live+sandbox £75 pm, The site £350, The look and the site £580, sittings, and heavy traffic as a conversation. Live `designlabnorth.com` keeps the no-GBP rule until a numbered ship.
 
 ## People
 

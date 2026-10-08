@@ -1,0 +1,292 @@
+.root {
+  display: grid;
+  gap: 1.4rem;
+  margin: 0 0 1.6rem;
+}
+
+.root :global(.kicker) {
+  margin-bottom: 0.35rem;
+}
+
+.root :global(.board-id-positioning-hole) {
+  margin: 0;
+  padding: 1.3rem 1.15rem 1.4rem;
+  border: 1px dashed var(--ink);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+
+.root :global(.board-id-positioning-hole p) {
+  margin: 0 0 0.55rem;
+  max-width: 34rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.root :global(.board-id-positioning-hole .kicker) {
+  font-weight: 500;
+}
+
+.root :global(.board-id-positioning-hole a) {
+  color: inherit;
+  font-weight: 700;
+}
+
+.root :global(.board-id-positioning-plates) {
+  list-style: none;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+.root :global(.board-id-positioning-plates a) {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  min-height: 7.4rem;
+  padding: 0.65rem 0.55rem 0.75rem;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-id-positioning-plates .is-hole a) {
+  border-style: dashed;
+  color: var(--mute);
+}
+
+.root :global(.board-id-positioning-plates .is-held a) {
+  border-color: var(--ink);
+}
+
+.root :global(.board-id-positioning-plates strong) {
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.root :global(.board-id-positioning-where textarea) {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 900;
+  font-size: clamp(1.25rem, 2.8vw, 2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  min-height: 3.2rem;
+  resize: none;
+  padding: 0.15rem 0 0.45rem;
+  outline: none;
+}
+
+.root :global(.board-id-positioning-where textarea:focus),
+.root :global(.board-id-positioning-next input:focus),
+.root :global(.board-id-positioning-not textarea:focus) {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.root :global(.board-id-positioning-kinds) {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin: 0 0 0.7rem;
+}
+
+.root :global(.board-id-positioning-kinds button),
+.root :global(.board-id-positioning-names button) {
+  appearance: none;
+  width: 100%;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: left;
+  min-height: 3.6rem;
+  padding: 0.7rem 0.8rem;
+  cursor: pointer;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--ink);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-id-positioning-kinds button.is-on),
+.root :global(.board-id-positioning-names button.is-on) {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.root :global(.board-id-positioning-names) {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+}
+
+.root :global(.board-id-positioning-names li) {
+  flex: 1 1 10rem;
+}
+
+.root :global(.board-id-positioning-missing) {
+  margin: 0 0 0.75rem;
+  color: var(--mute);
+  max-width: 36rem;
+}
+
+.root :global(.board-id-positioning-missing a) {
+  color: inherit;
+}
+
+.root :global(.board-id-positioning-next > label),
+.root :global(.board-id-positioning-where),
+.root :global(.board-id-positioning-not) {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.root :global(.board-id-positioning-next input),
+.root :global(.board-id-positioning-not textarea) {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  padding: 0.25rem 0 0.4rem;
+  resize: none;
+}
+
+.root :global(.board-id-positioning-warn) {
+  margin: 0.55rem 0 0;
+  max-width: 38rem;
+  color: var(--mute);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+
+.root :global(.board-id-positioning-door) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-id-positioning-door a) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem 1.2rem;
+  align-items: baseline;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--ink);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-id-positioning-door a:hover),
+.root :global(.board-id-positioning-door a:focus-visible) {
+  text-decoration: none;
+  background: color-mix(in srgb, var(--ink) 6%, var(--ground));
+}
+
+.root :global(.board-id-positioning-door strong) {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.root :global(.board-id-positioning-door span) {
+  color: var(--mute);
+  font-size: 0.92rem;
+}
+
+.root :global(.board-id-neighbours) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-related) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.root :global(.board-related a) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-related span) {
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+
+.root :global(.board-id-sockets) {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.root :global(.board-gen) {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.root :global(.board-gen button) {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.root :global(.board-gen button:disabled) {
+  color: var(--mute);
+  cursor: not-allowed;
+}
+
+.root :global(.board-gen span) {
+  color: var(--mute);
+  font-size: 0.88rem;
+  max-width: 38rem;
+}
+
+.root :global(.board-save) {
+  margin: 0.2rem 0 0;
+}
+
+@media (max-width: 960px) {
+  .root :global(.board-id-positioning-plates) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .root :global(.board-id-positioning-plates),
+  .root :global(.board-id-positioning-kinds) {
+    grid-template-columns: 1fr 1fr;
+  }
+}

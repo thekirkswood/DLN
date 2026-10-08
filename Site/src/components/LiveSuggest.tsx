@@ -2,14 +2,26 @@
 
 import { FormEvent, useState } from "react";
 
-export function LiveSuggest({
+function SuggestWell({
   plotSlug,
-  plotName,
-  embed = false,
+  kind,
+  title,
+  hint,
+  label,
+  cta,
+  embed,
+  rows,
+  okLine,
 }: {
   plotSlug: string;
-  plotName: string;
-  embed?: boolean;
+  kind: "note" | "hotfix";
+  title: string;
+  hint: string;
+  label: string;
+  cta: string;
+  embed: boolean;
+  rows: number;
+  okLine: string;
 }) {
   const [body, setBody] = useState("");
   const [fromName, setFromName] = useState("");
@@ -36,6 +48,7 @@ export function LiveSuggest({
         fromName,
         page,
         company: honey,
+        kind,
       }),
     });
     if (res.status === 401) {
@@ -50,39 +63,36 @@ export function LiveSuggest({
     }
     setBody("");
     setFromName("");
-    setOk("Received. We’ll read it and turn it into a plan.");
+    setOk(okLine);
   }
 
   return (
     <form
-      className={`live-suggest${embed ? " is-embed" : ""}`}
+      className={`live-suggest${embed ? " is-embed" : ""}${kind === "hotfix" ? " is-hotfix" : ""}`}
       onSubmit={onSubmit}
     >
-      <h1 className="kicker">{embed ? "A change you’d like" : plotName}</h1>
-      <p className="body">
-        Write what you’d like to change. We read it, turn it into a plan, and
-        run it ourselves. Nothing on this host changes from this box.
-      </p>
-      <label htmlFor="suggest-body">Suggestion</label>
+      <h2 className="kicker">{title}</h2>
+      <p className="body">{hint}</p>
+      <label htmlFor={`suggest-body-${kind}`}>{label}</label>
       <textarea
-        id="suggest-body"
-        rows={embed ? 4 : 6}
+        id={`suggest-body-${kind}`}
+        rows={rows}
         value={body}
         onChange={(e) => setBody(e.target.value)}
         required
         maxLength={2000}
       />
-      <label htmlFor="suggest-who">Your name (optional)</label>
+      <label htmlFor={`suggest-who-${kind}`}>Your name (optional)</label>
       <input
-        id="suggest-who"
+        id={`suggest-who-${kind}`}
         value={fromName}
         onChange={(e) => setFromName(e.target.value)}
         autoComplete="name"
       />
       <p className="suggest-honey" aria-hidden>
-        <label htmlFor="suggest-company">Company</label>
+        <label htmlFor={`suggest-company-${kind}`}>Company</label>
         <input
-          id="suggest-company"
+          id={`suggest-company-${kind}`}
           name="company"
           tabIndex={-1}
           autoComplete="off"
@@ -91,10 +101,48 @@ export function LiveSuggest({
         />
       </p>
       <button type="submit" disabled={pending}>
-        {pending ? "…" : "Send"}
+        {pending ? "…" : cta}
       </button>
       {error ? <p className="err">{error}</p> : null}
       {ok ? <p className="note">{ok}</p> : null}
     </form>
+  );
+}
+
+export function LiveSuggest({
+  plotSlug,
+  plotName,
+  embed = false,
+}: {
+  plotSlug: string;
+  plotName: string;
+  embed?: boolean;
+}) {
+  return (
+    <div className="live-suggest-pair">
+      <p className="kicker">{embed ? plotName : plotName}</p>
+      <SuggestWell
+        plotSlug={plotSlug}
+        kind="note"
+        title="A change you’d like"
+        hint="Write what you’d like to change. If there are comments, we aim to roll an update that evening. Nothing on this host changes from the box itself."
+        label="Comment"
+        cta="Send"
+        embed={embed}
+        rows={embed ? 4 : 6}
+        okLine="Received. We’ll read it and turn it into a plan."
+      />
+      <SuggestWell
+        plotSlug={plotSlug}
+        kind="hotfix"
+        title="Hotfix"
+        hint="Something is wrong right now. We try to audit this within the hour."
+        label="What’s wrong"
+        cta="Send hotfix"
+        embed={embed}
+        rows={embed ? 3 : 4}
+        okLine="Received. We’ll look at it as a hotfix."
+      />
+    </div>
   );
 }

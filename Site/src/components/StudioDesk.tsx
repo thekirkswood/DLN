@@ -502,10 +502,14 @@ function PersonPanel({
               {openNotes.map((c) => (
                 <li key={c.id}>
                   <span className="status">{c.createdAt.slice(0, 10)}</span>
+                  {c.kind === "hotfix" ? " · hotfix" : ""}
                   {c.source === "live" ? " · live host" : ""}
                   {c.fromName ? ` · ${c.fromName}` : ""}
                   {c.page ? ` · ${c.page}` : ""}
-                  <p>{c.body}</p>
+                  <p>
+                    {c.kind === "hotfix" ? <strong>Hotfix. </strong> : null}
+                    {c.body}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -858,11 +862,19 @@ export function CommentBox({
   plotOptions,
   hint,
   clientId,
+  kind = "note",
+  label = "A note",
+  cta = "Leave note",
+  rows = 3,
 }: {
   plotSlug: string;
   plotOptions: Plot[];
   hint?: string;
   clientId?: string;
+  kind?: "note" | "hotfix";
+  label?: string;
+  cta?: string;
+  rows?: number;
 }) {
   const router = useRouter();
   const [slug, setSlug] = useState(plotSlug);
@@ -876,7 +888,7 @@ export function CommentBox({
     const res = await fetch("/api/comments", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ plotSlug: slug, body, clientId }),
+      body: JSON.stringify({ plotSlug: slug, body, clientId, kind }),
     });
     setPending(false);
     if (!res.ok) return;
@@ -887,12 +899,16 @@ export function CommentBox({
   if (!plotOptions.length && !plotSlug) return null;
 
   return (
-    <form className="comment-box" onSubmit={onSubmit}>
+    <form className={`comment-box${kind === "hotfix" ? " is-hotfix" : " is-wide"}`} onSubmit={onSubmit}>
       {hint ? <p className="body bill-note">{hint}</p> : null}
       {plotOptions.length > 1 ? (
         <>
-          <label htmlFor="c-plot">Site</label>
-          <select id="c-plot" value={slug} onChange={(e) => setSlug(e.target.value)}>
+          <label htmlFor={`c-plot-${kind}`}>Site</label>
+          <select
+            id={`c-plot-${kind}`}
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
+          >
             {plotOptions.map((p) => (
               <option key={p.slug} value={p.slug}>
                 {p.name}
@@ -901,16 +917,16 @@ export function CommentBox({
           </select>
         </>
       ) : null}
-      <label htmlFor="c-body">A note</label>
+      <label htmlFor={`c-body-${kind}`}>{label}</label>
       <textarea
-        id="c-body"
-        rows={3}
+        id={`c-body-${kind}`}
+        rows={rows}
         value={body}
         onChange={(e) => setBody(e.target.value)}
         required
       />
       <button type="submit" disabled={pending}>
-        {pending ? "…" : "Leave note"}
+        {pending ? "…" : cta}
       </button>
     </form>
   );

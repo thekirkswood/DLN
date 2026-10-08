@@ -991,4 +991,71 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 
 Map: `memory/social-video-blueprint.md`. Existing HTML/GIF loops are a 3–4s chunk of 15–20s films, said differently per door — entrepreneurs (space/walk); small business new (empty live, two Pushes); small business refresh (look-first, sit with live, never slight it). Ewan on camera is a variant after graphic lock; key only over our stills. Deep files: `memory/entrepreneur-film.md`, `memory/social-avenue-small-business-new.md`, `memory/social-refresh.md`. Lock: `memory/social-avenues.md`. Do not mix pitches. Do not generate stills in the same pass. Not a public header door. Not a posting calendar.
 
+## 2026-10-07 — Social films are dialogue; iterative is not banned (Ewan)
+
+Piece 2 opener is speech that finishes: they're going to look you up; a deck isn't a **space they can use** (web space, site + sandbox). “A room an investor can sit in” is out — no next line on a phone, and they are not in a room. Ads talk as a brand to a person. Never as a note to whoever dictated the prompt. No fourth wall. No mechanic labels dumped as captions. **Iterative** is allowed in the right context (keep going without taking live down). It was jarring when used as a brief-leak. Do not hard-ban the word; do not chip it.
+
+## 2026-10-07 — Board: plan documents, then section agents (Ewan)
+
+The board is one living MAP. Plans sit in `memory/board-plans/` (index + overview through generate). Agents read a section plan and build that interior — unique rooms, interconnect, multi-format sockets. Do not mark landed from a short shared form. `/board` is the table (`BoardSpace`), not BrandBoard. BrandBoard is the heavy book, not the walking path. Generate stays a socket until a studio key. Still 404 live. Swarm hive off campus.
+
+## 2026-10-07 — Social films are dialogue; iterative is not banned (Ewan)
+
+Piece 2 opener is speech that finishes: they're going to look you up; a deck isn't a **space they can use** (web space, site + sandbox). “A room an investor can sit in” is out — no next line on a phone, and they are not in a room. Ads talk as a brand to a person. Never as a note to whoever dictated the prompt. No fourth wall. No mechanic labels dumped as captions. **Iterative** is allowed in the right context (keep going without taking live down). It was jarring when used as a brief-leak. Do not hard-ban the word; do not chip it.
+
+## 2026-10-07 — Talk to people; no deck; no poetry (Ewan)
+
+Deck is a slide pack. Do not say it on the film. The last beds were poetry — people will not intuit them. Talk: do you want a modern approach? Years in the industry. A system you can put as much into as you want; it goes into the actual making of your web space, the environment you sell from. Probe, influence, emotion, trust. Picture is pretty, moving, simple, on brand (the loops). Three doors, three questions. Rewrite lives in `memory/social-video-blueprint.md` and the voice beds in `memory/social-avenues.md`.
+
+## 2026-10-07 — Board is one space, not a site of pages (Ewan)
+
+Unique interiors on separate routes are about 5%. The walk must not dump a 2D map into a sprawl of text pages. Systems live **inside one board**: enter a region, that plate comes forward, the rest of the table stays. Pleasing as well as functional. Plan `memory/board-plans/12-one-space.md`. Do not tick landed. Keep going.
+
+## 2026-10-07 — Board: keep going, specialists, time is arbitrary (Ewan)
+
+Do not wake-loop or stop-start the board. Time is a reference, not a budget. An eight-minute shared form is a defect. Plans in `memory/board-plans/` are complete documents first. Then specialist agents build interiors — in parallel when files do not collide, then the next wave, without asking to resume. One master entity (the plot). Unique rooms. Teaching behind. Generate stays a socket. Do not tick landed.
+
+## 2026-10-07 — Board: maps camera, plates, scale is a flag (Ewan)
+
+Sole trader / bigger business / corporation is a flag on the plot, set early (`mapping:scale`). Not a toggle sat on the table. Back must close the well — no giant tile left open. The table is individual plates that say what is inside, not one ballooned region. Orbit yaw and pitch. Zoom like a map: far out the table is small; zooming in on a plate enters it. Segment the rest into little tasks (`memory/board-plans/13-little-tasks.md`) and keep going — aesthetics, buttons, zoom, assets on the table like A.P.E.S., customers as a bustling place with analytics sockets (no invented numbers). Do not tick landed.
+
+## 2026-10-07 — Board interiors are instruments (Ewan)
+
+~9%. Boxes do things; pages were still entry boxes with disjointed teaching then a window of textareas. Guardianship (~11%) is the bar: act on plates, not a lecture. Build like a product — more thinky, less wordy, more engaging. Heart, soul, style. Few percent at a time is how it is. Plan `memory/board-plans/14-environments.md`. First paint is the job. Teaching behind. Do not tick landed.
+
+## 2026-10-08 — Board is a window; it gives back (Ewan)
+
+~11%. Undocking below ~1100px must not switch 3D off. Dragging the table must not select text. Wheel inside the board (and inside a well) must not scroll the campus page. Bottom faculty labels enter the table; they are not a second site. Phone is the same walk with a limited pan. Customisation is the plot (who they are), not a skin. Most plates will be hold; some return — derived from the book, then research, then generate when keyed. More they put in, more attuned the return. Linked. Do not fake generate. Plan `memory/board-plans/15-give-back.md`. Do not tick landed.
+
+## 2026-10-08 — House is 192.168.0.223; host is one thing (Ewan)
+
+- Cursor on the tower is a working copy. Dave and Ewan check **http://192.168.0.223:3010** / `dln.local`. After campus edits, push with `ops/sync-to-debian.sh` so the downstairs host rebuilds. `localhost:3010` on the tower is not the house. Same pipeline for every site: edit here, update the house, that is what goes live.
+- Hosting is live **and** sandbox, one monthly, **£75**. Not £50 / £100 as two products.
+- The site (Build sitting + build) **£350**, then the monthly. The look and the site (Dave + Ewan sittings + build) is two-thirds higher: **£580**. The whole walk is a Settings line until we lock it. Design-only and Strategy-only are sittings. Strategy + Build without Design is not on the wall.
+- Comments: evening rolling update if there are any. Hotfix: audit within the hour. Account Sites has the big comment box, a hotfix box, the update log, and an FAQ. Public site stays plain. Client hotfix wakes the lab as `hotfix-ask`, never the studio deploy phrase.
+
+## 2026-10-08 — Small board: pull the table; back is an arrow (Ewan)
+
+At a lower width the table sat at the bottom, locked on Landscape / Identity — no way to pull it up or see the rest. Drag and wheel must move the table so every plate can come into view. 3D stays on. Back to the board is a little arrow, top left of each well — not only the title “The table”. Do not tick landed.
+
+## 2026-10-08 — Ways in, not packages; /host is the campus Host (Ewan)
+
+- Do not call them packages on the wall. How you come in: The site; The look and the site; The whole walk; The look; A sitting.
+- Build sitting is half an hour or an hour — the chat that starts the site, then the monthly.
+- Strategy sitting is an hour or two, premium (field, competitors, alignment, how you shout). Design sitting is about an hour.
+- `/host` is the same Host room as the campus rail. Not the old CampusHouse priced stub. Live VPS still hides GBP until a numbered ship.
+- House check is **http://192.168.0.223:3010** / `dln.local` after `ops/sync-to-debian.sh`. Tower `localhost:3010` is a working copy. Same pipeline for every site.
+
+## 2026-10-08 — Design/Build rooms, Host wall, section films (Ewan)
+
+- Campus edits must land on the house (`192.168.0.223:3010` / `dln.local`) via `ops/sync-to-debian.sh`. Tower localhost is a working copy, not the copy people check.
+- Strip keylines around the little demo boxes on independent pages and subcategories. Concertina and header chrome stay.
+- Logos: one of each real mark, equal transparent frames. House first (DLN, Swarm Fund with bars spanning the hive, Choozlist, Various Titles, ModYu, DAA, Swimming Through Leaves from the house mark — do not generate). Then sitting client marks. Portfolio stills do not live here.
+- Simple sites: formats animation only. No PFP / Follicle / website stills under it.
+- Identity: desk and hand only. Drop the card / toolkit tile.
+- UI: wordless morph (board → screen → hand). No Follicle Files / ATTW / Applearn screenshots.
+- Host wall: The site; The look and the site; Strategy talks. Design and Build are emails (`design@` / `build@`). Strategy talks £275 an hour or £500 for two. Live+sandbox £75 stays. Site £350 and look+site £580 stay.
+- Section films: plan only in `memory/section-films.md`. One at a time, social-loop style. Next trigger is packaging. Homepage “bring an idea” is later.
+
+
 

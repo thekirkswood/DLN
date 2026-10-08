@@ -10,6 +10,7 @@ export function Footer() {
   if (path.startsWith("/suggest")) return null;
   if (path === "/work") return null;
   if (path === "/epk" || path.startsWith("/epk/")) return null;
+  if (path === "/board" || path.startsWith("/board/")) return null;
   if (path === "/" || path === "/app" || path.startsWith("/app/")) return null;
   return (
     <footer className="site-footer wrap">

@@ -1,0 +1,217 @@
+.board-id-people {
+  display: grid;
+  gap: 1.4rem;
+  margin: 0 0 1.6rem;
+}
+
+.board-id-people-ledger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 13.5rem;
+  gap: 1.6rem;
+  align-items: start;
+}
+
+.board-id-people-names ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.board-id-people-names li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.55rem;
+  align-items: end;
+  padding: 0.55rem 0 0.65rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.board-id-people-names label {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.board-id-people-names input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  font-size: 1.18rem;
+  letter-spacing: -0.02em;
+  padding: 0.1rem 0 0.15rem;
+}
+
+.board-id-people-names input:focus,
+.board-id-people-true textarea:focus {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.board-id-people-names li button,
+.board-id-people-add button {
+  appearance: none;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.3rem 0.5rem;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.board-id-people-add {
+  margin: 0.7rem 0 0;
+}
+
+.board-id-people-seats {
+  display: grid;
+  gap: 0.45rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--ink);
+}
+
+.board-id-people-seats ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.board-id-people-seats li {
+  display: grid;
+  grid-template-columns: 1.1rem minmax(0, 1fr);
+  gap: 0.4rem;
+  align-items: baseline;
+  font-size: 0.92rem;
+}
+
+.board-id-people-seats li span {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--mute);
+}
+
+.board-id-people-seats a {
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid transparent;
+}
+
+.board-id-people-seats a:hover,
+.board-id-people-seats a:focus-visible {
+  border-bottom-color: var(--ink);
+}
+
+.board-id-people-true {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.board-id-people-true textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.02rem;
+  line-height: 1.4;
+  resize: none;
+  min-height: 4rem;
+  padding: 0.2rem 0 0.4rem;
+}
+
+.board-id-people-warn {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.92rem;
+  font-style: italic;
+  max-width: 38rem;
+}
+
+.board-id-people-doors,
+.board-id-people .board-related {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.board-id-people-doors a,
+.board-id-people .board-related a {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.3rem 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+}
+
+.board-id-people-doors span,
+.board-id-people .board-related span {
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+
+.board-id-people .board-id-neighbours {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.board-id-people .board-id-sockets,
+.board-id-people .board-gen {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.board-id-people .board-gen button {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  cursor: not-allowed;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.board-id-people .board-gen span {
+  color: var(--mute);
+  font-size: 0.88rem;
+  max-width: 38rem;
+}
+
+.board-id-people .board-save {
+  margin: 0.2rem 0 0;
+}
+
+@media (max-width: 720px) {
+  .board-id-people-ledger {
+    grid-template-columns: 1fr;
+  }
+
+  .board-id-people-seats {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 0.9rem;
+  }
+}

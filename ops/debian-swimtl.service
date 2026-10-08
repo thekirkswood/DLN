@@ -1,0 +1,16 @@
+[Unit]
+Description=Swimming Through Leaves (Next :3060)
+After=network-online.target campus.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/main/Repos/SwimTL/Site
+Environment=PATH=/usr/bin:/bin
+Environment=NODE_ENV=development
+ExecStart=/usr/bin/npm run dev
+Restart=always
+RestartSec=8
+KillMode=mixed
+
+[Install]
+WantedBy=default.target

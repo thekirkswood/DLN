@@ -84,6 +84,7 @@ export async function POST(req: NextRequest) {
     page?: string;
     fromName?: string;
     company?: string;
+    kind?: "note" | "hotfix";
   } | null;
   if (body?.company) {
     return cors(req, NextResponse.json({ ok: true }));

@@ -487,8 +487,8 @@ export function SystemsSketch() {
       <li>
         <strong>Host</strong>
         <span>
-          Live site, and a private preview beside it. Reopen the preview
-          whenever you want to edit again.
+          Live and sandbox as one host. Comments in the evening; a hotfix we
+          try to audit within the hour.
         </span>
       </li>
       <li>

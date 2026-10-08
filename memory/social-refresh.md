@@ -10,7 +10,7 @@ Studio ads for Design Lab North. Not a client social-media service. Plan only. N
 
 **Status:** not drawn. Closest existing picture is the host loop (`Site/public/brief/social-loop/loop.html` and `dln-host-loop.zip`). That loop is the **tail**, not the lead. Lead is look-first.
 
-House locks that this film must honour: UK English; Design Lab North **are**; ads say **you**; public word **sandbox**; no GBP; no Cursor; no desk; do not invent awards; Dave is designer; Ewan is builder; never slight the live site or the people who built it; a rebuild sits with them, not over them; do not say iterative; do not mix this pitch with piece 2 or piece 3.
+House locks that this film must honour: UK English; Design Lab North **are**; ads say **you**; public word **sandbox**; no GBP; no Cursor; no desk; do not invent awards; Dave is designer; Ewan is builder; never slight the live site or the people who built it; a rebuild sits with them, not over them; ads are speech to a person, not notes to the desk; iterative only if a person would say it; do not mix this pitch with piece 2 or piece 3.
 
 ---
 

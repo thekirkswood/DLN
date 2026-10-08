@@ -1,0 +1,582 @@
+/* Solport sitting rooms. Closer and quieter than mapping. Paper/Ink, 45° cut. */
+
+.board-room.is-solport {
+  display: grid;
+  gap: 0.95rem;
+  padding: 0.85rem 0 2.6rem;
+  max-width: 52rem;
+}
+
+.board-room.is-solport .board-room-head {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: start;
+}
+
+.board-room.is-solport .board-room-head img {
+  width: 3.4rem;
+  height: auto;
+}
+
+.board-room.is-solport h1 {
+  font-size: clamp(1.35rem, 2.8vw, 2.05rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  max-width: 14ch;
+  margin: 0 0 0.3rem;
+}
+
+.board-room.is-solport .lede {
+  margin: 0;
+  max-width: 34rem;
+  color: var(--mute);
+}
+
+.board-room.is-solport .board-side,
+.board-room.is-solport .board-plot-line {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.88rem;
+}
+
+.board-room.is-solport .board-plot-line a {
+  color: inherit;
+}
+
+.board-room.is-solport textarea,
+.board-room.is-solport button {
+  font: inherit;
+  color: inherit;
+}
+
+.board-room.is-solport textarea {
+  width: 100%;
+  resize: vertical;
+  background: transparent;
+  border: 0;
+  padding: 0.2rem 0 0.35rem;
+}
+
+.board-room.is-solport textarea:focus,
+.board-room.is-solport button:focus-visible,
+.board-room.is-solport a:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.solport-spine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin: 0.15rem 0 0.2rem;
+}
+
+.solport-spine a {
+  color: var(--mute);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.solport-spine a.is-held {
+  color: var(--ink);
+}
+
+.solport-spine a.is-on {
+  font-weight: 700;
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+.solport-scale {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.82rem;
+}
+
+.solport-theatre {
+  margin: 0;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--ink);
+  clip-path: polygon(
+    var(--cut) 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut)),
+    0 var(--cut)
+  );
+  font-size: 0.9rem;
+}
+
+.solport-theatre a {
+  color: inherit;
+}
+
+.solport-save {
+  margin: 0.2rem 0 0;
+}
+
+.solport-gen {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+}
+
+.solport-gen button {
+  appearance: none;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.7rem;
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px),
+    0 6px
+  );
+}
+
+.solport-gen button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.solport-gen span {
+  color: var(--mute);
+  max-width: 38rem;
+  font-size: 0.84rem;
+}
+
+.solport-holds {
+  border-top: 1px solid var(--line);
+  padding-top: 0.5rem;
+}
+
+.solport-holds summary {
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.solport-holds .body,
+.solport-holds li {
+  color: var(--mute);
+  font-size: 0.88rem;
+}
+
+.solport-holds ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.solport-stills {
+  display: grid;
+  gap: 0.4rem;
+  min-height: 5.2rem;
+  padding: 0.65rem 0.75rem 0.75rem;
+  border: 1px dashed var(--line);
+  clip-path: polygon(
+    var(--cut) 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut)),
+    0 var(--cut)
+  );
+}
+
+.solport-stills.is-lit {
+  border-style: solid;
+}
+
+.solport-stills .kicker,
+.solport-stills-empty {
+  margin: 0;
+  color: var(--mute);
+}
+
+.solport-stills ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+}
+
+.solport-stills img {
+  display: block;
+  width: 4.6rem;
+  height: 4.6rem;
+  object-fit: cover;
+}
+
+.solport-read,
+.solport-week-doors a,
+.solport-message,
+.solport-token-door {
+  margin: 0;
+}
+
+.solport-read a,
+.solport-week-doors a,
+.solport-message a,
+.solport-token-door a {
+  display: grid;
+  gap: 0.15rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.solport-read.is-empty strong,
+.solport-message.is-empty strong {
+  font-weight: 500;
+  color: var(--mute);
+}
+
+/* —— Sitting: a table for two —— */
+
+.solport-table {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.solport-table .kicker {
+  margin: 0;
+}
+
+.solport-chairs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem 2.2rem;
+  align-items: stretch;
+}
+
+.solport-chair {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.85rem 0.9rem 1rem;
+  border: 1px solid var(--line);
+  clip-path: polygon(
+    var(--cut) 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut)),
+    0 var(--cut)
+  );
+}
+
+.solport-chair.is-held {
+  border-color: var(--ink);
+}
+
+.solport-chair.is-vacant {
+  color: var(--mute);
+}
+
+.solport-chair.is-across {
+  transform: translateY(0.55rem);
+}
+
+.solport-chair textarea {
+  min-height: 6.2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.solport-board-edge {
+  height: 1px;
+  background: var(--ink);
+  margin: 0.15rem 8%;
+}
+
+.solport-slip {
+  display: grid;
+  gap: 0.2rem;
+  max-width: 28rem;
+  margin-inline: auto;
+  padding: 0.7rem 0.85rem 0.85rem;
+  border: 1px solid var(--ink);
+  background: var(--ground);
+  transform: rotate(-0.4deg);
+}
+
+.solport-slip textarea {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  min-height: 3.4rem;
+}
+
+.solport-table.is-empty .solport-slip {
+  border-color: var(--line);
+}
+
+@media (max-width: 720px) {
+  .solport-chairs {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .solport-chair.is-across {
+    transform: none;
+  }
+}
+
+/* —— Tools: vacant wells on a bench —— */
+
+.solport-bench {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.solport-wells {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.solport-well {
+  min-height: 8.2rem;
+  padding: 0.55rem 0.6rem 0.7rem;
+  border: 1px dashed var(--line);
+  clip-path: polygon(
+    var(--cut) 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut)),
+    0 var(--cut)
+  );
+}
+
+.solport-well.is-held {
+  border-style: solid;
+  border-color: var(--ink);
+}
+
+.solport-well.is-vacant {
+  color: var(--mute);
+}
+
+.solport-well label {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.solport-well textarea {
+  min-height: 4.6rem;
+}
+
+.solport-bench-more {
+  margin: 0;
+}
+
+.solport-leave-alone textarea {
+  border-bottom: 1px solid var(--line);
+  min-height: 3.4rem;
+}
+
+.solport-tempted textarea {
+  font-style: italic;
+  color: var(--mute);
+  border-bottom: 1px solid var(--line);
+  min-height: 2.6rem;
+}
+
+.solport-tempted.is-named textarea {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+@media (max-width: 860px) {
+  .solport-wells {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* —— Channels: this week, seven days —— */
+
+.solport-week-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.solport-week {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(7.2rem, 1fr));
+  gap: 0;
+  overflow-x: auto;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.solport-day {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.65rem 0.55rem 0.8rem;
+  border-right: 1px solid var(--line);
+  min-width: 7.2rem;
+}
+
+.solport-day:last-child {
+  border-right: 0;
+}
+
+.solport-day.is-quiet {
+  color: var(--mute);
+}
+
+.solport-day-name {
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.solport-day textarea {
+  min-height: 3.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.solport-dormant {
+  display: grid;
+  gap: 0.2rem;
+  color: var(--mute);
+}
+
+.solport-dormant textarea {
+  border-bottom: 1px dashed var(--line);
+  min-height: 2.6rem;
+}
+
+.solport-week-doors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem 1.4rem;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .solport-week-doors {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* —— Content: next to publish, then the neighbourhood —— */
+
+.solport-publish {
+  display: grid;
+  gap: 1.05rem;
+}
+
+.solport-next textarea {
+  font-weight: 900;
+  font-size: clamp(1.45rem, 3.4vw, 2.35rem);
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  min-height: 4.2rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+.solport-does textarea {
+  min-height: 3.2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.solport-message.is-empty,
+.solport-publish .solport-theatre {
+  max-width: 42rem;
+}
+
+.solport-tokens {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.solport-tokens ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.solport-tokens button {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0.55rem 0.65rem 0.65rem;
+  display: grid;
+  gap: 0.2rem;
+  clip-path: polygon(
+    var(--cut) 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut)),
+    0 var(--cut)
+  );
+}
+
+.solport-tokens li.is-held button {
+  border-color: var(--ink);
+}
+
+.solport-tokens li.is-on button {
+  background: var(--ink);
+  color: var(--ground);
+  border-color: var(--ink);
+}
+
+.solport-tokens button span {
+  color: var(--mute);
+  font-size: 0.8rem;
+}
+
+.solport-tokens li.is-on button span {
+  color: inherit;
+  opacity: 0.8;
+}
+
+.solport-token-door {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+  .solport-tokens ul {
+    grid-template-columns: 1fr 1fr;
+  }
+}

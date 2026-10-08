@@ -71,6 +71,16 @@ export const OFFERS: FacetOffer[] = [
         label: "I need our identity guidelines audited or updated.",
       },
       {
+        id: "walk-design",
+        facet: "design",
+        label: "I want the look — time with Design.",
+      },
+      {
+        id: "walk-design-build",
+        facet: "design",
+        label: "I want the look and the site.",
+      },
+      {
         id: "design-none-above",
         facet: "design",
         label: "None of the above — I’ll write it below.",
@@ -140,6 +150,16 @@ export const OFFERS: FacetOffer[] = [
         label: "We are applying to the approved supplier list.",
       },
       {
+        id: "walk-strategy",
+        facet: "strategy",
+        label: "I want a Strategy sitting — an hour or two.",
+      },
+      {
+        id: "walk-full",
+        facet: "strategy",
+        label: "I want the whole walk — who we are, how we say it, and the place.",
+      },
+      {
         id: "none-above",
         facet: "strategy",
         label: "None of the above — I’ll write it below.",
@@ -191,6 +211,11 @@ export const OFFERS: FacetOffer[] = [
         id: "web-api-dashboard",
         facet: "build",
         label: "We need sign-in, data, or the desk behind the site.",
+      },
+      {
+        id: "walk-build-host",
+        facet: "build",
+        label: "I already have the look. I want the site and the host.",
       },
       {
         id: "web-none-above",

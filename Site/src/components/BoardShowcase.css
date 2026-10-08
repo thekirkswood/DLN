@@ -1,0 +1,350 @@
+/* Centre of the MAP. Do not restyle campus header. */
+
+.board-shell:has(.board-showcase),
+.board-shell:has(.board-book) {
+  padding: 0.35rem 0 2.4rem;
+}
+
+.board-shell:has(.board-showcase) .board-chrome,
+.board-shell:has(.board-book) .board-chrome {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.8rem;
+  align-items: center;
+  width: min(100% - 1.4rem, 58rem);
+  margin: 0 auto 0.85rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.board-shell:has(.board-showcase) .board-chrome a,
+.board-shell:has(.board-book) .board-chrome a {
+  color: var(--mute);
+}
+
+.board-shell:has(.board-showcase) .board-chrome a.is-on,
+.board-shell:has(.board-book) .board-chrome a.is-on {
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.board-shell:has(.board-showcase) .board-chrome-n,
+.board-shell:has(.board-book) .board-chrome-n {
+  margin-right: 0.28rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.board-shell:has(.board-showcase) .board-chrome-ground,
+.board-shell:has(.board-book) .board-chrome-ground {
+  margin-left: auto;
+}
+
+.board-showcase {
+  width: min(100% - 1.4rem, 58rem);
+  margin-inline: auto;
+  color: var(--ink);
+  display: grid;
+  gap: 1.35rem;
+}
+
+.board-showcase a {
+  color: inherit;
+}
+
+.board-showcase-head .kicker {
+  margin-bottom: 0.45rem;
+}
+
+.board-showcase-head h1 {
+  font-size: clamp(1.55rem, 3.2vw, 2.45rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  max-width: 18ch;
+  margin: 0 0 0.45rem;
+}
+
+.board-showcase-meta {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
+.board-showcase-meta.is-mute,
+.board-showcase-meta .is-mute {
+  color: var(--mute);
+}
+
+.board-showcase-plots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 0.85rem;
+}
+
+.board-showcase-plots a {
+  display: inline-block;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  padding: 0.25rem 0.55rem;
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px),
+    0 6px
+  );
+}
+
+.board-showcase-plots a.is-on {
+  background: var(--ink);
+  color: var(--ground);
+  border-color: var(--ink);
+}
+
+.board-showcase-well {
+  position: relative;
+  min-height: min(42vh, 22rem);
+  padding: 2rem 2.15rem 2.5rem;
+  border: 1px solid var(--line);
+  background: var(--ground);
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+  clip-path: polygon(
+    14px 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px),
+    0 14px
+  );
+}
+
+.board-showcase-well.is-held {
+  border-color: var(--ink);
+}
+
+.board-showcase-well .kicker {
+  margin: 0;
+}
+
+.board-showcase-hero {
+  margin: 0;
+  max-width: 28ch;
+}
+
+.board-showcase-hero.is-line {
+  font-size: clamp(1.9rem, 4.2vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  max-width: 22ch;
+  color: var(--ink);
+}
+
+.board-showcase-hero.is-vacant {
+  color: var(--mute);
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  line-height: 0.85;
+  max-width: none;
+}
+
+.board-showcase-token {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.4rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  background: color-mix(in srgb, var(--ink) 16%, var(--ground));
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.board-showcase-well.is-held .board-showcase-token {
+  background: var(--ink);
+}
+
+.board-showcase-ring {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.board-showcase-slot {
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  min-height: 5.6rem;
+  padding: 0.7rem 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  background: var(--ground);
+}
+
+.board-showcase-slot.is-hole {
+  color: var(--mute);
+  background: color-mix(in srgb, var(--ink) 4%, var(--ground));
+}
+
+.board-showcase-slot.is-held {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.board-showcase-slot-name {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.board-showcase-slot-snip {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.board-showcase-stills {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.15rem 1.2rem 1.35rem;
+  border: 1px solid var(--line);
+  clip-path: polygon(
+    12px 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    12px 100%,
+    0 calc(100% - 12px),
+    0 12px
+  );
+}
+
+.board-showcase-stills .kicker {
+  margin: 0;
+}
+
+.board-showcase-assets {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.board-showcase-assets button {
+  appearance: none;
+  justify-self: start;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  height: var(--btn-h);
+  padding: 0 1.05rem;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  clip-path: polygon(
+    var(--btn-cut) 0,
+    calc(100% - var(--btn-cut)) 0,
+    100% var(--btn-cut),
+    100% calc(100% - var(--btn-cut)),
+    calc(100% - var(--btn-cut)) 100%,
+    var(--btn-cut) 100%,
+    0 calc(100% - var(--btn-cut)),
+    0 var(--btn-cut)
+  );
+}
+
+.board-showcase-assets button:disabled {
+  cursor: not-allowed;
+  color: var(--mute);
+}
+
+.board-showcase-assets span {
+  color: var(--mute);
+  font-size: 0.92rem;
+  max-width: 42ch;
+}
+
+.board-showcase-plates {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.board-showcase-plate {
+  min-height: 6.4rem;
+  padding: 0.7rem 0.75rem;
+  border: 1px dashed var(--line);
+  background: color-mix(in srgb, var(--ink) 4%, var(--ground));
+  color: var(--mute);
+}
+
+.board-showcase-plate .kicker {
+  margin: 0;
+}
+
+.board-showcase-open {
+  margin: 0.2rem 0 0;
+}
+
+.board-showcase-open a {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--mute);
+  border-bottom: 1px solid var(--line);
+}
+
+.board-showcase-open a:hover,
+.board-showcase-open a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.board-book-back {
+  width: min(100% - 1.4rem, 58rem);
+  margin: 0 auto 0.85rem;
+}
+
+.board-book-back a {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--mute);
+  border-bottom: 1px solid var(--line);
+}
+
+.board-book-back a:hover,
+.board-book-back a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .board-showcase-ring,
+  .board-showcase-plates {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .board-showcase-well {
+    min-height: 16rem;
+    padding: 1.4rem 1.2rem 2rem;
+  }
+}

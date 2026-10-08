@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
     body?: string;
     page?: string;
     clientId?: string;
+    kind?: "note" | "hotfix";
   } | null;
   try {
     const row = await addComment(user, body || {});
