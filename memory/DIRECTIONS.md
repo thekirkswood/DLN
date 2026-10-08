@@ -1057,5 +1057,13 @@ At a lower width the table sat at the bottom, locked on Landscape / Identity —
 - Host wall: The site; The look and the site; Strategy talks. Design and Build are emails (`design@` / `build@`). Strategy talks £275 an hour or £500 for two. Live+sandbox £75 stays. Site £350 and look+site £580 stay.
 - Section films: plan only in `memory/section-films.md`. One at a time, social-loop style. Next trigger is packaging. Homepage “bring an idea” is later.
 
+## 2026-10-08 — Prices on each contact, not only Host (Ewan)
+
+Standing amounts are not only the Host wall. Contact Design / Strategy / Build (campus sheet and `/design` `/strategy` `/build`) open with that door’s prices at the top. Design: the look and the site, `design@`. Strategy: talks £275 / £500. Build: the site and the monthly, `build@`. GBP still house-only until a numbered ship.
+
+## 2026-10-08 — Pack loop, first draft (Ewan)
+
+Ewan pulled packaging. First HTML loop at `Site/public/brief/social-loop/pack.html` (landscape / `?orient=portrait`). Wordless. Real `dln-mute.png`. Mark leaves a screen, lands on a box, object blips to bottle then tub. Same freeze query as the host loop (`?beat=` / `?t=`). Not on the campus Packaging room until the cycle is happy. No zip yet. Iterate on the house.
+
 
 

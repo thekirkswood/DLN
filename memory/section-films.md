@@ -26,7 +26,7 @@ House: `memory/social-video-blueprint.md` (three-door *talk*). This file is the 
 
 | # | id | Site room | Picture (simple line) | Notes |
 |---|---|---|---|---|
-| 1 | `pack` | Design → Packaging | Logo leaves a screen, sits on a box, a bottle, a food tub. Design → physical. | Next. Elevate the two stills; do not brief three ads here. |
+| 1 | `pack` | Design → Packaging | Logo leaves a screen, sits on a box, a bottle, a food tub. Design → physical. | **In work.** `Site/public/brief/social-loop/pack.html`. First draft: screen → fly → box / bottle / tub blips. House: `/brief/social-loop/pack.html`. Not on the campus room yet. No zip until Ewan is happy. |
 | 2 | `print` | Design → Design for print | A press: ch-ch-ch. Sheet in, identity on paper, out. | Room stills can stay until this is better. |
 | 3 | `ui` | Design → UI | Billboard / wall → big screen → laptop → phone. Same window, no words. | Campus already has a wordless morph; this film is the social-grade version. |
 | 4 | `logos` | Design → Logos | Marks sitting in equal frames; one mark holding as it scales. Real files only — never generate a house mark. | Room is the grid now. Film is optional. |

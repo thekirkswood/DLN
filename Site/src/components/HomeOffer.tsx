@@ -3,6 +3,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { OFFERS, HOME_COLUMNS, offerById, type Facet, type Need } from "@/data/needs";
+import { wayPriceLabel, waysForContact } from "@/data/ways-in";
 
 export function HomeOffer() {
   const homeOffers = HOME_COLUMNS.map((id) => offerById(id)!);
@@ -53,17 +54,55 @@ export function OfferJump({ current }: { current?: Facet }) {
   );
 }
 
+function ContactRates({
+  facet,
+  lab,
+}: {
+  facet: Facet | "host";
+  lab?: boolean;
+}) {
+  const rows = waysForContact(facet);
+  const mail =
+    facet === "design"
+      ? { href: "mailto:design@designlabnorth.com", label: "design@designlabnorth.com" }
+      : facet === "build" || facet === "host"
+        ? { href: "mailto:build@designlabnorth.com", label: "build@designlabnorth.com" }
+        : null;
+  if (!rows.length && !mail) return null;
+  return (
+    <div className="enquire-rates">
+      {rows.map((way) => {
+        const price = lab ? wayPriceLabel(way) : "";
+        return (
+          <p key={way.id}>
+            <strong>{way.name}</strong>
+            {price ? ` — ${price}` : ""}
+          </p>
+        );
+      })}
+      {mail ? (
+        <p className="enquire-rates-mail">
+          <a href={mail.href}>{mail.label}</a>
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 export function EnquireForm({
   need,
   facet,
   onClear,
   open,
+  lab,
 }: {
   need?: Need;
   facet?: Facet;
   onClear?: () => void;
   /** Skip the Contact fold and the repeating need line. */
   open?: boolean;
+  /** Standing GBP on the house. Live VPS hides amounts until a numbered ship. */
+  lab?: boolean;
 }) {
   const pool = useMemo(() => {
     if (need) return [need];
@@ -126,6 +165,7 @@ export function EnquireForm({
 
   const fields = (
       <form className="enquire" onSubmit={onSubmit}>
+        {facet ? <ContactRates facet={facet} lab={lab} /> : null}
         {open ? null : (
           <p className="body bill-note">{active.label}</p>
         )}

@@ -1113,6 +1113,36 @@ body:has(.home-hero-loop) main {
   padding-top: 1.6rem;
 }
 
+.enquire-rates {
+  margin: 0 0 1.25rem;
+}
+
+.enquire-rates p {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.enquire-rates strong {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.enquire-rates-mail {
+  margin-top: 0.55rem;
+}
+
+.enquire-rates-mail a {
+  color: inherit;
+}
+
+.bench-sheet-panel .enquire-open {
+  margin-top: 0.35rem;
+  padding-top: 0;
+}
+
 .enquire-fold summary {
   cursor: pointer;
   list-style: none;

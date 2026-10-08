@@ -1,10 +1,12 @@
 import { EnquireForm } from "@/components/HomeOffer";
 import { linesFor } from "@/data/worklines";
+import { labHostFromHeaders } from "@/lib/lab";
 
 export const metadata = { title: "Design" };
 
 export default function DesignPage() {
   const lines = linesFor("design");
+  const lab = labHostFromHeaders();
   return (
     <article className="stage-page wrap">
       <p className="kicker">Design</p>
@@ -14,6 +16,7 @@ export default function DesignPage() {
         phone, and the laptop. Print you can send. Packs people open. Screens
         they can use.
       </p>
+      <EnquireForm facet="design" open lab={lab} />
       <ul className="strategy-through">
         {lines.map((line) => (
           <li key={line.id}>
@@ -23,11 +26,6 @@ export default function DesignPage() {
           </li>
         ))}
       </ul>
-      <h2 className="section-head">You do not need a finished brief.</h2>
-      <p className="body">
-        Write to us. We will say what the work is, and what it is not.
-      </p>
-      <EnquireForm facet="design" open />
     </article>
   );
 }

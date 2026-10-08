@@ -19,10 +19,11 @@ Walking is `/board?enter=`. Zoom like a map: out until the table is small, in un
 9. Stop scaling a whole zone on enter; light the one plate.
 10. Reduced motion: skip orbit, keep enter.
 11. Keep 3D at every width — do not flatten below 1100px.
-12. Phone: clamp yaw / pitch / pan so the table stays readable.
+12. Phone / small: lift the table into the stage. Drag pans. Wheel pans the stack (ctrl/meta+wheel still zooms). Yaw stays tight; vertical pan is long enough to see every plate.
 13. `user-select: none` on the stage; drag must not select type.
 14. Wheel stays in the board (native `{passive:false}`); well scroll does not leave the room or the campus page.
 15. Chrome and legend enter `?enter=`; `/board/{avenue}` redirects in.
+16. Well back is a left arrow, top left, sticky — not only the words “The table”.
 
 ## Plates on the table
 

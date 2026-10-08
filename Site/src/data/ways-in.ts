@@ -1,4 +1,5 @@
 import { type Facet } from "@/data/needs";
+import { catalogueById, formatGbp } from "@/data/catalogue";
 
 /**
  * How people come in. Not “packages”. Strategy + Build without Design
@@ -111,4 +112,34 @@ export const WAYS_IN: WayIn[] = [
 
 export function waysOnTheWall(): WayIn[] {
   return WAYS_IN.filter((row) => row.wall);
+}
+
+export function waysForContact(facet: Facet | "host"): WayIn[] {
+  const door = facet === "host" ? "build" : facet;
+  return waysOnTheWall().filter((row) => row.facet === door);
+}
+
+export function wayPriceLabel(way: {
+  onceId?: string;
+  sittingId?: string;
+  sittingLongId?: string;
+  host?: boolean;
+}): string {
+  const bits: string[] = [];
+  const once = way.onceId ? catalogueById(way.onceId) : undefined;
+  if (once && once.amountGbp > 0) bits.push(formatGbp(once.amountGbp));
+  const sitting = way.sittingId ? catalogueById(way.sittingId) : undefined;
+  const sittingLong = way.sittingLongId
+    ? catalogueById(way.sittingLongId)
+    : undefined;
+  if (sitting && sitting.amountGbp > 0 && sittingLong && sittingLong.amountGbp > 0) {
+    bits.push(
+      `${formatGbp(sitting.amountGbp)}, or ${formatGbp(sittingLong.amountGbp)} for two hours`,
+    );
+  } else if (sitting && sitting.amountGbp > 0) {
+    bits.push(formatGbp(sitting.amountGbp));
+  }
+  const host = way.host ? catalogueById("host-monthly") : undefined;
+  if (host && host.amountGbp > 0) bits.push(`${formatGbp(host.amountGbp)} a month`);
+  return bits.join(" · ");
 }

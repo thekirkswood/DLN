@@ -87,8 +87,11 @@ export function BoardSpace({
   const insideRef = useRef(false);
   const plotRef = useRef(fill?.plot);
   const enterPlateRef = useRef<(href: string) => void>(() => {});
+  const compactRef = useRef(false);
+  const wasCompact = useRef(false);
   zoomRef.current = zoom;
   plotRef.current = fill?.plot;
+  compactRef.current = compact;
 
   function yawLimit(small: boolean) {
     return small ? 22 : 52;
@@ -96,8 +99,19 @@ export function BoardSpace({
   function pitchRange(small: boolean): [number, number] {
     return small ? [6, 22] : [-8, 32];
   }
-  function panLimit(small: boolean) {
-    return small ? 40 : 220;
+  function panLimitX(small: boolean) {
+    return small ? 80 : 220;
+  }
+  function panLimitY(small: boolean) {
+    return small ? 720 : 220;
+  }
+  function clampPan(small: boolean, next: { x: number; y: number }) {
+    const mx = panLimitX(small);
+    const my = panLimitY(small);
+    return {
+      x: Math.max(-mx, Math.min(mx, next.x)),
+      y: Math.max(-my, Math.min(my, next.y)),
+    };
   }
 
   useEffect(() => {
@@ -105,15 +119,26 @@ export function BoardSpace({
     function apply() {
       const small = mq.matches;
       setCompact(small);
+      compactRef.current = small;
       const [lo, hi] = pitchRange(small);
       const y = yawLimit(small);
-      const p = panLimit(small);
+      if (small && !wasCompact.current) {
+        wasCompact.current = true;
+        setYaw(0);
+        setPitch(10);
+        setOrigin({ x: 50, y: 22 });
+        if (!insideRef.current) setZoom(0.62);
+        setPan({ x: 0, y: -200 });
+        return;
+      }
+      if (!small && wasCompact.current) {
+        wasCompact.current = false;
+        setPitch(14);
+        setOrigin({ x: 50, y: 58 });
+      }
       setYaw((v) => Math.max(-y, Math.min(y, v)));
       setPitch((v) => Math.max(lo, Math.min(hi, v)));
-      setPan((v) => ({
-        x: Math.max(-p, Math.min(p, v.x)),
-        y: Math.max(-p * 0.55, Math.min(p * 0.55, v.y)),
-      }));
+      setPan((v) => clampPan(small, v));
     }
     apply();
     mq.addEventListener("change", apply);
@@ -140,8 +165,10 @@ export function BoardSpace({
   useEffect(() => {
     setEntering(null);
     if (!enterKey) {
-      setZoom(0.82);
-      setPan({ x: 0, y: 0 });
+      const small = compactRef.current;
+      setZoom(small ? 0.62 : 0.82);
+      setPan(small ? { x: 0, y: -200 } : { x: 0, y: 0 });
+      if (small) setOrigin({ x: 50, y: 22 });
     }
   }, [enterKey]);
 
@@ -170,6 +197,11 @@ export function BoardSpace({
         return;
       }
       e.preventDefault();
+      const small = compactRef.current;
+      if (small && !insideRef.current && !e.ctrlKey && !e.metaKey) {
+        setPan((v) => clampPan(true, { x: v.x - e.deltaX, y: v.y - e.deltaY }));
+        return;
+      }
       const rect = el.getBoundingClientRect();
       if (rect.width && rect.height) {
         setOrigin({
@@ -207,6 +239,8 @@ export function BoardSpace({
     e.preventDefault();
     (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
     ignoreClick.current = false;
+    const small = compactRef.current;
+    const orbit = e.altKey || e.shiftKey || e.button === 1 || spaceDown.current;
     drag.current = {
       x: e.clientX,
       y: e.clientY,
@@ -214,7 +248,7 @@ export function BoardSpace({
       pitch,
       panX: pan.x,
       panY: pan.y,
-      pan: e.altKey || e.shiftKey || e.button === 1 || spaceDown.current,
+      pan: small ? !orbit : orbit,
     };
   }
 
@@ -223,13 +257,9 @@ export function BoardSpace({
     const dx = e.clientX - drag.current.x;
     const dy = e.clientY - drag.current.y;
     if (Math.abs(dx) > 8 || Math.abs(dy) > 8) ignoreClick.current = true;
-    const small = compact;
+    const small = compactRef.current;
     if (drag.current.pan) {
-      const m = panLimit(small);
-      setPan({
-        x: Math.max(-m, Math.min(m, drag.current.panX + dx)),
-        y: Math.max(-m * 0.55, Math.min(m * 0.55, drag.current.panY + dy)),
-      });
+      setPan(clampPan(small, { x: drag.current.panX + dx, y: drag.current.panY + dy }));
       return;
     }
     const y = yawLimit(small);
@@ -306,11 +336,6 @@ export function BoardSpace({
   return (
     <div className={`board-space${inside ? " is-inside" : ""}${compact ? " is-compact" : ""}`}>
       <div className="board-hud">
-        {inside ? (
-          <p className="board-inside-back">
-            <Link href={boardEnterHref("", plot)}>The table</Link>
-          </p>
-        ) : null}
         {plots.length > 1 ? (
           <div className="fw-scales" role="group" aria-label="Plot on the table">
             {plots.map((p) => (
@@ -333,7 +358,7 @@ export function BoardSpace({
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
         role="application"
-        aria-label="MAP board. Drag to turn. Click a place to enter."
+        aria-label="MAP board. Drag to move the table. Click a place to enter."
       >
         <div
           className="board-world"

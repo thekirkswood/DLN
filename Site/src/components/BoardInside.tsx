@@ -54,7 +54,10 @@ export function BoardInside({
   return (
     <div className="board-inside" onClick={onWalk}>
       <p className="board-inside-back">
-        <Link href={boardEnterHref("", plot)}>The table</Link>
+        <Link href={boardEnterHref("", plot)} aria-label="Back to the table">
+          <span className="board-inside-back-arr" aria-hidden="true" />
+          The table
+        </Link>
       </p>
       <Room enter={enter} live={live} view={view} plots={plots} />
     </div>

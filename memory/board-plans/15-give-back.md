@@ -25,7 +25,7 @@ Not a theme toggle. Customisation is the plot: their mark, colour, type, idea, o
 
 ## Phone / small board
 
-Same walk as the large table: zoom, enter a well, back closes it. Pan is limited so the table stays readable. 3D does not switch off at a width. Overflow stays inside the board — never the browser page. Text is not selectable on the table while orbiting; fields inside a well still are.
+Same walk as the large table: zoom, enter a well, back closes it. On a small board, drag and wheel **move** the table so every plate can be pulled into view — it must not sit at the bottom showing only Landscape. Orbit is alt/shift. 3D does not switch off at a width. Overflow stays inside the board — never the browser page. Back is an arrow, top left of the well. Text is not selectable on the table while moving; fields inside a well still are.
 
 ## Do not
 

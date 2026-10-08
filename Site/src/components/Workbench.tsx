@@ -13,8 +13,7 @@ import {
   VT_PLATE,
   needForContact,
 } from "@/data/bench";
-import { waysOnTheWall, type WayIn } from "@/data/ways-in";
-import { catalogueById, formatGbp } from "@/data/catalogue";
+import { wayPriceLabel, waysOnTheWall, type WayIn } from "@/data/ways-in";
 import {
   firstLine,
   lineById,
@@ -666,6 +665,7 @@ export function Workbench({
               need={contactNeedId ? need : undefined}
               facet={contact === "host" ? "build" : contact || undefined}
               open
+              lab={lab}
               onClear={() => {
                 setContact(null);
                 setContactNeedId(null);
@@ -1188,26 +1188,6 @@ function WayMail({
       Contact
     </button>
   );
-}
-
-function wayPriceLabel(way: { onceId?: string; sittingId?: string; sittingLongId?: string; host?: boolean }) {
-  const bits: string[] = [];
-  const once = way.onceId ? catalogueById(way.onceId) : undefined;
-  if (once && once.amountGbp > 0) bits.push(formatGbp(once.amountGbp));
-  const sitting = way.sittingId ? catalogueById(way.sittingId) : undefined;
-  const sittingLong = way.sittingLongId
-    ? catalogueById(way.sittingLongId)
-    : undefined;
-  if (sitting && sitting.amountGbp > 0 && sittingLong && sittingLong.amountGbp > 0) {
-    bits.push(
-      `${formatGbp(sitting.amountGbp)}, or ${formatGbp(sittingLong.amountGbp)} for two hours`,
-    );
-  } else if (sitting && sitting.amountGbp > 0) {
-    bits.push(formatGbp(sitting.amountGbp));
-  }
-  const host = way.host ? catalogueById("host-monthly") : undefined;
-  if (host && host.amountGbp > 0) bits.push(`${formatGbp(host.amountGbp)} a month`);
-  return bits.join(" · ");
 }
 
 function HostRoom({

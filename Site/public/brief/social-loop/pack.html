@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-orient="landscape">
+<head>
+  <meta charset="utf-8" />
+  <title>DLN loop — pack</title>
+  <style>
+    :root {
+      --ground: #ffffff;
+      --ink: #414141;
+      --mute: #6e6e6e;
+      --line: #d4d4d4;
+      --cut: 14px;
+      --font: "aktiv-grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--ground);
+      color: var(--ink);
+      font-family: var(--font);
+      height: 100%;
+      overflow: hidden;
+    }
+    body { display: flex; align-items: center; justify-content: center; }
+    .stage {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      padding: 5% 6.2% 4.4%;
+      position: relative;
+    }
+    html[data-orient="portrait"] .stage {
+      width: min(100vw, calc(100vh * 9 / 16));
+      height: min(100vh, calc(100vw * 16 / 9));
+      padding: 8% 9% 7%;
+    }
+    .pair {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 4%;
+      align-items: center;
+      position: relative;
+    }
+    html[data-orient="portrait"] .pair {
+      grid-template-columns: 1fr;
+      grid-template-rows: 0.9fr 1.1fr;
+      gap: 5%;
+    }
+    .laptop {
+      width: 86%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      min-height: 0;
+    }
+    .lid {
+      width: 100%;
+      aspect-ratio: 16 / 10.4;
+      color: var(--ink);
+    }
+    .base {
+      display: block;
+      height: 0.85rem;
+      background: var(--ink);
+      clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%);
+    }
+    .pack {
+      width: 100%;
+      height: 82%;
+      position: relative;
+    }
+    html[data-orient="portrait"] .pack { height: 100%; }
+    .shape {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      color: var(--ink);
+      overflow: visible;
+    }
+    .pack.is-box .shape-box,
+    .pack.is-bottle .shape-bottle,
+    .pack.is-tub .shape-tub {
+      opacity: 1;
+    }
+    .stage.is-idle .pack.is-box .shape-box,
+    .stage.is-lift .pack.is-box .shape-box,
+    .stage.is-fly .pack.is-box .shape-box {
+      opacity: 0.3;
+    }
+    .pack.is-blip .shape {
+      animation: blip 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @keyframes blip {
+      0% { transform: scale(0.94); opacity: 0.45; }
+      58% { transform: scale(1.03); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .mark {
+      opacity: 1;
+      transform-origin: center;
+      transition: opacity 0.28s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .stage.is-lift .screen-mark,
+    .stage.is-fly .screen-mark,
+    .stage.is-box .screen-mark,
+    .stage.is-bottle .screen-mark,
+    .stage.is-tub .screen-mark {
+      opacity: 0;
+      transform: scale(0.78) translateY(-10px);
+    }
+    .pack-mark { opacity: 0; }
+    .stage.is-box .pack.is-box .pack-mark,
+    .stage.is-bottle .pack.is-bottle .pack-mark,
+    .stage.is-tub .pack.is-tub .pack-mark {
+      opacity: 1;
+    }
+    .ghost {
+      position: absolute;
+      z-index: 4;
+      width: 9.5%;
+      max-width: 4.2rem;
+      left: 22%;
+      top: 36%;
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        left 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+        top 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.2s ease;
+    }
+    html[data-orient="portrait"] .ghost {
+      left: 42%;
+      top: 16%;
+      width: 16%;
+    }
+    .stage.is-lift .ghost { opacity: 1; }
+    .stage.is-fly .ghost {
+      opacity: 1;
+      left: 68%;
+      top: 42%;
+    }
+    html[data-orient="portrait"] .stage.is-fly .ghost {
+      left: 42%;
+      top: 64%;
+    }
+    html[data-freeze] * { transition: none !important; animation: none !important; }
+  </style>
+</head>
+<body>
+  <div class="stage is-idle" id="stage">
+    <div class="pair">
+      <article class="laptop" aria-hidden>
+        <svg class="lid" viewBox="0 0 320 210" fill="none" stroke="currentColor" stroke-width="3">
+          <path d="M14 0 H306 L320 14 V196 L306 210 H14 L0 196 V14 Z" />
+          <path d="M0 28 H320" />
+          <circle cx="16" cy="14" r="3.2" fill="currentColor" stroke="none" />
+          <circle cx="28" cy="14" r="3.2" fill="currentColor" stroke="none" />
+          <circle cx="40" cy="14" r="3.2" fill="currentColor" stroke="none" />
+          <image class="mark screen-mark" href="../../brand/dln-mute.png" x="118" y="78" width="84" height="84" />
+        </svg>
+        <i class="base"></i>
+      </article>
+      <article class="pack is-box" id="pack" aria-hidden>
+        <svg class="shape shape-box" viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="miter">
+          <path d="M28 86 L148 86 L148 186 L28 186 Z" />
+          <path d="M28 86 L68 48 L188 48 L148 86 Z" />
+          <path d="M148 86 L188 48 L188 148 L148 186 Z" />
+          <image class="pack-mark" href="../../brand/dln-mute.png" x="52" y="108" width="72" height="72" />
+        </svg>
+        <svg class="shape shape-bottle" viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round">
+          <path d="M104 10 H136 V26 Q136 34 142 40 V54 H98 V40 Q104 34 104 26 Z" />
+          <path d="M86 54 Q86 48 98 48 H142 Q154 48 154 54 V176 Q154 188 120 188 Q86 188 86 176 Z" />
+          <path d="M86 78 H154" />
+          <image class="pack-mark" href="../../brand/dln-mute.png" x="92" y="96" width="56" height="56" />
+        </svg>
+        <svg class="shape shape-tub" viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round">
+          <ellipse cx="120" cy="62" rx="86" ry="24" />
+          <path d="M34 62 V142 C34 168 72 186 120 186 C168 186 206 168 206 142 V62" />
+          <path d="M34 118 C54 134 86 144 120 144 C154 144 186 134 206 118" />
+          <image class="pack-mark" href="../../brand/dln-mute.png" x="88" y="38" width="64" height="64" />
+        </svg>
+      </article>
+      <img class="ghost" src="../../brand/dln-mute.png" alt="" />
+    </div>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const baked = document.documentElement.getAttribute("data-orient");
+    const orient = q.get("orient") === "portrait" || (!q.has("orient") && baked === "portrait")
+      ? "portrait"
+      : "landscape";
+    document.documentElement.dataset.orient = orient;
+
+    const stage = document.getElementById("stage");
+    const pack = document.getElementById("pack");
+
+    const beats = [
+      { t: 0, name: "idle", kind: "box", blip: false },
+      { t: 700, name: "lift", kind: "box", blip: false },
+      { t: 1400, name: "fly", kind: "box", blip: false },
+      { t: 2200, name: "box", kind: "box", blip: true },
+      { t: 4600, name: "bottle", kind: "bottle", blip: true },
+      { t: 7000, name: "tub", kind: "tub", blip: true },
+    ];
+    const CYCLE = 11000;
+
+    function apply(b) {
+      stage.className = "stage is-" + b.name;
+      pack.className = "pack is-" + b.kind + (b.blip ? " is-blip" : "");
+    }
+
+    function beatAt(t) {
+      let i = 0;
+      while (i < beats.length - 1 && t >= beats[i + 1].t) i += 1;
+      return beats[i];
+    }
+
+    const freeze = q.get("beat");
+    const freezeT = q.get("t");
+    if (freeze || freezeT != null) document.documentElement.dataset.freeze = "1";
+    if (freeze) {
+      apply(beats.find((x) => x.name === freeze) || beats[0]);
+    } else if (freezeT != null) {
+      apply(beatAt(Number(freezeT)));
+    } else {
+      let last = "";
+      const t0 = performance.now();
+      function tick(now) {
+        const b = beatAt((now - t0) % CYCLE);
+        if (b.name !== last) {
+          last = b.name;
+          apply(b);
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  </script>
+</body>
+</html>
