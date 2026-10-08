@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type LineExample } from "@/data/worklines";
 
 const CORE = [
-  { src: "/brief/PNGs/logos-13.png", name: "ModYu" },
-  { src: "/brief/PNGs/logos-03.png", name: "MERZ" },
+  { src: "/plots/modyu.svg", name: "ModYu" },
+  { src: "/brand/dln-mute.png", name: "Design Lab North" },
   { src: "/plots/swarm.svg", name: "Swarm Fund" },
 ] as const;
 
@@ -18,18 +18,16 @@ function MarkDot({ src, name }: { src: string; name: string }) {
 
 export function IdentityKit({ shots }: { shots: LineExample[] }) {
   const [on, setOn] = useState(0);
-  const card = shots[0];
+  const laptop = shots[0];
   const phone = shots[1] || shots[0];
-  const laptop = shots[2] || shots[0];
   const rows = [
     { id: "laptop" as const, pick: laptop, title: "On the desk" },
     { id: "phone" as const, pick: phone, title: "In the hand" },
-    { id: "card" as const, pick: card, title: "The system" },
   ];
   const held = rows[on];
   if (!held?.pick) return null;
   return (
-    <div className="bench-idkit">
+    <div className="bench-idkit is-desk">
       {rows.map((row, i) => (
         <button
           key={row.id}
@@ -48,68 +46,42 @@ export function IdentityKit({ shots }: { shots: LineExample[] }) {
           </div>
         </button>
       ))}
-      <p>
-        <strong>{held.pick.name}.</strong> {held.pick.note}
-      </p>
     </div>
   );
 }
 
-export function UiKit({ shots }: { shots: LineExample[] }) {
-  const [tab, setTab] = useState(0);
-  const [menu, setMenu] = useState(false);
-  const shot = shots[tab] || shots[0];
-  if (!shot) return null;
+const UI_FRAMES = ["board", "screen", "hand"] as const;
+type UiFrame = (typeof UI_FRAMES)[number];
+
+export function UiKit() {
+  const [frame, setFrame] = useState<UiFrame>("board");
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) return;
+    const t = window.setInterval(() => {
+      setFrame((now) => {
+        const i = UI_FRAMES.indexOf(now);
+        return UI_FRAMES[(i + 1) % UI_FRAMES.length];
+      });
+    }, 2400);
+    return () => window.clearInterval(t);
+  }, []);
+
   return (
-    <div className="bench-uikit is-app">
-      <div className="bench-uikit-bar">
-        {shots.map((row, i) => (
-          <button
-            key={row.name}
-            type="button"
-            className={tab === i ? "is-on" : undefined}
-            onClick={() => {
-              setTab(i);
-              setMenu(false);
-            }}
-          >
-            {row.name}
-          </button>
-        ))}
-      </div>
-      <div className="bench-uikit-stage">
-        <aside>
-          <button
-            type="button"
-            className={menu ? "is-on" : undefined}
-            onClick={() => setMenu((v) => !v)}
-          >
-            Menu
-          </button>
+    <div className={`bench-ui-morph is-${frame}`} aria-hidden>
+      <div className="ui-frame">
+        <div className="ui-chrome">
+          <i />
+          <i />
+          <i />
+        </div>
+        <div className="ui-glass">
           <b />
           <b />
-          <b />
-        </aside>
-        <div className="bench-uikit-screen">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={shot.src} alt="" />
-          {menu ? (
-            <div className="bench-uikit-panel">
-              <p>Account</p>
-              <button
-                type="button"
-                className="bench-word"
-                onClick={() => setMenu(false)}
-              >
-                Close
-              </button>
-            </div>
-          ) : null}
+          <em />
         </div>
       </div>
-      <p>
-        <strong>{shot.name}.</strong> {shot.note}
-      </p>
     </div>
   );
 }

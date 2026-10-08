@@ -111,6 +111,55 @@ export type BrandPlate = {
 /** Named brands sit on the work they belong to. DAA is on Logos only — not a greenhouse client. */
 export const BRANDS: BrandPlate[] = [
   {
+    id: "dln",
+    file: "/brand/dln-mute.png",
+    name: "Design Lab North",
+    use: "The studio mark.",
+    lines: ["logos"],
+  },
+  {
+    id: "swarm",
+    file: "/plots/swarm.svg",
+    name: "Swarm Fund",
+    use: "The hive mark. A studio product, held as a logo.",
+    lines: ["logos"],
+  },
+  {
+    id: "choozlist",
+    file: "/plots/choozlist.png",
+    name: "Choozlist",
+    use: "The life registry. A studio product, held as a logo.",
+    lines: ["logos"],
+  },
+  {
+    id: "titles",
+    file: "/plots/various-titles.png",
+    name: "Various Titles",
+    use: "Geometric VT. Ideas about marketing and branding, as a mark.",
+    lines: ["logos"],
+  },
+  {
+    id: "modyu",
+    file: "/plots/modyu.svg",
+    name: "ModYu",
+    use: "Hair and scalp. Identity on the screen, and the site we host.",
+    lines: ["logos", "ui", "simple", "apps"],
+  },
+  {
+    id: "daa",
+    file: "/plots/daa.png",
+    name: "DAA",
+    use: "Digital Adoption Advisor. On Logos only — not the greenhouse wall.",
+    lines: ["logos"],
+  },
+  {
+    id: "stl",
+    file: "/plots/swimming-through-leaves.svg",
+    name: "Swimming Through Leaves",
+    use: "Publishing house and gallery. The house mark.",
+    lines: ["logos"],
+  },
+  {
     id: "merz",
     file: `${BRIEF}/PNGs/logos-03.png`,
     name: "MERZ",
@@ -141,41 +190,6 @@ export const BRANDS: BrandPlate[] = [
     lines: ["logos", "print"],
   },
   {
-    id: "modyu",
-    file: `${BRIEF}/PNGs/logos-13.png`,
-    name: "ModYu",
-    use: "Hair and scalp. Identity on the screen, and the site we host.",
-    lines: ["logos", "ui", "simple", "apps"],
-  },
-  {
-    id: "swarm",
-    file: "/plots/swarm.svg",
-    name: "Swarm Fund",
-    use: "The hive mark. A studio product, held as a logo.",
-    lines: ["logos"],
-  },
-  {
-    id: "choozlist",
-    file: "/plots/choozlist.png",
-    name: "Choozlist",
-    use: "The life registry. A studio product, held as a logo.",
-    lines: ["logos"],
-  },
-  {
-    id: "titles",
-    file: "/plots/various-titles.png",
-    name: "Various Titles",
-    use: "Geometric VT. Ideas about marketing and branding, as a mark.",
-    lines: ["logos"],
-  },
-  {
-    id: "daa",
-    file: `${BRIEF}/PNGs/logos-15.png`,
-    name: "DAA",
-    use: "A constructed mark from the plate library.",
-    lines: ["logos"],
-  },
-  {
     id: "applearn",
     file: `${BRIEF}/PNGs/logos-08.png`,
     name: "Applearn",
@@ -194,14 +208,14 @@ export const BRANDS: BrandPlate[] = [
     file: `${BRIEF}/PNGs/logos-02.png`,
     name: "Selected identity",
     use: "Olive triangle, CA. A mark built to sit on print.",
-    lines: ["logos", "print"],
+    lines: ["print"],
   },
   {
     id: "face",
     file: `${BRIEF}/PNGs/logos-16.png`,
     name: "Selected identity",
     use: "A face from three cuts. Fashion and the pack.",
-    lines: ["logos", "packaging"],
+    lines: ["packaging"],
   },
   {
     id: "rounding",
@@ -256,7 +270,7 @@ export const BRANDS: BrandPlate[] = [
 export function brandsForLine(id: LineId): BrandPlate[] {
   const rows = BRANDS.filter((row) => row.lines?.includes(id));
   if (id !== "logos") return rows;
-  const house = ["modyu", "swarm", "choozlist", "titles", "daa"];
+  const house = ["dln", "swarm", "choozlist", "titles", "modyu", "daa", "stl"];
   const front = house
     .map((hid) => rows.find((row) => row.id === hid))
     .filter((row): row is BrandPlate => Boolean(row));

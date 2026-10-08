@@ -13,7 +13,7 @@ import {
   VT_PLATE,
   needForContact,
 } from "@/data/bench";
-import { waysOnTheWall } from "@/data/ways-in";
+import { waysOnTheWall, type WayIn } from "@/data/ways-in";
 import { catalogueById, formatGbp } from "@/data/catalogue";
 import {
   firstLine,
@@ -1150,6 +1150,46 @@ function PlotWho({
   );
 }
 
+function WayMail({
+  way,
+  onContact,
+}: {
+  way: WayIn;
+  onContact: (needId?: string) => void;
+}) {
+  if (way.mail === "build") {
+    return (
+      <a className="bench-price-mail" href="mailto:build@designlabnorth.com">
+        Write to Build
+      </a>
+    );
+  }
+  if (way.mail === "design") {
+    return (
+      <a className="bench-price-mail" href="mailto:design@designlabnorth.com">
+        Write to Design
+      </a>
+    );
+  }
+  if (way.mail === "both") {
+    return (
+      <span className="bench-price-mails">
+        <a className="bench-price-mail" href="mailto:design@designlabnorth.com">
+          Design
+        </a>
+        <a className="bench-price-mail" href="mailto:build@designlabnorth.com">
+          Build
+        </a>
+      </span>
+    );
+  }
+  return (
+    <button type="button" onClick={() => onContact(way.needId)}>
+      Contact
+    </button>
+  );
+}
+
 function wayPriceLabel(way: { onceId?: string; sittingId?: string; sittingLongId?: string; host?: boolean }) {
   const bits: string[] = [];
   const once = way.onceId ? catalogueById(way.onceId) : undefined;
@@ -1210,9 +1250,7 @@ function HostRoom({
                   {price ? ` — ${price}` : ""}
                   <em>{way.who}</em>
                 </span>
-                <button type="button" onClick={() => onContact(way.needId)}>
-                  Contact
-                </button>
+                <WayMail way={way} onContact={onContact} />
               </div>
             );
           })}

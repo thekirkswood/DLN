@@ -9459,6 +9459,7 @@ body:has(.bench.is-inside) main {
 .bench-mod-head,
 .bench-mod li button,
 .bench-price button,
+.bench-price-mail,
 .bench-cta,
 .bench-senses button,
 .bench-modes button,
@@ -9846,8 +9847,12 @@ body:has(.bench.is-inside) main {
   margin-bottom: 0.75rem;
 }
 
+.bench-site-row.is-four {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .bench-site-card {
-  border: 1px solid var(--ink);
+  border: 0;
   min-height: 11rem;
   display: flex;
   flex-direction: column;
@@ -10088,7 +10093,7 @@ body:has(.bench.is-inside) main {
 .bench-work.is-compact {
   min-height: 0;
   margin-top: 0.75rem;
-  border: 1px solid var(--ink);
+  border: 0;
 }
 
 .bench-work.is-compact .bench-work-shot {
@@ -10429,11 +10434,22 @@ a.bench-cta:hover {
   border: 1px solid var(--ink);
 }
 
-.bench-price button {
+.bench-price button,
+.bench-price-mail {
   letter-spacing: 0.12em;
   font-size: 0.62rem;
   font-weight: 700;
   text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.bench-price-mails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.28rem;
 }
 
 .bench-rack img {
@@ -10913,8 +10929,25 @@ a.bench-cta:hover {
   width: 100%;
   aspect-ratio: 1;
   object-fit: contain;
-  background: #fff;
-  border: 1px solid var(--line);
+  background: transparent;
+  border: 0;
+  padding: 0.55rem;
+}
+
+.bench-brands.is-marks {
+  max-width: 48rem;
+  gap: 1.35rem 1.4rem;
+}
+
+.bench-brands.is-marks figure {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.bench-brands.is-marks img {
+  aspect-ratio: 1;
+  padding: 0.85rem;
+  background: transparent;
 }
 
 .bench-brands strong {
@@ -11171,7 +11204,7 @@ a.bench-cta:hover {
   position: relative;
   min-height: 18rem;
   overflow: hidden;
-  border: 1px solid var(--ink);
+  border: 0;
   padding: 1.1rem 1.15rem 2.4rem;
   background:
     radial-gradient(
@@ -11260,8 +11293,8 @@ a.bench-cta:hover {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
-  border: 1px solid var(--line);
-  padding: 1rem;
+  border: 0;
+  padding: 1rem 0;
 }
 
 .bench-checkout-warn {
@@ -11282,7 +11315,7 @@ a.bench-cta:hover {
 .bench-modern-skin {
   height: 7.5rem;
   margin: 0.45rem 0;
-  border: 1px solid var(--ink);
+  border: 0;
   display: grid;
   gap: 0.35rem;
   padding: 0.7rem;
@@ -11423,7 +11456,7 @@ html[data-ground="ink"] .bench-modern-skin.is-clunky {
 }
 
 .bench-app-sketch {
-  border: 1px solid var(--ink);
+  border: 0;
   min-height: 13.5rem;
   display: grid;
   grid-template-areas:
@@ -11609,7 +11642,7 @@ html[data-ground="ink"] .bench-modern-skin.is-clunky {
   list-style: none;
   margin: 0;
   padding: 0;
-  border: 1px solid var(--ink);
+  border: 0;
 }
 
 .bench-systems li {
@@ -11993,14 +12026,15 @@ html[data-ground="ink"] .fw-tile img {
 }
 
 .bench-desk-cols section {
-  border: 1px solid var(--line);
+  border: 0;
   padding: 0.55rem 0.6rem 0.7rem;
   min-height: 15.5rem;
-  transition: border-color 0.35s ease;
+  background: color-mix(in srgb, var(--ink) 4%, var(--ground));
+  transition: background 0.35s ease;
 }
 
 .bench-desk-cols section.is-on {
-  border-color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 8%, var(--ground));
 }
 
 .bench-desk-cols h3 {
@@ -12438,7 +12472,7 @@ html[data-ground="ink"] .fw-tile img {
 
 .bench-engine-plate {
   margin: 0;
-  border: 1px solid var(--ink);
+  border: 0;
   background: color-mix(in srgb, var(--ink) 6%, var(--ground));
   min-height: 12rem;
   display: grid;
@@ -12508,6 +12542,17 @@ html[data-ground="ink"] .fw-tile img {
   gap: 0.85rem 1rem;
   align-items: end;
   padding: 0.45rem 0 0.2rem;
+}
+
+.bench-idkit.is-desk {
+  grid-template-columns: 1.35fr 0.7fr;
+  grid-template-rows: auto;
+  align-items: end;
+}
+
+.bench-idkit.is-desk .is-laptop,
+.bench-idkit.is-desk .is-phone {
+  grid-row: 1;
 }
 
 .bench-idkit .is-laptop {
@@ -12635,7 +12680,114 @@ html[data-ground="ink"] .fw-tile img {
   display: flex;
   flex-direction: column;
   min-height: min(28rem, calc(100dvh - 13rem));
-  border: 1px solid var(--ink);
+  border: 0;
+}
+
+.bench-ui-morph {
+  min-height: min(22rem, calc(100dvh - 16rem));
+  display: grid;
+  place-items: center;
+  padding: 0.6rem 0.2rem;
+}
+
+.bench-ui-morph .ui-frame {
+  width: min(100%, 28rem);
+  aspect-ratio: 16 / 9;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: color-mix(in srgb, var(--ink) 5%, var(--ground));
+  overflow: hidden;
+  transition:
+    width 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    aspect-ratio 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.6s ease,
+    clip-path 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bench-ui-morph .ui-chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.38rem 0.55rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.bench-ui-morph .ui-chrome i {
+  width: 0.42rem;
+  height: 0.42rem;
+  background: color-mix(in srgb, var(--ink) 32%, var(--ground));
+}
+
+.bench-ui-morph .ui-glass {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  padding: 0.85rem 0.9rem;
+}
+
+.bench-ui-morph .ui-glass b {
+  display: block;
+  height: 0.55rem;
+  background: color-mix(in srgb, var(--ink) 16%, var(--ground));
+}
+
+.bench-ui-morph .ui-glass b:nth-child(2) {
+  width: 62%;
+}
+
+.bench-ui-morph .ui-glass em {
+  display: block;
+  height: 4.2rem;
+  background: color-mix(in srgb, var(--ink) 10%, var(--ground));
+  font-style: normal;
+}
+
+.bench-ui-morph.is-board .ui-frame {
+  width: min(100%, 34rem);
+  aspect-ratio: 21 / 8;
+}
+
+.bench-ui-morph.is-screen .ui-frame {
+  width: min(100%, 26rem);
+  aspect-ratio: 16 / 10;
+}
+
+.bench-ui-morph.is-hand .ui-frame {
+  width: min(11.2rem, 42%);
+  aspect-ratio: 9 / 16;
+  clip-path: polygon(
+    8px 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 calc(100% - 8px),
+    0 8px
+  );
+}
+
+.bench-ui-morph.is-hand .ui-chrome {
+  justify-content: center;
+  border-bottom: 0;
+}
+
+.bench-ui-morph.is-hand .ui-chrome i:nth-child(1),
+.bench-ui-morph.is-hand .ui-chrome i:nth-child(3) {
+  display: none;
+}
+
+.bench-ui-morph.is-hand .ui-chrome i:nth-child(2) {
+  width: 2.1rem;
+  height: 0.28rem;
+  background: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bench-ui-morph .ui-frame {
+    transition: none;
+  }
 }
 
 .bench-uikit-bar {
@@ -12828,8 +12980,8 @@ html[data-ground="ink"] .fw-tile img {
 .kit-book,
 .kit-bottle,
 .kit-board {
-  border: 1px solid var(--ink);
-  background: var(--ground);
+  border: 0;
+  background: color-mix(in srgb, var(--ink) 5%, var(--ground));
 }
 
 .kit-phone {
@@ -12970,8 +13122,9 @@ html[data-ground="ink"] .fw-tile img {
 
 .bench-audit-skin {
   min-height: 8rem;
-  border: 1px solid var(--ink);
+  border: 0;
   padding: 0.7rem;
+  background: color-mix(in srgb, var(--ink) 5%, var(--ground));
 }
 
 .bench-audit-skin i {
@@ -14044,13 +14197,34 @@ body:has(.board-space) .site-footer {
 }
 
 .board-inside-back {
+  position: sticky;
+  top: 0;
+  z-index: 3;
   margin: 0 0 1rem;
+  padding: 0.1rem 0 0.55rem;
+  background: var(--ground);
   font-weight: 500;
 }
 
 .board-inside-back a {
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.board-inside-back a:hover,
+.board-inside-back a:focus-visible {
+  color: var(--ink);
+}
+
+.board-inside-back-arr {
+  display: block;
+  width: 0.72rem;
+  height: 0.72rem;
+  background: var(--ink);
+  clip-path: polygon(40% 0, 0 50%, 40% 100%, 40% 68%, 100% 68%, 100% 32%, 40% 32%);
 }
 
 .board-space.is-inside .board-legend,
@@ -14683,6 +14857,19 @@ html[data-ground="ink"] .board-tile.is-apes img {
 .board-legend-key .is-plot {
   color: var(--ink);
   border-bottom-color: var(--ink);
+}
+
+.board-space.is-compact .board-hud {
+  margin-bottom: 0.3rem;
+  gap: 0.35rem;
+}
+
+.board-space.is-compact .board-stage {
+  perspective-origin: 50% 18%;
+}
+
+.board-space.is-compact:not(.is-inside) .board-world {
+  padding: 0.2rem 0.15rem 0.6rem;
 }
 
 @media (max-width: 1100px) {

@@ -44,7 +44,7 @@ export function BrandStrip({
       : [];
   if (!rows.length) return null;
   return (
-    <ul className="bench-brands">
+    <ul className={`bench-brands${lineId === "logos" ? " is-marks" : ""}`}>
       {rows.map((brand) => (
         <li key={brand.id}>
           <figure>
@@ -52,7 +52,7 @@ export function BrandStrip({
             <img src={brand.file} alt="" />
             <figcaption>
               <strong>{brand.name}</strong>
-              <span>{brand.use}</span>
+              {lineId === "logos" ? null : <span>{brand.use}</span>}
             </figcaption>
           </figure>
         </li>
@@ -218,7 +218,6 @@ function OfferStage({
   const examples = examplesOf(line);
   const showExamples =
     line.widget === "examples" ||
-    line.widget === "brands" ||
     (line.widget === "gallery" && examples.length > 0);
 
   useEffect(() => {
@@ -252,7 +251,8 @@ function OfferStage({
         {line.widget === "identity-kit" ? (
           <IdentityKit shots={examples} />
         ) : null}
-        {line.widget === "ui-kit" ? <UiKit shots={examples} /> : null}
+        {line.widget === "ui-kit" ? <UiKit /> : null}
+        {line.widget === "brands" ? <BrandStrip lineId={line.id} /> : null}
         {line.widget === "brand-kit" ? <BrandKit /> : null}
         {line.widget === "market-kit" ? <MarketKit /> : null}
         {line.widget === "audit-path" ? <AuditPath /> : null}
@@ -339,14 +339,7 @@ function BuildStage({
         <div className="bench-pee">
           <p className="bench-pee-point">{line.lead}</p>
           <div className="bench-pee-evidence">
-            {line.widget === "examples" ? (
-              <>
-                <SimpleFormats />
-                {examples.length ? (
-                  <ExamplesBoard title={line.title} rows={examples} compact />
-                ) : null}
-              </>
-            ) : null}
+            {line.widget === "examples" ? <SimpleFormats /> : null}
             {line.widget === "workspace" ? <WorkspaceDemo /> : null}
             {line.widget === "checkout" ? <AppSketch /> : null}
             {line.widget === "modernize" ? <ModernizeDemo /> : null}

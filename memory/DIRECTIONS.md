@@ -1034,6 +1034,10 @@ Sole trader / bigger business / corporation is a flag on the plot, set early (`m
 - The site (Build sitting + build) **£350**, then the monthly. The look and the site (Dave + Ewan sittings + build) is two-thirds higher: **£580**. The whole walk is a Settings line until we lock it. Design-only and Strategy-only are sittings. Strategy + Build without Design is not on the wall.
 - Comments: evening rolling update if there are any. Hotfix: audit within the hour. Account Sites has the big comment box, a hotfix box, the update log, and an FAQ. Public site stays plain. Client hotfix wakes the lab as `hotfix-ask`, never the studio deploy phrase.
 
+## 2026-10-08 — Small board: pull the table; back is an arrow (Ewan)
+
+At a lower width the table sat at the bottom, locked on Landscape / Identity — no way to pull it up or see the rest. Drag and wheel must move the table so every plate can come into view. 3D stays on. Back to the board is a little arrow, top left of each well — not only the title “The table”. Do not tick landed.
+
 ## 2026-10-08 — Ways in, not packages; /host is the campus Host (Ewan)
 
 - Do not call them packages on the wall. How you come in: The site; The look and the site; The whole walk; The look; A sitting.
@@ -1041,5 +1045,17 @@ Sole trader / bigger business / corporation is a flag on the plot, set early (`m
 - Strategy sitting is an hour or two, premium (field, competitors, alignment, how you shout). Design sitting is about an hour.
 - `/host` is the same Host room as the campus rail. Not the old CampusHouse priced stub. Live VPS still hides GBP until a numbered ship.
 - House check is **http://192.168.0.223:3010** / `dln.local` after `ops/sync-to-debian.sh`. Tower `localhost:3010` is a working copy. Same pipeline for every site.
+
+## 2026-10-08 — Design/Build rooms, Host wall, section films (Ewan)
+
+- Campus edits must land on the house (`192.168.0.223:3010` / `dln.local`) via `ops/sync-to-debian.sh`. Tower localhost is a working copy, not the copy people check.
+- Strip keylines around the little demo boxes on independent pages and subcategories. Concertina and header chrome stay.
+- Logos: one of each real mark, equal transparent frames. House first (DLN, Swarm Fund with bars spanning the hive, Choozlist, Various Titles, ModYu, DAA, Swimming Through Leaves from the house mark — do not generate). Then sitting client marks. Portfolio stills do not live here.
+- Simple sites: formats animation only. No PFP / Follicle / website stills under it.
+- Identity: desk and hand only. Drop the card / toolkit tile.
+- UI: wordless morph (board → screen → hand). No Follicle Files / ATTW / Applearn screenshots.
+- Host wall: The site; The look and the site; Strategy talks. Design and Build are emails (`design@` / `build@`). Strategy talks £275 an hour or £500 for two. Live+sandbox £75 stays. Site £350 and look+site £580 stay.
+- Section films: plan only in `memory/section-films.md`. One at a time, social-loop style. Next trigger is packaging. Homepage “bring an idea” is later.
+
 
 

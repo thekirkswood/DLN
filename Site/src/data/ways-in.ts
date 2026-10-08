@@ -23,6 +23,8 @@ export type WayIn = {
   host?: boolean;
   sittingId?: string;
   sittingLongId?: string;
+  /** Write to Design / Build instead of the contact form. */
+  mail?: "design" | "build" | "both";
   facet: Facet;
   needId: string;
   wall: boolean;
@@ -40,6 +42,7 @@ export const WAYS_IN: WayIn[] = [
     ],
     onceId: "site-ground",
     host: true,
+    mail: "build",
     facet: "build",
     needId: "walk-build-host",
     wall: true,
@@ -56,6 +59,7 @@ export const WAYS_IN: WayIn[] = [
     ],
     onceId: "design-build",
     host: true,
+    mail: "both",
     facet: "design",
     needId: "walk-design-build",
     wall: true,
@@ -75,7 +79,7 @@ export const WAYS_IN: WayIn[] = [
     host: true,
     facet: "strategy",
     needId: "walk-full",
-    wall: true,
+    wall: false,
   },
   {
     id: "design-only",
@@ -83,13 +87,14 @@ export const WAYS_IN: WayIn[] = [
     who: "Happy with the website. You want the mark, the print, the pretty things.",
     includes: ["Time with Design — about an hour"],
     sittingId: "session-design",
+    mail: "design",
     facet: "design",
     needId: "walk-design",
-    wall: true,
+    wall: false,
   },
   {
     id: "strategy-only",
-    name: "A sitting",
+    name: "Strategy talks",
     who: "An hour, or two. The field, the competitors, how you line up, how you go out. Not a site in the room unless you ask.",
     includes: [
       "Time with Strategy — an hour, or two",
