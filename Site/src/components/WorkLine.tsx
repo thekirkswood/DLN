@@ -27,7 +27,7 @@ import {
   MarketKit,
   SittingRing,
   StartupTalk,
-  UiKit,
+  UiMorph,
 } from "@/components/OfferDemos";
 
 export function BrandStrip({
@@ -49,10 +49,17 @@ export function BrandStrip({
         <li key={brand.id}>
           <figure>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={brand.file} alt="" />
+            <img
+              className={`is-paper${brand.mono ? " is-mono" : ""}`}
+              src={brand.file}
+              alt=""
+            />
+            {brand.fileInk ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img className="is-ink" src={brand.fileInk} alt="" />
+            ) : null}
             <figcaption>
               <strong>{brand.name}</strong>
-              <span>{brand.use}</span>
             </figcaption>
           </figure>
         </li>
@@ -217,8 +224,7 @@ function OfferStage({
   const [about, setAbout] = useState(false);
   const examples = examplesOf(line);
   const showExamples =
-    line.widget === "examples" ||
-    line.widget === "brands" ||
+    (line.widget === "examples" && examples.length > 0) ||
     (line.widget === "gallery" && examples.length > 0);
 
   useEffect(() => {
@@ -252,7 +258,8 @@ function OfferStage({
         {line.widget === "identity-kit" ? (
           <IdentityKit shots={examples} />
         ) : null}
-        {line.widget === "ui-kit" ? <UiKit shots={examples} /> : null}
+        {line.widget === "ui-morph" ? <UiMorph /> : null}
+        {line.widget === "brands" ? <BrandStrip lineId={line.id} /> : null}
         {line.widget === "brand-kit" ? <BrandKit /> : null}
         {line.widget === "market-kit" ? <MarketKit /> : null}
         {line.widget === "audit-path" ? <AuditPath /> : null}
@@ -260,11 +267,7 @@ function OfferStage({
         {line.widget === "startup-talk" ? <StartupTalk /> : null}
 
         {showExamples ? (
-          <ExamplesBoard
-            title={line.title}
-            rows={examples}
-            mark={line.widget === "brands"}
-          />
+          <ExamplesBoard title={line.title} rows={examples} />
         ) : null}
 
         {line.widget === "solport" || line.widget === "solport-short" ? (

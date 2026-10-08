@@ -987,4 +987,14 @@ Small and medium instructions. Date-stamp additions. Promote into BLUEPRINT when
 - The Builder window is that same bind. Houses allow Builder and the live hub to iframe them (`frame-ancestors`).
 - `daa.designlabnorth.com` is the DAA site (`plot-daa`), not a redirect to the hub. Push that copy live. Do not drag the DAA chat into this repo.
 
+## 2026-10-08 — Campus demos: no keyline boxes; real marks; UI morph (Ewan)
+
+- Independent Design / Build pages and their sub-lines: no 1px keyline around the mini animations or the logo tiles. The drawings can still have inner chrome (dots, a laptop base). Not a box around every element.
+- Logos: one of each, spaced the same, transparent frames. Official Swarm (bars span the hive hole — use the house PNG, not a short-bar reconstruction). Swimming Through Leaves from that house’s page mark — do not generate it. Add our own (DLN, Swarm, Choozlist, Various Titles, STL) plus ModYu and DAA. DAA stays off the greenhouse wall.
+- Simple sites: the four format animations only. Portfolio stills (PFP / Follicle / the wall) come off that page. Portfolio sits in portfolio.
+- Identity: on the desk and in the hand. Drop the card / “the system” toolkit still.
+- UI: not Follicle Files / ATTW / Applearn screenshots. A plain morph matching Build’s app morph — graphical side of that idea. Billboard → big screen → window → phone. No words.
+- Print and packaging stay as they are for now. Systems stay. Later: one section film at a time, using these rooms as the brief (packaging from screen onto a box/bottle; print as a press; UI as scale of screen). Do not generate all of them in one pass. Sandbox Live was iterative; these will be too.
+- Engagement gap (standing, not this pass): the three doors and the lab space are right; what is missing is “bring an idea in — you can be part of this.” Capture sits somewhere people can actually walk in. Do not turn the home into a pitch. Come back after the demo pass.
+
 

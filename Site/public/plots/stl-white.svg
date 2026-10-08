@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 78" role="img" aria-label="Swimming Through Leaves">
+  <title>Swimming Through Leaves</title>
+  <path d="M16 46 L58 8 L108 50" fill="none" stroke="#fff" stroke-width="11.5" stroke-linejoin="miter" stroke-miterlimit="2.4" stroke-linecap="butt"/>
+  <g fill="none" stroke="#fff" stroke-linecap="butt">
+    <path stroke-width="2.35" d="M18 46.5 C46 49 78 49.2 106 46.2"/>
+    <path stroke-width="2.2" d="M16 51.2 C46 54.2 80 54.4 104 50.4"/>
+    <path stroke-width="2.05" d="M18 55.8 C48 59 78 59.2 100 55"/>
+    <path stroke-width="1.9" d="M22 60.2 C48 63.2 76 63.2 94 59"/>
+  </g>
+  <circle cx="58" cy="44" r="10.4" fill="#fff"/>
+  <circle cx="54" cy="47.2" r="2.15" fill="#000"/>
+</svg>

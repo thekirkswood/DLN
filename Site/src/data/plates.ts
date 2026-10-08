@@ -102,10 +102,13 @@ export type BrandRoom = "engine" | "board" | "identity" | "solport";
 export type BrandPlate = {
   id: string;
   file: string;
+  fileInk?: string;
   name: string;
   use: string;
   lines?: LineId[];
   rooms?: BrandRoom[];
+  /** Dark transparent mark — invert on Ink so it still reads. */
+  mono?: boolean;
 };
 
 /** Named brands sit on the work they belong to. DAA is on Logos only — not a greenhouse client. */
@@ -141,15 +144,24 @@ export const BRANDS: BrandPlate[] = [
     lines: ["logos", "print"],
   },
   {
+    id: "dln",
+    file: "/brand/dln-ink.png",
+    fileInk: "/brand/dln-white.png",
+    name: "Design Lab North",
+    use: "Our mark.",
+    lines: ["logos"],
+  },
+  {
     id: "modyu",
-    file: `${BRIEF}/PNGs/logos-13.png`,
+    file: "/plots/modyu.svg",
+    fileInk: "/plots/modyu-white.svg",
     name: "ModYu",
     use: "Hair and scalp. Identity on the screen, and the site we host.",
     lines: ["logos", "ui", "simple", "apps"],
   },
   {
     id: "swarm",
-    file: "/plots/swarm.svg",
+    file: "/plots/swarm.png",
     name: "Swarm Fund",
     use: "The hive mark. A studio product, held as a logo.",
     lines: ["logos"],
@@ -164,16 +176,26 @@ export const BRANDS: BrandPlate[] = [
   {
     id: "titles",
     file: "/plots/various-titles.png",
+    fileInk: "/plots/various-titles-white.png",
     name: "Various Titles",
     use: "Geometric VT. Ideas about marketing and branding, as a mark.",
     lines: ["logos"],
   },
   {
-    id: "daa",
-    file: `${BRIEF}/PNGs/logos-15.png`,
-    name: "DAA",
-    use: "A constructed mark from the plate library.",
+    id: "stl",
+    file: "/plots/stl.svg",
+    fileInk: "/plots/stl-white.svg",
+    name: "Swimming Through Leaves",
+    use: "The house mark, from the page itself.",
     lines: ["logos"],
+  },
+  {
+    id: "daa",
+    file: "/plots/daa.svg",
+    name: "DAA",
+    use: "The constructed mark. Logos only — not a greenhouse card.",
+    lines: ["logos"],
+    mono: true,
   },
   {
     id: "applearn",
@@ -256,7 +278,15 @@ export const BRANDS: BrandPlate[] = [
 export function brandsForLine(id: LineId): BrandPlate[] {
   const rows = BRANDS.filter((row) => row.lines?.includes(id));
   if (id !== "logos") return rows;
-  const house = ["modyu", "swarm", "choozlist", "titles", "daa"];
+  const house = [
+    "dln",
+    "swarm",
+    "choozlist",
+    "titles",
+    "stl",
+    "modyu",
+    "daa",
+  ];
   const front = house
     .map((hid) => rows.find((row) => row.id === hid))
     .filter((row): row is BrandPlate => Boolean(row));
