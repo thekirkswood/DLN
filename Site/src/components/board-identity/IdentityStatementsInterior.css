@@ -1,0 +1,223 @@
+.board-id-identity {
+  display: grid;
+  gap: 1.1rem;
+  margin: 0 0 1.6rem;
+}
+
+.board-id-identity > .kicker {
+  margin-bottom: 0;
+}
+
+.board-id-identity-stack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.board-id-identity-stack li {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr) auto;
+  gap: 0.7rem;
+  align-items: start;
+  padding: 0.85rem 0 0.95rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.board-id-identity-n {
+  font-weight: 900;
+  font-size: 1.35rem;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--mute);
+  padding-top: 1.35rem;
+}
+
+.board-id-identity-stack label {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.board-id-identity-stack textarea {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  font-size: clamp(1.15rem, 2.4vw, 1.7rem);
+  letter-spacing: -0.03em;
+  line-height: 1.22;
+  resize: none;
+  padding: 0.1rem 0 0.2rem;
+  min-height: 3.2rem;
+}
+
+.board-id-identity-stack textarea:focus,
+.board-id-identity-refuse textarea:focus {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.board-id-identity-drop,
+.board-id-identity-add button {
+  appearance: none;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.35rem 0.55rem;
+  margin-top: 1.25rem;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.board-id-identity-add {
+  margin: 0;
+}
+
+.board-id-identity-add button {
+  margin-top: 0;
+}
+
+.board-id-identity-refuse {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.1rem 1.05rem 1.2rem;
+  background: var(--ink);
+  color: var(--ground);
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.board-id-identity-refuse .kicker {
+  color: color-mix(in srgb, var(--ground) 72%, transparent);
+  margin-bottom: 0.2rem;
+}
+
+.board-id-identity-refuse textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--ground) 35%, transparent);
+  background: transparent;
+  color: var(--ground);
+  caret-color: var(--ground);
+  font: inherit;
+  font-style: italic;
+  font-size: 1.12rem;
+  line-height: 1.35;
+  resize: none;
+  min-height: 3.4rem;
+  padding: 0.2rem 0 0.4rem;
+}
+
+.board-id-identity-refuse.is-empty {
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px dashed var(--ink);
+}
+
+.board-id-identity-refuse.is-empty .kicker {
+  color: var(--mute);
+}
+
+.board-id-identity-refuse.is-empty textarea {
+  color: var(--ink);
+  caret-color: var(--ink);
+  border-bottom-color: var(--line);
+}
+
+.board-id-identity-warn {
+  margin: 0;
+  max-width: 38rem;
+  color: var(--mute);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+
+.board-id-identity-holes,
+.board-id-identity .board-related {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.board-id-identity-holes a,
+.board-id-identity .board-related a {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+}
+
+.board-id-identity-holes span,
+.board-id-identity .board-related span {
+  color: var(--mute);
+  font-size: 0.92rem;
+}
+
+.board-id-identity-stills {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+
+.board-id-identity .board-id-neighbours {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.board-id-identity .board-id-sockets,
+.board-id-identity .board-gen {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.board-id-identity .board-gen button {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  cursor: not-allowed;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.board-id-identity .board-gen span {
+  color: var(--mute);
+  font-size: 0.88rem;
+  max-width: 38rem;
+}
+
+.board-id-identity .board-save {
+  margin: 0.2rem 0 0;
+}
+
+@media (max-width: 720px) {
+  .board-id-identity-stack li {
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+  }
+
+  .board-id-identity-drop {
+    grid-column: 2;
+    margin-top: 0;
+    justify-self: start;
+  }
+}

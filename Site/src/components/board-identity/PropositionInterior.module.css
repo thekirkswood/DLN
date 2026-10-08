@@ -1,0 +1,262 @@
+.root {
+  display: grid;
+  gap: 1.45rem;
+  margin: 0 0 1.6rem;
+}
+
+.root :global(.kicker) {
+  margin-bottom: 0.35rem;
+}
+
+.root :global(.board-id-proposition-offer) {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.root :global(.board-id-proposition-offer textarea) {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 900;
+  font-size: clamp(1.45rem, 3.4vw, 2.45rem);
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  min-height: 3.6rem;
+  resize: none;
+  padding: 0.15rem 0 0.55rem;
+  outline: none;
+}
+
+.root :global(.board-id-proposition-offer textarea:focus),
+.root :global(.board-id-proposition-whom input:focus),
+.root :global(.board-id-proposition-split textarea:focus) {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.root :global(.board-id-proposition-seats) {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin: 0.2rem 0 0.7rem;
+  padding: 0;
+}
+
+.root :global(.board-id-proposition-seat) {
+  appearance: none;
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+  min-height: 5.2rem;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.7rem 0.65rem 0.8rem;
+  background: var(--ground);
+  border: 1px solid var(--line);
+  text-decoration: none;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-id-proposition-seat:hover),
+.root :global(.board-id-proposition-seat:focus-visible) {
+  text-decoration: none;
+  border-color: var(--ink);
+}
+
+.root :global(.board-id-proposition-seat strong) {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.root :global(.board-id-proposition-seat.is-on) {
+  background: var(--ink);
+  color: var(--ground);
+  border-color: var(--ink);
+}
+
+.root :global(.board-id-proposition-seat.is-empty) {
+  color: var(--mute);
+}
+
+.root :global(.board-id-proposition-hole > p) {
+  color: var(--mute);
+  max-width: 36rem;
+  margin: 0 0 0.7rem;
+}
+
+.root :global(.board-id-proposition-whom > label) {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.root :global(.board-id-proposition-whom input) {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  padding: 0.25rem 0 0.4rem;
+}
+
+.root :global(.board-id-proposition-split) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.root :global(.board-id-proposition-split label) {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 10.5rem;
+  padding: 0.9rem 0.95rem 1rem;
+  border: 1px solid var(--ink);
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.root :global(.board-id-proposition-split label.is-hole) {
+  border-color: var(--line);
+  color: var(--mute);
+}
+
+.root :global(.board-id-proposition-split textarea) {
+  width: 100%;
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  resize: none;
+  outline: none;
+}
+
+.root :global(.board-id-proposition-warn) {
+  margin: 0;
+  max-width: 38rem;
+  color: var(--mute);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+
+.root :global(.board-id-proposition-door) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-id-proposition-door a) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem 1.2rem;
+  align-items: baseline;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--ink);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-id-proposition-door a:hover),
+.root :global(.board-id-proposition-door a:focus-visible) {
+  text-decoration: none;
+  background: color-mix(in srgb, var(--ink) 6%, var(--ground));
+}
+
+.root :global(.board-id-proposition-door strong) {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.root :global(.board-id-proposition-door span) {
+  color: var(--mute);
+  font-size: 0.92rem;
+}
+
+.root :global(.board-id-neighbours) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-related) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.root :global(.board-related a) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-related span) {
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+
+.root :global(.board-id-sockets) {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.root :global(.board-gen) {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.root :global(.board-gen button) {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.root :global(.board-gen button:disabled) {
+  color: var(--mute);
+  cursor: not-allowed;
+}
+
+.root :global(.board-gen span) {
+  color: var(--mute);
+  font-size: 0.88rem;
+  max-width: 38rem;
+}
+
+.root :global(.board-save) {
+  margin: 0.2rem 0 0;
+}
+
+@media (max-width: 720px) {
+  .root :global(.board-id-proposition-seats) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .root :global(.board-id-proposition-split) {
+    grid-template-columns: 1fr;
+  }
+}

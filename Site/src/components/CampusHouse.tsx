@@ -150,25 +150,25 @@ function HostRoom() {
     <div className="house-host">
       <h1>Hosting</h1>
       <p className="house-line">
-        The live host sits with Design Lab North while the brand grows. Tester
+        Live and sandbox are one host. You leave a comment; we come in. Tester
         campus only — this priced room is not on the public VPS yet.
       </p>
       <h2>Pricing</h2>
       <ul className="house-host-list">
         <li>
-          <span>Basic</span>
-          <span>£50 pm</span>
+          <span>Live and sandbox</span>
+          <span>£75 pm</span>
           <Link href="/?add=1">Contact</Link>
+        </li>
+        <li>
+          <span>The site</span>
+          <span>£350</span>
+          <Link href="/build">Contact</Link>
         </li>
         <li>
           <span>Heavy traffic</span>
-          <span>Negotiable</span>
+          <span>A conversation</span>
           <Link href="/?add=1">Contact</Link>
-        </li>
-        <li>
-          <span>Build costs</span>
-          <span>On the book</span>
-          <Link href="/build">Contact</Link>
         </li>
       </ul>
     </div>

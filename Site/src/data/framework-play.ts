@@ -21,9 +21,16 @@ const TOPICS: Record<FacultyId, FrameworkTopic[]> = {
   ],
   mapping: [
     { id: "landscape", name: "Landscape", body: "The brand in its actual context, not a blank page." },
+    { id: "advocates", name: "Advocates", body: "People who speak for the work, not only about it." },
+    { id: "commentators", name: "Commentators", body: "People who speak about the work, without having to wear it." },
+    { id: "trends", name: "Trends / Style", body: "What is moving in form, in this neighbourhood." },
+    { id: "cultural", name: "Cultural / Social", body: "How it will be read between people. The social engine sits here." },
+    { id: "laws", name: "Laws. Rules.", body: "What the work is not allowed to ignore." },
+    { id: "opinion", name: "Public opinion", body: "The story already in the room." },
     { id: "relations", name: "Relationships", body: "Who touches whom: people, products, places." },
     { id: "evidence", name: "Evidence", body: "Research, analytics, and discovery before a line is drawn." },
     { id: "scale", name: "Scale", body: "Sole trader, bigger business, corporation — the map changes." },
+    { id: "audience", name: "Customers", body: "Seats 1–8 on the right of the table." },
   ],
   process: ENGINE_STAGES.map((s) => ({
     id: `stage-${s.n}`,
@@ -37,10 +44,18 @@ const TOPICS: Record<FacultyId, FrameworkTopic[]> = {
     { id: "host", name: "Host", body: "The live plot they can sit with while the work grows." },
   ],
   apes: [
-    { id: "creative", name: "Creative", body: "Unfiltered thinking, then a choice you can stand behind." },
-    { id: "critical", name: "Critical", body: "Analysis against the map, not taste alone." },
-    { id: "decision", name: "Decision", body: "Objective decision-making. Not guesswork." },
-    { id: "full", name: "360", body: "Full-turn thinking: make, test, keep, or let go." },
+    { id: "analytical", name: "Analytical", body: "Clarity, evidence, structure, coherence. Does this make sense?" },
+    { id: "practical", name: "Practical", body: "Feasibility, resources, timing. Will it survive the week?" },
+    { id: "emotional", name: "Emotional", body: "Felt experience, trust, meaning. Can people inhabit it?" },
+    { id: "social", name: "Social", body: "Relationships, culture, how it will be read between people." },
+    { id: "creative", name: "Creative", body: "Generate range. Walk each idea through all four mindsets." },
+    { id: "critical", name: "Critical", body: "For and against, from each mindset. Taste is not the test." },
+    { id: "decision", name: "Decision", body: "What if. Hold the choice across all four, not the loudest seat." },
+    { id: "full", name: "360", body: "Hold Analytical, Practical, Emotional, and Social at once." },
+    { id: "combinations", name: "Combinations", body: "Which combo is this work sitting in. Not a personality quiz." },
+    { id: "cycle", name: "Cycle", body: "Launch to landing. Reflection consolidates; it does not reopen." },
+    { id: "cards", name: "Cards", body: "Six honest questions until the context is understood." },
+    { id: "interrogation", name: "Interrogation", body: "Analyse, probe, evaluate, synthesise — the human stays sovereign." },
   ],
   identity: [
     { id: "principles", name: "Principles", body: "What the system will not break." },
@@ -156,6 +171,13 @@ const MOVES: Record<FacultyId, Record<ScaleId, FrameworkMove[]>> = {
     ],
   },
 };
+
+export function actionSlug(action: string): string {
+  return action
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
 
 export function frameworkTopics(id: FacultyId): FrameworkTopic[] {
   return TOPICS[id] || [];

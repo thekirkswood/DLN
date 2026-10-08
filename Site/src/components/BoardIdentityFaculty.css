@@ -1,0 +1,639 @@
+/* Faculty 06 — identity systems. Rule plates, not mission stand-in. Protocol, like process. */
+
+.board-room.is-id-faculty {
+  display: grid;
+  gap: 1.1rem;
+  padding: 1.15rem 0 3rem;
+}
+
+.board-room.is-id-faculty .board-room-head {
+  display: grid;
+  grid-template-columns: 4.2rem minmax(0, 1fr);
+  gap: 1rem 1.1rem;
+  align-items: start;
+}
+
+.board-room.is-id-faculty .board-room-head img {
+  width: 4.2rem;
+  height: 4.2rem;
+  object-fit: contain;
+}
+
+.board-room.is-id-faculty h1 {
+  font-size: clamp(1.45rem, 3.1vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  max-width: 18ch;
+  margin: 0 0 0.4rem;
+}
+
+.board-room.is-id-faculty .lede {
+  margin: 0;
+  max-width: 34rem;
+}
+
+.board-room.is-id-faculty .board-side,
+.board-room.is-id-faculty .board-plot-line {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.92rem;
+}
+
+.board-room.is-id-faculty .board-plot-line a {
+  color: inherit;
+}
+
+.board-room.is-id-faculty textarea,
+.board-room.is-id-faculty button {
+  font: inherit;
+  color: inherit;
+}
+
+.board-room.is-id-faculty textarea:focus,
+.board-room.is-id-faculty button:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.bif-stamps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.bif-stamps a {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.55rem 0.65rem 0.5rem;
+  text-decoration: none;
+  color: var(--mute);
+  border: 1px solid var(--line);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.bif-stamp-mark {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.bif-stamps strong {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.bif-stamps a.is-held {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.bif-stamps a.is-now {
+  color: var(--ground);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.bif-now {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.7rem 0 0.2rem;
+  border-top: 1px solid var(--ink);
+}
+
+.bif-now.is-empty {
+  color: var(--mute);
+  border-top-style: dashed;
+}
+
+.bif-field,
+.bif-rule {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.bif-field span,
+.bif-rule span,
+.bif-clause-body > span,
+.bif-side .kicker {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.bif-field textarea,
+.bif-clause textarea,
+.bif-side textarea,
+.bif-artefacts textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  resize: vertical;
+  padding: 0.25rem 0 0.45rem;
+  min-height: 4.2rem;
+}
+
+.bif-field em,
+.bif-clause em,
+.bif-artefacts em,
+.bif-print-note {
+  font-style: italic;
+  color: var(--mute);
+  font-size: 0.88rem;
+}
+
+.bif-field.is-plate textarea {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.bif-save {
+  margin: 0.4rem 0 0;
+}
+
+.bif-sockets {
+  display: grid;
+  gap: 0.85rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.bif-stills ul {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4.4rem, 1fr));
+  gap: 0.4rem;
+}
+
+.bif-stills img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.bif-stills-empty,
+.bif-generate span {
+  margin: 0.35rem 0 0;
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+
+.bif-generate {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.bif-generate button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.bif-material {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.65rem 0.75rem 0.6rem;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--line);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.bif-material strong {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.bif-material span {
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+
+.bif-material.is-held {
+  border-color: var(--ink);
+}
+
+.bif-material.is-hole {
+  border-style: dashed;
+}
+
+.bif-from-left {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.bif-from-left-lede,
+.bif-theirs-lede {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.92rem;
+  max-width: 36rem;
+}
+
+.bif-from-left-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.bif-split-flag {
+  margin: 0;
+  padding: 0.7rem 0.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  border: 1px solid var(--ink);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+/* —— Principles: one printable plate —— */
+
+.board-room.is-id-faculty.is-principles .bif-principles {
+  display: grid;
+  gap: 1.15rem;
+  max-width: 36rem;
+}
+
+.bif-print-plate {
+  margin: 0;
+  padding: 1.15rem 1.2rem 1rem;
+  border: 1px solid var(--ink);
+  position: relative;
+}
+
+.bif-print-plate::before,
+.bif-print-plate::after {
+  content: "";
+  position: absolute;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 1px solid var(--mute);
+}
+
+.bif-print-plate::before {
+  top: 0.25rem;
+  left: 0.25rem;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.bif-print-plate::after {
+  right: 0.25rem;
+  bottom: 0.25rem;
+  border-left: 0;
+  border-top: 0;
+}
+
+.bif-print-plate legend {
+  padding: 0 0.4rem;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.bif-rule textarea {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  font-weight: 700;
+  font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  resize: none;
+  min-height: 5.2rem;
+  padding: 0.2rem 0 0.5rem;
+}
+
+.bif-print-plate.is-held .bif-rule textarea {
+  color: var(--ink);
+}
+
+.bif-protocol-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.board-room.is-id-faculty.is-principles .bif-from-left-row {
+  grid-template-columns: 1fr;
+}
+
+@media print {
+  .board-room.is-id-faculty.is-principles .board-room-head,
+  .board-room.is-id-faculty.is-principles .board-side,
+  .board-room.is-id-faculty.is-principles .board-plot-line,
+  .board-room.is-id-faculty.is-principles .bif-stamps,
+  .board-room.is-id-faculty.is-principles .bif-now,
+  .board-room.is-id-faculty.is-principles .bif-protocol-pair,
+  .board-room.is-id-faculty.is-principles .bif-save,
+  .board-room.is-id-faculty.is-principles .bif-from-left,
+  .board-room.is-id-faculty.is-principles .bif-sockets,
+  .board-room.is-id-faculty.is-principles .board-holds {
+    display: none;
+  }
+
+  .bif-print-plate {
+    border-color: #000;
+  }
+}
+
+/* —— Ethics: protocol ledger, theirs aside —— */
+
+.bif-ethics {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(12rem, 0.8fr);
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.bif-ethics-ledger {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.bif-clause {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 0.7rem;
+  padding: 0.85rem 0 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.bif-clause-n {
+  font-weight: 900;
+  font-size: 0.95rem;
+  letter-spacing: -0.03em;
+  padding-top: 0.15rem;
+  color: var(--mute);
+}
+
+.bif-clause.is-held .bif-clause-n {
+  color: var(--ink);
+}
+
+.bif-clause-body {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.bif-theirs {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.85rem 0.9rem 1rem;
+  border-left: 1px solid var(--ink);
+}
+
+.bif-theirs-promise {
+  margin: 0.2rem 0 0;
+  font-size: 0.88rem;
+  color: var(--mute);
+}
+
+/* —— Toolkit: four named artefacts —— */
+
+.bif-type-bar {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--ink);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.bif-type-bar.is-hole {
+  border-style: dashed;
+  color: var(--mute);
+}
+
+.bif-type-bar a {
+  color: inherit;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.bif-toolkit {
+  display: grid;
+  gap: 1rem;
+}
+
+.bif-humans {
+  margin: 0;
+  font-weight: 500;
+  max-width: 36rem;
+}
+
+.bif-artefacts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+.bif-artefacts li {
+  border: 1px solid var(--line);
+  padding: 0.8rem 0.85rem 0.7rem;
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.bif-artefacts li.is-held {
+  border-color: var(--ink);
+}
+
+.bif-artefacts li:nth-child(1) {
+  min-height: 11rem;
+}
+
+.bif-artefacts li:nth-child(2) {
+  padding-top: 1.15rem;
+}
+
+.bif-artefacts li:nth-child(3) {
+  padding-left: 1.1rem;
+}
+
+.bif-artefacts li:nth-child(4) {
+  border-style: dashed;
+}
+
+.bif-artefacts li.is-held:nth-child(4) {
+  border-style: solid;
+}
+
+.bif-artefacts label {
+  display: grid;
+  gap: 0.3rem;
+}
+
+/* —— Systems: flyer vs site —— */
+
+.bif-ubf {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.bif-ubf li {
+  padding: 0.45rem 0.2rem 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+  border-bottom: 2px solid transparent;
+}
+
+.bif-ubf li.is-held {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.bif-ubf li.is-break {
+  color: var(--ground);
+  background: var(--ink);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.bif-systems {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.bif-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3.2rem minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.bif-side {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem 0.9rem 0.7rem;
+  border: 1px solid var(--line);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.bif-side.is-held {
+  border-color: var(--ink);
+}
+
+.bif-break-mark {
+  margin: 0;
+  align-self: center;
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  font-size: 0.95rem;
+  color: var(--mute);
+}
+
+.bif-split.is-split .bif-break-mark {
+  color: var(--ink);
+}
+
+.bif-split.is-split .bif-side:first-child {
+  transform: rotate(-0.4deg);
+}
+
+.bif-split.is-split .bif-side:last-child {
+  transform: rotate(0.4deg);
+}
+
+@media (max-width: 720px) {
+  .bif-stamps,
+  .bif-protocol-pair,
+  .bif-ethics,
+  .bif-artefacts,
+  .bif-from-left-row,
+  .bif-split,
+  .bif-ubf {
+    grid-template-columns: 1fr;
+  }
+
+  .bif-theirs {
+    border-left: 0;
+    border-top: 1px solid var(--ink);
+    padding-left: 0;
+  }
+
+  .bif-break-mark {
+    padding: 0.2rem 0;
+  }
+}

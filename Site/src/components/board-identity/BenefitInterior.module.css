@@ -1,0 +1,254 @@
+.root {
+  display: grid;
+  gap: 1.45rem;
+  margin: 0 0 1.6rem;
+}
+
+.root :global(.kicker) {
+  margin-bottom: 0.35rem;
+}
+
+.root :global(.board-id-benefit-after a) {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem 0.95rem 0.95rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-id-benefit-after strong) {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  max-width: 42rem;
+}
+
+.root :global(.board-id-benefit-feel) {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.root :global(.board-id-benefit-feel textarea) {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 900;
+  font-size: clamp(1.55rem, 3.6vw, 2.7rem);
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  min-height: 4rem;
+  resize: none;
+  padding: 0.15rem 0 0.5rem;
+  outline: none;
+}
+
+.root :global(.board-id-benefit-feel textarea:focus),
+.root :global(.board-id-benefit-whom input:focus) {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.root :global(.board-id-benefit-seats) {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin: 0.2rem 0 0.75rem;
+  padding: 0;
+}
+
+.root :global(.board-id-benefit-seats .is-picked) {
+  grid-column: span 2;
+}
+
+.root :global(.board-id-benefit-seats .is-quiet) {
+  opacity: 0.72;
+}
+
+.root :global(.board-id-benefit-seat) {
+  appearance: none;
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+  min-height: 5.2rem;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.7rem 0.65rem 0.8rem;
+  background: var(--ground);
+  border: 1px solid var(--line);
+  text-decoration: none;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-id-benefit-seats .is-picked .board-id-benefit-seat) {
+  min-height: 7.2rem;
+}
+
+.root :global(.board-id-benefit-seat:hover),
+.root :global(.board-id-benefit-seat:focus-visible) {
+  text-decoration: none;
+  border-color: var(--ink);
+}
+
+.root :global(.board-id-benefit-seat strong) {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.root :global(.board-id-benefit-seat.is-on) {
+  background: var(--ink);
+  color: var(--ground);
+  border-color: var(--ink);
+}
+
+.root :global(.board-id-benefit-seat.is-empty) {
+  color: var(--mute);
+}
+
+.root :global(.board-id-benefit-hole > p) {
+  color: var(--mute);
+  max-width: 36rem;
+  margin: 0 0 0.7rem;
+}
+
+.root :global(.board-id-benefit-whom > label) {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.root :global(.board-id-benefit-whom input) {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  padding: 0.25rem 0 0.4rem;
+}
+
+.root :global(.board-id-benefit-warn) {
+  margin: 0.55rem 0 0;
+  max-width: 38rem;
+  color: var(--mute);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+
+.root :global(.board-id-benefit-door) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-id-benefit-door a) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem 1.2rem;
+  align-items: baseline;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--ink);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-id-benefit-door a:hover),
+.root :global(.board-id-benefit-door a:focus-visible) {
+  text-decoration: none;
+  background: color-mix(in srgb, var(--ink) 6%, var(--ground));
+}
+
+.root :global(.board-id-benefit-door strong) {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.root :global(.board-id-benefit-door span) {
+  color: var(--mute);
+  font-size: 0.92rem;
+}
+
+.root :global(.board-id-neighbours) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-related) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.root :global(.board-related a) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-related span) {
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+
+.root :global(.board-id-sockets) {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.root :global(.board-gen) {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.root :global(.board-gen button) {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.root :global(.board-gen button:disabled) {
+  color: var(--mute);
+  cursor: not-allowed;
+}
+
+.root :global(.board-gen span) {
+  color: var(--mute);
+  font-size: 0.88rem;
+  max-width: 38rem;
+}
+
+.root :global(.board-save) {
+  margin: 0.2rem 0 0;
+}
+
+@media (max-width: 720px) {
+  .root :global(.board-id-benefit-seats),
+  .root :global(.board-id-benefit-seats .is-picked) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-column: auto;
+  }
+}

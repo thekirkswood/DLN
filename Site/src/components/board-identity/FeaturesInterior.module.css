@@ -1,0 +1,220 @@
+.root {
+  display: grid;
+  gap: 1.4rem;
+  margin: 0 0 1.6rem;
+}
+
+.root :global(.kicker) {
+  margin-bottom: 0.3rem;
+}
+
+.root :global(.board-id-features-count p:last-child) {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.root :global(.board-id-features-count strong) {
+  font-weight: 900;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+}
+
+.root :global(.board-id-features-count span) {
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--mute);
+}
+
+.root :global(.board-id-features-cols) {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1rem;
+}
+
+.root :global(.board-id-features-list) {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-id-features-list > li) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.45rem;
+  align-items: end;
+}
+
+.root :global(.board-id-features-list label) {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.root :global(.board-id-features-list input) {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  padding: 0.2rem 0 0.35rem;
+  outline: none;
+}
+
+.root :global(.board-id-features-list.is-not input) {
+  border-bottom-color: var(--line);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.root :global(.board-id-features-list input:focus) {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.root :global(.board-id-features-assumed) {
+  padding: 0.9rem 0.9rem 1rem;
+  border: 1px dashed var(--ink);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.root :global(.board-id-features-drop),
+.root :global(.board-id-features-add button) {
+  appearance: none;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.35rem 0.55rem;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.root :global(.board-id-features-add) {
+  margin: 0.7rem 0 0;
+}
+
+.root :global(.board-id-features-door) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-id-features-door a) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem 1.2rem;
+  align-items: baseline;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--ink);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-id-features-door a:hover),
+.root :global(.board-id-features-door a:focus-visible) {
+  text-decoration: none;
+  background: color-mix(in srgb, var(--ink) 6%, var(--ground));
+}
+
+.root :global(.board-id-features-door strong) {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.root :global(.board-id-features-door span) {
+  color: var(--mute);
+  font-size: 0.92rem;
+}
+
+.root :global(.board-id-neighbours) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-related) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.root :global(.board-related a) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-related span) {
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+
+.root :global(.board-id-sockets) {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.root :global(.board-gen) {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.root :global(.board-gen button) {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.root :global(.board-gen button:disabled) {
+  color: var(--mute);
+  cursor: not-allowed;
+}
+
+.root :global(.board-gen span) {
+  color: var(--mute);
+  font-size: 0.88rem;
+  max-width: 38rem;
+}
+
+.root :global(.board-save) {
+  margin: 0.2rem 0 0;
+}
+
+@media (max-width: 720px) {
+  .root :global(.board-id-features-cols) {
+    grid-template-columns: 1fr;
+  }
+
+  .root :global(.board-id-features-list > li) {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,931 @@
+/* A.P.E.S. faculty interiors. Paper/Ink, 45° cut. Letters as plates. Not a hive. */
+
+.board-room.is-apes {
+  max-width: 72rem;
+  padding: 0.2rem 0 3.2rem;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.board-room.is-apes .board-room-head {
+  display: grid;
+  grid-template-columns: 4.4rem minmax(0, 1fr);
+  gap: 1rem 1.15rem;
+  align-items: start;
+}
+
+.board-room.is-apes .board-room-head img {
+  width: 4.4rem;
+  height: auto;
+  display: block;
+}
+
+html[data-ground="ink"] .board-room.is-apes .board-room-head img {
+  filter: invert(1);
+}
+
+.board-room.is-apes .board-room-head h1 {
+  margin: 0.1rem 0 0.25rem;
+  letter-spacing: -0.035em;
+}
+
+.board-room.is-apes .board-side,
+.board-room.is-apes .board-plot-line {
+  margin: 0;
+  color: var(--mute);
+  max-width: 62rem;
+}
+
+.board-room.is-apes .board-horizon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.board-room.is-apes .board-horizon a {
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  padding: 0.28rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.board-room.is-apes .board-horizon a.is-on {
+  background: var(--ink);
+  color: var(--ground);
+  border-color: var(--ink);
+}
+
+.board-room.is-apes .board-related,
+.board-room.is-apes .board-topic-doors,
+.board-room.is-apes .apes-play-doors,
+.board-room.is-apes .apes-clover,
+.board-room.is-apes .apes-looks,
+.board-room.is-apes .apes-cards,
+.board-room.is-apes .apes-cycle,
+.board-room.is-apes .apes-questions,
+.board-room.is-apes .apes-looks-plot,
+.board-room.is-apes .apes-combo-group,
+.board-room.is-apes .apes-card-row,
+.board-room.is-apes .apes-cycle-path,
+.board-room.is-apes .apes-interrogate,
+.board-room.is-apes .apes-critical,
+.board-room.is-apes .apes-range,
+.board-room.is-apes .apes-decide,
+.board-room.is-apes .apes-hold-four {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.board-room.is-apes .board-related a,
+.board-room.is-apes .board-topic-doors a {
+  display: grid;
+  gap: 0.15rem;
+  color: inherit;
+  text-decoration: none;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.board-room.is-apes .board-related span,
+.board-room.is-apes .board-topic-doors span {
+  color: var(--mute);
+}
+
+.board-room.is-apes .board-holds {
+  border-top: 1px solid var(--line);
+  padding-top: 0.55rem;
+}
+
+.board-room.is-apes .board-holds summary {
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.board-room.is-apes .board-gen {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+}
+
+.board-room.is-apes .board-gen button {
+  appearance: none;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.7rem;
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px),
+    0 6px
+  );
+}
+
+.board-room.is-apes .board-gen button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.board-room.is-apes .board-gen span {
+  color: var(--mute);
+  max-width: 42rem;
+  font-size: 0.88rem;
+}
+
+.board-room.is-apes textarea,
+.board-room.is-apes button {
+  font: inherit;
+  color: inherit;
+}
+
+.board-room.is-apes textarea:focus,
+.board-room.is-apes button:focus-visible,
+.board-room.is-apes a:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.board-room.is-apes .fw-scales {
+  margin: 0;
+}
+
+/* —— Avenue clover and play doors —— */
+
+.apes-clover {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.apes-mind {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  min-height: 9.2rem;
+  padding: 0.95rem 1rem 1.05rem;
+  border: 1px solid var(--ink);
+  background: var(--ground);
+  color: inherit;
+  text-decoration: none;
+}
+
+.apes-mind:hover,
+.apes-mind:focus-visible {
+  background: color-mix(in srgb, var(--ink) 6%, var(--ground));
+}
+
+.apes-letter {
+  font-weight: 900;
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+
+.apes-mind strong {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.apes-mind span:last-child {
+  color: var(--mute);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.apes-clover.is-compact .apes-mind {
+  min-height: 7.2rem;
+}
+
+.apes-play-doors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.apes-play-doors a,
+.apes-task-doors a {
+  display: grid;
+  gap: 0.3rem;
+  min-height: 7.4rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--ink);
+  color: inherit;
+  text-decoration: none;
+  background: var(--ground);
+}
+
+.apes-play-doors a:hover,
+.apes-task-doors a:hover,
+.apes-play-doors a:focus-visible,
+.apes-task-doors a:focus-visible {
+  background: color-mix(in srgb, var(--ink) 6%, var(--ground));
+}
+
+.apes-play-doors strong,
+.apes-task-doors strong {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  font-size: 1.12rem;
+}
+
+.apes-play-doors span,
+.apes-task-doors span {
+  color: var(--mute);
+}
+
+.apes-task-doors,
+.board-topic-doors.is-apes-tasks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.board-room.is-apes .apes-task-doors a,
+.board-room.is-apes .board-topic-doors.is-apes-tasks a {
+  min-height: 7.4rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--ink);
+}
+
+.apes-cycle {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.apes-cycle li {
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr);
+  gap: 0.35rem 0.7rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+}
+
+.apes-n {
+  font-weight: 900;
+  font-size: 1.15rem;
+  letter-spacing: -0.04em;
+}
+
+.apes-cycle strong {
+  grid-column: 2;
+}
+
+.apes-cycle span:last-child {
+  grid-column: 2;
+  color: var(--mute);
+}
+
+.apes-engine {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+  padding: 1rem 1.05rem 1.1rem;
+  border: 1px solid var(--ink);
+  max-width: 42rem;
+}
+
+.apes-engine.is-unlit {
+  border-style: dashed;
+}
+
+.apes-engine .kicker {
+  margin: 0;
+}
+
+.apes-engine a {
+  color: inherit;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  font-size: 1.2rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+}
+
+.apes-engine p {
+  margin: 0;
+  color: var(--mute);
+  max-width: 42ch;
+}
+
+/* —— Lens room —— */
+
+.apes-ask {
+  margin: 0;
+  font-weight: 900;
+  font-size: clamp(1.35rem, 2.8vw, 2.05rem);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  max-width: 28rem;
+}
+
+.apes-fail {
+  margin: 0;
+  padding: 0.15rem 0 0.15rem 0.95rem;
+  border-left: 1px solid var(--ink);
+  max-width: 40rem;
+}
+
+.apes-note {
+  margin: 0;
+  color: var(--mute);
+  max-width: 46rem;
+}
+
+.apes-looks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.apes-looks li {
+  border: 1px solid var(--ink);
+  padding: 0.28rem 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.apes-questions {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 38rem;
+}
+
+.apes-questions li {
+  padding: 0.55rem 0 0.65rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.apes-looks-plot {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.apes-bit {
+  display: grid;
+  gap: 0.25rem;
+  min-height: 8.2rem;
+  padding: 0.85rem 0.9rem 0.95rem;
+  border: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+  background: var(--ground);
+}
+
+.apes-bit.is-primary {
+  border-color: var(--ink);
+}
+
+.apes-bit.is-held.is-primary {
+  background: color-mix(in srgb, var(--ink) 6%, var(--ground));
+}
+
+.apes-bit.is-empty {
+  border-style: dashed;
+  border-color: var(--ink);
+  color: var(--mute);
+}
+
+.apes-bit .kicker {
+  margin: 0;
+}
+
+.apes-bit strong {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.apes-lens-pack {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 42rem;
+}
+
+.apes-field {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.apes-field span {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.apes-field em,
+.apes-combo-why em {
+  font-style: italic;
+  color: var(--mute);
+  font-size: 0.88rem;
+}
+
+.apes-field textarea,
+.apes-combo-why textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  min-height: 4.4rem;
+  resize: vertical;
+  padding: 0.2rem 0 0.45rem;
+  line-height: 1.35;
+}
+
+.apes-field.is-see textarea {
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  min-height: 3.6rem;
+}
+
+.board-room.is-apes .board-save {
+  margin: 0.2rem 0 0;
+}
+
+.board-room.is-apes .board-now {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.board-room.is-apes .board-now.is-empty {
+  color: var(--mute);
+}
+
+/* —— Combinations plate —— */
+
+.apes-combo-work {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.85rem 0 0.2rem;
+  border-top: 1px solid var(--ink);
+}
+
+.apes-combo-work strong {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.apes-combo-plate {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.apes-combo-group h3,
+.apes-combo-group > .apes-note {
+  grid-column: 1 / -1;
+}
+
+.apes-combo-group h3 {
+  margin: 0 0 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.apes-combo-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.apes-combo-group.is-pairs {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.apes-combo-group.is-full {
+  grid-template-columns: 1fr;
+}
+
+.apes-combo {
+  appearance: none;
+  text-align: left;
+  display: grid;
+  gap: 0.4rem;
+  min-height: 11.5rem;
+  padding: 0.85rem 0.9rem 0.95rem;
+  border: 1px solid var(--line);
+  background: var(--ground);
+  color: inherit;
+  cursor: pointer;
+}
+
+.apes-combo.is-on {
+  background: var(--ink);
+  color: var(--ground);
+  border-color: var(--ink);
+}
+
+.apes-combo-lenses {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.apes-combo-lenses b {
+  font-weight: 900;
+  font-size: 1.2rem;
+  letter-spacing: -0.04em;
+}
+
+.apes-combo-marks {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.apes-combo-marks i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  font-style: normal;
+  font-size: 0.62rem;
+  font-weight: 700;
+  border: 1px solid currentColor;
+  clip-path: polygon(3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px), 0 3px);
+}
+
+.apes-combo-marks i.is-off {
+  opacity: 0.35;
+}
+
+.apes-combo-axes {
+  display: grid;
+  grid-template-columns: 1.05rem minmax(0, 1fr);
+  gap: 0.15rem 0.45rem;
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+.apes-combo-axes b {
+  font-weight: 900;
+}
+
+.apes-combo-axes span.is-off {
+  color: var(--mute);
+}
+
+.apes-combo.is-on .apes-combo-axes span.is-off {
+  color: color-mix(in srgb, var(--ground) 62%, var(--ink));
+}
+
+.apes-combo-out {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.apes-combo-line {
+  margin: 0;
+  font-style: italic;
+  font-size: 0.88rem;
+}
+
+.apes-combo-group.is-full .apes-combo {
+  min-height: 8.5rem;
+  padding: 1.15rem 1.2rem 1.25rem;
+}
+
+.apes-combo-why {
+  display: grid;
+  gap: 0.3rem;
+  max-width: 42rem;
+}
+
+.apes-combo-why textarea {
+  font-weight: 700;
+  font-size: 1.12rem;
+  letter-spacing: -0.02em;
+  min-height: 3.8rem;
+}
+
+/* —— Cycle —— */
+
+.apes-cycle-path {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+.apes-cycle-step {
+  appearance: none;
+  text-align: left;
+  display: grid;
+  gap: 0.25rem;
+  min-height: 8.8rem;
+  padding: 0.75rem 0.7rem 0.85rem;
+  border: 1px solid var(--ink);
+  background: var(--ground);
+  color: inherit;
+  cursor: pointer;
+}
+
+.apes-cycle-step.is-on {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.apes-cycle-step > span:last-child {
+  color: var(--mute);
+  font-size: 0.82rem;
+  line-height: 1.3;
+}
+
+.apes-cycle-step.is-on > span:last-child {
+  color: color-mix(in srgb, var(--ground) 75%, var(--ink));
+}
+
+.apes-cycle-step.is-closed {
+  border-style: dashed;
+}
+
+.apes-cycle-step .apes-n {
+  font-size: 1.35rem;
+}
+
+.apes-cycle-panel {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem 0 0.2rem;
+  border-top: 1px solid var(--ink);
+}
+
+.apes-cycle-panel h2 {
+  margin: 0;
+}
+
+.apes-collect {
+  display: grid;
+  gap: 0.45rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--ink);
+}
+
+.apes-collect li {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.apes-collect span {
+  color: var(--mute);
+}
+
+/* —— Cards —— */
+
+.apes-card-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.apes-card {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  min-height: 14.5rem;
+  padding: 0.9rem 0.95rem 1rem;
+  border: 1px solid var(--ink);
+  background: var(--ground);
+}
+
+.apes-card.is-locked {
+  border-style: dashed;
+  color: var(--mute);
+}
+
+.apes-card.is-on {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.apes-card ol {
+  margin: 0;
+  padding: 0 0 0 1.1rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.apes-card-go {
+  appearance: none;
+  justify-self: start;
+  margin-top: auto;
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.apes-card.is-locked .apes-card-go {
+  display: none;
+}
+
+/* —— Interrogation —— */
+
+.apes-interrogate {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.apes-station {
+  appearance: none;
+  text-align: left;
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  min-height: 16rem;
+  padding: 0.9rem 0.85rem 1rem;
+  border: 1px solid var(--ink);
+  background: var(--ground);
+  color: inherit;
+  cursor: pointer;
+}
+
+.apes-station.is-on {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.apes-station .apes-n {
+  font-size: 1.8rem;
+  letter-spacing: -0.05em;
+}
+
+.apes-sovereign {
+  margin: 0;
+  padding: 0.85rem 0 0.2rem;
+  border-top: 1px solid var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  max-width: 40rem;
+}
+
+/* —— Task kinds —— */
+
+.apes-range {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.apes-range li {
+  min-height: 8.5rem;
+  padding: 0.9rem 0.95rem;
+  border: 1px dashed var(--ink);
+  display: grid;
+  gap: 0.3rem;
+}
+
+.apes-range strong {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.apes-critical {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.apes-critical li {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.55rem;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--ink);
+}
+
+.apes-critical .apes-letter {
+  font-size: 1.7rem;
+}
+
+.apes-critical b {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.apes-decide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0;
+}
+
+.apes-decide li {
+  min-height: 16rem;
+  padding: 1.05rem 1.1rem 1.15rem;
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+}
+
+.apes-decide li:first-child {
+  background: var(--ink);
+  color: var(--ground);
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+}
+
+.apes-decide li:last-child {
+  border: 1px solid var(--ink);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%);
+}
+
+.apes-hold-four {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.apes-hold-four li {
+  min-height: 10.5rem;
+  padding: 0.9rem 0.95rem;
+  border: 1px solid var(--ink);
+  display: grid;
+  gap: 0.3rem;
+}
+
+.apes-hold-four li.is-silent {
+  border-style: dashed;
+  color: var(--mute);
+}
+
+.apes-hold-four .apes-letter {
+  font-size: 1.8rem;
+}
+
+.apes-hold-four a {
+  color: inherit;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 860px) {
+  .apes-clover,
+  .apes-play-doors,
+  .apes-task-doors,
+  .board-topic-doors.is-apes-tasks,
+  .apes-looks-plot,
+  .apes-combo-group,
+  .apes-combo-group.is-pairs,
+  .apes-card-row,
+  .apes-cycle-path,
+  .apes-interrogate,
+  .apes-range,
+  .apes-decide,
+  .apes-hold-four {
+    grid-template-columns: 1fr;
+  }
+
+  .apes-critical li {
+    grid-template-columns: 1fr;
+  }
+
+  .board-room.is-apes .board-room-head {
+    grid-template-columns: 3.2rem minmax(0, 1fr);
+  }
+
+  .apes-decide li:first-child,
+  .apes-decide li:last-child {
+    clip-path: polygon(
+      var(--cut) 0,
+      calc(100% - var(--cut)) 0,
+      100% var(--cut),
+      100% calc(100% - var(--cut)),
+      calc(100% - var(--cut)) 100%,
+      var(--cut) 100%,
+      0 calc(100% - var(--cut)),
+      0 var(--cut)
+    );
+  }
+}

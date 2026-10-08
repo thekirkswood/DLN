@@ -1,0 +1,211 @@
+.board-id-vision {
+  display: grid;
+  grid-template-columns: 7.2rem minmax(0, 1fr);
+  gap: 1.2rem 1.4rem;
+  margin: 0 0 1.6rem;
+  align-items: start;
+}
+
+.board-id-vision-stamp {
+  grid-row: 1 / 3;
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.2rem 0.2rem 0 0;
+  border-right: 1px solid var(--ink);
+}
+
+.board-id-vision-stamp label {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.board-id-vision-stamp input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 900;
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  padding: 0;
+}
+
+.board-id-vision-stamp input:focus,
+.board-id-vision-senses textarea:focus,
+.board-id-vision-not textarea:focus {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.board-id-vision-scene {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.board-id-vision-senses {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.board-id-vision-senses label {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 11rem;
+  padding: 0.85rem 0.8rem 1rem;
+  border: 1px solid var(--ink);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.board-id-vision-senses textarea {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  font-size: clamp(1.02rem, 1.8vw, 1.28rem);
+  letter-spacing: -0.02em;
+  line-height: 1.28;
+  resize: none;
+  min-height: 7.2rem;
+  padding: 0;
+}
+
+.board-id-vision-not {
+  grid-column: 2;
+  display: grid;
+  gap: 0.3rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--ink);
+}
+
+.board-id-vision-not textarea {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.35;
+  resize: none;
+  min-height: 3rem;
+  padding: 0.15rem 0 0.3rem;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.board-id-vision-warn {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.82rem;
+  font-style: italic;
+  max-width: 10rem;
+}
+
+.board-id-vision-holes,
+.board-id-vision .board-id-neighbours,
+.board-id-vision .board-id-sockets,
+.board-id-vision .board-save {
+  grid-column: 1 / -1;
+}
+
+.board-id-vision-holes,
+.board-id-vision .board-related {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.board-id-vision-holes a,
+.board-id-vision .board-related a {
+  display: grid;
+  gap: 0.3rem;
+  min-height: 6.4rem;
+  padding: 0.75rem 0.8rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.board-id-vision-holes span,
+.board-id-vision .board-related span {
+  color: var(--mute);
+  font-size: 0.88rem;
+}
+
+.board-id-vision .board-id-neighbours {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.board-id-vision .board-id-sockets,
+.board-id-vision .board-gen {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.board-id-vision .board-gen button {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  cursor: not-allowed;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.board-id-vision .board-gen span {
+  color: var(--mute);
+  font-size: 0.88rem;
+  max-width: 38rem;
+}
+
+.board-id-vision .board-save {
+  margin: 0.2rem 0 0;
+}
+
+@media (max-width: 820px) {
+  .board-id-vision {
+    grid-template-columns: 1fr;
+  }
+
+  .board-id-vision-stamp {
+    grid-row: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--ink);
+    padding: 0 0 0.8rem;
+  }
+
+  .board-id-vision-stamp input {
+    max-width: 12rem;
+  }
+
+  .board-id-vision-not,
+  .board-id-vision-holes,
+  .board-id-vision .board-id-neighbours,
+  .board-id-vision .board-id-sockets,
+  .board-id-vision .board-save {
+    grid-column: 1;
+  }
+
+  .board-id-vision-senses,
+  .board-id-vision-holes,
+  .board-id-vision .board-related {
+    grid-template-columns: 1fr;
+  }
+}

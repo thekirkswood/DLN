@@ -1,0 +1,159 @@
+.board-id-location {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0 0 1.6rem;
+}
+
+.board-id-location-geo,
+.board-id-location-online {
+  display: grid;
+  gap: 0.4rem;
+  min-height: 8.5rem;
+  padding: 1.15rem 1.1rem 1.2rem;
+  border: 1px solid var(--ink);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+
+.board-id-location-geo.is-hole {
+  border-style: dashed;
+}
+
+.board-id-location-geo textarea,
+.board-id-location-online textarea {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  resize: none;
+  padding: 0;
+}
+
+.board-id-location-geo textarea {
+  font-weight: 900;
+  font-size: clamp(1.7rem, 4vw, 2.85rem);
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  min-height: 3.6rem;
+}
+
+.board-id-location-online {
+  min-height: 6.4rem;
+}
+
+.board-id-location-online textarea {
+  font-weight: 500;
+  font-size: 1.12rem;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  min-height: 2.8rem;
+}
+
+.board-id-location-geo em {
+  color: var(--mute);
+  font-size: 0.88rem;
+}
+
+.board-id-location-geo textarea:focus,
+.board-id-location-online textarea:focus {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.board-id-location-warn {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.92rem;
+  font-style: italic;
+  max-width: 40rem;
+}
+
+.board-id-location-host {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.9rem 0 0.2rem;
+  border-top: 1px solid var(--ink);
+}
+
+.board-id-location-host a,
+.board-id-location-holes a,
+.board-id-location .board-related a {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem 1.1rem;
+  align-items: baseline;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.board-id-location-host a:hover,
+.board-id-location-holes a:hover,
+.board-id-location .board-related a:hover {
+  border-color: var(--ink);
+}
+
+.board-id-location-host span,
+.board-id-location-holes span,
+.board-id-location .board-related span {
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+
+.board-id-location-holes,
+.board-id-location .board-related {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.board-id-location .board-id-neighbours {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.board-id-location .board-id-sockets,
+.board-id-location .board-gen {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.board-id-location .board-gen button {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  cursor: not-allowed;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.board-id-location .board-gen span {
+  color: var(--mute);
+  font-size: 0.88rem;
+  max-width: 38rem;
+}
+
+.board-id-location .board-save {
+  margin: 0.2rem 0 0;
+}
+
+@media (max-width: 720px) {
+  .board-id-location-holes,
+  .board-id-location .board-related {
+    grid-template-columns: 1fr;
+  }
+}

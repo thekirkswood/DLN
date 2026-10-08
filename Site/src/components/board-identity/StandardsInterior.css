@@ -1,0 +1,159 @@
+.board-id-standards {
+  display: grid;
+  gap: 0;
+  margin: 0 0 1.6rem;
+}
+
+.board-id-standards > .kicker {
+  margin-bottom: 0.85rem;
+}
+
+.board-id-standards-bar {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0 0 1.15rem;
+  border-top: 6px solid var(--ink);
+  padding-top: 0.85rem;
+}
+
+.board-id-standards.is-wish .board-id-standards-bar {
+  border-top-color: var(--mute);
+}
+
+.board-id-standards.is-wish .board-id-standards-bar textarea {
+  color: var(--mute);
+}
+
+.board-id-standards-bar textarea {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 900;
+  font-size: clamp(1.35rem, 3.2vw, 2.15rem);
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  resize: none;
+  min-height: 4.2rem;
+  padding: 0.1rem 0 0.3rem;
+}
+
+.board-id-standards-check {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 0.15rem;
+  padding: 1rem 1rem 1.1rem;
+  border: 1px solid var(--ink);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.board-id-standards-check.is-open {
+  border-style: dashed;
+  background: color-mix(in srgb, var(--ink) 4%, var(--ground));
+}
+
+.board-id-standards-check textarea {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.02rem;
+  line-height: 1.4;
+  resize: none;
+  min-height: 3.6rem;
+  padding: 0;
+}
+
+.board-id-standards-check em {
+  color: var(--mute);
+  font-size: 0.88rem;
+}
+
+.board-id-standards-bar textarea:focus,
+.board-id-standards-check textarea:focus {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.board-id-standards-warn {
+  margin: 0.85rem 0 0;
+  max-width: 38rem;
+  color: var(--mute);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+
+.board-id-standards-holes,
+.board-id-standards .board-related {
+  list-style: none;
+  margin: 1.15rem 0 0;
+  padding: 0.85rem 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.55rem;
+}
+
+.board-id-standards-holes a,
+.board-id-standards .board-related a {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: baseline;
+  text-decoration: none;
+  color: inherit;
+}
+
+.board-id-standards-holes span,
+.board-id-standards .board-related span {
+  color: var(--mute);
+  font-size: 0.92rem;
+}
+
+.board-id-standards .board-id-neighbours {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 1rem;
+}
+
+.board-id-standards .board-id-sockets,
+.board-id-standards .board-gen {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.9rem 0 0;
+}
+
+.board-id-standards .board-gen button {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  cursor: not-allowed;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.board-id-standards .board-gen span {
+  color: var(--mute);
+  font-size: 0.88rem;
+  max-width: 38rem;
+}
+
+.board-id-standards .board-save {
+  margin: 0.9rem 0 0;
+}
+
+@media (max-width: 720px) {
+  .board-id-standards-holes a,
+  .board-id-standards .board-related a {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}

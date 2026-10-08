@@ -40,6 +40,7 @@ export type ExtraBit = { id: string; label: string };
 export type BoardFile = {
   plot: string;
   bits: Record<string, string>;
+  cells?: Record<string, string>;
   extraBits?: ExtraBit[];
   mailbox: { address: string } | null;
   feedback: BoardFeedback[];
@@ -69,6 +70,7 @@ export type BoardView = {
   funnel: BoardFunnelItem[];
   mailbox: { address: string } | null;
   seat: { division: DivisionId; colour: string; label: string } | null;
+  cells: Record<string, string>;
 };
 
 function fileFor(plot: string) {
@@ -80,7 +82,7 @@ async function ensure() {
 }
 
 function emptyFile(plot: string): BoardFile {
-  return { plot, bits: {}, extraBits: [], mailbox: null, feedback: [] };
+  return { plot, bits: {}, cells: {}, extraBits: [], mailbox: null, feedback: [] };
 }
 
 export async function readBoardFile(plot: string): Promise<BoardFile> {
@@ -91,6 +93,7 @@ export async function readBoardFile(plot: string): Promise<BoardFile> {
     return {
       plot,
       bits: parsed.bits || {},
+      cells: parsed.cells && typeof parsed.cells === "object" ? parsed.cells : {},
       extraBits: Array.isArray(parsed.extraBits) ? parsed.extraBits : [],
       mailbox: parsed.mailbox || null,
       feedback: Array.isArray(parsed.feedback) ? parsed.feedback : [],
@@ -245,6 +248,7 @@ export async function boardView(user: PublicUser, plot: string): Promise<BoardVi
     funnel,
     mailbox: file.mailbox,
     seat: isStudio(user) ? null : seatOf(user, plot),
+    cells: file.cells || {},
   };
 }
 
@@ -268,6 +272,30 @@ export function profileContext(file: BoardFile): string {
     })
     .filter(Boolean)
     .join("\n");
+}
+
+const CELL_KEY = /^(comms|mapping|process|workbench|apes|identity|solport)(:[a-z0-9-]+)*$/;
+
+export async function saveCell(
+  user: PublicUser,
+  plot: string,
+  cellKey: string,
+  body: string
+): Promise<BoardFile | null> {
+  if (!canAccessPlot(user, plot)) return null;
+  const key = cellKey.trim();
+  if (!CELL_KEY.test(key)) return null;
+  if (key.startsWith("mapping:audience:")) {
+    const n = key.slice("mapping:audience:".length);
+    if (!/^[1-8]$/.test(n)) return null;
+  }
+  const file = await readBoardFile(plot);
+  file.cells = file.cells || {};
+  const text = body.trim();
+  if (text) file.cells[key] = text;
+  else delete file.cells[key];
+  await writeBoardFile(file);
+  return file;
 }
 
 export async function saveBit(

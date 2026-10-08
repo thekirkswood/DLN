@@ -1,11 +1,17 @@
-import { headers } from "next/headers";
-import { notFound, redirect } from "next/navigation";
-import { getSessionUser } from "@/lib/session";
-import { canAccessPlot, isStudio } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { canAccessPlot } from "@/lib/auth";
 import { clientPlots } from "@/lib/plots";
-import { boardView, plotForUser } from "@/lib/board";
-import { boardApiStatus } from "@/lib/board-gate";
-import { BrandBoard } from "@/components/BrandBoard";
+import { plotForUser } from "@/lib/board";
+import { requireBoardStudio } from "@/lib/board-page";
+import { liveBoard, liveFromView } from "@/lib/board-cell";
+import { snippetsFromView, spaceScaleFromView } from "@/lib/board-space";
+import { parseEnter } from "@/lib/board-enter";
+import { plotBitSheet, topicSheet } from "@/data/board-sheets";
+import type { FacultyId } from "@/data/faculties";
+import { BoardChrome } from "@/components/BoardChrome";
+import { BoardSpace } from "@/components/BoardSpace";
+import { BoardInside } from "@/components/BoardInside";
+import type { BoardLive } from "@/data/board-live";
 
 export const metadata = { title: "Board" };
 export const dynamic = "force-dynamic";
@@ -13,32 +19,52 @@ export const dynamic = "force-dynamic";
 export default async function BoardPage({
   searchParams,
 }: {
-  searchParams: { plot?: string };
+  searchParams: { plot?: string; enter?: string };
 }) {
-  const host = headers().get("x-forwarded-host") || headers().get("host");
-  const user = await getSessionUser();
-  const gate = boardApiStatus(user, host);
-  if (gate === 404) notFound();
-  if (gate === 401 || !user) redirect("/login?next=/board");
+  const user = await requireBoardStudio("/board");
   const plot = await plotForUser(user, searchParams.plot || "");
-  if (!plot) {
-    return (
-      <article className="house-stage wrap">
-        <p className="house-word">Board</p>
-        <h1>No plot on this account yet.</h1>
-        <p className="house-line">
-          When a site is on the book, this is the communal game view for the
-          brand. Studio still work from campus.
-        </p>
-      </article>
-    );
-  }
-  const board = await boardView(user, plot);
-  if (!board) redirect("/not-yours");
+  const view = plot ? await liveBoard(user, plot) : null;
+  if (plot && !view) redirect("/not-yours");
   const plots = (await clientPlots())
     .filter((p) => canAccessPlot(user, p.slug))
     .map((p) => ({ slug: p.slug, name: p.name }));
+  const entered = parseEnter(searchParams.enter);
+  let cellLive: BoardLive | null = null;
+  if (view && entered?.kind === "bit" && entered.bit) {
+    const sheet = plotBitSheet(entered.bit);
+    cellLive = sheet ? liveFromView(sheet, view) : null;
+  } else if (view && entered?.kind === "topic" && entered.faculty && entered.topic) {
+    const sheet = topicSheet(entered.faculty as FacultyId, entered.topic);
+    cellLive = sheet ? liveFromView(sheet, view, { seat: entered.seat }) : null;
+  }
+
   return (
-    <BrandBoard initial={board} plots={plots} studio={isStudio(user)} />
+    <div className="board-shell">
+      <BoardChrome
+        current={entered?.faculty || (entered?.kind === "showcase" ? "plot" : "overview")}
+        plot={plot || undefined}
+      />
+      <BoardSpace
+        fill={
+          view
+            ? {
+                plot: view.plot,
+                plotName: view.plotName,
+                hostUrl: view.hostUrl,
+                status: view.status,
+                snippets: snippetsFromView(view),
+                scale: spaceScaleFromView(view),
+              }
+            : null
+        }
+        plots={plots}
+        enterKey={entered?.key || null}
+        enterRegion={entered?.region || null}
+      >
+        {entered ? (
+          <BoardInside enter={entered} live={cellLive} view={view} plots={plots} />
+        ) : null}
+      </BoardSpace>
+    </div>
   );
 }

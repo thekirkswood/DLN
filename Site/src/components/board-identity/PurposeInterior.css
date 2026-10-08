@@ -1,0 +1,145 @@
+.board-id-purpose {
+  display: grid;
+  gap: 1.35rem;
+  margin: 0 0 2.4rem;
+  max-width: 28rem;
+  padding: 0.4rem 0 0.8rem;
+}
+
+.board-id-purpose-quiet {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.board-id-purpose label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.board-id-purpose textarea {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 400;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  resize: none;
+  padding: 0.15rem 0 0.35rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.board-id-purpose textarea:focus {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.board-id-purpose-warn {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.88rem;
+  font-style: italic;
+}
+
+.board-id-purpose-philosophy {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.2rem 0 0.2rem 0.95rem;
+  border-left: 1px solid var(--ink);
+}
+
+.board-id-purpose-philosophy p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.board-id-purpose-philosophy.is-hole p {
+  color: var(--mute);
+}
+
+.board-id-purpose-philosophy a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.board-id-purpose-mission a {
+  display: grid;
+  gap: 0.2rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.board-id-purpose-mission span {
+  color: var(--mute);
+  font-size: 0.88rem;
+}
+
+.board-id-purpose .board-id-neighbours {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.board-id-purpose .board-related {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.board-id-purpose .board-related a {
+  display: grid;
+  gap: 0.2rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.board-id-purpose .board-related span {
+  color: var(--mute);
+  font-size: 0.86rem;
+  font-style: italic;
+}
+
+.board-id-purpose .board-id-sockets,
+.board-id-purpose .board-gen {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+}
+
+.board-id-purpose .board-gen button {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 0.15rem 0 0.25rem;
+  cursor: not-allowed;
+}
+
+.board-id-purpose .board-gen span {
+  color: var(--mute);
+  font-size: 0.82rem;
+}
+
+.board-id-purpose .board-save {
+  margin: 0.4rem 0 0;
+}

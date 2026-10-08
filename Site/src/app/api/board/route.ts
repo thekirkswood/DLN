@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { getSessionUser } from "@/lib/session";
-import { boardView, plotForUser, saveBit, addInferenceBit, runBoardPrompt } from "@/lib/board";
+import { boardView, plotForUser, saveBit, saveCell, addInferenceBit, runBoardPrompt } from "@/lib/board";
 import { boardApiStatus, hostOf } from "@/lib/board-gate";
 
 export const dynamic = "force-dynamic";
@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
   const body = (await req.json().catch(() => null)) as {
     plot?: string;
     bitId?: string;
+    cellKey?: string;
     body?: string;
     addLabel?: string;
     prompt?: string;
@@ -41,6 +42,9 @@ export async function POST(req: NextRequest) {
     if (!row) return NextResponse.json({ ok: false }, { status: 400 });
   } else if (body?.bitId) {
     const saved = await saveBit(user, plot, body.bitId, body.body || "");
+    if (!saved) return NextResponse.json({ ok: false }, { status: 400 });
+  } else if (body?.cellKey) {
+    const saved = await saveCell(user, plot, body.cellKey, body.body || "");
     if (!saved) return NextResponse.json({ ok: false }, { status: 400 });
   } else {
     return NextResponse.json({ ok: false }, { status: 400 });

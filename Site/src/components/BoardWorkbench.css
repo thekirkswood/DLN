@@ -1,0 +1,234 @@
+.board-room.is-workbench {
+  max-width: 72rem;
+}
+
+.board-wb-pad {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.board-wb-pad a {
+  display: block;
+  padding: 0.75rem 1rem;
+  border: 1px solid currentColor;
+  clip-path: polygon(0 0, calc(100% - 0.7rem) 0, 100% 0.7rem, 100% 100%, 0.7rem 100%, 0 calc(100% - 0.7rem));
+  text-decoration: none;
+  color: inherit;
+}
+
+.board-wb-pad a.is-on {
+  background: var(--ink, #000);
+  color: var(--paper, #fff);
+}
+
+.board-wb-making textarea,
+.board-wb-idea textarea,
+.board-wb-hero {
+  font-weight: 900;
+  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+  line-height: 1.15;
+}
+
+.board-wb-tools,
+.board-wb-ideas,
+.board-wb-zoom {
+  display: grid;
+  gap: 1rem;
+}
+
+.board-wb-named ul,
+.board-wb-cells,
+.board-wb-spine ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.board-wb-named li,
+.board-wb-spine li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.board-wb-named input,
+.board-wb-tools input,
+.board-wb-plate input,
+.board-wb-tools textarea,
+.board-wb-ideas textarea,
+.board-wb-zoom textarea {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  color: inherit;
+  font: inherit;
+}
+
+.board-wb-add,
+.board-wb-drop,
+.board-wb-spine button,
+.board-wb-cells button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid currentColor;
+  clip-path: polygon(0 0, calc(100% - 0.55rem) 0, 100% 0.55rem, 100% 100%, 0.55rem 100%, 0 calc(100% - 0.55rem));
+  cursor: pointer;
+}
+
+.board-wb-spine ol {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.board-wb-spine button {
+  text-align: left;
+  padding: 0.55rem 0.8rem;
+}
+
+.board-wb-spine button.is-on,
+.board-wb-cells button.is-on,
+.board-wb-pad a.is-on {
+  background: var(--ink, #000);
+  color: var(--paper, #fff);
+}
+
+.board-wb-spine button.is-held {
+  outline: 1px solid currentColor;
+}
+
+.board-wb-skip,
+.board-wb-hole,
+.board-wb-warn {
+  border-left: 0.35rem solid currentColor;
+  padding-left: 0.8rem;
+}
+
+.board-wb-reads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.board-wb-zoom-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.25rem;
+}
+
+.board-wb-cells {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.board-wb-cells button {
+  width: 100%;
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  min-height: 4.2rem;
+}
+
+.board-wb-cells button.is-empty {
+  opacity: 0.55;
+}
+
+.board-wb-cells span,
+.board-wb-effect p {
+  display: block;
+}
+
+.board-wb-host-plates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.board-wb-host-plates .board-save {
+  grid-column: 1 / -1;
+}
+
+.board-wb-plate {
+  padding: 1rem;
+  border: 1px solid currentColor;
+  clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 1rem, 100% 100%, 1rem 100%, 0 calc(100% - 1rem));
+  display: grid;
+  gap: 0.75rem;
+}
+
+.board-wb-plate.is-sandbox {
+  background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+a.is-hole {
+  text-decoration: underline;
+}
+
+.board-wb-still {
+  margin: 0 0 1.25rem;
+  padding: 0;
+  border: 1px solid currentColor;
+  clip-path: polygon(0 0, calc(100% - 0.7rem) 0, 100% 0.7rem, 100% 100%, 0.7rem 100%, 0 calc(100% - 0.7rem));
+  overflow: hidden;
+}
+
+.board-wb-still.is-empty {
+  background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.board-wb-still img,
+.board-wb-still-well {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  background: color-mix(in srgb, currentColor 4%, transparent);
+}
+
+.board-wb-plate .board-wb-still {
+  margin: 0;
+}
+
+.board-wb-still.is-host img,
+.board-wb-still.is-host .board-wb-still-well {
+  aspect-ratio: 16 / 10;
+  max-height: 12rem;
+  min-height: 7.5rem;
+}
+
+.board-wb-still.is-small {
+  max-width: 14rem;
+}
+
+.board-wb-still.is-small img,
+.board-wb-still.is-small .board-wb-still-well {
+  height: 6.5rem;
+}
+
+.board-wb-still figcaption {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.5rem 0.75rem 0.65rem;
+  font-size: 0.82rem;
+}
+
+.board-wb-still figcaption .kicker {
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+  .board-wb-pad,
+  .board-wb-reads,
+  .board-wb-zoom-grid,
+  .board-wb-host-plates,
+  .board-wb-cells {
+    grid-template-columns: 1fr;
+  }
+}

@@ -11,6 +11,27 @@ export const SCALES = [
 
 export type ScaleId = (typeof SCALES)[number]["id"];
 
+export function parseScale(raw?: string | null): ScaleId {
+  if (raw === "sole-trader" || raw === "bigger-business" || raw === "corporation") return raw;
+  return "bigger-business";
+}
+
+/** Empty until the plot flag is set. Do not default to bigger business. */
+export function readScaleId(raw?: string | null): ScaleId | "" {
+  if (raw === "sole-trader" || raw === "bigger-business" || raw === "corporation") return raw;
+  const t = (raw || "").toLowerCase();
+  if (t.includes("sole trader") || t.includes("sole-trader")) return "sole-trader";
+  if (t.includes("corporation")) return "corporation";
+  if (t.includes("bigger")) return "bigger-business";
+  return "";
+}
+
+export const SCALE_FLAG_READ: Record<ScaleId, string> = {
+  "sole-trader": "A founder is not a division. The neighbourhood is close.",
+  "bigger-business": "The house has rooms. Seats are not one person three times.",
+  corporation: "A division is not the brand.",
+};
+
 export const DIVISIONS = [
   { id: "design", label: "Design", colour: "#db328a" },
   { id: "marketing", label: "Marketing", colour: "#f26822" },

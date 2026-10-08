@@ -1,0 +1,229 @@
+.root {
+  display: grid;
+  gap: 1.45rem;
+  margin: 0 0 1.6rem;
+}
+
+.root :global(.kicker) {
+  margin-bottom: 0.35rem;
+}
+
+.root :global(.board-id-value-ledger) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: stretch;
+}
+
+.root :global(.board-id-value-ledger label) {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  min-height: 12rem;
+  padding: 0.9rem 0.9rem 1rem;
+  border: 1px solid var(--ink);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.root :global(.board-id-value-ledger textarea) {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  resize: none;
+  outline: none;
+}
+
+.root :global(.board-id-value-ledger textarea:focus),
+.root :global(.board-id-value-seat:focus-visible) {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.root :global(.board-id-value-for) {
+  align-self: center;
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.root :global(.board-id-value-warn) {
+  margin: 0;
+  max-width: 38rem;
+  color: var(--mute);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+
+.root :global(.board-id-value-seats) {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin: 0.2rem 0 0;
+  padding: 0;
+}
+
+.root :global(.board-id-value-seat) {
+  appearance: none;
+  display: grid;
+  gap: 0.2rem;
+  width: 100%;
+  min-height: 4.6rem;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.55rem 0.45rem 0.65rem;
+  background: var(--ground);
+  border: 1px solid var(--line);
+  text-decoration: none;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.root :global(.board-id-value-seat strong) {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.root :global(.board-id-value-seat.is-on) {
+  background: var(--ink);
+  color: var(--ground);
+  border-color: var(--ink);
+}
+
+.root :global(.board-id-value-seat.is-empty) {
+  color: var(--mute);
+}
+
+.root :global(.board-id-value-door) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-id-value-door a) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem 1.2rem;
+  align-items: baseline;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--ink);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-id-value-door a:hover),
+.root :global(.board-id-value-door a:focus-visible) {
+  text-decoration: none;
+  background: color-mix(in srgb, var(--ink) 6%, var(--ground));
+}
+
+.root :global(.board-id-value-door strong) {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.root :global(.board-id-value-door span) {
+  color: var(--mute);
+  font-size: 0.92rem;
+}
+
+.root :global(.board-id-neighbours) {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.root :global(.board-related) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.root :global(.board-related a) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.root :global(.board-related span) {
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+
+.root :global(.board-id-sockets) {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.root :global(.board-gen) {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.root :global(.board-gen button) {
+  appearance: none;
+  justify-self: start;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.root :global(.board-gen button:disabled) {
+  color: var(--mute);
+  cursor: not-allowed;
+}
+
+.root :global(.board-gen span) {
+  color: var(--mute);
+  font-size: 0.88rem;
+  max-width: 38rem;
+}
+
+.root :global(.board-save) {
+  margin: 0.2rem 0 0;
+}
+
+@media (max-width: 960px) {
+  .root :global(.board-id-value-ledger) {
+    grid-template-columns: 1fr;
+  }
+
+  .root :global(.board-id-value-for) {
+    display: none;
+  }
+
+  .root :global(.board-id-value-seats) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .root :global(.board-id-value-seats) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
