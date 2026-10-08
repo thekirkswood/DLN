@@ -896,3 +896,10 @@
 {"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"ops/sync-to-debian.sh ops/push-builder-downstairs.sh","s":"Debian house rsync includes DAA PFP DKS; Builder push wrap","d":"CSP + lab bind downstairs"}
 {"t":"2026-09-15T11:36:39+01:00","k":"mod","p":"memory/builder-paste.md","s":"Paste: iframe src is 223:port same as homepage","d":"do not drag Builder chats"}
 {"t":"2026-09-15T11:40:28+01:00","k":"ver","p":"dln-9","s":"LAN binds never 0.0.0.0. Live Houses View site is the public host. daa.designlabnorth.com is the DAA site. Board still off live.","d":"numbered ship"}
+{"t":"2026-10-08T11:20:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"demo keylines off; logos real marks; simple sites animations only; identity desk+hand; UI morph; films one at a time later; engagement gap standing","d":"ewan local campus"}
+{"t":"2026-10-08T11:20:01+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Design logos equal frames; identity desk+hand; UI wordless morph; simple sites formats only","d":"campus demos"}
+{"t":"2026-10-08T11:20:02+01:00","k":"mod","p":"Site/src/app/globals.css","s":"strip keylines off Design/Build demo boxes and logo tiles","d":"ewan little boxes"}
+{"t":"2026-10-08T11:20:03+01:00","k":"mod","p":"Site/src/data/plates.ts Site/src/components/WorkLine.tsx","s":"logos grid one of each; official Swarm PNG; STL from house; DLN DAA; paper/ink files","d":"not generated marks"}
+{"t":"2026-10-08T11:20:04+01:00","k":"add","p":"Site/public/plots/swarm.png Site/public/plots/stl.svg Site/public/plots/daa.svg","s":"official Swarm, STL page mark, DAA constructed mark","d":"do not invent"}
+{"t":"2026-10-08T11:20:05+01:00","k":"mod","p":"Site/public/plots/swarm.svg","s":"clip hive bars so they span the circle","d":"short bars looked generated"}
+{"t":"2026-10-08T11:20:06+01:00","k":"mod","p":"Site/src/data/worklines.ts Site/src/components/OfferDemos.tsx","s":"drop simple-site stills; identity two devices; UI morph no portfolio words","d":"ewan"}

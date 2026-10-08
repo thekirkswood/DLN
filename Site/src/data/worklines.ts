@@ -36,7 +36,7 @@ export type LineWidget =
   | "joins"
   | "modernize"
   | "identity-kit"
-  | "ui-kit"
+  | "ui-morph"
   | "brand-kit"
   | "market-kit"
   | "audit-path"
@@ -97,7 +97,7 @@ export const WORK_LINES: WorkLine[] = [
     facet: "design",
     name: "Brand Identity Systems",
     title: "Brand identity systems",
-    lead: "One system, in the places people actually meet you: card, phone, laptop.",
+    lead: "One system, in the places people actually meet you: on the desk, in the hand.",
     body: "A name, a logo, and the identity around it — rules you can actually work with, so the work does not drift. Print, pack, and screen as one, not a logo parked on a template.",
     stills: [],
     folds: [
@@ -117,19 +117,14 @@ export const WORK_LINES: WorkLine[] = [
     widget: "identity-kit",
     examples: [
       {
-        src: `${BRIEF}/Frameworks/DLNFrameworks-03.png`,
-        name: "System",
-        note: "The identity card",
+        src: `${BRIEF}/Portfolio/Modyu.png`,
+        name: "On the desk",
+        note: "The identity, on the laptop",
       },
       {
         src: `${BRIEF}/Portfolio/Deti.png`,
-        name: "On the phone",
-        note: "In the hand",
-      },
-      {
-        src: `${BRIEF}/Portfolio/Modyu.png`,
-        name: "On the laptop",
-        note: "On the desk",
+        name: "In the hand",
+        note: "The identity, on the phone",
       },
     ],
     needId: "design-guidelines",
@@ -143,24 +138,8 @@ export const WORK_LINES: WorkLine[] = [
     lead: "Screens people can use — the same identity as the print, not a later coat of paint.",
     body: "Buttons, type, and spacing that hold across a simple site and a heavier application. People can find the work, buy, book, or read.",
     stills: [],
-    widget: "ui-kit",
-    examples: [
-      {
-        src: `${BRIEF}/Portfolio/FollicleFiles.png`,
-        name: "Follicle Files",
-        note: "The identity, on a screen you can use",
-      },
-      {
-        src: `${BRIEF}/Portfolio/ATTW.png`,
-        name: "ATTW",
-        note: "A screen system",
-      },
-      {
-        src: `${BRIEF}/Portfolio/applearn.png`,
-        name: "Applearn",
-        note: "Play and structure",
-      },
-    ],
+    widget: "ui-morph",
+    examples: [],
     folds: [
       {
         name: "Component libraries",
@@ -439,23 +418,7 @@ export const WORK_LINES: WorkLine[] = [
     body: "New, a rebuild, or a facelift. You leave a note. We come in. When it is ready it can move onto a domain of your own, and we still host it while it grows.",
     stills: [],
     widget: "examples",
-    examples: [
-      {
-        src: `${BRIEF}/Portfolio/paulfosbury.png`,
-        name: "Paul Fosbury Portraits",
-        note: "A simple gallery",
-      },
-      {
-        src: `${BRIEF}/Portfolio/FollicleFiles.png`,
-        name: "Follicle Files",
-        note: "A simple page",
-      },
-      {
-        src: `${BRIEF}/PNGs/website.png`,
-        name: "A simple wall",
-        note: "A simple shop front",
-      },
-    ],
+    examples: [],
     folds: [
       {
         name: "Done properly",
