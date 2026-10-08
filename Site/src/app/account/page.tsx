@@ -25,6 +25,7 @@ import { EpkChooser } from "@/components/EpkChooser";
 import { kitsForUser } from "@/lib/epk";
 import { kitCopy } from "@/lib/epk-copy";
 import { commentsFor, plansFor } from "@/lib/plans";
+import { ACCOUNT_FAQ } from "@/data/account-faq";
 import { formatLondonSlot } from "@/lib/clock";
 import { bookingsForUser } from "@/lib/diary";
 import { receiptsVisibleTo } from "@/lib/receipts";
@@ -265,6 +266,7 @@ export default async function AccountPage({
                   {sites.map((plot) => {
                     const live = enterUrlFor(plot);
                     const kit = pressKitForPlot(plot.slug);
+                    const log = plans.filter((p) => p.plotSlug === plot.slug);
                     return (
                       <div key={plot.slug} className="site-row">
                         <div className="site-copy">
@@ -279,12 +281,56 @@ export default async function AccountPage({
                               <Link href={`/account?view=press&kit=${kit}`}>Edit kit</Link>
                             ) : null}
                           </p>
+                          <h4>Update log</h4>
+                          {log.length ? (
+                            <ul className="note-list">
+                              {log.map((row) => (
+                                <li key={row.id}>
+                                  <span className="status">
+                                    {row.updatedAt.slice(0, 10)}
+                                  </span>
+                                  <p>
+                                    <strong>{row.title}.</strong>{" "}
+                                    {row.patchNotes || row.body}
+                                  </p>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="body">No shipped updates on this site yet.</p>
+                          )}
                         </div>
                       </div>
                     );
                   })}
                 </div>
               )}
+              <CommentBox
+                plotSlug={sites[0]?.slug || ""}
+                plotOptions={sites}
+                rows={6}
+                hint="Write what you’d like changed. If there are comments, we aim to roll an update that evening."
+                label="A comment"
+                cta="Leave comment"
+              />
+              <CommentBox
+                plotSlug={sites[0]?.slug || ""}
+                plotOptions={sites}
+                kind="hotfix"
+                rows={4}
+                hint="Something is wrong right now. We try to audit this within the hour."
+                label="Hotfix"
+                cta="Send hotfix"
+              />
+              <section className="account-faq">
+                <h2>FAQ</h2>
+                {ACCOUNT_FAQ.map((row) => (
+                  <details key={row.q}>
+                    <summary>{row.q}</summary>
+                    <p>{row.a}</p>
+                  </details>
+                ))}
+              </section>
             </>
           )}
 
@@ -448,7 +494,10 @@ function NoticesPanel({
             {notes.map((c) => (
               <li key={c.id}>
                 <span className="status">{c.createdAt.slice(0, 10)}</span>
-                <p>{c.body}</p>
+                <p>
+                  {c.kind === "hotfix" ? <strong>Hotfix. </strong> : null}
+                  {c.body}
+                </p>
               </li>
             ))}
           </ul>

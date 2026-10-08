@@ -20,6 +20,8 @@ export type SiteComment = {
   /** live = public well on the plot host. Not a live editor. */
   source?: "account" | "live" | "studio";
   fromName?: string;
+  /** hotfix = something wrong now. Never auto-deploys. */
+  kind?: "note" | "hotfix";
 };
 
 export type BuildPlan = {
@@ -105,7 +107,13 @@ export async function plansFor(
 
 export async function addComment(
   user: PublicUser,
-  input: { plotSlug?: string; body?: string; page?: string; clientId?: string },
+  input: {
+    plotSlug?: string;
+    body?: string;
+    page?: string;
+    clientId?: string;
+    kind?: "note" | "hotfix";
+  },
 ): Promise<SiteComment> {
   const plotSlug = (input.plotSlug || "").trim();
   const body = (input.body || "").trim();
@@ -114,6 +122,7 @@ export async function addComment(
   const ownerId =
     isStudio(user) && input.clientId?.trim() ? input.clientId.trim() : user.id;
   if (!isStudio(user) && ownerId !== user.id) throw new Error("forbidden");
+  const kind = input.kind === "hotfix" ? "hotfix" : "note";
   const row: SiteComment = {
     id: randomUUID(),
     userId: ownerId,
@@ -123,10 +132,23 @@ export async function addComment(
     page: input.page?.trim() || undefined,
     createdAt: new Date().toISOString(),
     source: isStudio(user) ? "studio" : "account",
+    kind,
   };
   const rows = await listComments();
   rows.unshift(row);
   await writeJson(COMMENTS, rows);
+  if (!isStudio(user) || kind === "hotfix") {
+    const { wakeClientAsk } = await import("@/lib/client-ask");
+    await wakeClientAsk({
+      kind: kind === "hotfix" ? "hotfix-ask" : "note",
+      text: kind === "hotfix" ? `Hotfix · ${plotSlug}: ${body}` : body,
+      author: user.displayName || user.id,
+      authorId: user.id,
+      plot: plotSlug,
+      page: row.page,
+      origin: "/account",
+    });
+  }
   return row;
 }
 
@@ -137,6 +159,7 @@ export async function addLiveSuggestion(input: {
   fromName?: string;
   /** Logged-in Design Lab North account that filed the request. */
   authorId?: string;
+  kind?: "note" | "hotfix";
 }): Promise<SiteComment> {
   const { clientForPlot } = await import("@/lib/auth");
   const { plotBySlug } = await import("@/lib/plots");
@@ -150,6 +173,7 @@ export async function addLiveSuggestion(input: {
   if (!owner) throw new Error("missing");
   const fromName = (input.fromName || "").trim().slice(0, 80) || undefined;
   const authorId = (input.authorId || "").trim() || "live";
+  const kind = input.kind === "hotfix" ? "hotfix" : "note";
   const row: SiteComment = {
     id: randomUUID(),
     userId: owner.id,
@@ -160,10 +184,21 @@ export async function addLiveSuggestion(input: {
     createdAt: new Date().toISOString(),
     source: "live",
     fromName,
+    kind,
   };
   const rows = await listComments();
   rows.unshift(row);
   await writeJson(COMMENTS, rows);
+  const { wakeClientAsk } = await import("@/lib/client-ask");
+  await wakeClientAsk({
+    kind: kind === "hotfix" ? "hotfix-ask" : "note",
+    text: kind === "hotfix" ? `Hotfix · ${plotSlug}: ${body}` : body,
+    author: fromName || authorId,
+    authorId,
+    plot: plotSlug,
+    page: row.page,
+    origin: "/suggest",
+  });
   return row;
 }
 

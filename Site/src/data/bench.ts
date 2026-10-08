@@ -119,10 +119,8 @@ export const SOLPORT = [
 ] as const;
 
 export const HOST_LINES = [
-  { id: "basic", name: "Live site or private preview: £50 pm" },
-  { id: "both", name: "Both at once: £100 pm" },
-  { id: "heavy", name: "Heavy traffic: negotiable" },
-  { id: "build", name: "Build costs" },
+  { id: "host", name: "Live and sandbox, one host: £75 pm" },
+  { id: "heavy", name: "Heavy traffic: a conversation" },
 ] as const;
 
 export const MODULES: {
@@ -144,9 +142,9 @@ export const MODULES: {
 export const PIPELINE = PIPELINE_STAGES;
 
 export function needForContact(facet: Facet | "host" | "supplier"): string {
-  if (facet === "host") return "web-infra-audit";
+  if (facet === "host") return "walk-build-host";
   if (facet === "supplier") return "social-supplier";
-  if (facet === "design") return "design-print";
-  if (facet === "strategy") return "consultancy-session";
-  return "web-simple-site";
+  if (facet === "design") return "walk-design";
+  if (facet === "strategy") return "walk-strategy";
+  return "walk-build-host";
 }

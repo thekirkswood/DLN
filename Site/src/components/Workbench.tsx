@@ -13,6 +13,8 @@ import {
   VT_PLATE,
   needForContact,
 } from "@/data/bench";
+import { waysOnTheWall } from "@/data/ways-in";
+import { catalogueById, formatGbp } from "@/data/catalogue";
 import {
   firstLine,
   lineById,
@@ -109,15 +111,17 @@ export function Workbench({
   userId,
   lab = false,
   studio = false,
+  start,
 }: {
   signedIn?: boolean;
   displayName?: string;
   userId?: string;
   lab?: boolean;
   studio?: boolean;
+  start?: "host";
 }) {
   const [place, setPlace] = useState<Place>("land");
-  const [room, setRoom] = useState<Room | null>(null);
+  const [room, setRoom] = useState<Room | null>(start === "host" ? "host" : null);
   const [line, setLine] = useState<LineId | null>(null);
   const [mode, setMode] = useState<"change" | "plan" | "note">("change");
   const [sense, setSense] = useState<"narrative" | "sensory">("narrative");
@@ -272,6 +276,10 @@ export function Workbench({
   }
 
   function goCampus() {
+    if (typeof window !== "undefined" && window.location.pathname === "/host") {
+      window.location.assign("/");
+      return;
+    }
     const leave = () => {
       setPlace("land");
       setRoom(null);
@@ -589,7 +597,10 @@ export function Workbench({
             />
           ) : null}
           {room === "host" ? (
-            <HostRoom onContact={() => openContact("host")} />
+            <HostRoom
+              lab={lab}
+              onContact={(needId) => openContact("host", needId)}
+            />
           ) : null}
           {room === "board" && lab && studio ? (
             <BoardRoom
@@ -1139,27 +1150,72 @@ function PlotWho({
   );
 }
 
-function HostRoom({ onContact }: { onContact: () => void }) {
+function wayPriceLabel(way: { onceId?: string; sittingId?: string; sittingLongId?: string; host?: boolean }) {
+  const bits: string[] = [];
+  const once = way.onceId ? catalogueById(way.onceId) : undefined;
+  if (once && once.amountGbp > 0) bits.push(formatGbp(once.amountGbp));
+  const sitting = way.sittingId ? catalogueById(way.sittingId) : undefined;
+  const sittingLong = way.sittingLongId
+    ? catalogueById(way.sittingLongId)
+    : undefined;
+  if (sitting && sitting.amountGbp > 0 && sittingLong && sittingLong.amountGbp > 0) {
+    bits.push(
+      `${formatGbp(sitting.amountGbp)}, or ${formatGbp(sittingLong.amountGbp)} for two hours`,
+    );
+  } else if (sitting && sitting.amountGbp > 0) {
+    bits.push(formatGbp(sitting.amountGbp));
+  }
+  const host = way.host ? catalogueById("host-monthly") : undefined;
+  if (host && host.amountGbp > 0) bits.push(`${formatGbp(host.amountGbp)} a month`);
+  return bits.join(" · ");
+}
+
+function HostRoom({
+  lab,
+  onContact,
+}: {
+  lab?: boolean;
+  onContact: (needId?: string) => void;
+}) {
   return (
     <div className="bench-room bench-host">
       <p className="bench-kicker">Host</p>
       <h1>Hosting</h1>
       <p className="campus-lead">
-        Live site, or a private preview, or both. You leave a note. We come in.
-        One environment is £50 a month. Both open at once is £100. Heavy
-        traffic is a conversation. You can reopen the preview any time: the live
-        site stays up, you pay for the preview while you edit.
+        When you have a site with us, you have a sandbox. Live and sandbox are
+        one host — that is the monthly, not two products. You leave a comment;
+        if there are any, we roll an update that evening. A hotfix is something
+        wrong right now: we try to audit it within the hour. Heavy traffic is a
+        conversation.
       </p>
       <div className="bench-host-grid">
         <div>
           {HOST_LINES.map((line) => (
             <div key={line.id} className="bench-price">
-              <span>{line.name}</span>
-              <button type="button" onClick={onContact}>
+              <span>{lab ? line.name : line.id === "host" ? "Live and sandbox, one host" : line.name}</span>
+              <button type="button" onClick={() => onContact("walk-build-host")}>
                 Contact
               </button>
             </div>
           ))}
+          <p className="bench-kicker" style={{ marginTop: "1.2rem" }}>
+            How you come in
+          </p>
+          {waysOnTheWall().map((way) => {
+            const price = lab ? wayPriceLabel(way) : "";
+            return (
+              <div key={way.id} className="bench-price is-way">
+                <span>
+                  <strong>{way.name}</strong>
+                  {price ? ` — ${price}` : ""}
+                  <em>{way.who}</em>
+                </span>
+                <button type="button" onClick={() => onContact(way.needId)}>
+                  Contact
+                </button>
+              </div>
+            );
+          })}
         </div>
         <figure className="bench-rack">
           {/* eslint-disable-next-line @next/next/no-img-element */}

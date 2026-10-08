@@ -7690,6 +7690,71 @@ html[data-ground="ink"] .epk-map__host img.is-ink {
   margin: 1rem 0 1.2rem;
 }
 
+.comment-box.is-wide textarea,
+.comment-box.is-hotfix textarea {
+  max-width: 44rem;
+  min-height: 8rem;
+}
+
+.comment-box.is-hotfix {
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--ink);
+}
+
+.account-faq {
+  margin-top: 2.2rem;
+  max-width: 40rem;
+}
+
+.account-faq details {
+  margin: 0 0 0.55rem;
+}
+
+.account-faq summary {
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.account-faq p {
+  margin: 0.4rem 0 0.8rem;
+}
+
+.live-suggest-pair {
+  max-width: 36rem;
+}
+
+.live-suggest.is-hotfix {
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--ink);
+}
+
+.bench-price.is-way {
+  align-items: flex-start;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.bench-price.is-way strong {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.bench-price.is-way em {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  margin-top: 0.25rem;
+  font-size: 0.92rem;
+}
+
 /* lab — localhost only */
 
 .lab-door {
