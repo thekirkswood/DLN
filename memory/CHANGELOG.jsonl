@@ -1167,3 +1167,4 @@
 {"t":"2026-10-09T12:05:00+01:00","k":"mod","p":"Site/src/components/OfferWalk.tsx","s":"Lerp snap 240ms; rest is bottom of door or top of next; no freeze in the gap","d":"Ewan snappy D/S/B only"}
 {"t":"2026-10-09T12:05:00+01:00","k":"mod","p":"Site/src/lib/tokens.ts Site/src/lib/captures.ts Site/src/app/account/page.tsx","s":"debitWell ping|gen drop-in; studio account shows the monthly well","d":"gen packs spend the same well later"}
 {"t":"2026-10-09T12:05:00+01:00","k":"mod","p":"memory/WORKSTREAM.md memory/BLUEPRINT.md","s":"Walk cannot rest in the gap; site tab is notes plus the well","d":"Ewan onto live"}
+{"t":"2026-10-09T12:03:22+01:00","k":"ver","p":"dln-10","s":"Snappy Design/Strategy/Build walk, site-tab patch notes and inbox, monthly well for Send now and later gen. Board still off live.","d":"numbered ship"}
