@@ -8,6 +8,8 @@ export type Plot = {
   hosts: string[];
   /** Full URL for “Enter the plot”. Prefer this over hosts[0] while DNS catches up. */
   enterUrl?: string;
+  /** Sandbox / growing copy the client can talk to. Path or URL. */
+  sandboxUrl?: string;
   localPreview: string;
   public: boolean;
   voice: string;

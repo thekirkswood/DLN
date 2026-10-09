@@ -12,9 +12,10 @@ export default function StrategyPage() {
       <p className="kicker">Strategy</p>
       <h1 className="page-title">Consultancy and Strategy</h1>
       <p className="body">
-        Who you are, who it is for, and where you want to be — written so the
-        rest of the work has somewhere to sit. A working session, an audit, or
-        a plan you can run.
+        Sit down with branding expert Dave Kirkwood to discuss. Brand strategy
+        is the brand to the core: who you are, who it is for and where you
+        want to be. Marketing is how it goes out. Working sessions at three
+        depths.
       </p>
       <EnquireForm facet="strategy" open lab={lab} />
       <ul className="strategy-through">

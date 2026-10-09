@@ -810,9 +810,16 @@ export async function rollDueInvoices(): Promise<void> {
       await tryAutoCollect(inv);
     }
   }
-  if (!changed) return;
-  await saveInvoices(invoices);
-  await writeJson(ROLLS, rolls);
+  if (changed) {
+    await saveInvoices(invoices);
+    await writeJson(ROLLS, rolls);
+  }
+  try {
+    const { grantDueTokens } = await import("@/lib/tokens");
+    await grantDueTokens();
+  } catch {
+    /* ledger must not block invoices */
+  }
 }
 
 export async function graceEndsAt(inv: Invoice): Promise<string | null> {

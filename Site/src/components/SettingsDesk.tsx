@@ -21,6 +21,11 @@ export function SettingsDesk({
   const router = useRouter();
   const [graceDays, setGraceDays] = useState(String(settings.graceDays));
   const [adobeKit, setAdobeKit] = useState(settings.adobeKit);
+  const [tokenGrant1, setTokenGrant1] = useState(String(settings.tokenGrant1));
+  const [tokenGrant2, setTokenGrant2] = useState(String(settings.tokenGrant2));
+  const [tokenGrant3, setTokenGrant3] = useState(String(settings.tokenGrant3));
+  const [tokenPingCost, setTokenPingCost] = useState(String(settings.tokenPingCost));
+  const [tokenGenCost, setTokenGenCost] = useState(String(settings.tokenGenCost));
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [ok, setOk] = useState("");
@@ -28,6 +33,11 @@ export function SettingsDesk({
   useEffect(() => {
     setGraceDays(String(settings.graceDays));
     setAdobeKit(settings.adobeKit);
+    setTokenGrant1(String(settings.tokenGrant1));
+    setTokenGrant2(String(settings.tokenGrant2));
+    setTokenGrant3(String(settings.tokenGrant3));
+    setTokenPingCost(String(settings.tokenPingCost));
+    setTokenGenCost(String(settings.tokenGenCost));
   }, [settings]);
 
   async function onSubmit(e: FormEvent) {
@@ -46,6 +56,11 @@ export function SettingsDesk({
       body: JSON.stringify({
         graceDays: days,
         adobeKit,
+        tokenGrant1: Number(tokenGrant1),
+        tokenGrant2: Number(tokenGrant2),
+        tokenGrant3: Number(tokenGrant3),
+        tokenPingCost: Number(tokenPingCost),
+        tokenGenCost: Number(tokenGenCost),
       }),
     });
     setPending(false);
@@ -77,6 +92,56 @@ export function SettingsDesk({
             const raw = e.target.value;
             if (!/^\d*$/.test(raw)) return;
             setGraceDays(raw);
+          }}
+        />
+        <label htmlFor="set-g1">BoomStack 1 monthly well</label>
+        <input
+          id="set-g1"
+          inputMode="numeric"
+          value={tokenGrant1}
+          onChange={(e) => {
+            if (!/^\d*$/.test(e.target.value)) return;
+            setTokenGrant1(e.target.value);
+          }}
+        />
+        <label htmlFor="set-g2">BoomStack 2 monthly well</label>
+        <input
+          id="set-g2"
+          inputMode="numeric"
+          value={tokenGrant2}
+          onChange={(e) => {
+            if (!/^\d*$/.test(e.target.value)) return;
+            setTokenGrant2(e.target.value);
+          }}
+        />
+        <label htmlFor="set-g3">BoomStack 3 monthly well</label>
+        <input
+          id="set-g3"
+          inputMode="numeric"
+          value={tokenGrant3}
+          onChange={(e) => {
+            if (!/^\d*$/.test(e.target.value)) return;
+            setTokenGrant3(e.target.value);
+          }}
+        />
+        <label htmlFor="set-ping">Send now cost</label>
+        <input
+          id="set-ping"
+          inputMode="numeric"
+          value={tokenPingCost}
+          onChange={(e) => {
+            if (!/^\d*$/.test(e.target.value)) return;
+            setTokenPingCost(e.target.value);
+          }}
+        />
+        <label htmlFor="set-gen">Generated pack cost</label>
+        <input
+          id="set-gen"
+          inputMode="numeric"
+          value={tokenGenCost}
+          onChange={(e) => {
+            if (!/^\d*$/.test(e.target.value)) return;
+            setTokenGenCost(e.target.value);
           }}
         />
         <label htmlFor="set-kit">Adobe Fonts kit</label>

@@ -66,6 +66,7 @@ type DeskProps = {
   settings: StudioSettings;
   notices?: StudioNotice[];
   traps?: WatchInstance[];
+  visits?: WatchInstance[];
   blocked?: BlockRow[];
   trapWeb?: TrapWeb;
   appeals?: BlockAppeal[];
@@ -95,6 +96,7 @@ function StudioDeskLive({
   settings,
   notices = [],
   traps = [],
+  visits = [],
   blocked = [],
   trapWeb,
   appeals = [],
@@ -276,6 +278,7 @@ function StudioDeskLive({
             <WatchDesk
               notices={notices}
               traps={traps}
+              visits={visits}
               blocked={blocked}
               web={trapWeb}
               appeals={appeals}

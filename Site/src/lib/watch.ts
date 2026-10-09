@@ -7,6 +7,8 @@ import type { NextResponse } from "next/server";
 import { isMaliciousPath, looksLikeProbe, pathsLookMalicious } from "@/lib/trap-paths";
 import type { TrapTrip } from "@/lib/trap-types";
 import type { WatchHit, WatchInstance } from "@/lib/watch-types";
+export type { VisitKind } from "@/lib/watch-types";
+export { visitKind } from "@/lib/watch-types";
 
 export type { WatchHit, WatchInstance } from "@/lib/watch-types";
 
@@ -20,7 +22,7 @@ const LEARNED = path.join(process.cwd(), "..", "_meta", "studio", "learned-traps
 const HOT_MS = 2 * 60 * 60 * 1000;
 const GAP_MS = 30 * 60 * 1000;
 const SWEEP_MS = 60 * 60 * 1000;
-const MAX_INSTANCES = 200;
+const MAX_INSTANCES = 2500;
 const MAX_PATHS = 250;
 
 type WatchBook = {
@@ -163,18 +165,6 @@ function hotUntil(): string {
   return new Date(Date.now() + HOT_MS).toISOString();
 }
 
-function isHotIp(book: WatchBook, ip: string): boolean {
-  if (!ip || ip === "unknown") return false;
-  const until = book.hot[ip];
-  return Boolean(until && Date.parse(until) > Date.now());
-}
-
-function isHotUser(book: WatchBook, userId?: string): boolean {
-  if (!userId) return false;
-  const until = book.hotUsers?.[userId];
-  return Boolean(until && Date.parse(until) > Date.now());
-}
-
 function sameInstance(
   row: WatchInstance,
   ip: string,
@@ -245,7 +235,11 @@ function applyHit(
     trap: input.trap,
   });
   if (isMaliciousPath(pathName)) row.cleared = undefined;
-  if (input.plot && !row.plot) row.plot = input.plot.slice(0, 40);
+  if (input.plot && (!row.plot || row.plot === "dln") && input.plot !== "dln") {
+    row.plot = input.plot.slice(0, 40);
+  } else if (input.plot && !row.plot) {
+    row.plot = input.plot.slice(0, 40);
+  }
   if (input.email) {
     row.email = input.email;
     row.userId = input.userId || row.userId;
@@ -298,6 +292,29 @@ export async function markWatch(input: {
   return row;
 }
 
+function plotFromHost(host: string): string | undefined {
+  const h = host.toLowerCase().split(":")[0];
+  const sub = h.match(/^([a-z0-9-]+)\.designlabnorth\.com$/);
+  if (sub && sub[1] !== "www") return sub[1];
+  if (h.includes("daa.")) return "daa";
+  if (h.includes("dln.") || h.includes("designlabnorth") || h === "localhost" || h.startsWith("192.168.")) {
+    return "dln";
+  }
+  return undefined;
+}
+
+function plotFromHit(host: string, path: string): string | undefined {
+  const p = path.split("?")[0];
+  const epk = p.match(/^\/epk\/([a-z0-9-]+)/);
+  if (epk) return epk[1] === "titles" ? "various-titles" : epk[1];
+  return plotFromHost(host);
+}
+
+export async function listVisits(): Promise<WatchInstance[]> {
+  const book = await readBook();
+  return book.instances;
+}
+
 export async function tapWatch(input: {
   ip: string;
   host: string;
@@ -308,17 +325,21 @@ export async function tapWatch(input: {
 }): Promise<boolean> {
   if (skipTapPath(input.path)) return false;
   const user = await userFromSession(input.token);
-  if (user && isStudio(user) && !looksLikeProbe(input.path)) return false;
+  const plot = plotFromHit(input.host, input.path);
+  if (
+    user &&
+    isStudio(user) &&
+    !looksLikeProbe(input.path) &&
+    (plot === "dln" || !plot)
+  ) {
+    return false;
+  }
   return serial(async () => {
     const book = await readBook();
-    const hot =
-      isHotIp(book, input.ip) ||
-      isHotUser(book, user?.id) ||
-      Boolean(input.cookie);
-    if (!hot) return false;
     applyHit(book, {
       ...input,
       trap: looksLikeProbe(input.path),
+      plot,
       userId: user?.id,
       email: user?.email,
       role: user?.role,

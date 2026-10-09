@@ -6,10 +6,12 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getSessionUser } from "@/lib/session";
 import { isStudio } from "@/lib/auth";
+import { kitsForUser } from "@/lib/epk";
 import { getSettings } from "@/lib/settings";
 import { clientIpFrom } from "@/lib/client-ip";
 import { ipIsBlocked } from "@/lib/block";
 import { isLabHost } from "@/lib/lab-host";
+import { tapWatchFromPage } from "@/lib/watch-from-page";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -54,8 +56,10 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   await gateBlocked();
+  void tapWatchFromPage();
   const user = await getSessionUser();
   const studio = Boolean(user && isStudio(user));
+  const hasPress = Boolean(user && (studio || kitsForUser(user).length > 0));
   const lab = isLabHost(headers().get("x-forwarded-host") || headers().get("host"));
   const adobe = adobeKitHref((await getSettings()).adobeKit);
   return (
@@ -74,7 +78,7 @@ export default async function RootLayout({
           displayName={user?.displayName}
         />
         <main>{children}</main>
-        <Footer />
+        <Footer hasPress={hasPress} />
       </body>
     </html>
   );

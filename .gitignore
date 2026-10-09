@@ -7,6 +7,8 @@ out/
 _meta/accounts/
 _meta/studio/
 _meta/billing/
+_meta/captures/
+_meta/site-log/
 _meta/enquiries/
 _meta/clients/
 _meta/plans/

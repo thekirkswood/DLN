@@ -137,11 +137,20 @@ export async function addComment(
   const rows = await listComments();
   rows.unshift(row);
   await writeJson(COMMENTS, rows);
-  if (!isStudio(user) || kind === "hotfix") {
+  if (kind === "hotfix") {
     const { wakeClientAsk } = await import("@/lib/client-ask");
+    const { spendTokens, tokenCosts } = await import("@/lib/tokens");
+    const costs = await tokenCosts();
+    await spendTokens({
+      user,
+      plotSlug,
+      n: costs.pingCost,
+      k: "ping",
+      reason: "Hotfix",
+    });
     await wakeClientAsk({
-      kind: kind === "hotfix" ? "hotfix-ask" : "note",
-      text: kind === "hotfix" ? `Hotfix · ${plotSlug}: ${body}` : body,
+      kind: "hotfix-ask",
+      text: `Hotfix · ${plotSlug}: ${body}`,
       author: user.displayName || user.id,
       authorId: user.id,
       plot: plotSlug,

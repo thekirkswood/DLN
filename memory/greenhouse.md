@@ -48,7 +48,8 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 
 - Party: studio. Ours.
 - Public enter: `https://swarmfund.com` (own domain). On the public hub, greenhouse Enter goes there. Lab desk: `builder.dln.local/swarm`. Named local: `swarm.dln.local`.
-- Growing copy on this VPS: `swarmfund.designlabnorth.com` (gated plot). Host name is `swarmfund`, not `swarm`.
+- Growing copy on this VPS: `swarmfund.designlabnorth.com` (gated plot). Host name is `swarmfund`, not `swarm`. Keep it — we do not need a second VPS subdomain. Swarm can also ship from home; public enter stays the product domain.
+- Hub client tagged `swarm` sees the DLN account view for that house: Live site `https://swarmfund.com`, On our host `https://swarmfund.designlabnorth.com`, press kit `swarm`. Same pathway as ModYu / DAA. Not a dummy plot. Not a greenhouse extra.
 - Public wall on swarmfund.com is **Building** — Swarm Fund logo and the word Building. Only Ewan and Dave walk in (`swarm-enter`). Same idea as Various Titles.
 - **Cutover (2026-09-08):** Same `plot-swarm` as Various Titles / PFP on this VPS. Caddy already serves apex HTTP. Ewan may flip Livedns A `@`/`www` for swarmfund.com → `82.165.5.84` so public Swarm is on IONOS with the rest. Leave MX / SPF on Livemail. Fasthosts VPS stays until April 2027 as a public preview box — not live Swarm. `swarmfund.designlabnorth.com` stays the gated growing copy.
 - Kind: new. Status: growing.

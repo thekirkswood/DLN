@@ -37,17 +37,17 @@ export type LineWidget =
   | "modernize"
   | "identity-kit"
   | "ui-kit"
-  | "brand-kit"
-  | "market-kit"
-  | "audit-path"
-  | "sitting"
-  | "startup-talk";
+  | "avenue"
+  | "pack-loop";
 
 export type LineExample = {
   src: string;
   name: string;
   note?: string;
 };
+
+export const STRATEGY_OPEN =
+  "Sit down with branding expert Dave Kirkwood to discuss";
 
 export type WorkLine = {
   id: LineId;
@@ -59,6 +59,8 @@ export type WorkLine = {
   stills: string[];
   examples?: LineExample[];
   folds: { name: string; text: string }[];
+  marks?: string[];
+  buzz?: string[];
   widget: LineWidget;
   needId: string;
   cta: string;
@@ -91,6 +93,7 @@ export const WORK_LINES: WorkLine[] = [
     widget: "brands",
     needId: "design-assets-logo",
     cta: "Contact Design",
+    hide: true,
   },
   {
     id: "identity",
@@ -218,19 +221,8 @@ export const WORK_LINES: WorkLine[] = [
     lead: "The pack is the brand: box, label, and the moment they open it.",
     body: "The identity is in the object, not stuck on afterwards. How it sits, stacks, ships — and the sequence someone actually meets.",
     stills: [],
-    widget: "examples",
-    examples: [
-      {
-        src: `${BRIEF}/Portfolio/HT4.png`,
-        name: "ModYu HT4",
-        note: "The bottles",
-      },
-      {
-        src: `${BRIEF}/Portfolio/L_homme.png`,
-        name: "Selected pack",
-        note: "The bag",
-      },
-    ],
+    widget: "pack-loop",
+    examples: [],
     folds: [
       {
         name: "Structure",
@@ -253,22 +245,23 @@ export const WORK_LINES: WorkLine[] = [
     facet: "strategy",
     name: "Brand Strategy",
     title: "Brand strategy",
-    lead: "Who you are, who it is for, and where you want to be — written so the rest of the work has somewhere to sit.",
-    body: "The core brand, before it becomes a campaign: phone, a window, a letter. A document you can actually run.",
+    lead: "The brand to the core: who you are, who it is for and where you want to be.",
+    body: "",
     stills: [],
-    widget: "brand-kit",
+    widget: "avenue",
+    marks: ["who you are", "who it is for", "where you want to be"],
     folds: [
       {
         name: "Who you are",
-        text: "We sit with the people behind the name until the words are true — not a mood board with a slogan.",
+        text: "The people behind the name, until the words are true.",
       },
       {
         name: "Who it is for",
-        text: "Who you want to appeal to, and who you will not be. That is the architecture before a logo is drawn.",
+        text: "Who you want to appeal to, and who you will not be.",
       },
       {
         name: "Where you want to be",
-        text: "A line the business can run from. Come in on Strategy and we map it with you.",
+        text: "A line the business can run from.",
       },
     ],
     needId: "consultancy-session",
@@ -279,22 +272,23 @@ export const WORK_LINES: WorkLine[] = [
     facet: "strategy",
     name: "Marketing Strategy",
     title: "Marketing strategy",
-    lead: "How the brand goes out — books, bottles, boards — and what you learn so the next time is better.",
-    body: "Brand strategy is the core. Marketing is how people receive it, online included. The next time is from what actually happened, not a guess.",
+    lead: "Talk about how the brand goes out.",
+    body: "",
     stills: [],
-    widget: "market-kit",
+    widget: "avenue",
+    marks: ["how the brand goes out"],
     folds: [
       {
         name: "How it goes out",
-        text: "Print, pack, the street, the inbox. The same identity, in the world.",
+        text: "Print, pack, the street, the inbox.",
       },
       {
         name: "How people receive it",
-        text: "Structured communication, not a pile of posts. Workshops with the people who have to live the plan.",
+        text: "Structured communication, not a pile of posts.",
       },
       {
         name: "What you learn",
-        text: "The next time you put something out, it is from what actually happened.",
+        text: "The next time is from what actually happened.",
       },
     ],
     needId: "workshop-review",
@@ -336,8 +330,8 @@ export const WORK_LINES: WorkLine[] = [
     facet: "strategy",
     name: "Start-up Strategy",
     title: "Start-up strategy",
-    lead: "Two hours. Who you want to be, who you will be, how you say it, who it is for.",
-    body: "We talk until you have something you can build from — not a pitch-deck look. Same evidence we use later, with less of it.",
+    lead: "You have an idea you want to pull the trigger on.",
+    body: "You have an idea you want to pull the trigger on.",
     stills: [],
     folds: [
       {
@@ -353,7 +347,7 @@ export const WORK_LINES: WorkLine[] = [
         text: "The people it is for. Two hours is often enough to isolate the variables.",
       },
     ],
-    widget: "startup-talk",
+    widget: "avenue",
     needId: "startup-blueprint",
     cta: "Contact our consultants",
   },
@@ -362,8 +356,8 @@ export const WORK_LINES: WorkLine[] = [
     facet: "strategy",
     name: "Brand Audits",
     title: "Brand audits",
-    lead: "What you run now. We come in. A clearer brand on the other side.",
-    body: "We look at what you already have — visual, verbal, technical — and walk it to something held together. You leave with what to keep and what to change.",
+    lead: "Something's not working. Let's fix it together.",
+    body: "Something's not working. Let's fix it together.",
     stills: [],
     folds: [
       {
@@ -379,7 +373,7 @@ export const WORK_LINES: WorkLine[] = [
         text: "The same name, held together. A document you can run.",
       },
     ],
-    widget: "audit-path",
+    widget: "avenue",
     needId: "identity-outdated",
     cta: "Contact our consultants",
   },
@@ -388,8 +382,8 @@ export const WORK_LINES: WorkLine[] = [
     facet: "strategy",
     name: "Over-arching Strategic Consultancy",
     title: "Over-arching counsel",
-    lead: "The same working session as start-up, with more in the room — brand, marketing, and a plan you can run.",
-    body: "One-to-one or group. Online is inside that work, not a separate offer. Two hours, a half day, or a full day.",
+    lead: "You have a business, but you're lost with the identity.",
+    body: "You have a business, but you're lost with the identity.",
     stills: [],
     folds: [
       {
@@ -405,7 +399,7 @@ export const WORK_LINES: WorkLine[] = [
         text: "Understanding, planning, and a way back in as the work moves.",
       },
     ],
-    widget: "sitting",
+    widget: "avenue",
     needId: "consultancy-session",
     cta: "Contact our consultants",
   },
@@ -414,19 +408,23 @@ export const WORK_LINES: WorkLine[] = [
     facet: "build",
     name: "Simple sites",
     title: "Simple sites",
-    lead: "A gallery, a shop, a page, a diary — a simple site, done properly.",
-    body: "New, a rebuild, or a facelift. You leave a note. We come in. When it is ready it can move onto a domain of your own, and we still host it while it grows.",
+    lead: "Website development — brochure, catalogue, shop front, booking — with the same care as the heavier work.",
+    body: "From the ground, a rebuild, or a facelift. UI/UX for the pages people actually use. When it is ready it can move onto a domain of your own, and we still host it while it grows.",
     stills: [],
-    widget: "examples",
+    widget: "avenue",
     examples: [],
     folds: [
       {
-        name: "Done properly",
-        text: "Type, identity, hosting, and a way for you to leave a note.",
+        name: "Website development",
+        text: "Build the space for the brand to grow.",
+      },
+      {
+        name: "UI/UX of the page",
+        text: "How the public interact with the brand.",
       },
       {
         name: "Then we host it",
-        text: "The live site stays up. A private preview can reopen whenever you want to edit again — you pay for the preview while it is open.",
+        text: "A dynamic workspace. Push to the live site whenever you want.",
       },
     ],
     needId: "web-simple-site",
@@ -437,14 +435,22 @@ export const WORK_LINES: WorkLine[] = [
     facet: "build",
     name: "Interactive Workspaces",
     title: "Interactive workspaces",
-    lead: "Your brand. Your home. A space people actually work in.",
-    body: "Incoming, in work, done. How it looks is yours. The live site stays up; a private preview can reopen when you want to edit again.",
+    lead: "A space your customers and your team work inside together — the interface is the system.",
+    body: "Not a brochure that pretends to move. Roles, records, and the work itself, in one environment built around the brand.",
     stills: [],
-    widget: "workspace",
+    widget: "avenue",
     folds: [
       {
-        name: "A room with a job",
-        text: "The space people work in, built around the brand — not a brochure that pretends to move.",
+        name: "A shared environment",
+        text: "Customers and team, in the same system.",
+      },
+      {
+        name: "The system is the room",
+        text: "Workflow, records, the operational desk.",
+      },
+      {
+        name: "Built around the brand",
+        text: "How it looks is yours. What behaves is your choice.",
       },
     ],
     needId: "web-corporate",
@@ -455,14 +461,22 @@ export const WORK_LINES: WorkLine[] = [
     facet: "build",
     name: "Custom Web Applications",
     title: "Custom web applications",
-    lead: "Software people use in the browser — not a brochure with a cart bolted on.",
-    body: "Dashboards, commerce, the desk behind the brand. The live site stays up; a private preview can reopen when you want to edit again.",
+    lead: "Web and mobile app development — software people use, not a brochure with a cart bolted on.",
+    body: "Dashboards, commerce, the operational desk. Front, the transaction, and the data in one application.",
     stills: [],
-    widget: "checkout",
+    widget: "avenue",
     folds: [
       {
-        name: "The product is the presence",
-        text: "Front, the transaction, and the desk in one system.",
+        name: "Web application development",
+        text: "Browser software that is the product — accounts, the transaction, the desk.",
+      },
+      {
+        name: "Mobile",
+        text: "The same system in the hand, not a squeezed website.",
+      },
+      {
+        name: "Commerce and the desk",
+        text: "Orders, catalogues, front and back as one application.",
       },
     ],
     needId: "web-ecommerce",
@@ -473,11 +487,19 @@ export const WORK_LINES: WorkLine[] = [
     facet: "build",
     name: "System Modernization",
     title: "System modernization",
-    lead: "Your live site stays up. The next one is built beside it. You watch, then it goes live.",
-    body: "A facelift or a rebuild — said plainly, without a slight to who built what is up now. A private preview can reopen later; the live site stays.",
+    lead: "The live platform stays up. The next one is built beside it.",
+    body: "A facelift or a rebuild — said plainly, without a slight to who built what is up now.",
     stills: [],
-    widget: "modernize",
+    widget: "avenue",
     folds: [
+      {
+        name: "Live beside the next",
+        text: "The public site stays up. The next platform is built beside it.",
+      },
+      {
+        name: "Interfaces and data",
+        text: "UI/UX, records, and the joins — moved, not dumped.",
+      },
       {
         name: "Sit with, not over",
         text: "A rebuild sits with the people who built the live site.",
@@ -491,14 +513,26 @@ export const WORK_LINES: WorkLine[] = [
     facet: "build",
     name: "Systems",
     title: "Systems",
-    lead: "Sign-in, data, the desk behind the site — the work the public never sees.",
-    body: "From the ground up, or as you grow. If you already run something, we can join that too. We build it, we host it, we keep it.",
+    lead: "Database systems, authentication, APIs, and the operational layer the public never sees.",
+    body: "From the ground, or grown onto what you already run. Mapping, delivery, stock, the desk.",
     stills: [],
-    widget: "joins",
+    widget: "avenue",
     folds: [
       {
-        name: "We host it",
-        text: "Live site, or a private preview, or both. Reopen the preview whenever you want to edit again.",
+        name: "Database systems",
+        text: "One record. The desk tells the truth.",
+      },
+      {
+        name: "APIs and joins",
+        text: "Mail, pay, stock, maps. If you already run something, we join it.",
+      },
+      {
+        name: "Neural-network-influenced systems",
+        text: "Models inside the operation — the work the public never sees.",
+      },
+      {
+        name: "Host",
+        text: "Live and private preview as one.",
       },
     ],
     needId: "web-api-dashboard",

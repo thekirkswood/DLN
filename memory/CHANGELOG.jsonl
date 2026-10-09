@@ -1020,3 +1020,150 @@
 {"t":"2026-10-08T12:14:01+01:00","k":"mod","p":"Site/public/brief/social-loop/review.html memory/section-films.md memory/DIRECTIONS.md memory/WORKSTREAM.md","s":"pack in work; review links; not on campus room yet","d":"iterate like sandbox live"}
 {"t":"2026-10-08T12:38:00+01:00","k":"dir","p":"memory/DIRECTIONS.md memory/BLUEPRINT.md","s":"prices on each contact top, not only Host","d":"Ewan: more universal"}
 {"t":"2026-10-08T12:38:01+01:00","k":"mod","p":"Site/src/components/HomeOffer.tsx Site/src/data/ways-in.ts Site/src/app/design/page.tsx Site/src/app/strategy/page.tsx Site/src/app/build/page.tsx Site/src/components/Workbench.tsx Site/src/app/globals.css","s":"ContactRates at top of Design/Strategy/Build enquire; house GBP","d":"Host wall stays; each door shows its amounts"}
+{"t":"2026-10-08T15:52:00+01:00","k":"dir","p":"memory/DIRECTIONS.md memory/section-films.md","s":"pack loop pass 2: hatch in, fill, tick, three avenues","d":"Ewan: naked box; all-three flash"}
+{"t":"2026-10-08T15:52:01+01:00","k":"mod","p":"Site/public/brief/social-loop/pack.html Site/public/brief/social-loop/review.html","s":"user hatch shapes into window; draw+fill; tick; bottle tub box only at end","d":"keep window; no waiting pack"}
+{"t":"2026-10-08T16:12:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pack loop pass 3: hatch ideas, full shapes, tick, mark onto packs, pan","d":"Ewan: archived chat; logo from window; no blip"}
+{"t":"2026-10-08T16:12:00+01:00","k":"mod","p":"Site/public/brief/social-loop/pack.html Site/public/brief/social-loop/review.html","s":"User hatches in; three full ideas; tick+solo window; flyer onto bottle/tub/box while pane pans","d":"selection then camera via object move"}
+{"t":"2026-10-08T16:12:00+01:00","k":"mod","p":"memory/section-films.md","s":"Pack row: tick one mark; pan product pane","d":"third pass"}
+{"t":"2026-10-08T16:28:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pack pass 4: ink same hatches, tick, others leave, mark leaves screen onto aligned packs","d":"Ewan: colour in; physical leave; not a stock box"}
+{"t":"2026-10-08T16:28:00+01:00","k":"mod","p":"Site/public/brief/social-loop/pack.html Site/public/brief/social-loop/review.html","s":"Ink-in place; tick; two leave; empty window; stamps on bottle/tub/sleeve","d":"aligned right column; chamfered sleeve"}
+{"t":"2026-10-08T16:28:00+01:00","k":"mod","p":"memory/section-films.md","s":"Pack row: ink, tick, mark leaves monitor onto sleeve","d":"fourth pass"}
+{"t":"2026-10-08T16:43:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pack motion is one 16s timeline; 0% matches 100%","d":"Ewan: stops then jumps"}
+{"t":"2026-10-08T16:43:00+01:00","k":"mod","p":"Site/public/brief/social-loop/pack.html","s":"CSS keyframe loop instead of beat class swaps","d":"ghosts no longer snap back; flyer stays on path"}
+{"t":"2026-10-08T16:55:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pack: fly from real hatches into window slots; agreed mark from that slot onto pack faces","d":"Ewan: triangle left; random send; flyer jump; stamp placing"}
+{"t":"2026-10-08T16:55:01+01:00","k":"mod","p":"Site/public/brief/social-loop/pack.html","s":"JS measures SVG viewBoxes; aligned user column; sequential flyer with stroke onto bottle/tub/sleeve faces","d":"ghosts were using empty boxes"}
+{"t":"2026-10-08T16:55:02+01:00","k":"mod","p":"Site/public/brief/social-loop/review.html","s":"Pack lede fifth pass: column, slots, face stamps","d":"match the film"}
+{"t":"2026-10-08T17:00:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pack pick is the blue square; stamps sit in different spots on each pack","d":"Ewan: not brown; more bespoke on the right"}
+{"t":"2026-10-08T17:00:01+01:00","k":"mod","p":"Site/public/brief/social-loop/pack.html","s":"Tick and flyer are the blue square; bottle high-left, tub wall-right, sleeve lower-left","d":"bespoke stamp placing"}
+{"t":"2026-10-08T17:00:02+01:00","k":"mod","p":"Site/public/brief/social-loop/review.html memory/section-films.md","s":"Pack copy: blue square pick, different pack placings","d":"match the film"}
+{"t":"2026-10-08T17:08:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pack pans back to loop; send zip like host/new","d":"Ewan: package it; pan back"}
+{"t":"2026-10-08T17:08:01+01:00","k":"mod","p":"Site/public/brief/social-loop/pack.html","s":"Pan back 13.6–15.6s so 0s matches 16s","d":"loop instead of a snap home"}
+{"t":"2026-10-08T17:08:02+01:00","k":"add","p":"Site/public/brief/social-loop/dln-pack-loop.zip Site/public/brief/social-loop/send/dln-pack-loop-*","s":"Pack send: HTML+GIF 16:9 and 9:16, mark inlined","d":"package it to go"}
+{"t":"2026-10-08T17:08:03+01:00","k":"mod","p":"Site/public/brief/social-loop/review.html memory/section-films.md memory/WORKSTREAM.md","s":"Pack zip on review; film zipped, not on campus room yet","d":"next id is print when he pulls it"}
+{"t":"2026-10-08T17:18:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Print loop first draft: platen, sheet in, ch-ch-ch, mark on paper, out","d":"Ewan: next animation, plan was ready"}
+{"t":"2026-10-08T17:18:01+01:00","k":"add","p":"Site/public/brief/social-loop/print.html","s":"Print film: platen press, three impressions, real mute mark on the sheet","d":"section-films id print"}
+{"t":"2026-10-08T17:18:02+01:00","k":"mod","p":"Site/public/brief/social-loop/review.html memory/section-films.md memory/WORKSTREAM.md","s":"Print in work; review links; pack stays zipped","d":"one film at a time"}
+{"t":"2026-10-08T17:32:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Park print; UI film is wall→screen→laptop→phone, same window","d":"Ewan: skip print, resource bank; make a nice UI one"}
+{"t":"2026-10-08T17:32:01+01:00","k":"add","p":"Site/public/brief/social-loop/ui.html","s":"UI loop: one chamfered window morphs wall, monitor, laptop, phone","d":"section-films id ui"}
+{"t":"2026-10-08T17:32:02+01:00","k":"mod","p":"Site/public/brief/social-loop/review.html memory/section-films.md memory/WORKSTREAM.md","s":"Print parked; UI in work; review links","d":"one film at a time"}
+{"t":"2026-10-08T18:07:16+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pack loop on Design Packaging room","d":"Ewan: replace packaging design with the loop"}
+{"t":"2026-10-08T18:07:16+01:00","k":"bp","p":"BLUEPRINT.md","s":"Campus Design packaging is the pack loop","d":"room widget not portfolio stills"}
+{"t":"2026-10-08T18:07:16+01:00","k":"mod","p":"Site/src/data/worklines.ts Site/src/components/WorkLine.tsx Site/src/components/OfferDemos.tsx Site/src/app/globals.css","s":"Packaging widget pack-loop; drop HT4/bag stills","d":"portfolio stays in Portfolio"}
+{"t":"2026-10-08T18:07:16+01:00","k":"mod","p":"Site/public/brief/social-loop/pack.html","s":"Pack loop follows campus Paper/Ink","d":"iframe on the room"}
+{"t":"2026-10-08T18:07:16+01:00","k":"mod","p":"memory/section-films.md memory/WORKSTREAM.md","s":"Pack on Packaging room","d":"Ewan said so"}
+{"t":"2026-10-08T18:16:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"UI loop on Design → UI; no zip until asked","d":"Ewan: put this on as UI"}
+{"t":"2026-10-08T18:16:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Campus Design UI is the ui loop","d":"same iframe pattern as pack"}
+{"t":"2026-10-08T18:16:00+01:00","k":"mod","p":"Site/src/components/OfferDemos.tsx Site/src/app/globals.css","s":"UiKit iframes social-loop/ui.html","d":"replace 3-frame morph"}
+{"t":"2026-10-08T18:16:00+01:00","k":"mod","p":"memory/section-films.md memory/WORKSTREAM.md","s":"UI on UI room; print still parked","d":"Ewan said so"}
+{"t":"2026-10-08T18:24:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"UI wall pose is a poster, not browser chrome","d":"Ewan: browser look odd for a billboard"}
+{"t":"2026-10-08T18:24:00+01:00","k":"mod","p":"Site/public/brief/social-loop/ui.html","s":"Wall pose drops chrome; screen/laptop/phone keep it","d":"billboard is a plate"}
+{"t":"2026-10-08T18:24:00+01:00","k":"mod","p":"Site/src/components/OfferDemos.tsx","s":"UI iframe v=u4","d":"pick up poster wall"}
+{"t":"2026-10-08T19:58:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pooled D/S/B pages; Springstack billing; tokens+capture; Watch retains visitors","d":"Ewan: get rid of logos rooms; Mark/DAA well"}
+{"t":"2026-10-08T19:58:00+01:00","k":"bp","p":"BLUEPRINT.md identity.md WORKSTREAM.md","s":"Three door pages; Springstack; tokens on account not pitch","d":"IA + host product"}
+{"t":"2026-10-08T19:58:00+01:00","k":"add","p":"memory/springstack.md Site/src/data/springstack.ts Site/src/lib/tokens.ts Site/src/lib/captures.ts","s":"Springstack book, ledger, capture well","d":"shape of the work"}
+{"t":"2026-10-08T19:58:00+01:00","k":"add","p":"Site/src/app/api/tokens/route.ts Site/src/app/api/captures/route.ts Site/src/components/CaptureWell.tsx","s":"Token+capture APIs and account well","d":"Send now wakes; sweep does not"}
+{"t":"2026-10-08T19:58:00+01:00","k":"mod","p":"Site/src/components/Workbench.tsx Site/src/components/WorkLine.tsx Site/src/app/globals.css","s":"Facet pages; Springstack door; no line dropdown","d":"pool rooms as they look"}
+{"t":"2026-10-08T19:58:00+01:00","k":"mod","p":"Site/src/lib/watch.ts Site/src/app/layout.tsx Site/src/components/WatchDesk.tsx","s":"Retain all visitors; classify browse/snoop/scrape/probe","d":"snoop is not a ban"}
+{"t":"2026-10-08T19:58:00+01:00","k":"mod","p":"Site/src/lib/plans.ts Site/src/data/catalogue.ts Site/src/lib/settings.ts Site/src/lib/billing.ts","s":"Notes wait for sweep; Springstack catalogue; grant on roll","d":"host-monthly counts as stack 1"}
+{"t":"2026-10-08T19:58:00+01:00","k":"mod","p":".gitignore","s":"Ignore _meta/captures","d":"client briefs stay off git"}
+{"t":"2026-10-08T20:18:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pack tints blue; Logos off Design; Springstack prices on 1-2-3","d":"Ewan: colour not stamp; make Springstack us"}
+{"t":"2026-10-08T20:18:00+01:00","k":"mod","p":"Site/public/brief/social-loop/pack.html","s":"Packs fill pick colour; no stamp mark","d":"items go that colour"}
+{"t":"2026-10-08T20:18:00+01:00","k":"mod","p":"Site/src/data/worklines.ts","s":"Hide Logos line on Design page","d":"get rid of the logos section"}
+{"t":"2026-10-08T20:18:00+01:00","k":"mod","p":"Site/src/app/globals.css Site/src/components/WorkLine.tsx","s":"More air between pooled sections","d":"they were sprawly"}
+{"t":"2026-10-08T20:18:00+01:00","k":"mod","p":"Site/src/components/Workbench.tsx Site/src/data/catalogue.ts Site/src/data/springstack.ts Site/src/app/globals.css","s":"Springstack plates, rise, £75/150/275 on stacks; drop ways-in money","d":"make it us"}
+{"t":"2026-10-08T20:18:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Design page has no Logos block","d":"Ewan"}
+{"t":"2026-10-08T20:26:00+01:00","k":"mod","p":"Site/public/brief/social-loop/pack.html","s":"Hide stamp-slot stroke so packs stay colour-only","d":"leftover squares looked like logos"}
+{"t":"2026-10-08T20:26:00+01:00","k":"mod","p":"Site/src/components/Workbench.tsx Site/src/app/globals.css","s":"Springstack as one chamfered stair; ink rises under 1-2-3","d":"make it us not a price rack"}
+{"t":"2026-10-08T20:26:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"More air between pooled Design/Strategy/Build sections","d":"they were sprawly"}
+{"t":"2026-10-08T20:26:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md memory/springstack.md memory/section-films.md","s":"Springstack stair; Logos off Design; pack tints not stamps","d":"IA as built"}
+{"t":"2026-10-08T21:40:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pooled pages: title under a rule; contact only in the rail","d":"Ewan: no Contact on inner bars; drop section lines"}
+{"t":"2026-10-08T21:40:00+01:00","k":"mod","p":"Site/src/components/WorkLine.tsx Site/src/app/globals.css","s":"Drop embed Contact/About; title-length rule above each section","d":"titles and items only"}
+{"t":"2026-10-08T21:40:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Pooled section heads are rule + title; contact in rail","d":"Ewan"}
+{"t":"2026-10-08T21:55:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Campus dummy Willow & Co; Watch visitors by house","d":"Ewan: log in as a complete customer; monitor access"}
+{"t":"2026-10-08T21:55:00+01:00","k":"add","p":"greenhouse/plots.json Site/src/app/willow","s":"Willow & Co live+sandbox campus dummy","d":"complete customer, off greenhouse, type only"}
+{"t":"2026-10-08T21:55:00+01:00","k":"mod","p":"Site/src/lib/auth.ts Site/src/lib/billing.ts Site/src/lib/epk-copy.ts","s":"Puppet Sam Willow, Springstack 1, EPK willow","d":"campus login"}
+{"t":"2026-10-08T21:55:00+01:00","k":"mod","p":"Site/src/lib/watch.ts Site/src/components/WatchDesk.tsx","s":"Visitors grouped by house; record plot walks","d":"observe access as we host"}
+{"t":"2026-10-08T21:55:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse.md WORKSTREAM.md","s":"Dummy client + Watch book","d":"Ewan"}
+{"t":"2026-10-08T22:05:00+01:00","k":"del","p":"greenhouse/plots.json Site/src/app/willow","s":"Scrub Willow & Co dummy plot and type-only pages","d":"Ewan: no invented campus brand; it was local"}
+{"t":"2026-10-08T22:05:00+01:00","k":"del","p":"Site/src/lib/auth.ts Site/src/lib/billing.ts Site/src/lib/epk-copy.ts","s":"Remove Sam Willow puppet, dummy Springstack roll, willow kit","d":"left ModYu puppet; no dummy billing"}
+{"t":"2026-10-08T22:05:00+01:00","k":"mod","p":"Site/src/lib/plots.ts Site/src/app/account/page.tsx","s":"Client Sites are tagged plots including Swarm; Live + On our host","d":"studio products were hidden by party=client filter"}
+{"t":"2026-10-08T22:05:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"No dummy plots; Swarm observer profile on live VPS","d":"Ewan: replicate client login for swarmfund"}
+{"t":"2026-10-08T22:05:00+01:00","k":"bp","p":"BLUEPRINT.md greenhouse.md WORKSTREAM.md","s":"Swarm-tagged hub client; Watch visitors stay; Willow gone","d":"Ewan"}
+{"t":"2026-10-08T22:20:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"BoomStack rename; press signed-in only; one homepage Enter","d":"Ewan: clash with other studio; press is a dashboard feature"}
+{"t":"2026-10-08T22:20:00+01:00","k":"del","p":"memory/springstack.md Site/src/data/springstack.ts","s":"Springstack book and data file","d":"left boomstack.md + boomstack.ts; billing ids springstack-* stay"}
+{"t":"2026-10-08T22:20:00+01:00","k":"add","p":"memory/boomstack.md Site/src/data/boomstack.ts","s":"BoomStack product book and stack data","d":"host + signed-in plot dashboard"}
+{"t":"2026-10-08T22:20:00+01:00","k":"mod","p":"Site/src/components/Workbench.tsx Site/src/components/Footer.tsx Site/src/app/layout.tsx Site/src/app/account/page.tsx","s":"Hide press chrome unless signed-in with kits; one Enter; BoomStack dashboard kicker","d":"not a public journalist wall"}
+{"t":"2026-10-08T22:20:00+01:00","k":"mod","p":"Site/src/data/catalogue.ts Site/src/components/WorkLine.tsx Site/src/components/SettingsDesk.tsx Site/src/lib/tokens.ts","s":"Wall copy BoomStack; keep springstack-* roll ids","d":"branding only"}
+{"t":"2026-10-08T22:20:00+01:00","k":"bp","p":"BLUEPRINT.md identity.md WORKSTREAM.md","s":"BoomStack; press is account function; one Enter","d":"Ewan"}
+{"t":"2026-10-08T22:25:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Studio press stays on hub; no plot-login dump","d":"Ewan: login every click; Mark/Ann-Marie do not"}
+{"t":"2026-10-08T22:25:00+01:00","k":"mod","p":"Site/src/app/epk/[kit]/[[...path]]/page.tsx","s":"Studio keeps ModYu kit on the hub; tagged/journalist still hand off","d":"plot book has its own login"}
+{"t":"2026-10-08T22:25:00+01:00","k":"mod","p":"Site/src/app/api/auth/me/route.ts Site/src/app/account/page.tsx Site/src/components/Workbench.tsx Site/src/components/EpkChooser.tsx","s":"Full-page press/account links; me cookie only if token changed","d":"Link + cookie rewrite was dumping the session"}
+{"t":"2026-10-08T22:25:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Studio press on hub; full page loads keep the cookie","d":"Ewan"}
+{"t":"2026-10-08T22:35:00+01:00","k":"mod","p":"Site/src/app/globals.css Site/src/components/Header.tsx Site/src/app/account/page.tsx","s":"Title-length underlines; isometric account labels; face menu full-page a","d":"Ewan: press off public; menu dump; section rules"}
+{"t":"2026-10-08T22:35:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Public press off; account menu isometric; title underlines text-width","d":"Ewan"}
+{"t":"2026-10-08T22:35:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Account wrap of labels; section title underline = title width; me cookie stay","d":"Ewan"}
+{"t":"2026-10-08T22:42:00+01:00","k":"mod","p":"Site/src/components/Workbench.tsx Site/src/app/globals.css","s":"One Enter spans under Design/Strategy/Build, ink underline","d":"Ewan: not a door at the foot of each column"}
+{"t":"2026-10-08T22:42:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Enter sits under all three columns","d":"Ewan"}
+{"t":"2026-10-08T22:42:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Ticket Enter under the three columns, not Design","d":"Ewan"}
+{"t":"2026-10-09T09:07:00+01:00","k":"mod","p":"Site/src/app/globals.css Site/src/components/Workbench.tsx","s":"Ticket Enter left-tucked Design grey, not centred","d":"Ewan: as Enter Design was, without Design"}
+{"t":"2026-10-09T09:07:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"One Enter tucked left like old Enter Design","d":"Ewan"}
+{"t":"2026-10-09T09:07:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Enter left Design grey, not centred","d":"Ewan"}
+{"t":"2026-10-09T09:10:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"Ticket Enter sentence case, not block caps","d":"Ewan: literally Enter like it was"}
+{"t":"2026-10-09T09:10:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Enter is sentence case","d":"Ewan"}
+{"t":"2026-10-09T09:10:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Enter sentence case not block caps","d":"Ewan"}
+{"t":"2026-10-09T09:22:00+01:00","k":"mod","p":"Site/src/components/OfferDemos.tsx Site/src/app/globals.css Site/public/brief/social-loop/pack-loop.gif","s":"Packaging room is a transparent GIF img, not pack.html iframe","d":"live iframe 404d This page isnt here"}
+{"t":"2026-10-09T09:22:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Pack loop on the room is GIF not framed HTML","d":"Ewan"}
+{"t":"2026-10-09T09:22:00+01:00","k":"bp","p":"BLUEPRINT.md section-films.md","s":"Packaging GIF not iframe","d":"Ewan"}
+{"t":"2026-10-09T09:40:00+01:00","k":"add","p":"Site/src/components/loops/LoopWell.tsx","s":"Sealed well runs naked loop HTML, not iframe or GIF","d":"Ewan: code not document"}
+{"t":"2026-10-09T09:40:00+01:00","k":"mod","p":"Site/src/components/OfferDemos.tsx Site/src/app/globals.css","s":"Packaging and UI use LoopWell on pack.html/ui.html","d":"GIF was old greyscale; iframe 404d"}
+{"t":"2026-10-09T09:40:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Section loops are naked HTML in a well, not GIF or framed page","d":"Ewan"}
+{"t":"2026-10-09T09:40:00+01:00","k":"bp","p":"BLUEPRINT.md section-films.md","s":"Pack and UI rooms mount loop HTML in LoopWell","d":"Ewan"}
+{"t":"2026-10-09T09:55:00+01:00","k":"mod","p":"Site/src/components/OfferDemos.tsx Site/src/components/WorkLine.tsx","s":"Brand/marketing as copy; start-up/audits/counsel pooled as Working sessions","d":"Ewan: diagrams dont instil trust; pool the three depths"}
+{"t":"2026-10-09T09:55:00+01:00","k":"mod","p":"Site/src/data/worklines.ts Site/src/app/globals.css","s":"Avenue widget; conflicting session copy; levels layout","d":"same desk, different depth"}
+{"t":"2026-10-09T09:55:00+01:00","k":"del","p":"Site/src/components/OfferDemos.tsx","s":"Removed BrandKit MarketKit AuditPath SittingRing StartupTalk","d":"gadgets replaced by copy"}
+{"t":"2026-10-09T09:55:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Strategy: explain avenues; pool start-up/audits/counsel","d":"Ewan"}
+{"t":"2026-10-09T09:55:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Strategy rooms are copy plus pooled working sessions","d":"Ewan"}
+{"t":"2026-10-09T10:10:00+01:00","k":"mod","p":"Site/src/data/worklines.ts Site/src/components/WorkLine.tsx Site/src/data/needs.ts Site/src/app/build/page.tsx Site/src/data/campus.ts","s":"Build rooms as written systems copy; workspaces as shared environment; no AI","d":"Ewan: childlike; need terminology and breadth"}
+{"t":"2026-10-09T10:10:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Build wall names UI/UX, web/mobile, databases, neural-network; never AI","d":"Ewan"}
+{"t":"2026-10-09T10:10:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Build is written explanation not toy diagrams; no AI on the wall","d":"Ewan"}
+{"t":"2026-10-09T10:25:00+01:00","k":"mod","p":"Site/src/data/worklines.ts Site/src/components/OfferDemos.tsx Site/src/components/WorkLine.tsx","s":"Strategy as homepage sentences; Dave named on brand; no preempt body","d":"Ewan: yuey; somewhere to sit; bold leads add no depth"}
+{"t":"2026-10-09T10:25:00+01:00","k":"mod","p":"Site/src/app/globals.css","s":"Dropped inner subhead underlines; grey working words; hairline between Build points","d":"section h2 underline stays"}
+{"t":"2026-10-09T10:25:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"No inner underlines; Brand is a Dave sentence like the homepage","d":"Ewan"}
+{"t":"2026-10-09T10:25:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Strategy sentences with grey working words; sessions are title plus one line","d":"Ewan"}
+{"t":"2026-10-09T10:25:00+01:00","k":"mod","p":"Site/src/app/strategy/page.tsx","s":"Dropped somewhere to sit from the old Strategy page","d":"same voice as the wall"}
+{"t":"2026-10-09T10:35:00+01:00","k":"dir","p":"DIRECTIONS.md .cursor/rules/dln-build.mdc","s":"House for edits; VPS only for hotfix or numbered ship","d":"Ewan: never build-out onto live unasked"}
+{"t":"2026-10-09T10:35:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Build keeps room animations; workspaces and apps are copy; buzzword rows","d":"Ewan"}
+{"t":"2026-10-09T10:35:00+01:00","k":"mod","p":"Site/src/components/WorkLine.tsx Site/src/data/worklines.ts","s":"Restored Build demos; dropped workspace desk and app sketch; grey buzz rows","d":"Ewan: as it was; buzzwords not new sentences"}
+{"t":"2026-10-09T10:35:00+01:00","k":"mod","p":"Site/src/app/globals.css Site/src/app/build/page.tsx Site/src/data/needs.ts Site/src/data/campus.ts","s":"Buzz row type; restored prior Build page and needs copy","d":"do not rewrite Build sentences"}
+{"t":"2026-10-09T10:40:00+01:00","k":"mod","p":"Site/src/data/worklines.ts","s":"Marketing: talk about how the brand goes out; session lines recut","d":"Ewan"}
+{"t":"2026-10-09T10:40:00+01:00","k":"mod","p":"Site/src/components/WorkLine.tsx Site/src/app/globals.css","s":"Build back to written points; no title underline; copy tight under titles","d":"Ewan looking at live"}
+{"t":"2026-10-09T10:40:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Marketing sentence; session lines; Build text no title rules","d":"Ewan"}
+{"t":"2026-10-09T10:40:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Build is written points, no title underline","d":"Ewan"}
+{"t":"2026-10-09T10:48:00+01:00","k":"mod","p":"Site/src/components/BuildDemos.tsx Site/src/components/WorkLine.tsx Site/src/app/globals.css","s":"Simple sites: one window, rectangles cycle shop/blog/gallery/book","d":"Ewan: port the blink as one window"}
+{"t":"2026-10-09T10:48:00+01:00","k":"mod","p":"Site/src/data/worklines.ts","s":"Simple sites copy: space for the brand; public interact; dynamic workspace","d":"no public/private; no exclusive preview"}
+{"t":"2026-10-09T10:48:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"One simple-site window; host is a dynamic workspace they push live","d":"Ewan onto live"}
+{"t":"2026-10-09T10:48:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Simple sites one cycling window; no private-preview wall word","d":"Ewan"}
+{"t":"2026-10-09T10:52:00+01:00","k":"add","p":"Site/src/components/OfferWalk.tsx","s":"Design Strategy Build stacked as one scroll walk with boundary resistance","d":"Ewan: one page; stop then confident continue"}
+{"t":"2026-10-09T10:52:00+01:00","k":"mod","p":"Site/src/components/Workbench.tsx Site/src/app/globals.css","s":"Rail jumps into the walk; spy highlights the door in view; gap after each door","d":"same walk"}
+{"t":"2026-10-09T10:52:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"One Design-Strategy-Build walk; stop at a door; confident scroll continues","d":"Ewan"}
+{"t":"2026-10-09T10:52:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"Offer doors are one scrolling walk not three locked pages","d":"Ewan"}
+{"t":"2026-10-09T10:58:00+01:00","k":"mod","p":"Site/src/data/worklines.ts Site/src/components/WorkLine.tsx Site/src/app/globals.css Site/src/app/strategy/page.tsx","s":"Strategy opens with Dave sit-down line, then Brand strategy, then the brand to the core","d":"Ewan"}
+{"t":"2026-10-09T10:58:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Strategy: Dave line on top, Brand strategy subhead, then the core","d":"Ewan"}
+{"t":"2026-10-09T10:58:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Strategy top is Dave sit-down; Brand strategy then the core with grey words","d":"Ewan"}
+{"t":"2026-10-09T11:42:00+01:00","k":"mod","p":"Site/src/components/OfferWalk.tsx Site/src/components/Workbench.tsx Site/src/app/globals.css","s":"Walk holds then snaps to the next door with a paper gap; BoomStack is the last door; Build rooms pause too","d":"Ewan: not one long blur"}
+{"t":"2026-10-09T11:42:00+01:00","k":"add","p":"Site/src/components/BuildDemos.tsx","s":"Modernization still: plain window, arrow, coloured window","d":"Ewan: just show the idea"}
+{"t":"2026-10-09T11:42:00+01:00","k":"add","p":"Site/src/lib/site-log.ts Site/src/app/api/plots/log/route.ts","s":"Per-plot changelog book for the site tab","d":"when we update their site it shows here"}
+{"t":"2026-10-09T11:42:00+01:00","k":"mod","p":"Site/src/components/Workbench.tsx","s":"Campus / site / press-kit tabs; Press packs off the header; no top-right site tag","d":"Ewan: streamline the front"}
+{"t":"2026-10-09T11:42:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Section snap with gaps; homepage is Campus plus site tabs plus Press kits","d":"Ewan"}
+{"t":"2026-10-09T11:42:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"Home tabs; walk of sections including BoomStack; modernization still","d":"Ewan"}
+{"t":"2026-10-09T11:48:00+01:00","k":"mod","p":"Site/src/components/OfferWalk.tsx Site/src/components/WorkLine.tsx Site/src/components/Workbench.tsx Site/src/app/globals.css","s":"Hold-and-snap only between Design Strategy Build BoomStack, not inner rooms","d":"Ewan: right resistance, main sections only"}
+{"t":"2026-10-09T11:48:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Resistance only between main doors, not subsections","d":"Ewan"}
+{"t":"2026-10-09T11:48:00+01:00","k":"bp","p":"BLUEPRINT.md WORKSTREAM.md","s":"Walk snaps at main doors only; inner rooms free-scroll","d":"Ewan"}
+{"t":"2026-10-09T11:54:00+01:00","k":"mod","p":"Site/src/components/OfferWalk.tsx","s":"Snappy settle: no rest in the gap; resistance only Design-Strategy-Build","d":"Ewan"}
+{"t":"2026-10-09T11:54:00+01:00","k":"mod","p":"Site/src/components/Workbench.tsx Site/src/components/CaptureWell.tsx Site/src/app/account/page.tsx","s":"Site tab patch notes plus free sweep inbox and Send now well","d":"Ewan: patch notes on the front; input; tokens droppable"}
+{"t":"2026-10-09T11:54:00+01:00","k":"mod","p":"Site/src/lib/tokens.ts Site/src/lib/settings.ts Site/src/data/boomstack.ts Site/src/components/SettingsDesk.tsx","s":"genCost on the same well as Send now; grants stay per stack","d":"droppable when pictures and clips open"}
+{"t":"2026-10-09T11:54:00+01:00","k":"dir","p":"DIRECTIONS.md memory/boomstack.md","s":"Snappy main doors; free sweep; Send now spends; gen uses the well later","d":"Ewan onto live"}
+{"t":"2026-10-09T11:54:00+01:00","k":"bp","p":"BLUEPRINT.md","s":"Cannot rest in the gap; site tab is patch notes plus the well","d":"Ewan"}
+{"t":"2026-10-09T12:05:00+01:00","k":"mod","p":"Site/src/components/OfferWalk.tsx","s":"Lerp snap 240ms; rest is bottom of door or top of next; no freeze in the gap","d":"Ewan snappy D/S/B only"}
+{"t":"2026-10-09T12:05:00+01:00","k":"mod","p":"Site/src/lib/tokens.ts Site/src/lib/captures.ts Site/src/app/account/page.tsx","s":"debitWell ping|gen drop-in; studio account shows the monthly well","d":"gen packs spend the same well later"}
+{"t":"2026-10-09T12:05:00+01:00","k":"mod","p":"memory/WORKSTREAM.md memory/BLUEPRINT.md","s":"Walk cannot rest in the gap; site tab is notes plus the well","d":"Ewan onto live"}

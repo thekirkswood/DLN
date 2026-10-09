@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { epkHref } from "@/lib/epk-map";
 
 export type ChooserKit = {
@@ -27,12 +26,12 @@ export function EpkChooser({
           <ul className="epk-index">
             {kits.map((row) => (
               <li key={row.id}>
-                <Link className="epk-index__card chamfer" href={epkHref(row.id)}>
+                <a className="epk-index__card chamfer" href={epkHref(row.id)}>
                   {row.kicker ? <p className="kicker">{row.kicker}</p> : null}
                   <strong>{row.name}</strong>
                   {row.lede ? <p>{row.lede}</p> : null}
                   <span>Open</span>
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

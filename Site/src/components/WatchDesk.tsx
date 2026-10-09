@@ -9,7 +9,8 @@ import type { BlockRow } from "@/lib/block";
 import type { StudioNotice } from "@/lib/notices";
 import type { TrapDoor, TrapWeb } from "@/lib/trap-sort";
 import { slashCount, visitorsFromWeb } from "@/lib/trap-sort";
-import type { WatchInstance } from "@/lib/watch-types";
+import type { VisitKind, WatchInstance } from "@/lib/watch-types";
+import { visitKind } from "@/lib/watch-types";
 import type { BlockAppeal } from "@/lib/appeals";
 
 type SortKey = "depth" | "attempts" | "when";
@@ -17,6 +18,7 @@ type SortKey = "depth" | "attempts" | "when";
 export function WatchDesk({
   notices,
   traps,
+  visits = [],
   blocked = [],
   web,
   appeals = [],
@@ -24,6 +26,7 @@ export function WatchDesk({
 }: {
   notices: StudioNotice[];
   traps: WatchInstance[];
+  visits?: WatchInstance[];
   blocked?: BlockRow[];
   web?: TrapWeb;
   appeals?: BlockAppeal[];
@@ -75,7 +78,8 @@ export function WatchDesk({
       <p className="body bill-note">
         Sorting first, plates second. Depth is how many slashes they walked.
         Related paths sit on the same address. Signed-in people are never
-        blocked — they land here so we can see it.
+        blocked — they land here so we can see it. A long look is a snoop, not
+        a ban. A scrape or a probe is the one we keep.
       </p>
 
       <section
@@ -260,6 +264,8 @@ export function WatchDesk({
         </details>
       </section>
 
+      <WatchVisits visits={visits} />
+
       <section id="watch-blocked" className="watch-section">
         <h2>Blocked</h2>
         <p className="body bill-note">
@@ -277,6 +283,126 @@ export function WatchDesk({
         )}
       </section>
     </div>
+  );
+}
+
+const HOUSE_LABEL: Record<string, string> = {
+  dln: "Design Lab North",
+  modyu: "ModYu",
+  daa: "Digital Adoption Advisor",
+  pfp: "Paul Fosbury Portraits",
+  swarm: "Swarm Fund",
+  "various-titles": "Various Titles",
+  dks: "Dave Kirkwood",
+};
+
+function WatchVisits({ visits }: { visits: WatchInstance[] }) {
+  const [house, setHouse] = useState("all");
+  const [kind, setKind] = useState<"all" | VisitKind>("all");
+  const houses = useMemo(() => {
+    const map = new Map<string, WatchInstance[]>();
+    for (const row of visits) {
+      const key = row.plot || row.host || "unknown";
+      const list = map.get(key) || [];
+      list.push(row);
+      map.set(key, list);
+    }
+    return [...map.entries()]
+      .map(([id, rows]) => ({
+        id,
+        name: HOUSE_LABEL[id] || id,
+        n: rows.length,
+        rows: [...rows].sort((a, b) => (a.last < b.last ? 1 : -1)),
+      }))
+      .sort((a, b) => b.n - a.n);
+  }, [visits]);
+  const shown = houses
+    .filter((h) => house === "all" || h.id === house)
+    .map((h) => ({
+      ...h,
+      rows: h.rows.filter((row) => kind === "all" || visitKind(row) === kind),
+    }))
+    .filter((h) => h.rows.length);
+
+  return (
+    <section id="watch-visits" className="watch-section">
+      <h2>Visitors</h2>
+      <p className="body bill-note">
+        Who came to each house, which host, when. Browse and snoop stay. Scrape
+        and probe sit first. This is the book we keep as we host live sites.
+      </p>
+      {visits.length === 0 ? (
+        <p className="body">
+          None on this book yet. Public and client walks land here as they
+          happen. Studio walking Design Lab North itself is not listed; a walk
+          on a hosted house is.
+        </p>
+      ) : (
+        <>
+          <p className="watch-visit-filters" role="group" aria-label="Filter visitors">
+            <button
+              type="button"
+              className={house === "all" ? "is-on" : undefined}
+              onClick={() => setHouse("all")}
+            >
+              All houses
+            </button>
+            {houses.map((h) => (
+              <button
+                key={h.id}
+                type="button"
+                className={house === h.id ? "is-on" : undefined}
+                onClick={() => setHouse(h.id)}
+              >
+                {h.name} {h.n}
+              </button>
+            ))}
+          </p>
+          <p className="watch-visit-filters" role="group" aria-label="Kind">
+            {(["all", "probe", "scrape", "snoop", "browse"] as const).map((k) => (
+              <button
+                key={k}
+                type="button"
+                className={kind === k ? "is-on" : undefined}
+                onClick={() => setKind(k)}
+              >
+                {k}
+              </button>
+            ))}
+          </p>
+          {shown.map((group) => (
+            <div key={group.id} className="watch-house">
+              <h3>
+                {group.name}
+                <span>
+                  {group.rows.length}{" "}
+                  {group.rows.length === 1 ? "visitor" : "visitors"}
+                </span>
+              </h3>
+              <ol className="watch-visits">
+                {group.rows.slice(0, 80).map((row) => {
+                  const rowKind = visitKind(row);
+                  const lastPath = row.paths[row.paths.length - 1]?.path || "";
+                  return (
+                    <li key={row.id} className={`is-${rowKind}`}>
+                      <strong>{rowKind}</strong>
+                      <span>{row.displayName || row.email || "anonymous"}</span>
+                      <span>{row.host || "host"}</span>
+                      <span>{row.ip}</span>
+                      <span>
+                        {formatLondonDate(row.last)} {formatLondonTime(row.last)}
+                      </span>
+                      <span>{row.paths.length} paths</span>
+                      {lastPath ? <span className="watch-last-path">{lastPath}</span> : null}
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          ))}
+        </>
+      )}
+    </section>
   );
 }
 

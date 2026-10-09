@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/session";
-import { clientPlots, enterUrlFor, allPlots } from "@/lib/plots";
+import { plotsOnAccount, enterUrlFor, hostUrlFor, allPlots } from "@/lib/plots";
 import { pressKitForPlot, epkHref } from "@/lib/epk-map";
-import { canAccessPlot, isStudio, listClients } from "@/lib/auth";
+import { isStudio, listClients } from "@/lib/auth";
 import {
   invoicesVisibleTo,
   rollDueInvoices,
@@ -33,7 +32,10 @@ import { HOSTS } from "@/lib/hosts";
 import { getSettings } from "@/lib/settings";
 import { listEnquiries } from "@/lib/enquiries";
 import { listNotices } from "@/lib/notices";
-import { listOpenInstances } from "@/lib/watch";
+import { listOpenInstances, listVisits } from "@/lib/watch";
+import { listCaptures } from "@/lib/captures";
+import { CaptureWell } from "@/components/CaptureWell";
+import { grantDueTokens, ledgersVisibleTo, tokenCosts } from "@/lib/tokens";
 import { listBlocks } from "@/lib/block";
 import { absorbTrapWeb, listTrapWeb } from "@/lib/trap-web";
 import { listAppeals } from "@/lib/appeals";
@@ -74,12 +76,15 @@ export default async function AccountPage({
   const user = await getSessionUser();
   if (!user) redirect("/login?next=/account");
   await rollDueInvoices();
+  await grantDueTokens();
+  const costs = await tokenCosts();
+  const ledgers = await ledgersVisibleTo(user);
   const studio = isStudio(user);
-  const allClientPlots = await clientPlots();
-  const sites = allClientPlots.filter((p) => canAccessPlot(user, p.slug));
+  const sites = plotsOnAccount(user, await allPlots());
   const invoices = await invoicesVisibleTo(user);
   const titles = studio ? null : await titlesAccessFor(user);
   const comments = await commentsFor(user);
+  const captures = await listCaptures(user);
   const plans = await plansFor(user);
   const claims = await paymentByInvoice();
   const rail = await getPayRail();
@@ -111,6 +116,7 @@ export default async function AccountPage({
         online: await getOnlineRail(),
         notices: await listNotices(),
         traps: await listOpenInstances(),
+        visits: await listVisits(),
         blocked: await listBlocks(),
         trapWeb: await absorbTrapWeb().then(() => listTrapWeb()),
         appeals: await listAppeals(),
@@ -171,12 +177,14 @@ export default async function AccountPage({
         ) : (
           <>
             <Tile href="/account" label="Sites" hint={String(sites.length)} on={!view} />
-            <Tile
-              href="/account?view=epks"
-              label="Press kits"
-              hint={String(kitTiles.length)}
-              on={view === "epks"}
-            />
+            {kitTiles.length ? (
+              <Tile
+                href="/account?view=epks"
+                label="Press kits"
+                hint={String(kitTiles.length)}
+                on={view === "epks"}
+              />
+            ) : null}
             <Tile
               href="/account?view=assets"
               label="Assets"
@@ -201,6 +209,52 @@ export default async function AccountPage({
         )}
       </ul>
 
+      {studio ? (
+        <section className="token-well">
+          <h2>This month’s updates</h2>
+          <p className="body bill-note">
+            Sweep notes are free. Send now spends {costs.pingCost}. Generated
+            pictures, clips, and packs will spend {costs.genCost} from the same
+            well. Grants follow the stack: {costs.grants[1]} / {costs.grants[2]}{" "}
+            / {costs.grants[3]}.
+          </p>
+          {ledgers.length ? (
+            <ul className="note-list">
+              {ledgers.map((row) => (
+                <li key={row.id}>
+                  <span className="status">
+                    {row.plotSlug} · stack {row.stack}
+                  </span>
+                  <p>
+                    {row.balance} of {row.grantedThisPeriod} left this month.
+                  </p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="body">Wells open when a site is on a monthly stack.</p>
+          )}
+        </section>
+      ) : null}
+
+      {studio && captures.length ? (
+        <section className="capture-log">
+          <h2>Captures</h2>
+          <ul className="note-list">
+            {captures.slice(0, 40).map((row) => (
+              <li key={row.id}>
+                <span className="status">
+                  {row.t.slice(0, 10)} · {row.plotSlug} · {row.pace} · {row.status}
+                </span>
+                <p>
+                  <strong>{row.kind}.</strong> {row.text || row.files.map((f) => f.name).join(", ")}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       {studio && studioBook ? (
         <section className="campus-book">
           <StudioDesk
@@ -218,6 +272,7 @@ export default async function AccountPage({
             settings={settings}
             notices={studioBook.notices}
             traps={studioBook.traps}
+            visits={studioBook.visits}
             blocked={studioBook.blocked}
             trapWeb={studioBook.trapWeb}
             appeals={studioBook.appeals}
@@ -265,6 +320,7 @@ export default async function AccountPage({
                 <div className="site-ledger">
                   {sites.map((plot) => {
                     const live = enterUrlFor(plot);
+                    const host = hostUrlFor(plot);
                     const kit = pressKitForPlot(plot.slug);
                     const log = plans.filter((p) => p.plotSlug === plot.slug);
                     return (
@@ -272,16 +328,37 @@ export default async function AccountPage({
                         <div className="site-copy">
                           <h3>{plot.name}</h3>
                           <p className="site-acts">
-                            {live ? <a href={live}>Visit site</a> : null}
+                            {live ? <a href={live}>Live site</a> : null}
+                            {host && host !== live ? (
+                              <a href={host}>On our host</a>
+                            ) : null}
                             {kit ? <a href={epkHref(kit)}>Press kit</a> : null}
                             {kit ? (
-                              <Link href={`/account?view=assets&kit=${kit}`}>Assets</Link>
+                              <a href={`/account?view=assets&kit=${kit}`}>Assets</a>
                             ) : null}
                             {kit ? (
-                              <Link href={`/account?view=press&kit=${kit}`}>Edit kit</Link>
+                              <a href={`/account?view=press&kit=${kit}`}>Edit kit</a>
                             ) : null}
                           </p>
-                          <h4>Update log</h4>
+                          {(() => {
+                            const held = ledgers.find((row) => row.plotSlug === plot.slug);
+                            return held ? (
+                              <p className="body">
+                                Stack {held.stack}: {held.balance} of{" "}
+                                {held.grantedThisPeriod} updates left this month.
+                                A note for the sweep is free. Send now spends{" "}
+                                {costs.pingCost}. Generated pictures, clips, and
+                                packs will use the same well.
+                              </p>
+                            ) : (
+                              <p className="body">
+                                A note or a file for the sweep is free. Send now
+                                uses this month’s updates when the site is on a
+                                stack.
+                              </p>
+                            );
+                          })()}
+                          <h4>Patch notes</h4>
                           {log.length ? (
                             <ul className="note-list">
                               {log.map((row) => (
@@ -297,7 +374,7 @@ export default async function AccountPage({
                               ))}
                             </ul>
                           ) : (
-                            <p className="body">No shipped updates on this site yet.</p>
+                            <p className="body">When we update this site, the notes land here.</p>
                           )}
                         </div>
                       </div>
@@ -305,13 +382,9 @@ export default async function AccountPage({
                   })}
                 </div>
               )}
-              <CommentBox
+              <CaptureWell
                 plotSlug={sites[0]?.slug || ""}
                 plotOptions={sites}
-                rows={6}
-                hint="Write what you’d like changed. If there are comments, we aim to roll an update that evening."
-                label="A comment"
-                cta="Leave comment"
               />
               <CommentBox
                 plotSlug={sites[0]?.slug || ""}
@@ -341,7 +414,7 @@ export default async function AccountPage({
       ) : null}
 
       <p className="account-out">
-        <Link href="/logout">Sign out</Link>
+        <a href="/logout">Sign out</a>
       </p>
     </article>
   );
@@ -407,9 +480,9 @@ function PaymentsPanel({
             <div key={row.id} className="lift-plate">
               <div className="lift-plate-face book-card">
                 <div className="book-card-top">
-                  <Link href={`/account/receipts/${row.id}`}>
+                  <a href={`/account/receipts/${row.id}`}>
                     <strong>{row.number}</strong>
-                  </Link>
+                  </a>
                   <span className="book-chip">{row.method}</span>
                 </div>
                 <p className="book-when">{row.invoiceNumber}</p>
@@ -446,7 +519,7 @@ function PaymentsPanel({
       ) : titles?.pendingInvoiceId ? (
         <p className="body bill-note">
           A Various Titles line is due.{" "}
-          <Link href={`/account/invoices/${titles.pendingInvoiceId}`}>Open invoice</Link>.
+          <a href={`/account/invoices/${titles.pendingInvoiceId}`}>Open invoice</a>.
         </p>
       ) : (
         <p className="body bill-note">Nothing unlocked on Various Titles yet.</p>
@@ -477,9 +550,9 @@ function NoticesPanel({
                 <span className="status">{inv.dueAt?.slice(0, 10) || "Due"}</span>
                 <p>
                   Invoice {inv.number} needs paying.{" "}
-                  <Link href={`/account/invoices/${inv.id}`}>Open invoice</Link>
+                  <a href={`/account/invoices/${inv.id}`}>Open invoice</a>
                   {" · "}
-                  <Link href="/account?view=pay">Payments</Link>
+                  <a href="/account?view=pay">Payments</a>
                 </p>
               </li>
             ))}

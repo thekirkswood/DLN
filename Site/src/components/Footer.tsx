@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GroundSwitch } from "@/components/GroundSwitch";
 
-export function Footer() {
+export function Footer({ hasPress = false }: { hasPress?: boolean }) {
   const path = usePathname() || "";
   if (path === "/blocked" || path.startsWith("/blocked/")) return null;
   if (path.startsWith("/suggest")) return null;
@@ -23,7 +23,7 @@ export function Footer() {
       </div>
       <nav className="footer-legal" aria-label="Legal">
         <Link href="/method">Methodology</Link>
-        <Link href="/epk">Press</Link>
+        {hasPress ? <a href="/epk">Press</a> : null}
         <Link href="/privacy">Privacy</Link>
         <Link href="/terms">Terms</Link>
       </nav>

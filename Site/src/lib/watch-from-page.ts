@@ -6,7 +6,7 @@ import { WATCH_COOKIE, tapWatch } from "@/lib/watch";
 /** Node path: Edge waitUntil fetch can miss live (SSRF / Caddy / Cloudflare). */
 export async function tapWatchFromPage() {
   const h = headers();
-  const path = h.get("x-dln-watch-path") || "";
+  const path = h.get("x-dln-watch-path") || h.get("x-dln-path") || "";
   if (!path) return;
   try {
     const hit = await sessionFromRequest();

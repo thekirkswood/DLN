@@ -6,6 +6,7 @@ alwaysApply: true
 # Build
 
 - App lives in `Site/` (Next.js 14). This PC: `localhost:3010` only. LAN browsers (Mac, phones): Debian `http://192.168.0.223:3010`. localhost `/admin` pushes its inbox downstairs; sniff merges by id and never overwrites a local-only note. Prefer `ops/enable-campus-user.sh` here; `ops/enable-debian-host.sh` downstairs. Push `ops/sync-to-debian.sh`, pull `ops/pull-from-debian.sh`. Live public host 404s `/lab`.
+- Ordinary edit and build-out stay on the house. Do not rsync or docker-rebuild `designlabnorth.com` unless Ewan says **hotfix** (something is wrong live) or a numbered ship. Finishing a feature is not a VPS jump.
 - Plots registry: `greenhouse/plots.json` (`party`: client|studio) + `memory/greenhouse.md` (keep in sync)
 - One Docker service per **hosted** plot. Isolation over shared roots. Do not rebase a **live** plot onto a hub path. Local lab on `:3010` may frame houses under `/go/{slug}/` — see `ops/lab.md`.
 - Auth cookie `dln_session`; accounts in `_meta/accounts/` (gitignored)

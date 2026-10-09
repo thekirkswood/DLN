@@ -14,7 +14,11 @@ export const ACCOUNT_FAQ = [
   },
   {
     q: "How do comments work?",
-    a: "Write what you want changed. We read them and turn them into a plan. If there are comments, we aim to run a rolling update that evening. Nothing on the live site changes from the box itself.",
+    a: "Leave a note or a file any time. That is free — we pick it up on the evening sweep and fold it into an overhaul when there is enough to run. Nothing on the live site changes from the box itself.",
+  },
+  {
+    q: "What does Send now do?",
+    a: "A direct edit, or an update from a document you drop. It spends this month’s updates on that site. The well is bigger on a higher stack. When we generate pictures, clips, or written packs, those spend from the same well.",
   },
   {
     q: "What is a hotfix?",
@@ -22,7 +26,7 @@ export const ACCOUNT_FAQ = [
   },
   {
     q: "Where do I see what changed?",
-    a: "Shipped updates sit on Sites, under the log. That is the patch we ran, written so you can read it.",
+    a: "Patch notes sit on the home tab for that site, and on Sites in the account. That is what we actually ran, written so you can read it.",
   },
   {
     q: "Who do I sit with?",

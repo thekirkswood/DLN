@@ -190,7 +190,9 @@ async function ensureHubAccounts() {
 }
 
 /** Offline puppets we sign in as on campus. Not a person to mail. */
-const PUPPET_EMAILS = new Set(["modyu@designlabnorth.com"]);
+const PUPPET_EMAILS = new Set([
+  "modyu@designlabnorth.com",
+]);
 
 export function isPuppetEmail(email: string): boolean {
   return PUPPET_EMAILS.has(email.trim().toLowerCase());

@@ -8,25 +8,20 @@ import {
   brandsForRoom,
   type BrandRoom,
 } from "@/data/plates";
+import { type Facet } from "@/data/needs";
 import {
+  STRATEGY_OPEN,
+  linesFor,
   type LineExample,
   type LineId,
   type WorkLine,
 } from "@/data/worklines";
+import { ModernWindows, SimpleWindow } from "@/components/BuildDemos";
 import {
-  AppSketch,
-  ModernizeDemo,
-  SimpleFormats,
-  SystemsSketch,
-  WorkspaceDemo,
-} from "@/components/BuildDemos";
-import {
-  AuditPath,
-  BrandKit,
+  AvenueRead,
+  CounselLevels,
   IdentityKit,
-  MarketKit,
-  SittingRing,
-  StartupTalk,
+  PackLoop,
   UiKit,
 } from "@/components/OfferDemos";
 
@@ -149,7 +144,7 @@ function LineAbout({
         <p className="bench-kicker">{line.facet}</p>
         <h1>{line.title}</h1>
         <p className="campus-lead">{line.lead}</p>
-        <p className="campus-lead">{line.body}</p>
+        {line.body ? <p className="campus-lead">{line.body}</p> : null}
         <ol className="bench-folds">
           {line.folds.map((item, i) => {
             const open = fold === i;
@@ -185,22 +180,119 @@ export function LineStage({
   onContact,
   onHost,
   onEngine: _onEngine,
+  embed,
 }: {
   line: WorkLine;
   extra?: ReactNode;
   onContact: (needId: string) => void;
   onHost?: () => void;
   onEngine?: () => void;
+  embed?: boolean;
 }) {
   if (line.facet === "build") {
-    return <BuildStage line={line} onContact={onContact} onHost={onHost} />;
+    return (
+      <BuildStage
+        line={line}
+        onContact={onContact}
+        onHost={onHost}
+        embed={embed}
+      />
+    );
   }
   return (
     <OfferStage
       line={line}
       extra={extra}
       onContact={onContact}
+      embed={embed}
     />
+  );
+}
+
+const FACET_NAME: Record<Facet, string> = {
+  design: "Design",
+  strategy: "Strategy",
+  build: "Build",
+};
+
+export function FacetStage({
+  facet,
+  focusId,
+  onContact,
+  onHost,
+  onEngine,
+}: {
+  facet: Facet;
+  focusId?: LineId | null;
+  onContact: (needId: string) => void;
+  onHost?: () => void;
+  onEngine?: () => void;
+}) {
+  const rows = linesFor(facet);
+  const levelIds: LineId[] = ["startup", "audits", "counsel"];
+  const main =
+    facet === "strategy"
+      ? rows.filter((row) => !levelIds.includes(row.id))
+      : rows;
+  const levels =
+    facet === "strategy"
+      ? rows.filter((row) => levelIds.includes(row.id))
+      : [];
+
+  useEffect(() => {
+    if (!focusId) return;
+    const node = document.getElementById(`line-${focusId}`);
+    node?.scrollIntoView({ block: "start" });
+  }, [focusId]);
+
+  return (
+    <div className={`bench-facet is-${facet}`}>
+      <header className="bench-app-bar">
+        <div>
+          <p className="bench-kicker">{FACET_NAME[facet]}</p>
+          <h1>{FACET_NAME[facet]}</h1>
+        </div>
+        {facet === "strategy" && onEngine ? (
+          <div className="bench-app-acts">
+            <button type="button" className="bench-word" onClick={onEngine}>
+              How we work
+            </button>
+          </div>
+        ) : facet === "build" && onHost ? (
+          <div className="bench-app-acts">
+            <button type="button" className="bench-word" onClick={onHost}>
+              BoomStack
+            </button>
+          </div>
+        ) : null}
+      </header>
+      <div className="bench-facet-stack">
+        {main.map((row) => (
+          <section
+            key={row.id}
+            id={`line-${row.id}`}
+            className={focusId === row.id ? "is-focus" : undefined}
+          >
+            <LineStage
+              line={row}
+              embed
+              onContact={onContact}
+              onHost={onHost}
+              onEngine={onEngine}
+            />
+          </section>
+        ))}
+        {levels.length ? (
+          <section
+            className={
+              focusId && levelIds.includes(focusId) ? "is-focus" : undefined
+            }
+          >
+            <CounselLevels rows={levels} focusId={focusId} />
+          </section>
+        ) : null}
+      </div>
+    </div>
   );
 }
 
@@ -208,10 +300,12 @@ function OfferStage({
   line,
   extra,
   onContact,
+  embed,
 }: {
   line: WorkLine;
   extra?: ReactNode;
   onContact: (needId: string) => void;
+  embed?: boolean;
 }) {
   const [fold, setFold] = useState(-1);
   const [about, setAbout] = useState(false);
@@ -231,33 +325,45 @@ function OfferStage({
   }
 
   return (
-    <div className={`bench-room bench-line bench-app is-${line.id}`}>
-      <header className="bench-app-bar">
-        <div>
-          <p className="bench-kicker">{line.facet}</p>
-          <h1>{line.title}</h1>
-        </div>
-        <div className="bench-app-acts">
-          <button type="button" className="bench-word" onClick={() => setAbout(true)}>
-            About
-          </button>
-          <button type="button" className="bench-cta" onClick={enquire}>
-            {line.cta}
-          </button>
-        </div>
-      </header>
+    <div className={`bench-room bench-line bench-app is-${line.id}${embed ? " is-embed" : ""}`}>
+      {embed ? (
+        <header className="bench-line-head">
+          {line.id === "brand" ? (
+            <p className="bench-strategy-open bench-avenue-line">{STRATEGY_OPEN}</p>
+          ) : null}
+          <h2>{line.title}</h2>
+        </header>
+      ) : (
+        <header className="bench-app-bar">
+          <div>
+            <p className="bench-kicker">{line.facet}</p>
+            <h1>{line.title}</h1>
+          </div>
+          <div className="bench-app-acts">
+            <button type="button" className="bench-word" onClick={() => setAbout(true)}>
+              About
+            </button>
+            <button type="button" className="bench-cta" onClick={enquire}>
+              {line.cta}
+            </button>
+          </div>
+        </header>
+      )}
 
       <div className="bench-app-stage">
         {line.widget === "identity-kit" ? (
           <IdentityKit shots={examples} />
         ) : null}
         {line.widget === "ui-kit" ? <UiKit /> : null}
+        {line.widget === "pack-loop" ? <PackLoop /> : null}
         {line.widget === "brands" ? <BrandStrip lineId={line.id} /> : null}
-        {line.widget === "brand-kit" ? <BrandKit /> : null}
-        {line.widget === "market-kit" ? <MarketKit /> : null}
-        {line.widget === "audit-path" ? <AuditPath /> : null}
-        {line.widget === "sitting" ? <SittingRing layers={3} /> : null}
-        {line.widget === "startup-talk" ? <StartupTalk /> : null}
+        {line.widget === "avenue" ? (
+          <AvenueRead
+            lead={line.marks?.length ? line.lead : ""}
+            folds={line.marks?.length ? [] : line.folds}
+            marks={line.marks}
+          />
+        ) : null}
 
         {showExamples ? (
           <ExamplesBoard
@@ -303,50 +409,48 @@ function BuildStage({
   line,
   onContact,
   onHost,
+  embed,
 }: {
   line: WorkLine;
   onContact: (needId: string) => void;
   onHost?: () => void;
+  embed?: boolean;
 }) {
-  const examples = examplesOf(line);
-
   return (
     <div
-      className={`bench-room bench-line bench-app is-${line.id}`}
+      className={`bench-room bench-line bench-app is-${line.id}${embed ? " is-embed" : ""}`}
       data-facet="build"
     >
-      <header className="bench-app-bar">
-        <div>
-          <p className="bench-kicker">Build</p>
-          <h1>{line.title}</h1>
-        </div>
-        <div className="bench-app-acts">
-          {line.id === "api" && onHost ? (
-            <button type="button" className="bench-word" onClick={onHost}>
-              Host
-            </button>
-          ) : null}
-          <button
-            type="button"
-            className="bench-cta"
-            onClick={() => onContact(line.needId)}
-          >
-            {line.cta}
-          </button>
-        </div>
-      </header>
-      <div className="bench-app-stage">
-        <div className="bench-pee">
-          <p className="bench-pee-point">{line.lead}</p>
-          <div className="bench-pee-evidence">
-            {line.widget === "examples" ? <SimpleFormats /> : null}
-            {line.widget === "workspace" ? <WorkspaceDemo /> : null}
-            {line.widget === "checkout" ? <AppSketch /> : null}
-            {line.widget === "modernize" ? <ModernizeDemo /> : null}
-            {line.widget === "joins" ? <SystemsSketch /> : null}
+      {embed ? (
+        <header className="bench-line-head">
+          <h2>{line.title}</h2>
+        </header>
+      ) : (
+        <header className="bench-app-bar">
+          <div>
+            <p className="bench-kicker">Build</p>
+            <h1>{line.title}</h1>
           </div>
-          <p className="bench-pee-explain">{line.body}</p>
-        </div>
+          <div className="bench-app-acts">
+            {line.id === "api" && onHost ? (
+              <button type="button" className="bench-word" onClick={onHost}>
+                BoomStack
+              </button>
+            ) : null}
+            <button
+              type="button"
+              className="bench-cta"
+              onClick={() => onContact(line.needId)}
+            >
+              {line.cta}
+            </button>
+          </div>
+        </header>
+      )}
+      <div className="bench-app-stage">
+        {line.id === "simple" ? <SimpleWindow /> : null}
+        {line.id === "modernize" ? <ModernWindows /> : null}
+        <AvenueRead lead="" folds={line.folds} />
       </div>
     </div>
   );

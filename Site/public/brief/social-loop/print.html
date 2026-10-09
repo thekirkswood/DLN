@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-orient="landscape">
+<head>
+  <meta charset="utf-8" />
+  <title>DLN loop — print</title>
+  <style>
+    :root {
+      --ground: #ffffff;
+      --ink: #414141;
+      --mute: #6e6e6e;
+      --line: #d4d4d4;
+      --font: "aktiv-grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--ground);
+      color: var(--ink);
+      font-family: var(--font);
+      height: 100%;
+      overflow: hidden;
+    }
+    body { display: flex; align-items: center; justify-content: center; }
+    .stage {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      padding: 5% 5.2% 4.4%;
+      position: relative;
+      overflow: hidden;
+    }
+    html[data-orient="portrait"] .stage {
+      width: min(100vw, calc(100vh * 9 / 16));
+      height: min(100vh, calc(100vw * 16 / 9));
+      padding: 7% 8% 6.5%;
+    }
+    .scene {
+      height: 100%;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 0.26fr 1fr 0.3fr;
+      gap: 2.4%;
+      align-items: center;
+    }
+    html[data-orient="portrait"] .scene {
+      grid-template-columns: 1fr;
+      grid-template-rows: 0.28fr 1fr 0.34fr;
+    }
+    .col {
+      position: relative;
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .press {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      overflow: visible;
+      color: var(--ink);
+    }
+
+    .slot {
+      position: absolute;
+      width: min(72%, 6.8rem);
+      aspect-ratio: 1.28 / 1;
+      top: 42%;
+      transform: translateY(-50%);
+    }
+    .slot-feed { left: 10%; }
+    .slot-out { right: 8%; left: auto; }
+    html[data-orient="portrait"] .slot {
+      width: min(36%, 6rem);
+      left: 50%;
+      right: auto;
+      transform: translate(-50%, -50%);
+    }
+    html[data-orient="portrait"] .slot-feed { top: 22%; }
+    html[data-orient="portrait"] .slot-out { top: 78%; }
+
+    .pile {
+      position: absolute;
+      inset: 0;
+    }
+    .leaf {
+      position: absolute;
+      inset: 0;
+      background: var(--ground);
+      border: 2px solid var(--ink);
+      clip-path: polygon(7% 0, 100% 0, 100% 93%, 93% 100%, 0 100%, 0 7%);
+    }
+    .pile-feed .leaf:nth-child(1) { transform: translate(0, 0); }
+    .pile-feed .leaf:nth-child(2) { transform: translate(5%, 7%); }
+    .pile-feed .leaf:nth-child(3) { transform: translate(10%, 14%); }
+    .pile-out .leaf {
+      border-color: var(--ink);
+    }
+    .pile-out .leaf:nth-child(1) { transform: translate(0, 8%); }
+    .pile-out .leaf:nth-child(2) { transform: translate(6%, 16%); }
+    .pile-out { opacity: 0; }
+
+    .sheet {
+      position: absolute;
+      z-index: 5;
+      pointer-events: none;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      background: var(--ground);
+      border: 2.2px solid var(--ink);
+      clip-path: polygon(7% 0, 100% 0, 100% 93%, 93% 100%, 0 100%, 0 7%);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 0.55rem 0.6rem 0;
+    }
+    .sheet img {
+      width: 42%;
+      height: auto;
+      opacity: 0;
+      display: block;
+    }
+
+    html[data-freeze] .sheet { /* freeze stills still run frame() */ }
+  </style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="scene" id="scene">
+      <div class="col col-feed">
+        <div class="slot slot-feed" id="slot-feed">
+          <div class="pile pile-feed">
+            <i class="leaf"></i>
+            <i class="leaf"></i>
+            <i class="leaf"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col col-press">
+        <svg class="press" viewBox="0 -40 320 242" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter">
+          <path d="M36 118 H260 L274 132 V168 L260 182 H36 L22 168 V132 Z" />
+          <path d="M48 182 L36 198 H78 L86 182" />
+          <path d="M210 182 L218 198 H260 L248 182" />
+          <path d="M50 108 H266 L276 118 H40 Z" />
+          <rect class="bed-mark" x="72" y="84" width="168" height="26" fill="transparent" stroke="none" />
+          <image href="../../brand/dln-mute.png" x="140" y="98" width="24" height="24" opacity="0.22" />
+          <g transform="translate(268 108)">
+            <g class="platen" id="platen">
+              <path d="M-216 -16 H0 L10 0 H-220 Z" />
+            </g>
+          </g>
+          <circle cx="286" cy="142" r="26" />
+          <g transform="translate(286 142)">
+            <g class="spoke" id="spoke">
+              <path d="M0 -24 V24" />
+              <path d="M-24 0 H24" />
+            </g>
+          </g>
+          <circle cx="286" cy="142" r="4.2" fill="currentColor" stroke="none" />
+        </svg>
+      </div>
+
+      <div class="col col-out">
+        <div class="slot slot-out" id="slot-out">
+          <div class="pile pile-out" id="pile-out">
+            <i class="leaf"></i>
+            <i class="leaf"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet" id="sheet">
+      <img src="../../brand/dln-mute.png" alt="" />
+    </div>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const baked = document.documentElement.getAttribute("data-orient");
+    const orient = q.get("orient") === "portrait" || (!q.has("orient") && baked === "portrait")
+      ? "portrait" : "landscape";
+    document.documentElement.dataset.orient = orient;
+
+    const stage = document.getElementById("stage");
+    const platen = document.getElementById("platen");
+    const spoke = document.getElementById("spoke");
+    const sheet = document.getElementById("sheet");
+    const mark = sheet.querySelector("img");
+    const pileOut = document.getElementById("pile-out");
+    const pileFeed = stage.querySelector(".pile-feed");
+    const slotFeed = document.getElementById("slot-feed");
+    const slotOut = document.getElementById("slot-out");
+    const bedRect = stage.querySelector(".bed-mark");
+
+    const CYCLE = 14000;
+    const OPEN = 56;
+    const ease = (p) => p * p * (3 - 2 * p);
+    const clamp = (t, a, b) => (t <= a ? 0 : t >= b ? 1 : (t - a) / (b - a));
+    const eclamp = (t, a, b) => ease(clamp(t, a, b));
+    const lerp = (a, b, p) => a + (b - a) * p;
+
+    function mid(el) {
+      const s = stage.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      return {
+        x: ((r.left + r.width / 2 - s.left) / s.width) * 100,
+        y: ((r.top + r.height / 2 - s.top) / s.height) * 100,
+        w: (r.width / s.width) * 100,
+        h: (r.height / s.height) * 100,
+      };
+    }
+    function mix(a, b, p) {
+      return {
+        x: lerp(a.x, b.x, p),
+        y: lerp(a.y, b.y, p),
+        w: lerp(a.w, b.w, p),
+        h: lerp(a.h, b.h, p),
+      };
+    }
+    function put(el, pos, opacity) {
+      el.style.left = (pos.x - pos.w / 2) + "%";
+      el.style.top = (pos.y - pos.h / 2) + "%";
+      el.style.width = pos.w + "%";
+      el.style.height = pos.h + "%";
+      el.style.opacity = String(opacity);
+    }
+
+    function clapAt(t) {
+      const hits = [
+        [2400, 2680, 2880],
+        [2880, 3160, 3360],
+        [3360, 3640, 3840],
+      ];
+      let clap = 0;
+      let turns = 0;
+      hits.forEach((h, i) => {
+        const down = eclamp(t, h[0], h[1]);
+        const up = eclamp(t, h[1], h[2]);
+        const local = down * (1 - up);
+        if (local > clap) clap = local;
+        turns += down;
+      });
+      return { clap, turns };
+    }
+
+    function frame(t) {
+      const reset = eclamp(t, 11200, 13200);
+      const feed = eclamp(t, 600, 2000);
+      const toOut = eclamp(t, 5000, 6800);
+      const { clap, turns } = clapAt(t);
+
+      platen.setAttribute("transform", `rotate(${OPEN * (1 - clap)})`);
+      spoke.setAttribute("transform", `rotate(${turns * 120})`);
+
+      const from = mid(slotFeed);
+      const bed = mid(bedRect);
+      const dest = mid(slotOut);
+      const paper = { w: 8.2, h: 6.4 };
+      const at = (a, b, p) => ({ ...mix(a, b, p), w: paper.w, h: paper.h });
+      let pos = { ...from, ...paper };
+      if (t < 600) pos = { ...from, ...paper };
+      else if (t < 2000) pos = at(from, bed, feed);
+      else if (t < 5000) pos = { ...bed, ...paper };
+      else if (t < 6800) pos = at(bed, dest, toOut);
+      else pos = { ...dest, ...paper };
+
+      const showSheet = t < 600 ? 0 : 1 - reset;
+      put(sheet, pos, showSheet);
+      const feedLeaves = pileFeed.querySelectorAll(".leaf");
+      if (feedLeaves[2]) feedLeaves[2].style.opacity = String(showSheet ? 0 : 1);
+
+      const ink = Math.min(1, eclamp(t, 2400, 2680) * 0.38 + eclamp(t, 2880, 3160) * 0.32 + eclamp(t, 3360, 3640) * 0.3);
+      mark.style.opacity = String(ink * showSheet);
+
+      pileOut.style.opacity = "0";
+    }
+
+    const beats = [
+      { t: 0, name: "idle" },
+      { t: 600, name: "feed" },
+      { t: 2000, name: "bed" },
+      { t: 2550, name: "ch1" },
+      { t: 3050, name: "ch2" },
+      { t: 3500, name: "ch3" },
+      { t: 4200, name: "open" },
+      { t: 5800, name: "out" },
+      { t: 7600, name: "pile" },
+      { t: 11200, name: "back" },
+    ];
+    const order = Object.fromEntries(beats.map((b) => [b.name, b.t]));
+    function apply(b) {
+      stage.className = "stage is-" + b.name;
+    }
+
+    const freeze = q.get("beat");
+    const freezeT = q.get("t");
+    if (freeze || freezeT != null) {
+      const t = freezeT != null ? Number(freezeT) : (order[freeze] ?? 0);
+      if (freeze) document.documentElement.dataset.freeze = "1";
+      apply(beats.find((x) => x.name === (freeze || "idle")) || beats[0]);
+      frame(t);
+      requestAnimationFrame(() => frame(t));
+    } else {
+      stage.className = "stage is-live";
+      const t0 = performance.now();
+      function tickLoop(now) {
+        frame((now - t0) % CYCLE);
+        requestAnimationFrame(tickLoop);
+      }
+      requestAnimationFrame(tickLoop);
+    }
+  </script>
+</body>
+</html>

@@ -22,3 +22,18 @@ export type WatchInstance = {
   /** Studio cleared this poke off Open. Trap web still holds the count. */
   cleared?: boolean;
 };
+
+export type VisitKind = "browse" | "snoop" | "scrape" | "probe";
+
+export function visitKind(row: WatchInstance): VisitKind {
+  if (row.paths.some((p) => p.trap)) return "probe";
+  const ua = row.ua.toLowerCase();
+  if (/(?:bot|crawl|spider|scrapy|python-requests|curl\/|wget|httpclient|go-http)/i.test(ua)) {
+    return "scrape";
+  }
+  const span = Date.parse(row.last) - Date.parse(row.t);
+  const distinct = new Set(row.paths.map((p) => p.path)).size;
+  if (row.paths.length >= 12 && span > 0 && span < 2 * 60 * 1000) return "scrape";
+  if (distinct >= 8 && span >= 2 * 60 * 1000) return "snoop";
+  return "browse";
+}

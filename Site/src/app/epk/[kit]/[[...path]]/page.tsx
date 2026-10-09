@@ -22,7 +22,7 @@ export default async function EpkKitPage({
   searchParams,
 }: {
   params: { kit: string; path?: string[] };
-  searchParams?: { hub?: string };
+  searchParams?: { hub?: string; plot?: string };
 }) {
   const id = params.kit.toLowerCase();
   if (!isKitId(id)) notFound();
@@ -32,10 +32,12 @@ export default async function EpkKitPage({
     return <EpkGate wanted={id} next={epkHref(id, trail.join("/"))} />;
   }
 
-  // Bespoke plot kit takes over the generated hub shell for journalists.
-  // Studio can open ?hub=1 to keep the generated base on the hub.
-  const stayOnHub = searchParams?.hub === "1" && access.studio;
-  if (kitExternalOrigin(id) && !stayOnHub) {
+  // Plot books (ModYu) have their own login. Ann-Marie and journalists go
+  // there. Studio stays on this hub so a walk of Press packs does not dump
+  // them onto someone else’s sign-in. `?plot=1` still hands off.
+  const handOff = kitExternalOrigin(id) && !access.studio;
+  const studioWantsPlot = access.studio && searchParams?.plot === "1";
+  if ((handOff || studioWantsPlot) && kitExternalOrigin(id)) {
     const handoff = await kitHandoffHref(id, "/epk");
     if (handoff) redirect(handoff);
   }

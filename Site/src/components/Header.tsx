@@ -42,7 +42,6 @@ export function Header({
   const atBlocked = path === "/blocked" || path.startsWith("/blocked/");
   const atEpk = path === "/epk" || path.startsWith("/epk/");
   const atSuggest = path.startsWith("/suggest");
-
   useEffect(() => {
     setInSession(signedIn);
     setMe(userId ? { id: userId, avatar: hasAvatar ? "1" : undefined, displayName } : null);
@@ -165,19 +164,19 @@ function AccountMenu({
       {open ? (
         <div className="nav-menu" role="menu">
           {studio && !lab ? (
-            <Link role="menuitem" href="/desk" onClick={() => setOpen(false)}>
+            <a role="menuitem" href="/desk" onClick={() => setOpen(false)}>
               Home book
-            </Link>
+            </a>
           ) : null}
           {studio && lab && !atBoard ? (
-            <Link role="menuitem" href="/board" onClick={() => setOpen(false)}>
+            <a role="menuitem" href="/board" onClick={() => setOpen(false)}>
               Board
-            </Link>
+            </a>
           ) : null}
           {atAccount ? null : (
-            <Link role="menuitem" href="/account" onClick={() => setOpen(false)}>
+            <a role="menuitem" href="/account" onClick={() => setOpen(false)}>
               Account
-            </Link>
+            </a>
           )}
           <a role="menuitem" href="/logout">
             Sign out

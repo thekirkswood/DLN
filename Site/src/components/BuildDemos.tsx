@@ -272,90 +272,104 @@ export function AppSketch() {
   );
 }
 
-export function SimpleFormats() {
+const SITE_FACES = ["shop", "blog", "gallery", "book"] as const;
+
+export function SimpleWindow() {
   const [shot, setShot] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mq.matches) return;
-    const t = window.setInterval(() => setShot((n) => (n + 1) % 3), 2200);
+    const t = window.setInterval(
+      () => setShot((n) => (n + 1) % SITE_FACES.length),
+      2200,
+    );
     return () => window.clearInterval(t);
   }, []);
 
   return (
-    <div className="bench-site-row is-four">
-      <article className="bench-site-card is-gallery">
+    <div className="bench-site-one" aria-hidden>
+      <article className="bench-site-card">
         <div className="bench-site-bar">
           <i />
           <i />
           <i />
-          <span>A portrait wall</span>
         </div>
-        <div className="bench-site-body is-graphic">
-          <div className="bench-gallery-grid">
-            {[0, 1, 2, 3, 4, 5].map((n) => (
-              <b key={n} className={n % 3 === shot ? "is-on" : undefined} />
-            ))}
+        {SITE_FACES.map((face, i) => (
+          <div
+            key={face}
+            className={`bench-site-face is-${face}${i === shot ? " is-on" : ""}`}
+          >
+            {face === "shop" ? (
+              <div className="bench-shop-row">
+                <b />
+                <b />
+              </div>
+            ) : null}
+            {face === "blog" ? (
+              <div className="bench-page-lines">
+                <b />
+                <b />
+                <b />
+                <b />
+              </div>
+            ) : null}
+            {face === "gallery" ? (
+              <div className="bench-gallery-grid">
+                <b />
+                <b />
+                <b />
+                <b />
+                <b />
+                <b />
+              </div>
+            ) : null}
+            {face === "book" ? (
+              <div className="bench-diary-slots">
+                <b />
+                <b />
+                <b />
+              </div>
+            ) : null}
           </div>
-          <div className="bench-gallery-dots">
-            {[0, 1, 2].map((n) => (
-              <i key={n} className={n === shot ? "is-on" : undefined} />
-            ))}
-          </div>
-          <p>A simple gallery</p>
+        ))}
+      </article>
+    </div>
+  );
+}
+
+export function ModernWindows() {
+  return (
+    <div className="bench-modern-still" aria-hidden>
+      <article className="bench-modern-win is-plain">
+        <div className="bench-site-bar">
+          <i />
+          <i />
+          <i />
+        </div>
+        <div className="bench-modern-win-body">
+          <b />
+          <b />
+          <span />
         </div>
       </article>
-      <article className="bench-site-card is-shop">
+      <span className="bench-modern-arrow" />
+      <article className="bench-modern-win is-next">
         <div className="bench-site-bar">
           <i />
           <i />
           <i />
-          <span>A shop window</span>
         </div>
-        <div className="bench-site-body is-graphic">
-          <div className="bench-shop-row">
-            <figure>
-              <b />
-              <span>£</span>
-            </figure>
-            <figure>
-              <b />
-              <span>£</span>
-            </figure>
-          </div>
-          <p>A simple shop front</p>
-        </div>
-      </article>
-      <article className="bench-site-card is-page">
-        <div className="bench-site-bar">
+        <div className="bench-modern-win-body">
+          <b />
+          <b />
+          <b />
+          <span />
+          <span />
+          <span />
+          <em />
+          <em />
           <i />
-          <i />
-          <i />
-          <span>A page</span>
-        </div>
-        <div className="bench-site-body is-graphic">
-          <div className="bench-page-lines">
-            <b />
-            <b />
-            <b />
-          </div>
-          <p>A simple page</p>
-        </div>
-      </article>
-      <article className="bench-site-card is-diary">
-        <div className="bench-site-bar">
-          <i />
-          <i />
-          <i />
-          <span>A diary</span>
-        </div>
-        <div className="bench-site-body is-graphic">
-          <div className="bench-diary-slots">
-            <b />
-            <b />
-            <b />
-          </div>
-          <p>A simple diary</p>
         </div>
       </article>
     </div>

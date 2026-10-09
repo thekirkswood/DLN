@@ -53,11 +53,13 @@ export async function GET() {
     };
   });
   const res = NextResponse.json({ user, plots });
-  appendSessionCookies(
-    res.headers,
-    token,
-    host,
-    h.get("x-forwarded-proto"),
-  );
+  if (token !== hit.token) {
+    appendSessionCookies(
+      res.headers,
+      token,
+      host,
+      h.get("x-forwarded-proto"),
+    );
+  }
   return res;
 }

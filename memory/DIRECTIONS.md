@@ -1065,5 +1065,151 @@ Standing amounts are not only the Host wall. Contact Design / Strategy / Build (
 
 Ewan pulled packaging. First HTML loop at `Site/public/brief/social-loop/pack.html` (landscape / `?orient=portrait`). Wordless. Real `dln-mute.png`. Mark leaves a screen, lands on a box, object blips to bottle then tub. Same freeze query as the host loop (`?beat=` / `?t=`). Not on the campus Packaging room until the cycle is happy. No zip yet. Iterate on the house.
 
+## 2026-10-08 — Pack loop, second pass (Ewan)
+
+Keep the chamfered window. Naked waiting box looked wrong; all-three flash was a defect. New cycle: user hatch triangle / square / octagon (colour, dashed) send into the DLN window one after another; we draw a different chamfered shape and fill it; tick on the user side; then three avenues (bottle, nicer tub, box) with the filled stamp. Packs do not exist until that last beat.
+
+## 2026-10-08 — Pack loop, third pass (Ewan)
+
+Selection first: user sends a few hatch ideas; we answer with a few full shapes in the window; they tick one; the window holds only that mark; then the mark leaves the window onto the packs. Packs do not blip on together — the board pans (columns move) and the product pane scrolls bottle → tub → box, one at a time, as the stamp lands. Still `pack.html`. Iterate on the house. Not on the Packaging room until happy.
+
+## 2026-10-08 — Pack loop, fourth pass (Ewan)
+
+Same three hatches go into the window and get inked in (full line + colour). The customer side fills to match, then ticks one. The two not ticked leave the DLN screen. The chosen mark physically leaves the middle monitor (window empty) and lands on bottle, tub, and a chamfered sleeve, aligned on the right. Not a stock cube. Still iterate on the house.
+
+## 2026-10-08 — Pack loop, smooth the motion (Ewan)
+
+Beat classes were stopping then jumping (ghosts snapped back, flyer reset to the window, grid columns snapped). Live loop is one 16s CSS timeline, overlapped, 0% matches 100%. Freeze `?beat=` still exists. Iterate on the house.
+
+## 2026-10-08 — Pack loop, fly from the real shapes (Ewan)
+
+Initial hatches in a straight column (tick beside the triangle, not shifting it). Hatches fly from those shapes into the organised window slots — not from a random left, not a second set appearing. Agreed mark leaves from its window slot (fill + stroke) onto the pack faces: bottle body, tub wall above the crease, sleeve front with no band through it. Measure via SVG viewBoxes, not opacity-0 boxes. Iterate on the house.
+
+## 2026-10-08 — Pack pick is the blue square (Ewan)
+
+Tick the blue chamfered square, not the brown triangle. Stamp that mark in different places on the three packs so the right column feels bespoke: high-left on the bottle, right on the tub wall, lower-left on the sleeve front.
+
+## 2026-10-08 — Pack loop pans back; send zip (Ewan)
+
+After the stamps land, the camera pans back to the user column so the cycle can loop. Package like host/new: `dln-pack-loop.zip` (self-contained HTML + greyscale GIF, 16:9 and 9:16). Not on the campus Packaging room until he says.
+
+## 2026-10-08 — Print loop, first draft (Ewan)
+
+Ewan pulled the next section film. `print.html`: a chamfered platen press, sheet in, three impressions, DLN mark on the paper, sheet out. Same freeze query as pack. Iterate on the house. Not on the campus print room until happy. No zip yet.
+
+## 2026-10-08 — Pack loop on the Packaging room (Ewan)
+
+Replace the Design → Packaging stills (HT4 / bag) with the pack loop. Same picture as `pack.html`. Portfolio stills stay in Portfolio.
+
+## 2026-10-08 — Skip print for now; UI film (Ewan)
+
+Print has a decent resource bank on the campus room — park the press loop and come back. Next film is UI: wall → big screen → laptop → phone, same window, wordless. `ui.html`. Campus morph stays on the room until the film is happier. Iterate on the house.
+
+## 2026-10-09 — Pack loop is a GIF, not a framed page (Ewan)
+
+Design → Packaging on the live site was an iframe of `pack.html`. That file was never on the VPS, so the window loaded this site’s 404 (“This page isn’t here”). Do not iframe the loop, and do not ship the HTML page to plug through a site window. The room is a transparent GIF built from the pack PNGs (`/brief/social-loop/pack-loop.gif`, still `pack-loop-still.png`). `pack.html` stays the house iterate file.
+
+## 2026-10-09 — Build: terminology and breadth; no AI on the wall (Ewan)
+
+The whole Build section is childlike — not enough terminology, not enough breadth. Interactive workspaces is not incoming / in work / done: it is spaces we build that customers and their team work inside together, as a system. Site-wide Build copy names the work: UI/UX design, website development, web and mobile app development, database systems, neural-network-influenced systems. Do not print **AI** — it sullies the brand. Written explanation, not the toy diagrams.
+
+## 2026-10-09 — Strategy: explain the avenues; pool the sittings (Ewan)
+
+Brand strategy and marketing strategy: stop the animations. They do not instil trust. Write that we understand the avenues — who you are / who it is for / where you want to be; how it goes out / how people receive it / what you learn. Start-up, brand audits, and over-arching counsel pool into one section that is purposefully conflicting: three depths, same desk, you are not all three at once.
+
+## 2026-10-09 — Naked loop HTML in the room, not a GIF (Ewan)
+
+The GIF was the wrong stand-in: greyscale, missing frames, old stamped-logo cut. Campus `pack.html` already colours the pick onto the packs. Do not iframe a document (that ports this site through itself and 404s). Do not rasterise. Put the inner HTML — the code, not the document — into a sealed well on Packaging and UI (`LoopWell`, closed shadow). Fetch `pack.html` / `ui.html` as source, strip html/head/body, run the script against that well only. House iterate files stay. Same function on live.
+
+## 2026-10-08 — UI loop on the UI room (Ewan)
+
+Put `ui.html` on Design → UI, same iframe pattern as Packaging. No zip until he asks. Print stays parked.
+
+## 2026-10-08 — UI wall is a poster, not a browser (Ewan)
+
+Billboard pose: no chrome, no dots. Monitor / laptop keep the browser bar; phone keeps the notch.
+
+## 2026-10-08 — Springstack, pooled doors, tokens, capture, Watch nose (Ewan)
+
+Get rid of Logos as a destination. Design / Strategy / Build are each one page, pooling the rooms as they are now. Jump with the current three-name menu. Billing separates as **Springstack** — your springboard to brand value online. Numbered stacks (Dave seed, Ewan tweaks): 1 hosting + sandbox + strategy underneath, low traffic; 2 + shop + ePK, medium; 3 + A.P.E.S., high. Make the offer as appealing as functions we already run.
+
+Token well now: monthly grant per stack; free comment and file-drop wait for the evening sweep; **Send now** spends and wakes the house Cursor; hotfix still wakes. Do not explain Cursor/tokens in pitches. Account word is updates this month.
+
+Capture on VPS / DLN account: briefs, docs they wrote or AI-gen’d (Andrew Mallaban HTML windows), drawings, picture ideas. This Cursor interfaces with `_meta/captures/`. For Mark Barlow / DAA so he can keep the sandbox moving on the monthly well.
+
+Watch retains visitors (not only trap-hot IPs). Browse and snoop stay. Scrape and probe surface. Do not auto-ban a snoop. Breach IPs stay on the existing ban path. Home still needs locks even though it is not the public host.
+
+## 2026-10-08 — Pack tints; Logos off Design; Springstack is us (Ewan)
+
+Pack loop: the bottle, tub and sleeve take the pick colour. Do not stamp the mark on them. Logos block off the Design page. More air between the pooled sections. Springstack: no “how you come in” money at the foot; prices sit on stacks 1 / 2 / 3 and step up (£75 / £150 / £275 pm on the campus). Make that page ours — chamfer, rise, not the rack list.
+
+## 2026-10-08 — Pooled pages: titles under a rule, contact in the rail (Ewan)
+
+No Contact Design / consultants / web team on the inner page headers. Contact stays in the left rail. No extra rules between pooled sections. Each section is a line the length of the column, title directly under it, then the work. Design: Brand identity systems, UI, Design for print, Packaging. Same shape on Strategy and Build.
+
+## 2026-10-08 — Campus dummy customer + Watch book (Ewan)
+
+A fictional complete customer so we can log in as them and see the account, live site, sandbox, EPK, payments. Willow & Co (`willow`). Off the greenhouse. Type only — do not invent a mark. Watch already retains visitors; make that book observable by house and keep filling it. Studio walking the hub is not listed; a walk on a hosted house is.
+
+## 2026-10-08 — No dummy plot; Swarm observer on live (Ewan)
+
+Do not invent extra brands or campus dummy sites. Willow was the wrong read — scrub it. The ask is a **profile on the live VPS**, tagged to Swarm Fund, same client pathways as ModYu and DAA: sign in on `designlabnorth.com`, see Sites / press kit / assets as if they own swarmfund. Swarm already has `https://swarmfund.com` (public enter) and `swarmfund.designlabnorth.com` (growing copy). No new subdomain. No new pages. Choozlist has its own VPS (public host was 500 when checked). Various Titles stays; Dave does not see it in use. Watch Visitors by house stays.
+
+## 2026-10-08 — BoomStack; press is signed-in; one Enter (Ewan)
+
+Rename **Springstack** to **BoomStack** on the wall — clash with an Indian, US-facing design and build business. Billing ids `springstack-*` stay on the book. The signed-in plot dashboard (subdomain / live host window) is BoomStack as well. Press packs are a user feature of that dashboard, not public chrome: hide Press from strangers; header Press packs only if the account has the function (kit / stack 2+). Journalists still open `/epk` with a code. Homepage ticket: one **Enter**, not Enter Design / Strategy / Build. Tucked left in the Design column’s place (same grey Enter as before, without the word Design). Sentence case — `Enter`, not ENTER. Do not centre it.
+
+## 2026-10-08 — Do not dump studio to plot login (Ewan)
+
+Mark and Ann-Marie keep a session because they are clients on the live hub (and Ann-Marie has the ModYu book). Studio walking Press packs must stay on `designlabnorth.com` / campus — do not hand off to `modyu.designlabnorth.com` and ask them to sign in there. Full page loads for press and account view changes. `/api/auth/me` only rewrites the cookie when the token actually changes.
+
+## 2026-10-08 — Public press off; account menu isometric; title underlines (Ewan)
+
+Live homepage still showed Press packs to strangers until the VPS web copy caught the campus gate. Hide unless signed in with the function. Customer account: clicking the profile menu must not dump to Sign in — Header face items are full-page `<a>`, live `/api/auth/me` must stop rewriting the cookie on every fetch. Account menu is a wrap of isometric labels (current = title-length underline), not chamfered cards. Work-line section titles: ink underline only as long as that title, same slight gap as before; no rules between items in the section.
+
+## 2026-10-09 — Strategy sentences, no inner underlines (Ewan)
+
+Branch pages are right. Inner subheads: no underlines (section h2 title-width rule stays). Do not say “somewhere to sit”. No subtotal / preempt paragraph, no bold sentences that restate the folds. Brand is a homepage-style sentence: sit down with branding expert Dave Kirkwood to discuss the brand to the core — who you are, who it is for and where you want to be — grey on those working words. Marketing the same shape. Working sessions: the three titles plus one line each, no intro. Or points with a hairline between. Simple sentences, designed like the homepage.
+
+## 2026-10-09 — House for edits; VPS only for hotfix (Ewan)
+
+Work on the house. An ordinary edit or a build-out stays on campus (`:3010`). Do not jump the VPS and docker-rebuild as the end of a feature. The live box is for a **hotfix** — going in because something is wrong — or a numbered ship when he asks. Do not ship unprompted.
+
+## 2026-10-09 — Build: restore the rooms; buzzwords not new sentences (Ewan)
+
+Build as it was, with the animations. Drop the Interactive Workspaces desk (incoming / in work / done); keep the section and its copy. Custom web applications: no AppSketch board. Do not rewrite Build into new sentences — they do not hold. Put the trade words on each room (CMS, UI/UX, API, SEO, and so on) as a row he can work from. Strategy stays the designed sentences. Do not print **AI**.
+
+## 2026-10-09 — Strategy lines; Build is text, no title rules (Ewan)
+
+Marketing: “Talk about how the brand goes out.” No sit-down-with-Dave on that sentence. Working sessions: start-up is you have an idea you want to pull the trigger on; brand audit is something’s not working, let’s fix it together; over-arching counsel is you have a business but you’re lost with the identity. Build stays the written points, no animations. No ink underline under Build section titles. Sit the copy tight under each title. He was looking at live — hotfix that page.
+
+## 2026-10-09 — Simple sites: one window; no public/private (Ewan)
+
+Port the simple-site blink to live as **one** window above Website development / UI/UX / we host it. Rectangles only, cycling shop front → blog → gallery → booking. Website development is any site: build the space for the brand to grow. UI/UX: how the public interact with the brand. Host: a dynamic workspace, push to the live site whenever — not private preview, not sandbox as the wall word. Workspaces: shared environment stays; built around the brand is how it looks is yours, what behaves is your choice. He asked this onto live.
+
+## 2026-10-09 — One walk: stop, then a confident scroll continues (Ewan)
+
+Design / Strategy / Build are one scrolling page, not three locked rooms. Decent gap after each door. At the bottom of a section the page stops with a little resistance; if it is scrolled confidently it continues smoothly through the next door and on down. The left rail still jumps to that door. House only unless he asks live.
+
+## 2026-10-09 — Strategy: Dave line on top, then Brand strategy (Ewan)
+
+Strategy’s top line is “Sit down with branding expert Dave Kirkwood to discuss”. Then the Brand strategy subhead. Then “The brand to the core: who you are, who it is for and where you want to be.” Grey stays on those working words. House only unless he asks live.
+
+## 2026-10-09 — Walk of sections, not one blur; homepage tabs (Ewan)
+
+Design / Strategy / Build must not free-scroll into each other. A real gap between the pages. A little resistance, then it snaps through so you are inside the next section. Build continues into BoomStack. Resistance is only between those main doors — not between inner rooms. System modernization: two windows and an arrow — plain black-and-white on the left, more elements and colour on the right. It just shows; it does not animate.
+
+## 2026-10-09 — Resistance only between main doors (Ewan)
+
+The hold-and-snap is Design / Strategy / Build / BoomStack. Not each subsection. Inner rooms scroll freely. That amount of resistance is right.
+
+## 2026-10-09 — Snappy main doors; patch notes and the well (Ewan)
+
+You cannot sit in the gap. Either at the bottom of a main door or the top of the next — it snaps through. Resistance only between Design, Strategy, and Build. Same amount; snappier.
+
+Patch notes on the site tab on the front. Free inbox any time (sweep). Send now spends the monthly well for a direct edit or a document they drop. Grant follows the stack. Same well for generated pictures, clips, and packs when that pipe opens. Public word is updates this month, not tokens. He asked the current house edits onto live.
+
+Homepage: Campus tab is the sentence and the three columns with Enter. Logged in, a tab per site (the name — ModYu for Ann-Marie) with the live view and a changelog underneath. One Press kits tab holds every kit they have. Drop Press packs from the top bar. Drop the big top-right website tag. Fewer lines on the ticket. House only unless he asks live.
+
 
 

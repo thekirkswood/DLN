@@ -34,6 +34,18 @@ export async function clientPlots(): Promise<Plot[]> {
   return (await allPlots()).filter((p) => p.party === "client");
 }
 
+/** Sites on a hub account. Studio sees client houses. A tagged client sees every plot on their book — including a studio product such as Swarm. */
+export function plotsOnAccount(
+  user: { role: string; plots: string[] },
+  plots: Plot[],
+): Plot[] {
+  if (user.role === "owner" || user.role === "studio" || user.plots.includes("*")) {
+    return plots.filter((p) => p.party === "client");
+  }
+  const tagged = new Set(user.plots);
+  return plots.filter((p) => tagged.has(p.slug));
+}
+
 export async function plotBySlug(slug: string): Promise<Plot | undefined> {
   return (await allPlots()).find((p) => p.slug === slug);
 }

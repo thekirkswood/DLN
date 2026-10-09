@@ -4,18 +4,19 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Mark } from "@/components/Mark";
 import { EnquireForm } from "@/components/HomeOffer";
-import { LineStage, BrandStrip } from "@/components/WorkLine";
+import { BrandStrip } from "@/components/WorkLine";
+import { OfferWalk, type WalkDoor } from "@/components/OfferWalk";
+import { CaptureWell } from "@/components/CaptureWell";
 import { needById, type Facet } from "@/data/needs";
 import {
-  HOST_LINES,
   MERZ_RESEARCH,
   MODULES,
   VT_PLATE,
   needForContact,
 } from "@/data/bench";
-import { wayPriceLabel, waysOnTheWall, type WayIn } from "@/data/ways-in";
+import { BOOM_STACKS, BOOMSTACK_LINE } from "@/data/boomstack";
+import { catalogueById } from "@/data/catalogue";
 import {
-  firstLine,
   lineById,
   linesFor,
   type LineId,
@@ -50,7 +51,7 @@ import {
 } from "@/data/campus";
 import { PaperInkChips, applyGround } from "@/components/GroundSwitch";
 import { OnboardChat } from "@/components/OnboardChat";
-import { epkHref, pressKitForPlot } from "@/lib/epk-map";
+import { epkHref, kitName, pressKitForPlot } from "@/lib/epk-map";
 
 type Me = { id: string; displayName?: string; avatar?: string; role?: string };
 type PlotPeek = {
@@ -98,7 +99,7 @@ type Ways = Record<Door, string>;
 
 function doorOf(room: Room | null): Door | null {
   if (!room) return null;
-  if (room === "host") return "build";
+  if (room === "host") return null;
   if (room === "engine" || room === "supplier") return "strategy";
   if (room === "design" || room === "strategy" || room === "build") return room;
   return null;
@@ -122,6 +123,7 @@ export function Workbench({
   const [place, setPlace] = useState<Place>("land");
   const [room, setRoom] = useState<Room | null>(start === "host" ? "host" : null);
   const [line, setLine] = useState<LineId | null>(null);
+  const [offerAt, setOfferAt] = useState(0);
   const [mode, setMode] = useState<"change" | "plan" | "note">("change");
   const [sense, setSense] = useState<"narrative" | "sensory">("narrative");
   const [me, setMe] = useState<Me | null>(
@@ -246,7 +248,6 @@ export function Workbench({
   const faculty = room ? facultyById(room) : undefined;
   const onCampus = !room && (place === "land" || place === "space");
   const openDoorId = doorOf(room);
-  const activeLine = line ? lineById(line) : undefined;
 
   useEffect(
     () => () => wipeT.current.forEach((id) => window.clearTimeout(id)),
@@ -291,14 +292,9 @@ export function Workbench({
   function openDoor(id: Door) {
     const run = () => {
       setPlace("land");
-      if (id === "strategy") {
-        setRoom("engine");
-        setLine(null);
-        shutPhoneRail();
-        return;
-      }
       setRoom(id);
-      setLine(firstLine(id).id);
+      setLine(null);
+      setOfferAt(Date.now());
       shutPhoneRail();
     };
     if (!room) withPull(run, "in");
@@ -352,8 +348,10 @@ export function Workbench({
   }
 
   function openHost() {
+    setPlace("land");
     setRoom("host");
     setLine(null);
+    setOfferAt(Date.now());
     shutPhoneRail();
   }
 
@@ -447,9 +445,6 @@ export function Workbench({
               <span className="bench-glyph is-mute">YT</span>
             </>
           ) : null}
-          <Link className="bench-word" href="/epk">
-            Press packs
-          </Link>
           {me ? (
             <a className="bench-word" href="/account">
               {me.displayName || "Account"}
@@ -513,32 +508,6 @@ export function Workbench({
                             </button>
                           </li>
                         ) : null}
-                        {linesFor(mod.id).map((row) => (
-                          <li key={row.id}>
-                            <button
-                              type="button"
-                              className={
-                                line === row.id && room === row.facet
-                                  ? "is-on"
-                                  : undefined
-                              }
-                              onClick={() => openLine(row.id)}
-                            >
-                              {row.name}
-                            </button>
-                          </li>
-                        ))}
-                        {mod.id === "build" ? (
-                          <li>
-                            <button
-                              type="button"
-                              className={room === "host" ? "is-on" : undefined}
-                              onClick={openHost}
-                            >
-                              Host
-                            </button>
-                          </li>
-                        ) : null}
                         <li className="is-contact">
                           <button
                             type="button"
@@ -553,6 +522,17 @@ export function Workbench({
                   </div>
                 );
               })}
+              <div className={room === "host" ? "bench-door is-open" : "bench-door"}>
+                <button
+                  type="button"
+                  className={
+                    room === "host" ? "bench-door-head is-on" : "bench-door-head"
+                  }
+                  onClick={openHost}
+                >
+                  BoomStack
+                </button>
+              </div>
             </nav>
           </aside>
         ) : null}
@@ -567,14 +547,15 @@ export function Workbench({
               onPlot={() => setPlace("who")}
               onScramble={scramble}
               ways={ways}
-              plot={me ? plots.find((p) => p.slug === lastPlot) || plots[0] || null : null}
               plots={me ? plots : []}
               lab={lab}
               showBoard={lab && studio}
+              hasPress={Boolean(me && (studio || plots.some((p) => p.kit)))}
               onPickPlot={(slug) => {
                 setLastPlot(slug);
                 writeLastPlot(slug);
               }}
+              me={Boolean(me)}
             />
           ) : null}
           {onCampus && place === "space" && qualify ? (
@@ -585,20 +566,32 @@ export function Workbench({
               enquiryId={enquiryId}
             />
           ) : null}
-          {activeLine &&
-          (room === "design" || room === "strategy" || room === "build") ? (
-            <LineStage
-              key={activeLine.id}
-              line={activeLine}
-              onContact={(needId) => openContact(activeLine.facet, needId)}
+          {room === "design" ||
+          room === "strategy" ||
+          room === "build" ||
+          room === "host" ? (
+            <OfferWalk
+              door={room === "host" ? "host" : room}
+              at={offerAt}
+              focusId={line}
+              onSeen={(id: WalkDoor) => setRoom(id)}
+              onContact={(needId) =>
+                openContact(room === "host" ? "host" : room, needId)
+              }
               onHost={openHost}
               onEngine={openEngine}
-            />
-          ) : null}
-          {room === "host" ? (
-            <HostRoom
-              lab={lab}
-              onContact={(needId) => openContact("host", needId)}
+              host={
+                <div
+                  id="offer-host"
+                  data-offer-door="host"
+                  className="bench-offer-door"
+                >
+                  <HostRoom
+                    lab={lab}
+                    onContact={(needId) => openContact("host", needId)}
+                  />
+                </div>
+              }
             />
           ) : null}
           {room === "board" && lab && studio ? (
@@ -684,128 +677,167 @@ function Land({
   onPlot,
   onScramble,
   ways,
-  plot,
   plots,
   lab = false,
   showBoard,
+  hasPress = false,
   onPickPlot,
+  me = false,
 }: {
   onOpen: (id: Door) => void;
   onLine: (id: LineId) => void;
   onPlot: () => void;
   onScramble: () => void;
   ways: Ways;
-  plot: PlotPeek | null;
   plots: PlotPeek[];
   lab?: boolean;
   showBoard?: boolean;
+  hasPress?: boolean;
   onPickPlot: (slug: string) => void;
+  me?: boolean;
 }) {
-  const kit = plot ? plot.kit || pressKitForPlot(plot.slug) : null;
-  const door = plot?.previewUrl || (lab ? plot?.buildUrl : plot?.hostUrl) || null;
+  const [tab, setTab] = useState<"campus" | "press" | string>("campus");
+  const kits = plots
+    .map((p) => p.kit || pressKitForPlot(p.slug))
+    .filter((id, i, all): id is string => Boolean(id) && all.indexOf(id) === i);
+  const site =
+    tab !== "campus" && tab !== "press"
+      ? plots.find((p) => p.slug === tab) || null
+      : null;
+  const door =
+    site?.previewUrl || (lab ? site?.buildUrl : site?.hostUrl) || null;
+
+  function openSite(slug: string) {
+    setTab(slug);
+    onPickPlot(slug);
+  }
+
   return (
     <div className="campus-ticket-wrap">
       <div className="campus-ticket-tabs">
-        <span className="campus-tab">Campus</span>
-        {plot ? (
-          plots.length > 1 ? (
-            <label className="campus-plus is-plot">
-              <span className="visually-hidden">Plot</span>
-              <select
-                value={plot.slug}
-                onChange={(e) => onPickPlot(e.target.value)}
-              >
-                {plots.map((p) => (
-                  <option key={p.slug} value={p.slug}>
-                    {p.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          ) : (
-            <span className="campus-plus is-plot">{plot.name}</span>
-          )
-        ) : (
-          <button type="button" className="campus-plus" onClick={onPlot}>
-            <span aria-hidden>+</span>
-            Add your own site
+        <button
+          type="button"
+          className={tab === "campus" ? "campus-tab is-on" : "campus-tab"}
+          onClick={() => setTab("campus")}
+        >
+          Campus
+        </button>
+        {plots.map((p) => (
+          <button
+            key={p.slug}
+            type="button"
+            className={tab === p.slug ? "campus-tab is-on" : "campus-tab"}
+            onClick={() => openSite(p.slug)}
+          >
+            {p.name}
           </button>
-        )}
+        ))}
+        {hasPress && kits.length ? (
+          <button
+            type="button"
+            className={tab === "press" ? "campus-tab is-on" : "campus-tab"}
+            onClick={() => setTab("press")}
+          >
+            Press kits
+          </button>
+        ) : null}
       </div>
       <div className="campus-ticket">
-        <h1 className="campus-sentence">
-          We <i>build</i>, <i>scale</i>, and <i>secure</i> <i>resilient</i>{" "}
-          brand <i>identity</i> <i>presences</i> on <i>screen</i> and in{" "}
-          <i>print</i>.
-        </h1>
-        <div className="campus-cols">
-          {TILES.map((tile) => {
-            const rows = linesFor(tile.id);
-            return (
-              <div
-                key={tile.id}
-                className={`campus-col is-${tile.id}`}
-                style={{ ["--tile" as string]: ways[tile.id] }}
-              >
-                <div className="campus-col-head">
-                  <button
-                    type="button"
-                    className="campus-n"
-                    aria-label={`Shuffle ${tile.name} greys`}
-                    onClick={onScramble}
+        {tab === "campus" ? (
+          <>
+            <h1 className="campus-sentence">
+              We <i>build</i>, <i>scale</i>, and <i>secure</i> <i>resilient</i>{" "}
+              brand <i>identity</i> <i>presences</i> on <i>screen</i> and in{" "}
+              <i>print</i>.
+            </h1>
+            <div className="campus-cols">
+              {TILES.map((tile) => {
+                const rows = linesFor(tile.id);
+                return (
+                  <div
+                    key={tile.id}
+                    className={`campus-col is-${tile.id}`}
+                    style={{ ["--tile" as string]: ways[tile.id] }}
                   >
-                    {tile.n}
-                  </button>
-                  <h2>
-                    <button type="button" onClick={() => onOpen(tile.id)}>
-                      {tile.name}
-                    </button>
-                  </h2>
-                </div>
-                <ul>
-                  {rows.map((row) => (
-                    <li key={row.id}>
-                      <button type="button" onClick={() => onLine(row.id)}>
-                        {row.name}
+                    <div className="campus-col-head">
+                      <button
+                        type="button"
+                        className="campus-n"
+                        aria-label={`Shuffle ${tile.name} greys`}
+                        onClick={onScramble}
+                      >
+                        {tile.n}
                       </button>
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  type="button"
-                  className="campus-enter"
-                  onClick={() => onOpen(tile.id)}
-                >
-                  Enter {tile.name}
-                </button>
-              </div>
-            );
-          })}
-        </div>
-        <div className="campus-press">
-          <p className="bench-kicker">Press</p>
-          <p className="campus-lead">
-            Packs for journalists, with stills and files from the work.
-          </p>
-          <div className="campus-plot-doors">
-            <Link href="/epk">Press packs</Link>
-          </div>
-        </div>
-        {plot ? (
-          <div className="campus-plot-stuff">
-            <p className="bench-kicker">{plot.name}</p>
-            <div className="campus-plot-doors">
-              {door ? (
-                <a href={door} target="_blank" rel="noreferrer">
-                  {lab ? door.replace(/^https?:\/\//, "") : "Live host"}
-                </a>
-              ) : null}
-              {kit ? <Link href={epkHref(kit)}>Press pack</Link> : null}
-              {showBoard ? (
-                <a href={`/board?plot=${encodeURIComponent(plot.slug)}`}>Board</a>
-              ) : null}
+                      <h2>
+                        <button type="button" onClick={() => onOpen(tile.id)}>
+                          {tile.name}
+                        </button>
+                      </h2>
+                    </div>
+                    <ul>
+                      {rows.map((row) => (
+                        <li key={row.id}>
+                          <button type="button" onClick={() => onLine(row.id)}>
+                            {row.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+              <button
+                type="button"
+                className="campus-enter"
+                style={{ ["--tile" as string]: ways.design }}
+                onClick={() => onOpen("design")}
+              >
+                Enter
+              </button>
             </div>
-            {door ? <PlotWindow plot={plot} lab={lab} src={door} /> : null}
+            {!me ? (
+              <p className="campus-add">
+                <button type="button" onClick={onPlot}>
+                  Add your own site
+                </button>
+              </p>
+            ) : null}
+          </>
+        ) : null}
+        {site ? (
+          <div className="campus-site-tab">
+            <p className="bench-kicker">{site.name}</p>
+            {door ? (
+              <a
+                className="campus-site-live"
+                href={door}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {lab ? door.replace(/^https?:\/\//, "") : "Live host"}
+              </a>
+            ) : null}
+            {showBoard ? (
+              <a href={`/board?plot=${encodeURIComponent(site.slug)}`}>Board</a>
+            ) : null}
+            {door ? <PlotWindow plot={site} lab={lab} src={door} /> : null}
+            <PlotLog slug={site.slug} />
+            <CaptureWell
+              plotSlug={site.slug}
+              plotOptions={[{ slug: site.slug, name: site.name }]}
+            />
+          </div>
+        ) : null}
+        {tab === "press" ? (
+          <div className="campus-press-tab">
+            <p className="bench-kicker">Press kits</p>
+            <ul>
+              {kits.map((id) => (
+                <li key={id}>
+                  <a href={epkHref(id)}>{kitName(id)}</a>
+                </li>
+              ))}
+            </ul>
           </div>
         ) : null}
       </div>
@@ -866,6 +898,54 @@ function PlotWindow({
           loading="lazy"
         />
       ) : null}
+    </div>
+  );
+}
+
+function PlotLog({ slug }: { slug: string }) {
+  const [lines, setLines] = useState<{ t: string; s: string }[] | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    fetch(`/api/plots/log?plot=${encodeURIComponent(slug)}`, {
+      credentials: "include",
+      cache: "no-store",
+    })
+      .then((res) => res.json())
+      .then((data: { lines?: { t: string; s: string }[] }) => {
+        if (alive) setLines(data.lines || []);
+      })
+      .catch(() => {
+        if (alive) setLines([]);
+      });
+    return () => {
+      alive = false;
+    };
+  }, [slug]);
+
+  return (
+    <div className="campus-site-log">
+      <h2>Patch notes</h2>
+      {lines === null ? (
+        <p>Loading the notes.</p>
+      ) : lines.length === 0 ? (
+        <p>When we update this site, the notes land here.</p>
+      ) : (
+        <ol>
+          {lines.map((row) => (
+            <li key={`${row.t}-${row.s}`}>
+              <time dateTime={row.t}>
+                {new Date(row.t).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </time>
+              <span>{row.s}</span>
+            </li>
+          ))}
+        </ol>
+      )}
     </div>
   );
 }
@@ -1150,46 +1230,6 @@ function PlotWho({
   );
 }
 
-function WayMail({
-  way,
-  onContact,
-}: {
-  way: WayIn;
-  onContact: (needId?: string) => void;
-}) {
-  if (way.mail === "build") {
-    return (
-      <a className="bench-price-mail" href="mailto:build@designlabnorth.com">
-        Write to Build
-      </a>
-    );
-  }
-  if (way.mail === "design") {
-    return (
-      <a className="bench-price-mail" href="mailto:design@designlabnorth.com">
-        Write to Design
-      </a>
-    );
-  }
-  if (way.mail === "both") {
-    return (
-      <span className="bench-price-mails">
-        <a className="bench-price-mail" href="mailto:design@designlabnorth.com">
-          Design
-        </a>
-        <a className="bench-price-mail" href="mailto:build@designlabnorth.com">
-          Build
-        </a>
-      </span>
-    );
-  }
-  return (
-    <button type="button" onClick={() => onContact(way.needId)}>
-      Contact
-    </button>
-  );
-}
-
 function HostRoom({
   lab,
   onContact,
@@ -1198,48 +1238,67 @@ function HostRoom({
   onContact: (needId?: string) => void;
 }) {
   return (
-    <div className="bench-room bench-host">
-      <p className="bench-kicker">Host</p>
-      <h1>Hosting</h1>
-      <p className="campus-lead">
-        When you have a site with us, you have a sandbox. Live and sandbox are
-        one host — that is the monthly, not two products. You leave a comment;
-        if there are any, we roll an update that evening. A hotfix is something
-        wrong right now: we try to audit it within the hour. Heavy traffic is a
-        conversation.
-      </p>
-      <div className="bench-host-grid">
+    <div className="bench-room bench-spring">
+      <header className="bench-app-bar">
         <div>
-          {HOST_LINES.map((line) => (
-            <div key={line.id} className="bench-price">
-              <span>{lab ? line.name : line.id === "host" ? "Live and sandbox, one host" : line.name}</span>
-              <button type="button" onClick={() => onContact("walk-build-host")}>
-                Contact
-              </button>
-            </div>
-          ))}
-          <p className="bench-kicker" style={{ marginTop: "1.2rem" }}>
-            How you come in
-          </p>
-          {waysOnTheWall().map((way) => {
-            const price = lab ? wayPriceLabel(way) : "";
-            return (
-              <div key={way.id} className="bench-price is-way">
-                <span>
-                  <strong>{way.name}</strong>
-                  {price ? ` — ${price}` : ""}
-                  <em>{way.who}</em>
-                </span>
-                <WayMail way={way} onContact={onContact} />
-              </div>
-            );
-          })}
+          <p className="bench-kicker">BoomStack</p>
+          <h1>BoomStack</h1>
         </div>
-        <figure className="bench-rack">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brief/stills/host-rack.png" alt="" />
-        </figure>
-      </div>
+        <div className="bench-app-acts">
+          <button
+            type="button"
+            className="bench-cta"
+            onClick={() => onContact("walk-build-host")}
+          >
+            Contact
+          </button>
+        </div>
+      </header>
+      <p className="campus-lead spring-line">{BOOMSTACK_LINE}</p>
+      <ol className="spring-rise">
+        {BOOM_STACKS.map((stack) => {
+          const amount = catalogueById(stack.presetId)?.amountGbp || 0;
+          const price =
+            lab && amount > 0
+              ? new Intl.NumberFormat("en-GB", {
+                  style: "currency",
+                  currency: "GBP",
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                }).format(amount)
+              : "";
+          return (
+            <li
+              key={stack.n}
+              className="spring-plate"
+              style={{ ["--rise" as string]: String(stack.rise) }}
+            >
+              <div className="spring-copy">
+                <b aria-hidden="true">{stack.n}</b>
+                <h2>{stack.name}</h2>
+                <p className="spring-traffic">{stack.traffic}</p>
+                <ul>
+                  {stack.bits.map((bit) => (
+                    <li key={bit}>{bit}</li>
+                  ))}
+                </ul>
+                {price ? (
+                  <p className="spring-price">
+                    {price} <span>a month</span>
+                  </p>
+                ) : (
+                  <p className="spring-price is-quiet">{stack.traffic}</p>
+                )}
+              </div>
+              <i className="spring-fill" aria-hidden />
+            </li>
+          );
+        })}
+      </ol>
+      <p className="campus-lead spring-foot">
+        Live and sandbox are one host. A comment in the evening; a hotfix we try
+        to audit within the hour. Heavy traffic is a conversation.
+      </p>
     </div>
   );
 }
