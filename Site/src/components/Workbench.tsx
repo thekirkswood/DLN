@@ -6,7 +6,7 @@ import { Mark } from "@/components/Mark";
 import { EnquireForm } from "@/components/HomeOffer";
 import { BrandStrip } from "@/components/WorkLine";
 import { OfferWalk, type WalkDoor } from "@/components/OfferWalk";
-import { CaptureWell } from "@/components/CaptureWell";
+import { SitePeek } from "@/components/SitePeek";
 import { needById, type Facet } from "@/data/needs";
 import {
   MERZ_RESEARCH,
@@ -67,6 +67,7 @@ type PlotPeek = {
   enterUrl: string | null;
   sandbox: string;
   kit: string | null;
+  pages?: { name: string; path: string }[];
 };
 type Door = "design" | "strategy" | "build";
 type Room = Door | "host" | "board" | FacultyId | "engine" | "supplier";
@@ -673,7 +674,7 @@ export function Workbench({
 
 function Land({
   onOpen,
-  onLine,
+  onLine: _onLine,
   onPlot,
   onScramble,
   ways,
@@ -685,7 +686,7 @@ function Land({
   me = false,
 }: {
   onOpen: (id: Door) => void;
-  onLine: (id: LineId) => void;
+  onLine: (_id: LineId) => void;
   onPlot: () => void;
   onScramble: () => void;
   ways: Ways;
@@ -697,6 +698,16 @@ function Land({
   me?: boolean;
 }) {
   const [tab, setTab] = useState<"campus" | "press" | string>("campus");
+
+  useEffect(() => {
+    const want = new URLSearchParams(window.location.search).get("site");
+    if (!want) return;
+    if (plots.some((p) => p.slug === want)) {
+      setTab(want);
+      onPickPlot(want);
+    }
+  }, [plots, onPickPlot]);
+
   const kits = plots
     .map((p) => p.kit || pressKitForPlot(p.slug))
     .filter((id, i, all): id is string => Boolean(id) && all.indexOf(id) === i);
@@ -732,6 +743,12 @@ function Land({
             {p.name}
           </button>
         ))}
+        {!me ? (
+          <button type="button" className="campus-tab campus-add-brand" onClick={onPlot}>
+            <span>+</span>
+            Add a brand
+          </button>
+        ) : null}
         {hasPress && kits.length ? (
           <button
             type="button"
@@ -751,9 +768,7 @@ function Land({
               <i>print</i>.
             </h1>
             <div className="campus-cols">
-              {TILES.map((tile) => {
-                const rows = linesFor(tile.id);
-                return (
+              {TILES.map((tile) => (
                   <div
                     key={tile.id}
                     className={`campus-col is-${tile.id}`}
@@ -774,130 +789,38 @@ function Land({
                         </button>
                       </h2>
                     </div>
-                    <ul>
-                      {rows.map((row) => (
-                        <li key={row.id}>
-                          <button type="button" onClick={() => onLine(row.id)}>
-                            {row.name}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
-                );
-              })}
-              <button
-                type="button"
-                className="campus-enter"
-                style={{ ["--tile" as string]: ways.design }}
-                onClick={() => onOpen("design")}
-              >
-                Enter
-              </button>
+              ))}
             </div>
-            {!me ? (
-              <p className="campus-add">
-                <button type="button" onClick={onPlot}>
-                  Add your own site
-                </button>
-              </p>
-            ) : null}
           </>
         ) : null}
         {site ? (
-          <div className="campus-site-tab">
-            <p className="bench-kicker">{site.name}</p>
-            {door ? (
-              <a
-                className="campus-site-live"
-                href={door}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {lab ? door.replace(/^https?:\/\//, "") : "Live host"}
-              </a>
-            ) : null}
+          <>
+            <SitePeek
+              name={site.name}
+              slug={site.slug}
+              live={site.enterUrl || site.hostUrl}
+              sandbox={door}
+              lab={lab}
+              pages={site.pages || []}
+              src={door || site.enterUrl || site.hostUrl || ""}
+            />
             {showBoard ? (
               <a href={`/board?plot=${encodeURIComponent(site.slug)}`}>Board</a>
             ) : null}
-            {door ? <PlotWindow plot={site} lab={lab} src={door} /> : null}
             <PlotLog slug={site.slug} />
-            <CaptureWell
-              plotSlug={site.slug}
-              plotOptions={[{ slug: site.slug, name: site.name }]}
-            />
-          </div>
+          </>
         ) : null}
         {tab === "press" ? (
           <div className="campus-press-tab">
-            <p className="bench-kicker">Press kits</p>
-            <ul>
-              {kits.map((id) => (
-                <li key={id}>
-                  <a href={epkHref(id)}>{kitName(id)}</a>
-                </li>
-              ))}
-            </ul>
+            {kits.map((id) => (
+              <a key={id} className="campus-tab" href={epkHref(id)}>
+                {kitName(id)}
+              </a>
+            ))}
           </div>
         ) : null}
       </div>
-    </div>
-  );
-}
-
-function PlotWindow({
-  plot,
-  lab,
-  src,
-}: {
-  plot: PlotPeek;
-  lab: boolean;
-  src: string;
-}) {
-  const [frame, setFrame] = useState(lab ? "" : src);
-  const [note, setNote] = useState(lab ? "Calling the house." : "");
-
-  useEffect(() => {
-    let alive = true;
-    if (!lab) {
-      setFrame(src);
-      setNote("");
-      return;
-    }
-    setFrame("");
-    setNote("Calling the house.");
-    fetch(`/api/houses/wake?plot=${encodeURIComponent(plot.slug)}`, {
-      credentials: "include",
-      cache: "no-store",
-    })
-      .then((res) => res.json())
-      .then((data: { ok?: boolean; called?: boolean; url?: string }) => {
-        if (!alive) return;
-        setFrame(data.url || src);
-        if (data.ok) setNote("");
-        else if (data.called) setNote("Called — if it stays blank, the port is still coming up.");
-        else setNote("Port quiet — the link is the IP.");
-      })
-      .catch(() => {
-        if (!alive) return;
-        setFrame(src);
-        setNote("Port quiet — the link is the IP.");
-      });
-    return () => {
-      alive = false;
-    };
-  }, [lab, plot.slug, src]);
-
-  return (
-    <div className="campus-plot-preview chamfer">
-      {note ? <p className="campus-plot-note">{note}</p> : null}
-      {frame ? (
-        <iframe
-          title={lab ? `${plot.name} build` : `${plot.name} live host`}
-          src={frame}
-          loading="lazy"
-        />
-      ) : null}
     </div>
   );
 }

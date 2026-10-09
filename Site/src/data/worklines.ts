@@ -38,7 +38,9 @@ export type LineWidget =
   | "identity-kit"
   | "ui-kit"
   | "avenue"
-  | "pack-loop";
+  | "pack-loop"
+  | "host-loop"
+  | "app-pair";
 
 export type LineExample = {
   src: string;
@@ -47,7 +49,7 @@ export type LineExample = {
 };
 
 export const STRATEGY_OPEN =
-  "Sit down with branding expert Dave Kirkwood to discuss";
+  "Sit down with branding expert Dave Kirkwood to discuss:";
 
 export type WorkLine = {
   id: LineId;
@@ -138,8 +140,8 @@ export const WORK_LINES: WorkLine[] = [
     facet: "design",
     name: "UI",
     title: "UI",
-    lead: "The look of a screen — from a board down to the hand. Same identity as the print, not a later coat of paint.",
-    body: "How the work sits on a surface: a wall, a window, a laptop, a phone. No mock product screens. The graphic side of the build morph.",
+    lead: "The look of a screen — from a window down to the hand. Same identity as the print, not a later coat of paint.",
+    body: "How the work sits on a device: a screen, a laptop, a phone. No mock product screens. The graphic side of the build morph.",
     stills: [],
     widget: "ui-kit",
     examples: [],
@@ -433,24 +435,24 @@ export const WORK_LINES: WorkLine[] = [
   {
     id: "workspaces",
     facet: "build",
-    name: "Interactive Workspaces",
-    title: "Interactive workspaces",
-    lead: "A space your customers and your team work inside together — the interface is the system.",
-    body: "Not a brochure that pretends to move. Roles, records, and the work itself, in one environment built around the brand.",
+    name: "Live site and a sandbox beside it",
+    title: "Live site and a sandbox beside it",
+    lead: "Leave a note. We take it into the build. You say when it goes live.",
+    body: "The live site stays up. The next pass happens beside it. One host.",
     stills: [],
-    widget: "avenue",
+    widget: "host-loop",
     folds: [
       {
-        name: "A shared environment",
-        text: "Customers and team, in the same system.",
+        name: "Leave a note",
+        text: "The sandbox takes the next pass.",
       },
       {
-        name: "The system is the room",
-        text: "Workflow, records, the operational desk.",
+        name: "We take it into the build",
+        text: "The work happens beside what is live.",
       },
       {
-        name: "Built around the brand",
-        text: "How it looks is yours. What behaves is your choice.",
+        name: "You say when it goes live",
+        text: "Push. The live site catches up.",
       },
     ],
     needId: "web-corporate",
@@ -464,7 +466,7 @@ export const WORK_LINES: WorkLine[] = [
     lead: "Web and mobile app development — software people use, not a brochure with a cart bolted on.",
     body: "Dashboards, commerce, the operational desk. Front, the transaction, and the data in one application.",
     stills: [],
-    widget: "avenue",
+    widget: "app-pair",
     folds: [
       {
         name: "Web application development",
@@ -529,10 +531,6 @@ export const WORK_LINES: WorkLine[] = [
       {
         name: "Neural-network-influenced systems",
         text: "Models inside the operation — the work the public never sees.",
-      },
-      {
-        name: "Host",
-        text: "Live and private preview as one.",
       },
     ],
     needId: "web-api-dashboard",

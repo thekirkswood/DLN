@@ -50,6 +50,7 @@ export async function GET() {
       port: p.lab?.localPort ?? null,
       sandbox: p.localPreview,
       kit: pressKitForPlot(p.slug),
+      pages: Array.isArray(p.pages) ? p.pages : [],
     };
   });
   const res = NextResponse.json({ user, plots });

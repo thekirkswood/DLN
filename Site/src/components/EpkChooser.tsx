@@ -18,7 +18,7 @@ export function EpkChooser({
 }) {
   const many = kits.length > 1;
   return (
-    <div className="epk-gate is-signed">
+    <div className="epk-gate is-signed is-account">
       <div className="epk-gate__card chamfer">
         <p className="kicker">Press kits</p>
         <h1>{title || (many ? "Your press kits" : "Press kit")}</h1>

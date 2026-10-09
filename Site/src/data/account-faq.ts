@@ -2,11 +2,11 @@
 export const ACCOUNT_FAQ = [
   {
     q: "What am I paying for each month?",
-    a: "One host: the live site and a sandbox you can talk to. Comments in the evening become a rolling update if there are any. That is the monthly.",
+    a: "One host: the live site and a sandbox you can talk to. Notes you leave become a rolling update. Send now spends tokens to push an immediate edit.",
   },
   {
     q: "What is the sandbox?",
-    a: "The place you can talk to while the live site stays up. Comments and hotfixes land here. We work offline, then update live when the change is happy.",
+    a: "The place you can talk to while the live site stays up. We work offline, then update live when the change is happy.",
   },
   {
     q: "What do I pay first?",
@@ -14,11 +14,11 @@ export const ACCOUNT_FAQ = [
   },
   {
     q: "How do comments work?",
-    a: "Leave a note or a file any time. That is free — we pick it up on the evening sweep and fold it into an overhaul when there is enough to run. Nothing on the live site changes from the box itself.",
+    a: "Leave a note, a document, or an idea any time. That is free. Send now spends tokens to push immediate edits.",
   },
   {
     q: "What does Send now do?",
-    a: "A direct edit, or an update from a document you drop. It spends this month’s updates on that site. The well is bigger on a higher stack. When we generate pictures, clips, or written packs, those spend from the same well.",
+    a: "Spend tokens to push immediate edits. The grant is 40 / 100 / 250 a month on BoomStack 1 / 2 / 3. Generated pictures, clips, and packs spend the same tokens later.",
   },
   {
     q: "What is a hotfix?",
@@ -26,7 +26,7 @@ export const ACCOUNT_FAQ = [
   },
   {
     q: "Where do I see what changed?",
-    a: "Patch notes sit on the home tab for that site, and on Sites in the account. That is what we actually ran, written so you can read it.",
+    a: "Patch notes sit on the home tab for that site. That is what we actually ran, written so you can read it.",
   },
   {
     q: "Who do I sit with?",

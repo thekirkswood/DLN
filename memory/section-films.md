@@ -26,14 +26,14 @@ House: `memory/social-video-blueprint.md` (three-door *talk*). This file is the 
 
 | # | id | Site room | Picture (simple line) | Notes |
 |---|---|---|---|---|
-| 1 | `pack` | Design → Packaging | Hatches into the window, inked in; customer ticks the blue square; other two leave; that colour leaves onto bottle, tub, chamfered sleeve. Camera pans back so it loops. | **On the Packaging room as naked HTML in a sealed well** (`LoopWell`). Not an iframe of a page, not a GIF. Packs take the pick colour — no stamped mark. `pack.html` is the house iterate file and the source the well runs. |
+| 1 | `pack` | Design → Packaging | Traced D L N slices of the wide mark, hatched, fly in line onto those slots and snap onto the full lockup. Window eases left; mark lands on bottle, tub, sleeve as they colour. | **On Packaging** in `LoopWell`. `pack.html`. |
 | 2 | `print` | Design → Design for print | A press: ch-ch-ch. Sheet in, identity on paper, out. | **Parked.** First pass in `print.html`. Room already has a resource bank — come back. |
-| 3 | `ui` | Design → UI | Billboard / wall → big screen → laptop → phone. Same window, no words. | **On the UI room as naked HTML in a sealed well**, same as pack. `ui.html` is the house iterate file. No zip yet. |
+| 3 | `ui` | Design → UI | Screen → laptop → phone. Photo in the glass (not the identity woman). Real DLN mark, one, centred. Chamfered buttons shrink, travel one chip at a time, then grow — no overlap. Devices only. | **On UI** in `LoopWell`. `ui.html`. |
 | 4 | `logos` | — | Marks sitting in equal frames; one mark holding as it scales. Real files only — never generate a house mark. | **Off the Design page.** Line still in data (`hide`). Not a destination. |
-| 5 | `identity` | Design → Brand identity systems | Desk and hand (laptop / phone). System travelling between them. | Room is desk+hand. No card. |
+| 5 | `identity` | Design → Brand identity systems | Desk and hand (laptop / phone). Leave ModYu on the still — no grey plate. | Room is desk+hand. No card. |
 | 6 | `simple` | Build → Simple sites | Gallery / shop / page / diary as formats, already on the room. | Film only if we want a captured loop of those four. |
-| 7 | `apps` | Build → Apps | Layout morph (already on the room). | Capture, don’t reinvent, unless the morph needs a cleaner cycle. |
-| 8 | `desk` | Build → Workspaces | Incoming / in work / done. A job moving along the desk. | |
+| 7 | `apps` | Build → Custom web applications | Phone and browser, same app in both. Inner buttons morph together. | **On the room** — `apps.html` in `LoopWell`. |
+| 8 | `desk` | Build → Live site and a sandbox beside it | Host loop: notes, Push, live blips. | **On the room** — `loop.html` in `LoopWell`. Replaces Interactive workspaces. |
 | 9 | `modern` | Build → Modernization | Live wall and sandbox; a note; Push; live catches up. | Host social loop already tells this — only draw if the *section* needs its own cut. |
 | 10 | `joins` | Build → Systems | A function joining what they already run. | |
 | 11 | `host` | Host | **Done** — `loop.html` / `new.html`. | Do not redraw. Use as the style reference. |

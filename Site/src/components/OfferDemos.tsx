@@ -43,7 +43,6 @@ export function PackLoop() {
     <LoopWell
       src="/brief/social-loop/pack.html"
       className="bench-pack-loop"
-      freezeBeat="on3"
     />
   );
 }
@@ -53,7 +52,24 @@ export function UiKit() {
     <LoopWell
       src="/brief/social-loop/ui.html"
       className="bench-ui-loop"
-      freezeBeat="phone"
+    />
+  );
+}
+
+export function HostLoop() {
+  return (
+    <LoopWell
+      src="/brief/social-loop/loop.html"
+      className="bench-host-loop"
+    />
+  );
+}
+
+export function AppPair() {
+  return (
+    <LoopWell
+      src="/brief/social-loop/apps.html"
+      className="bench-app-pair"
     />
   );
 }

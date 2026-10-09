@@ -874,7 +874,7 @@ export function CommentBox({
   plotOptions: Plot[];
   hint?: string;
   clientId?: string;
-  kind?: "note" | "hotfix";
+  kind?: "note" | "hotfix" | "query";
   label?: string;
   cta?: string;
   rows?: number;

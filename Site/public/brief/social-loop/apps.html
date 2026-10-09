@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-orient="landscape">
+<head>
+  <meta charset="utf-8" />
+  <title>DLN loop — app</title>
+  <style>
+    :root {
+      --ground: #ffffff;
+      --ink: #414141;
+      --font: "aktiv-grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--ground);
+      color: var(--ink);
+      font-family: var(--font);
+      height: 100%;
+      overflow: hidden;
+    }
+    body { display: flex; align-items: center; justify-content: center; }
+    .stage {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      position: relative;
+      overflow: hidden;
+    }
+    html[data-orient="portrait"] .stage {
+      width: min(100vw, calc(100vh * 9 / 16));
+      height: min(100vh, calc(100vw * 16 / 9));
+    }
+    .shell {
+      position: absolute;
+      background: var(--ink);
+    }
+    .paper {
+      position: absolute;
+      inset: 2.4px;
+      background: var(--ground);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+    .chrome {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.42rem 0.62rem;
+      border-bottom: 1.6px solid var(--ink);
+      min-height: 1.15rem;
+      position: relative;
+      background: var(--ground);
+    }
+    .dot {
+      width: 0.42rem;
+      height: 0.42rem;
+      background: var(--ink);
+      flex: 0 0 auto;
+    }
+    .notch {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 2.2rem;
+      height: 0.28rem;
+      background: var(--ink);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+    }
+    .is-phone .notch { opacity: 1; }
+    .is-phone .dot { opacity: 0; }
+    .is-phone .chrome { justify-content: center; border-bottom-width: 0; }
+    .glass { position: relative; min-height: 0; overflow: hidden; }
+    .shot, .shot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 62% 48%;
+      display: block;
+    }
+    .mark {
+      position: absolute;
+      left: 50%;
+      top: 8%;
+      width: 28%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+    .is-phone .mark { width: 42%; }
+    .acts {
+      position: absolute;
+      left: 7%;
+      right: 7%;
+      bottom: 8%;
+      height: 28%;
+      z-index: 2;
+    }
+    .btn {
+      position: absolute;
+      background: color-mix(in srgb, #fff 78%, transparent);
+    }
+    .deck {
+      position: absolute;
+      overflow: visible;
+      color: var(--ink);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="shell is-phone" id="phone">
+      <div class="paper">
+        <div class="chrome">
+          <i class="dot"></i><i class="dot"></i><i class="dot"></i>
+          <i class="notch"></i>
+        </div>
+        <div class="glass">
+          <div class="shot"><img src="/brief/Portfolio/ui-shot.png" alt="" /></div>
+          <img class="mark" src="/brand/dln-white.png" alt="" />
+          <div class="acts" data-acts>
+            <i class="btn"></i><i class="btn"></i><i class="btn"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <svg class="deck" id="deck" viewBox="0 0 200 72" preserveAspectRatio="none" aria-hidden>
+      <path d="M24 2 H176 L196 58 L186 70 H14 L4 58 Z" fill="#fff" stroke="currentColor" stroke-width="3" stroke-linejoin="miter" />
+    </svg>
+    <div class="shell is-browser" id="browser">
+      <div class="paper">
+        <div class="chrome">
+          <i class="dot"></i><i class="dot"></i><i class="dot"></i>
+        </div>
+        <div class="glass">
+          <div class="shot"><img src="/brief/Portfolio/ui-shot.png" alt="" /></div>
+          <img class="mark" src="/brand/dln-white.png" alt="" />
+          <div class="acts" data-acts>
+            <i class="btn"></i><i class="btn"></i><i class="btn"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const baked = document.documentElement.getAttribute("data-orient");
+    const orient = q.get("orient") === "portrait" || (!q.has("orient") && baked === "portrait")
+      ? "portrait" : "landscape";
+    document.documentElement.dataset.orient = orient;
+    const portrait = orient === "portrait";
+
+    const phone = document.getElementById("phone");
+    const browser = document.getElementById("browser");
+    const deck = document.getElementById("deck");
+    const sets = [...document.querySelectorAll("[data-acts]")].map((el) => [...el.children]);
+
+    const CYCLE = 14000;
+    const ease = (p) => p * p * (3 - 2 * p);
+    const clamp = (t, a, b) => (t <= a ? 0 : t >= b ? 1 : (t - a) / (b - a));
+    const eclamp = (t, a, b) => ease(clamp(t, a, b));
+    const lerp = (a, b, p) => a + (b - a) * p;
+    function mix(a, b, p) {
+      const o = {};
+      Object.keys(a).forEach((k) => { o[k] = lerp(a[k], b[k], p); });
+      return o;
+    }
+    function chamfer(cut) {
+      const c = cut + "%";
+      return `polygon(${c} 0, calc(100% - ${c}) 0, 100% ${c}, 100% calc(100% - ${c}), calc(100% - ${c}) 100%, ${c} 100%, 0 calc(100% - ${c}), 0 ${c})`;
+    }
+    function btnCut(px) {
+      const c = Math.max(3.2, px) + "px";
+      return `polygon(${c} 0, calc(100% - ${c}) 0, 100% ${c}, 100% calc(100% - ${c}), calc(100% - ${c}) 100%, ${c} 100%, 0 calc(100% - ${c}), 0 ${c})`;
+    }
+    function morphBox(a, b, u, i) {
+      if (u <= 0) return { ...a };
+      if (u >= 1) return { ...b };
+      const minS = 0.36;
+      const shrinkT = 0.2;
+      const growT = 0.8;
+      const travel = [[0.52, 0.76], [0.36, 0.6], [0.22, 0.46]][i];
+      let scale = minS;
+      let t = 0;
+      if (u < shrinkT) {
+        scale = lerp(1, minS, ease(u / shrinkT));
+        t = 0;
+      } else if (u > growT) {
+        scale = lerp(minS, 1, ease((u - growT) / (1 - growT)));
+        t = 1;
+      } else {
+        t = ease(clamp(u, travel[0], travel[1]));
+      }
+      const box = mix(a, b, t);
+      const cx = box.x + box.w / 2;
+      const cy = box.y + box.h / 2;
+      const w = box.w * scale;
+      const h = box.h * scale;
+      return { x: cx - w / 2, y: cy - h / 2, w, h, cut: box.cut };
+    }
+
+    const A = [
+      { x: 0, y: 52, w: 46, h: 38, cut: 6 },
+      { x: 50, y: 58, w: 28, h: 30, cut: 5 },
+      { x: 82, y: 52, w: 18, h: 38, cut: 5 },
+    ];
+    const B = [
+      { x: 0, y: 18, w: 100, h: 26, cut: 7 },
+      { x: 0, y: 50, w: 62, h: 22, cut: 6 },
+      { x: 68, y: 48, w: 32, h: 34, cut: 6 },
+    ];
+    const C = [
+      { x: 0, y: 6, w: 100, h: 28, cut: 7 },
+      { x: 0, y: 40, w: 72, h: 24, cut: 6 },
+      { x: 0, y: 70, w: 28, h: 26, cut: 6 },
+    ];
+    const layouts = [
+      { a: 0, b: 2200, from: A, to: A },
+      { a: 2200, b: 4200, from: A, to: B },
+      { a: 4200, b: 6400, from: B, to: B },
+      { a: 6400, b: 8600, from: B, to: C },
+      { a: 8600, b: 10800, from: C, to: C },
+      { a: 10800, b: 14000, from: C, to: A },
+    ];
+
+    function layoutAt(t) {
+      for (let i = 0; i < layouts.length; i += 1) {
+        const k = layouts[i];
+        if (t <= k.b || i === layouts.length - 1) {
+          const p = eclamp(t, k.a, k.b);
+          return k.from.map((row, n) => morphBox(row, k.to[n], p, n));
+        }
+      }
+      return A;
+    }
+
+    function place() {
+      if (portrait) {
+        phone.style.left = "28%";
+        phone.style.top = "6%";
+        phone.style.width = "44%";
+        phone.style.height = "40%";
+        browser.style.left = "10%";
+        browser.style.top = "50%";
+        browser.style.width = "80%";
+        browser.style.height = "42%";
+      } else {
+        phone.style.left = "8%";
+        phone.style.top = "14%";
+        phone.style.width = "18%";
+        phone.style.height = "72%";
+        browser.style.left = "32%";
+        browser.style.top = "18%";
+        browser.style.width = "58%";
+        browser.style.height = "52%";
+      }
+      phone.style.clipPath = chamfer(2.6);
+      browser.style.clipPath = chamfer(1.8);
+      const br = browser.getBoundingClientRect();
+      const st = document.getElementById("stage").getBoundingClientRect();
+      deck.style.left = ((br.left - st.left) / st.width * 100 - 2) + "%";
+      deck.style.width = (br.width / st.width * 110) + "%";
+      deck.style.top = ((br.bottom - st.top) / st.height * 100 - 0.4) + "%";
+      deck.style.height = "18%";
+    }
+
+    function frame(t) {
+      const rows = layoutAt(t);
+      sets.forEach((btns) => {
+        btns.forEach((el, i) => {
+          const o = rows[i];
+          el.style.left = o.x + "%";
+          el.style.top = o.y + "%";
+          el.style.width = o.w + "%";
+          el.style.height = o.h + "%";
+          el.style.clipPath = btnCut(o.cut);
+        });
+      });
+    }
+
+    place();
+    const freeze = q.get("beat");
+    const freezeT = q.get("t");
+    if (freezeT != null) {
+      frame(Number(freezeT));
+    } else {
+      const t0 = performance.now();
+      function tick(now) {
+        frame((now - t0) % CYCLE);
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  </script>
+</body>
+</html>

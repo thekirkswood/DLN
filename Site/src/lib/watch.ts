@@ -6,7 +6,7 @@ import { cookieSecureFromProto, isStudio, userFromSession } from "@/lib/auth";
 import type { NextResponse } from "next/server";
 import { isMaliciousPath, looksLikeProbe, pathsLookMalicious } from "@/lib/trap-paths";
 import type { TrapTrip } from "@/lib/trap-types";
-import type { WatchHit, WatchInstance } from "@/lib/watch-types";
+import { visitKind, type WatchHit, type WatchInstance } from "@/lib/watch-types";
 export type { VisitKind } from "@/lib/watch-types";
 export { visitKind } from "@/lib/watch-types";
 
@@ -313,6 +313,20 @@ function plotFromHit(host: string, path: string): string | undefined {
 export async function listVisits(): Promise<WatchInstance[]> {
   const book = await readBook();
   return book.instances;
+}
+
+/** Counts only. Never hand IPs to a client account. */
+export async function hitsForPlot(slug: string): Promise<{ visits: number; hits: number }> {
+  const rows = await listVisits();
+  const mine = rows.filter((row) => {
+    if (row.plot === slug) return true;
+    const host = (row.host || "").toLowerCase();
+    return host.includes(slug.toLowerCase());
+  });
+  return {
+    visits: mine.filter((row) => visitKind(row) === "browse").length,
+    hits: mine.reduce((n, row) => n + row.paths.length, 0),
+  };
 }
 
 export async function tapWatch(input: {

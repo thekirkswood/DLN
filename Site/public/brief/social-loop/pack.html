@@ -8,8 +8,8 @@
       --ground: #ffffff;
       --ink: #414141;
       --c1: #2c2c2c;
-      --c2: #3d6b8a;
-      --c3: #a0563a;
+      --c2: #3d5c73;
+      --c3: #8a5340;
       --font: "aktiv-grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,7 +37,7 @@
       height: 100%;
       min-height: 0;
       display: grid;
-      grid-template-columns: 0.5fr 1.08fr 1fr;
+      grid-template-columns: 0.42fr 1.12fr 1fr;
       gap: 3%;
       align-items: stretch;
       will-change: transform;
@@ -63,38 +63,34 @@
       justify-content: center;
       position: relative;
     }
-    .hatch {
-      width: 52%;
-      max-width: 4.6rem;
-      overflow: visible;
+    .hatch,
+    .ghost {
+      display: block;
+      width: 78%;
+      max-width: 6.4rem;
+      background: repeating-linear-gradient(-45deg, var(--ink) 0 1.7px, transparent 1.7px 5.6px);
+      -webkit-mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-size: 100% 100%;
+      mask-repeat: no-repeat;
+      mask-position: center;
     }
-    html[data-orient="portrait"] .hatch { width: 58%; }
-    .hatch .edge {
-      fill: none;
-      stroke-width: 2.4;
-      stroke-dasharray: 3.2 5.2;
-      stroke-linejoin: miter;
+    .hatch-d, .ghost-d { aspect-ratio: 298 / 349; }
+    .hatch-l, .ghost-l { aspect-ratio: 297 / 349; }
+    .hatch-n, .ghost-n { aspect-ratio: 300 / 349; }
+    html[data-orient="portrait"] .hatch { width: 72%; }
+    .hatch-d, .ghost-d {
+      -webkit-mask-image: url(/brief/social-loop/letters/d.png);
+      mask-image: url(/brief/social-loop/letters/d.png);
     }
-    .hatch .pigment { fill: transparent; opacity: 0; }
-    .hatch-tri .edge { stroke: var(--c3); }
-    .hatch-sq .edge { stroke: var(--c2); }
-    .hatch-oct .edge { stroke: var(--c1); }
-    .hatch-tri .pigment { fill: var(--c3); }
-    .hatch-sq .pigment { fill: var(--c2); }
-    .hatch-oct .pigment { fill: var(--c1); }
-
-    .tick {
-      position: absolute;
-      left: calc(50% + 2.15rem);
-      width: 1.45rem;
-      height: 1.45rem;
-      opacity: 0;
-      overflow: visible;
+    .hatch-l, .ghost-l {
+      -webkit-mask-image: url(/brief/social-loop/letters/l.png);
+      mask-image: url(/brief/social-loop/letters/l.png);
     }
-    html[data-orient="portrait"] .tick {
-      left: auto;
-      right: 6%;
-      top: 8%;
+    .hatch-n, .ghost-n {
+      -webkit-mask-image: url(/brief/social-loop/letters/n.png);
+      mask-image: url(/brief/social-loop/letters/n.png);
     }
 
     .window {
@@ -102,6 +98,7 @@
       margin: auto;
       color: var(--ink);
       align-self: center;
+      transform-origin: 50% 50%;
     }
     .lid { width: 100%; aspect-ratio: 16 / 10.6; display: block; overflow: visible; }
     .base {
@@ -110,20 +107,8 @@
       background: var(--ink);
       clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%);
     }
-    .guest { opacity: 1; }
-    .guest .edge {
-      fill: none;
-      stroke-width: 2.5;
-      stroke-dasharray: 3.2 5.2;
-      opacity: 0;
-    }
-    .guest .pigment { fill: transparent; opacity: 0; }
-    .guest-tri .edge { stroke: var(--c3); }
-    .guest-sq .edge { stroke: var(--c2); }
-    .guest-oct .edge { stroke: var(--c1); }
-    .guest-tri .pigment { fill: var(--c3); }
-    .guest-sq .pigment { fill: var(--c2); }
-    .guest-oct .pigment { fill: var(--c1); }
+    .guest { opacity: 0; }
+    .mark { opacity: 0; }
 
     .ghost,
     .flyer {
@@ -135,16 +120,15 @@
       left: 0;
       top: 0;
     }
-    .ghost path.edge {
-      fill: none;
-      stroke-width: 2.4;
-      stroke-dasharray: 3.2 5.2;
+    .ghost {
+      max-width: none;
     }
-    .ghost-tri path.edge { stroke: var(--c3); }
-    .ghost-sq path.edge { stroke: var(--c2); }
-    .ghost-oct path.edge { stroke: var(--c1); }
-    .flyer path.pigment { fill: var(--c2); }
-    .flyer path.edge { fill: none; stroke: var(--c2); stroke-width: 2.6; stroke-linejoin: miter; }
+    .flyer img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
     .outs {
       height: 100%;
@@ -172,7 +156,10 @@
       color: var(--ink);
     }
     .pack .skin { fill: var(--c2); stroke: none; opacity: 0; }
-    .pack .stamp { display: none; }
+    .pack-bottle .skin { fill: var(--c1); }
+    .pack-tub .skin { fill: var(--c2); }
+    .pack-sleeve .skin { fill: var(--c3); }
+    .pack .stamp { opacity: 0; }
 
     html[data-freeze] .ghost,
     html[data-freeze] .flyer { display: none; }
@@ -182,48 +169,43 @@
   <div class="stage" id="stage">
     <div class="board" id="board">
       <aside class="user" aria-hidden>
-        <div class="slot">
-          <svg class="hatch hatch-tri" viewBox="0 0 72 72">
-            <path class="pigment" d="M36 8 L64 58 L54 66 L18 66 L8 58 Z" />
-            <path class="edge" d="M36 8 L64 58 L54 66 L18 66 L8 58 Z" />
-          </svg>
-        </div>
-        <div class="slot">
-          <svg class="hatch hatch-sq" viewBox="0 0 72 72">
-            <path class="pigment" d="M16 8 H56 L64 16 V56 L56 64 H16 L8 56 V16 Z" />
-            <path class="edge" d="M16 8 H56 L64 16 V56 L56 64 H16 L8 56 V16 Z" />
-          </svg>
-          <svg class="tick" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="miter">
-            <path d="M6 18 L14 26 L30 8" />
-          </svg>
-        </div>
-        <div class="slot">
-          <svg class="hatch hatch-oct" viewBox="0 0 72 72">
-            <path class="pigment" d="M26 8 H46 L64 26 V46 L46 64 H26 L8 46 V26 Z" />
-            <path class="edge" d="M26 8 H46 L64 26 V46 L46 64 H26 L8 46 V26 Z" />
-          </svg>
-        </div>
+        <div class="slot"><i class="hatch hatch-d"></i></div>
+        <div class="slot"><i class="hatch hatch-l"></i></div>
+        <div class="slot"><i class="hatch hatch-n"></i></div>
       </aside>
 
-      <article class="window" aria-hidden>
+      <article class="window" id="window" aria-hidden>
         <svg class="lid" viewBox="0 0 320 214" fill="none" stroke="currentColor" stroke-width="3">
           <path d="M14 0 H306 L320 14 V200 L306 214 H14 L0 200 V14 Z" />
           <path d="M0 28 H320" />
           <circle cx="16" cy="14" r="3.2" fill="currentColor" stroke="none" />
           <circle cx="28" cy="14" r="3.2" fill="currentColor" stroke="none" />
           <circle cx="40" cy="14" r="3.2" fill="currentColor" stroke="none" />
-          <image href="../../brand/dln-mute.png" x="24" y="40" width="42" height="42" />
-          <g class="guest guest-tri" transform="translate(78 88) scale(0.72)">
-            <path class="pigment" d="M36 8 L64 58 L54 66 L18 66 L8 58 Z" />
-            <path class="edge" d="M36 8 L64 58 L54 66 L18 66 L8 58 Z" />
-          </g>
-          <g class="guest guest-sq" transform="translate(150 88) scale(0.72)">
-            <path class="pigment" d="M16 8 H56 L64 16 V56 L56 64 H16 L8 56 V16 Z" />
-            <path class="edge" d="M16 8 H56 L64 16 V56 L56 64 H16 L8 56 V16 Z" />
-          </g>
-          <g class="guest guest-oct" transform="translate(222 88) scale(0.72)">
-            <path class="pigment" d="M26 8 H46 L64 26 V46 L46 64 H26 L8 46 V26 Z" />
-            <path class="edge" d="M26 8 H46 L64 26 V46 L46 64 H26 L8 46 V26 Z" />
+          <defs>
+            <pattern id="hp" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <path d="M0 0 H8" stroke="currentColor" stroke-width="2.2" />
+            </pattern>
+            <mask id="gd" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+              <image href="/brief/social-loop/letters/d.png" x="0" y="0" width="1" height="1" preserveAspectRatio="none" />
+            </mask>
+            <mask id="gl" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+              <image href="/brief/social-loop/letters/l.png" x="0" y="0" width="1" height="1" preserveAspectRatio="none" />
+            </mask>
+            <mask id="gn" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+              <image href="/brief/social-loop/letters/n.png" x="0" y="0" width="1" height="1" preserveAspectRatio="none" />
+            </mask>
+          </defs>
+          <g class="mark-slot" transform="translate(67 80)">
+            <g class="guest guest-d" transform="translate(4.63 0)">
+              <rect width="57.5" height="67.35" fill="url(#hp)" mask="url(#gd)" stroke="none" />
+            </g>
+            <g class="guest guest-l" transform="translate(64.06 0)">
+              <rect width="57.3" height="67.35" fill="url(#hp)" mask="url(#gl)" stroke="none" />
+            </g>
+            <g class="guest guest-n" transform="translate(123.49 0)">
+              <rect width="57.88" height="67.35" fill="url(#hp)" mask="url(#gn)" stroke="none" />
+            </g>
+            <image class="mark" href="../../brand/dln-mute.png" width="186" height="67.35" />
           </g>
         </svg>
         <i class="base"></i>
@@ -236,8 +218,8 @@
             <path d="M64 12 H96 V24 L108 34 V44 H52 V34 L64 24 Z" />
             <path d="M52 44 L108 44 L118 54 V118 L100 134 H60 L42 118 V54 Z" />
             <path d="M42 62 H118" />
-            <g class="stamp-slot" transform="translate(52 62) scale(0.3)">
-              <rect width="72" height="72" fill="none" stroke="none" />
+            <g class="stamp-slot" transform="translate(44 84)">
+              <image class="stamp" href="../../brand/dln-white.png" width="72" height="26.06" />
             </g>
           </svg>
         </div>
@@ -247,8 +229,8 @@
             <path d="M36 40 L52 28 H108 L124 40" />
             <path d="M36 40 V96 L52 118 H108 L124 96 V40" />
             <path d="M36 78 L52 92 H108 L124 78" />
-            <g class="stamp-slot" transform="translate(86 46) scale(0.36)">
-              <rect width="72" height="72" fill="none" stroke="none" />
+            <g class="stamp-slot" transform="translate(44 58)">
+              <image class="stamp" href="../../brand/dln-white.png" width="72" height="26.06" />
             </g>
           </svg>
         </div>
@@ -259,27 +241,20 @@
             <path d="M48 38 L62 18 L110 18 L96 38" />
             <path d="M114 56 L130 42 L130 94 L114 108" />
             <path d="M96 38 L110 18 L130 42 L114 56" />
-            <g class="stamp-slot" transform="translate(38 78) scale(0.44)">
-              <rect width="72" height="72" fill="none" stroke="none" />
+            <g class="stamp-slot" transform="translate(36 78)">
+              <image class="stamp" href="../../brand/dln-white.png" width="72" height="26.06" />
             </g>
           </svg>
         </div>
       </aside>
     </div>
 
-    <svg class="ghost ghost-tri" viewBox="0 0 72 72">
-      <path class="edge" d="M36 8 L64 58 L54 66 L18 66 L8 58 Z" />
-    </svg>
-    <svg class="ghost ghost-sq" viewBox="0 0 72 72">
-      <path class="edge" d="M16 8 H56 L64 16 V56 L56 64 H16 L8 56 V16 Z" />
-    </svg>
-    <svg class="ghost ghost-oct" viewBox="0 0 72 72">
-      <path class="edge" d="M26 8 H46 L64 26 V46 L46 64 H26 L8 46 V26 Z" />
-    </svg>
-    <svg class="flyer" viewBox="0 0 72 72">
-      <path class="pigment" d="M16 8 H56 L64 16 V56 L56 64 H16 L8 56 V16 Z" />
-      <path class="edge" d="M16 8 H56 L64 16 V56 L56 64 H16 L8 56 V16 Z" />
-    </svg>
+    <i class="ghost ghost-d"></i>
+    <i class="ghost ghost-l"></i>
+    <i class="ghost ghost-n"></i>
+    <div class="flyer" id="flyer">
+      <img src="../../brand/dln-mute.png" alt="" />
+    </div>
   </div>
   <script>
     const q = new URLSearchParams(location.search);
@@ -310,19 +285,17 @@
 
     const stage = document.getElementById("stage");
     const board = document.getElementById("board");
+    const win = document.getElementById("window");
     const hatches = [...stage.querySelectorAll(".hatch")];
     const guests = [...stage.querySelectorAll(".guest")];
     const ghosts = [...stage.querySelectorAll(".ghost")];
     const stampSlots = [...stage.querySelectorAll(".stamp-slot")];
     const skins = [...stage.querySelectorAll(".pack .skin")];
-    const flyer = stage.querySelector(".flyer");
-    const tick = stage.querySelector(".tick");
-    const hatchPigment = hatches.map((h) => h.querySelector(".pigment"));
-    const hatchEdge = hatches.map((h) => h.querySelector(".edge"));
-    const guestPigment = guests.map((g) => g.querySelector(".pigment"));
-    const guestEdge = guests.map((g) => g.querySelector(".edge"));
+    const stamps = [...stage.querySelectorAll(".pack .stamp")];
+    const mark = stage.querySelector(".mark");
+    const markSlot = stage.querySelector(".mark-slot");
+    const flyer = document.getElementById("flyer");
 
-    const PICK = 1;
     const CYCLE = 16000;
     const ease = (p) => p * p * (3 - 2 * p);
     const clamp = (t, a, b) => (t <= a ? 0 : t >= b ? 1 : (t - a) / (b - a));
@@ -330,19 +303,15 @@
     const lerp = (a, b, p) => a + (b - a) * p;
     const PAN = portrait ? 34 : 38;
 
-    function viewBoxScreen(el, vb) {
+    function boxOf(el) {
       const s = stage.getBoundingClientRect();
-      const ctm = el.getScreenCTM();
-      if (!ctm) return { x: 0, y: 0, w: 0, h: 0 };
-      const a = new DOMPoint(0, 0).matrixTransform(ctm);
-      const b = new DOMPoint(vb, 0).matrixTransform(ctm);
-      const c = new DOMPoint(0, vb).matrixTransform(ctm);
-      const m = new DOMPoint(vb / 2, vb / 2).matrixTransform(ctm);
+      const r = el.getBoundingClientRect();
+      if (!r.width) return { x: 0, y: 0, w: 0, h: 0 };
       return {
-        x: ((m.x - s.left) / s.width) * 100,
-        y: ((m.y - s.top) / s.height) * 100,
-        w: (Math.hypot(b.x - a.x, b.y - a.y) / s.width) * 100,
-        h: (Math.hypot(c.x - a.x, c.y - a.y) / s.height) * 100,
+        x: ((r.left + r.width / 2 - s.left) / s.width) * 100,
+        y: ((r.top + r.height / 2 - s.top) / s.height) * 100,
+        w: (r.width / s.width) * 100,
+        h: (r.height / s.height) * 100,
       };
     }
     function mix(a, b, p) {
@@ -366,18 +335,21 @@
     }
 
     function frame(t) {
-      const panIn = eclamp(t, 5200, 6800);
-      const panOut = eclamp(t, 13600, 15600);
+      const panIn = eclamp(t, 5600, 7400);
+      const panOut = eclamp(t, 14200, 15800);
       const reset = panOut;
       panBoard(panIn * (1 - panOut));
+      const zoom = lerp(1, 0.86, panIn * (1 - panOut));
+      win.style.transform = "scale(" + zoom + ")";
 
-      const from = hatches.map((h) => viewBoxScreen(h, 72));
-      const to = guests.map((g) => viewBoxScreen(g, 72));
-      const onto = stampSlots.map((g) => viewBoxScreen(g, 72));
+      const from = hatches.map((h) => boxOf(h));
+      const to = guests.map((g) => boxOf(g));
+      const onto = stampSlots.map((g) => boxOf(g));
+      const markBox = markSlot ? boxOf(markSlot) : to[1];
 
       for (let i = 0; i < 3; i += 1) {
-        const t0 = 350 + i * 800;
-        const t1 = t0 + 1100;
+        const t0 = 400 + i * 700;
+        const t1 = t0 + 1200;
         const fly = eclamp(t, t0, t1);
         const pos = mix(from[i], to[i], fly);
         let o = 0;
@@ -389,89 +361,78 @@
         put(ghosts[i], pos, o);
       }
 
-      const ink = eclamp(t, 3300, 4300);
-
       hatches.forEach((h, i) => {
-        const t0 = 350 + i * 800;
-        const t1 = t0 + 1100;
+        const t0 = 400 + i * 700;
         let o = 1;
-        if (t > t0 && t < 3300) o = 0.34;
-        if (t >= 3300) o = 1;
-        if (i !== PICK && t >= 4300) o = lerp(1, 0.32, eclamp(t, 4300, 4900));
-        if (t >= 13600) o = lerp(i !== PICK ? 0.32 : 1, 1, reset);
+        if (t > t0) o = lerp(1, 0, eclamp(t, t0, t0 + 900));
+        if (t >= 14200) o = lerp(0, 1, reset);
         h.style.opacity = String(o);
       });
 
-      tick.style.opacity = String(eclamp(t, 4300, 4900) * (1 - reset));
-
-      const leave = eclamp(t, 5000, 6000);
-      const liftOff = eclamp(t, 7000, 7600);
-      const landAt = [1450, 2250, 3050];
+      const landAt = [1600, 2300, 3000];
       guests.forEach((g, i) => {
         const arrived = clamp(t, landAt[i] - 80, landAt[i]);
-        let show = arrived;
-        if (i === PICK) show *= (1 - liftOff);
-        else show *= (1 - leave);
-        show *= (1 - reset);
-        guestEdge[i].style.opacity = String(show * (1 - ink));
-        guestPigment[i].style.opacity = String(show * ink);
+        const fade = eclamp(t, 3400, 4600);
+        g.style.opacity = String(arrived * (1 - fade) * (1 - reset));
       });
-      const inkNow = ink * (1 - reset);
-      hatchPigment.forEach((p) => { p.style.opacity = String(inkNow); });
-      hatchEdge.forEach((p) => { p.style.opacity = String(1 - inkNow); });
 
-      let fpos = to[PICK];
+      const born = eclamp(t, 3600, 5000);
+      const liftOff = eclamp(t, 7600, 8200);
+      mark.style.opacity = String(born * (1 - liftOff) * (1 - reset));
+
+      let fpos = markBox;
       let fop = 0;
-      if (t >= 7000 && t < 7600) {
-        fpos = to[PICK];
+      if (t >= 7600 && t < 8200) {
+        fpos = markBox;
         fop = liftOff;
-      } else if (t >= 7600 && t < 9000) {
-        fpos = mix(to[PICK], onto[0], eclamp(t, 7600, 9000));
+      } else if (t >= 8200 && t < 9400) {
+        fpos = mix(markBox, onto[0], eclamp(t, 8200, 9400));
         fop = 1;
-      } else if (t >= 9000 && t < 9400) {
+      } else if (t >= 9400 && t < 9800) {
         fpos = onto[0];
         fop = 1;
-      } else if (t >= 9400 && t < 10600) {
-        fpos = mix(onto[0], onto[1], eclamp(t, 9400, 10600));
+      } else if (t >= 9800 && t < 11000) {
+        fpos = mix(onto[0], onto[1], eclamp(t, 9800, 11000));
         fop = 1;
-      } else if (t >= 10600 && t < 11000) {
+      } else if (t >= 11000 && t < 11400) {
         fpos = onto[1];
         fop = 1;
-      } else if (t >= 11000 && t < 12200) {
-        fpos = mix(onto[1], onto[2], eclamp(t, 11000, 12200));
+      } else if (t >= 11400 && t < 12600) {
+        fpos = mix(onto[1], onto[2], eclamp(t, 11400, 12600));
         fop = 1;
-      } else if (t >= 12200 && t < 12800) {
+      } else if (t >= 12600 && t < 13400) {
         fpos = onto[2];
-        fop = 1 - eclamp(t, 12400, 12800);
+        fop = 1 - eclamp(t, 13000, 13400);
       }
       put(flyer, fpos, fop);
 
       const fadeSkin = 1 - reset;
-      skins[0].style.opacity = String(eclamp(t, 8600, 9000) * fadeSkin);
-      skins[1].style.opacity = String(eclamp(t, 10200, 10600) * fadeSkin);
-      skins[2].style.opacity = String(eclamp(t, 11800, 12200) * fadeSkin);
+      skins[0].style.opacity = String(eclamp(t, 9000, 9400) * fadeSkin);
+      skins[1].style.opacity = String(eclamp(t, 10600, 11000) * fadeSkin);
+      skins[2].style.opacity = String(eclamp(t, 12200, 12600) * fadeSkin);
+      stamps[0].style.opacity = String(eclamp(t, 9200, 9600) * fadeSkin);
+      stamps[1].style.opacity = String(eclamp(t, 10800, 11200) * fadeSkin);
+      stamps[2].style.opacity = String(eclamp(t, 12400, 12800) * fadeSkin);
     }
 
     const beats = [
       { t: 0, name: "idle" },
-      { t: 350, name: "go1" },
-      { t: 1450, name: "in1" },
-      { t: 1150, name: "go2" },
-      { t: 2250, name: "in2" },
-      { t: 1950, name: "go3" },
-      { t: 3050, name: "in3" },
-      { t: 3800, name: "ink" },
-      { t: 4600, name: "pick" },
-      { t: 5400, name: "leave" },
-      { t: 6200, name: "pan" },
-      { t: 7300, name: "lift" },
-      { t: 8200, name: "fly1" },
-      { t: 9000, name: "on1" },
-      { t: 10000, name: "fly2" },
-      { t: 10600, name: "on2" },
-      { t: 11600, name: "fly3" },
-      { t: 12200, name: "on3" },
-      { t: 13600, name: "back" },
+      { t: 400, name: "go1" },
+      { t: 1600, name: "in1" },
+      { t: 1100, name: "go2" },
+      { t: 2300, name: "in2" },
+      { t: 1800, name: "go3" },
+      { t: 3000, name: "in3" },
+      { t: 4200, name: "mark" },
+      { t: 6400, name: "pan" },
+      { t: 7900, name: "lift" },
+      { t: 8800, name: "fly1" },
+      { t: 9400, name: "on1" },
+      { t: 10400, name: "fly2" },
+      { t: 11000, name: "on2" },
+      { t: 12000, name: "fly3" },
+      { t: 12800, name: "on3" },
+      { t: 14200, name: "back" },
     ];
     const order = Object.fromEntries(beats.map((b) => [b.name, b.t]));
     function extras(name) {
@@ -480,11 +441,9 @@
       if (t >= order.in1) bits.push("has-g1");
       if (t >= order.in2) bits.push("has-g2");
       if (t >= order.in3) bits.push("has-g3");
-      if (t >= order.ink) bits.push("has-ink");
-      if (t >= order.pick) bits.push("has-pick");
-      if (t >= order.leave) bits.push("has-leave");
-      if (t >= order.lift) bits.push("has-gone");
+      if (t >= order.mark) bits.push("has-mark");
       if (t >= order.pan) bits.push("has-pan");
+      if (t >= order.lift) bits.push("has-gone");
       if (t >= order.on1) bits.push("has-s1");
       if (t >= order.on2) bits.push("has-s2");
       if (t >= order.on3) bits.push("has-s3");

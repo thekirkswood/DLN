@@ -18,8 +18,10 @@ import {
 } from "@/data/worklines";
 import { ModernWindows, SimpleWindow } from "@/components/BuildDemos";
 import {
+  AppPair,
   AvenueRead,
   CounselLevels,
+  HostLoop,
   IdentityKit,
   PackLoop,
   UiKit,
@@ -329,7 +331,7 @@ function OfferStage({
       {embed ? (
         <header className="bench-line-head">
           {line.id === "brand" ? (
-            <p className="bench-strategy-open bench-avenue-line">{STRATEGY_OPEN}</p>
+            <p className="bench-strategy-open">{STRATEGY_OPEN}</p>
           ) : null}
           <h2>{line.title}</h2>
         </header>
@@ -449,6 +451,8 @@ function BuildStage({
       )}
       <div className="bench-app-stage">
         {line.id === "simple" ? <SimpleWindow /> : null}
+        {line.id === "workspaces" ? <HostLoop /> : null}
+        {line.id === "apps" ? <AppPair /> : null}
         {line.id === "modernize" ? <ModernWindows /> : null}
         <AvenueRead lead="" folds={line.folds} />
       </div>

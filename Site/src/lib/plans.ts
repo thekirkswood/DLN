@@ -20,8 +20,8 @@ export type SiteComment = {
   /** live = public well on the plot host. Not a live editor. */
   source?: "account" | "live" | "studio";
   fromName?: string;
-  /** hotfix = something wrong now. Never auto-deploys. */
-  kind?: "note" | "hotfix";
+  /** hotfix = something wrong now. Never auto-deploys. query = Ask DLN. news = from us. */
+  kind?: "note" | "hotfix" | "query" | "news";
 };
 
 export type BuildPlan = {
@@ -112,7 +112,7 @@ export async function addComment(
     body?: string;
     page?: string;
     clientId?: string;
-    kind?: "note" | "hotfix";
+    kind?: "note" | "hotfix" | "query" | "news";
   },
 ): Promise<SiteComment> {
   const plotSlug = (input.plotSlug || "").trim();
@@ -122,7 +122,14 @@ export async function addComment(
   const ownerId =
     isStudio(user) && input.clientId?.trim() ? input.clientId.trim() : user.id;
   if (!isStudio(user) && ownerId !== user.id) throw new Error("forbidden");
-  const kind = input.kind === "hotfix" ? "hotfix" : "note";
+  const kind =
+    input.kind === "hotfix"
+      ? "hotfix"
+      : input.kind === "query"
+        ? "query"
+        : input.kind === "news" && isStudio(user)
+          ? "news"
+          : "note";
   const row: SiteComment = {
     id: randomUUID(),
     userId: ownerId,
@@ -137,6 +144,17 @@ export async function addComment(
   const rows = await listComments();
   rows.unshift(row);
   await writeJson(COMMENTS, rows);
+  if (kind === "query") {
+    const { wakeClientAsk } = await import("@/lib/client-ask");
+    await wakeClientAsk({
+      kind: "note",
+      text: `Ask DLN · ${plotSlug}\n${body}`.slice(0, 8000),
+      author: user.displayName || user.id,
+      authorId: user.id,
+      plot: plotSlug,
+      origin: "/account?view=notices",
+    });
+  }
   if (kind === "hotfix") {
     const { wakeClientAsk } = await import("@/lib/client-ask");
     const { spendTokens, tokenCosts } = await import("@/lib/tokens");

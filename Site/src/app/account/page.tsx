@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/session";
 import { plotsOnAccount, enterUrlFor, hostUrlFor, allPlots } from "@/lib/plots";
-import { pressKitForPlot, epkHref } from "@/lib/epk-map";
 import { isStudio, listClients } from "@/lib/auth";
 import {
   invoicesVisibleTo,
@@ -103,8 +102,9 @@ export default async function AccountPage({
     searchParams?.kit && kitIds.includes(searchParams.kit) ? searchParams.kit : kitIds[0];
   const mine = studio ? invoices.filter((i) => i.userId === user.id) : invoices;
   const due = mine.filter((i) => i.status === "due");
-  const openNotes = comments.filter((c) => !c.planId);
-  const noticeCount = due.length + openNotes.length;
+  const noticeCount =
+    due.length +
+    comments.filter((c) => c.kind === "news" || c.kind === "query").length;
 
   const studioBook = studio
     ? {
@@ -211,12 +211,12 @@ export default async function AccountPage({
 
       {studio ? (
         <section className="token-well">
-          <h2>This month’s updates</h2>
+          <h2>Tokens</h2>
           <p className="body bill-note">
-            Sweep notes are free. Send now spends {costs.pingCost}. Generated
-            pictures, clips, and packs will spend {costs.genCost} from the same
-            well. Grants follow the stack: {costs.grants[1]} / {costs.grants[2]}{" "}
-            / {costs.grants[3]}.
+            Leave a note is free. Send now spends {costs.pingCost} tokens to
+            push immediate edits. Generated packs will spend {costs.genCost}.
+            Grants: {costs.grants[1]} / {costs.grants[2]} / {costs.grants[3]} on
+            stacks 1 / 2 / 3.
           </p>
           {ledgers.length ? (
             <ul className="note-list">
@@ -308,9 +308,16 @@ export default async function AccountPage({
               claims={claims}
               railReady={railIsReady(rail)}
               graceDays={settings.graceDays}
+              ledgers={ledgers}
+              sites={sites}
             />
           ) : view === "notices" ? (
-            <NoticesPanel due={due} notes={openNotes} />
+            <NoticesPanel
+              due={due}
+              news={comments.filter((c) => c.kind === "news")}
+              queries={comments.filter((c) => c.kind === "query")}
+              sites={sites}
+            />
           ) : (
             <>
               <h2>Sites</h2>
@@ -321,8 +328,6 @@ export default async function AccountPage({
                   {sites.map((plot) => {
                     const live = enterUrlFor(plot);
                     const host = hostUrlFor(plot);
-                    const kit = pressKitForPlot(plot.slug);
-                    const log = plans.filter((p) => p.plotSlug === plot.slug);
                     return (
                       <div key={plot.slug} className="site-row">
                         <div className="site-copy">
@@ -332,50 +337,8 @@ export default async function AccountPage({
                             {host && host !== live ? (
                               <a href={host}>On our host</a>
                             ) : null}
-                            {kit ? <a href={epkHref(kit)}>Press kit</a> : null}
-                            {kit ? (
-                              <a href={`/account?view=assets&kit=${kit}`}>Assets</a>
-                            ) : null}
-                            {kit ? (
-                              <a href={`/account?view=press&kit=${kit}`}>Edit kit</a>
-                            ) : null}
+                            <a href={`/?site=${encodeURIComponent(plot.slug)}`}>Sandbox</a>
                           </p>
-                          {(() => {
-                            const held = ledgers.find((row) => row.plotSlug === plot.slug);
-                            return held ? (
-                              <p className="body">
-                                Stack {held.stack}: {held.balance} of{" "}
-                                {held.grantedThisPeriod} updates left this month.
-                                A note for the sweep is free. Send now spends{" "}
-                                {costs.pingCost}. Generated pictures, clips, and
-                                packs will use the same well.
-                              </p>
-                            ) : (
-                              <p className="body">
-                                A note or a file for the sweep is free. Send now
-                                uses this month’s updates when the site is on a
-                                stack.
-                              </p>
-                            );
-                          })()}
-                          <h4>Patch notes</h4>
-                          {log.length ? (
-                            <ul className="note-list">
-                              {log.map((row) => (
-                                <li key={row.id}>
-                                  <span className="status">
-                                    {row.updatedAt.slice(0, 10)}
-                                  </span>
-                                  <p>
-                                    <strong>{row.title}.</strong>{" "}
-                                    {row.patchNotes || row.body}
-                                  </p>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <p className="body">When we update this site, the notes land here.</p>
-                          )}
                         </div>
                       </div>
                     );
@@ -406,10 +369,6 @@ export default async function AccountPage({
               </section>
             </>
           )}
-
-          {view === "notices" ? (
-            <CommentBox plotSlug={sites[0]?.slug || ""} plotOptions={sites} />
-          ) : null}
         </>
       ) : null}
 
@@ -429,6 +388,8 @@ function PaymentsPanel({
   claims,
   railReady,
   graceDays,
+  ledgers,
+  sites,
 }: {
   titles: Awaited<ReturnType<typeof titlesAccessFor>> | null;
   sittings: Awaited<ReturnType<typeof bookingsForUser>>;
@@ -438,6 +399,8 @@ function PaymentsPanel({
   claims: Awaited<ReturnType<typeof paymentByInvoice>>;
   railReady: boolean;
   graceDays: number;
+  ledgers: Awaited<ReturnType<typeof ledgersVisibleTo>>;
+  sites: Awaited<ReturnType<typeof plotsOnAccount>>;
 }) {
   const active = rolls.filter((r) => r.status === "active");
   return (
@@ -448,6 +411,33 @@ function PaymentsPanel({
           ? "Pay by bank transfer on the invoice. Use the invoice number as the reference."
           : `Open an invoice for the amount due. Unpaid after ${graceDays} days shuts a bound site.`}
       </p>
+
+      <h3>Tokens</h3>
+      <p className="body bill-note">
+        Tokens are the currency on this account. Send now spends them to push
+        immediate edits. Generated pictures, clips, and packs will spend the
+        same tokens. Grant is 40 / 100 / 250 a month on BoomStack 1 / 2 / 3.
+      </p>
+      {ledgers.length ? (
+        <ul className="note-list">
+          {ledgers.map((row) => {
+            const site = sites.find((p) => p.slug === row.plotSlug);
+            return (
+              <li key={row.id}>
+                <span className="status">
+                  Stack {row.stack} · {row.balance} tokens
+                </span>
+                <p>
+                  {site?.name || row.plotSlug}: {row.balance} of{" "}
+                  {row.grantedThisPeriod} this month.
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p className="body">Tokens land here when a site is on a monthly stack.</p>
+      )}
 
       <h3>Subscriptions</h3>
       {active.length === 0 ? (
@@ -530,52 +520,69 @@ function PaymentsPanel({
 
 function NoticesPanel({
   due,
-  notes,
+  news,
+  queries,
+  sites,
 }: {
   due: Awaited<ReturnType<typeof invoicesVisibleTo>>;
-  notes: Awaited<ReturnType<typeof commentsFor>>;
+  news: Awaited<ReturnType<typeof commentsFor>>;
+  queries: Awaited<ReturnType<typeof commentsFor>>;
+  sites: Awaited<ReturnType<typeof plotsOnAccount>>;
 }) {
-  const empty = !due.length && !notes.length;
   return (
     <>
-      <h2>Notifications</h2>
-      {empty ? <p className="body">Nothing waiting.</p> : null}
+      <h2>Notifications — news from DLN</h2>
+      {due.length || news.length ? (
+        <ul className="note-list">
+          {due.map((inv) => (
+            <li key={inv.id}>
+              <span className="status">{inv.dueAt?.slice(0, 10) || "Due"}</span>
+              <p>
+                Invoice {inv.number} needs paying.{" "}
+                <a href={`/account/invoices/${inv.id}`}>Open invoice</a>
+                {" · "}
+                <a href="/account?view=pay">Payments</a>
+              </p>
+            </li>
+          ))}
+          {news.map((c) => (
+            <li key={c.id}>
+              <span className="status">{c.createdAt.slice(0, 10)}</span>
+              <p>{c.body}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="body">Nothing from us yet.</p>
+      )}
 
-      {due.length ? (
-        <>
-          <h3>Payments due</h3>
-          <ul className="note-list">
-            {due.map((inv) => (
-              <li key={inv.id}>
-                <span className="status">{inv.dueAt?.slice(0, 10) || "Due"}</span>
-                <p>
-                  Invoice {inv.number} needs paying.{" "}
-                  <a href={`/account/invoices/${inv.id}`}>Open invoice</a>
-                  {" · "}
-                  <a href="/account?view=pay">Payments</a>
-                </p>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : null}
-
-      {notes.length ? (
-        <>
-          <h3>Notes</h3>
-          <ul className="note-list">
-            {notes.map((c) => (
-              <li key={c.id}>
-                <span className="status">{c.createdAt.slice(0, 10)}</span>
-                <p>
-                  {c.kind === "hotfix" ? <strong>Hotfix. </strong> : null}
-                  {c.body}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : null}
+      <h2>Query — ask DLN</h2>
+      <p className="body bill-note">
+        Write to us here. We write back in this same list.
+      </p>
+      {queries.length ? (
+        <ul className="note-list">
+          {queries.map((c) => (
+            <li key={c.id}>
+              <span className="status">
+                {c.createdAt.slice(0, 10)}
+                {c.source === "studio" ? " · DLN" : ""}
+              </span>
+              <p>{c.body}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="body">No queries yet.</p>
+      )}
+      <CommentBox
+        plotSlug={sites[0]?.slug || ""}
+        plotOptions={sites}
+        kind="query"
+        rows={5}
+        label="Ask DLN"
+        cta="Send"
+      />
     </>
   );
 }

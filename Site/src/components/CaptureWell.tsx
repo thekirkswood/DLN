@@ -65,7 +65,7 @@ export function CaptureWell({
     setPending("");
     if (!res.ok) {
       if (body?.error === "balance") {
-        setErr("This month’s updates are spent. Leave it for the sweep, or wait for the next month.");
+        setErr("Not enough tokens this month. Leave a note, or wait for the next grant.");
       } else {
         setErr("That did not land. Try a smaller file, or write it as a comment.");
       }
@@ -73,7 +73,7 @@ export function CaptureWell({
     }
     setText("");
     setFiles(null);
-    setOk(pace === "now" ? "Sent now." : "On the sweep.");
+    setOk(pace === "now" ? "Sent now." : "Saved.");
     router.refresh();
   }
 
@@ -87,12 +87,9 @@ export function CaptureWell({
   return (
     <form className="comment-box is-wide capture-well" onSubmit={onSubmit}>
       <p className="body bill-note">
-        Leave a note, a document, a drawing, a picture of an idea. The evening
-        sweep picks it up — that does not spend this month’s updates. Send now
-        is a direct edit: it spends the well
-        {held
-          ? ` (${remaining} of ${held.grantedThisPeriod} left on this site, stack ${held.stack})`
-          : ""}
+        Leave a note, a document, or an idea. Send now spends tokens to push
+        immediate edits
+        {held ? ` — ${remaining} of ${held.grantedThisPeriod} tokens on this site` : ""}
         .
       </p>
       {plotOptions.length > 1 ? (
@@ -129,7 +126,7 @@ export function CaptureWell({
       {ok ? <p className="status">{ok}</p> : null}
       <div className="capture-acts">
         <button type="submit" disabled={Boolean(pending)}>
-          {pending === "sweep" ? "…" : "Leave for the sweep"}
+          {pending === "sweep" ? "…" : "Leave a note"}
         </button>
         <button
           type="button"
@@ -137,7 +134,7 @@ export function CaptureWell({
           disabled={Boolean(pending)}
           onClick={() => void send("now")}
         >
-          {pending === "now" ? "…" : `Send now · ${pingCost} updates`}
+          {pending === "now" ? "…" : `Send now · ${pingCost} tokens`}
         </button>
       </div>
     </form>

@@ -12,7 +12,7 @@ export default function StrategyPage() {
       <p className="kicker">Strategy</p>
       <h1 className="page-title">Consultancy and Strategy</h1>
       <p className="body">
-        Sit down with branding expert Dave Kirkwood to discuss. Brand strategy
+        Sit down with branding expert Dave Kirkwood to discuss: Brand strategy
         is the brand to the core: who you are, who it is for and where you
         want to be. Marketing is how it goes out. Working sessions at three
         depths.

@@ -19,6 +19,8 @@ export type Plot = {
   badge?: string;
   /** Shown on the plot story, not the homepage. */
   betaContact?: string;
+  /** Top-level pages on the live site. No nested rooms. */
+  pages?: { name: string; path: string }[];
   /** Offline lab only. House on this PC. */
   lab?: {
     housePath: string;

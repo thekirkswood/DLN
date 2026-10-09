@@ -1211,5 +1211,47 @@ Patch notes on the site tab on the front. Free inbox any time (sweep). Send now 
 
 Homepage: Campus tab is the sentence and the three columns with Enter. Logged in, a tab per site (the name — ModYu for Ann-Marie) with the live view and a changelog underneath. One Press kits tab holds every kit they have. Drop Press packs from the top bar. Drop the big top-right website tag. Fewer lines on the ticket. House only unless he asks live.
 
+## 2026-10-09 — Ticket, site tab, tokens as currency (Ewan)
+
+No list under 01 Design / 02 Strategy / 03 Build — the names stay underlined. Unsigned: a plus tab where a site would sit, **Add a brand**. Strategy: smaller Dave line with a colon; Marketing tight under Brand strategy; smaller body text; no underlines on those subheads.
+
+Site tab is the view, hits, live/sandbox, main pages, patch notes. Do not talk in that screen. The note box is on the account once. Copy: leave a note, a document, or an idea. Send now spends tokens to push immediate edits. Do not say sweep. Do not say well. Tokens are a currency on Payments — 40 / 100 / 250 on stacks 1 / 2 / 3. Notifications: news from DLN, and Query — ask DLN. Press kits at the top of that account room. Campus tabs: unjoined chamfered plates. House unless he asks live.
+
+## 2026-10-09 — Design rooms: Dave size, DLN stills, UI and pack (Ewan)
+
+Dave line on Strategy: same size as “The brand to the core” / “Talk about how the brand goes”, then a couple of pixels larger. Still Dave Kirkwood.
+
+Brand identity systems: keep Dave’s desk-and-hand stills. Do not shout the client brand on the homepage — grey plate over that corner, **DLN** in white.
+
+UI loop: devices only (screen, laptop, phone — no billboard). White ground. Photo in the window, chamfered rectangles as the system, DLN quiet in white. Buttons keep their idea as the window morphs.
+
+Pack loop: hatched **D L N** on the left, into the window, materialise as the DLN mark. Forget the tick. Window eases left; mark lands on three products as they colour. House unless he asks live.
+
+## 2026-10-09 — UI mark, pack trace, Strategy page, sandbox room (Ewan)
+
+UI: buttons morph, do not jump. Real DLN mark, one, centred — drop the grey DLN word on the left. Different photo from identity (not the woman).
+
+Pack: left is the three pieces of the actual mark, hatched, dragged to the centre of the window and snapped onto the full mark, then across to the packs.
+
+Strategy must fill its own page — do not show the start of Build / Simple sites when you lock into Strategy. Then snap into Build.
+
+Interactive workspaces goes. That room is **Live site and a sandbox beside it**: leave a note, we take it into the build, you say when it goes live. Picture is the host social loop. Custom web applications: phone and a browser, same app in both, inner system morphs together. House unless he asks live.
+
+## 2026-10-09 — Pack lockup, UI chips, leave ModYu (Ewan)
+
+Pack: the unpacked D L N are the actual slices of the mark. They fly in line onto those same slots and snap onto the real wide lockup — not three squares onto a squashed logo.
+
+UI (and the app pair): buttons shrink, then travel one chip at a time, then grow. Do not lerp them through each other.
+
+Brand identity systems: the grey plate over ModYu looks awful. Leave ModYu — the yellow wordmark on the still. Do not cover it with a box.
+
+## 2026-10-09 — Strategy sentence case; no Enter on the ticket (Ewan)
+
+Strategy: nothing in block caps. Keep the words. Titles are ordinary capitalisation — Brand strategy, Marketing strategy, Working sessions.
+
+Homepage: drop **Enter**. Design / Strategy / Build names open the walk. Enter was a lab start. A little air between the top tabs, the We build sentence, and the three names.
+
+He asked this house version onto live, then the downstairs host updated to match. House edits after that.
+
 
 
