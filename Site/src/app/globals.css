@@ -13023,6 +13023,13 @@ html[data-ground="ink"] .fw-tile img {
   padding-top: 0.35rem;
 }
 
+.campus-token-count {
+  margin: 0 0 0.55rem;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
 .campus-talk-page {
   margin: 0 0 0.35rem;
   font-size: 0.82rem;

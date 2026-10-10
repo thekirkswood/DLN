@@ -135,7 +135,7 @@ export function StudioTab({
   }, [plot]);
 
   const held = useMemo(
-    () => ledgers.find((row) => row.plotSlug === plot) || ledgers[0],
+    () => ledgers.find((row) => row.plotSlug === plot) || null,
     [ledgers, plot],
   );
 
@@ -192,7 +192,9 @@ export function StudioTab({
           </label>
         ) : null}
         <p className="campus-plot-note">
-          {held ? `${held.balance} Instant updates on ${plotName || "this site"}` : plotName}
+          {held
+            ? `${held.balance} Instant updates on ${plotName || "this site"}`
+            : `${plotName || "This site"} · no Instant updates on the book yet`}
           {` · a still is ${stillCost}`}
         </p>
       </div>
@@ -214,7 +216,7 @@ export function StudioTab({
         <div className="campus-studio-projects">
           <p className="kicker">{plotName || "Studio"}</p>
           <h2>Projects</h2>
-          <p className="lede">Jobs for this site. Open one to make pictures. Video later.</p>
+          <p className="lede">Jobs for this site. Open one — Picture gen, Inpaint, and Text live inside it.</p>
           <div className="campus-studio-chips">
             <button type="button" className={sort === "recent" ? "is-on" : ""} onClick={() => setSort("recent")}>
               Recent

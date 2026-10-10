@@ -1309,5 +1309,9 @@ The Studio tab is a project list for the logged-in site. Do not put `/dln/studio
 
 Ship Studio live. Signed-in home has the Studio tab. Projects belong to the site. The picture window is `studio.designlabnorth.com` (wildcard). Instant updates still the currency. Board stays off live.
 
+## 2026-10-10 — Rooms live inside a project (Ewan)
+
+Studio is the house tab. You make a project for the site, then you go into that project. `/Pictures` and `/Videos` are not sibling doors next to Studio. Inside the project: **Picture gen**, **Inpaint**, **Text** (PDF / copy). Video later in the same project. Keep the token count at the top of the project, and the same count above Instant update on the site tab — one ledger. Inpaint uses assets: newest generated still first; if none, a brand still from the pool. Everything generated lands in Assets. Do not keep “Fix a spot” as a stray button.
+
 
 

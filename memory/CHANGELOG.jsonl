@@ -1259,3 +1259,9 @@
 {"t":"2026-10-10T11:40:00+01:00","k":"mod","p":"ops/ship-live.sh","s":"Caddy reload uses --config /etc/caddy/Caddyfile","d":"bare reload exited 0 and left the old edge"}
 {"t":"2026-10-10T11:40:00+01:00","k":"mod","p":"Site/src/lib/studio-hub.ts Site/src/app/api/studio","s":"Web talks to studio internally; iframe uses hub origin + base path","d":"same-host window cannot call the engine at /api"}
 {"t":"2026-10-10T11:42:00+01:00","k":"mod","p":"deploy/Caddyfile.prod ops/ship-live.sh","s":"Hub path /studio-engine* to picture service; ship recreates edge","d":"reload was reading a detached Caddyfile without the route"}
+{"t":"2026-10-10T11:48:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Studio project rooms: Picture gen, Inpaint, Text; tokens on site tab","d":"Ewan no sibling /Pictures /Videos"}
+{"t":"2026-10-10T11:48:00+01:00","k":"bp","p":"memory/BLUEPRINT.md memory/WORKSTREAM.md","s":"A Studio project holds Picture gen, Inpaint, Text","d":"rooms are inside the job"}
+{"t":"2026-10-10T11:50:00+01:00","k":"mod","p":"Site/src/components/StudioTab.tsx Site/src/components/CaptureWell.tsx","s":"Site tab shows Instant updates above the prompt; same ledger as Studio","d":"Ewan asked the count on the website walk"}
+{"t":"2026-10-10T11:50:00+01:00","k":"add","p":"Site/src/app/api/studio/deposit/route.ts","s":"Studio gens land in the house asset library","d":"everything generated is an asset"}
+{"t":"2026-10-10T11:50:00+01:00","k":"mod","p":"Social engine ProjectBar ImageHandler InpaintDesk TextDesk","s":"Project rooms Picture gen / Inpaint / Text; dropped /Pictures and Fix a spot","d":"rooms live inside the project"}
+{"t":"2026-10-10T11:55:00+01:00","k":"mod","p":"Site/src/components/StudioTab.tsx Site/src/components/CaptureWell.tsx","s":"Token count is that site’s ledger only — no borrow from another plot","d":"ModYu was showing Willow’s 40"}

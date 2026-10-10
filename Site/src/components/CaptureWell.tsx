@@ -29,6 +29,7 @@ export function CaptureWell({
   const [err, setErr] = useState("");
   const [ok, setOk] = useState("");
   const [ledgers, setLedgers] = useState<Ledger[]>([]);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     setSlug(plotSlug);
@@ -36,17 +37,36 @@ export function CaptureWell({
 
   useEffect(() => {
     let live = true;
-    fetch("/api/tokens")
-      .then((res) => res.json())
-      .then((body) => {
-        if (!live || !body?.ok) return;
-        setLedgers(Array.isArray(body.ledgers) ? body.ledgers : []);
-      })
-      .catch(() => undefined);
+    function pull() {
+      fetch("/api/tokens")
+        .then((res) => res.json())
+        .then((body) => {
+          if (!live || !body?.ok) return;
+          setLedgers(Array.isArray(body.ledgers) ? body.ledgers : []);
+          setReady(true);
+        })
+        .catch(() => undefined);
+    }
+    pull();
+    function onMsg(event: MessageEvent) {
+      if (event.data?.type !== "dln-studio-spent") return;
+      const balance = Number(event.data.balance);
+      const next = String(event.data.plotSlug || slug);
+      if (!Number.isFinite(balance)) return;
+      setLedgers((rows) =>
+        rows.some((row) => row.plotSlug === next)
+          ? rows.map((row) => (row.plotSlug === next ? { ...row, balance } : row))
+          : rows,
+      );
+    }
+    window.addEventListener("message", onMsg);
+    document.addEventListener("visibilitychange", pull);
     return () => {
       live = false;
+      window.removeEventListener("message", onMsg);
+      document.removeEventListener("visibilitychange", pull);
     };
-  }, [ok]);
+  }, [ok, slug]);
 
   const held = ledgers.find((row) => row.plotSlug === slug);
   const remaining = held?.balance ?? 0;
@@ -93,9 +113,10 @@ export function CaptureWell({
 
   return (
     <form className="comment-box is-wide capture-well" onSubmit={onSubmit}>
+      {ready ? <p className="campus-token-count">{remaining} Instant updates</p> : null}
       <p className="body bill-note">
         Leave a note, a document, or an idea. Instant update goes in now
-        {held ? ` — ${remaining} of ${held.grantedThisPeriod} updates this month on this site` : ""}
+        {held ? ` — ${remaining} of ${held.grantedThisPeriod} this month on this site` : ""}
         .
       </p>
       {pageName ? (
