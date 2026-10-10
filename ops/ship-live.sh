@@ -57,7 +57,7 @@ git tag "$TAG"
 # Live: rsync hub (accounts excluded) then recreate web only.
 "$ROOT/deploy/sync-to-vps.sh"
 ssh -o BatchMode=yes -o IdentitiesOnly=yes -i "${HOME}/.ssh/id_ed25519_dln" "${DLN_SSH_HOST:-dln-vps}" \
-  "cd /srv/dln/repo/deploy && docker compose up -d --build --no-deps web studio && docker compose exec -T edge caddy reload --config /etc/caddy/Caddyfile || docker compose up -d --no-deps edge"
+  "cd /srv/dln/repo/deploy && docker compose up -d --build --no-deps web studio && docker compose up -d --no-deps --force-recreate edge"
 
 mkdir -p "$ROOT/_meta/ship"
 printf '{"lastTag":"%s","at":"%s","kind":"%s"}\n' "$TAG" "$NOW" "$KIND" > "$ROOT/_meta/ship/last.json"

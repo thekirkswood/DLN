@@ -1258,3 +1258,4 @@
 {"t":"2026-10-10T11:40:00+01:00","k":"bp","p":"memory/BLUEPRINT.md memory/WORKSTREAM.md ops/vps.md","s":"Live Studio is /studio-engine on the hub, not a new DNS name","d":"Livedns has no studio A"}
 {"t":"2026-10-10T11:40:00+01:00","k":"mod","p":"ops/ship-live.sh","s":"Caddy reload uses --config /etc/caddy/Caddyfile","d":"bare reload exited 0 and left the old edge"}
 {"t":"2026-10-10T11:40:00+01:00","k":"mod","p":"Site/src/lib/studio-hub.ts Site/src/app/api/studio","s":"Web talks to studio internally; iframe uses hub origin + base path","d":"same-host window cannot call the engine at /api"}
+{"t":"2026-10-10T11:42:00+01:00","k":"mod","p":"deploy/Caddyfile.prod ops/ship-live.sh","s":"Hub path /studio-engine* to picture service; ship recreates edge","d":"reload was reading a detached Caddyfile without the route"}
