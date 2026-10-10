@@ -1265,3 +1265,4 @@
 {"t":"2026-10-10T11:50:00+01:00","k":"add","p":"Site/src/app/api/studio/deposit/route.ts","s":"Studio gens land in the house asset library","d":"everything generated is an asset"}
 {"t":"2026-10-10T11:50:00+01:00","k":"mod","p":"Social engine ProjectBar ImageHandler InpaintDesk TextDesk","s":"Project rooms Picture gen / Inpaint / Text; dropped /Pictures and Fix a spot","d":"rooms live inside the project"}
 {"t":"2026-10-10T11:55:00+01:00","k":"mod","p":"Site/src/components/StudioTab.tsx Site/src/components/CaptureWell.tsx","s":"Token count is that site’s ledger only — no borrow from another plot","d":"ModYu was showing Willow’s 40"}
+{"t":"2026-10-10T16:47:20+01:00","k":"ver","p":"dln-14","s":"Studio project rooms live: Picture gen, Inpaint, Text. Instant updates on the site tab. Generated files land in Assets. Board still off live.","d":"numbered ship"}
