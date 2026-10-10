@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { canAccessPlot } from "@/lib/auth";
 import { shippedPatchNotes } from "@/lib/plans";
 import { sessionFromRequest } from "@/lib/session";
-import { readSiteLog } from "@/lib/site-log";
+import { readSiteLog, SITE_LOG_KEEP } from "@/lib/site-log";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +26,7 @@ export async function GET(req: NextRequest) {
       seen.add(key);
       return true;
     })
-    .sort((a, b) => (a.t < b.t ? 1 : a.t > b.t ? -1 : 0));
+    .sort((a, b) => (a.t < b.t ? 1 : a.t > b.t ? -1 : 0))
+    .slice(0, SITE_LOG_KEEP);
   return NextResponse.json({ lines });
 }

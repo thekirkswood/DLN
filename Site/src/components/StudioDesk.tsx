@@ -20,7 +20,7 @@ import { AvatarSlot } from "@/components/AccountBilling";
 import { type CatalogueItem } from "@/data/catalogue";
 import type { Invoice, PayRail, Payment, Roll, OnlineRail } from "@/lib/billing";
 import type { StudioSettings } from "@/lib/settings";
-import { enterUrlFor, hostUrlFor, buildUrlFor, type Plot } from "@/lib/plot-urls";
+import { enterUrlFor, hostUrlFor, liveUrlFor, buildUrlFor, type Plot } from "@/lib/plot-urls";
 import type { Enquiry } from "@/lib/enquiries";
 import type { BuildPlan, SiteComment } from "@/lib/plans";
 import type { PublicUser } from "@/lib/auth";
@@ -237,8 +237,10 @@ function StudioDeskLive({
             />
           ) : (
             <p className="body bill-note desk-clients-hint">
-              Open a client. That is our dossier — not their account. Rooms stay
-              up here. Pay keeps whoever you are serving.
+              Open a client for our dossier. See their account to sit in the
+              spaces they have — Sites, patch notes, invoices, the rest. Rooms
+              stay up here. Pay lists every invoice until you pick who you are
+              serving.
             </p>
           )}
         </div>
@@ -265,7 +267,7 @@ function StudioDeskLive({
               catalogue={catalogue}
               people={people}
               plots={plots}
-              invoices={person ? invoices.filter((i) => i.userId === person.id) : []}
+              invoices={person ? invoices.filter((i) => i.userId === person.id) : invoices}
               claims={claims}
               graceDays={settings.graceDays}
               servingId={person?.id || ""}
@@ -379,7 +381,7 @@ function BuildList({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
         const pub = enterUrlFor(plot);
         const host = hostUrlFor(plot);
         const local = lab ? buildUrlFor(plot) : null;
-        const live = pub || host;
+        const live = liveUrlFor(plot);
         const view = lab ? local || host || pub : host || pub;
         const kit = pressKitForPlot(plot.slug);
         return (
@@ -481,12 +483,16 @@ function PersonPanel({
       {tab === "profile" ? (
         <>
           {person.notes ? <p className="body">{person.notes}</p> : null}
+          <p className="body">
+            <a href={`/account?desk=their&who=${encodeURIComponent(person.id)}`}>
+              See their account
+            </a>
+          </p>
           {person.puppet ? (
             <p className="body bill-note">
-              Offline puppet for campus / localhost only — so we can see a
-              client account before deployment. Sign in on the lab host with the
-              existing password in the gitignored sheet (or campus ops-secrets).
-              Do not mail, display, or regenerate a login for her.
+              Offline puppet for campus / localhost only. See their account from
+              this desk — do not sign out. Do not mail, display, or regenerate a
+              login for them.
             </p>
           ) : person.hubLogin === false ? (
             <p className="body bill-note">
@@ -867,11 +873,21 @@ export function InvoiceList({
   studio,
   claims = {},
   graceDays = 7,
+  look = false,
 }: {
   invoices: Invoice[];
   studio: boolean;
   claims?: Record<string, Payment>;
   graceDays?: number;
+  look?: boolean;
 }) {
-  return <InvoiceBoard invoices={invoices} studio={studio} claims={claims} graceDays={graceDays} />;
+  return (
+    <InvoiceBoard
+      invoices={invoices}
+      studio={studio}
+      claims={claims}
+      graceDays={graceDays}
+      look={look}
+    />
+  );
 }

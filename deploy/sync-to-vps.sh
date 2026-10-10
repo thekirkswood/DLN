@@ -14,6 +14,7 @@ rsync -az --delete \
   --exclude _meta/billing \
   --exclude _meta/enquiries \
   --exclude _meta/plans \
+  --exclude _meta/site-log \
   --exclude _meta/assets \
   --exclude _meta/epk \
   --exclude _meta/lab-inbox \

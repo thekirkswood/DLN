@@ -15,7 +15,7 @@ import {
   formatLondonDate,
   payByIso,
 } from "@/lib/clock";
-import { enterUrlFor, hostUrlFor, buildUrlFor, type Plot } from "@/lib/plot-urls";
+import { enterUrlFor, hostUrlFor, liveUrlFor, buildUrlFor, type Plot } from "@/lib/plot-urls";
 import { servicePlots } from "@/lib/service-plots";
 import { pressKitForPlot, epkHref } from "@/lib/epk-map";
 import type { PublicUser } from "@/lib/auth";
@@ -44,12 +44,14 @@ export function InvoiceBoard({
   claims = {},
   people = [],
   graceDays = 7,
+  look = false,
 }: {
   invoices: Invoice[];
   studio: boolean;
   claims?: Record<string, Payment>;
   people?: PublicUser[];
   graceDays?: number;
+  look?: boolean;
 }) {
   if (invoices.length === 0) {
     return <p className="body">No invoices yet.</p>;
@@ -74,6 +76,7 @@ export function InvoiceBoard({
               {who ? <p className="book-who">{who.displayName}</p> : null}
               <p className="book-when">{whenLine(inv, graceDays)}</p>
               <p className="book-amt">{formatGbp(totalOf(inv))}</p>
+              {look ? null : (
               <div className="book-acts">
                 {inv.status === "due" ? (
                   <PayButton
@@ -87,6 +90,7 @@ export function InvoiceBoard({
                   <VoidButton invoiceId={inv.id} />
                 ) : null}
               </div>
+              )}
             </div>
           </div>
         );
@@ -106,7 +110,7 @@ function BuildTiles({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
         const pub = enterUrlFor(plot);
         const host = hostUrlFor(plot);
         const local = lab ? buildUrlFor(plot) : null;
-        const live = pub || host;
+        const live = liveUrlFor(plot);
         const view = lab ? local || host || pub : host || pub;
         const kit = pressKitForPlot(plot.slug);
         return (

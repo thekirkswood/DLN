@@ -45,7 +45,13 @@ function downloadName(href: string): string {
   return decodeURIComponent(href.split("/").pop() || "file");
 }
 
-export function AssetHub({ lockedKit }: { lockedKit?: string }) {
+export function AssetHub({
+  lockedKit,
+  onlyKits,
+}: {
+  lockedKit?: string;
+  onlyKits?: string[];
+}) {
   const [items, setItems] = useState<AssetItem[]>([]);
   const [kits, setKits] = useState<KitRow[]>([]);
   const [error, setError] = useState("");
@@ -60,6 +66,7 @@ export function AssetHub({ lockedKit }: { lockedKit?: string }) {
   const [noteBody, setNoteBody] = useState("");
   const [comment, setComment] = useState("");
   const [textBody, setTextBody] = useState("");
+  const onlyKey = (onlyKits || []).join(",");
 
   const load = useCallback(async () => {
     try {
@@ -69,19 +76,21 @@ export function AssetHub({ lockedKit }: { lockedKit?: string }) {
         return;
       }
       const data = (await res.json()) as { items?: AssetItem[]; kits?: KitRow[] };
-      setItems(data.items || []);
-      setKits(data.kits || []);
+      const allow = onlyKits?.length ? new Set(onlyKits) : null;
+      const kitRows = (data.kits || []).filter((k) => !allow || allow.has(k.id));
+      setItems((data.items || []).filter((item) => !allow || (item.kit && allow.has(item.kit))));
+      setKits(kitRows);
       setError("");
-      const list = data.kits || [];
+      const list = kitRows;
       setHouse((prev) => {
-        if (lockedKit) return lockedKit;
+        if (lockedKit && (!allow || allow.has(lockedKit))) return lockedKit;
         if (prev && list.some((k) => k.id === prev)) return prev;
         return list[0]?.id || prev;
       });
     } catch {
       setError("Assets could not load.");
     }
-  }, [lockedKit]);
+  }, [lockedKit, onlyKey]);
 
   useEffect(() => {
     load();

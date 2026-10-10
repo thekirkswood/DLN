@@ -213,6 +213,7 @@ function applyHit(
     role?: string;
     displayName?: string;
     retro?: boolean;
+    from?: string;
   },
 ): WatchInstance | null {
   const pathName = clipPath(input.path);
@@ -240,11 +241,13 @@ function applyHit(
     };
     book.instances.unshift(row);
   }
+  const from = (input.from || "").trim().slice(0, 160) || undefined;
   appendHit(row, {
     t,
     path: pathName,
     host: (input.host || row.host).slice(0, 120),
     trap: input.trap,
+    from,
   });
   if (isMaliciousPath(pathName)) row.cleared = undefined;
   if (input.plot && (!row.plot || row.plot === "dln") && input.plot !== "dln") {
@@ -358,6 +361,7 @@ export async function recordEdgeHit(input: {
   path: string;
   ua: string;
   t?: string;
+  from?: string;
 }): Promise<boolean> {
   if (!isWatchTapPath(input.path)) return false;
   return serial(async () => {
@@ -413,16 +417,87 @@ export async function markLoginAttempt(input: {
 }
 
 /** Counts only. Never hand IPs to a client account. */
-export async function hitsForPlot(slug: string): Promise<{ visits: number; hits: number }> {
-  const rows = await listVisits();
-  const mine = rows.filter((row) => {
+function visitsForPlot(rows: WatchInstance[], slug: string): WatchInstance[] {
+  const key = slug.toLowerCase();
+  return rows.filter((row) => {
     if (row.plot === slug) return true;
     const host = (row.host || "").toLowerCase();
-    return host.includes(slug.toLowerCase());
+    return host.includes(key);
   });
+}
+
+export async function hitsForPlot(slug: string): Promise<{ visits: number; hits: number }> {
+  const mine = visitsForPlot(await listVisits(), slug);
+  const browse = mine.filter((row) => visitKind(row) === "browse");
   return {
-    visits: mine.filter((row) => visitKind(row) === "browse").length,
-    hits: mine.reduce((n, row) => n + row.paths.length, 0),
+    visits: browse.length,
+    hits: browse.reduce((n, row) => n + row.paths.filter((p) => !p.trap).length, 0),
+  };
+}
+
+function ourHost(host: string): boolean {
+  const h = host.toLowerCase().replace(/^www\./, "");
+  return (
+    h === "designlabnorth.com" ||
+    h.endsWith(".designlabnorth.com") ||
+    h === "dln.local" ||
+    h.endsWith(".dln.local") ||
+    h === "localhost" ||
+    h.startsWith("127.") ||
+    h.startsWith("192.168.")
+  );
+}
+
+function hostFromUrl(raw: string): string {
+  try {
+    return new URL(raw).hostname.toLowerCase().replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
+export async function mapForPlot(
+  slug: string,
+  pages: { name: string; path: string }[] = [],
+): Promise<{
+  hits: number;
+  pages: { path: string; name: string; hits: number }[];
+  from: { label: string; hits: number }[];
+}> {
+  const names = new Map(pages.map((row) => [row.path, row.name]));
+  const browse = visitsForPlot(await listVisits(), slug).filter(
+    (row) => visitKind(row) === "browse",
+  );
+  const pageHits = new Map<string, number>();
+  const fromHits = new Map<string, number>();
+  let hits = 0;
+  for (const row of browse) {
+    const walk = row.paths.filter((p) => !p.trap);
+    if (!walk.length) continue;
+    for (const hit of walk) {
+      hits += 1;
+      pageHits.set(hit.path, (pageHits.get(hit.path) || 0) + 1);
+    }
+    const first = walk[0];
+    let label = "Direct";
+    if (first.from) {
+      const host = hostFromUrl(first.from);
+      if (host && !ourHost(host)) label = host;
+    }
+    fromHits.set(label, (fromHits.get(label) || 0) + 1);
+  }
+  const ranked = (map: Map<string, number>) =>
+    [...map.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8);
+  return {
+    hits,
+    pages: ranked(pageHits).map(([path, n]) => ({
+      path,
+      name: names.get(path) || path,
+      hits: n,
+    })),
+    from: ranked(fromHits).map(([label, n]) => ({ label, hits: n })),
   };
 }
 

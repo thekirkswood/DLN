@@ -55,10 +55,20 @@ export function PayDesk({
           />
         </>
       ) : (
-        <p className="body bill-note">
-          Choose who you are serving, then tap the lines. Defaults live in
-          Settings.
-        </p>
+        <>
+          <p className="body bill-note">
+            Every invoice on the book. Choose who you are serving to compose a
+            new one. Open a person to see the account they sit in.
+          </p>
+          <h2>All invoices</h2>
+          <InvoiceBoard
+            invoices={invoices}
+            studio
+            claims={claims}
+            people={people}
+            graceDays={graceDays}
+          />
+        </>
       )}
     </div>
   );

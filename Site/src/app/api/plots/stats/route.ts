@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionUser } from "@/lib/session";
 import { isStudio } from "@/lib/auth";
-import { hitsForPlot } from "@/lib/watch";
+import { hitsForPlot, mapForPlot } from "@/lib/watch";
+import { plotBySlug } from "@/lib/plots";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +14,8 @@ export async function GET(req: NextRequest) {
   if (!isStudio(user) && !user.plots.includes(slug) && !user.plots.includes("*")) {
     return NextResponse.json({ ok: false }, { status: 403 });
   }
+  const plot = await plotBySlug(slug);
   const counts = await hitsForPlot(slug);
-  return NextResponse.json({ ok: true, ...counts });
+  const map = await mapForPlot(slug, plot?.pages || []);
+  return NextResponse.json({ ok: true, ...counts, pages: map.pages, from: map.from });
 }

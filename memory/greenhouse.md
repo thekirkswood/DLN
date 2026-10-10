@@ -11,9 +11,9 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 ### ModYu (`modyu`)
 
 - Party: client. `public`: false.
-- Host: `modyu.designlabnorth.com`
+- Host / sandbox: `modyu.designlabnorth.com`. Not live. Live site is grey until they host the public door with us.
 - Enter: `https://modyu.designlabnorth.com` (self-contained. ModYu login, same credentials as local `:3000`. Not DLN-gated.)
-- Kind: rebuild (they have a live site; we are building the next one)
+- Kind: rebuild (they have a public site of their own; we are building the next one here as sandbox)
 - Status: rebuilding
 - Pages on the DLN site tab (from ModYu’s own nav): Shop `/`, The system `/ht4`, HT4 People `/ht4-people`, Hub `/guide`, About `/about`.
 - Voice: Design Lab North are rebuilding ModYu, the market-leading hair and scalp care brand — for people looking after their scalp before, during, and after transplant.
@@ -37,7 +37,7 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 ### Digital Adoption Advisor (`daa`)
 
 - Party: client. `public`: false. **On the book, off the wall.**
-- Host: `daa.designlabnorth.com` (live `plot-daa`, ungated). Campus `daa.dln.local` / `:3050`.
+- Host / sandbox: `daa.designlabnorth.com` (`plot-daa`, ungated). Not live. Campus `daa.dln.local` / `:3050`. Live site is grey until they host the public door with us.
 - Kind: rebuild. Status: rebuilding.
 - Voice: Design Lab North are rebuilding Digital Adoption Advisor.
 - Offline lab: `/home/main/DAA` · `daa.dln.local` (`:3050`) · inbox `_meta/lab-inbox` · desk `builder.dln.local/daa`.

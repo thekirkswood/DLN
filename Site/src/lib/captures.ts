@@ -5,6 +5,7 @@ import { isStudio, type PublicUser } from "@/lib/auth";
 import { nowIso } from "@/lib/clock";
 import { wakeClientAsk } from "@/lib/client-ask";
 import { debitWell } from "@/lib/tokens";
+import { appendSiteLog, capturePatchCopy } from "@/lib/site-log";
 
 const ROOT = path.join(process.cwd(), "..", "_meta", "captures");
 const BOOK = path.join(ROOT, "book.json");
@@ -147,6 +148,13 @@ export async function addCapture(
     });
     inboxId = wake.id;
   }
+
+  const note = capturePatchCopy({
+    page,
+    files: saved.length,
+    pace,
+  });
+  if (note) await appendSiteLog(plotSlug, note.s, nowIso(), note.lines);
 
   const row: Capture = {
     id,

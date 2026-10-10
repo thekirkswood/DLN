@@ -65,6 +65,7 @@ type PlotPeek = {
   plane?: "build" | "live";
   port?: number | null;
   enterUrl: string | null;
+  liveUrl?: string | null;
   sandbox: string;
   kit: string | null;
   stack: 1 | 2 | 3 | null;
@@ -799,9 +800,10 @@ function Land({
         {site ? (
           <>
             <SitePeek
+              key={site.slug}
               name={site.name}
               slug={site.slug}
-              live={site.enterUrl || site.hostUrl}
+              live={site.liveUrl || null}
               sandbox={door}
               lab={lab}
               pages={site.pages || []}

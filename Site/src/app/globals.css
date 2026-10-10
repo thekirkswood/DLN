@@ -2782,6 +2782,15 @@ html[data-ground="ink"] .err {
   font-size: 0.92rem;
 }
 
+.site-row .campus-site-log {
+  grid-column: 1 / -1;
+}
+
+.account-look {
+  max-width: 42rem;
+  margin: 0 0 1.4rem;
+}
+
 .plan-form {
   min-width: 12rem;
 }
@@ -12944,6 +12953,67 @@ html[data-ground="ink"] .fw-tile img {
   font-size: 0.9rem;
 }
 
+.campus-site-live-ask {
+  margin: 0.35rem 0 0;
+}
+
+.campus-site-live-ask a,
+.campus-site-hits-open {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
+.campus-site-live-ask a {
+  font-weight: 700;
+}
+
+.site-act-off {
+  color: var(--mute);
+  pointer-events: none;
+}
+
+.campus-site-map {
+  margin: 0.55rem 0 0;
+  max-width: 28rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.campus-site-map h3 {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.campus-site-map ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.campus-site-map li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.campus-site-log-clip {
+  max-height: 16rem;
+  overflow: auto;
+  padding-right: 0.4rem;
+}
+
 .campus-site-sandbox {
   appearance: none;
   background: none;
@@ -13090,6 +13160,13 @@ html[data-ground="ink"] .fw-tile img {
   padding: 0;
   display: grid;
   gap: 0.7rem;
+}
+
+.campus-site-log ol > li ul {
+  margin: 0.28rem 0 0;
+  padding: 0 0 0 1.05rem;
+  display: grid;
+  gap: 0.18rem;
 }
 
 .campus-site-log time {

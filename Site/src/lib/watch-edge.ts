@@ -31,10 +31,21 @@ function serial<T>(fn: () => Promise<T>): Promise<T> {
   return run;
 }
 
-function headerUa(headers?: Record<string, string[] | string | undefined>): string {
+function headerOne(
+  headers: Record<string, string[] | string | undefined> | undefined,
+  names: string[],
+): string {
   if (!headers) return "";
-  const raw = headers["User-Agent"] || headers["user-agent"] || "";
-  return Array.isArray(raw) ? raw[0] || "" : raw;
+  for (const name of names) {
+    const raw = headers[name];
+    const value = Array.isArray(raw) ? raw[0] || "" : raw || "";
+    if (value) return value;
+  }
+  return "";
+}
+
+function headerUa(headers?: Record<string, string[] | string | undefined>): string {
+  return headerOne(headers, ["User-Agent", "user-agent"]);
 }
 
 function isoFromTs(ts?: number): string | undefined {
@@ -101,6 +112,7 @@ export async function ingestCaddyLog(): Promise<{ lines: number; kept: number }>
         path: pathName,
         ua: headerUa(row.request?.headers).slice(0, 300),
         t: isoFromTs(row.ts),
+        from: headerOne(row.request?.headers, ["Referer", "Referrer", "referer"]).slice(0, 160),
       });
       if (ok) kept += 1;
     }

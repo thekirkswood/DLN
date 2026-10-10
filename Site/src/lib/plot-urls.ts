@@ -9,6 +9,26 @@ export function enterUrlFor(plot: Plot): string | null {
   return hostUrlFor(plot);
 }
 
+/** Public live door. A Design Lab North subdomain is the sandbox, not live. */
+export function liveUrlFor(plot: Plot): string | null {
+  const candidates = [plot.enterUrl, ...(plot.hosts || [])].filter(Boolean) as string[];
+  for (const raw of candidates) {
+    const url = raw.startsWith("http://") || raw.startsWith("https://") ? raw : `https://${raw}`;
+    let host = "";
+    try {
+      host = new URL(url).hostname.toLowerCase();
+    } catch {
+      continue;
+    }
+    if (!host) continue;
+    if (host.endsWith(".designlabnorth.com") || host === "designlabnorth.com") continue;
+    if (host.endsWith(".dln.local") || host === "dln.local") continue;
+    if (host === "localhost" || host.startsWith("192.168.") || host.startsWith("127.")) continue;
+    return url;
+  }
+  return null;
+}
+
 /** The plot on our host — studio jumps in here to check the growing copy. */
 export function hostUrlFor(plot: Plot): string | null {
   const host = plot.hosts[0];

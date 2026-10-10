@@ -1313,5 +1313,27 @@ Ship Studio live. Signed-in home has the Studio tab. Projects belong to the site
 
 Studio is the house tab. You make a project for the site, then you go into that project. `/Pictures` and `/Videos` are not sibling doors next to Studio. Inside the project: **Picture gen**, **Inpaint**, **Text** (PDF / copy). Video later in the same project. Keep the token count at the top of the project, and the same count above Instant update on the site tab — one ledger. Inpaint uses assets: newest generated still first; if none, a brand still from the pool. Everything generated lands in Assets. Do not keep “Fix a spot” as a stray button.
 
+## 2026-10-10 — Patch notes, live vs sandbox, sandbox map (Ewan)
+
+DAA and ModYu patch notes were too thin for the weeks of rebuilds, illustration, photographs, and hotfixes. Fill the stretch, not daily spam. The box clips and scrolls.
+
+A Design Lab North subdomain is the sandbox, not the live site. DAA and ModYu have no live door yet: Live site grey and unclickable. **No live site yet.** above the hits, to Host. Hits are sandbox hits, clickable: most opened pages, and where from. Never IPs.
+
+## 2026-10-10 — See their account (Ewan)
+
+Studio must review what a client sits in — patch notes, invoices, every space — without signing out. From the person: **See their account**. Same tiles they have. Look, not a swapped login. Pay lists every invoice until you pick who you are serving. Patch notes also sit under each site on account Sites.
+
+## 2026-10-10 — Patch notes on the sites (Ewan)
+
+The box was empty because nothing wrote `_meta/site-log` except a shipped plan, and no plans had shipped. Fill the last few from the work. Keep it short — a handful of dated entries, each a list. Instant update and a new document write a line as they land.
+
+DAA: the customer-site review notes (recognition high, guided chooser, seven services comparable, the three handover rooms distinct, internal codes off, navigation simplified) are in as **development**. Past entries sell the application: situation-led home, seven services, field work, generated pages assessed from the supplied host. Do not slight the notes we were sent. Do not dunk a wireframe. Premium, straightforward: those points are in.
+
+ModYu: live rooms, HT4 pack, Instant update. PFP: host, then further portraits on the grid.
+
+## 2026-10-10 — Cursor on the GPU is not the host (Ewan)
+
+Restarting Cursor on the tower must not take live or the house with it. Live sites are self-sufficient on the IONOS VPS (one Docker plot per host, Caddy the only public door). The house is independent on Debian downstairs (`dln.local` / `:3010`). This PC is a Cursor seat. The only live coupling is studio `/desk` and studio sign-in through Debian’s reverse SSH tunnel — not this GPU. Watchdog must recreate edge+web on a hub blip; it must never switch the estate to HTTP-only `Caddyfile.ip` (that makes every HTTPS name look dead at once). Ordinary house work must not `docker compose` the VPS.
+
 
 

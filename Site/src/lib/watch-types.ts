@@ -3,6 +3,7 @@ export type WatchHit = {
   path: string;
   host: string;
   trap: boolean;
+  from?: string;
 };
 
 export type WatchAttempt = {

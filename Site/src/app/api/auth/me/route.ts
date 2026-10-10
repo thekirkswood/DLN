@@ -10,6 +10,7 @@ import {
   buildUrlFor,
   enterUrlFor,
   hostUrlFor,
+  liveUrlFor,
   previewUrlFor,
   servicePlots,
 } from "@/lib/plots";
@@ -52,6 +53,7 @@ export async function GET() {
       buildUrl,
       previewUrl: previewUrlFor(p, lab, host),
       enterUrl: enterUrlFor(p),
+      liveUrl: liveUrlFor(p),
       plane: lab ? "build" : "live",
       port: p.lab?.localPort ?? null,
       sandbox: p.localPreview,

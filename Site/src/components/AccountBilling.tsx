@@ -157,14 +157,16 @@ export function ProfileHead({
   displayName,
   userId,
   hasAvatar,
+  readOnly,
 }: {
   displayName: string;
   userId: string;
   hasAvatar: boolean;
+  readOnly?: boolean;
 }) {
   return (
     <div className="account-head">
-      <AvatarSlot userId={userId} hasAvatar={hasAvatar} />
+      <AvatarSlot userId={userId} hasAvatar={hasAvatar} forOthers={readOnly} readOnly={readOnly} />
       <h1>{displayName}</h1>
     </div>
   );
@@ -188,12 +190,14 @@ export function AvatarSlot({
   userId,
   hasAvatar,
   forOthers,
+  readOnly,
   onBusy,
   onError,
 }: {
   userId: string;
   hasAvatar: boolean;
   forOthers?: boolean;
+  readOnly?: boolean;
   onBusy?: (v: boolean) => void;
   onError?: (msg: string) => void;
 }) {
@@ -233,19 +237,29 @@ export function AvatarSlot({
     router.refresh();
   }
 
+  const face = shown ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      className="avatar"
+      src={`/api/account/avatar/${userId}?t=${bust}`}
+      alt=""
+    />
+  ) : (
+    <span className="avatar avatar-empty" aria-hidden />
+  );
+
+  if (readOnly) {
+    return (
+      <div className="avatar-block">
+        <div className={shown ? "avatar-slot" : "avatar-slot is-empty"}>{face}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="avatar-block">
       <label className={shown ? "avatar-slot" : "avatar-slot is-empty"}>
-        {shown ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            className="avatar"
-            src={`/api/account/avatar/${userId}?t=${bust}`}
-            alt=""
-          />
-        ) : (
-          <span className="avatar avatar-empty" aria-hidden />
-        )}
+        {face}
         <span className="avatar-veil">{busy ? "…" : "Upload image here"}</span>
         <input
           type="file"

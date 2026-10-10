@@ -1266,3 +1266,21 @@
 {"t":"2026-10-10T11:50:00+01:00","k":"mod","p":"Social engine ProjectBar ImageHandler InpaintDesk TextDesk","s":"Project rooms Picture gen / Inpaint / Text; dropped /Pictures and Fix a spot","d":"rooms live inside the project"}
 {"t":"2026-10-10T11:55:00+01:00","k":"mod","p":"Site/src/components/StudioTab.tsx Site/src/components/CaptureWell.tsx","s":"Token count is that site’s ledger only — no borrow from another plot","d":"ModYu was showing Willow’s 40"}
 {"t":"2026-10-10T16:47:20+01:00","k":"ver","p":"dln-14","s":"Studio project rooms live: Picture gen, Inpaint, Text. Instant updates on the site tab. Generated files land in Assets. Board still off live.","d":"numbered ship"}
+{"t":"2026-10-10T16:58:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"GPU Cursor is not the host; live on VPS, house on Debian","d":"Ewan"}
+{"t":"2026-10-10T16:58:00+01:00","k":"mod","p":"deploy/watchdog.sh","s":"Never fall back to Caddyfile.ip; do not compose-up plots on a hub blip","d":"TLS for the whole estate died when web was rebuilding"}
+{"t":"2026-10-10T17:08:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Patch notes: last few entries, Instant update and documents write the log","d":"Ewan: empty box"}
+{"t":"2026-10-10T17:08:00+01:00","k":"add","p":"_meta/site-log/{daa,modyu,pfp}.jsonl","s":"Seed last development notes for DAA, ModYu, PFP","d":"write path existed with no files"}
+{"t":"2026-10-10T17:08:00+01:00","k":"mod","p":"Site/src/lib/site-log.ts Site/src/lib/captures.ts Site/src/components/SitePeek.tsx Site/src/app/api/plots/log/route.ts","s":"Cap six; Instant update and files append a client-facing line","d":"the box stays small and fills as work lands"}
+{"t":"2026-10-10T17:08:00+01:00","k":"mod","p":"deploy/docker-compose.yml deploy/sync-to-vps.sh","s":"Mount _meta/site-log on live web","d":"VPS had no volume so the tab could never read the book"}
+{"t":"2026-10-10T17:08:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Patch notes: last few; Instant update writes; VPS volume","d":"named function with no write"}
+{"t":"2026-10-10T17:16:00+01:00","k":"mod","p":"Site/src/components/SitePeek.tsx","s":"Remount patch notes when the site tab changes","d":"old notes were flashing onto the next house"}
+{"t":"2026-10-10T17:16:00+01:00","k":"mod","p":"deploy/.env /srv/dln/data/site-log","s":"Live web reads the site-log volume; DAA ModYu PFP books on","d":"hotfix: empty live notes; edge left alone"}
+{"t":"2026-10-10T17:40:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Studio See their account: walk client tiles without signing out","d":"Ewan: no way to review what they see"}
+{"t":"2026-10-10T17:40:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"See their account; Pay lists all invoices; Sites carry patch notes","d":"named review function"}
+{"t":"2026-10-10T17:40:00+01:00","k":"add","p":"Site/src/components/ClientAccount.tsx Site/src/components/PlotLog.tsx","s":"Client spaces as a shared walk; patch notes on Sites","d":"studio look uses the same tiles"}
+{"t":"2026-10-10T17:40:00+01:00","k":"mod","p":"Site/src/app/account/page.tsx Site/src/components/StudioDesk.tsx Site/src/components/PayDesk.tsx","s":"desk=their who= look; Pay shows every invoice until serving","d":"dossier was not their account"}
+{"t":"2026-10-10T17:50:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Subdomain is sandbox; no-live grey; sandbox hits map; fuller patch notes clipped","d":"Ewan: undersell, live mislabelled, monitoring"}
+{"t":"2026-10-10T17:50:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"liveUrlFor; sandbox hits map; patch notes clip","d":"named live vs sandbox"}
+{"t":"2026-10-10T17:50:00+01:00","k":"mod","p":"_meta/site-log/{daa,modyu}.jsonl","s":"Weeks of development notes, not a handful","d":"two rebuilds, photos, illustration, hotfixes"}
+{"t":"2026-10-10T17:50:00+01:00","k":"mod","p":"Site/src/lib/plot-urls.ts Site/src/components/SitePeek.tsx Site/src/lib/watch.ts","s":"liveUrlFor; sandbox map; Referer kept going forward","d":"subdomains were sold as live"}
+{"t":"2026-10-10T17:43:10+01:00","k":"ver","p":"dln-15","s":"Patch notes for the weeks of work, live vs sandbox, sandbox hit map. Board still off live.","d":"numbered ship"}

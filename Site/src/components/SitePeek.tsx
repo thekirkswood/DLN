@@ -3,9 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { CaptureWell } from "@/components/CaptureWell";
 import { CommentBox } from "@/components/CommentBox";
+import { PlotLog } from "@/components/PlotLog";
 import { epkHref } from "@/lib/epk-map";
 
 export type SitePage = { name: string; path: string };
+
+type SiteMap = {
+  hits: number;
+  pages: { path: string; name: string; hits: number }[];
+  from: { label: string; hits: number }[];
+};
 
 export function SitePeek({
   name,
@@ -33,7 +40,8 @@ export function SitePeek({
   const [frame, setFrame] = useState(lab ? "" : src);
   const [note, setNote] = useState(lab ? "Calling the house." : "");
   const [sandboxUp, setSandboxUp] = useState<boolean | null>(null);
-  const [hits, setHits] = useState<number | null>(null);
+  const [map, setMap] = useState<SiteMap | null>(null);
+  const [openMap, setOpenMap] = useState(false);
   const [page, setPage] = useState(pages[0]?.path || "/");
   const pageKey = useMemo(
     () => pages.map((row) => `${row.name}:${row.path}`).join("|"),
@@ -46,17 +54,23 @@ export function SitePeek({
 
   useEffect(() => {
     let alive = true;
-    setHits(null);
+    setMap(null);
+    setOpenMap(false);
     fetch(`/api/plots/stats?plot=${encodeURIComponent(slug)}`, {
       credentials: "include",
       cache: "no-store",
     })
       .then((res) => res.json())
-      .then((data: { hits?: number }) => {
-        if (alive) setHits(typeof data.hits === "number" ? data.hits : 0);
+      .then((data: SiteMap & { hits?: number }) => {
+        if (!alive) return;
+        setMap({
+          hits: typeof data.hits === "number" ? data.hits : 0,
+          pages: Array.isArray(data.pages) ? data.pages : [],
+          from: Array.isArray(data.from) ? data.from : [],
+        });
       })
       .catch(() => {
-        if (alive) setHits(0);
+        if (alive) setMap({ hits: 0, pages: [], from: [] });
       });
     return () => {
       alive = false;
@@ -98,7 +112,7 @@ export function SitePeek({
   }, [lab, slug, src]);
 
   function openPage(path: string) {
-    const base = (live || src).replace(/\/$/, "");
+    const base = (sandbox || src).replace(/\/$/, "");
     const next = `${base}${path.startsWith("/") ? path : `/${path}`}`;
     setPage(path);
     setFrame(next);
@@ -106,20 +120,70 @@ export function SitePeek({
 
   const pageName =
     pages.find((row) => row.path === page)?.name || "this page";
+  const hits = map?.hits;
+  const hasLive = Boolean(live);
 
   return (
     <div className="campus-site-tab">
       <div className="campus-site-head">
         <h2>{name}</h2>
+        {hasLive ? null : (
+          <p className="campus-site-live-ask">
+            <a href="/host">No live site yet.</a>
+          </p>
+        )}
         <p className="campus-site-hits">
-          {hits === null ? "Counting hits." : `${hits} hits on the live site.`}
+          {hits === null || map === null ? (
+            "Counting hits."
+          ) : (
+            <button
+              type="button"
+              className="campus-site-hits-open"
+              aria-expanded={openMap}
+              onClick={() => setOpenMap((v) => !v)}
+            >
+              {hits} hits on the sandbox.
+            </button>
+          )}
         </p>
+        {openMap && map ? (
+          <div className="campus-site-map">
+            <h3>Most opened</h3>
+            {map.pages.length ? (
+              <ol>
+                {map.pages.map((row) => (
+                  <li key={row.path}>
+                    <strong>{row.name}</strong>
+                    <span>{row.hits}</span>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p>No walks on the sandbox yet.</p>
+            )}
+            <h3>Where from</h3>
+            {map.from.length ? (
+              <ol>
+                {map.from.map((row) => (
+                  <li key={row.label}>
+                    <strong>{row.label}</strong>
+                    <span>{row.hits}</span>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p>No entry walks yet.</p>
+            )}
+          </div>
+        ) : null}
         <p className="site-acts">
-          {live ? (
-            <a href={live} target="_blank" rel="noreferrer">
+          {hasLive ? (
+            <a href={live as string} target="_blank" rel="noreferrer">
               Live site
             </a>
-          ) : null}
+          ) : (
+            <span className="site-act-off">Live site</span>
+          )}
           {sandbox ? (
             <button
               type="button"
@@ -178,55 +242,7 @@ export function SitePeek({
           />
         </div>
       ) : null}
-      {signedIn ? <PlotLog slug={slug} /> : null}
-    </div>
-  );
-}
-
-function PlotLog({ slug }: { slug: string }) {
-  const [lines, setLines] = useState<{ t: string; s: string }[] | null>(null);
-
-  useEffect(() => {
-    let alive = true;
-    fetch(`/api/plots/log?plot=${encodeURIComponent(slug)}`, {
-      credentials: "include",
-      cache: "no-store",
-    })
-      .then((res) => res.json())
-      .then((data: { lines?: { t: string; s: string }[] }) => {
-        if (alive) setLines(data.lines || []);
-      })
-      .catch(() => {
-        if (alive) setLines([]);
-      });
-    return () => {
-      alive = false;
-    };
-  }, [slug]);
-
-  return (
-    <div className="campus-site-log">
-      <h2>Patch notes</h2>
-      {lines === null ? (
-        <p>Loading the notes.</p>
-      ) : lines.length === 0 ? (
-        <p>When we update this site, the notes land here — date, then what changed.</p>
-      ) : (
-        <ol>
-          {lines.map((row) => (
-            <li key={`${row.t}-${row.s}`}>
-              <time dateTime={row.t}>
-                {new Date(row.t).toLocaleDateString("en-GB", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })}
-              </time>
-              <span>{row.s}</span>
-            </li>
-          ))}
-        </ol>
-      )}
+      {signedIn ? <PlotLog key={slug} slug={slug} /> : null}
     </div>
   );
 }
