@@ -60,7 +60,9 @@ services:
       DLN_HOME_DIAL_SECRET: ${DLN_HOME_DIAL_SECRET:-}
       HOME_TICKET_PUB_FILE: ${HOME_TICKET_PUB_FILE:-/app/_meta/secrets/home-ticket.pub}
       DLN_CADDY_ACCESS_LOG: ${DLN_CADDY_ACCESS_LOG:-/var/log/caddy/access.json}
-      STUDIO_ORIGIN: ${STUDIO_ORIGIN:-http://studio.designlabnorth.com}
+      STUDIO_ORIGIN: ${STUDIO_ORIGIN:-https://designlabnorth.com}
+      STUDIO_BASE_PATH: ${STUDIO_BASE_PATH:-}
+      STUDIO_INTERNAL: ${STUDIO_INTERNAL:-}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
@@ -82,11 +84,14 @@ services:
     build:
       context: ${STUDIO_APP_DIR:-/srv/dln/studio-app}
       dockerfile: Dockerfile
+      args:
+        STUDIO_BASE_PATH: ${STUDIO_BASE_PATH:-}
     restart: unless-stopped
     environment:
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       FAL_KEY: ${FAL_KEY:-}
       FAL_API_KEY: ${FAL_API_KEY:-}
+      STUDIO_BASE_PATH: ${STUDIO_BASE_PATH:-}
     volumes:
       - ${DLN_STUDIO_ENGINE_DIR:-/srv/dln/data/studio-engine}:/app/storage
     expose:

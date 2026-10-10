@@ -56,7 +56,18 @@ export function studioOrigin(reqHost?: string | null) {
     if (host === "127.0.0.1" || host === "0.0.0.0") return "http://127.0.0.1:3060";
     return `http://${host}:3060`;
   }
-  return "http://studio.designlabnorth.com";
+  return process.env.DLN_PUBLIC_URL?.replace(/\/$/, "") || "https://designlabnorth.com";
+}
+
+export function studioBasePath() {
+  return (process.env.STUDIO_BASE_PATH || "").replace(/\/$/, "");
+}
+
+export function studioEngineHref(path: string, reqHost?: string | null) {
+  const tail = path.startsWith("/") ? path : `/${path}`;
+  const internal = process.env.STUDIO_INTERNAL?.trim().replace(/\/$/, "");
+  if (internal) return `${internal}${studioBasePath()}${tail}`;
+  return `${studioOrigin(reqHost)}${studioBasePath()}${tail}`;
 }
 
 export async function issuePictureTicket(user: PublicUser) {

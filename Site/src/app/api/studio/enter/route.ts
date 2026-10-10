@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { getSessionUser } from "@/lib/session";
-import { issuePictureTicket, studioOrigin } from "@/lib/studio-hub";
+import { issuePictureTicket, studioBasePath, studioOrigin } from "@/lib/studio-hub";
 import { grantDueTokens, ledgersVisibleTo, tokenCosts } from "@/lib/tokens";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +20,7 @@ export async function GET() {
     ok: true,
     ticket,
     origin: studioOrigin(host),
+    basePath: studioBasePath(),
     stillCost: costs.genCost,
     ledgers: ledgers.map((row) => ({
       plotSlug: row.plotSlug,

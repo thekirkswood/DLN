@@ -35,8 +35,10 @@ function projectSrc(
   brand: string,
   workspace: string,
   sandbox: string,
+  basePath = "",
 ) {
-  const next = new URL(`/w/${workspace}/s/${sandbox}`, origin);
+  const prefix = basePath.replace(/\/$/, "");
+  const next = new URL(`${prefix}/w/${workspace}/s/${sandbox}`, origin);
   next.searchParams.set("hub", window.location.origin);
   next.searchParams.set("ticket", ticket);
   next.searchParams.set("plot", plot);
@@ -55,6 +57,7 @@ export function StudioTab({
   const [plot, setPlot] = useState(lastPlot || plots[0]?.slug || "");
   const [ticket, setTicket] = useState("");
   const [origin, setOrigin] = useState("");
+  const [basePath, setBasePath] = useState("");
   const [ledgers, setLedgers] = useState<Ledger[]>([]);
   const [stillCost, setStillCost] = useState(12);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -79,6 +82,7 @@ export function StudioTab({
         setStillCost(body.stillCost || 12);
         setLedgers(Array.isArray(body.ledgers) ? body.ledgers : []);
         setTicket(body.ticket);
+        setBasePath(String(body.basePath || ""));
         const next = new URL(body.origin);
         const host = window.location.hostname;
         const lab =
@@ -164,7 +168,7 @@ export function StudioTab({
 
   const src =
     open && origin && ticket
-      ? projectSrc(origin, ticket, plot, plotName, open.workspaceSlug, open.sandboxSlug)
+      ? projectSrc(origin, ticket, plot, plotName, open.workspaceSlug, open.sandboxSlug, basePath)
       : "";
 
   return (

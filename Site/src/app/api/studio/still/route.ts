@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { isStudio } from "@/lib/auth";
 import { steerPicture, type PictureAttach, type PictureExtras, type ShotAvenue, type SteerMode } from "@/lib/picture-steer";
-import { resolveStudioUser, studioOrigin, studioSpendAllowed } from "@/lib/studio-hub";
+import { resolveStudioUser, studioBasePath, studioEngineHref, studioOrigin, studioSpendAllowed } from "@/lib/studio-hub";
 import { adjustTokens, spendTokens, tokenCosts } from "@/lib/tokens";
 
 export const dynamic = "force-dynamic";
@@ -57,9 +57,10 @@ export async function POST(request: Request) {
     );
   }
 
-  const origin = studioOrigin(host);
+  const publicBase = `${studioOrigin(host)}${studioBasePath()}`;
+  const engine = studioEngineHref("", host).replace(/\/$/, "");
   try {
-    const spaceRes = await fetch(`${origin}/api/spaces`, {
+    const spaceRes = await fetch(`${engine}/api/spaces`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -72,7 +73,7 @@ export async function POST(request: Request) {
     if (!spaceRes.ok || !sandboxId) {
       throw new Error("Studio gen is not running on this seat.");
     }
-    const stillRes = await fetch(`${origin}/api/generate/still`, {
+    const stillRes = await fetch(`${engine}/api/generate/still`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -95,7 +96,7 @@ export async function POST(request: Request) {
       throw new Error(still.error || "Still failed");
     }
     const path = still.node.stillPath;
-    const href = path.startsWith("http") ? path : `${origin}${path}`;
+    const href = path.startsWith("http") ? path : `${publicBase}${path}`;
     return NextResponse.json({
       ok: true,
       href,

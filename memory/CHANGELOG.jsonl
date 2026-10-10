@@ -1254,3 +1254,4 @@
 {"t":"2026-10-10T11:25:00+01:00","k":"mod","p":"Site/src/middleware.ts Site/src/components/Workbench.tsx Site/src/lib/studio-hub.ts Site/src/app/api/studio","s":"Studio APIs and tab live; origin studio.designlabnorth.com","d":"campus-only 404 would ship a dead tab"}
 {"t":"2026-10-10T11:25:00+01:00","k":"add","p":"deploy/docker-compose.yml deploy/Caddyfile.ip deploy/Caddyfile.prod deploy/sync-to-vps.sh ops/ship-live.sh","s":"studio service + host; ship rebuilds web and studio","d":"picture window must exist on the box"}
 {"t":"2026-10-10T11:26:37+01:00","k":"ver","p":"dln-13","s":"Studio on the live home: site projects, picture desk on studio.designlabnorth.com, Instant updates. Board still off live.","d":"numbered ship"}
+{"t":"2026-10-10T11:32:00+01:00","k":"mod","p":"Site/src/lib/studio-hub.ts deploy/Caddyfile.prod","s":"Live picture window is /studio-engine on the hub host","d":"studio.designlabnorth.com has no Livedns A yet"}

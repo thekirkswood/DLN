@@ -6,7 +6,7 @@ import {
   projectSlug,
 } from "@/lib/studio-projects";
 import { getSessionUser } from "@/lib/session";
-import { studioOrigin, studioSpendAllowed } from "@/lib/studio-hub";
+import { studioEngineHref, studioSpendAllowed } from "@/lib/studio-hub";
 
 export const dynamic = "force-dynamic";
 
@@ -43,10 +43,9 @@ export async function POST(request: Request) {
   if (!studioSpendAllowed(user, plotSlug)) {
     return NextResponse.json({ ok: false }, { status: 403 });
   }
-  const origin = studioOrigin(host);
   const name = projectSlug(plotSlug, title);
   try {
-    const res = await fetch(`${origin}/api/spaces`, {
+    const res = await fetch(studioEngineHref("/api/spaces", host), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
