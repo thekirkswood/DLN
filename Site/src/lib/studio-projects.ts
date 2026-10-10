@@ -4,12 +4,21 @@ import { randomUUID } from "crypto";
 
 const FILE = path.join(process.cwd(), "..", "_meta", "studio", "projects.json");
 
+export type StudioStill = {
+  id: string;
+  href: string;
+  title: string;
+  nodeId?: string;
+  createdAt: string;
+};
+
 export type StudioProject = {
   id: string;
   title: string;
   plotSlug: string;
   workspaceSlug: string;
   sandboxSlug: string;
+  stills?: StudioStill[];
   createdAt: string;
 };
 
@@ -55,11 +64,41 @@ export async function listStudioProjects(plotSlug: string) {
     .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
 }
 
+export async function getStudioProject(id: string) {
+  const book = await readBook();
+  return book.projects.find((row) => row.id === id) || null;
+}
+
+export async function updateStudioProject(
+  id: string,
+  patch: Partial<Pick<StudioProject, "title" | "plotSlug" | "workspaceSlug" | "sandboxSlug" | "stills">>,
+) {
+  const book = await readBook();
+  const row = book.projects.find((item) => item.id === id);
+  if (!row) return null;
+  if (patch.title !== undefined) row.title = patch.title;
+  if (patch.plotSlug !== undefined) row.plotSlug = patch.plotSlug;
+  if (patch.workspaceSlug !== undefined) row.workspaceSlug = patch.workspaceSlug;
+  if (patch.sandboxSlug !== undefined) row.sandboxSlug = patch.sandboxSlug;
+  if (patch.stills !== undefined) row.stills = patch.stills;
+  await writeBook(book);
+  return row;
+}
+
+export async function appendStudioStill(id: string, still: StudioStill) {
+  const book = await readBook();
+  const row = book.projects.find((item) => item.id === id);
+  if (!row) return null;
+  row.stills = [still, ...(row.stills || [])].slice(0, 48);
+  await writeBook(book);
+  return row;
+}
+
 export async function createStudioProject(input: {
   title: string;
   plotSlug: string;
-  workspaceSlug: string;
-  sandboxSlug: string;
+  workspaceSlug?: string;
+  sandboxSlug?: string;
 }) {
   const title = input.title.trim();
   if (!title) return null;
@@ -68,8 +107,9 @@ export async function createStudioProject(input: {
     id: randomUUID(),
     title,
     plotSlug: input.plotSlug,
-    workspaceSlug: input.workspaceSlug,
-    sandboxSlug: input.sandboxSlug,
+    workspaceSlug: input.workspaceSlug || "",
+    sandboxSlug: input.sandboxSlug || "",
+    stills: [],
     createdAt: new Date().toISOString(),
   };
   book.projects.push(row);

@@ -7,7 +7,6 @@ import { EnquireForm } from "@/components/HomeOffer";
 import { BrandStrip } from "@/components/WorkLine";
 import { OfferWalk, type WalkDoor } from "@/components/OfferWalk";
 import { SitePeek } from "@/components/SitePeek";
-import { StudioBound, StudioTab } from "@/components/StudioTab";
 import { needById, type Facet } from "@/data/needs";
 import {
   MERZ_RESEARCH,
@@ -133,7 +132,6 @@ export function Workbench({
     signedIn ? { id: userId || "session", displayName } : null,
   );
   const [plots, setPlots] = useState<PlotPeek[]>([]);
-  const [lastPlot, setLastPlot] = useState<string | null>(null);
   const [enquiryId, setEnquiryId] = useState<string | null>(null);
   const [contact, setContact] = useState<Facet | "host" | null>(null);
   const [contactNeedId, setContactNeedId] = useState<string | null>(null);
@@ -156,7 +154,6 @@ export function Workbench({
 
   useEffect(() => {
     setQualify(readQualify());
-    setLastPlot(readLastPlot());
     const g = document.documentElement.getAttribute("data-ground");
     if (g === "ink") {
       setWays({
@@ -195,10 +192,7 @@ export function Workbench({
           (stored && next.find((p) => p.slug === stored)?.slug) ||
           next[0]?.slug ||
           null;
-        if (pick) {
-          setLastPlot(pick);
-          writeLastPlot(pick);
-        }
+        if (pick) writeLastPlot(pick);
       })
       .catch(() => {});
     return () => {
@@ -545,9 +539,7 @@ export function Workbench({
               plots={me ? plots : []}
               lab={lab}
               showBoard={lab && studio}
-              lastPlot={lastPlot || undefined}
               onPickPlot={(slug) => {
-                setLastPlot(slug);
                 writeLastPlot(slug);
               }}
               me={Boolean(me)}
@@ -676,7 +668,6 @@ function Land({
   lab = false,
   showBoard,
   onPickPlot,
-  lastPlot,
   me = false,
 }: {
   onOpen: (id: Door) => void;
@@ -688,7 +679,6 @@ function Land({
   lab?: boolean;
   showBoard?: boolean;
   onPickPlot: (slug: string) => void;
-  lastPlot?: string;
   me?: boolean;
 }) {
   const [tab, setTab] = useState<"campus" | "studio" | string>("campus");
@@ -697,7 +687,7 @@ function Land({
     const want = new URLSearchParams(window.location.search).get("site");
     if (!want) return;
     if ((want === "social" || want === "studio") && me) {
-      setTab("studio");
+      window.location.replace("/studio");
       return;
     }
     if (plots.some((p) => p.slug === want)) {
@@ -729,13 +719,9 @@ function Land({
           Campus
         </button>
         {me ? (
-          <button
-            type="button"
-            className={tab === "studio" ? "campus-tab is-on" : "campus-tab"}
-            onClick={() => setTab("studio")}
-          >
+          <a className="campus-tab" href="/studio">
             Studio
-          </button>
+          </a>
         ) : null}
         {plots.filter((p) => p.slug !== "various-titles").map((p) => (
           <button
@@ -755,14 +741,6 @@ function Land({
         ) : null}
       </div>
       <div className="campus-ticket">
-        {tab === "studio" && me ? (
-          <StudioBound>
-            <StudioTab
-              plots={plots.map((p) => ({ slug: p.slug, name: p.name }))}
-              lastPlot={lastPlot}
-            />
-          </StudioBound>
-        ) : null}
         {tab === "campus" ? (
           <>
             <h1 className="campus-sentence">

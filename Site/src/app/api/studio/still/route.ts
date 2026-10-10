@@ -1,18 +1,27 @@
+import { randomUUID } from "crypto";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { isStudio } from "@/lib/auth";
-import { steerPicture, type PictureAttach, type PictureExtras, type ShotAvenue, type SteerMode } from "@/lib/picture-steer";
-import { resolveStudioUser, studioBasePath, studioEngineHref, studioOrigin, studioSpendAllowed } from "@/lib/studio-hub";
+import { vaultKitForPlot } from "@/lib/epk-map";
+import {
+  steerPicture,
+  type PictureAttach,
+  type PictureExtras,
+  type ShotAvenue,
+  type SteerMode,
+} from "@/lib/picture-steer";
+import { bytesFromHref, depositStudioFile, ensureProjectSpace } from "@/lib/studio-engine";
+import { appendStudioStill, getStudioProject } from "@/lib/studio-projects";
+import { resolveStudioUser, studioEngineHref, studioSpendAllowed } from "@/lib/studio-hub";
 import { adjustTokens, spendTokens, tokenCosts } from "@/lib/tokens";
 
 export const dynamic = "force-dynamic";
-
-type SpaceReply = { sandbox?: { id?: string } };
 
 export async function POST(request: Request) {
   const host = headers().get("x-forwarded-host") || headers().get("host");
   const body = (await request.json().catch(() => ({}))) as {
     ticket?: string;
+    projectId?: string;
     plotSlug?: string;
     plotName?: string;
     prompt?: string;
@@ -22,7 +31,9 @@ export async function POST(request: Request) {
     avenue?: ShotAvenue;
   };
   const user = await resolveStudioUser(body.ticket);
-  const plotSlug = String(body.plotSlug || "").trim();
+  const projectId = String(body.projectId || "").trim();
+  const project = projectId ? await getStudioProject(projectId) : null;
+  const plotSlug = String(body.plotSlug || project?.plotSlug || "").trim();
   const line = String(body.prompt || "").trim();
   if (!user) return NextResponse.json({ ok: false }, { status: 401 });
   if (!plotSlug) return NextResponse.json({ ok: false, error: "Pick a site" }, { status: 400 });
@@ -57,23 +68,31 @@ export async function POST(request: Request) {
     );
   }
 
-  const publicBase = `${studioOrigin(host)}${studioBasePath()}`;
-  const engine = studioEngineHref("", host).replace(/\/$/, "");
   try {
-    const spaceRes = await fetch(`${engine}/api/spaces`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: plotSlug,
-        brandTokens: { product: extras.plotName || plotSlug, tone: "quiet, tactile, cinematic" },
-      }),
-    });
-    const space = (await spaceRes.json().catch(() => ({}))) as SpaceReply;
-    const sandboxId = space.sandbox?.id;
-    if (!spaceRes.ok || !sandboxId) {
-      throw new Error("Studio gen is not running on this seat.");
+    let sandboxId = "";
+    if (project) {
+      const space = await ensureProjectSpace({
+        projectId: project.id,
+        plotName: extras.plotName,
+        host,
+      });
+      sandboxId = space.sandboxId;
+    } else {
+      const engine = studioEngineHref("", host).replace(/\/$/, "");
+      const spaceRes = await fetch(`${engine}/api/spaces`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: plotSlug,
+          brandTokens: { product: extras.plotName || plotSlug, tone: "quiet, tactile, cinematic" },
+        }),
+      });
+      const space = (await spaceRes.json().catch(() => ({}))) as { sandbox?: { id?: string } };
+      sandboxId = space.sandbox?.id || "";
+      if (!spaceRes.ok || !sandboxId) throw new Error("Studio gen is not running on this seat.");
     }
-    const stillRes = await fetch(`${engine}/api/generate/still`, {
+
+    const stillRes = await fetch(studioEngineHref("/api/generate/still", host), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -88,15 +107,38 @@ export async function POST(request: Request) {
     });
     const still = (await stillRes.json().catch(() => ({}))) as {
       error?: string;
-      node?: { stillPath?: string };
+      node?: { id?: string; stillPath?: string };
       steered?: { prompt?: string };
       provider?: string;
     };
     if (!stillRes.ok || !still.node?.stillPath) {
       throw new Error(still.error || "Still failed");
     }
-    const path = still.node.stillPath;
-    const href = path.startsWith("http") ? path : `${publicBase}${path}`;
+
+    const media = still.node.stillPath;
+    const bytes = await bytesFromHref(media, host);
+    const title = line.slice(0, 80) || "Studio still";
+    const kit = vaultKitForPlot(plotSlug) || plotSlug;
+    let href = media.startsWith("http") ? media : media.startsWith("/") ? media : `/${media}`;
+    if (bytes) {
+      const asset = await depositStudioFile({
+        plotSlug,
+        filename: `${kit}-still.png`,
+        bytes,
+        title,
+        note: project ? `Studio · ${project.title}` : `Studio · ${plotSlug}`,
+      });
+      if (asset?.href) href = asset.href;
+    }
+    if (project) {
+      await appendStudioStill(project.id, {
+        id: randomUUID(),
+        href,
+        title,
+        nodeId: still.node.id,
+        createdAt: new Date().toISOString(),
+      });
+    }
     return NextResponse.json({
       ok: true,
       href,

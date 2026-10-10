@@ -12,6 +12,7 @@ export function Footer({ hasPress = false }: { hasPress?: boolean }) {
   if (path === "/epk" || path.startsWith("/epk/")) return null;
   if (path === "/board" || path.startsWith("/board/")) return null;
   if (path === "/" || path === "/app" || path.startsWith("/app/")) return null;
+  if (path === "/studio" || path.startsWith("/studio/")) return null;
   return (
     <footer className="site-footer wrap">
       <div className="footer-who">

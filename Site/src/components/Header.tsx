@@ -38,6 +38,7 @@ export function Header({
   const atPractice = path === "/practice";
   const atWork = path === "/work";
   const atGreenhouse = path === "/greenhouse" || path.startsWith("/greenhouse/");
+  const atStudio = path === "/studio" || path.startsWith("/studio/");
   const atLogin = path === "/login";
   const atBlocked = path === "/blocked" || path.startsWith("/blocked/");
   const atEpk = path === "/epk" || path.startsWith("/epk/");
@@ -73,7 +74,7 @@ export function Header({
     };
   }, [path, signedIn]);
 
-  if (atSuggest || atHome || atBlocked || atEpk) return null;
+  if (atSuggest || atHome || atBlocked || atEpk || atStudio) return null;
 
   const faceId = me?.id || userId;
   const faceOn = me ? Boolean(me.avatar) : Boolean(hasAvatar);
@@ -86,6 +87,7 @@ export function Header({
       </Link>
       <nav>
         {atHome ? null : <Link href="/">Home</Link>}
+        {inSession && !atStudio ? <Link href="/studio">Studio</Link> : null}
         {atPractice ? null : <Link href="/practice">Practice</Link>}
         {atWork ? null : <Link href="/work">Work</Link>}
         {atGreenhouse ? null : <Link href="/greenhouse">Greenhouse</Link>}
@@ -163,6 +165,9 @@ function AccountMenu({
       </button>
       {open ? (
         <div className="nav-menu" role="menu">
+          <a role="menuitem" href="/studio" onClick={() => setOpen(false)}>
+            Studio
+          </a>
           {studio && !lab ? (
             <a role="menuitem" href="/desk" onClick={() => setOpen(false)}>
               Home book

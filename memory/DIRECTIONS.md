@@ -1345,5 +1345,13 @@ The site you pick on campus is the folder. Studio jobs, Instant updates, and Ass
 
 Communication: campus writes `hub`, `ticket`, `plot`, `brand` on the iframe query. The desk reads the vault over HTTP (`/api/studio/pool`, spend, deposit). Spend comes back as `postMessage` (`dln-studio-spent`). Do not make the desk guess another house’s files.
 
+## 2026-10-10 — Studio is a house page (Ewan)
+
+The iframe was the wrong joint. Open the pool must be the DLN asset library for that site — same cookie, same `_meta/assets` book. Put the whole Studio inside Design Lab North: `/studio` and `/studio/{job}`. Homepage Studio button goes there. If the account has one site, that site is already in. A site toggle only when there are two or more (Ewan and Dave for now). Jobs sit in the site folder. Picture gen / Inpaint / Text stay the rooms. Gens land in Assets. Fal and Gemini still run on the studio container; the desk does not. Do not abandon this for another plugin window.
+
+## 2026-10-10 — Keep the Studio desk look (Ewan)
+
+The house page must look like the picture site. Do not flatten it into campus chips. Open assets sits above How you write, with air before Naked prompt / + information. Avenue tags stay Auto / Brand / Social / Editorial. Vault is The vault, same folders. Update live when the desk is that shape.
+
 
 
