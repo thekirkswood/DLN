@@ -7,6 +7,7 @@ import { EnquireForm } from "@/components/HomeOffer";
 import { BrandStrip } from "@/components/WorkLine";
 import { OfferWalk, type WalkDoor } from "@/components/OfferWalk";
 import { SitePeek } from "@/components/SitePeek";
+import { StudioBound, StudioTab } from "@/components/StudioTab";
 import { needById, type Facet } from "@/data/needs";
 import {
   MERZ_RESEARCH,
@@ -543,6 +544,7 @@ export function Workbench({
               plots={me ? plots : []}
               lab={lab}
               showBoard={lab && studio}
+              lastPlot={lastPlot || undefined}
               onPickPlot={(slug) => {
                 setLastPlot(slug);
                 writeLastPlot(slug);
@@ -673,6 +675,7 @@ function Land({
   lab = false,
   showBoard,
   onPickPlot,
+  lastPlot,
   me = false,
 }: {
   onOpen: (id: Door) => void;
@@ -684,21 +687,28 @@ function Land({
   lab?: boolean;
   showBoard?: boolean;
   onPickPlot: (slug: string) => void;
+  lastPlot?: string;
   me?: boolean;
 }) {
-  const [tab, setTab] = useState<"campus" | string>("campus");
+  const [tab, setTab] = useState<"campus" | "studio" | string>("campus");
 
   useEffect(() => {
     const want = new URLSearchParams(window.location.search).get("site");
     if (!want) return;
+    if ((want === "social" || want === "studio") && me) {
+      setTab("studio");
+      return;
+    }
     if (plots.some((p) => p.slug === want)) {
       setTab(want);
       onPickPlot(want);
     }
-  }, [plots, onPickPlot]);
+  }, [plots, onPickPlot, me, lab]);
 
   const site =
-    tab !== "campus" ? plots.find((p) => p.slug === tab) || null : null;
+    tab !== "campus" && tab !== "studio"
+      ? plots.find((p) => p.slug === tab) || null
+      : null;
   const door =
     site?.previewUrl || (lab ? site?.buildUrl : site?.hostUrl) || null;
 
@@ -717,6 +727,15 @@ function Land({
         >
           Campus
         </button>
+        {me ? (
+          <button
+            type="button"
+            className={tab === "studio" ? "campus-tab is-on" : "campus-tab"}
+            onClick={() => setTab("studio")}
+          >
+            Studio
+          </button>
+        ) : null}
         {plots.filter((p) => p.slug !== "various-titles").map((p) => (
           <button
             key={p.slug}
@@ -735,6 +754,14 @@ function Land({
         ) : null}
       </div>
       <div className="campus-ticket">
+        {tab === "studio" && me ? (
+          <StudioBound>
+            <StudioTab
+              plots={plots.map((p) => ({ slug: p.slug, name: p.name }))}
+              lastPlot={lastPlot}
+            />
+          </StudioBound>
+        ) : null}
         {tab === "campus" ? (
           <>
             <h1 className="campus-sentence">

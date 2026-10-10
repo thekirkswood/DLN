@@ -1,6 +1,6 @@
 # Three-door social films — Design Lab North
 
-Studio ads for **us**. Not a client social-media service. Not a posting calendar. Not a public header door until Ewan says one exists.
+Studio ads for **us**. Not a client social-media service. Not a posting calendar. House homepage tab **Studio** after Campus is the make-a-picture room in this house. Not live until a numbered ship.
 
 **Gate:** Ewan marks frames and prompts before any still or video is generated. This file is the map. Deep research sits beside it. Do not mix the three pitches in one film.
 

@@ -129,6 +129,11 @@ export function SitePeek({
               Sandbox · {sandboxUp === false ? "down" : "live"}
             </button>
           ) : null}
+          {showPress && kit ? (
+            <a href={epkHref(kit)} className="campus-site-sandbox">
+              EPK
+            </a>
+          ) : null}
         </p>
       </div>
       <div className="campus-plot-preview chamfer">
@@ -172,16 +177,6 @@ export function SitePeek({
             page={page}
           />
         </div>
-      ) : null}
-      {showPress ? (
-        <section className="campus-site-press">
-          <h3>Press kit</h3>
-          {kit ? (
-            <a href={epkHref(kit)}>Open the pack</a>
-          ) : (
-            <p>The pack sits with this site.</p>
-          )}
-        </section>
       ) : null}
       {signedIn ? <PlotLog slug={slug} /> : null}
     </div>

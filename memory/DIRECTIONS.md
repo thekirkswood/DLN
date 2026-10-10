@@ -1279,5 +1279,35 @@ Editor lives on the homepage site tab, under the live view. Button is **Instant 
 
 He asked this house onto live (`dln-12`) because live already had pieces of the work and the desk was split. `varioustitles.com` stays hosted; it is not a DLN service.
 
+## 2026-10-10 — EPK button; Social tab on the house (Ewan)
+
+EPK is a simple button in line with Live site and Sandbox at the top of the site tab. Drop the Press kit heading block underneath.
+
+Social engine on the homepage as a tab after Campus: the picture engine (`/home/main/Repos/Social engine` on `:3060`). Signed-in house only. Run picture gen and build from there. Stills spend the Instant update ledger. 404 `/api/studio` on live. House first — do not roll live until he asks.
+
+## 2026-10-10 — Studio on campus tester
+
+- That tab is now labelled **Social**, immediately after Campus. Same engine. Not a second homepage tab.
+- Tester only (`isLabHost`). 404 `/api/studio` on the live host.
+- Stills spend the Instant update ledger (`k: gen`, Settings gen cost). Open the pool to pick DLN account assets. Not a numbered ship.
+
+## 2026-10-10 — Studio is a room in the house (Ewan)
+
+The homepage tab after Campus is **Studio**, not Social. Clicking it lands in make-a-picture, not the old project list. Pick which site the still is for. Assets sort as logo / pack / people / promo / banner — same flags in Assets and in Studio. A still related to a promotion carries that campaign into the prompt. Naked prompt is “X person is in X place doing X thing.” + information fills the extra boxes. No Modyu-only placeholder. No “pack is the real product still” line.
+
+Do not iframe Social Engine as the public desk. Studio lives in DLN so the VPS ship is one house, and video can be added in the same room later. The `:3060` engine stays the gen hand until those libraries sit in `Site/`. Not a numbered ship.
+
+## 2026-10-10 — Studio is Social Engine as it was (Ewan)
+
+The rushed in-house rewrite lost the desk. Put Social Engine back exactly: projects first (`/dln/studio`), then a project (`/dln/studio/{name}`). Picture gen is the first wall; video is the next wall later. Do not flatten How you write and Avenue onto one chip line. Steer lives as you type, not as a dumped paragraph. DLN only syncs site, Instant updates, and account assets around that frame. Not a numbered ship.
+
+## 2026-10-10 — Studio projects belong to the site (Ewan)
+
+The Studio tab is a project list for the logged-in site. Do not put `/dln/studio` inside the picture window. Sort and open projects on the house. Clicking a project opens only that job’s picture desk, and the stills know that brand. Each project is a child of the parent site. Not a numbered ship.
+
+## 2026-10-10 — Studio on the VPS (Ewan)
+
+Ship Studio live. Signed-in home has the Studio tab. Projects belong to the site. The picture window is `studio.designlabnorth.com` (wildcard). Instant updates still the currency. Board stays off live.
+
 
 

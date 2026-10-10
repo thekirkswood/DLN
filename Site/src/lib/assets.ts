@@ -20,6 +20,7 @@ export type AssetFlags = {
   banner?: boolean;
   people?: boolean;
   post?: boolean;
+  promo?: boolean;
   pack?: boolean;
   share?: boolean;
 };
@@ -296,7 +297,14 @@ export async function patchAsset(input: {
 }
 
 export function inPack(item: AssetItem): boolean {
-  return Boolean(item.flags.pack || item.flags.logo || item.flags.banner || item.flags.people || item.flags.post);
+  return Boolean(
+    item.flags.pack ||
+      item.flags.logo ||
+      item.flags.banner ||
+      item.flags.people ||
+      item.flags.post ||
+      item.flags.promo,
+  );
 }
 
 export function pressPack(index: AssetIndex, kit?: string): AssetItem[] {

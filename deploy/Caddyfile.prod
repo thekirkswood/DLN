@@ -105,6 +105,11 @@
     reverse_proxy plot-swarm:3000
   }
 
+  @studio host studio.designlabnorth.com
+  handle @studio {
+    reverse_proxy studio:3060
+  }
+
   @home_desk {
     host designlabnorth.com www.designlabnorth.com
     path /desk*
@@ -127,11 +132,11 @@
 }
 
 # HTTP stays up even while certificates obtain.
-http://designlabnorth.com, http://www.designlabnorth.com, http://modyu.designlabnorth.com, http://swarmfund.designlabnorth.com, http://daa.designlabnorth.com, http://paulfosbury.designlabnorth.com {
+http://designlabnorth.com, http://www.designlabnorth.com, http://studio.designlabnorth.com, http://modyu.designlabnorth.com, http://swarmfund.designlabnorth.com, http://daa.designlabnorth.com, http://paulfosbury.designlabnorth.com {
   import edge
 }
 
-designlabnorth.com, www.designlabnorth.com, modyu.designlabnorth.com, swarmfund.designlabnorth.com, daa.designlabnorth.com, paulfosbury.designlabnorth.com {
+designlabnorth.com, www.designlabnorth.com, studio.designlabnorth.com, modyu.designlabnorth.com, swarmfund.designlabnorth.com, daa.designlabnorth.com, paulfosbury.designlabnorth.com {
   tls {
     issuer acme {
       disable_tlsalpn_challenge

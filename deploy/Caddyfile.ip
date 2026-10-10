@@ -126,6 +126,11 @@
     reverse_proxy plot-swarm:3000
   }
 
+  @studio host studio.designlabnorth.com
+  handle @studio {
+    reverse_proxy studio:3060
+  }
+
   @home_desk {
     host designlabnorth.com www.designlabnorth.com
     path /desk*

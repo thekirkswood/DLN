@@ -3,6 +3,7 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import type { AssetFlags, AssetItem } from "@/lib/assets";
 import {
+  assetLane,
   canDeleteHref,
   isImageHref,
   isPdfHref,
@@ -10,6 +11,7 @@ import {
   kindBucket,
   kindLabel,
   type AssetKindFilter,
+  type AssetLane,
 } from "@/lib/assets-view";
 
 type KitRow = { id: string; name: string };
@@ -49,6 +51,7 @@ export function AssetHub({ lockedKit }: { lockedKit?: string }) {
   const [error, setError] = useState("");
   const [house, setHouse] = useState(lockedKit || "");
   const [kind, setKind] = useState<AssetKindFilter>("all");
+  const [lane, setLane] = useState<AssetLane | "all">("all");
   const [picked, setPicked] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [over, setOver] = useState(false);
@@ -109,9 +112,10 @@ export function AssetHub({ lockedKit }: { lockedKit?: string }) {
     return items
       .filter((item) => (house ? item.kit === house : true))
       .filter((item) => (kind === "all" ? true : kindBucket(item.kind) === kind))
+      .filter((item) => (lane === "all" ? true : assetLane(item.flags) === lane))
       .slice()
       .sort((a, b) => (a.addedAt < b.addedAt ? 1 : -1));
-  }, [items, house, kind]);
+  }, [items, house, kind, lane]);
 
   const sharedCount = shown.filter(isShared).length;
   const houseName = kits.find((k) => k.id === house)?.name || house || "House";
@@ -259,6 +263,18 @@ export function AssetHub({ lockedKit }: { lockedKit?: string }) {
             <option value="text">Text</option>
           </select>
         </label>
+        <label>
+          Sort
+          <select className="chamfer" value={lane} onChange={(e) => setLane(e.target.value as AssetLane | "all")}>
+            <option value="all">All kinds</option>
+            <option value="logo">Logo</option>
+            <option value="pack">Pack</option>
+            <option value="people">People</option>
+            <option value="promo">Promo</option>
+            <option value="banner">Banner</option>
+            <option value="picture">Unfiled pictures</option>
+          </select>
+        </label>
         <label className="assets-upload">
           Upload
           <input
@@ -370,6 +386,24 @@ export function AssetHub({ lockedKit }: { lockedKit?: string }) {
               <pre className="asset-hub__body">{textBody}</pre>
             ) : null}
             <p className="asset-hub__acts">
+              {(
+                [
+                  ["logo", "Logo"],
+                  ["pack", "Pack"],
+                  ["people", "People"],
+                  ["promo", "Promo"],
+                  ["banner", "Banner"],
+                ] as const
+              ).map(([key, label]) => (
+                <button
+                  key={key}
+                  type="button"
+                  className={`epk-onoff chamfer${selected.flags[key] ? " is-on" : ""}`}
+                  onClick={() => patch(selected.id, { flags: { [key]: !selected.flags[key] } })}
+                >
+                  {label}
+                </button>
+              ))}
               <button
                 type="button"
                 className={`epk-onoff chamfer${isShared(selected) ? " is-on" : ""}`}

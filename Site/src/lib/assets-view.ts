@@ -17,14 +17,36 @@ export type ShareFlags = {
   banner?: boolean;
   people?: boolean;
   post?: boolean;
+  promo?: boolean;
 };
+
+export type AssetLane = "logo" | "pack" | "people" | "promo" | "banner" | "picture";
+
+export function assetLane(flags: ShareFlags): AssetLane {
+  if (flags.logo) return "logo";
+  if (flags.pack) return "pack";
+  if (flags.people) return "people";
+  if (flags.promo || flags.post) return "promo";
+  if (flags.banner) return "banner";
+  return "picture";
+}
+
+export function laneLabel(lane: AssetLane) {
+  if (lane === "picture") return "Picture";
+  return lane[0].toUpperCase() + lane.slice(1);
+}
 
 /** Press kit only takes files ticked to share. Older pack flags still count until turned off. */
 export function isShared(item: { flags: ShareFlags }): boolean {
   if (item.flags.share === false) return false;
   if (item.flags.share === true) return true;
   return Boolean(
-    item.flags.pack || item.flags.logo || item.flags.banner || item.flags.people || item.flags.post,
+    item.flags.pack ||
+      item.flags.logo ||
+      item.flags.banner ||
+      item.flags.people ||
+      item.flags.post ||
+      item.flags.promo,
   );
 }
 

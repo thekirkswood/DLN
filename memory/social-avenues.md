@@ -6,7 +6,7 @@ Talk to people. Probe. Influence. Emotion, then trust. Never a note to whoever d
 
 **Three-door map:** `memory/social-video-blueprint.md` (how 15–20s films wrap the loops; demographics; Ewan-on-camera variants). Deep files: `memory/entrepreneur-film.md`, `memory/social-avenue-small-business-new.md`, `memory/social-refresh.md`.
 
-**Gate:** Ewan sees the frames and marks the prompts before any model is called. Do not generate stills or video in the same pass as the plan.
+**Gate:** Picture gen runs from the house **Studio** tab (after Campus) — projects for the selected site, then that job’s picture desk. Live on the hub. Do not generate video until Ewan marks.
 
 **Piece 1 is drawn in house.** Two chamfered rooms. Three notes type into the sandbox (caret, grey bar, enter cements a colour). Push, then live **blips** to match — no swipe. Omni is the wrong tool for this loop. Sandbox **leads**: left on 16:9, top on 9:16. Do not caption the three notes as a process. They are the picture, not a lecture.
 

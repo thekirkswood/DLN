@@ -31,7 +31,9 @@ export function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   if (
     !isLabHost(host) &&
-    (path === "/board" || path.startsWith("/board/") || path.startsWith("/api/board"))
+    (path === "/board" ||
+      path.startsWith("/board/") ||
+      path.startsWith("/api/board"))
   ) {
     return withPath(req, new NextResponse("Not Found", { status: 404 }));
   }

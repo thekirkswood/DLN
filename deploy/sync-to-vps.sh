@@ -31,4 +31,17 @@ if [[ -d "$ROOT/Site/public/press" ]]; then
     -e ssh \
     "$ROOT/Site/public/press/" "$HOST:$DEST/Site/public/press/"
 fi
+ENGINE="${STUDIO_APP_SRC:-/home/main/Repos/Social engine}"
+if [[ -d "$ENGINE" ]]; then
+  ssh "$HOST" "mkdir -p /srv/dln/studio-app /srv/dln/data/studio-engine"
+  rsync -az --delete \
+    --exclude node_modules \
+    --exclude .next \
+    --exclude .env.local \
+    --exclude storage \
+    --exclude .git \
+    -e ssh \
+    "$ENGINE/" "$HOST:/srv/dln/studio-app/"
+  echo "synced studio-app"
+fi
 echo "synced $ROOT -> $HOST:$DEST"
