@@ -442,7 +442,7 @@ export function OnboardForm({ plots }: { plots: PlotOpt[] }) {
       <p className="body bill-note">
         A real email, or an internal handle ending{" "}
         <code>@designlabnorth.local</code>. That is not a mailbox — it is the
-        login on this book, and the same login for Various Titles.
+        login on this book.
       </p>
       <label htmlFor="ob-name">Name</label>
       <input

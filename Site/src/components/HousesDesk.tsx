@@ -55,7 +55,7 @@ export function HousesDesk() {
           </tr>
         </thead>
         <tbody>
-          {LAN_HOUSES.map((row) => {
+          {LAN_HOUSES.filter((row) => row.id !== "various-titles").map((row) => {
             const named = namedOrigin(row.id) || `http://${LAN_IP}:${row.port}`;
             const local =
               host && !isDlnLocalHost(host) ? `http://${LAN_IP}:${row.port}` : named;

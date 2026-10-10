@@ -124,7 +124,7 @@ export function SettingsDesk({
             setTokenGrant3(e.target.value);
           }}
         />
-        <label htmlFor="set-ping">Send now cost</label>
+        <label htmlFor="set-ping">Instant update cost</label>
         <input
           id="set-ping"
           inputMode="numeric"

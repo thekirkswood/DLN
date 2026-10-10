@@ -11,8 +11,11 @@ if [ ! -s "$KEY" ]; then
 fi
 chmod 600 "$KEY" "$KEY.pub" 2>/dev/null || true
 install -d -m 700 "$(dirname "$HOSTS")"
-ssh-keyscan -H 82.165.5.84 > "$HOSTS" 2>/dev/null
-chmod 600 "$HOSTS"
+"$ROOT/ops/ensure-home-known-hosts.sh"
+if [ ! -s "$HOSTS" ]; then
+  ssh-keyscan -H 82.165.5.84 > "$HOSTS" 2>/dev/null
+  chmod 600 "$HOSTS"
+fi
 mkdir -p "$UNIT_DIR"
 cp "$ROOT/ops/home-tunnel.service" "$UNIT_DIR/home-tunnel.service"
 systemctl --user daemon-reload

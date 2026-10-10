@@ -39,7 +39,7 @@ export default function LoginForm() {
         setError("That account doesn’t sign in on this host.");
       } else if (data?.reason === "home_unreachable") {
         setError(
-          "The house is not answering. Studio sign-in on the public site talks home — try this site on the LAN, or wait a moment.",
+          "The campus downstairs isn't answering. Studio sign-in on the public site checks that book — not this laptop. Client accounts sign in here. Wait a moment, or use dln.local on the LAN.",
         );
       } else {
         setError("That sign-in didn’t match.");

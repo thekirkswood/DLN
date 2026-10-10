@@ -5,6 +5,18 @@ export type WatchHit = {
   trap: boolean;
 };
 
+export type WatchAttempt = {
+  id: string;
+  t: string;
+  ip: string;
+  host: string;
+  ua: string;
+  email: string;
+  ok: boolean;
+  reason?: string;
+  plot?: string;
+};
+
 export type WatchInstance = {
   id: string;
   t: string;

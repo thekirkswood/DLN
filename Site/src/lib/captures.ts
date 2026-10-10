@@ -43,6 +43,7 @@ export type Capture = {
   userId: string;
   authorId: string;
   plotSlug: string;
+  page?: string;
   kind: CaptureKind;
   text: string;
   files: CaptureFile[];
@@ -93,11 +94,13 @@ export async function addCapture(
     plotSlug: string;
     text: string;
     pace: CapturePace;
+    page?: string;
     files: { name: string; type: string; buf: Buffer }[];
   },
 ): Promise<Capture> {
   const plotSlug = input.plotSlug.trim();
   const text = input.text.trim();
+  const page = input.page?.trim() || undefined;
   if (!plotSlug) throw new Error("invalid");
   if (!isStudio(user) && !user.plots.includes(plotSlug) && !user.plots.includes("*")) {
     throw new Error("forbidden");
@@ -128,18 +131,19 @@ export async function addCapture(
       user,
       plotSlug,
       k: "ping",
-      reason: "Send now",
+      reason: "Instant update",
       captureId: id,
     });
     if (!spent.ok) throw new Error(spent.error);
     tokensSpent = spent.spent;
     const wake = await wakeClientAsk({
       kind: "note",
-      text: `Send now · ${plotSlug}\n${text || "(files)"}`.slice(0, 8000),
+      text: `Instant update · ${plotSlug}${page ? ` · ${page}` : ""}\n${text || "(files)"}`.slice(0, 8000),
       author: user.displayName || user.id,
       authorId: user.id,
       plot: plotSlug,
-      origin: "/account",
+      page,
+      origin: `/?site=${encodeURIComponent(plotSlug)}`,
     });
     inboxId = wake.id;
   }
@@ -150,6 +154,7 @@ export async function addCapture(
     userId: user.id,
     authorId: user.id,
     plotSlug,
+    page,
     kind: guessKind(text, saved),
     text,
     files: saved,

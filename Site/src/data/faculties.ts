@@ -102,15 +102,6 @@ export const FACULTIES: Faculty[] = [
   },
 ];
 
-/** Eighth plate: greenhouse product, not a campus faculty. */
-export const VT_LIBRARY = {
-  n: "08",
-  name: "Various Titles",
-  plate: `${BRIEF}/Frameworks/DLNFrameworks-01.png`,
-  line: "The seven frameworks behind the work, as a resource you can learn from in Various Titles.",
-  href: "/greenhouse/various-titles",
-} as const;
-
 export const ENGINE_STAGES = [
   {
     n: "1",

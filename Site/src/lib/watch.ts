@@ -6,11 +6,16 @@ import { cookieSecureFromProto, isStudio, userFromSession } from "@/lib/auth";
 import type { NextResponse } from "next/server";
 import { isMaliciousPath, looksLikeProbe, pathsLookMalicious } from "@/lib/trap-paths";
 import type { TrapTrip } from "@/lib/trap-types";
-import { visitKind, type WatchHit, type WatchInstance } from "@/lib/watch-types";
+import {
+  visitKind,
+  type WatchAttempt,
+  type WatchHit,
+  type WatchInstance,
+} from "@/lib/watch-types";
 export type { VisitKind } from "@/lib/watch-types";
 export { visitKind } from "@/lib/watch-types";
 
-export type { WatchHit, WatchInstance } from "@/lib/watch-types";
+export type { WatchAttempt, WatchHit, WatchInstance } from "@/lib/watch-types";
 
 export const WATCH_COOKIE = "dln_watch";
 export const WATCH_COOKIE_MAX_AGE = 2 * 60 * 60;
@@ -20,20 +25,23 @@ const LEARN = path.join(process.cwd(), "..", "_meta", "studio", "watch-learn.md"
 const LEARNED = path.join(process.cwd(), "..", "_meta", "studio", "learned-traps.json");
 
 const HOT_MS = 2 * 60 * 60 * 1000;
+const NOW_MS = 15 * 60 * 1000;
 const GAP_MS = 30 * 60 * 1000;
 const SWEEP_MS = 60 * 60 * 1000;
-const MAX_INSTANCES = 2500;
+const MAX_INSTANCES = 5000;
 const MAX_PATHS = 250;
+const MAX_ATTEMPTS = 8000;
 
 type WatchBook = {
   instances: WatchInstance[];
+  attempts: WatchAttempt[];
   hot: Record<string, string>;
   hotUsers: Record<string, string>;
   lastSweep?: string;
 };
 
 function blank(): WatchBook {
-  return { instances: [], hot: {}, hotUsers: {} };
+  return { instances: [], attempts: [], hot: {}, hotUsers: {} };
 }
 
 let chain: Promise<unknown> = Promise.resolve();
@@ -100,6 +108,7 @@ async function readBook(): Promise<WatchBook> {
     if (parsed && Array.isArray(parsed.instances)) {
       book = {
         instances: parsed.instances,
+        attempts: Array.isArray(parsed.attempts) ? parsed.attempts : [],
         hot: parsed.hot && typeof parsed.hot === "object" ? { ...parsed.hot } : {},
         hotUsers:
           parsed.hotUsers && typeof parsed.hotUsers === "object"
@@ -130,9 +139,12 @@ async function writeBook(book: WatchBook) {
   const instances = book.instances
     .sort((a, b) => (a.last < b.last ? 1 : -1))
     .slice(0, MAX_INSTANCES);
+  const attempts = (book.attempts || [])
+    .sort((a, b) => (a.t < b.t ? 1 : -1))
+    .slice(0, MAX_ATTEMPTS);
   await fs.writeFile(
     FILE,
-    `${JSON.stringify({ instances, hot, hotUsers, lastSweep: book.lastSweep }, null, 2)}\n`,
+    `${JSON.stringify({ instances, attempts, hot, hotUsers, lastSweep: book.lastSweep }, null, 2)}\n`,
     "utf8",
   );
 }
@@ -293,13 +305,25 @@ export async function markWatch(input: {
 }
 
 function plotFromHost(host: string): string | undefined {
-  const h = host.toLowerCase().split(":")[0];
+  const h = host.toLowerCase().split(":")[0].replace(/^www\./, "");
+  if (
+    h === "designlabnorth.com" ||
+    h === "dln.local" ||
+    h.endsWith(".dln.local") ||
+    h === "localhost" ||
+    h === "campus.dln.home" ||
+    /^\d/.test(h)
+  ) {
+    return "dln";
+  }
+  if (h === "swarmfund.com" || h.startsWith("swarmfund.")) return "swarm";
+  if (h === "varioustitles.com") return "various-titles";
+  if (h === "paulfosburyportraits.com" || h.startsWith("paulfosbury.")) return "pfp";
+  if (h === "davekirkwood.com" || h.startsWith("dks.")) return "dks";
   const sub = h.match(/^([a-z0-9-]+)\.designlabnorth\.com$/);
   if (sub && sub[1] !== "www") return sub[1];
   if (h.includes("daa.")) return "daa";
-  if (h.includes("dln.") || h.includes("designlabnorth") || h === "localhost" || h.startsWith("192.168.")) {
-    return "dln";
-  }
+  if (h.includes("dln.") || h.includes("designlabnorth")) return "dln";
   return undefined;
 }
 
@@ -311,8 +335,81 @@ function plotFromHit(host: string, path: string): string | undefined {
 }
 
 export async function listVisits(): Promise<WatchInstance[]> {
+  await import("@/lib/watch-edge")
+    .then((m) => m.ingestCaddyLog())
+    .catch(() => undefined);
   const book = await readBook();
   return book.instances;
+}
+
+export async function listAttempts(): Promise<WatchAttempt[]> {
+  const book = await readBook();
+  return [...(book.attempts || [])].sort((a, b) => (a.t < b.t ? 1 : -1));
+}
+
+export async function listHotNow(): Promise<WatchInstance[]> {
+  const now = Date.now();
+  return (await listVisits()).filter((row) => now - Date.parse(row.last) < NOW_MS);
+}
+
+export async function recordEdgeHit(input: {
+  ip: string;
+  host: string;
+  path: string;
+  ua: string;
+  t?: string;
+}): Promise<boolean> {
+  if (!isWatchTapPath(input.path)) return false;
+  return serial(async () => {
+    const book = await readBook();
+    applyHit(book, {
+      ...input,
+      trap: looksLikeProbe(input.path),
+      plot: plotFromHit(input.host, input.path),
+    });
+    await writeBook(book);
+    return true;
+  });
+}
+
+export async function markLoginAttempt(input: {
+  ip: string;
+  host: string;
+  ua: string;
+  email: string;
+  ok: boolean;
+  reason?: string;
+}): Promise<WatchAttempt> {
+  const email = input.email.trim().toLowerCase().slice(0, 120);
+  const host = input.host.slice(0, 120);
+  const row: WatchAttempt = {
+    id: randomUUID(),
+    t: nowIso(),
+    ip: (input.ip || "unknown").slice(0, 64),
+    host,
+    ua: input.ua.slice(0, 300),
+    email,
+    ok: input.ok,
+    reason: input.reason,
+    plot: plotFromHost(host),
+  };
+  await serial(async () => {
+    const book = await readBook();
+    book.attempts = [row, ...(book.attempts || [])].slice(0, MAX_ATTEMPTS);
+    if (input.ok && email) {
+      applyHit(book, {
+        ip: row.ip,
+        host,
+        path: "/login",
+        ua: row.ua,
+        trap: false,
+        plot: row.plot,
+        email,
+      });
+    }
+    await writeBook(book);
+  });
+  return row;
 }
 
 /** Counts only. Never hand IPs to a client account. */

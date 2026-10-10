@@ -91,6 +91,19 @@ export function stackFromRolls(rolls: Roll[], userId: string, plotSlug: string):
   return stack;
 }
 
+export function stackForPlot(rolls: Roll[], plotSlug: string): BoomStackId | null {
+  let stack: BoomStackId | null = null;
+  for (const roll of rolls) {
+    if (roll.status !== "active") continue;
+    if (roll.cadence !== "monthly") continue;
+    if (roll.plotSlug !== plotSlug) continue;
+    const id = roll.presetId ? TOKEN_PRESETS[roll.presetId] : undefined;
+    if (!id) continue;
+    if (!stack || id > stack) stack = id;
+  }
+  return stack;
+}
+
 export async function tokenCosts() {
   const s = await getSettings();
   return {

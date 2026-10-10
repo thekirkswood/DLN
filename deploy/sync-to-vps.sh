@@ -9,6 +9,8 @@ rsync -az --delete \
   --exclude node_modules \
   --exclude .next \
   --exclude _meta/accounts \
+  --exclude _meta/studio \
+  --exclude _meta/clock \
   --exclude _meta/billing \
   --exclude _meta/enquiries \
   --exclude _meta/plans \

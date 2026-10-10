@@ -195,7 +195,7 @@ export const ACCESS = [
   {
     id: "learn",
     label: "To learn",
-    line: "How we work, and Various Titles.",
+    line: "How we work.",
   },
   {
     id: "supplier",

@@ -4,7 +4,7 @@ Registry prose. Machine source: `greenhouse/plots.json`. Keep them in sync.
 
 The greenhouse is **our products**. Public heading: **Greenhouse projects**. Public stories. Enter the product domain, not a DLN subdomain. Client sites live on the account (`/account`). Header Sign in opens the profile. Wrong account on a gated plot → `/not-yours`, then home after 3 seconds. Unpaid due invoice older than seven days shuts the client plot; studio still walks in.
 
-Hub offers: Design, Strategy, Build — walk in at any. Build includes a live host while the site grows (notes in, we come in). Various Titles is a resource for people to learn; also on Strategy. Listed **first** on the greenhouse.
+Hub offers: Design, Strategy, Build — walk in at any. Build includes a live host while the site grows (notes in, we come in). Various Titles is not a Design Lab North service and is not on the greenhouse wall.
 
 ## Client plots
 
@@ -15,6 +15,7 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Enter: `https://modyu.designlabnorth.com` (self-contained. ModYu login, same credentials as local `:3000`. Not DLN-gated.)
 - Kind: rebuild (they have a live site; we are building the next one)
 - Status: rebuilding
+- Pages on the DLN site tab (from ModYu’s own nav): Shop `/`, The system `/ht4`, HT4 People `/ht4-people`, Hub `/guide`, About `/about`.
 - Voice: Design Lab North are rebuilding ModYu, the market-leading hair and scalp care brand — for people looking after their scalp before, during, and after transplant.
 - Logos: `Site/public/plots/modyu.svg` (paper) + `modyu-white.svg` (ink)
 - Source: GitHub `thekirkswood/modyu` · VPS `/srv/dln/plots/modyu` · Docker plot `plot-modyu`
@@ -50,7 +51,7 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 - Public enter: `https://swarmfund.com` (own domain). On the public hub, greenhouse Enter goes there. Lab desk: `builder.dln.local/swarm`. Named local: `swarm.dln.local`.
 - Growing copy on this VPS: `swarmfund.designlabnorth.com` (gated plot). Host name is `swarmfund`, not `swarm`. Keep it — we do not need a second VPS subdomain. Swarm can also ship from home; public enter stays the product domain.
 - Hub client tagged `swarm` sees the DLN account view for that house: Live site `https://swarmfund.com`, On our host `https://swarmfund.designlabnorth.com`, press kit `swarm`. Same pathway as ModYu / DAA. Not a dummy plot. Not a greenhouse extra.
-- Public wall on swarmfund.com is **Building** — Swarm Fund logo and the word Building. Only Ewan and Dave walk in (`swarm-enter`). Same idea as Various Titles.
+- Public wall on swarmfund.com is **Building** — Swarm Fund logo and the word Building. Only Ewan and Dave walk in (`swarm-enter`).
 - **Cutover (2026-09-08):** Same `plot-swarm` as Various Titles / PFP on this VPS. Caddy already serves apex HTTP. Ewan may flip Livedns A `@`/`www` for swarmfund.com → `82.165.5.84` so public Swarm is on IONOS with the rest. Leave MX / SPF on Livemail. Fasthosts VPS stays until April 2027 as a public preview box — not live Swarm. `swarmfund.designlabnorth.com` stays the gated growing copy.
 - Kind: new. Status: growing.
 - Voice: A hive for cultural discovery and collective backing. A person finds work they believe should exist, signals it, and a like-minded hive weighs whether to swarm. Backing follows belief, not a feed and not an ads marketplace. Do not say where it is housed on the public wall.
@@ -71,15 +72,10 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 
 ### Various Titles (`various-titles`)
 
-- Party: studio. Ours. Public greenhouse copy is Dave’s Proprietary Engine Room text.
-- Sibling house `/home/main/VariousTitles`. Public host `https://varioustitles.com` on this VPS (`plot-titles`). Ungated at the edge. Public wall is Building. Studio (Ewan, Dave) enter on this book’s session (`titles-enter` bounce). GitHub `thekirkswood/vt`. Billing on the DLN book (`titlesGrant`) when it opens.
-- Offline lab: `titles.dln.local` (`:3020`) · inbox `_meta/lab-inbox` · desk `builder.dln.local/various-titles`
-- Source: VPS `/srv/dln/plots/various-titles`. A records for varioustitles.com point at this VPS.
-- Reached through **Strategy** on the hub as well. Consultation can unlock sections; full resource is an upsell. Must be a paying customer (paid grant). Bank link next.
-- Kind: brand. Status: growing. Listed first on the greenhouse wall.
-- Voice: The Proprietary Engine Room. The anchor of our campus authority. Various Titles will be our premium, paywalled repository of operational design methodology, identity blueprints, and communication frameworks. Corporate teams and external agency peers subscribe to trade in our proprietary tools, while our direct studio clients receive complete, unhindered access — equipping internal teams with the exact blueprints needed to scale independently without forced agency dependency.
-- Public greenhouse story. Enter on the public hub: `https://varioustitles.com`. Lab desk: `builder.dln.local/various-titles`. No “not a shop”. No same-login or shared-billing copy on the public wall.
-- Logos: `Site/public/plots/various-titles.png` (paper, mute grey VT) + `various-titles-white.png` (ink). Plates from Ewan 2026-08-17. Do not redraw.
+- Party: studio. **`public: false`.** Not a Design Lab North service. Off the greenhouse wall, off the catalogue, off the client account.
+- Sibling house `/home/main/VariousTitles`. Host `https://varioustitles.com` may still sit on this VPS (`plot-titles`) while that house lives. Do not sell it through this book.
+- Offline lab: `titles.dln.local` (`:3020`) · desk `builder.dln.local/various-titles`.
+- Logos stay in `Site/public/plots/` for the house. Do not redraw.
 
 ### Dave Kirkwood (`dks`)
 
@@ -99,4 +95,4 @@ Hub offers: Design, Strategy, Build — walk in at any. Build includes a live ho
 4. Cookie on `.designlabnorth.com` opens a gated host. Public greenhouse enter is the product domain when one exists.
 5. Public greenhouse is studio products. Client sites live on `/account`.
 6. Client, after the first month: migrate to their own server + DNS.
-7. Swarm public is swarmfund.com. Choozlist stays story until that house has a public host. Various Titles enter is varioustitles.com. DAA and DKS stay on the account book (`public: false`) — not greenhouse cards.
+7. Swarm public is swarmfund.com. Choozlist stays story until that house has a public host. Various Titles, DAA and DKS stay off the greenhouse wall (`public: false`).

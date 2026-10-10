@@ -27,11 +27,11 @@ Paying plot, monthly grant, different count per stack (seed: 40 / 100 / 250). De
 | Spend | Who | Wakes the house Cursor |
 |---|---|---|
 | Free note / file / drawing on the account or the site tab | Daily sweep | No |
-| **Send now** (direct edit, or an update from a document they drop) | Token cost (`pingCost`, seed 8) | Yes — lab inbox + wake.flag |
+| **Instant update** (direct edit, or an update from a document they drop) | Token cost (`pingCost`, seed 8) | Yes — lab inbox + wake.flag |
 | Hotfix (site wrong now) | Wakes anyway; spends if they have balance | Yes |
 | Pictures, clips, written packs from our system | `genCost` (seed 12) when that pipe exists | — |
 
-Unpaid past grace: no grant, Send now refuses. Studio can adjust a ledger.
+Unpaid past grace: no grant, Instant update refuses. Studio can adjust a ledger.
 
 Public word on the account: **updates this month**, not “tokens”. Never “we ping Cursor”.
 
@@ -41,11 +41,11 @@ Clients (Mark on DAA first) drop briefs, documents they wrote or AI-generated, H
 
 Andrew Mallaban-style packs are in-scope: bare HTML, gen’d copy, sketches. We still build the actual site. The well is how they keep sending without a side channel.
 
-Forced Send now is how Mark keeps the sandbox moving in the month without waiting for the evening sweep, as long as he is not silly with the grant.
+Forced Instant update is how Mark keeps the sandbox moving in the month without waiting for the evening sweep, as long as he is not silly with the grant.
 
 ## Watch (nose, not a hair-trigger)
 
-Retain who visits, which host, when. Build a picture and a map. Dave already has breach IPs on Watch / blocked.
+Retain who visits, which host, when, and who tried the door. Every live host on the box, not only the hub. Build a picture and a map. Dave already has breach IPs on Watch / blocked. Sign-in misses stay on the book. Passwords do not.
 
 - **Browse** — ordinary walk. Keep. Never ban.
 - **Snoop** — a long honest look (Ewan does this). Keep. Never ban.

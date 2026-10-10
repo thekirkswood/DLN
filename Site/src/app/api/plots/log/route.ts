@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { canAccessPlot } from "@/lib/auth";
+import { shippedPatchNotes } from "@/lib/plans";
 import { sessionFromRequest } from "@/lib/session";
 import { readSiteLog } from "@/lib/site-log";
 
@@ -15,5 +16,16 @@ export async function GET(req: NextRequest) {
   if (!canAccessPlot(hit.user, slug)) {
     return NextResponse.json({ lines: [] }, { status: 403 });
   }
-  return NextResponse.json({ lines: await readSiteLog(slug) });
+  const fromFile = await readSiteLog(slug);
+  const fromPlans = await shippedPatchNotes(slug);
+  const seen = new Set<string>();
+  const lines = [...fromFile, ...fromPlans]
+    .filter((row) => {
+      const key = `${row.t}|${row.s}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .sort((a, b) => (a.t < b.t ? 1 : a.t > b.t ? -1 : 0));
+  return NextResponse.json({ lines });
 }

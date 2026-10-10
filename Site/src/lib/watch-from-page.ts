@@ -18,6 +18,9 @@ export async function tapWatchFromPage() {
       cookie: cookies().get(WATCH_COOKIE)?.value === "1",
       token: hit?.token,
     });
+    void import("@/lib/watch-edge")
+      .then((m) => m.ingestCaddyLog())
+      .catch(() => undefined);
   } catch {
     return;
   }

@@ -3,6 +3,8 @@ import path from "path";
 import type { Plot } from "@/lib/plot-types";
 import { enterUrlFor, hostUrlFor } from "@/lib/plot-urls";
 
+export { isServicePlot, servicePlots } from "@/lib/service-plots";
+
 export type { Plot } from "@/lib/plot-types";
 export { enterUrlFor, hostUrlFor, buildUrlFor, previewUrlFor, statusLabel } from "@/lib/plot-urls";
 
@@ -20,7 +22,7 @@ export async function publicPlots(): Promise<Plot[]> {
 
 /** Studio products shown on the greenhouse and homepage growing list. */
 export async function greenhousePlots(): Promise<Plot[]> {
-  const order = ["various-titles", "swarm", "choozlist"];
+  const order = ["swarm", "choozlist"];
   const plots = (await publicPlots()).filter((p) => p.party === "studio");
   return plots.sort((a, b) => {
     const ai = order.indexOf(a.slug);

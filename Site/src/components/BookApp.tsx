@@ -16,6 +16,7 @@ import {
   payByIso,
 } from "@/lib/clock";
 import { enterUrlFor, hostUrlFor, buildUrlFor, type Plot } from "@/lib/plot-urls";
+import { servicePlots } from "@/lib/service-plots";
 import { pressKitForPlot, epkHref } from "@/lib/epk-map";
 import type { PublicUser } from "@/lib/auth";
 
@@ -95,7 +96,7 @@ export function InvoiceBoard({
 }
 
 function BuildTiles({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
-  const rows = plots.filter(
+  const rows = servicePlots(plots).filter(
     (p) => hostUrlFor(p) || enterUrlFor(p) || p.localPreview || p.lab?.housePath,
   );
   if (!rows.length) return <p className="body">No builds to open yet.</p>;

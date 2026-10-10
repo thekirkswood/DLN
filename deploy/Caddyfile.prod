@@ -5,8 +5,26 @@
   email {$DLN_ACME_EMAIL:build@designlabnorth.com}
 }
 
+(watchlog) {
+  log {
+    output file /var/log/caddy/access.json {
+      roll_size 32MiB
+      roll_keep 8
+    }
+    format filter {
+      wrap json
+      fields {
+        request>headers>Cookie delete
+        request>headers>Authorization delete
+        request>headers>X-DLN-Home-Dial delete
+      }
+    }
+  }
+}
+
 (edge) {
   encode gzip
+  import watchlog
 
   @dln_suggest {
     path /suggest /suggest/* /api/suggestions /api/suggestions/*
@@ -123,8 +141,10 @@ designlabnorth.com, www.designlabnorth.com, modyu.designlabnorth.com, swarmfund.
 }
 
 # Own domain on this VPS. Separate site so the hub certificate is not rewritten.
+# Not a Design Lab North service — still hosted here while the house lives.
 http://varioustitles.com, http://www.varioustitles.com {
   encode gzip
+  import watchlog
   @www host www.varioustitles.com
   handle @www {
     redir http://varioustitles.com{uri} permanent
@@ -139,6 +159,7 @@ varioustitles.com, www.varioustitles.com {
     }
   }
   encode gzip
+  import watchlog
   @www host www.varioustitles.com
   handle @www {
     redir https://varioustitles.com{uri} permanent
@@ -149,6 +170,7 @@ varioustitles.com, www.varioustitles.com {
 # Paul Fosbury Portraits — own domain on this VPS. Ungated parking wall. Subdomain stays on the hub cert.
 http://paulfosburyportraits.com, http://www.paulfosburyportraits.com {
   encode gzip
+  import watchlog
   @www host www.paulfosburyportraits.com
   handle @www {
     redir http://paulfosburyportraits.com{uri} permanent
@@ -163,6 +185,7 @@ paulfosburyportraits.com, www.paulfosburyportraits.com {
     }
   }
   encode gzip
+  import watchlog
   @www host www.paulfosburyportraits.com
   handle @www {
     redir https://paulfosburyportraits.com{uri} permanent
@@ -173,6 +196,7 @@ paulfosburyportraits.com, www.paulfosburyportraits.com {
 # Swarm Fund public apex — ungated (app Building lock). Greenhouse copy stays on subdomain with forward_auth.
 http://swarmfund.com, http://www.swarmfund.com {
   encode gzip
+  import watchlog
   @www host www.swarmfund.com
   handle @www {
     redir http://swarmfund.com{uri} permanent
@@ -187,6 +211,7 @@ swarmfund.com, www.swarmfund.com {
     }
   }
   encode gzip
+  import watchlog
   @www host www.swarmfund.com
   handle @www {
     redir https://swarmfund.com{uri} permanent

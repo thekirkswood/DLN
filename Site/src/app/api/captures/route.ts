@@ -35,6 +35,7 @@ export async function POST(req: NextRequest) {
   if (!form) return NextResponse.json({ ok: false }, { status: 400 });
   const plotSlug = String(form.get("plotSlug") || "");
   const text = String(form.get("text") || "");
+  const page = String(form.get("page") || "").trim();
   const pace = form.get("pace") === "now" ? "now" : "sweep";
   const blobs = form.getAll("files");
   const files: { name: string; type: string; buf: Buffer }[] = [];
@@ -44,7 +45,13 @@ export async function POST(req: NextRequest) {
     files.push({ name: item.name || "file", type: item.type || "", buf });
   }
   try {
-    const row = await addCapture(user, { plotSlug, text, pace, files });
+    const row = await addCapture(user, {
+      plotSlug,
+      text,
+      pace,
+      files,
+      page: page || undefined,
+    });
     return NextResponse.json({ ok: true, id: row.id, tokensSpent: row.tokensSpent });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "";

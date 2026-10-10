@@ -1253,5 +1253,31 @@ Homepage: drop **Enter**. Design / Strategy / Build names open the walk. Enter w
 
 He asked this house version onto live, then the downstairs host updated to match. House edits after that.
 
+## 2026-10-10 — Various Titles is not a Design Lab North service (Ewan)
+
+Get it off the service. Not on the greenhouse wall, not a catalogue line, not on the client account, not a door on the desk, not a campus ticket tab, not a Book build tile, not a Houses sheet row, not an EPK tile. The sibling house and varioustitles.com may still sit on the VPS; Watch and Clock may still name the host. That is not this offer. Do not convert clients onto a titles grant.
+
+Live `/account` was crashing after sign-in (`stackForPlot` missing on the host) — that is a hotfix.
+
+## 2026-10-09 — Watch is every live host, and the door (Ewan)
+
+Watch on the public site was only seeing Design Lab North because plot hosts never tap the hub, and a web rebuild wiped the book. Keep the tab. Show who is in now, sign-in attempts (miss as well as match), each house including subdomains and own domains, device (so unsigned is not a blank anonymous), LAN vs public address, and more than a day of history. Persist the book. Do not put IPs on a client account. Firefox inspector can dump the whole HTML; a screenshot is only the viewport.
+
+## 2026-10-09 — Studio login on live does not need a GPU (Ewan)
+
+He tried to sign in on the public site as the build account and was told the house was not answering, and to try this site on the LAN. That copy made it sound like his PC had to be on. Home is the downstairs campus. Client accounts sign in on the VPS and never talk home. Studio talks Debian over the tunnel; if that tunnel is down, fall through to the VPS book. The GPU can be off.
+
+## 2026-10-09 — Press kit lives on the site, not the home ticket (Ewan)
+
+Logged-in homepage: no Press kits tab. The pack is a section inside that site. Stack 2 / 3 shows it; stack 1 does not. A bigger house can start a second brand on a smaller package — one site has a press kit, the other does not. A kit already on the book still shows. Client account: Press kit on the site row, not a top tile of every kit. Studio desk still holds every kit. Journalists still use `/epk`. House unless he asks live.
+
+## 2026-10-10 — Editor under the live view; Instant update; real pages; pipeline (Ewan)
+
+The live builder was scuffed because surgical VPS copies and the Notifications pass landed half a desk. Honour LTM. Local is source of truth. House via `ops/push-campus-downstairs.sh`. Live is a numbered ship of the whole house, or a hotfix of one complete function — never a page without the helpers it imports.
+
+Editor lives on the homepage site tab, under the live view. Button is **Instant update**, not Send now · tokens. Under **Hotfix**: “Something is wrong right now.” Page chips are that house’s own nav (ModYu: Shop, The system, HT4 People, Hub, About). A chip changes the window **and** tags the chat. Patch notes under that tab: date, then a straight list. A shipped plan writes `_meta/site-log/{slug}.jsonl`. Notifications stay news + Ask DLN. Account Sites is the list.
+
+He asked this house onto live (`dln-12`) because live already had pieces of the work and the desk was split. `varioustitles.com` stays hosted; it is not a DLN service.
+
 
 

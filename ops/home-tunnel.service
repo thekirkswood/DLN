@@ -8,6 +8,7 @@ StartLimitIntervalSec=0
 Type=simple
 Environment=AUTOSSH_GATETIME=0
 Environment=AUTOSSH_PORT=0
+ExecStartPre=/home/main/DLN/ops/ensure-home-known-hosts.sh
 ExecStart=/usr/bin/autossh -M 0 -N \
   -o ServerAliveInterval=20 \
   -o ServerAliveCountMax=3 \

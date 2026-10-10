@@ -9,6 +9,21 @@ function fileOf(slug: string) {
   return path.join(ROOT, `${slug}.jsonl`);
 }
 
+export async function appendSiteLog(
+  slug: string,
+  s: string,
+  t = new Date().toISOString(),
+): Promise<void> {
+  const note = s.trim();
+  if (!/^[a-z0-9-]+$/i.test(slug) || !note) return;
+  await fs.mkdir(ROOT, { recursive: true });
+  await fs.appendFile(
+    fileOf(slug),
+    `${JSON.stringify({ t, s: note })}\n`,
+    "utf8",
+  );
+}
+
 export async function readSiteLog(slug: string): Promise<SiteLogLine[]> {
   if (!/^[a-z0-9-]+$/i.test(slug)) return [];
   try {

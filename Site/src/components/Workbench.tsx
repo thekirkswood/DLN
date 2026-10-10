@@ -11,7 +11,6 @@ import { needById, type Facet } from "@/data/needs";
 import {
   MERZ_RESEARCH,
   MODULES,
-  VT_PLATE,
   needForContact,
 } from "@/data/bench";
 import { BOOM_STACKS, BOOMSTACK_LINE } from "@/data/boomstack";
@@ -24,7 +23,6 @@ import {
 import {
   ENGINE_STAGES,
   PIPELINES,
-  VT_LIBRARY,
   facultyById,
   type Faculty,
   type FacultyId,
@@ -51,7 +49,8 @@ import {
 } from "@/data/campus";
 import { PaperInkChips, applyGround } from "@/components/GroundSwitch";
 import { OnboardChat } from "@/components/OnboardChat";
-import { epkHref, kitName, pressKitForPlot } from "@/lib/epk-map";
+import { plotShowsPressKit } from "@/data/boomstack";
+import { servicePlots } from "@/lib/service-plots";
 
 type Me = { id: string; displayName?: string; avatar?: string; role?: string };
 type PlotPeek = {
@@ -67,6 +66,7 @@ type PlotPeek = {
   enterUrl: string | null;
   sandbox: string;
   kit: string | null;
+  stack: 1 | 2 | 3 | null;
   pages?: { name: string; path: string }[];
 };
 type Door = "design" | "strategy" | "build";
@@ -186,7 +186,7 @@ export function Workbench({
         } else if (!signedIn) {
           setMe(null);
         }
-        const next = data.plots || [];
+        const next = servicePlots(data.plots || []);
         setPlots(next);
         const stored = readLastPlot();
         const pick =
@@ -452,15 +452,7 @@ export function Workbench({
             </a>
           ) : (
             <Link className="bench-login" href="/login?next=/" aria-label="Sign in">
-              {inside ? (
-                <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={VT_PLATE} alt="" />
-                  <span>Login</span>
-                </>
-              ) : (
-                <span>Sign in</span>
-              )}
+              <span>{inside ? "Login" : "Sign in"}</span>
             </Link>
           )}
         </div>
@@ -551,7 +543,6 @@ export function Workbench({
               plots={me ? plots : []}
               lab={lab}
               showBoard={lab && studio}
-              hasPress={Boolean(me && (studio || plots.some((p) => p.kit)))}
               onPickPlot={(slug) => {
                 setLastPlot(slug);
                 writeLastPlot(slug);
@@ -681,7 +672,6 @@ function Land({
   plots,
   lab = false,
   showBoard,
-  hasPress = false,
   onPickPlot,
   me = false,
 }: {
@@ -693,11 +683,10 @@ function Land({
   plots: PlotPeek[];
   lab?: boolean;
   showBoard?: boolean;
-  hasPress?: boolean;
   onPickPlot: (slug: string) => void;
   me?: boolean;
 }) {
-  const [tab, setTab] = useState<"campus" | "press" | string>("campus");
+  const [tab, setTab] = useState<"campus" | string>("campus");
 
   useEffect(() => {
     const want = new URLSearchParams(window.location.search).get("site");
@@ -708,13 +697,8 @@ function Land({
     }
   }, [plots, onPickPlot]);
 
-  const kits = plots
-    .map((p) => p.kit || pressKitForPlot(p.slug))
-    .filter((id, i, all): id is string => Boolean(id) && all.indexOf(id) === i);
   const site =
-    tab !== "campus" && tab !== "press"
-      ? plots.find((p) => p.slug === tab) || null
-      : null;
+    tab !== "campus" ? plots.find((p) => p.slug === tab) || null : null;
   const door =
     site?.previewUrl || (lab ? site?.buildUrl : site?.hostUrl) || null;
 
@@ -733,7 +717,7 @@ function Land({
         >
           Campus
         </button>
-        {plots.map((p) => (
+        {plots.filter((p) => p.slug !== "various-titles").map((p) => (
           <button
             key={p.slug}
             type="button"
@@ -747,15 +731,6 @@ function Land({
           <button type="button" className="campus-tab campus-add-brand" onClick={onPlot}>
             <span>+</span>
             Add a brand
-          </button>
-        ) : null}
-        {hasPress && kits.length ? (
-          <button
-            type="button"
-            className={tab === "press" ? "campus-tab is-on" : "campus-tab"}
-            onClick={() => setTab("press")}
-          >
-            Press kits
           </button>
         ) : null}
       </div>
@@ -804,71 +779,16 @@ function Land({
               lab={lab}
               pages={site.pages || []}
               src={door || site.enterUrl || site.hostUrl || ""}
+              kit={plotShowsPressKit(site.stack, site.kit) ? site.kit : null}
+              showPress={plotShowsPressKit(site.stack, site.kit)}
+              signedIn={me}
             />
             {showBoard ? (
               <a href={`/board?plot=${encodeURIComponent(site.slug)}`}>Board</a>
             ) : null}
-            <PlotLog slug={site.slug} />
           </>
         ) : null}
-        {tab === "press" ? (
-          <div className="campus-press-tab">
-            {kits.map((id) => (
-              <a key={id} className="campus-tab" href={epkHref(id)}>
-                {kitName(id)}
-              </a>
-            ))}
-          </div>
-        ) : null}
       </div>
-    </div>
-  );
-}
-
-function PlotLog({ slug }: { slug: string }) {
-  const [lines, setLines] = useState<{ t: string; s: string }[] | null>(null);
-
-  useEffect(() => {
-    let alive = true;
-    fetch(`/api/plots/log?plot=${encodeURIComponent(slug)}`, {
-      credentials: "include",
-      cache: "no-store",
-    })
-      .then((res) => res.json())
-      .then((data: { lines?: { t: string; s: string }[] }) => {
-        if (alive) setLines(data.lines || []);
-      })
-      .catch(() => {
-        if (alive) setLines([]);
-      });
-    return () => {
-      alive = false;
-    };
-  }, [slug]);
-
-  return (
-    <div className="campus-site-log">
-      <h2>Patch notes</h2>
-      {lines === null ? (
-        <p>Loading the notes.</p>
-      ) : lines.length === 0 ? (
-        <p>When we update this site, the notes land here.</p>
-      ) : (
-        <ol>
-          {lines.map((row) => (
-            <li key={`${row.t}-${row.s}`}>
-              <time dateTime={row.t}>
-                {new Date(row.t).toLocaleDateString("en-GB", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })}
-              </time>
-              <span>{row.s}</span>
-            </li>
-          ))}
-        </ol>
-      )}
     </div>
   );
 }
@@ -1494,9 +1414,6 @@ function EngineRoom({
           <li key={line}>{line}</li>
         ))}
       </ul>
-      <p>
-        <Link href={VT_LIBRARY.href}>{VT_LIBRARY.line}</Link>
-      </p>
     </div>
   );
 }

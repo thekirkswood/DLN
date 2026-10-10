@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { isStudio, portableStudioToken, touchSession } from "@/lib/auth";
 import { appendSessionCookies } from "@/lib/cookie-opts";
+import { listRolls } from "@/lib/billing";
 import { pressKitForPlot } from "@/lib/epk-map";
 import { isLabHost } from "@/lib/lab-host";
 import {
@@ -10,8 +11,10 @@ import {
   enterUrlFor,
   hostUrlFor,
   previewUrlFor,
+  servicePlots,
 } from "@/lib/plots";
 import { sessionFromRequest } from "@/lib/session";
+import { stackForPlot } from "@/lib/tokens";
 
 export const dynamic = "force-dynamic";
 
@@ -29,11 +32,14 @@ export async function GET() {
   const host = h.get("x-forwarded-host") || h.get("host");
   const lab = isLabHost(host);
   const all = await allPlots();
-  const allowed = isStudio(user)
-    ? all
-    : all.filter(
-        (p) => user.plots.includes("*") || user.plots.includes(p.slug),
-      );
+  const rolls = await listRolls().catch(() => []);
+  const allowed = servicePlots(
+    isStudio(user)
+      ? all
+      : all.filter(
+          (p) => user.plots.includes("*") || user.plots.includes(p.slug),
+        ),
+  );
   const plots = allowed.map((p) => {
     const hostUrl = hostUrlFor(p);
     const buildUrl = buildUrlFor(p, host);
@@ -50,6 +56,7 @@ export async function GET() {
       port: p.lab?.localPort ?? null,
       sandbox: p.localPreview,
       kit: pressKitForPlot(p.slug),
+      stack: stackForPlot(rolls, p.slug),
       pages: Array.isArray(p.pages) ? p.pages : [],
     };
   });

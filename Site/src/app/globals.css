@@ -10092,11 +10092,18 @@ body:has(.bench.is-inside) main {
   color: var(--mute);
 }
 
-.watch-last-path {
+.watch-last-path,
+.watch-who,
+.watch-device {
   text-transform: none;
   letter-spacing: 0;
   font-size: 0.78rem;
   color: var(--mute);
+}
+
+.watch-who {
+  color: inherit;
+  font-weight: 500;
 }
 
 .bench-price.is-stack span {
@@ -12632,6 +12639,31 @@ html[data-ground="ink"] .fw-tile img {
   gap: 0.45rem;
 }
 
+.campus-site-press {
+  display: grid;
+  gap: 0.28rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--line);
+  max-width: 28rem;
+}
+
+.campus-site-press h3 {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.campus-site-press p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.campus-site-press a {
+  font-weight: 700;
+  text-underline-offset: 0.16em;
+}
+
 .campus-site-pages button {
   appearance: none;
   background: var(--ground);
@@ -12654,6 +12686,39 @@ html[data-ground="ink"] .fw-tile img {
     0 calc(100% - 5px),
     0 5px
   );
+}
+
+.campus-site-pages button.is-on {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.campus-site-talk {
+  display: grid;
+  gap: 0.2rem;
+  max-width: 44rem;
+  padding-top: 0.35rem;
+}
+
+.campus-talk-page {
+  margin: 0 0 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.campus-site-talk .comment-box.is-hotfix {
+  margin-top: 1.1rem;
+}
+
+.campus-site-talk .comment-box h3 {
+  margin: 0 0 0.28rem;
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.campus-site-log span {
+  white-space: pre-wrap;
 }
 
 .campus-add-brand span {

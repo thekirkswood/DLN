@@ -1,4 +1,4 @@
-/** Internal login, not a mailbox. Same address opens Various Titles. */
+/** Internal login, not a mailbox. */
 export function localHandleFromName(name: string): string {
   const slug =
     name

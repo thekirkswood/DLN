@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
 import { isStudio, type PublicUser } from "@/lib/auth";
+import { appendSiteLog, type SiteLogLine } from "@/lib/site-log";
 
 const ROOT = path.join(process.cwd(), "..", "_meta", "plans");
 const COMMENTS = path.join(ROOT, "comments.json");
@@ -168,12 +169,12 @@ export async function addComment(
     });
     await wakeClientAsk({
       kind: "hotfix-ask",
-      text: `Hotfix · ${plotSlug}: ${body}`,
+      text: `Hotfix · ${plotSlug}${row.page ? ` · ${row.page}` : ""}: ${body}`,
       author: user.displayName || user.id,
       authorId: user.id,
       plot: plotSlug,
       page: row.page,
-      origin: "/account",
+      origin: `/?site=${encodeURIComponent(plotSlug)}`,
     });
   }
   return row;
@@ -309,12 +310,23 @@ export async function setPlanStatus(
   const plan = plans.find((p) => p.id === id);
   if (!plan) throw new Error("missing");
   plan.status = status;
-  if (status === "shipped" && !plan.patchNotes) {
-    plan.patchNotes = patchNotesFromPlan(plan);
-  }
   plan.updatedAt = new Date().toISOString();
+  if (status === "shipped") {
+    if (!plan.patchNotes) plan.patchNotes = patchNotesFromPlan(plan);
+    await appendSiteLog(plan.plotSlug, plan.patchNotes, plan.updatedAt);
+  }
   await writeJson(PLANS, plans);
   return plan;
+}
+
+export async function shippedPatchNotes(slug: string): Promise<SiteLogLine[]> {
+  const rows = await listPlans();
+  return rows
+    .filter(
+      (p) =>
+        p.plotSlug === slug && p.status === "shipped" && Boolean(p.patchNotes),
+    )
+    .map((p) => ({ t: p.updatedAt, s: p.patchNotes as string }));
 }
 
 export function patchNotesFromPlan(plan: BuildPlan): string {

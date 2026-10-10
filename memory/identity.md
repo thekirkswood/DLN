@@ -4,11 +4,11 @@
 **Short:** DLN  
 **Domain:** designlabnorth.com  
 **Enquiries:** build@designlabnorth.com  
-**Role:** Hub of multiple sites, and a lab. People come for Design, Strategy, and Build — walk in at the one they need. Client plots grow here. Our products sit in the greenhouse. Various Titles is a resource for people to learn; it also lives with Strategy.
+**Role:** Hub of multiple sites, and a lab. People come for Design, Strategy, and Build — walk in at the one they need. Client plots grow here. Our products sit in the greenhouse. Various Titles is a sibling house, not a Design Lab North service.
 
 ## What this is
 
-A hub of multiple sites, and a greenhouse. Public offer is **Design** (identity), **Strategy** (plans, counsel, resources to learn from), **Build** (sites, then a live host while they grow). They often follow that order in the work; nobody is held to the sequence. Clients land here (first: ModYu; we want more). Studio products in the greenhouse: Various Titles, Swarm Fund, Choozlist. Work we host lives on subdomains of designlabnorth.com. After the first stretch a **client** plot migrates onto their own server and URL — we keep coming in from our desk.
+A hub of multiple sites, and a greenhouse. Public offer is **Design** (identity), **Strategy** (plans, counsel, resources to learn from), **Build** (sites, then a live host while they grow). They often follow that order in the work; nobody is held to the sequence. Clients land here (first: ModYu; we want more). Studio products in the greenhouse: Swarm Fund, Choozlist. Work we host lives on subdomains of designlabnorth.com. After the first stretch a **client** plot migrates onto their own server and URL — we keep coming in from our desk.
 
 ## How we charge (standing)
 
@@ -36,7 +36,7 @@ Studio logins use `@designlabnorth.com` (real mail). Client logins are the email
 
 - **Swarm Fund** — ours. Public product: `https://swarmfund.com` (own server). Growing copy on this VPS (`plot-swarm`, `swarmfund.designlabnorth.com`). Source: `/home/main/SwarmFund` locally, `/srv/dln/plots/swarm` on the VPS. Ewan handles git. Greenhouse enter is swarmfund.com, not the DLN subdomain.
 - **Choozlist** — ours. Listed, growing, open to beta testers (`create@wishwell.uk`). All-in-one life registry. Own host; no DLN container until Ewan uploads the repo. Internals are an agentic search app — not public copy.
-- **Various Titles** — ours. A place for ideas: marketing and branding, written so people can learn. Sibling house `/home/main/VariousTitles`. Public host: `https://varioustitles.com` on this VPS (`plot-titles`). Not a designlabnorth.com subdomain. **Now:** public wall is Building. Only Ewan and Dave walk in, on this book’s session. Machinery (not public copy): billing stays on this book; `titlesGrant` when it opens. Also reached through **Strategy**. Greenhouse listing first. Mark locked 2026-08-17 (geometric VT, mute + white plates). Public copy: no same-login, no shared-billing, no “not a shop.”
+- **Various Titles** — sibling house, not a Design Lab North service. `/home/main/VariousTitles`. Public host `https://varioustitles.com` may still sit on this VPS (`plot-titles`). Off the greenhouse, catalogue, campus tabs, and client account. Mark locked 2026-08-17 (geometric VT, mute + white plates). Do not convert clients onto a titles grant.
 
 Do not paste their full sites into DLN. Greenhouse click goes to the product domain when one exists.
 

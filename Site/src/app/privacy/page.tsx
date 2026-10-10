@@ -14,8 +14,8 @@ export default function PrivacyPage() {
         behind Sign in, and the live hosts we run for you on our names.
       </p>
       <p>
-        Other products in the greenhouse — Various Titles, Swarm Fund,
-        Choozlist — and a client’s own public site have their own hosts. Where
+        Other products in the greenhouse — Swarm Fund, Choozlist — and a
+        client’s own public site have their own hosts. Where
         those sites keep a separate book, that book has the last word.
       </p>
 

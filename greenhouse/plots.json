@@ -8,10 +8,11 @@
     "hosts": ["modyu.designlabnorth.com"],
     "enterUrl": "https://modyu.designlabnorth.com",
     "pages": [
-      { "name": "Home", "path": "/" },
-      { "name": "Shop", "path": "/shop" },
-      { "name": "Follicle Files", "path": "/folliclefiles" },
-      { "name": "HT4", "path": "/ht4" }
+      { "name": "Shop", "path": "/" },
+      { "name": "The system", "path": "/ht4" },
+      { "name": "HT4 People", "path": "/ht4-people" },
+      { "name": "Hub", "path": "/guide" },
+      { "name": "About", "path": "/about" }
     ],
     "localPreview": "/preview/modyu",
     "public": false,
@@ -33,7 +34,14 @@
     "party": "client",
     "hosts": ["paulfosbury.designlabnorth.com", "paulfosburyportraits.com"],
     "enterUrl": "https://paulfosburyportraits.com",
-    "pages": [{ "name": "Home", "path": "/" }],
+    "pages": [
+      { "name": "Work", "path": "/work" },
+      { "name": "New Zealand", "path": "/work/new-zealand" },
+      { "name": "Crans Montana", "path": "/work/crans-montana" },
+      { "name": "North Wales", "path": "/work/north-wales" },
+      { "name": "Rohan", "path": "/work/rohan" },
+      { "name": "Contact", "path": "/contact" }
+    ],
     "localPreview": "https://paulfosburyportraits.com",
     "public": false,
     "voice": "Design Lab North are rebuilding Paul Fosbury Portraits.",
@@ -47,20 +55,19 @@
   {
     "slug": "various-titles",
     "name": "Various Titles",
-    "status": "growing",
+    "status": "held",
     "kind": "brand",
     "party": "studio",
     "hosts": ["varioustitles.com"],
     "enterUrl": "https://varioustitles.com",
     "localPreview": "/greenhouse/various-titles",
-    "public": true,
+    "public": false,
     "logoPaper": "/plots/various-titles.png",
     "logoInk": "/plots/various-titles-white.png",
     "voice": "The Proprietary Engine Room: The anchor of our campus authority. Various Titles will be our premium, paywalled repository of operational design methodology, identity blueprints, and communication frameworks. Corporate teams and external agency peers subscribe to trade in our proprietary tools, while our direct studio clients receive complete, unhindered access — equipping your internal teams with the exact blueprints needed to scale independently without forced agency dependency.",
     "lab": {
       "housePath": "/home/main/VariousTitles",
-      "localPort": 3020,
-      "github": "thekirkswood/vt",
+      "github": "thekirkswood/VT",
       "inboxRel": "_meta/lab-inbox"
     }
   },
@@ -107,7 +114,16 @@
     "party": "client",
     "hosts": ["daa.designlabnorth.com"],
     "enterUrl": "https://daa.designlabnorth.com",
-    "pages": [{ "name": "Home", "path": "/" }],
+    "pages": [
+      { "name": "Home", "path": "/" },
+      { "name": "Situations", "path": "/situations" },
+      { "name": "Services", "path": "/how-daa-helps" },
+      { "name": "DAA Sessions", "path": "/daa-sessions" },
+      { "name": "DAA Council", "path": "/daa-council" },
+      { "name": "Insights", "path": "/insights" },
+      { "name": "About", "path": "/about" },
+      { "name": "Contact", "path": "/contact" }
+    ],
     "localPreview": "http://daa.dln.local",
     "public": false,
     "voice": "Design Lab North are rebuilding Digital Adoption Advisor.",
@@ -126,7 +142,14 @@
     "party": "studio",
     "hosts": ["davekirkwood.com"],
     "enterUrl": "https://davekirkwood.com",
-    "pages": [{ "name": "Home", "path": "/" }],
+    "pages": [
+      { "name": "Bio", "path": "/" },
+      { "name": "Campus", "path": "/campus" },
+      { "name": "Swimming Through Leaves", "path": "/swimming-through-leaves" },
+      { "name": "Solport", "path": "/solport" },
+      { "name": "Input", "path": "/input" },
+      { "name": "Connect", "path": "/connect" }
+    ],
     "localPreview": "http://dks.dln.local",
     "public": false,
     "voice": "Dave Kirkwood’s site.",

@@ -16,6 +16,7 @@ services:
       - ${CADDY_FILE:-./Caddyfile.ip}:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+      - caddy_logs:/var/log/caddy
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -57,9 +58,13 @@ services:
       DLN_HOME_ORIGIN: ${DLN_HOME_ORIGIN:-http://host.docker.internal:13010}
       DLN_HOME_DIAL_SECRET: ${DLN_HOME_DIAL_SECRET:-}
       HOME_TICKET_PUB_FILE: ${HOME_TICKET_PUB_FILE:-/app/_meta/secrets/home-ticket.pub}
+      DLN_CADDY_ACCESS_LOG: ${DLN_CADDY_ACCESS_LOG:-/var/log/caddy/access.json}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
+      - ${DLN_STUDIO_DIR:-../_meta/studio}:/app/_meta/studio
+      - ${DLN_CLOCK_DIR:-../_meta/clock}:/app/_meta/clock
+      - caddy_logs:/var/log/caddy:ro
       - ${DLN_ACCOUNTS_DIR:-../_meta/accounts}:/app/_meta/accounts
       - ${DLN_BILLING_DIR:-../_meta/billing}:/app/_meta/billing
       - ${DLN_ENQUIRIES_DIR:-../_meta/enquiries}:/app/_meta/enquiries
@@ -172,3 +177,4 @@ services:
 volumes:
   caddy_data:
   caddy_config:
+  caddy_logs:

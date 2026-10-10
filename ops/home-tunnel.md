@@ -4,9 +4,9 @@ The public host serves **DLN user pages** (home, practice, work, method, greenho
 
 ## Shape
 
-1. Debian (always-on campus `:3010`) opens an **outbound** reverse SSH tunnel with `autossh` to the VPS. Home is behind NAT; it dials out.
-2. Listen on the VPS is **only** `127.0.0.1:13010`, user `dln-home`, key `_meta/secrets/dln-home`. Global SSH forwarding stays off.
-3. Studio sign-in on `designlabnorth.com` asks home to check the password (home book is the blueprint) and issues an **Ed25519 ticket**. The VPS verifies the ticket with the public key; it does not copy the desk.
+1. Debian (always-on campus `:3010`) opens an **outbound** reverse SSH tunnel with `autossh` to the VPS. Home is behind NAT; it dials out. This is the downstairs campus, not a GPU laptop — studio login on the public site must work when that PC is off.
+2. Listen on the VPS is **only** `127.0.0.1:13010`, user `dln-home`, key `_meta/secrets/dln-home`. Docker reaches it via `host.docker.internal` + socat on the bridge. Global SSH forwarding stays off. `ops/ensure-home-known-hosts.sh` writes `_meta/secrets/dln-home.known_hosts` if it is missing (`StrictHostKeyChecking=yes` otherwise loops).
+3. Studio sign-in on `designlabnorth.com` asks home to check the password (home book is the blueprint) and issues an **Ed25519 ticket**. The VPS verifies the ticket with the public key; it does not copy the desk. If the tunnel is down, studio falls through to the VPS book. Client `/account` never uses the tunnel.
 4. Caddy on the VPS: `/desk` → `forward_auth` studio-gate, then proxy to the tunnel with `Host: campus.dln.home`. Client `/account` stays on the VPS.
 5. Remote Cursor and LAN campus share Debian. Lease still one writer per house.
 

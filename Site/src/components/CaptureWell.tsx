@@ -13,9 +13,13 @@ type Ledger = {
 export function CaptureWell({
   plotSlug,
   plotOptions,
+  page,
+  pageName,
 }: {
   plotSlug: string;
   plotOptions: { slug: string; name: string }[];
+  page?: string;
+  pageName?: string;
 }) {
   const router = useRouter();
   const [slug, setSlug] = useState(plotSlug);
@@ -24,8 +28,11 @@ export function CaptureWell({
   const [pending, setPending] = useState<"sweep" | "now" | "">("");
   const [err, setErr] = useState("");
   const [ok, setOk] = useState("");
-  const [pingCost, setPingCost] = useState(8);
   const [ledgers, setLedgers] = useState<Ledger[]>([]);
+
+  useEffect(() => {
+    setSlug(plotSlug);
+  }, [plotSlug]);
 
   useEffect(() => {
     let live = true;
@@ -33,7 +40,6 @@ export function CaptureWell({
       .then((res) => res.json())
       .then((body) => {
         if (!live || !body?.ok) return;
-        setPingCost(Number(body.pingCost) || 8);
         setLedgers(Array.isArray(body.ledgers) ? body.ledgers : []);
       })
       .catch(() => undefined);
@@ -55,6 +61,7 @@ export function CaptureWell({
     form.set("plotSlug", slug);
     form.set("text", text);
     form.set("pace", pace);
+    if (page) form.set("page", page);
     if (files) {
       Array.from(files).forEach((file) => form.append("files", file));
     }
@@ -65,7 +72,7 @@ export function CaptureWell({
     setPending("");
     if (!res.ok) {
       if (body?.error === "balance") {
-        setErr("Not enough tokens this month. Leave a note, or wait for the next grant.");
+        setErr("Not enough updates this month. Leave a note, or wait for the next grant.");
       } else {
         setErr("That did not land. Try a smaller file, or write it as a comment.");
       }
@@ -73,7 +80,7 @@ export function CaptureWell({
     }
     setText("");
     setFiles(null);
-    setOk(pace === "now" ? "Sent now." : "Saved.");
+    setOk(pace === "now" ? "Instant update sent." : "Saved.");
     router.refresh();
   }
 
@@ -87,11 +94,13 @@ export function CaptureWell({
   return (
     <form className="comment-box is-wide capture-well" onSubmit={onSubmit}>
       <p className="body bill-note">
-        Leave a note, a document, or an idea. Send now spends tokens to push
-        immediate edits
-        {held ? ` — ${remaining} of ${held.grantedThisPeriod} tokens on this site` : ""}
+        Leave a note, a document, or an idea. Instant update goes in now
+        {held ? ` — ${remaining} of ${held.grantedThisPeriod} updates this month on this site` : ""}
         .
       </p>
+      {pageName ? (
+        <p className="campus-talk-page">On {pageName}.</p>
+      ) : null}
       {plotOptions.length > 1 ? (
         <>
           <label htmlFor="cap-plot">Site</label>
@@ -134,7 +143,7 @@ export function CaptureWell({
           disabled={Boolean(pending)}
           onClick={() => void send("now")}
         >
-          {pending === "now" ? "…" : `Send now · ${pingCost} tokens`}
+          {pending === "now" ? "…" : "Instant update"}
         </button>
       </div>
     </form>

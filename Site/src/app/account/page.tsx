@@ -1,11 +1,16 @@
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/session";
-import { plotsOnAccount, enterUrlFor, hostUrlFor, allPlots } from "@/lib/plots";
+import {
+  plotsOnAccount,
+  enterUrlFor,
+  hostUrlFor,
+  allPlots,
+  servicePlots,
+} from "@/lib/plots";
 import { isStudio, listClients } from "@/lib/auth";
 import {
   invoicesVisibleTo,
   rollDueInvoices,
-  titlesAccessFor,
   getPayRail,
   paymentByInvoice,
   railIsReady,
@@ -16,11 +21,14 @@ import {
 } from "@/lib/billing";
 import { formatGbp } from "@/data/catalogue";
 import { ProfileHead } from "@/components/AccountBilling";
-import { CommentBox, InvoiceList, StudioDesk } from "@/components/StudioDesk";
+import { InvoiceList, StudioDesk } from "@/components/StudioDesk";
+import { CommentBox } from "@/components/CommentBox";
 import { AssetsDesk } from "@/components/AssetsDesk";
 import { AssetHub } from "@/components/AssetHub";
 import { EpkChooser } from "@/components/EpkChooser";
+import { plotShowsPressKit } from "@/data/boomstack";
 import { kitsForUser } from "@/lib/epk";
+import { epkHref, pressKitForPlot } from "@/lib/epk-map";
 import { kitCopy } from "@/lib/epk-copy";
 import { commentsFor, plansFor } from "@/lib/plans";
 import { ACCOUNT_FAQ } from "@/data/account-faq";
@@ -31,10 +39,9 @@ import { HOSTS } from "@/lib/hosts";
 import { getSettings } from "@/lib/settings";
 import { listEnquiries } from "@/lib/enquiries";
 import { listNotices } from "@/lib/notices";
-import { listOpenInstances, listVisits } from "@/lib/watch";
+import { listAttempts, listOpenInstances, listVisits } from "@/lib/watch";
 import { listCaptures } from "@/lib/captures";
-import { CaptureWell } from "@/components/CaptureWell";
-import { grantDueTokens, ledgersVisibleTo, tokenCosts } from "@/lib/tokens";
+import { grantDueTokens, ledgersVisibleTo, stackForPlot, tokenCosts } from "@/lib/tokens";
 import { listBlocks } from "@/lib/block";
 import { absorbTrapWeb, listTrapWeb } from "@/lib/trap-web";
 import { listAppeals } from "@/lib/appeals";
@@ -81,7 +88,6 @@ export default async function AccountPage({
   const studio = isStudio(user);
   const sites = plotsOnAccount(user, await allPlots());
   const invoices = await invoicesVisibleTo(user);
-  const titles = studio ? null : await titlesAccessFor(user);
   const comments = await commentsFor(user);
   const captures = await listCaptures(user);
   const plans = await plansFor(user);
@@ -109,7 +115,7 @@ export default async function AccountPage({
   const studioBook = studio
     ? {
         people: await listClients(),
-        plots: await allPlots(),
+        plots: servicePlots(await allPlots()),
         enquiries: await listEnquiries(),
         catalogue: await liveCatalogue(),
         rolls,
@@ -117,6 +123,7 @@ export default async function AccountPage({
         notices: await listNotices(),
         traps: await listOpenInstances(),
         visits: await listVisits(),
+        attempts: await listAttempts(),
         blocked: await listBlocks(),
         trapWeb: await absorbTrapWeb().then(() => listTrapWeb()),
         appeals: await listAppeals(),
@@ -177,14 +184,6 @@ export default async function AccountPage({
         ) : (
           <>
             <Tile href="/account" label="Sites" hint={String(sites.length)} on={!view} />
-            {kitTiles.length ? (
-              <Tile
-                href="/account?view=epks"
-                label="Press kits"
-                hint={String(kitTiles.length)}
-                on={view === "epks"}
-              />
-            ) : null}
             <Tile
               href="/account?view=assets"
               label="Assets"
@@ -213,7 +212,7 @@ export default async function AccountPage({
         <section className="token-well">
           <h2>Tokens</h2>
           <p className="body bill-note">
-            Leave a note is free. Send now spends {costs.pingCost} tokens to
+            Leave a note is free. Instant update spends {costs.pingCost} tokens to
             push immediate edits. Generated packs will spend {costs.genCost}.
             Grants: {costs.grants[1]} / {costs.grants[2]} / {costs.grants[3]} on
             stacks 1 / 2 / 3.
@@ -273,6 +272,7 @@ export default async function AccountPage({
             notices={studioBook.notices}
             traps={studioBook.traps}
             visits={studioBook.visits}
+            attempts={studioBook.attempts}
             blocked={studioBook.blocked}
             trapWeb={studioBook.trapWeb}
             appeals={studioBook.appeals}
@@ -300,7 +300,6 @@ export default async function AccountPage({
             )
           ) : view === "pay" ? (
             <PaymentsPanel
-              titles={titles}
               sittings={sittings}
               receipts={receipts}
               invoices={invoices}
@@ -328,6 +327,11 @@ export default async function AccountPage({
                   {sites.map((plot) => {
                     const live = enterUrlFor(plot);
                     const host = hostUrlFor(plot);
+                    const kit = pressKitForPlot(plot.slug);
+                    const showPress = plotShowsPressKit(
+                      stackForPlot(rolls, plot.slug),
+                      kit,
+                    );
                     return (
                       <div key={plot.slug} className="site-row">
                         <div className="site-copy">
@@ -338,6 +342,9 @@ export default async function AccountPage({
                               <a href={host}>On our host</a>
                             ) : null}
                             <a href={`/?site=${encodeURIComponent(plot.slug)}`}>Sandbox</a>
+                            {showPress && kit ? (
+                              <a href={epkHref(kit)}>Press kit</a>
+                            ) : null}
                           </p>
                         </div>
                       </div>
@@ -345,19 +352,10 @@ export default async function AccountPage({
                   })}
                 </div>
               )}
-              <CaptureWell
-                plotSlug={sites[0]?.slug || ""}
-                plotOptions={sites}
-              />
-              <CommentBox
-                plotSlug={sites[0]?.slug || ""}
-                plotOptions={sites}
-                kind="hotfix"
-                rows={4}
-                hint="Something is wrong right now. We try to audit this within the hour."
-                label="Hotfix"
-                cta="Send hotfix"
-              />
+              <p className="body bill-note">
+                Talk to a site from its tab on the home — live view, Instant
+                update, hotfix, and patch notes sit under that window.
+              </p>
               <section className="account-faq">
                 <h2>FAQ</h2>
                 {ACCOUNT_FAQ.map((row) => (
@@ -380,7 +378,6 @@ export default async function AccountPage({
 }
 
 function PaymentsPanel({
-  titles,
   sittings,
   receipts,
   invoices,
@@ -391,7 +388,6 @@ function PaymentsPanel({
   ledgers,
   sites,
 }: {
-  titles: Awaited<ReturnType<typeof titlesAccessFor>> | null;
   sittings: Awaited<ReturnType<typeof bookingsForUser>>;
   receipts: Awaited<ReturnType<typeof receiptsVisibleTo>>;
   invoices: Awaited<ReturnType<typeof invoicesVisibleTo>>;
@@ -414,8 +410,8 @@ function PaymentsPanel({
 
       <h3>Tokens</h3>
       <p className="body bill-note">
-        Tokens are the currency on this account. Send now spends them to push
-        immediate edits. Generated pictures, clips, and packs will spend the
+        Tokens are the currency on this account. Instant update spends them to
+        push immediate edits. Generated pictures, clips, and packs will spend the
         same tokens. Grant is 40 / 100 / 250 a month on BoomStack 1 / 2 / 3.
       </p>
       {ledgers.length ? (
@@ -499,20 +495,6 @@ function PaymentsPanel({
             </div>
           ))}
         </div>
-      )}
-
-      <h3>Various Titles</h3>
-      {titles?.grant ? (
-        <p className="body bill-note">
-          You have access — {titles.grant === "full" ? "the full resource" : "a section"}.
-        </p>
-      ) : titles?.pendingInvoiceId ? (
-        <p className="body bill-note">
-          A Various Titles line is due.{" "}
-          <a href={`/account/invoices/${titles.pendingInvoiceId}`}>Open invoice</a>.
-        </p>
-      ) : (
-        <p className="body bill-note">Nothing unlocked on Various Titles yet.</p>
       )}
     </>
   );

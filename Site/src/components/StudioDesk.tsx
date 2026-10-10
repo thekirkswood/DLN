@@ -3,7 +3,8 @@
 import { FormEvent, Suspense, useEffect, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { InvoiceComposer, ConvertTitles } from "@/components/InvoiceDesk";
+import { CommentBox } from "@/components/CommentBox";
+import { InvoiceComposer } from "@/components/InvoiceDesk";
 import { BookApp, InvoiceBoard } from "@/components/BookApp";
 import { SettingsDesk } from "@/components/SettingsDesk";
 import { PayDesk } from "@/components/PayDesk";
@@ -26,7 +27,7 @@ import type { PublicUser } from "@/lib/auth";
 import type { BlockRow } from "@/lib/block";
 import type { StudioNotice } from "@/lib/notices";
 import type { TrapWeb } from "@/lib/trap-sort";
-import type { WatchInstance } from "@/lib/watch-types";
+import type { WatchAttempt, WatchInstance } from "@/lib/watch-types";
 import type { BlockAppeal } from "@/lib/appeals";
 
 type Person = PublicUser;
@@ -67,6 +68,7 @@ type DeskProps = {
   notices?: StudioNotice[];
   traps?: WatchInstance[];
   visits?: WatchInstance[];
+  attempts?: WatchAttempt[];
   blocked?: BlockRow[];
   trapWeb?: TrapWeb;
   appeals?: BlockAppeal[];
@@ -97,6 +99,7 @@ function StudioDeskLive({
   notices = [],
   traps = [],
   visits = [],
+  attempts = [],
   blocked = [],
   trapWeb,
   appeals = [],
@@ -142,7 +145,11 @@ function StudioDeskLive({
     {
       id: "watch",
       name: "Watch",
-      hint: traps.length ? `${traps.length} open` : "Quiet",
+      hint: visits.length
+        ? `${visits.length} walks · ${attempts.filter((a) => !a.ok).length} missed doors`
+        : traps.length
+          ? `${traps.length} open`
+          : "Quiet",
     },
     { id: "clock", name: "Clock", hint: "Estate" },
   ];
@@ -279,6 +286,7 @@ function StudioDeskLive({
               notices={notices}
               traps={traps}
               visits={visits}
+              attempts={attempts}
               blocked={blocked}
               web={trapWeb}
               appeals={appeals}
@@ -360,7 +368,9 @@ function StudioNotices({
 
 function BuildList({ plots, lab = false }: { plots: Plot[]; lab?: boolean }) {
   const rows = plots.filter(
-    (p) => hostUrlFor(p) || enterUrlFor(p) || p.localPreview || p.lab?.housePath,
+    (p) =>
+      p.slug !== "various-titles" &&
+      (hostUrlFor(p) || enterUrlFor(p) || p.localPreview || p.lab?.housePath),
   );
   if (!rows.length) return <p className="body">No builds to open yet.</p>;
   return (
@@ -436,8 +446,6 @@ function PersonPanel({
     .map((p) => ({ slug: p.slug, name: p.name }));
   const defaultPlot = theirPlots[0]?.slug || plotOpts[0]?.slug || "";
   const openNotes = comments.filter((c) => !c.planId);
-  const titlesHref = "https://varioustitles.com";
-
   return (
     <div className="person-panel">
       <div className="person-head">
@@ -538,16 +546,9 @@ function PersonPanel({
       {tab === "work" ? (
         <>
           <p className="body bill-note">
-            A.P.E.S. generations, Logic versions, and resources for each stage
-            — plus the door into Various Titles. Add a title and a link as the
-            work lands.
+            A.P.E.S. generations, Logic versions, and resources for each stage.
+            Add a title and a link as the work lands.
           </p>
-          <p className="body">
-            <Link href={titlesHref}>Enter Various Titles</Link>
-            {" · "}
-            <Link href="/greenhouse/various-titles">Greenhouse story</Link>
-          </p>
-          <ConvertTitles people={people} fixedUserId={person.id} />
           <WorkFiles userId={person.id} />
         </>
       ) : null}
@@ -584,14 +585,13 @@ function PersonPanel({
   );
 }
 
-type WorkStage = "apes" | "design" | "strategy" | "build" | "titles";
+type WorkStage = "apes" | "design" | "strategy" | "build";
 
 const WORK_STAGES: { id: WorkStage; name: string }[] = [
   { id: "apes", name: "A.P.E.S." },
   { id: "design", name: "Design" },
   { id: "strategy", name: "Strategy" },
   { id: "build", name: "Build" },
-  { id: "titles", name: "Various Titles" },
 ];
 
 function WorkFiles({ userId }: { userId: string }) {
@@ -860,80 +860,7 @@ function PlanCard({ plan }: { plan: BuildPlan }) {
   );
 }
 
-export function CommentBox({
-  plotSlug,
-  plotOptions,
-  hint,
-  clientId,
-  kind = "note",
-  label = "A note",
-  cta = "Leave note",
-  rows = 3,
-}: {
-  plotSlug: string;
-  plotOptions: Plot[];
-  hint?: string;
-  clientId?: string;
-  kind?: "note" | "hotfix" | "query";
-  label?: string;
-  cta?: string;
-  rows?: number;
-}) {
-  const router = useRouter();
-  const [slug, setSlug] = useState(plotSlug);
-  const [body, setBody] = useState("");
-  const [pending, setPending] = useState(false);
-
-  async function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    if (!slug || !body.trim()) return;
-    setPending(true);
-    const res = await fetch("/api/comments", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ plotSlug: slug, body, clientId, kind }),
-    });
-    setPending(false);
-    if (!res.ok) return;
-    setBody("");
-    router.refresh();
-  }
-
-  if (!plotOptions.length && !plotSlug) return null;
-
-  return (
-    <form className={`comment-box${kind === "hotfix" ? " is-hotfix" : " is-wide"}`} onSubmit={onSubmit}>
-      {hint ? <p className="body bill-note">{hint}</p> : null}
-      {plotOptions.length > 1 ? (
-        <>
-          <label htmlFor={`c-plot-${kind}`}>Site</label>
-          <select
-            id={`c-plot-${kind}`}
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
-          >
-            {plotOptions.map((p) => (
-              <option key={p.slug} value={p.slug}>
-                {p.name}
-              </option>
-            ))}
-          </select>
-        </>
-      ) : null}
-      <label htmlFor={`c-body-${kind}`}>{label}</label>
-      <textarea
-        id={`c-body-${kind}`}
-        rows={rows}
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        required
-      />
-      <button type="submit" disabled={pending}>
-        {pending ? "…" : cta}
-      </button>
-    </form>
-  );
-}
+export { CommentBox };
 
 export function InvoiceList({
   invoices,

@@ -235,7 +235,7 @@ export async function liveCatalogue(): Promise<CatalogueItem[]> {
     return next === null ? item : { ...item, amountGbp: next };
   });
   const extras = (await listExtras()).map(extraAsItem);
-  return [...stock, ...extras];
+  return [...stock, ...extras].filter((item) => !item.titlesGrant);
 }
 
 export async function savePrices(actor: PublicUser, book: PriceBook): Promise<CatalogueItem[]> {

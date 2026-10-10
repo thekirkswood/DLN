@@ -55,7 +55,7 @@ export function canEditKit(user: PublicUser | null | undefined, kit: string): bo
 /** Kits flagged on this account. Studio sees every house. */
 export function kitsForUser(user: PublicUser | null | undefined): string[] {
   if (!user) return [];
-  if (isStudio(user)) return KIT_COPY.map((k) => k.id);
+  if (isStudio(user)) return KIT_COPY.map((k) => k.id).filter((id) => id !== "titles");
   const ids = new Set<string>();
   for (const slug of user.plots) {
     if (slug === "*") {
@@ -65,7 +65,7 @@ export function kitsForUser(user: PublicUser | null | undefined): string[] {
     const kit = pressKitForPlot(slug);
     if (kit) ids.add(kit);
   }
-  return KIT_COPY.map((k) => k.id).filter((id) => ids.has(id));
+  return KIT_COPY.map((k) => k.id).filter((id) => ids.has(id) && id !== "titles");
 }
 
 export function normalizeCode(raw: string): string {

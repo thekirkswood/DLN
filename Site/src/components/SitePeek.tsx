@@ -1,6 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { CaptureWell } from "@/components/CaptureWell";
+import { CommentBox } from "@/components/CommentBox";
+import { epkHref } from "@/lib/epk-map";
 
 export type SitePage = { name: string; path: string };
 
@@ -12,6 +15,9 @@ export function SitePeek({
   lab,
   pages,
   src,
+  kit = null,
+  showPress = false,
+  signedIn = false,
 }: {
   name: string;
   slug: string;
@@ -20,14 +26,27 @@ export function SitePeek({
   lab: boolean;
   pages: SitePage[];
   src: string;
+  kit?: string | null;
+  showPress?: boolean;
+  signedIn?: boolean;
 }) {
   const [frame, setFrame] = useState(lab ? "" : src);
   const [note, setNote] = useState(lab ? "Calling the house." : "");
   const [sandboxUp, setSandboxUp] = useState<boolean | null>(null);
   const [hits, setHits] = useState<number | null>(null);
+  const [page, setPage] = useState(pages[0]?.path || "/");
+  const pageKey = useMemo(
+    () => pages.map((row) => `${row.name}:${row.path}`).join("|"),
+    [pages],
+  );
+
+  useEffect(() => {
+    setPage(pages[0]?.path || "/");
+  }, [slug, pageKey, pages]);
 
   useEffect(() => {
     let alive = true;
+    setHits(null);
     fetch(`/api/plots/stats?plot=${encodeURIComponent(slug)}`, {
       credentials: "include",
       cache: "no-store",
@@ -81,8 +100,12 @@ export function SitePeek({
   function openPage(path: string) {
     const base = (live || src).replace(/\/$/, "");
     const next = `${base}${path.startsWith("/") ? path : `/${path}`}`;
+    setPage(path);
     setFrame(next);
   }
+
+  const pageName =
+    pages.find((row) => row.path === page)?.name || "this page";
 
   return (
     <div className="campus-site-tab">
@@ -116,17 +139,99 @@ export function SitePeek({
       </div>
       {pages.length ? (
         <nav className="campus-site-pages" aria-label="Main pages">
-          {pages.map((page) => (
+          {pages.map((row) => (
             <button
-              key={page.path}
+              key={row.path}
               type="button"
-              onClick={() => openPage(page.path)}
+              className={page === row.path ? "is-on" : undefined}
+              aria-pressed={page === row.path}
+              onClick={() => openPage(row.path)}
             >
-              {page.name}
+              {row.name}
             </button>
           ))}
         </nav>
       ) : null}
+      {signedIn ? (
+        <div className="campus-site-talk">
+          <CaptureWell
+            plotSlug={slug}
+            plotOptions={[{ slug, name }]}
+            page={page}
+            pageName={pageName}
+          />
+          <CommentBox
+            plotSlug={slug}
+            plotOptions={[{ slug, name }]}
+            kind="hotfix"
+            title="Hotfix"
+            hint="Something is wrong right now."
+            label="What is wrong"
+            cta="Send hotfix"
+            rows={4}
+            page={page}
+          />
+        </div>
+      ) : null}
+      {showPress ? (
+        <section className="campus-site-press">
+          <h3>Press kit</h3>
+          {kit ? (
+            <a href={epkHref(kit)}>Open the pack</a>
+          ) : (
+            <p>The pack sits with this site.</p>
+          )}
+        </section>
+      ) : null}
+      {signedIn ? <PlotLog slug={slug} /> : null}
+    </div>
+  );
+}
+
+function PlotLog({ slug }: { slug: string }) {
+  const [lines, setLines] = useState<{ t: string; s: string }[] | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    fetch(`/api/plots/log?plot=${encodeURIComponent(slug)}`, {
+      credentials: "include",
+      cache: "no-store",
+    })
+      .then((res) => res.json())
+      .then((data: { lines?: { t: string; s: string }[] }) => {
+        if (alive) setLines(data.lines || []);
+      })
+      .catch(() => {
+        if (alive) setLines([]);
+      });
+    return () => {
+      alive = false;
+    };
+  }, [slug]);
+
+  return (
+    <div className="campus-site-log">
+      <h2>Patch notes</h2>
+      {lines === null ? (
+        <p>Loading the notes.</p>
+      ) : lines.length === 0 ? (
+        <p>When we update this site, the notes land here — date, then what changed.</p>
+      ) : (
+        <ol>
+          {lines.map((row) => (
+            <li key={`${row.t}-${row.s}`}>
+              <time dateTime={row.t}>
+                {new Date(row.t).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </time>
+              <span>{row.s}</span>
+            </li>
+          ))}
+        </ol>
+      )}
     </div>
   );
 }

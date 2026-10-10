@@ -48,6 +48,14 @@ export const TOKEN_PRESETS: Record<string, BoomStackId> = {
   "host-monthly": 1,
 };
 
+/** Stack 2 and 3 include a press kit. Stack 1 does not. A kit already on the book still shows. */
+export function plotShowsPressKit(
+  stack: BoomStackId | null | undefined,
+  kit?: string | null,
+): boolean {
+  return (stack ?? 0) >= 2 || Boolean(kit);
+}
+
 export const DEFAULT_TOKEN_GRANTS: Record<BoomStackId, number> = {
   1: 40,
   2: 100,
