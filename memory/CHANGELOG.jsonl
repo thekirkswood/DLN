@@ -1294,3 +1294,4 @@
 {"t":"2026-10-10T18:05:00+01:00","k":"mod","p":"Site/src/app/api/studio/pool/route.ts Site/src/lib/epk-map.ts","s":"Pool returns only that site’s kit; vaultKitForPlot","d":"was a loose account dump"}
 {"t":"2026-10-10T18:05:00+01:00","k":"mod","p":"Site/src/app/api/studio/deposit/route.ts Site/src/components/StudioDesk.tsx","s":"Deposit flags; Assets desk opens locked kit","d":"full vault deep-link from the desk"}
 {"t":"2026-10-10T18:05:00+01:00","k":"mod","p":"/home/main/Repos/Social engine/components/{ImageHandler,AssetPool}.tsx lib/hub-client.ts","s":"Pool is the site vault with folders; upload deposits there","d":"iframe talks via query + HTTP + postMessage"}
+{"t":"2026-10-10T19:14:33+01:00","k":"ver","p":"dln-16","s":"Studio pool is that site\u2019s vault. Picture desk can generate a still. Board still off live.","d":"numbered ship"}
