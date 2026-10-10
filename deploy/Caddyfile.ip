@@ -126,7 +126,10 @@
     reverse_proxy plot-swarm:3000
   }
 
-  @studio_path path /studio-engine /studio-engine/*
+  @studio_path {
+    host designlabnorth.com www.designlabnorth.com
+    path /studio-engine /studio-engine/*
+  }
   handle @studio_path {
     reverse_proxy studio:3060
   }

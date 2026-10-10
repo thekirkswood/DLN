@@ -14,7 +14,7 @@ Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + 
 ## Open — lab and desk
 
 7. **Offers:** Design, Strategy, Build as equal columns. Form, not write-to-us. Practice holds the hub description + portfolio. (Landed locally.)
-8. **Live user pages:** public hub on the VPS. Studio desk stays home and talks back through the tunnel. Client `/account` on the VPS. Anne Marie’s ModYu book stays on her plot host.
+8. **Live user pages:** public hub on the VPS. Signed-in **Studio** is on that host (site projects, then the picture window at `/studio-engine`). Client `/account` on the VPS. Anne Marie’s ModYu book stays on her plot host.
 9. **Invoice desk:** Settings holds per-entry amounts + online rail + spare bank; Pay selects those lines onto an invoice for the served client and pings online; desk rooms stay; campus header Campus / Builder / Account. Book this-week; Onboarding cards; Cursor is human. Card provider later.
 10. **Clients:** Paul Fosbury Portraits is the second named client (`pfp`). DAA is on the book (`daa`, Mark Barlow, `public: false`) and live at `daa.designlabnorth.com` (`plot-daa`). Further named clients = GitHub repo, `plots.json`, compose service, Caddy host, Livedns A. Login is the email they wrote us; password in the confirmation mail after audit.
 11. **Choozlist:** listed, beta contact `create@wishwell.uk`. Own server until the repo is uploaded here.
