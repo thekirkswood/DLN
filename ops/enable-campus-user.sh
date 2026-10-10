@@ -7,9 +7,17 @@ UNIT_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 mkdir -p "$UNIT_DIR"
 cp "$ROOT/ops/campus.service" "$UNIT_DIR/campus.service"
 cp "$ROOT/ops/campus-inhibit-sleep.service" "$UNIT_DIR/campus-inhibit-sleep.service"
+cp "$ROOT/ops/campus-studio.service" "$UNIT_DIR/campus-studio.service"
 systemctl --user daemon-reload
 systemctl --user enable campus-inhibit-sleep.service
 systemctl --user start campus-inhibit-sleep.service || true
+if ss -ltn 2>/dev/null | grep -q ':3060 '; then
+  echo "Port 3060 is already in use. Enable the picture engine; it takes over after that process stops:"
+  echo "  systemctl --user enable campus-studio.service"
+  systemctl --user enable campus-studio.service
+else
+  systemctl --user enable --now campus-studio.service
+fi
 if ss -ltn 2>/dev/null | grep -q ':3010 '; then
   echo "Port 3010 is already in use. Enable the unit now; it will take over after you stop the current next process:"
   echo "  systemctl --user enable campus.service"
@@ -21,5 +29,5 @@ else
 fi
 echo "Linger (so campus survives logout) — needs one sudo:"
 echo "  sudo loginctl enable-linger \"$USER\""
-echo "Status: systemctl --user status campus.service"
-echo "Logs:   journalctl --user -u campus.service -f"
+echo "Status: systemctl --user status campus.service campus-studio.service"
+echo "Logs:   journalctl --user -u campus.service -u campus-studio.service -f"

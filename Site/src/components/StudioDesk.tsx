@@ -299,7 +299,7 @@ function StudioDeskLive({
 
           {desk === "houses" ? <HousesDesk /> : null}
 
-          {desk === "assets" ? <AssetHub /> : null}
+          {desk === "assets" ? <AssetHub lockedKit={kit || undefined} /> : null}
 
           {desk === "epk" ? (kit ? <AssetsDesk lockedKit={kit} /> : <EpkDesk />) : null}
 

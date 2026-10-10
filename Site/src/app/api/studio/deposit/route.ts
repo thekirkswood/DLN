@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { addUploadedAsset, patchAsset } from "@/lib/assets";
 import { isStudio } from "@/lib/auth";
-import { canEditKit, pressKitForPlot } from "@/lib/epk";
+import { canEditKit } from "@/lib/epk";
+import { vaultKitForPlot } from "@/lib/epk-map";
 import { resolveStudioUser, studioCors, studioSpendAllowed } from "@/lib/studio-hub";
 
 export const dynamic = "force-dynamic";
@@ -29,7 +30,11 @@ export async function POST(request: Request) {
   if (!studioSpendAllowed(user, plotSlug)) {
     return NextResponse.json({ ok: false }, { status: 403, headers: cors });
   }
-  const kit = pressKitForPlot(plotSlug) || plotSlug;
+  const kit = vaultKitForPlot(plotSlug) || plotSlug;
+  const flags = {
+    ...(form.get("logo") === "1" ? { logo: true } : {}),
+    ...(form.get("pack") === "1" ? { pack: true } : {}),
+  };
   if (!isStudio(user) && !canEditKit(user, kit)) {
     return NextResponse.json({ ok: false, error: "kit" }, { status: 403, headers: cors });
   }
@@ -44,7 +49,7 @@ export async function POST(request: Request) {
     kit,
     filename: title ? `${title}${extOf(file.name)}` : file.name,
     bytes: Buffer.from(await file.arrayBuffer()),
-    flags: {},
+    flags,
   });
   if (!item) {
     return NextResponse.json({ ok: false, error: "kind" }, { status: 400, headers: cors });

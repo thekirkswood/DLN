@@ -1284,3 +1284,13 @@
 {"t":"2026-10-10T17:50:00+01:00","k":"mod","p":"_meta/site-log/{daa,modyu}.jsonl","s":"Weeks of development notes, not a handful","d":"two rebuilds, photos, illustration, hotfixes"}
 {"t":"2026-10-10T17:50:00+01:00","k":"mod","p":"Site/src/lib/plot-urls.ts Site/src/components/SitePeek.tsx Site/src/lib/watch.ts","s":"liveUrlFor; sandbox map; Referer kept going forward","d":"subdomains were sold as live"}
 {"t":"2026-10-10T17:43:10+01:00","k":"ver","p":"dln-15","s":"Patch notes for the weeks of work, live vs sandbox, sandbox hit map. Board still off live.","d":"numbered ship"}
+{"t":"2026-10-10T17:55:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":":3060 is Social Engine only; SwimTL to :3080","d":"Swarm Studio project opened the film site"}
+{"t":"2026-10-10T17:55:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Campus :3060 picture desk; SwimTL :3080","d":"same port, corrupted STL page"}
+{"t":"2026-10-10T17:55:00+01:00","k":"add","p":"ops/campus-studio.service ops/enable-campus-user.sh","s":"Keep Social Engine on :3060 with campus","d":"Studio iframe needs the picture desk"}
+{"t":"2026-10-10T17:55:00+01:00","k":"mod","p":"ops/debian-swimtl.service","s":"SwimTL unit on :3080","d":"vacate the picture engine port"}
+{"t":"2026-10-10T17:55:00+01:00","k":"mod","p":"/home/main/Repos/SwimTL/Site/package.json","s":"next dev -p 3080","d":":3060 is Studio"}
+{"t":"2026-10-10T18:05:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Each site is a vault folder; pool is that book","d":"Ewan: Open the pool missed the site vault"}
+{"t":"2026-10-10T18:05:00+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Studio pool = site asset vault, folded by lane","d":"same book as Account Assets"}
+{"t":"2026-10-10T18:05:00+01:00","k":"mod","p":"Site/src/app/api/studio/pool/route.ts Site/src/lib/epk-map.ts","s":"Pool returns only that site’s kit; vaultKitForPlot","d":"was a loose account dump"}
+{"t":"2026-10-10T18:05:00+01:00","k":"mod","p":"Site/src/app/api/studio/deposit/route.ts Site/src/components/StudioDesk.tsx","s":"Deposit flags; Assets desk opens locked kit","d":"full vault deep-link from the desk"}
+{"t":"2026-10-10T18:05:00+01:00","k":"mod","p":"/home/main/Repos/Social engine/components/{ImageHandler,AssetPool}.tsx lib/hub-client.ts","s":"Pool is the site vault with folders; upload deposits there","d":"iframe talks via query + HTTP + postMessage"}

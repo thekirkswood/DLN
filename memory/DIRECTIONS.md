@@ -1335,5 +1335,15 @@ ModYu: live rooms, HT4 pack, Instant update. PFP: host, then further portraits o
 
 Restarting Cursor on the tower must not take live or the house with it. Live sites are self-sufficient on the IONOS VPS (one Docker plot per host, Caddy the only public door). The house is independent on Debian downstairs (`dln.local` / `:3010`). This PC is a Cursor seat. The only live coupling is studio `/desk` and studio sign-in through Debian’s reverse SSH tunnel — not this GPU. Watchdog must recreate edge+web on a hub blip; it must never switch the estate to HTTP-only `Caddyfile.ip` (that makes every HTTPS name look dead at once). Ordinary house work must not `docker compose` the VPS.
 
+## 2026-10-10 — :3060 is the picture engine (Ewan)
+
+Campus Studio iframes `:3060`. That port is Social Engine only. Swimming Through Leaves had the same port (`debian-swimtl.service`, `next dev -p 3060`), so opening a Swarm project loaded the film site at a path it does not have. SwimTL moves to `:3080`. Dave’s page `/swimming-through-leaves` stays on DKS. Keep `campus-studio.service` up with campus.
+
+## 2026-10-10 — Each site is a vault folder (Ewan)
+
+The site you pick on campus is the folder. Studio jobs, Instant updates, and Assets sit inside it — not a second dump. Open the pool is that site’s vault (same `_meta/assets` book as Account → Assets).
+
+Communication: campus writes `hub`, `ticket`, `plot`, `brand` on the iframe query. The desk reads the vault over HTTP (`/api/studio/pool`, spend, deposit). Spend comes back as `postMessage` (`dln-studio-spent`). Do not make the desk guess another house’s files.
+
 
 

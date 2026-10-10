@@ -124,6 +124,7 @@ export function StudioTab({
 
   useEffect(() => {
     function onMsg(event: MessageEvent) {
+      // Desk → campus: token spend. Site and ticket already rode in on the iframe query.
       if (event.data?.type !== "dln-studio-spent") return;
       const balance = Number(event.data.balance);
       const slug = String(event.data.plotSlug || plot);

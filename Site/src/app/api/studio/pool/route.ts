@@ -4,7 +4,7 @@ import { listAssets } from "@/lib/assets";
 import { assetLane, isImageHref, laneLabel } from "@/lib/assets-view";
 import { kitsForUser } from "@/lib/epk";
 import { loadKitContent } from "@/lib/epk-content";
-import { pressKitForPlot } from "@/lib/epk-map";
+import { kitName, vaultKitForPlot } from "@/lib/epk-map";
 import { resolveStudioUser, studioCors } from "@/lib/studio-hub";
 import { ledgersVisibleTo, tokenCosts } from "@/lib/tokens";
 
@@ -20,17 +20,19 @@ export async function GET(request: Request) {
   const user = await resolveStudioUser(url.searchParams.get("ticket"));
   if (!user) return NextResponse.json({ ok: false }, { status: 401, headers: cors });
   const plot = String(url.searchParams.get("plot") || "").trim();
-  const kit = pressKitForPlot(plot);
+  const kit = vaultKitForPlot(plot);
+  if (!kit) {
+    return NextResponse.json({ ok: false, error: "Pick a site" }, { status: 400, headers: cors });
+  }
   const allowed = new Set(kitsForUser(user));
+  if (!isStudio(user) && !allowed.has(kit) && !user.plots.includes(plot) && !user.plots.includes("*")) {
+    return NextResponse.json({ ok: false }, { status: 403, headers: cors });
+  }
   const index = await listAssets();
   const hub = `${url.protocol}//${url.host}`;
   const items = index.items
     .filter((item) => item.kind === "image" || isImageHref(item.href))
-    .filter((item) => {
-      if (!isStudio(user) && !(item.kit && allowed.has(item.kit))) return false;
-      if (kit && item.kit && item.kit !== kit) return false;
-      return true;
-    })
+    .filter((item) => item.kit === kit)
     .map((item) => {
       const lane = assetLane(item.flags);
       return {
@@ -57,9 +59,11 @@ export async function GET(request: Request) {
   return NextResponse.json(
     {
       ok: true,
+      kit,
+      house: kitName(kit),
+      plot,
       items,
       promos,
-      kit,
       stillCost: costs.genCost,
       ledgers: ledgers.map((row) => ({
         plotSlug: row.plotSlug,

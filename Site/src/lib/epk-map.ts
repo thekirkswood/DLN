@@ -17,6 +17,13 @@ export function pressKitForPlot(slug: string): string | null {
   return isKitId(kit) ? kit : null;
 }
 
+/** The asset folder for that site. Press kit when one exists, else the plot slug. */
+export function vaultKitForPlot(slug: string): string | null {
+  const trimmed = (slug || "").trim();
+  if (!trimmed) return null;
+  return pressKitForPlot(trimmed) || trimmed;
+}
+
 /** Unique hub path for that house’s kit. Never reuse another kit’s URL. */
 export function epkHref(kit: string, rest = ""): string {
   const tail = rest.replace(/^\/+/, "");
