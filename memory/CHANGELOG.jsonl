@@ -1305,3 +1305,4 @@
 {"t":"2026-10-10T19:50:00+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Keep the picture-site desk look on /studio","d":"Ewan: Open assets higher; proper tags; do not flatten"}
 {"t":"2026-10-10T19:50:00+01:00","k":"mod","p":"Site/src/components/studio/StudioApp.tsx Site/src/app/globals.css","s":"Studio desk matches the picture site: Open assets, Naked prompt, + information, avenues","d":"layout was campus chips"}
 {"t":"2026-10-10T19:50:00+01:00","k":"mod","p":"Site/src/components/Header.tsx Site/src/components/Footer.tsx","s":"Hide public chrome on /studio","d":"same slim bar as the picture site"}
+{"t":"2026-10-10T19:36:48+01:00","k":"ver","p":"dln-17","s":"House Studio looks like the picture desk. Open assets, proper tags. Board still off live.","d":"numbered ship"}
