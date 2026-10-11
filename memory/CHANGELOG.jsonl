@@ -1307,3 +1307,4 @@
 {"t":"2026-10-10T19:50:00+01:00","k":"mod","p":"Site/src/components/Header.tsx Site/src/components/Footer.tsx","s":"Hide public chrome on /studio","d":"same slim bar as the picture site"}
 {"t":"2026-10-10T19:36:48+01:00","k":"ver","p":"dln-17","s":"House Studio looks like the picture desk. Open assets, proper tags. Board still off live.","d":"numbered ship"}
 {"t":"2026-10-11T17:38:42+01:00","k":"mod","p":"Site/src/components/modyu-epk Site/src/lib/modyu-epk Site/src/app/epk","s":"ModYu bespoke EPK on hub /epk/modyu; drop plot handoff","d":"one kit like every other house"}
+{"t":"2026-10-11T18:08:08+01:00","k":"fix","p":"Site/src/components/ModyuKitApp.tsx Site/src/app/epk","s":"Restore hub ModYu EPK (ModyuKitApp tiles/system/angles); drop wrong plot port","d":"studio and journalists both need the good hub kit"}

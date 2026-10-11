@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { EpkGate } from "@/components/EpkGate";
 import { EpkKitApp } from "@/components/EpkKitApp";
-import { ModyuBespokeKit } from "@/components/modyu-epk/ModyuBespokeKit";
+import { ModyuKitApp } from "@/components/ModyuKitApp";
 import { assetsForKit, listAssets } from "@/lib/assets";
 import { kitAccess } from "@/lib/epk-access";
 import { loadKitContent } from "@/lib/epk-content";
@@ -30,16 +30,13 @@ export default async function EpkKitPage({
     return <EpkGate wanted={id} next={epkHref(id, trail.join("/"))} />;
   }
 
-  // ModYu: bespoke kit lives on the hub like every other house.
-  if (id === "modyu") {
-    return <ModyuBespokeKit path={trail} />;
-  }
-
   const index = await listAssets();
   const items = assetsForKit(index, id);
   const content = await loadKitContent(id);
+  // ModYu: hub kit (tiles, system, angles) — everyone stays here; no plot handoff.
+  const KitApp = id === "modyu" ? ModyuKitApp : EpkKitApp;
   return (
-    <EpkKitApp
+    <KitApp
       doc={epkDoc(id)}
       items={items}
       content={content}

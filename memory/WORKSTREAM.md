@@ -48,7 +48,7 @@ Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + 
 
 ## EPK generator (2026-10-01)
 
-ModYu bespoke kit lives on the hub at `/epk/modyu` (DLN `components/modyu-epk` + `lib/modyu-epk`) — same pipeline as every other house. Plot `/epk` redirects there. Assets still load from the ModYu plot origin.
+ModYu press kit on the hub is `ModyuKitApp` at `/epk/modyu` (tiles, HT4 system, angles, vault) — same unlock pipeline as every other house; no plot handoff. Plot `/epk` redirects here.
 
 ## Client preview gate (2026-10-02)
 
