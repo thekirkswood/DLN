@@ -1330,3 +1330,4 @@
 {"t": "2026-10-11T23:45:26+01:00", "k": "mod", "p": "Site/src/app/globals.css", "s": "--asset-wash on hub Assets, studio pool, generic EPK stills", "d": "replace white/grey checker-adjacent plates"}
 {"t": "2026-10-11T23:45:26+01:00", "k": "mod", "p": "Site/src/components/modyu-epk/modyu-epk.css", "s": "Drop checker on EPK vault and bottle stills", "d": "flat --epk-wash"}
 {"t": "2026-10-11T23:52:00+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "ModYu homepage founder still is Ann-Marie AMB.png", "d": "Dave Instant update was the shop home, not only EPK"}
+{"t":"2026-10-12T00:02:32+01:00","k":"ver","p":"dln-18","s":"ModYu press kit on the hub (Dave\u2019s vault and copy, Ann-Marie still, asset wash). Board still off live.","d":"numbered ship"}
