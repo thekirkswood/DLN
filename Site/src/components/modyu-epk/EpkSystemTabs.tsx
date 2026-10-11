@@ -66,7 +66,7 @@ export function EpkSystemTabs() {
             <p className="epk-kicker">The system</p>
             <p>{ht4System.intro}</p>
             <p className="epk-note" style={{ marginTop: "0.75rem" }}>
-              Same phase colours as the main site — open a bubble for that stage.
+              Same phase colours as the main site, open a bubble for that stage.
             </p>
             <p style={{ marginTop: "1rem" }}>
               <Link href="/epk/modyu/description" className="epk-btn epk-btn--ghost">
@@ -119,7 +119,7 @@ export function EpkSystemTabs() {
               <div>
                 <p className="epk-kicker">Bottles &amp; packs</p>
                 <p className="epk-note">
-                  Labelled assets — open or drag to save.{" "}
+                  Labelled assets, open or drag to save.{" "}
                   <Link href="/epk/modyu/assets#bottles">Full vault</Link>
                 </p>
               </div>

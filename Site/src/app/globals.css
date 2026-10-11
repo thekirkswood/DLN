@@ -10,6 +10,7 @@ html {
   --btn-cut: 3px;
   --btn-wash: #e8e8e8;
   --btn-press: #000000;
+  --asset-wash: color-mix(in srgb, var(--ink) 12%, var(--ground));
   --font: "aktiv-grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   /* Menus and selects step to a neighbouring colour on the footer wheel. */
@@ -4198,7 +4199,7 @@ html[data-ground="ink"] .err {
   aspect-ratio: 1;
   padding: 0;
   border: 1px solid var(--line);
-  background: var(--ground);
+  background: var(--asset-wash);
   color: inherit;
   cursor: pointer;
   overflow: hidden;
@@ -4263,6 +4264,7 @@ html[data-ground="ink"] .err {
   aspect-ratio: 1;
   object-fit: cover;
   border: 1px solid var(--line);
+  background: var(--asset-wash);
 }
 
 .assets-inspect h2 {
@@ -4437,6 +4439,7 @@ html[data-ground="ink"] .err {
   aspect-ratio: 1;
   overflow: hidden;
   border: 1px solid var(--line);
+  background: var(--asset-wash);
 }
 
 .asset-hub__preview img {
@@ -4894,6 +4897,7 @@ body:has(.epk-gate) main {
   border: 1px solid var(--line);
   overflow: hidden;
   max-width: 42rem;
+  background: var(--asset-wash);
 }
 
 .epk-still__frame img,
@@ -5917,7 +5921,7 @@ html[data-ground="ink"] .epk-land-copy {
   display: block;
   min-height: 16rem;
   overflow: hidden;
-  background: #ececec;
+  background: var(--asset-wash);
   color: inherit;
   text-decoration: none;
   padding: 0;
@@ -6004,7 +6008,7 @@ html[data-ground="ink"] .epk-land-copy {
   display: block;
   width: 100%;
   aspect-ratio: 4 / 5;
-  background: #ececec;
+  background: var(--asset-wash);
   overflow: hidden;
 }
 
@@ -6139,10 +6143,8 @@ html[data-ground="ink"] .epk-land-copy {
 }
 
 html[data-ground="ink"] .epk-boilerplate,
-html[data-ground="ink"] .epk-hero,
-html[data-ground="ink"] .epk-plate__still,
 html[data-ground="ink"] .epk-census > div {
-  background: #2f2f2f;
+  background: var(--asset-wash);
 }
 
 .epk-still-grid {
@@ -6160,7 +6162,7 @@ html[data-ground="ink"] .epk-census > div {
   aspect-ratio: 1;
   padding: 0;
   border: 1px solid var(--line);
-  background: var(--ground);
+  background: var(--asset-wash);
   overflow: hidden;
   cursor: pointer;
   color: inherit;
@@ -6320,7 +6322,6 @@ html[data-ground="ink"] .epk-map__host img.is-ink {
 .epk-still__frame img {
   max-height: 70vh;
   object-fit: contain;
-  background: #ececec;
 }
 
 .assets-desk .epk-map__bar,
@@ -10794,7 +10795,7 @@ body:has(.bench.is-inside) main {
   min-height: 0;
   position: relative;
   margin: 0;
-  background: color-mix(in srgb, var(--ink) 8%, var(--ground));
+  background: var(--asset-wash);
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -17006,7 +17007,7 @@ html[data-ground="ink"] .board-tile.is-apes img {
   justify-content: center;
   min-height: 28rem;
   margin-top: 1rem;
-  background: color-mix(in srgb, var(--ink) 3%, var(--ground));
+  background: var(--asset-wash);
 }
 
 .pipe-stage img {
@@ -17085,7 +17086,7 @@ html[data-ground="ink"] .board-tile.is-apes img {
 }
 
 .pipe-sheet-vault {
-  width: min(52rem, 100%);
+  width: min(72rem, 100%);
 }
 
 .pipe-pick {
@@ -17348,13 +17349,55 @@ html[data-ground="ink"] .board-tile.is-apes img {
   margin: 1.6rem 0 0;
   padding: 0;
   display: grid;
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(9.4rem, 1fr));
+  gap: 0.9rem 0.75rem;
 }
 
-@media (min-width: 720px) {
-  .studio-vault-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+.studio-vault-grid .pipe-pick {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.studio-vault-grid .pipe-pick-still {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--asset-wash);
+}
+
+.studio-vault-grid .pipe-pick-still img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.studio-vault-grid .pipe-pick.is-on .pipe-pick-still {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.studio-vault-grid .pipe-pick-still span,
+.studio-vault-cap {
+  display: grid;
+  gap: 0.12rem;
+  padding: 0.4rem 0.05rem 0;
+  font-size: 0.8rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+
+.studio-vault-grid .pipe-pick-still em,
+.studio-vault-cap em {
+  font-style: normal;
+  color: var(--mute);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .studio-attach-list {

@@ -24,7 +24,7 @@ export const bottles: Bottle[] = [
     color: "#cde9f8",
     image: "/assets/phases/p1-balance-sheet.jpg",
     summary:
-      "Reset your scalp. Surgery-ready skin begins here — a 30-day cleanse before transplant.",
+      "Reset your scalp. Surgery-ready skin begins here, a 30-day cleanse before transplant.",
     purpose:
       "Experience the calming effects of Balancing Shampoo formulated to cleanse without disrupting the scalp’s natural microbiome. It soothes flaky scalp, refreshes, and helps maintain comfort and hydration ahead of your procedure.",
     ingredients: [
@@ -54,7 +54,7 @@ export const bottles: Bottle[] = [
     ],
     goodToKnow: [
       "Scientifically formulated",
-      "Fragrance from essential oils — no synthetic perfume",
+      "Fragrance from essential oils, no synthetic perfume",
       "Vegan & cruelty-free · Made in the UK",
     ],
   },
@@ -69,7 +69,7 @@ export const bottles: Bottle[] = [
     summary:
       "Gentle. Sterile. Engineered for precision graft-area cleansing.",
     purpose:
-      "Sterile saline spray designed to clean debris from skin wounds. For external irrigation and cleansing — sterile from first to last spray. A medical-device approach for the fragile first days after transplant.",
+      "Sterile saline spray designed to clean debris from skin wounds. For external irrigation and cleansing, sterile from first to last spray. A medical-device approach for the fragile first days after transplant.",
     ingredients: [
       {
         name: "0.9% Medical Grade Sodium Chloride",
@@ -80,7 +80,7 @@ export const bottles: Bottle[] = [
       "Hold 10cm away from scalp.",
       "Spray directly over graft and donor areas.",
       "Use every 2 hours during Days 1–3 post-procedure.",
-      "Do not wipe or touch — allow to air dry.",
+      "Do not wipe or touch, allow to air dry.",
     ],
     goodToKnow: [
       "CE-marked medical device",
@@ -97,7 +97,7 @@ export const bottles: Bottle[] = [
     color: "#e0e0e0",
     image: "/assets/phases/p3-hydrate-sheet.jpg",
     summary:
-      "Targeted hydration and comfort for recovering scalp — without disturbing grafts.",
+      "Targeted hydration and comfort for recovering scalp, without disturbing grafts.",
     purpose:
       "A specialised mist with zinc PCA for freshness, betaine and panthenol for moisture balance, Manuka honey for antioxidant protection, and aloe vera for hydration. Clinically proven hypoallergenic in independent testing.",
     ingredients: [
@@ -121,7 +121,7 @@ export const bottles: Bottle[] = [
     howToUse: [
       "Hold 5–10 inches from the scalp.",
       "Mist gently over recipient and donor areas.",
-      "Let air dry — do not rub or pat.",
+      "Let air dry, do not rub or pat.",
       "Use every 2–3 hours from Day 3 to Day 10.",
     ],
     goodToKnow: [
@@ -140,7 +140,7 @@ export const bottles: Bottle[] = [
     summary:
       "Ultra-light foam cleansing for sensitive post-transplant scalp.",
     purpose:
-      "A light formula that cleanses without stripping moisture. Instant-foam technology minimises surfactant content — suited to delicate grafts and daily sensitive-scalp care. Clinically proven hypoallergenic.",
+      "A light formula that cleanses without stripping moisture. Instant-foam technology minimises surfactant content, suited to delicate grafts and daily sensitive-scalp care. Clinically proven hypoallergenic.",
     ingredients: [
       {
         name: "Panthenol (Pro-vitamin B5)",
@@ -150,7 +150,7 @@ export const bottles: Bottle[] = [
     howToUse: [
       "From Day 3: apply foam gently to the donor area.",
       "For recipient area, use the cup method with tepid water and foam.",
-      "Rinse carefully — do not rub or disturb grafts.",
+      "Rinse carefully, do not rub or disturb grafts.",
     ],
     goodToKnow: [
       "Dermatologically tested · Sulphate free",
@@ -168,7 +168,7 @@ export const bottles: Bottle[] = [
     summary:
       "Overnight nourishment that soothes itch, tightness and discomfort.",
     purpose:
-      "Rich leave-on serum with shea-derived emollients, castor oil and andiroba seed oil. Menthyl lactate adds a cooling calm. Clinically proven non-comedogenic — safe on healing, post-transplant scalps.",
+      "Rich leave-on serum with shea-derived emollients, castor oil and andiroba seed oil. Menthyl lactate adds a cooling calm. Clinically proven non-comedogenic, safe on healing, post-transplant scalps.",
     ingredients: [
       {
         name: "Andiroba Seed Oil",
@@ -185,7 +185,7 @@ export const bottles: Bottle[] = [
     ],
     howToUse: [
       "From Day 7 evenings, apply a thin layer over the scalp.",
-      "Do not rinse — leave overnight.",
+      "Do not rinse, leave overnight.",
       "Cleanse in the morning with Bathe foam.",
     ],
     goodToKnow: [
@@ -240,7 +240,7 @@ export const bottles: Bottle[] = [
     summary:
       "Deep hydration and softness for hair and scalp after recovery.",
     purpose:
-      "Blends argan, castor, apricot, jojoba, amla and baobab oils with betaine and panthenol for extra moisture — so hair feels soft and manageable as you settle into long-term care.",
+      "Blends argan, castor, apricot, jojoba, amla and baobab oils with betaine and panthenol for extra moisture, so hair feels soft and manageable as you settle into long-term care.",
     ingredients: [
       {
         name: "Botanical oil blend",

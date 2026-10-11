@@ -37,7 +37,7 @@ export const assetCategories: {
   {
     id: "founder",
     title: "Founder",
-    blurb: "Ann-Marie stills — portraits for features and interviews.",
+    blurb: "Ann-Marie stills, portraits for features and interviews.",
   },
   {
     id: "bottles",
@@ -122,32 +122,40 @@ export const epkAssets: EpkAsset[] = [
     tags: ["logo", "brand"],
   },
   {
-    id: "logo-ht4-banner",
+    id: "logo-modyu-file",
     category: "logos",
+    label: "ModYu logo",
+    src: "/kit-stills/modyu/Modyu-logo.png",
+    alt: "ModYu logo",
+    tags: ["logo", "brand"],
+  },
+  {
+    id: "logo-ht4-banner",
+    category: "kits",
     label: "HT4 system banner",
     src: "/assets/brand/ht4-system-banner.png",
     alt: "HT4 system banner graphic",
     tags: ["logo", "ht4", "system"],
   },
   {
-    id: "founder-portrait-bw",
+    id: "founder-amb",
     category: "founder",
-    label: "Ann-Marie — portrait (B&W)",
-    src: "/assets/lifestyle/about-modyu-portrait.png",
+    label: "Ann-Marie portrait",
+    src: "/kit-stills/modyu/AMB.png",
     alt: "Ann-Marie Barlow, founder of ModYu",
     tags: ["founder", "portrait", "ann-marie"],
   },
   {
     id: "founder-follicle",
     category: "founder",
-    label: "Ann-Marie — Follicle Files still",
+    label: "Ann-Marie, Follicle Files still",
     src: "/assets/lifestyle/about-follicle-files.png",
     alt: "Ann-Marie Barlow for The Follicle Files",
     tags: ["founder", "follicle-files", "ann-marie", "interview"],
   },
   {
     id: "founder-before-after",
-    category: "founder",
+    category: "campaigns",
     label: "Patient journey still (before / after)",
     src: "/assets/lifestyle/founder-headshot.png",
     alt: "Hair transplant before and after comparison",
@@ -180,7 +188,7 @@ export const epkAssets: EpkAsset[] = [
     category: "kits",
     label: "Recovery kit (P3)",
     src: "/assets/phases/p3-group-main.jpg",
-    alt: "HT4 Recovery kit — Hydrate, Bathe, Comfort",
+    alt: "HT4 Recovery kit, Hydrate, Bathe, Comfort",
     tags: ["kit", "recovery", "hydrate", "bathe", "comfort"],
     note: "Hydrate + Bathe + Comfort",
     rrp: bundles.recoveryKit,
@@ -191,7 +199,7 @@ export const epkAssets: EpkAsset[] = [
     category: "kits",
     label: "Continuous Care (P4)",
     src: "/assets/phases/p4-group-main.jpg",
-    alt: "HT4 Continuous Care — Protect and Nourish",
+    alt: "HT4 Continuous Care, Protect and Nourish",
     tags: ["kit", "continue", "protect", "nourish"],
     note: "Protect + Nourish",
     rrp: bundles.continuousCare,
@@ -211,7 +219,7 @@ export const epkAssets: EpkAsset[] = [
   {
     id: "campaign-people-hero",
     category: "campaigns",
-    label: "HT4 people — hero",
+    label: "HT4 people, hero",
     src: "/assets/people/ht4-people-hero.jpg",
     alt: "People holding HT4 products",
     tags: ["campaign", "people", "lifestyle"],
@@ -219,7 +227,7 @@ export const epkAssets: EpkAsset[] = [
   {
     id: "campaign-people-banner",
     category: "campaigns",
-    label: "HT4 people — banner",
+    label: "HT4 people, banner",
     src: "/assets/people/ht4-people-banner.png",
     alt: "HT4 people banner",
     tags: ["campaign", "people"],
@@ -247,14 +255,6 @@ export const epkAssets: EpkAsset[] = [
     src: "/assets/people/panel-07.png",
     alt: "Campaign portrait panel",
     tags: ["campaign", "people", "recovery"],
-  },
-  {
-    id: "lifestyle-hair",
-    category: "lifestyle",
-    label: "Hair atmosphere",
-    src: "/assets/lifestyle/about-banner-hair.png",
-    alt: "Hair lifestyle still",
-    tags: ["lifestyle", "hair"],
   },
   {
     id: "lifestyle-product",
@@ -312,7 +312,7 @@ export function formatGbp(n: number): string {
       })}`;
 }
 
-/** Press RRP sheet — single source via products.ts */
+/** Press RRP sheet, single source via products.ts */
 export const pressRrp = {
   parts: bottles.map((b) => ({
     id: b.id,
@@ -353,7 +353,7 @@ export const pressRrp = {
   ],
 };
 
-/** Hub vault chips — category jump links */
+/** Hub vault chips, category jump links */
 export const assetVaultNav = assetCategories.map((c) => ({
   id: c.id,
   title: c.title,

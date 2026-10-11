@@ -924,14 +924,7 @@ a.epk-plate__col:hover h3 {
 .epk-asset-tile__media {
   display: block;
   aspect-ratio: 1;
-  background-color: #ecece8;
-  background-image:
-    linear-gradient(45deg, #e0e0dc 25%, transparent 25%),
-    linear-gradient(-45deg, #e0e0dc 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #e0e0dc 75%),
-    linear-gradient(-45deg, transparent 75%, #e0e0dc 75%);
-  background-size: 16px 16px;
-  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background: var(--epk-wash);
 }
 
 .epk-asset-tile__media img {
@@ -1031,14 +1024,7 @@ a.epk-plate__col:hover h3 {
   aspect-ratio: 1;
   border-radius: 10px;
   overflow: hidden;
-  background-color: #ecece8;
-  background-image:
-    linear-gradient(45deg, #e0e0dc 25%, transparent 25%),
-    linear-gradient(-45deg, #e0e0dc 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #e0e0dc 75%),
-    linear-gradient(-45deg, transparent 75%, #e0e0dc 75%);
-  background-size: 16px 16px;
-  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background: var(--epk-wash);
 }
 
 .epk-bottle-card__media img {
@@ -1280,7 +1266,7 @@ a.epk-plate__col:hover h3 {
   height: 4.25rem;
   object-fit: contain;
   border-radius: 0.65rem;
-  background: #fff;
+  background: var(--epk-wash);
 }
 
 .bottle-chip span {

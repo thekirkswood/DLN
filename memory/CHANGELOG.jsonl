@@ -1309,3 +1309,24 @@
 {"t":"2026-10-11T17:38:42+01:00","k":"mod","p":"Site/src/components/modyu-epk Site/src/lib/modyu-epk Site/src/app/epk","s":"ModYu bespoke EPK on hub /epk/modyu; drop plot handoff","d":"one kit like every other house"}
 {"t":"2026-10-11T18:08:08+01:00","k":"fix","p":"Site/src/components/ModyuKitApp.tsx Site/src/app/epk","s":"Restore hub ModYu EPK (ModyuKitApp tiles/system/angles); drop wrong plot port","d":"studio and journalists both need the good hub kit"}
 {"t":"2026-10-11T18:17:21+01:00","k":"fix","p":"Site/src/components/modyu-epk Site/src/lib/modyu-epk","s":"Put plot ModYu EPK (palette kit) on hub /epk/modyu","d":"the good kit was modyu.designlabnorth.com/epk"}
+{"t": "2026-10-11T22:44:57+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "ModYu EPK: em dashes are commas", "d": "Dave Instant update"}
+{"t": "2026-10-11T22:44:57+01:00", "k": "mod", "p": "Site/src/lib/modyu-epk Site/src/components/modyu-epk Site/src/lib/epk-docs/modyu.ts", "s": "Replace em dashes with commas on ModYu EPK pages", "d": "Dave: all kit pages"}
+{"t": "2026-10-11T22:52:48+01:00", "k": "mod", "p": "Site/src/lib/modyu-epk/content.ts Site/src/lib/epk-docs/modyu.ts", "s": "Replace ModYu EPK founder narrative with Dave’s copy", "d": "Dave Instant update"}
+{"t": "2026-10-11T22:53:27+01:00", "k": "mod", "p": "Site/src/lib/modyu-epk/content.ts Site/src/lib/epk-docs/modyu.ts", "s": "Replace surgery-artform EPK story with Dave’s copy", "d": "Dave Instant update"}
+{"t": "2026-10-11T23:18:17+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "ModYu EPK founder plate is AMB.png; B&W off vault", "d": "Dave Instant update"}
+{"t": "2026-10-11T23:18:17+01:00", "k": "bp", "p": "BLUEPRINT.md", "s": "Founder still kit-stills/modyu/AMB.png", "d": "header behind the headline"}
+{"t": "2026-10-11T23:18:17+01:00", "k": "add", "p": "Site/public/kit-stills/modyu/AMB.png", "s": "Ann-Marie still for EPK founder plate and vault", "d": "Dave Instant update"}
+{"t": "2026-10-11T23:18:17+01:00", "k": "mod", "p": "Site/src/components/modyu-epk/ModyuBespokeKit.tsx Site/src/lib/modyu-epk/assets.ts Site/src/lib/modyu-epk/asset-origin.ts", "s": "Founder header AMB.png; vault add; drop B&W portrait", "d": "hub kit-stills not plot prefix"}
+{"t": "2026-10-11T23:22:42+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Patient journey still is Campaigns not Founder", "d": "Dave Instant update"}
+{"t": "2026-10-11T23:22:42+01:00", "k": "mod", "p": "Site/src/lib/modyu-epk/assets.ts", "s": "Move patient journey still to campaigns vault", "d": "Dave Instant update"}
+{"t": "2026-10-11T23:29:47+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Vault: drop Hair atmosphere; HT4 banner in kits; add ModYu logo", "d": "Dave Instant updates"}
+{"t": "2026-10-11T23:29:47+01:00", "k": "del", "p": "Site/src/lib/modyu-epk/assets.ts", "s": "Remove Hair atmosphere from EPK vault", "d": "Dave Instant update"}
+{"t": "2026-10-11T23:29:47+01:00", "k": "mod", "p": "Site/src/lib/modyu-epk/assets.ts", "s": "HT4 system banner to kits; add ModYu logo tile", "d": "Dave Instant update"}
+{"t": "2026-10-11T23:29:47+01:00", "k": "add", "p": "Site/public/kit-stills/modyu/Modyu-logo.png", "s": "Dave’s ModYu logo for EPK vault", "d": "Instant update file"}
+{"t": "2026-10-11T23:40:41+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "EPK home founder plate is AMB.png", "d": "Dave Instant update"}
+{"t": "2026-10-11T23:40:41+01:00", "k": "mod", "p": "Site/src/components/modyu-epk/ModyuBespokeKit.tsx", "s": "Home founder palette tile uses AMB.png", "d": "was Follicle Files still"}
+{"t": "2026-10-11T23:45:26+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "Asset stills sit on a flat wash, never a checker", "d": "Dave: campus Assets and EPKs"}
+{"t": "2026-10-11T23:45:26+01:00", "k": "bp", "p": "BLUEPRINT.md", "s": "Assets/studio pool/EPK vaults use a flat wash", "d": "no checker for transparency"}
+{"t": "2026-10-11T23:45:26+01:00", "k": "mod", "p": "Site/src/app/globals.css", "s": "--asset-wash on hub Assets, studio pool, generic EPK stills", "d": "replace white/grey checker-adjacent plates"}
+{"t": "2026-10-11T23:45:26+01:00", "k": "mod", "p": "Site/src/components/modyu-epk/modyu-epk.css", "s": "Drop checker on EPK vault and bottle stills", "d": "flat --epk-wash"}
+{"t": "2026-10-11T23:52:00+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "ModYu homepage founder still is Ann-Marie AMB.png", "d": "Dave Instant update was the shop home, not only EPK"}

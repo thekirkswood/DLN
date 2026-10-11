@@ -1353,5 +1353,21 @@ The iframe was the wrong joint. Open the pool must be the DLN asset library for 
 
 The house page must look like the picture site. Do not flatten it into campus chips. Open assets sits above How you write, with air before Naked prompt / + information. Avenue tags stay Auto / Brand / Social / Editorial. Vault is The vault, same folders. Update live when the desk is that shape.
 
+## 2026-10-11 — ModYu EPK punctuation (Dave)
+
+On the ModYu press kit pages, em dashes are commas. Do not put them back.
+
+## 2026-10-11 — ModYu EPK founder still (Dave)
+
+Founder page header uses `AMB.png` behind the headline. The EPK home founder plate uses the same still. That still sits in the EPK asset vault. The B&W “Ann-Marie, portrait” tile is off the vault. Patient journey still (before / after) sits under Campaigns, not Founder. Hair atmosphere is off the vault. HT4 system banner sits under Kits & packs. Dave’s `Modyu logo.png` sits under Logos.
+
+## 2026-10-11 — ModYu homepage founder still is Ann-Marie (Dave)
+
+The shop homepage Founder block (`HomeFounder`) uses `AMB.png` — Ann-Marie Barlow. It is not the B&W shoot portrait (`about-modyu-portrait.png`). That still is campaign, not her. Her face is the headshot on the DLN book. Dave’s Instant update named the homepage, not only the EPK plate.
+
+## 2026-10-11 — Asset stills, flat wash (Dave)
+
+Do not put a checker behind transparent stills. Campus Assets for each house, the studio pool, and every EPK vault sit on a quiet wash of the current ground.
+
 
 

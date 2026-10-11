@@ -112,13 +112,13 @@ export function PressPhaseExplorer({
                 <>
                   <p>
                     Formulas in this stage use the actives below. Timing is a
-                    guide — the ingredients are what make each step distinct.
+                    guide, the ingredients are what make each step distinct.
                   </p>
                   <ul>
                     {phaseBottles.flatMap((b) =>
                       b.ingredients.slice(0, 2).map((ing) => (
                         <li key={`${b.id}-${ing.name}`}>
-                          <strong>{ing.name}</strong> — {ing.benefit}
+                          <strong>{ing.name}</strong>, {ing.benefit}
                         </li>
                       ))
                     )}
@@ -195,7 +195,7 @@ export function PressPhaseExplorer({
                   <ul>
                     {selected.ingredients.map((ing) => (
                       <li key={ing.name}>
-                        <strong>{ing.name}</strong> — {ing.benefit}
+                        <strong>{ing.name}</strong>, {ing.benefit}
                       </li>
                     ))}
                   </ul>

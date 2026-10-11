@@ -27,6 +27,7 @@ export function modyuAsset(path: string | undefined | null): string {
     return path;
   }
   const origin = modyuAssetOrigin();
+  if (path.startsWith("/kit-stills/")) return path;
   if (path.startsWith("/")) return `${origin}${path}`;
   return `${origin}/${path}`;
 }

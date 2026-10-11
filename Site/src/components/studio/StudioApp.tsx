@@ -1132,11 +1132,14 @@ function VaultSheet({
                   <button type="button" className="pipe-pick-still" onClick={() => toggle(item)}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={item.href} alt="" />
-                    <span>
+                  </button>
+                  <p className="studio-vault-cap">
+                    {item.title}
+                    <em>
                       {item.laneLabel || item.lane}
                       {item.source === "job" ? " · this job" : ""}
-                    </span>
-                  </button>
+                    </em>
+                  </p>
                   {attach ? (
                     <input
                       value={attach.note}
@@ -1152,9 +1155,7 @@ function VaultSheet({
                       }
                       className="dln-field"
                     />
-                  ) : (
-                    <p className="studio-hint">{item.note || item.title}</p>
-                  )}
+                  ) : null}
                 </li>
               );
             })}

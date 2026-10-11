@@ -57,7 +57,7 @@ function HomePage() {
           {
             id: "founder",
             featured: true,
-            src: "/assets/lifestyle/about-follicle-files.png",
+            src: "/kit-stills/modyu/AMB.png",
             alt: "Ann-Marie Barlow, founder of ModYu",
             links: ht4Menu.map((item) => ({
               href: item.href,
@@ -163,7 +163,7 @@ function StoriesPage() {
         <p className="epk-note">
           Each story is written for a journalist to lift. HT4 does not need to
           be the hero of paragraph one. Image rails below each piece are the
-          stills to open or drag — not a carousel.
+          stills to open or drag, not a carousel.
         </p>
         {readyStories.map((s) => {
           const pack = [
@@ -171,10 +171,10 @@ function StoriesPage() {
             "",
             s.story,
             "",
-            `Why it matters now — ${s.whyNow}`,
-            `Best for — ${s.bestFor}`,
-            `Evidence & hook — ${s.evidence}`,
-            `Ask us — ${s.askUs}`,
+            `Why it matters now, ${s.whyNow}`,
+            `Best for, ${s.bestFor}`,
+            `Evidence & hook, ${s.evidence}`,
+            `Ask us, ${s.askUs}`,
           ].join("\n");
           const stills = assetsForTags(s.imageTags, 4);
           return (
@@ -202,7 +202,7 @@ function StoriesPage() {
               </CopyBlock>
               {stills.length ? (
                 <div className="epk-story-rail">
-                  <p className="epk-kicker">Images for this piece — open or drag</p>
+                  <p className="epk-kicker">Images for this piece, open or drag</p>
                   <div className="epk-story-rail__grid">
                     {stills.map((asset) => (
                       <EpkAssetTile key={asset.id} asset={asset} />
@@ -223,8 +223,8 @@ function FounderPage() {
   return (
     <EpkShell eyebrow="Brand & background" title="Ann-Marie [Founder]">
       <EpkPlate
-        src="/assets/people/portraits/shelley.png"
-        alt="Founder portrait placeholder"
+        src="/kit-stills/modyu/AMB.png"
+        alt="Ann-Marie Barlow, founder of ModYu"
         kicker="Founder story"
         title={n.headline}
         lede={n.punchline}
@@ -313,7 +313,7 @@ function QuotesPage() {
                 <CopyBlock
                   key={q.slice(0, 40)}
                   label="Quote"
-                  text={`“${q}” — Ann-Marie Barlow, Founder, ModYu`}
+                  text={`“${q}”, Ann-Marie Barlow, Founder, ModYu`}
                 >
                   <div className="epk-quote">
                     <p>“{q}”</p>
@@ -436,7 +436,7 @@ function AssetsPage() {
                 </div>
               ) : (
                 <p className="epk-note">
-                  No stills wired yet — drop hi-res into{" "}
+                  No stills wired yet, drop hi-res into{" "}
                   <code>/assets/epk/{cat.id}/</code> when ready.
                 </p>
               )}
@@ -537,12 +537,12 @@ function EvidencePage() {
         <section className="epk-panel epk-panel--white">
           <CopyBlock
             label="Clinical evidence"
-            text="HT4 rests on three complementary bodies of evidence, each doing a distinct job, plus independent testing of the products themselves. Stated plainly — and with the limits kept intact."
+            text="HT4 rests on three complementary bodies of evidence, each doing a distinct job, plus independent testing of the products themselves. Stated plainly, and with the limits kept intact."
           >
             <p>
               HT4 rests on three complementary bodies of evidence, each doing a
               distinct job, plus independent testing of the products themselves.
-              Stated plainly — and with the limits kept intact.
+              Stated plainly, and with the limits kept intact.
             </p>
           </CopyBlock>
         </section>
@@ -586,7 +586,7 @@ function ClaimsPage() {
           </div>
           <CopyBlock
             label="Founder quote"
-            text={`“${claimsQuote.text}” — ${claimsQuote.attrib}`}
+            text={`“${claimsQuote.text}”, ${claimsQuote.attrib}`}
           />
         </section>
         <section className="epk-split">

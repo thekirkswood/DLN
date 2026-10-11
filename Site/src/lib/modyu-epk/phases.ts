@@ -50,7 +50,7 @@ export const phases: Phase[] = [
     journey: "During",
     timing: "Day 1 to Day 3",
     summary:
-      "Sterile saline only — protect fragile new grafts and follow your clinic’s instructions.",
+      "Sterile saline only, protect fragile new grafts and follow your clinic’s instructions.",
     detail:
       "Phase 2 covers the first three days after surgery. Priority shifts to protecting fragile grafts with sterile saline.",
     products: ["Cleanse sterile saline spray"],
@@ -79,7 +79,7 @@ export const phases: Phase[] = [
     journey: "Recovery",
     timing: "Day 3 to Day 21",
     summary:
-      "Hydrate, Bathe and Comfort — three products working together as the scalp settles.",
+      "Hydrate, Bathe and Comfort, three products working together as the scalp settles.",
     detail:
       "On the legacy site this stage is three separate bottle entries. Here they are pooled into one Recovery phase: Hydrate mist for moisture without disturbing grafts, Bathe foam for the first gentle washes, and Comfort night serum for overnight itch, tightness and discomfort.",
     products: ["Hydrate spray", "Bathe foam shampoo", "Comfort night serum"],
@@ -89,7 +89,7 @@ export const phases: Phase[] = [
     color: "#d8d8d8",
     panelCopy: [
       "Early recovery asks more than one product can deliver. Hydrate keeps moisture balanced between washes, Bathe introduces a gentler cleanse as grafts settle, and Comfort nourishes overnight when tightness and itch show up.",
-      "Phase 3 products are dermatologically tested for sensitive and post-transplant scalps — including Comfort Night Serum, clinically shown non-comedogenic.",
+      "Phase 3 products are dermatologically tested for sensitive and post-transplant scalps, including Comfort Night Serum, clinically shown non-comedogenic.",
     ],
     bullets: [
       "Three products, one recovery window.",
@@ -114,7 +114,7 @@ export const phases: Phase[] = [
     color: "#008ab0",
     panelCopy: [
       "Once the scalp has healed, Continuous care keeps the routine simple: Protect shampoo with caffeine and antioxidants, paired with Nourish conditioner enriched with botanical oils, betaine and panthenol.",
-      "Designed for fine and thinning hair in women and men — the ongoing phase after transplant recovery, not a return to generic bathroom products.",
+      "Designed for fine and thinning hair in women and men, the ongoing phase after transplant recovery, not a return to generic bathroom products.",
     ],
     bullets: [
       "Two products, one long-term routine.",
