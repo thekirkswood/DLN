@@ -48,7 +48,7 @@ Sequenced. Do not skip. Tick in changelog when a step actually lands (`k:mod` + 
 
 ## EPK generator (2026-10-01)
 
-ModYu press kit on the hub is `ModyuKitApp` at `/epk/modyu` (tiles, HT4 system, angles, vault) — same unlock pipeline as every other house; no plot handoff. Plot `/epk` redirects here.
+ModYu press kit on the hub is the plot bespoke kit (EpkPalette home, HT4 About/Shop, vault) at `/epk/modyu` — ported from `modyu.designlabnorth.com/epk`. Same unlock pipeline as every other house; no plot handoff. Plot `/epk` redirects here.
 
 ## Client preview gate (2026-10-02)
 

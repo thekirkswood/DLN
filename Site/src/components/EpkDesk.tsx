@@ -79,7 +79,7 @@ export function EpkDesk() {
             <p className="epk-index__acts">
               <Link href={epkHref(row.id)}>Open</Link>
               {row.id === "modyu" ? (
-                <span className="status" title="Bespoke kit — edit DLN Site/src/components/ModyuKitApp.tsx + lib/modyu-kit.ts">
+                <span className="status" title="Bespoke kit — edit DLN Site/src/components/modyu-epk + lib/modyu-epk">
                   Bespoke (code)
                 </span>
               ) : (
