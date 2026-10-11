@@ -78,7 +78,13 @@ export function EpkDesk() {
             {row.lede ? <p>{row.lede}</p> : null}
             <p className="epk-index__acts">
               <Link href={epkHref(row.id)}>Open</Link>
-              <Link href={`/account?desk=epk&kit=${row.id}`}>Edit kit</Link>
+              {row.id === "modyu" ? (
+                <span className="status" title="Bespoke kit — edit DLN Site/src/components/modyu-epk + lib/modyu-epk">
+                  Bespoke (code)
+                </span>
+              ) : (
+                <Link href={`/account?desk=epk&kit=${row.id}`}>Edit kit</Link>
+              )}
               <Link href="/account?desk=assets">Assets</Link>
               <button type="button" className="assets-text-btn" disabled={busy === row.id} onClick={() => rotate(row.id)}>
                 {busy === row.id ? "…" : "Rotate code"}

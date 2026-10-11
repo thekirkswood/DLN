@@ -3,7 +3,6 @@ import { clientIpFrom } from "@/lib/client-ip";
 import { appendEpkCookies } from "@/lib/cookie-opts";
 import { isKitId, recordUnlock, takeEpkAttempt } from "@/lib/epk";
 import { resolvePressEntry } from "@/lib/epk-content";
-import { kitExternalOrigin, kitHandoffHref } from "@/lib/epk-handoff";
 import { safeEpkNext } from "@/lib/epk-map";
 
 export const dynamic = "force-dynamic";
@@ -30,12 +29,8 @@ export async function POST(req: NextRequest) {
   }
   await recordUnlock(entry.kit, ip);
 
-  // Bespoke plot kits: after hub code, hand off unlocked into the plot EPK.
-  let next = safeEpkNext(entry.kit, body?.next || entry.next);
-  if (kitExternalOrigin(entry.kit)) {
-    const handoff = await kitHandoffHref(entry.kit, "/epk");
-    if (handoff) next = handoff;
-  }
+  // Same pipeline for every house — stay on the hub kit path.
+  const next = safeEpkNext(entry.kit, body?.next || entry.next);
 
   const res = NextResponse.json({ ok: true, kit: entry.kit, next });
   appendEpkCookies(
