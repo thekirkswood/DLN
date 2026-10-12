@@ -97,12 +97,13 @@ export async function POST(request: Request) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         sandboxId,
-        prompt: line,
+        prompt: steered.prompt,
         mode: body.mode,
         extras,
         attaches: body.attaches,
         avenue: extras.avenue,
         housePaid: true,
+        alreadySteered: true,
       }),
     });
     const still = (await stillRes.json().catch(() => ({}))) as {

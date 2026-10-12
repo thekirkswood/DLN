@@ -24,6 +24,7 @@ export const epkNav: EpkNavGroup[] = [
     blurb: "Company, founder, culture, not the product sheet.",
     items: [
       { href: "/epk/modyu/founder", label: "Ann-Marie [Founder]" },
+      { href: "/epk/modyu/our-story", label: "Our Story" },
       { href: "/epk/modyu/follicle-files", label: "The Follicle Files" },
       { href: "/epk/modyu/quotes", label: "Quote bank" },
       { href: "/epk/modyu/about-modyu", label: "About ModYu" },
@@ -51,17 +52,21 @@ export const ht4Menu = [
 
 export const boilerplate90 = `ModYu is a British company on a mission to improve the quality, consistency and confidence of hair transplant aftercare. It is not a cosmetics brand or a clinic, but a company built on one belief: patients deserve the same standard of care after surgery as they receive during it. Its HT4 system is a clinic-led, four-phase aftercare programme, Prepare, Protect, Recover and Continue, designed around how the scalp’s needs genuinely change before, during and after a transplant. HT4 supports a clinic’s own protocol; it never replaces the surgeon’s advice.`;
 
-export const shortIntro = `We are ModYu, a small British company behind HT4, a clinic-led, four-phase aftercare system designed specifically for people having hair transplant surgery.
-
-But the reason we think you’ll be interested has very little to do with our bottles and everything to do with a gap almost nobody is talking about.
-
-Hair transplant surgery has become one of the fastest-growing cosmetic procedures in the world, and the techniques have been refined again and again. Yet the care that begins the moment a patient walks out of the clinic has never been standardised in the same way, and there is still no single, universally agreed approach to it.`;
+export const shortIntro = `We are ModYu, a small British company behind HT4, a clinic-led, four-phase aftercare system made specifically for people having hair transplant surgery. But the reason we think you’ll be interested has very little to do with our bottles and everything to do with a gap almost nobody is talking about. Hair transplant surgery has become one of the fastest-growing cosmetic procedures in the world, and the techniques have been refined again and again. Yet the care that begins the moment a patient walks out of the clinic has never been standardised in the same way, and there is still no single, universally agreed approach to it.`;
 
 export const storyHeadline =
-  "The surgery became an artform. The aftercare never did.";
+  "Hair transplantation is where surgery meets artistry.";
 
 export const storySub =
-  "A global, billion-dollar procedure with no universally adopted standard for what happens after the operation.";
+  "The aftercare should be treated with the same respect.";
+
+export const storyFull = `Picture what actually happens in a hair transplant. A surgeon moves around two thousand tiny grafts, sorts them by whether each one holds a single hair or a cluster of several, and places the single hairs along the very front by hand, so the new hairline looks soft and real. Every incision is angled so the hair grows the way it always did. It is painstaking, skilled work, closer to craft than to a procedure, and it has been refined for decades.
+
+Then the patient goes home. Usually with a printout, or sometimes just a WhatsApp message, listing what to do next. The trouble is, almost nobody takes it in at the time. Before the operation they are too nervous, and afterwards they are too tired, so the instructions wash straight over them and the significance of those first days never really lands. It lands later, at home, when the anaesthetic wears off and the itching and the soreness begin. That is the moment they reach for their phone and start searching for what they can safely put on their scalp. And that is where the real problem starts, because there is no good answer waiting for them.
+
+What they find is what the field has always improvised: saline and baby shampoo, advice passed along by word of mouth until it became the unofficial standard. It is no criticism of the surgeons. Nobody had ever made a product for this exact moment, for a freshly operated scalp, so they reached for what was on the shelf and did their best with it. There is real wisdom in that. It simply was not enough.
+
+That gap is the whole reason ModYu exists. We are a small British company, and HT4 is our answer: a clinic-led, four-phase system that gives the recovery the same care the surgery gets, built on the published science of how a scalp actually heals. We happen to be the first to come along and make something for this, rather than borrow it. We are not here to replace the surgeon. We are here to support the part they were never going to have the time to research.`;
 
 export const marketStats = [
   {

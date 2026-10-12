@@ -12,7 +12,8 @@ import {
   type AssetFlags,
 } from "@/lib/assets";
 import { canDeleteHref } from "@/lib/assets-view";
-import { canEditKit, isKitId, kitsForUser, listKitsPublic, listUnlocks } from "@/lib/epk";
+import { canEditKit, kitsForUser, listKitsPublic, listUnlocks } from "@/lib/epk";
+import { vaultKitForPlot } from "@/lib/epk-map";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -25,16 +26,25 @@ export async function GET(req: NextRequest) {
   const seed = req.nextUrl.searchParams.get("seed") === "1" && isStudio(user);
   const index = seed ? await seedAssets() : await listAssets();
   const allowed = new Set(kitsForUser(user));
-  const asked = (req.nextUrl.searchParams.get("kit") || "").trim().toLowerCase();
-  const items = index.items.filter((item) => item.kit && allowed.has(item.kit));
+  const askedRaw = (req.nextUrl.searchParams.get("kit") || "").trim().toLowerCase();
+  const asked = askedRaw ? vaultKitForPlot(askedRaw) || askedRaw : "";
+  const items = index.items.filter((item) => {
+    if (!item.kit) return false;
+    if (asked) {
+      if (item.kit !== asked) return false;
+      return isStudio(user) || allowed.has(asked);
+    }
+    return isStudio(user) || allowed.has(item.kit);
+  });
   const kits = (await listKitsPublic()).filter((k) => allowed.has(k.id));
   const unlocks = isStudio(user) ? await listUnlocks() : [];
+  const kitOk = Boolean(asked && (allowed.has(asked) || isStudio(user)));
   return NextResponse.json({
     ok: true,
-    items: asked && isKitId(asked) ? items.filter((i) => i.kit === asked) : items,
+    items,
     kits,
     unlocks,
-    kit: asked && allowed.has(asked) ? asked : undefined,
+    kit: kitOk ? asked : undefined,
     studio: isStudio(user),
     you: user.displayName || user.email,
   });

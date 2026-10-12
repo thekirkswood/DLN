@@ -23,9 +23,16 @@ const ATTEMPT_MAX = 8;
 export type EpkKit = {
   id: string;
   name: string;
+  /** Shareable press string — not a secret. Shown on the studio desk. */
+  code?: string;
   codeHash: string;
   createdAt: string;
   rotatedAt?: string;
+};
+
+/** Brand-shaped defaults when a kit has no readable code yet. */
+const BRAND_CODES: Record<string, string> = {
+  modyu: "HT4PRESS",
 };
 
 type KitFile = { kits: EpkKit[] };
@@ -105,6 +112,13 @@ async function appendSeed(lines: string[]): Promise<void> {
   await fs.writeFile(SEED, `${existing.trimEnd()}\n${lines.join("\n")}\n`, "utf8");
 }
 
+function applyKitCode(kit: EpkKit, code: string): string {
+  const normalized = normalizeCode(code);
+  kit.code = normalized;
+  kit.codeHash = hashPassword(normalized);
+  return normalized;
+}
+
 export async function ensureKits(): Promise<EpkKit[]> {
   const kits = await readKits();
   const now = new Date().toISOString();
@@ -117,16 +131,25 @@ export async function ensureKits(): Promise<EpkKit[]> {
         existing.name = row.name;
         dirty = true;
       }
+      // Migrate hash-only kits to a readable shareable string.
+      if (!existing.code) {
+        const brand = BRAND_CODES[existing.id] || generateEpkCode();
+        applyKitCode(existing, brand);
+        seeded.push(`${existing.id} ${existing.code}`);
+        dirty = true;
+      }
       continue;
     }
-    const code = generateEpkCode();
-    kits.push({
+    const code = BRAND_CODES[row.id] || generateEpkCode();
+    const kit: EpkKit = {
       id: row.id,
       name: row.name,
-      codeHash: hashPassword(code),
+      codeHash: "",
       createdAt: now,
-    });
-    seeded.push(`${row.id} ${code}`);
+    };
+    applyKitCode(kit, code);
+    kits.push(kit);
+    seeded.push(`${row.id} ${kit.code}`);
     dirty = true;
   }
   if (dirty) {
@@ -137,12 +160,13 @@ export async function ensureKits(): Promise<EpkKit[]> {
 }
 
 export async function listKitsPublic(): Promise<
-  { id: string; name: string; createdAt: string; rotatedAt?: string }[]
+  { id: string; name: string; code?: string; createdAt: string; rotatedAt?: string }[]
 > {
   const kits = await ensureKits();
   return kits.map((k) => ({
     id: k.id,
     name: k.name,
+    code: k.code,
     createdAt: k.createdAt,
     rotatedAt: k.rotatedAt,
   }));
@@ -152,11 +176,23 @@ export async function rotateKitCode(id: string): Promise<string | null> {
   const kits = await ensureKits();
   const kit = kits.find((k) => k.id === id);
   if (!kit) return null;
-  const code = generateEpkCode();
-  kit.codeHash = hashPassword(code);
+  const code = applyKitCode(kit, generateEpkCode());
   kit.rotatedAt = new Date().toISOString();
   await writeKits(kits);
   return code;
+}
+
+/** Set a brand-shaped press string (studio desk). */
+export async function setKitCode(id: string, raw: string): Promise<string | null> {
+  const kits = await ensureKits();
+  const kit = kits.find((k) => k.id === id);
+  if (!kit) return null;
+  const normalized = normalizeCode(raw);
+  if (normalized.length < 6 || normalized.length > 12) return null;
+  applyKitCode(kit, normalized);
+  kit.rotatedAt = new Date().toISOString();
+  await writeKits(kits);
+  return normalized;
 }
 
 export async function resolveKitByCode(code: string): Promise<EpkKit | null> {
@@ -164,7 +200,8 @@ export async function resolveKitByCode(code: string): Promise<EpkKit | null> {
   if (normalized.length < 6 || normalized.length > 12) return null;
   const kits = await ensureKits();
   for (const kit of kits) {
-    if (verifyPassword(normalized, kit.codeHash)) return kit;
+    if (kit.code && normalizeCode(kit.code) === normalized) return kit;
+    if (kit.codeHash && verifyPassword(normalized, kit.codeHash)) return kit;
   }
   return null;
 }

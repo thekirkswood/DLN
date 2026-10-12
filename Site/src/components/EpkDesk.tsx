@@ -7,6 +7,7 @@ import { epkHref } from "@/lib/epk-map";
 type KitRow = {
   id: string;
   name: string;
+  code?: string;
   kicker?: string;
   lede?: string;
   bespoke?: boolean;
@@ -41,7 +42,7 @@ export function EpkDesk() {
   }, []);
 
   async function rotate(id: string) {
-    if (!window.confirm("Rotate this house’s press code? The old code stops working.")) return;
+    if (!window.confirm("Issue a new press string for this house? The old one stops working.")) return;
     setBusy(id);
     setCode(null);
     const res = await fetch("/api/studio/epk", {
@@ -62,12 +63,14 @@ export function EpkDesk() {
 
   return (
     <div className="epk-desk">
-      <p className="lede">Open a kit, or rotate its journalist code.</p>
+      <p className="lede">
+        Open a kit. Codes are shareable press strings — not account passwords.
+        Rotate only when you want a new one.
+      </p>
       {error ? <p className="err">{error}</p> : null}
       {code ? (
         <p className="status">
-          New code for {code.id}: <strong>{code.code}</strong> — copy it now. It
-          will not be shown again.
+          Updated code for {code.id}: <strong>{code.code}</strong>
         </p>
       ) : null}
       <ul className="epk-index">
@@ -75,6 +78,11 @@ export function EpkDesk() {
           <li key={row.id}>
             <p className="kicker">{row.kicker || "Press kit"}</p>
             <strong>{row.name}</strong>
+            {row.code ? (
+              <p className="status">
+                Code: <strong>{row.code}</strong>
+              </p>
+            ) : null}
             {row.lede ? <p>{row.lede}</p> : null}
             <p className="epk-index__acts">
               <Link href={epkHref(row.id)}>Open</Link>

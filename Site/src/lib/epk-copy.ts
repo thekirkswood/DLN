@@ -32,11 +32,11 @@ export const KIT_COPY: KitCopy[] = [
     kicker: "HT4™",
     lede: "Electronic Press Kit — Ann-Marie, HT4, The Follicle Files.",
     overview: [
-      "We are ModYu, a small British company behind HT4 — a clinic-led, four-phase aftercare system designed specifically for people having hair transplant surgery.",
-      "The reason to look is a gap almost nobody is talking about: the surgery became an artform. The aftercare never did.",
+      "We are ModYu, a small British company behind HT4, a clinic-led, four-phase aftercare system made specifically for people having hair transplant surgery.",
+      "Hair transplantation is where surgery meets artistry. The aftercare should be treated with the same respect.",
     ],
     quotes: [
-      "The surgery became an artform. The aftercare never did.",
+      "Hair transplantation is where surgery meets artistry.",
       "We can’t make your hair grow. We can take scalp care seriously.",
       "A transplant is one day. Looking after your scalp is for life.",
     ],

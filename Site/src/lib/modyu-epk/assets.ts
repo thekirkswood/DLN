@@ -63,13 +63,13 @@ export const assetCategories: {
 
 /** Clean cutouts (white bg stripped) for press download */
 const bottleSrc: Record<string, string> = {
-  balance: "/assets/epk/products/balance.png",
-  cleanse: "/assets/epk/products/cleanse.png",
-  hydrate: "/assets/epk/products/hydrate.png",
-  bathe: "/assets/epk/products/bathe.png",
-  comfort: "/assets/epk/products/comfort.png",
-  protect: "/assets/epk/products/protect.png",
-  nourish: "/assets/epk/products/nourish.png",
+  balance: "/kit-stills/modyu/ht4/p1-balance-sheet.jpg",
+  cleanse: "/kit-stills/modyu/ht4/p2-cleanse-sheet.jpg",
+  hydrate: "/kit-stills/modyu/ht4/p3-hydrate-sheet.jpg",
+  bathe: "/kit-stills/modyu/ht4/p3-bathe-sheet.jpg",
+  comfort: "/kit-stills/modyu/ht4/p3-comfort-sheet.jpg",
+  protect: "/kit-stills/modyu/ht4/p4-protect-sheet.jpg",
+  nourish: "/kit-stills/modyu/ht4/p4-nourish-sheet.jpg",
 };
 
 const bottleRrp: Record<string, number> = {

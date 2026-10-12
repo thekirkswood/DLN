@@ -62,6 +62,7 @@ export function kindLabel(kind: string): string {
   if (kind === "image") return "Image";
   if (kind === "pdf") return "PDF";
   if (kind === "text") return "Text";
+  if (kind === "slides") return "Slides";
   if (kind === "blueprint") return "Blueprint";
   return "File";
 }

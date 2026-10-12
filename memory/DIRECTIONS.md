@@ -1365,9 +1365,37 @@ Founder page header uses `AMB.png` behind the headline. The EPK home founder pla
 
 The shop homepage Founder block (`HomeFounder`) uses `AMB.png` — Ann-Marie Barlow. It is not the B&W shoot portrait (`about-modyu-portrait.png`). That still is campaign, not her. Her face is the headshot on the DLN book. Dave’s Instant update named the homepage, not only the EPK plate.
 
+## 2026-10-12 — ModYu EPK bottle vault stills (Dave)
+
+Bottles in the EPK asset vault are Dave’s glass-shelf product shots (`kit-stills/modyu/ht4/p*-sheet.jpg`), not the plot PNG cutouts.
+
+## 2026-10-12 — ModYu EPK Our Story copy (Dave)
+
+Our Story title is “Hair transplantation is where surgery meets artistry.” Subtitle: “The aftercare should be treated with the same respect.” Opening and Full Story are Dave’s copy. Do not put the old “surgery became an artform” line back on that page.
+
+## 2026-10-12 — ModYu EPK Our Story in the left rail (Dave)
+
+Left menu: Our Story sits under Ann-Marie [Founder] and opens `/epk/modyu/our-story`. The Our Story panel is off the EPK home.
+
 ## 2026-10-11 — Asset stills, flat wash (Dave)
 
 Do not put a checker behind transparent stills. Campus Assets for each house, the studio pool, and every EPK vault sit on a quiet wash of the current ground.
+
+## 2026-10-12 — Studio vault is the whole Asset hub (Ewan)
+
+Open assets is not a second dump and not a hand-picked set of shots. It is Account → Assets for that site — the same `_meta/assets` book. Overlay: drop or click to upload (lands in the vault, auto-selected for this gen), and the full vault underneath as picture plates. EPK is “show the vault with share flags”. Studio shows everything. Do not automate which stills appear. New customers: space made, assets populated, they attach and see the lot.
+
+## 2026-10-12 — Studio text is a project job (Ewan)
+
+Text sits on the project: press/promoter PDF, social caption steered to a market with a CTA, meeting slides. Same extra-info / pre-prompt as pictures, plus attached vault stills. Ollama and Gemini write words only — they do not lay out a PDF or a deck. The house stamps the file and puts pictures on the page. Campus uses Ollama on this seat (laptop as backup if that host is pointed). Live needs a Gemini key or it stays a house desk. Do not send text through the picture engine just because pictures do.
+
+## 2026-10-12 — House first, VPS when asked (Ewan)
+
+Ordinary Studio and site work stays on the house. Look at live when needed. Do not jump onto the VPS to edit or ship unless Ewan asks.
+
+## 2026-10-12 — Steer refines the line, not a pack case (Ewan)
+
+The picture refiner must take the user’s prompt and tidy it. Do not stamp ModYu bottle / cap / finish, booked talent, or “product is the hero” onto every Auto/Brand job. Attach notes are what the person writes. A pack flag is not a situation. Specific cases do not belong in the general finish.
 
 
 

@@ -3,8 +3,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { AssetHub } from "@/components/AssetHub";
 import { Mark } from "@/components/Mark";
 import { readLastPlot, writeLastPlot } from "@/data/campus";
+import type { AssetItem } from "@/lib/assets";
+import { assetLane, isImageHref } from "@/lib/assets-view";
+import { vaultKitForPlot } from "@/lib/epk-map";
 
 type Plot = { slug: string; name: string };
 type Ledger = { plotSlug: string; balance: number; grantedThisPeriod: number };
@@ -17,19 +21,29 @@ type Project = {
   stills?: Still[];
 };
 type Room = "picture" | "inpaint" | "text";
-type PoolItem = {
-  id: string;
-  href: string;
-  title: string;
-  lane: string;
-  laneLabel: string;
-  flags?: { logo?: boolean; pack?: boolean };
-  note?: string;
-  source?: "job" | "vault";
-};
-type Attach = { id: string; href: string; title: string; lane: string; note: string };
+type Attach = { id: string; href: string; title: string; lane: string; note: string; kind?: string };
+
+function attachFromAsset(item: AssetItem, note?: string): Attach {
+  const lane = assetLane(item.flags);
+  return {
+    id: item.id,
+    href: item.href,
+    title: item.title,
+    lane,
+    kind: item.kind,
+    note: note ?? defaultNote(lane),
+  };
+}
 type Steer = { prompt: string; cleaned: string; avenue: string; setting: string; missing: string[] };
+type TextSteer = { kind: string; title: string; cleaned: string; setting: string; missing: string[]; prompt?: string };
 type Sort = "recent" | "name";
+type TextKind = "press" | "social" | "slides";
+
+const TEXT_JOBS: { id: TextKind; label: string }[] = [
+  { id: "press", label: "Press pack" },
+  { id: "social", label: "Social post" },
+  { id: "slides", label: "Meeting slides" },
+];
 
 const AVENUES = [
   { id: "auto" as const, label: "Auto" },
@@ -38,16 +52,6 @@ const AVENUES = [
   { id: "editorial" as const, label: "Editorial" },
 ];
 
-const FOLDERS = [
-  { id: "all", label: "All" },
-  { id: "job", label: "This job" },
-  { id: "logo", label: "Logo" },
-  { id: "pack", label: "Pack" },
-  { id: "people", label: "People" },
-  { id: "promo", label: "Promo" },
-  { id: "banner", label: "Banner" },
-  { id: "picture", label: "Picture" },
-];
 
 function parsePath(path: string): { id: string; room: Room } {
   const parts = path.replace(/\/+$/, "").split("/").filter(Boolean);
@@ -62,10 +66,18 @@ function jobHref(id: string, room: Room) {
   return `/studio/${id}/${room}`;
 }
 
-function defaultNote(lane: string) {
-  if (lane === "pack") return "use the bottle from this — copy type, cap, finish";
-  if (lane === "logo") return "use this mark";
+function defaultNote(_lane: string) {
   return "";
+}
+
+function AttachFace({ href, title, kind }: { href: string; title: string; kind?: string }) {
+  if (isImageHref(href)) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={href} alt="" />
+    );
+  }
+  return <span className="studio-file-face">{kind || title || "File"}</span>;
 }
 
 export function StudioApp() {
@@ -475,8 +487,7 @@ function PictureRoom({
               <ul className="studio-attach-list">
                 {attaches.map((item) => (
                   <li key={item.id} className="pipe-attach">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={item.href} alt="" />
+                    <AttachFace href={item.href} title={item.title} kind={item.kind} />
                     <p>
                       <span>{item.lane}</span>
                       {item.note ? ` — ${item.note}` : ""}
@@ -613,7 +624,6 @@ function PictureRoom({
         open={poolOpen}
         plot={plot}
         plotName={plotName}
-        job={job}
         attaches={attaches}
         onClose={() => setPoolOpen(false)}
         onChange={setAttaches}
@@ -645,37 +655,16 @@ function InpaintRoom({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [href, setHref] = useState("");
-  const [vault, setVault] = useState<PoolItem[]>([]);
   const [poolOpen, setPoolOpen] = useState(false);
+  const [picked, setPicked] = useState<Attach | null>(
+    job.stills?.[0]
+      ? { id: job.stills[0].id, href: job.stills[0].href, title: job.stills[0].title, lane: "picture", note: "" }
+      : null,
+  );
 
   useEffect(() => {
-    fetch(`/api/studio/pool?plot=${encodeURIComponent(plot)}`, { credentials: "include", cache: "no-store" })
-      .then((res) => res.json())
-      .then((body) => setVault(Array.isArray(body.items) ? body.items : []))
-      .catch(() => {});
-  }, [plot]);
-
-  const choices = useMemo(() => {
-    const fromJob = (job.stills || []).map((row) => ({
-      id: row.id,
-      href: row.href,
-      title: row.title,
-      lane: "picture",
-      laneLabel: "Picture",
-      source: "job" as const,
-    }));
-    const logos = vault.filter((row) => row.flags?.logo || row.lane === "logo" || row.flags?.pack);
-    const seen = new Set<string>();
-    return [...fromJob, ...logos, ...vault].filter((row) => {
-      if (seen.has(row.href)) return false;
-      seen.add(row.href);
-      return true;
-    });
-  }, [job.stills, vault]);
-
-  useEffect(() => {
-    if (!source && choices[0]) setSource(choices[0].href);
-  }, [choices, source]);
+    if (!source && job.stills?.[0]?.href) setSource(job.stills[0].href);
+  }, [job.stills, source]);
 
   function paintAt(event: PointerEvent<HTMLCanvasElement>) {
     const node = canvas.current;
@@ -754,20 +743,21 @@ function InpaintRoom({
           <div className="studio-assets-row">
             <p className="pipe-control-label">The still</p>
             <button type="button" className="dln-chip" onClick={() => setPoolOpen(true)}>
-              Open assets
+              {picked ? "Change still · vault" : "Open assets"}
             </button>
-            <div className="pipe-control-row">
-              {choices.slice(0, 6).map((row) => (
-                <button
-                  key={row.id}
-                  type="button"
-                  className={`pipe-seg ${source === row.href ? "is-on" : ""}`}
-                  onClick={() => setSource(row.href)}
-                >
-                  {row.title || "Still"}
-                </button>
-              ))}
-            </div>
+            {picked ? (
+              <ul className="studio-attach-list">
+                <li className="pipe-attach">
+                  <AttachFace href={picked.href} title={picked.title} kind={picked.kind} />
+                  <p>
+                    <span>{picked.lane}</span>
+                    {picked.title ? ` — ${picked.title}` : ""}
+                  </p>
+                </li>
+              </ul>
+            ) : (
+              <p className="studio-hint">Open assets and pick a still from this site’s vault.</p>
+            )}
           </div>
           <textarea
             value={prompt}
@@ -824,11 +814,13 @@ function InpaintRoom({
         open={poolOpen}
         plot={plot}
         plotName={plotName}
-        job={job}
-        attaches={source ? [{ id: source, href: source, title: "Still", lane: "picture", note: "" }] : []}
+        attaches={picked ? [picked] : []}
+        single
         onClose={() => setPoolOpen(false)}
         onChange={(rows) => {
-          if (rows[0]) setSource(rows[0].href);
+          const next = rows[0] || null;
+          setPicked(next);
+          if (next) setSource(next.href);
         }}
       />
     </>
@@ -848,16 +840,56 @@ function TextRoom({
   stillCost: number;
   onBalance: (n: number) => void;
 }) {
+  const [kind, setKind] = useState<TextKind>("press");
   const [title, setTitle] = useState("");
   const [prompt, setPrompt] = useState("");
-  const [busy, setBusy] = useState(false);
+  const [audience, setAudience] = useState("");
+  const [offer, setOffer] = useState("");
+  const [cta, setCta] = useState("");
+  const [mustKeep, setMustKeep] = useState("");
+  const [attaches, setAttaches] = useState<Attach[]>([]);
+  const [poolOpen, setPoolOpen] = useState(false);
+  const [busy, setBusy] = useState<"steer" | "gen" | null>(null);
   const [error, setError] = useState("");
   const [href, setHref] = useState("");
   const [body, setBody] = useState("");
+  const [provider, setProvider] = useState("");
+  const [steered, setSteered] = useState<TextSteer | null>(null);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      if (!prompt.trim()) {
+        setSteered(null);
+        return;
+      }
+      setBusy("steer");
+      void fetch("/api/studio/text", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          steerOnly: true,
+          plotSlug: plot,
+          plotName,
+          kind,
+          title: title.trim(),
+          prompt: prompt.trim(),
+          extras: { audience, offer, cta, mustKeep, plotName },
+          attaches,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.steered) setSteered(data.steered);
+        })
+        .finally(() => setBusy((value) => (value === "steer" ? null : value)));
+    }, 450);
+    return () => window.clearTimeout(timer);
+  }, [prompt, kind, title, audience, offer, cta, mustKeep, attaches, plot, plotName]);
 
   async function write() {
     if (!prompt.trim()) return;
-    setBusy(true);
+    setBusy("gen");
     setError("");
     const res = await fetch("/api/studio/text", {
       method: "POST",
@@ -867,8 +899,11 @@ function TextRoom({
         projectId: job.id,
         plotSlug: plot,
         plotName,
+        kind,
         title: title.trim(),
         prompt: prompt.trim(),
+        extras: { audience, offer, cta, mustKeep, plotName },
+        attaches,
       }),
     });
     const data = (await res.json().catch(() => ({}))) as {
@@ -876,8 +911,10 @@ function TextRoom({
       body?: string;
       error?: string;
       balance?: number;
+      provider?: string;
+      steered?: TextSteer;
     };
-    setBusy(false);
+    setBusy(null);
     if (typeof data.balance === "number") onBalance(data.balance);
     if (!res.ok || !data.href) {
       setError(data.error || "Could not write that.");
@@ -885,54 +922,164 @@ function TextRoom({
     }
     setHref(data.href);
     setBody(data.body || "");
+    setProvider(data.provider || "");
+    if (data.steered) setSteered(data.steered);
   }
 
+  const openLabel =
+    kind === "slides" ? "Open the slides" : kind === "social" ? "Open the caption" : "Open the PDF";
+
   return (
-    <main className="studio-desk-grid">
-      <section>
-        <p className="dln-kicker">01 · /text</p>
-        <h1 className="dln-title">Write a document</h1>
-        <p className="dln-lede">A letter, a one-pager, a PDF for the brand. It lands in Assets on this site.</p>
-        <input
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          placeholder="Title — optional"
-          className="dln-field studio-field"
-        />
-        <textarea
-          value={prompt}
-          onChange={(event) => setPrompt(event.target.value)}
-          rows={7}
-          placeholder="What should this document be, and who is it for?"
-          className="dln-field studio-field"
-        />
-        <div className="studio-acts">
-          <button type="button" className="dln-btn" disabled={busy || !prompt.trim()} onClick={() => void write()}>
-            {busy ? "Writing…" : `Write · ${stillCost} Instant updates`}
-          </button>
-        </div>
-        {error ? <p className="studio-error">{error}</p> : null}
-      </section>
-      <section>
-        <p className="dln-kicker">02 · document</p>
-        <div className="pipe-stage studio-doc">
-          {body ? (
-            <>
-              <p>{body}</p>
-              {href ? (
+    <>
+      <main className="studio-desk-grid">
+        <section>
+          <p className="dln-kicker">01 · /text</p>
+          <h1 className="dln-title">Write from this project</h1>
+          <p className="dln-lede">
+            Same job as the picture. Press pack, a social post, or slides for a room. We steer the brief; the file
+            lands in this site’s vault.
+          </p>
+
+          <div className="pipe-control">
+            <p className="pipe-control-label">The job</p>
+            <div className="pipe-control-row">
+              {TEXT_JOBS.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`pipe-seg ${kind === item.id ? "is-on" : ""}`}
+                  onClick={() => setKind(item.id)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="studio-assets-row">
+            <p className="pipe-control-label">Pictures on this job</p>
+            <button type="button" className="dln-chip" onClick={() => setPoolOpen(true)}>
+              {attaches.length ? `${attaches.length} attached · edit` : "Open assets"}
+            </button>
+            {attaches.length ? (
+              <ul className="studio-attach-list">
+                {attaches.map((item) => (
+                  <li key={item.id} className="pipe-attach">
+                    <AttachFace href={item.href} title={item.title} kind={item.kind} />
+                    <p>
+                      <span>{item.lane}</span>
+                      {item.note ? ` — ${item.note}` : ""}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="studio-hint">Attach stills from the vault if the page should carry them.</p>
+            )}
+          </div>
+
+          <input
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            placeholder="Title — optional"
+            className="dln-field studio-field"
+          />
+          <textarea
+            value={prompt}
+            onChange={(event) => setPrompt(event.target.value)}
+            rows={6}
+            placeholder={
+              kind === "social"
+                ? "What should this post say, and who is it for?"
+                : kind === "slides"
+                  ? "What is the meeting, and what should they leave knowing?"
+                  : "What should this press pack cover, and who is it for?"
+            }
+            className="dln-field studio-field"
+          />
+          <div className="studio-plus-fields">
+            <input
+              value={audience}
+              onChange={(event) => setAudience(event.target.value)}
+              placeholder="Who it is for — promoters, press, a market"
+              className="dln-field"
+            />
+            <input
+              value={offer}
+              onChange={(event) => setOffer(event.target.value)}
+              placeholder="The offer or the news"
+              className="dln-field"
+            />
+            <input
+              value={cta}
+              onChange={(event) => setCta(event.target.value)}
+              placeholder="Call to action"
+              className="dln-field"
+            />
+            <input
+              value={mustKeep}
+              onChange={(event) => setMustKeep(event.target.value)}
+              placeholder="Must stay true — names, dates, claims"
+              className="dln-field"
+            />
+          </div>
+          <div className="studio-acts">
+            <button type="button" className="dln-btn" disabled={busy === "gen" || !prompt.trim()} onClick={() => void write()}>
+              {busy === "gen" ? "Writing…" : `Write · ${stillCost} Instant updates`}
+            </button>
+          </div>
+          {error ? <p className="studio-error">{error}</p> : null}
+
+          <p className="dln-kicker studio-kicker">02 · what we send</p>
+          <div className="pipe-note">
+            {busy === "steer" && !steered ? (
+              <p>Reading the brief…</p>
+            ) : steered ? (
+              <>
                 <p>
-                  <a href={href} target="_blank" rel="noreferrer">
-                    Open the PDF
-                  </a>
+                  {steered.setting}
+                  {attaches.length ? ` · ${attaches.length} refs` : ""}
                 </p>
-              ) : null}
-            </>
-          ) : (
-            <p className="pipe-empty">The document lands here.</p>
-          )}
-        </div>
-      </section>
-    </main>
+                {steered.cleaned !== prompt.trim() ? <p>Cleaned: {steered.cleaned}</p> : null}
+                {steered.missing.length ? (
+                  <p className="studio-warn">Still missing: {steered.missing.join("; ")}.</p>
+                ) : null}
+              </>
+            ) : (
+              <p>The steered brief lands here as you type. Nothing is spent yet.</p>
+            )}
+          </div>
+        </section>
+        <section>
+          <p className="dln-kicker">03 · document</p>
+          <div className="pipe-stage studio-doc">
+            {body ? (
+              <>
+                {provider ? <p className="studio-hint">Written on this house · {provider}</p> : null}
+                <p>{body}</p>
+                {href ? (
+                  <p>
+                    <a href={href} target="_blank" rel="noreferrer">
+                      {openLabel}
+                    </a>
+                  </p>
+                ) : null}
+              </>
+            ) : (
+              <p className="pipe-empty">The document lands here, and in the vault.</p>
+            )}
+          </div>
+        </section>
+      </main>
+      <VaultSheet
+        open={poolOpen}
+        plot={plot}
+        plotName={plotName}
+        attaches={attaches}
+        onClose={() => setPoolOpen(false)}
+        onChange={setAttaches}
+      />
+    </>
   );
 }
 
@@ -940,107 +1087,38 @@ function VaultSheet({
   open,
   plot,
   plotName,
-  job,
   attaches,
   onClose,
   onChange,
+  single = false,
 }: {
   open: boolean;
   plot: string;
   plotName: string;
-  job: Project;
   attaches: Attach[];
   onClose: () => void;
   onChange: (next: Attach[]) => void;
+  single?: boolean;
 }) {
-  const fileRef = useRef<HTMLInputElement>(null);
-  const kindRef = useRef<"pack" | "logo" | "ref">("ref");
-  const [items, setItems] = useState<PoolItem[]>([]);
-  const [house, setHouse] = useState(plotName);
-  const [folder, setFolder] = useState("all");
-  const [busy, setBusy] = useState(false);
-  const [ready, setReady] = useState(false);
-
-  const load = useCallback(() => {
-    if (!plot) return;
-    fetch(`/api/studio/pool?plot=${encodeURIComponent(plot)}`, { credentials: "include", cache: "no-store" })
-      .then((res) => res.json())
-      .then((body) => {
-        const vault = (Array.isArray(body.items) ? body.items : []).map((item: PoolItem) => ({
-          ...item,
-          source: "vault" as const,
-        }));
-        const jobRows: PoolItem[] = (job.stills || []).map((row) => ({
-          id: `job:${row.id}`,
-          href: row.href,
-          title: row.title,
-          lane: "picture",
-          laneLabel: "Picture",
-          source: "job",
-        }));
-        setItems([...jobRows, ...vault]);
-        if (body.house) setHouse(body.house);
-        setReady(true);
-      })
-      .catch(() => setReady(true));
-  }, [plot, job.stills]);
+  const kit = vaultKitForPlot(plot) || plot;
 
   useEffect(() => {
     if (!open) return;
-    setReady(false);
-    load();
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, load, onClose]);
+  }, [open, onClose]);
 
-  const counts = useMemo(() => {
-    const next: Record<string, number> = { all: items.length, job: 0 };
-    for (const item of items) {
-      if (item.source === "job") next.job = (next.job || 0) + 1;
-      const lane = item.lane || "picture";
-      next[lane] = (next[lane] || 0) + 1;
+  function toggle(item: AssetItem) {
+    const next = attachFromAsset(item);
+    if (single) {
+      onChange(attaches[0]?.id === item.id ? [] : [next]);
+      return;
     }
-    return next;
-  }, [items]);
-
-  const shown = useMemo(() => {
-    if (folder === "all") return items;
-    if (folder === "job") return items.filter((row) => row.source === "job");
-    return items.filter((row) => (row.lane || "picture") === folder);
-  }, [items, folder]);
-
-  function toggle(item: PoolItem) {
     const has = attaches.some((row) => row.id === item.id);
-    onChange(
-      has
-        ? attaches.filter((row) => row.id !== item.id)
-        : [
-            ...attaches,
-            {
-              id: item.id,
-              href: item.href,
-              title: item.title,
-              lane: item.lane,
-              note: defaultNote(item.lane),
-            },
-          ],
-    );
-  }
-
-  async function upload(file: File, kind: "pack" | "logo" | "ref") {
-    setBusy(true);
-    const form = new FormData();
-    form.set("plotSlug", plot);
-    form.set("file", file);
-    form.set("title", file.name.replace(/\.[^.]+$/, ""));
-    if (kind === "logo") form.set("logo", "1");
-    if (kind === "pack") form.set("pack", "1");
-    await fetch("/api/studio/deposit", { method: "POST", credentials: "include", body: form });
-    setBusy(false);
-    load();
+    onChange(has ? attaches.filter((row) => row.id !== item.id) : [...attaches, next]);
   }
 
   if (!open) return null;
@@ -1051,20 +1129,20 @@ function VaultSheet({
         className="pipe-sheet pipe-sheet-vault"
         role="dialog"
         aria-modal="true"
-        aria-label={`${house || plotName} vault`}
+        aria-label={`${plotName} vault`}
         onClick={(event) => event.stopPropagation()}
       >
         <div className="studio-vault-head">
           <div>
-            <p className="dln-kicker">{house || plotName}</p>
+            <p className="dln-kicker">{plotName}</p>
             <h2 className="dln-title studio-vault-title">The vault</h2>
             <p className="dln-lede">
-              This site’s folder — the same book as Assets on the account. Jobs pick from it. Upload lands in this house,
-              not a private dump.
+              This site’s folder — the same book as Account → Assets. Drop or click to upload; it lands here and
+              attaches. Pick any still. The press kit is only a share flag on the same files.
             </p>
           </div>
           <div className="pipe-control-row">
-            <a href={`/account?desk=assets&kit=${encodeURIComponent(plot)}`} className="dln-chip">
+            <a href={`/account?desk=assets&kit=${encodeURIComponent(kit)}`} className="dln-chip">
               Full vault
             </a>
             <button type="button" className="dln-chip" onClick={onClose}>
@@ -1073,94 +1151,42 @@ function VaultSheet({
           </div>
         </div>
 
-        <div className="pipe-control-row studio-vault-folders">
-          {FOLDERS.filter((row) => row.id === "all" || row.id === "job" || (counts[row.id] || 0) > 0).map((row) => (
-            <button
-              key={row.id}
-              type="button"
-              className={`dln-chip ${folder === row.id ? "is-on" : ""}`}
-              onClick={() => setFolder(row.id)}
-            >
-              {row.label}
-              {counts[row.id] ? ` · ${counts[row.id]}` : ""}
-            </button>
-          ))}
-        </div>
-
-        <div className="pipe-control-row">
-          {(["pack", "logo", "ref"] as const).map((kind) => (
-            <button
-              key={kind}
-              type="button"
-              className="dln-chip"
-              disabled={busy}
-              onClick={() => {
-                kindRef.current = kind;
-                fileRef.current?.click();
-              }}
-            >
-              {kind === "ref" ? "Upload a picture" : `Upload ${kind}`}
-            </button>
-          ))}
-        </div>
-        <input
-          ref={fileRef}
-          type="file"
-          accept="image/png,image/jpeg,image/webp"
-          hidden
-          onChange={(event) => {
-            const file = event.target.files?.[0];
-            event.currentTarget.value = "";
-            if (file) void upload(file, kindRef.current);
+        <AssetHub
+          lockedKit={kit}
+          pick
+          pickedIds={attaches.map((row) => row.id)}
+          onToggle={toggle}
+          onUploaded={(item) => {
+            const next = attachFromAsset(item);
+            onChange(single ? [next] : [...attaches.filter((row) => row.id !== item.id), next]);
           }}
         />
 
-        {!ready ? (
-          <p className="studio-hint">Opening the vault…</p>
-        ) : shown.length === 0 ? (
-          <p className="studio-hint">
-            {folder === "job"
-              ? "Nothing on this job yet. Generated stills land here."
-              : `Nothing in the ${house || plotName} vault${folder !== "all" ? ` · ${folder}` : ""} yet.`}
-          </p>
-        ) : (
-          <ul className="studio-vault-grid">
-            {shown.map((item) => {
-              const attach = attaches.find((row) => row.id === item.id);
-              return (
-                <li key={item.id} className={`pipe-pick ${attach ? "is-on" : ""}`}>
-                  <button type="button" className="pipe-pick-still" onClick={() => toggle(item)}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={item.href} alt="" />
-                  </button>
-                  <p className="studio-vault-cap">
+        {attaches.length ? (
+          <ul className="studio-pick-notes">
+            {attaches.map((item) => (
+              <li key={item.id}>
+                <AttachFace href={item.href} title={item.title} kind={item.kind} />
+                <div>
+                  <p>
                     {item.title}
-                    <em>
-                      {item.laneLabel || item.lane}
-                      {item.source === "job" ? " · this job" : ""}
-                    </em>
+                    <em>{item.lane}</em>
                   </p>
-                  {attach ? (
+                  {single ? null : (
                     <input
-                      value={attach.note}
+                      value={item.note}
                       onChange={(event) =>
                         onChange(attaches.map((row) => (row.id === item.id ? { ...row, note: event.target.value } : row)))
                       }
-                      placeholder={
-                        item.lane === "pack"
-                          ? "use the bottle from this"
-                          : item.lane === "logo"
-                            ? "use this mark"
-                            : "her hair / her makeup / the light…"
-                      }
+                      placeholder="what to take from this still"
                       className="dln-field"
                     />
-                  ) : null}
-                </li>
-              );
-            })}
+                  )}
+                </div>
+              </li>
+            ))}
           </ul>
-        )}
+        ) : null}
       </div>
     </div>
   );

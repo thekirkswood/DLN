@@ -1331,3 +1331,41 @@
 {"t": "2026-10-11T23:45:26+01:00", "k": "mod", "p": "Site/src/components/modyu-epk/modyu-epk.css", "s": "Drop checker on EPK vault and bottle stills", "d": "flat --epk-wash"}
 {"t": "2026-10-11T23:52:00+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "ModYu homepage founder still is Ann-Marie AMB.png", "d": "Dave Instant update was the shop home, not only EPK"}
 {"t":"2026-10-12T00:02:32+01:00","k":"ver","p":"dln-18","s":"ModYu press kit on the hub (Dave\u2019s vault and copy, Ann-Marie still, asset wash). Board still off live.","d":"numbered ship"}
+{"t": "2026-10-12T11:23:52+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "EPK left rail: Our Story under Founder", "d": "Dave Instant update"}
+{"t": "2026-10-12T11:23:52+01:00", "k": "bp", "p": "BLUEPRINT.md", "s": "ModYu EPK home drops the Our Story panel", "d": "rail page instead"}
+{"t": "2026-10-12T11:23:52+01:00", "k": "mod", "p": "Site/src/lib/modyu-epk/content.ts", "s": "Add Our Story under Ann-Marie in left nav", "d": "links /epk/modyu/our-story"}
+{"t": "2026-10-12T11:23:52+01:00", "k": "mod", "p": "Site/src/components/modyu-epk/ModyuBespokeKit.tsx", "s": "Remove Our Story panel from EPK home", "d": "Dave Instant update"}
+{"t":"2026-10-12T11:25:20+01:00","k":"dir","p":"DIRECTIONS.md","s":"Studio Open assets is the whole vault; text is a project job","d":"Ewan: no hand-pick; Ollama/Gemini write words, house stamps files"}
+{"t":"2026-10-12T11:25:20+01:00","k":"bp","p":"BLUEPRINT.md","s":"/studio Open assets is AssetHub; text press/social/slides on the house","d":"same _meta/assets book; not engine Gemini-only"}
+{"t":"2026-10-12T11:25:20+01:00","k":"mod","p":"Site/src/components/AssetHub.tsx","s":"Pick mode: full kit, FileFace plates, upload auto-attaches","d":"Studio overlay is this hub, not a second list"}
+{"t":"2026-10-12T11:25:20+01:00","k":"mod","p":"Site/src/app/api/assets/route.ts","s":"Kit query returns that house’s whole book","d":"studio overlay and Account share one GET"}
+{"t":"2026-10-12T11:25:20+01:00","k":"mod","p":"Site/src/app/api/studio/pool/route.ts","s":"Pool lists every kit item with relative hrefs","d":"no image-only cut, no hub-prefixed thumbs"}
+{"t":"2026-10-12T11:25:20+01:00","k":"mod","p":"Site/src/components/studio/StudioApp.tsx","s":"Vault overlay is AssetHub; text jobs press/social/slides","d":"thumbs not filenames; upload lands in vault"}
+{"t":"2026-10-12T11:25:20+01:00","k":"add","p":"Site/src/lib/studio-copy.ts","s":"Steer press/social/slides briefs like pictures","d":"audience offer CTA must-keep + vault notes"}
+{"t":"2026-10-12T11:25:20+01:00","k":"add","p":"Site/src/lib/studio-llm.ts","s":"Ollama on this seat, else Gemini if keyed","d":"words only; no engine Gemini-only path"}
+{"t":"2026-10-12T11:25:20+01:00","k":"add","p":"Site/src/lib/studio-docs.ts","s":"House stamps PDF and PPTX with attached stills","d":"Ollama/Gemini cannot lay out documents"}
+{"t":"2026-10-12T11:25:20+01:00","k":"mod","p":"Site/src/app/api/studio/text/route.ts","s":"House text: steer, write, stamp, deposit to vault","d":"stop forwarding to engine /api/generate/text"}
+{"t":"2026-10-12T11:25:20+01:00","k":"mod","p":"Site/src/lib/assets.ts","s":"Accept .pptx as slides kind","d":"meeting decks land in the vault"}
+{"t":"2026-10-12T11:25:20+01:00","k":"mod","p":"Site/package.json","s":"Add pdf-lib and pptxgenjs","d":"house-stamped press packs and slides"}
+{"t":"2026-10-12T11:25:20+01:00","k":"mod","p":"Site/src/app/globals.css","s":"Pick overlay and square attach thumbs","d":"vault plates must read as pictures"}
+{"t":"2026-10-12T11:28:40+01:00","k":"mod","p":"Site/src/components/AssetHub.tsx","s":"Pick overlay opens on Images","d":"whole vault still there; All files one click"}
+{"t":"2026-10-12T11:44:10+01:00","k":"dir","p":"DIRECTIONS.md","s":"House first; VPS only when Ewan asks","d":"ordinary Studio work stays on the house"}
+{"t":"2026-10-12T11:44:10+01:00","k":"add","p":"Site/src/app/press/[...path]/route.ts","s":"Serve vault files from disk, not the build-time public map","d":"live gens 404 until Next restarts"}
+{"t":"2026-10-12T11:44:10+01:00","k":"mod","p":"Site/src/lib/assets.ts","s":"Export assetsPublicDir for the press route","d":"same folder the vault writes to"}
+{"t": "2026-10-12T11:45:37+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "EPK Our Story title and copy from Dave", "d": "Instant update"}
+{"t": "2026-10-12T11:45:37+01:00", "k": "mod", "p": "Site/src/lib/modyu-epk/content.ts", "s": "New Our Story headline, sub, opening, full story", "d": "Dave Instant update"}
+{"t": "2026-10-12T11:45:37+01:00", "k": "mod", "p": "Site/src/components/modyu-epk/ModyuBespokeKit.tsx", "s": "Our Story page uses Dave’s full story", "d": "was old artform headline"}
+{"t": "2026-10-12T11:45:37+01:00", "k": "mod", "p": "Site/src/lib/epk-docs/modyu.ts", "s": "Docs pack Our Story title and opening", "d": "match the page"}
+{"t": "2026-10-12T11:45:37+01:00", "k": "mod", "p": "Site/src/lib/epk-copy.ts", "s": "ModYu kit lede uses new Our Story line", "d": "Dave Instant update"}
+{"t":"2026-10-12T11:48:40+01:00","k":"mod","p":"Site/src/lib/studio-llm.ts","s":"Live text error: Ollama on the PC does not reach the public host","d":"Ewan started Ollama on Mint against designlabnorth.com"}
+{"t": "2026-10-12T11:54:59+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "EPK bottles vault uses Dave’s glass-shelf stills", "d": "Instant update"}
+{"t": "2026-10-12T11:54:59+01:00", "k": "mod", "p": "Site/src/lib/modyu-epk/assets.ts", "s": "Bottle vault src kit-stills HT4 sheets", "d": "was plot PNG cutouts"}
+{"t":"2026-10-12T11:58:42+01:00","k":"dir","p":"DIRECTIONS.md","s":"Steer refines the typed line, not a pack case","d":"bottle/talent/hero liturgy was polluting ice-cream gens"}
+{"t":"2026-10-12T11:58:42+01:00","k":"bp","p":"BLUEPRINT.md","s":"Studio steer is the user line; /press served from disk","d":"specific pack cases do not help a general refiner; live gens 404d"}
+{"t":"2026-10-12T11:58:42+01:00","k":"mod","p":"Site/src/lib/picture-steer.ts","s":"House refiner: tidy the line, no bottle/talent/hero defaults","d":"pack setting only on pack shot/cyc/void"}
+{"t":"2026-10-12T11:58:42+01:00","k":"mod","p":"Site/src/components/studio/StudioApp.tsx","s":"Attach notes start empty","d":"do not prefill pack liturgy"}
+{"t":"2026-10-12T11:58:42+01:00","k":"mod","p":"Site/src/app/api/studio/still/route.ts","s":"Send house-steered prompt; engine must not re-wrap","d":"preview is what Fal gets"}
+{"t":"2026-10-12T11:58:42+01:00","k":"add","p":"Site/src/app/api/press/[...path]/route.ts","s":"Disk serve vault stills","d":"Next public map 404s runtime uploads"}
+{"t":"2026-10-12T11:58:42+01:00","k":"mod","p":"Site/next.config.mjs","s":"beforeFiles rewrite /press to /api/press","d":"public/ must not win"}
+{"t":"2026-10-12T11:58:42+01:00","k":"mod","p":"Site/src/middleware.ts","s":"Rewrite /press to /api/press","d":"live Swarm gen still 404 while testing"}
+{"t":"2026-10-12T11:58:42+01:00","k":"ver","p":"dln-19","s":"Studio steer tidies the typed line. Live /press from disk so gens show. Board still off live.","d":"numbered ship"}

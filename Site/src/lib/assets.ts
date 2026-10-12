@@ -13,7 +13,12 @@ const ROOT = path.join(process.cwd(), "..");
 const FILE = path.join(ROOT, "_meta", "assets", "index.json");
 const PUBLIC = path.join(ROOT, "Site", "public");
 
-export type AssetKind = "image" | "pdf" | "text" | "blueprint" | "brief";
+/** Disk folder Next writes vault files into. Production does not pick up new public files until restart. */
+export function assetsPublicDir() {
+  return PUBLIC;
+}
+
+export type AssetKind = "image" | "pdf" | "text" | "blueprint" | "brief" | "slides";
 
 export type AssetFlags = {
   logo?: boolean;
@@ -71,6 +76,7 @@ function extKind(file: string): AssetKind | null {
   const ext = path.extname(file).toLowerCase();
   if (IMAGE_EXT.has(ext)) return "image";
   if (ext === ".pdf") return "pdf";
+  if (ext === ".pptx") return "slides";
   if ([".md", ".txt"].includes(ext)) return "text";
   return null;
 }

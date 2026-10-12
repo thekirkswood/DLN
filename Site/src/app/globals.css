@@ -4304,6 +4304,14 @@ html[data-ground="ink"] .err {
   margin: 0 0 2.4rem;
 }
 
+.asset-hub.is-pick {
+  margin: 1rem 0 0;
+}
+
+.asset-hub.is-pick .asset-hub__drop {
+  cursor: pointer;
+}
+
 .asset-hub__head {
   display: flex;
   flex-wrap: wrap;
@@ -17131,9 +17139,10 @@ html[data-ground="ink"] .board-tile.is-apes img {
   min-width: 0;
 }
 
-.pipe-attach img {
-  height: 2.4rem;
-  width: 1.8rem;
+.pipe-attach img,
+.pipe-attach .studio-file-face {
+  height: 3.2rem;
+  width: 3.2rem;
   object-fit: cover;
 }
 
@@ -17406,6 +17415,58 @@ html[data-ground="ink"] .board-tile.is-apes img {
   padding: 0;
   display: grid;
   gap: 0.5rem;
+}
+
+.studio-file-face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  padding: 0.3rem;
+  border: 1px solid var(--line);
+  background: var(--asset-wash);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute);
+  text-align: center;
+}
+
+.studio-pick-notes {
+  list-style: none;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.studio-pick-notes li {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.studio-pick-notes img,
+.studio-pick-notes .studio-file-face {
+  width: 3.2rem;
+  height: 3.2rem;
+  object-fit: cover;
+}
+
+.studio-pick-notes p {
+  margin: 0 0 0.35rem;
+  font-size: 0.86rem;
+}
+
+.studio-pick-notes em {
+  display: block;
+  font-style: normal;
+  color: var(--mute);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 

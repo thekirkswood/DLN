@@ -28,6 +28,11 @@ const nextConfig = {
   allowedDevOrigins: lanDevOrigins(),
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
+  async rewrites() {
+    return {
+      beforeFiles: [{ source: "/press/:path*", destination: "/api/press/:path*" }],
+    };
+  },
   async headers() {
     return [
       {

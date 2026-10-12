@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireStudioApi } from "@/lib/lab-guard";
-import { isKitId, listKitsPublic, listUnlocks, rotateKitCode } from "@/lib/epk";
+import { isKitId, listKitsPublic, listUnlocks, rotateKitCode, setKitCode } from "@/lib/epk";
 import {
   kitCopyDraft,
   resetKitCopy,
@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
   const body = (await req.json().catch(() => null)) as {
     id?: string;
     action?: string;
+    code?: string;
     kicker?: string;
     lede?: string;
     overview?: string[];
@@ -53,6 +54,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "kit" }, { status: 400 });
   }
   const action = (body?.action || "rotate").trim().toLowerCase();
+  if (action === "set-code") {
+    const code = await setKitCode(id, String(body?.code || ""));
+    if (!code) {
+      return NextResponse.json({ ok: false, error: "code" }, { status: 400 });
+    }
+    return NextResponse.json({ ok: true, id, code });
+  }
   if (action === "reset") {
     const profile = await resetKitCopy(id);
     const draft = await kitCopyDraft(id);

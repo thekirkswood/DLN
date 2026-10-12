@@ -35,6 +35,7 @@ import {
   quoteBank,
   readyStories,
   shortIntro,
+  storyFull,
   storyHeadline,
   storySub,
   weCanSay,
@@ -85,20 +86,6 @@ function HomePage() {
         <section className="epk-panel epk-panel--white">
           <p className="epk-kicker">Boilerplate · ~90 words</p>
           <CopyBlock label="Standard boilerplate" text={boilerplate90} />
-        </section>
-
-        <section className="epk-panel">
-          <p className="epk-kicker">Our story</p>
-          <h2>{storyHeadline}</h2>
-          <p className="epk-note" style={{ marginBottom: "0.75rem" }}>
-            {storySub}
-          </p>
-          <CopyBlock label="Opening" text={shortIntro} />
-          <p style={{ marginTop: "1rem" }}>
-            <Link href="/epk/modyu/our-story" className="epk-btn">
-              Full story
-            </Link>
-          </p>
         </section>
 
         <section>
@@ -624,11 +611,12 @@ function OurStoryPage() {
           </div>
         </section>
         <section className="epk-panel">
-          <h2>The surgery became an artform. The aftercare never did.</h2>
-          <p>
-            A global, billion-dollar procedure with no universally adopted
-            standard for what happens after the operation.
-          </p>
+          <h2>Full Story</h2>
+          <CopyBlock label="Full Story" text={storyFull}>
+            {storyFull.split("\n\n").map((para) => (
+              <p key={para.slice(0, 40)}>{para}</p>
+            ))}
+          </CopyBlock>
           <div className="epk-grid-3" style={{ marginTop: "1rem" }}>
             {marketStats.map((s) => (
               <div key={s.value} className="epk-stat">

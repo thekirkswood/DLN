@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { isStudio } from "@/lib/auth";
 import { listAssets } from "@/lib/assets";
-import { assetLane, isImageHref, laneLabel } from "@/lib/assets-view";
+import { assetLane, laneLabel } from "@/lib/assets-view";
 import { kitsForUser } from "@/lib/epk";
 import { loadKitContent } from "@/lib/epk-content";
 import { kitName, vaultKitForPlot } from "@/lib/epk-map";
@@ -29,17 +29,16 @@ export async function GET(request: Request) {
     return NextResponse.json({ ok: false }, { status: 403, headers: cors });
   }
   const index = await listAssets();
-  const hub = `${url.protocol}//${url.host}`;
   const items = index.items
-    .filter((item) => item.kind === "image" || isImageHref(item.href))
     .filter((item) => item.kit === kit)
     .map((item) => {
       const lane = assetLane(item.flags);
       return {
         id: item.id,
-        href: item.href.startsWith("http") ? item.href : `${hub}${item.href}`,
+        href: item.href,
         title: item.title,
         kit: item.kit,
+        kind: item.kind,
         flags: item.flags,
         lane,
         laneLabel: laneLabel(lane),

@@ -37,6 +37,11 @@ export function middleware(req: NextRequest) {
   ) {
     return withPath(req, new NextResponse("Not Found", { status: 404 }));
   }
+  if (path.startsWith("/press/")) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/api/press${path.slice("/press".length)}`;
+    return withPath(req, NextResponse.rewrite(url));
+  }
   if (isLabHost(host) && (path === "/lab" || path.startsWith("/lab/"))) {
     const slug = path.replace(/^\/lab\/?/, "").split("/")[0];
     return withPath(req, NextResponse.redirect(builderHref(slug, hostnameOf(host)), 302));

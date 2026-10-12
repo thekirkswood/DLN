@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { AssetFlags, AssetItem } from "@/lib/assets";
 import {
   assetLane,
@@ -48,15 +48,23 @@ function downloadName(href: string): string {
 export function AssetHub({
   lockedKit,
   onlyKits,
+  pick = false,
+  pickedIds = [],
+  onToggle,
+  onUploaded,
 }: {
   lockedKit?: string;
   onlyKits?: string[];
+  pick?: boolean;
+  pickedIds?: string[];
+  onToggle?: (item: AssetItem) => void;
+  onUploaded?: (item: AssetItem) => void;
 }) {
   const [items, setItems] = useState<AssetItem[]>([]);
   const [kits, setKits] = useState<KitRow[]>([]);
   const [error, setError] = useState("");
   const [house, setHouse] = useState(lockedKit || "");
-  const [kind, setKind] = useState<AssetKindFilter>("all");
+  const [kind, setKind] = useState<AssetKindFilter>(pick ? "image" : "all");
   const [lane, setLane] = useState<AssetLane | "all">("all");
   const [picked, setPicked] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -66,11 +74,13 @@ export function AssetHub({
   const [noteBody, setNoteBody] = useState("");
   const [comment, setComment] = useState("");
   const [textBody, setTextBody] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
   const onlyKey = (onlyKits || []).join(",");
 
   const load = useCallback(async () => {
     try {
-      const res = await fetch("/api/assets?seed=1", { credentials: "include", cache: "no-store" });
+      const q = lockedKit ? `?seed=1&kit=${encodeURIComponent(lockedKit)}` : "?seed=1";
+      const res = await fetch(`/api/assets${q}`, { credentials: "include", cache: "no-store" });
       if (!res.ok) {
         setError("Sign in to open assets.");
         return;
@@ -148,6 +158,7 @@ export function AssetHub({
     setBusy(true);
     setError("");
     const list = Array.from(files);
+    const added: AssetItem[] = [];
     for (const file of list) {
       const form = new FormData();
       form.set("kit", house);
@@ -157,9 +168,12 @@ export function AssetHub({
         setError(res.status === 413 ? "That file is too large (18 MB)." : "Could not add that file.");
         break;
       }
+      const data = (await res.json().catch(() => null)) as { item?: AssetItem } | null;
+      if (data?.item) added.push(data.item);
     }
     setBusy(false);
     await load();
+    for (const item of added) onUploaded?.(item);
   }
 
   async function writeNote(e: FormEvent) {
@@ -225,7 +239,8 @@ export function AssetHub({
   const kitHref = house ? `/account?desk=epk&view=press&kit=${encodeURIComponent(house)}` : "/account?desk=epk";
 
   return (
-    <div className="asset-hub">
+    <div className={pick ? "asset-hub is-pick" : "asset-hub"}>
+      {pick ? null : (
       <header className="asset-hub__head">
         <div>
           <p className="kicker">Asset hub</p>
@@ -242,6 +257,7 @@ export function AssetHub({
           </span>
         </p>
       </header>
+      )}
 
       <div className="asset-hub__bar">
         {kits.length > 1 && !lockedKit ? (
@@ -287,6 +303,7 @@ export function AssetHub({
         <label className="assets-upload">
           Upload
           <input
+            ref={fileRef}
             type="file"
             multiple
             disabled={busy || !house}
@@ -297,9 +314,11 @@ export function AssetHub({
             }}
           />
         </label>
+        {pick ? null : (
         <button type="button" className="assets-text-btn" onClick={() => setWriting((v) => !v)}>
           {writing ? "Close note" : "Write a note"}
         </button>
+        )}
       </div>
 
       {error ? <p className="err">{error}</p> : null}
@@ -323,6 +342,9 @@ export function AssetHub({
 
       <div
         className={`asset-hub__drop chamfer${over ? " is-over" : ""}`}
+        onClick={() => {
+          if (pick && !busy && house) fileRef.current?.click();
+        }}
         onDragEnter={(e) => {
           e.preventDefault();
           setOver(true);
@@ -338,7 +360,7 @@ export function AssetHub({
           if (e.dataTransfer.files?.length) upload(e.dataTransfer.files);
         }}
       >
-        {busy ? "Adding…" : "Drop files here — images, PDFs, or text."}
+        {busy ? "Adding…" : pick ? "Drop or click to upload — it lands in this vault and attaches." : "Drop files here — images, PDFs, or text."}
       </div>
 
       {shown.length ? (
@@ -347,8 +369,8 @@ export function AssetHub({
             <li key={item.id}>
               <button
                 type="button"
-                className={`assets-plate chamfer${picked === item.id ? " is-on" : ""}${isShared(item) ? " is-flagged" : ""}`}
-                onClick={() => setPicked(picked === item.id ? null : item.id)}
+                className={`assets-plate chamfer${(pick ? pickedIds.includes(item.id) : picked === item.id) ? " is-on" : ""}${!pick && isShared(item) ? " is-flagged" : ""}`}
+                onClick={() => (pick && onToggle ? onToggle(item) : setPicked(picked === item.id ? null : item.id))}
               >
                 <FileFace href={item.href} title={item.title} kind={item.kind} />
               </button>
@@ -363,7 +385,7 @@ export function AssetHub({
         <p className="body">Nothing in this house yet. Drop a file or write a note.</p>
       )}
 
-      {selected ? (
+      {!pick && selected ? (
         <div className="asset-hub__inspect">
           <div className="asset-hub__preview chamfer">
             <FileFace href={selected.href} title={selected.title} kind={selected.kind} />
