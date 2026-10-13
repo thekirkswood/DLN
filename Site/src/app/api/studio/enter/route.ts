@@ -22,6 +22,7 @@ export async function GET() {
     origin: studioOrigin(host),
     basePath: studioBasePath(),
     stillCost: costs.genCost,
+    textCost: costs.textCost,
     ledgers: ledgers.map((row) => ({
       plotSlug: row.plotSlug,
       balance: row.balance,

@@ -11,9 +11,12 @@ import { modyuAsset } from "@/lib/modyu-epk/asset-origin";
 import {
   assetCategories,
   assetVaultNav,
-  assetsByCategory,
   assetsForTags,
+  epkAssets,
+  type EpkAsset,
+  type EpkAssetCategory,
 } from "@/lib/modyu-epk/assets";
+import { liveEpkAssets } from "@/lib/epk-vault";
 import {
   aboutModyu,
   boilerplate90,
@@ -377,7 +380,13 @@ function FactsPage() {
   );
 }
 
-function AssetsPage() {
+function assetsInCategory(rows: EpkAsset[], category: EpkAssetCategory): EpkAsset[] {
+  return rows.filter((row) => row.category === category);
+}
+
+async function AssetsPage() {
+  const live = await liveEpkAssets("modyu", epkAssets);
+  const cats = assetCategories.filter((cat) => cat.id !== "other" || assetsInCategory(live, "other").length);
 
   return (
     <EpkShell eyebrow="Product & service" title="Asset vault">
@@ -386,18 +395,19 @@ function AssetsPage() {
           Sorted by what each still actually is. Open or drag an image for your
           piece. Bottle and kit prices live on the{" "}
           <Link href="/epk/modyu/system#prices">HT4 system page</Link>.
+          Files ticked onto the press kit in Assets land here.
         </p>
 
         <nav className="epk-asset-jump" aria-label="Asset categories">
-          {assetCategories.map((c) => (
+          {cats.map((c) => (
             <a key={c.id} href={`#${c.id}`}>
               {c.title}
             </a>
           ))}
         </nav>
 
-        {assetCategories.map((cat) => {
-          const items = assetsByCategory(cat.id);
+        {cats.map((cat) => {
+          const items = assetsInCategory(live, cat.id);
           return (
             <section key={cat.id} id={cat.id} className="epk-asset-section">
               <header className="epk-asset-section__head">
@@ -643,7 +653,7 @@ function SystemPage() {
   );
 }
 
-const PAGES: Record<string, () => ReactElement> = {
+const PAGES: Record<string, () => ReactElement | Promise<ReactElement>> = {
   "": HomePage,
   stories: StoriesPage,
   founder: FounderPage,
@@ -663,7 +673,7 @@ const PAGES: Record<string, () => ReactElement> = {
   campaigns: StoriesPage,
 };
 
-export function ModyuBespokeKit({ path = [] }: { path?: string[] }) {
+export async function ModyuBespokeKit({ path = [] }: { path?: string[] }) {
   const key = (path[0] || "").toLowerCase();
   const Page = PAGES[key] || NotFoundPage;
   return <Page />;

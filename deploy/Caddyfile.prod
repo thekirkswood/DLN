@@ -222,3 +222,55 @@ swarmfund.com, www.swarmfund.com {
   }
   reverse_proxy plot-swarm:3000
 }
+
+# Solport — parking wall until a numbered ship. www to the apex.
+http://solport.co.uk, http://www.solport.co.uk {
+  encode gzip
+  import watchlog
+  @www host www.solport.co.uk
+  handle @www {
+    redir http://solport.co.uk{uri} permanent
+  }
+  reverse_proxy plot-solport-park:80
+}
+
+solport.co.uk, www.solport.co.uk {
+  tls {
+    issuer acme {
+      disable_tlsalpn_challenge
+    }
+  }
+  encode gzip
+  import watchlog
+  @www host www.solport.co.uk
+  handle @www {
+    redir https://solport.co.uk{uri} permanent
+  }
+  reverse_proxy plot-solport-park:80
+}
+
+# Swimming Through Leaves — parking mark until the sheet ships. www to the apex.
+http://swimmingthroughleaves.com, http://www.swimmingthroughleaves.com {
+  encode gzip
+  import watchlog
+  @www host www.swimmingthroughleaves.com
+  handle @www {
+    redir http://swimmingthroughleaves.com{uri} permanent
+  }
+  reverse_proxy plot-swimtl-park:80
+}
+
+swimmingthroughleaves.com, www.swimmingthroughleaves.com {
+  tls {
+    issuer acme {
+      disable_tlsalpn_challenge
+    }
+  }
+  encode gzip
+  import watchlog
+  @www host www.swimmingthroughleaves.com
+  handle @www {
+    redir https://swimmingthroughleaves.com{uri} permanent
+  }
+  reverse_proxy plot-swimtl-park:80
+}

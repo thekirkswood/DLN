@@ -66,8 +66,12 @@ function jobHref(id: string, room: Room) {
   return `/studio/${id}/${room}`;
 }
 
-function defaultNote(_lane: string) {
-  return "";
+function defaultNote(lane: string) {
+  if (lane === "logo") return "Copy this exact mark. Place it where the line says. Do not invent a substitute.";
+  if (lane === "pack") return "This is the real pack. Copy type, shape, and finish.";
+  if (lane === "people") return "This is the person. Keep likeness.";
+  if (lane === "promo" || lane === "banner") return "Keep the marks and layout cues from this still.";
+  return "Take only what the prompt asks from this still.";
 }
 
 function AttachFace({ href, title, kind }: { href: string; title: string; kind?: string }) {
@@ -80,6 +84,27 @@ function AttachFace({ href, title, kind }: { href: string; title: string; kind?:
   return <span className="studio-file-face">{kind || title || "File"}</span>;
 }
 
+function AttachRow({
+  item,
+  onRemove,
+}: {
+  item: Attach;
+  onRemove: () => void;
+}) {
+  return (
+    <li className="pipe-attach">
+      <AttachFace href={item.href} title={item.title} kind={item.kind} />
+      <p>
+        <span>{item.lane}</span>
+        {item.note ? ` — ${item.note}` : item.title ? ` — ${item.title}` : ""}
+      </p>
+      <button type="button" className="dln-chip" onClick={onRemove}>
+        Remove
+      </button>
+    </li>
+  );
+}
+
 export function StudioApp() {
   const path = usePathname() || "/studio";
   const router = useRouter();
@@ -90,13 +115,17 @@ export function StudioApp() {
   const [job, setJob] = useState<Project | null>(null);
   const [ledgers, setLedgers] = useState<Ledger[]>([]);
   const [stillCost, setStillCost] = useState(12);
+  const [textCost, setTextCost] = useState(12);
   const [sort, setSort] = useState<Sort>("recent");
   const [title, setTitle] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
   const plotName = plots.find((row) => row.slug === plot)?.name || plot;
-  const held = useMemo(() => ledgers.find((row) => row.plotSlug === plot) || null, [ledgers, plot]);
+  const held = useMemo(
+    () => ledgers.find((row) => row.plotSlug === plot) || ledgers[0] || null,
+    [ledgers, plot],
+  );
 
   useEffect(() => {
     let live = true;
@@ -121,6 +150,7 @@ export function StudioApp() {
       .then((body) => {
         if (!live) return;
         if (body?.stillCost) setStillCost(body.stillCost);
+        if (body?.textCost) setTextCost(body.textCost);
         if (Array.isArray(body?.ledgers)) setLedgers(body.ledgers);
       })
       .catch(() => {});
@@ -181,9 +211,9 @@ export function StudioApp() {
 
   function onBalance(next: number) {
     setLedgers((rows) =>
-      rows.some((row) => row.plotSlug === plot)
-        ? rows.map((row) => (row.plotSlug === plot ? { ...row, balance: next } : row))
-        : [...rows, { plotSlug: plot, balance: next, grantedThisPeriod: 0 }],
+      rows.length
+        ? rows.map((row) => ({ ...row, balance: next, plotSlug: plot || row.plotSlug }))
+        : [{ plotSlug: plot, balance: next, grantedThisPeriod: 0 }],
     );
   }
 
@@ -269,9 +299,9 @@ export function StudioApp() {
               </Link>
             ))}
             {typeof tokens === "number" ? (
-              <span className="pipe-tab pipe-tokens">{tokens} Instant updates</span>
+              <span className="pipe-tab pipe-tokens">{tokens} tokens</span>
             ) : (
-              <span className="pipe-tab pipe-tokens">{plotName || "This site"} · a still is {stillCost}</span>
+              <span className="pipe-tab pipe-tokens">{plotName || "This site"} · a still is {stillCost} tokens</span>
             )}
           </div>
         </div>
@@ -353,7 +383,7 @@ export function StudioApp() {
             onJob={setJob}
           />
         ) : (
-          <TextRoom job={job} plot={plot} plotName={plotName} stillCost={stillCost} onBalance={onBalance} />
+          <TextRoom job={job} plot={plot} plotName={plotName} stillCost={textCost} onBalance={onBalance} />
         )
       ) : (
         <p className="studio-pad dln-lede">Opening the project…</p>
@@ -474,8 +504,8 @@ function PictureRoom({
           <p className="dln-kicker">{plotName ? plotName : "01 · /studio"}</p>
           <h1 className="dln-title">Make a picture</h1>
           <p className="dln-lede">
-            How you write is separate from the job. Open assets for this site’s vault — each still can say what to take
-            from it. A still is {stillCost} Instant updates.
+            How you write is separate from the job. Open assets for this site’s vault — attached stills go in as
+            pictures, not as a description. Say where the mark sits. A still is {stillCost} tokens.
           </p>
 
           <div className="studio-assets-row">
@@ -486,17 +516,15 @@ function PictureRoom({
             {attaches.length ? (
               <ul className="studio-attach-list">
                 {attaches.map((item) => (
-                  <li key={item.id} className="pipe-attach">
-                    <AttachFace href={item.href} title={item.title} kind={item.kind} />
-                    <p>
-                      <span>{item.lane}</span>
-                      {item.note ? ` — ${item.note}` : ""}
-                    </p>
-                  </li>
+                  <AttachRow
+                    key={item.id}
+                    item={item}
+                    onRemove={() => setAttaches(attaches.filter((row) => row.id !== item.id))}
+                  />
                 ))}
               </ul>
             ) : (
-              <p className="studio-hint">Nothing attached yet. Open assets and pick what this still is for.</p>
+              <p className="studio-hint">Nothing attached yet. Open assets and pick the mark, pack, or person — they go into the gen as pictures.</p>
             )}
           </div>
 
@@ -565,7 +593,7 @@ function PictureRoom({
 
           <div className="studio-acts">
             <button type="button" className="dln-btn" disabled={!prompt.trim() || busy === "gen"} onClick={() => void generate()}>
-              {busy === "gen" ? "Making it…" : `Generate · ${stillCost} Instant updates`}
+              {busy === "gen" ? "Making it…" : `Generate · ${stillCost} tokens`}
             </button>
             {href ? (
               <Link href={`/studio/${job.id}/inpaint`} className="dln-chip">
@@ -583,7 +611,7 @@ function PictureRoom({
               <>
                 <p>
                   {steered.avenue} · {steered.setting}
-                  {attaches.length ? ` · ${attaches.length} refs` : ""}
+                  {attaches.length ? ` · ${attaches.length} pictures in the gen` : ""}
                 </p>
                 {steered.cleaned !== prompt.trim() ? <p>Cleaned: {steered.cleaned}</p> : null}
                 <p>{steered.prompt}</p>
@@ -747,13 +775,7 @@ function InpaintRoom({
             </button>
             {picked ? (
               <ul className="studio-attach-list">
-                <li className="pipe-attach">
-                  <AttachFace href={picked.href} title={picked.title} kind={picked.kind} />
-                  <p>
-                    <span>{picked.lane}</span>
-                    {picked.title ? ` — ${picked.title}` : ""}
-                  </p>
-                </li>
+                <AttachRow item={picked} onRemove={() => setPicked(null)} />
               </ul>
             ) : (
               <p className="studio-hint">Open assets and pick a still from this site’s vault.</p>
@@ -768,7 +790,7 @@ function InpaintRoom({
           />
           <div className="studio-acts">
             <button type="button" className="dln-btn" disabled={busy || !prompt.trim() || !source} onClick={() => void fill()}>
-              {busy ? "Filling…" : `Fill · ${stillCost} Instant updates`}
+              {busy ? "Filling…" : `Fill · ${stillCost} tokens`}
             </button>
             <button type="button" className="dln-chip" onClick={clearMask}>
               Clear the hole
@@ -964,13 +986,11 @@ function TextRoom({
             {attaches.length ? (
               <ul className="studio-attach-list">
                 {attaches.map((item) => (
-                  <li key={item.id} className="pipe-attach">
-                    <AttachFace href={item.href} title={item.title} kind={item.kind} />
-                    <p>
-                      <span>{item.lane}</span>
-                      {item.note ? ` — ${item.note}` : ""}
-                    </p>
-                  </li>
+                  <AttachRow
+                    key={item.id}
+                    item={item}
+                    onRemove={() => setAttaches(attaches.filter((row) => row.id !== item.id))}
+                  />
                 ))}
               </ul>
             ) : (
@@ -1025,7 +1045,7 @@ function TextRoom({
           </div>
           <div className="studio-acts">
             <button type="button" className="dln-btn" disabled={busy === "gen" || !prompt.trim()} onClick={() => void write()}>
-              {busy === "gen" ? "Writing…" : `Write · ${stillCost} Instant updates`}
+              {busy === "gen" ? "Writing…" : `Write · ${stillCost} tokens`}
             </button>
           </div>
           {error ? <p className="studio-error">{error}</p> : null}
@@ -1138,7 +1158,8 @@ function VaultSheet({
             <h2 className="dln-title studio-vault-title">The vault</h2>
             <p className="dln-lede">
               This site’s folder — the same book as Account → Assets. Drop or click to upload; it lands here and
-              attaches. Pick any still. The press kit is only a share flag on the same files.
+              attaches. Picked stills carry an ink frame; click again or Remove to take them off. The press kit is
+              only a share flag on the same files.
             </p>
           </div>
           <div className="pipe-control-row">
@@ -1182,6 +1203,13 @@ function VaultSheet({
                       className="dln-field"
                     />
                   )}
+                  <button
+                    type="button"
+                    className="dln-chip"
+                    onClick={() => onChange(attaches.filter((row) => row.id !== item.id))}
+                  >
+                    Remove
+                  </button>
                 </div>
               </li>
             ))}

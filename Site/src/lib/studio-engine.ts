@@ -85,6 +85,63 @@ export async function bytesFromHref(href: string, host: string | null): Promise<
   }
 }
 
+function engineAssetKind(lane?: string): "logo" | "pack" | "ref" {
+  if (lane === "logo") return "logo";
+  if (lane === "pack") return "pack";
+  return "ref";
+}
+
+function mimeOfHref(href: string) {
+  const n = href.toLowerCase();
+  if (n.includes(".webp")) return "image/webp";
+  if (n.includes(".jpg") || n.includes(".jpeg")) return "image/jpeg";
+  return "image/png";
+}
+
+export function rasterAttachHref(href?: string) {
+  const trimmed = (href || "").trim();
+  if (!trimmed) return "";
+  if (/\.svg(\?.*)?$/i.test(trimmed)) return "";
+  if (!/\.(png|jpe?g|webp|gif)(\?.*)?$/i.test(trimmed.split("/").pop() || trimmed)) return "";
+  return trimmed;
+}
+
+export async function pushAttachedStills(opts: {
+  sandboxId: string;
+  host: string | null;
+  attaches: Array<{ href?: string; title?: string; lane?: string }>;
+}) {
+  const landed: Array<{ id: string; lane?: string }> = [];
+  const missed: string[] = [];
+  for (const item of opts.attaches) {
+    const href = rasterAttachHref(item.href);
+    if (!href) {
+      if ((item.href || "").trim()) missed.push(item.title || item.href || "still");
+      continue;
+    }
+    const bytes = await bytesFromHref(href, opts.host);
+    if (!bytes) {
+      missed.push(item.title || href);
+      continue;
+    }
+    const form = new FormData();
+    form.set("sandboxId", opts.sandboxId);
+    form.set("kind", engineAssetKind(item.lane));
+    form.set("name", item.title || item.lane || "ref");
+    const filename = path.basename(href.split("?")[0] || "") || "ref.png";
+    form.set("image", new Blob([new Uint8Array(bytes)], { type: mimeOfHref(href) }), filename);
+    const res = await fetch(studioEngineHref("/api/assets", opts.host), { method: "POST", body: form });
+    const data = (await res.json().catch(() => ({}))) as { asset?: { id?: string } };
+    if (res.ok && data.asset?.id) landed.push({ id: data.asset.id, lane: item.lane });
+    else missed.push(item.title || href);
+  }
+  return {
+    assetIds: landed.map((row) => row.id),
+    missed,
+    gotLogo: landed.some((row) => row.lane === "logo"),
+  };
+}
+
 export async function depositStudioFile(opts: {
   plotSlug: string;
   filename: string;

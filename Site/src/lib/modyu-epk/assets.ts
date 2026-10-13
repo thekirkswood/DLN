@@ -7,7 +7,8 @@ export type EpkAssetCategory =
   | "bottles"
   | "kits"
   | "campaigns"
-  | "lifestyle";
+  | "lifestyle"
+  | "other";
 
 export type EpkAsset = {
   id: string;
@@ -59,10 +60,26 @@ export const assetCategories: {
     title: "Lifestyle",
     blurb: "Wider brand and Follicle Files atmosphere.",
   },
+  {
+    id: "other",
+    title: "Other",
+    blurb: "On the press kit, not yet tagged as a logo, person, pack, or banner.",
+  },
 ];
 
 /** Clean cutouts (white bg stripped) for press download */
-const bottleSrc: Record<string, string> = {
+const bottleCutoutSrc: Record<string, string> = {
+  balance: "/assets/epk/products/balance.png",
+  cleanse: "/assets/epk/products/cleanse.png",
+  hydrate: "/assets/epk/products/hydrate.png",
+  bathe: "/assets/epk/products/bathe.png",
+  comfort: "/assets/epk/products/comfort.png",
+  protect: "/assets/epk/products/protect.png",
+  nourish: "/assets/epk/products/nourish.png",
+};
+
+/** Glass-shelf product shots Dave added to the vault */
+const bottleStillSrc: Record<string, string> = {
   balance: "/kit-stills/modyu/ht4/p1-balance-sheet.jpg",
   cleanse: "/kit-stills/modyu/ht4/p2-cleanse-sheet.jpg",
   hydrate: "/kit-stills/modyu/ht4/p3-hydrate-sheet.jpg",
@@ -92,17 +109,34 @@ const bottleTags: Record<string, string[]> = {
   nourish: ["nourish", "continue", "conditioner"],
 };
 
-const bottleAssets: EpkAsset[] = bottles.map((b) => ({
+const bottleCutoutAssets: EpkAsset[] = bottles.map((b) => ({
   id: b.id,
   category: "bottles" as const,
   label: `${b.code} ${b.name}`,
-  src: bottleSrc[b.id] || b.image,
+  src: bottleCutoutSrc[b.id] || b.image,
   alt: `HT4 ${b.name}`,
   tags: bottleTags[b.id] || [b.id],
   note: b.timing,
   rrp: bottleRrp[b.id],
   systemHref: `/epk/modyu/system#${b.id}`,
 }));
+
+const bottleStillAssets: EpkAsset[] = bottles.map((b) => ({
+  id: `${b.id}-still`,
+  category: "bottles" as const,
+  label: `${b.code} ${b.name}`,
+  src: bottleStillSrc[b.id] || b.image,
+  alt: `HT4 ${b.name}, product still`,
+  tags: bottleTags[b.id] || [b.id],
+  note: "Product still",
+  rrp: bottleRrp[b.id],
+  systemHref: `/epk/modyu/system#${b.id}`,
+}));
+
+const bottleAssets: EpkAsset[] = [
+  ...bottleCutoutAssets,
+  ...bottleStillAssets,
+];
 
 export const epkAssets: EpkAsset[] = [
   {
@@ -128,6 +162,14 @@ export const epkAssets: EpkAsset[] = [
     src: "/kit-stills/modyu/Modyu-logo.png",
     alt: "ModYu logo",
     tags: ["logo", "brand"],
+  },
+  {
+    id: "logo-follicle-files",
+    category: "logos",
+    label: "Follicle Files logo",
+    src: "/kit-stills/modyu/Follicle_Files_Logo.png",
+    alt: "The Follicle Files logo",
+    tags: ["logo", "follicle-files", "brand"],
   },
   {
     id: "logo-ht4-banner",

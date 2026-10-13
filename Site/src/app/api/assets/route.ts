@@ -1,3 +1,4 @@
+import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { isStudio } from "@/lib/auth";
 import { getRequestUser } from "@/lib/session";
@@ -12,8 +13,60 @@ import {
   type AssetFlags,
 } from "@/lib/assets";
 import { canDeleteHref } from "@/lib/assets-view";
+import { KIT_COPY } from "@/lib/epk-copy";
 import { canEditKit, kitsForUser, listKitsPublic, listUnlocks } from "@/lib/epk";
 import { vaultKitForPlot } from "@/lib/epk-map";
+import { ensureEpkOnVault } from "@/lib/epk-vault";
+import { epkAssets } from "@/lib/modyu-epk/assets";
+
+type UploadBlob = {
+  filename: string;
+  mime: string;
+  size: number;
+  bytes: () => Promise<Buffer>;
+};
+
+/** Node 18 on the LAN campus has Blob, not File. Do not write `instanceof File`. */
+function asUpload(value: FormDataEntryValue | null): UploadBlob | null {
+  if (!value || typeof value === "string") return null;
+  const blob = value as {
+    name?: unknown;
+    type?: unknown;
+    size?: unknown;
+    arrayBuffer?: unknown;
+  };
+  if (typeof blob.arrayBuffer !== "function") return null;
+  return {
+    filename: typeof blob.name === "string" && blob.name ? blob.name : "upload",
+    mime: typeof blob.type === "string" ? blob.type : "",
+    size: typeof blob.size === "number" ? blob.size : 0,
+    bytes: async () => Buffer.from(await (blob.arrayBuffer as () => Promise<ArrayBuffer>)()),
+  };
+}
+
+function namedUpload(name: string, mime: string): string {
+  const raw = (name || "").trim() || "upload";
+  if (path.extname(raw)) return raw;
+  const ext =
+    mime === "image/png"
+      ? ".png"
+      : mime === "image/jpeg" || mime === "image/jpg"
+        ? ".jpg"
+        : mime === "image/webp"
+          ? ".webp"
+          : mime === "image/gif"
+            ? ".gif"
+            : mime === "image/svg+xml"
+              ? ".svg"
+              : mime === "application/pdf"
+                ? ".pdf"
+                : mime === "text/plain"
+                  ? ".txt"
+                  : mime === "text/markdown"
+                    ? ".md"
+                    : "";
+  return `${raw}${ext}`;
+}
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -24,6 +77,11 @@ export async function GET(req: NextRequest) {
   const user = await getRequestUser(req);
   if (!user) return NextResponse.json({ ok: false, error: "sign in" }, { status: 401 });
   const seed = req.nextUrl.searchParams.get("seed") === "1" && isStudio(user);
+  try {
+    await ensureEpkOnVault("modyu", epkAssets);
+  } catch {
+    /* listing still works */
+  }
   const index = seed ? await seedAssets() : await listAssets();
   const allowed = new Set(kitsForUser(user));
   const askedRaw = (req.nextUrl.searchParams.get("kit") || "").trim().toLowerCase();
@@ -36,7 +94,14 @@ export async function GET(req: NextRequest) {
     }
     return isStudio(user) || allowed.has(item.kit);
   });
-  const kits = (await listKitsPublic()).filter((k) => allowed.has(k.id));
+  let kits = (await listKitsPublic()).filter((k) => allowed.has(k.id));
+  if (!kits.length && allowed.size) {
+    kits = KIT_COPY.filter((k) => allowed.has(k.id)).map((k) => ({
+      id: k.id,
+      name: k.name,
+      createdAt: "",
+    }));
+  }
   const unlocks = isStudio(user) ? await listUnlocks() : [];
   const kitOk = Boolean(asked && (allowed.has(asked) || isStudio(user)));
   return NextResponse.json({
@@ -60,20 +125,34 @@ export async function POST(req: NextRequest) {
     if (!canEditKit(user, kit)) {
       return NextResponse.json({ ok: false, error: "kit" }, { status: 403 });
     }
-    const file = form.get("file");
-    if (!(file instanceof File)) {
+    const file = asUpload(form.get("file"));
+    if (!file) {
       return NextResponse.json({ ok: false, error: "file" }, { status: 400 });
     }
     if (file.size > MAX_BYTES) {
       return NextResponse.json({ ok: false, error: "size" }, { status: 413 });
     }
-    const bytes = Buffer.from(await file.arrayBuffer());
+    const filename = namedUpload(file.filename, file.mime);
+    const bytes = await file.bytes();
     const share = String(form.get("share") || "") === "1";
+    const logo = String(form.get("logo") || "") === "1";
+    const pack = String(form.get("pack") || "") === "1";
+    const people = String(form.get("people") || "") === "1";
+    const promo = String(form.get("promo") || "") === "1";
+    const banner = String(form.get("banner") || "") === "1";
+    const flags: AssetFlags = {
+      ...(share || logo || pack || people || promo || banner ? { share: true } : {}),
+      ...(logo ? { logo: true } : {}),
+      ...(pack ? { pack: true } : {}),
+      ...(people ? { people: true } : {}),
+      ...(promo ? { promo: true } : {}),
+      ...(banner ? { banner: true } : {}),
+    };
     const item = await addUploadedAsset({
       kit,
-      filename: file.name,
+      filename,
       bytes,
-      flags: share ? { share: true } : {},
+      flags,
     });
     if (!item) return NextResponse.json({ ok: false, error: "kind" }, { status: 400 });
     return NextResponse.json({ ok: true, item });

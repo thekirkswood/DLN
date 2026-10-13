@@ -38,7 +38,7 @@ export function CaptureWell({
   useEffect(() => {
     let live = true;
     function pull() {
-      fetch("/api/tokens")
+      fetch(`/api/tokens?plot=${encodeURIComponent(slug)}`)
         .then((res) => res.json())
         .then((body) => {
           if (!live || !body?.ok) return;
@@ -68,7 +68,7 @@ export function CaptureWell({
     };
   }, [ok, slug]);
 
-  const held = ledgers.find((row) => row.plotSlug === slug);
+  const held = ledgers.find((row) => row.plotSlug === slug) || ledgers[0];
   const remaining = held?.balance ?? 0;
 
   async function send(pace: "sweep" | "now") {
@@ -92,7 +92,7 @@ export function CaptureWell({
     setPending("");
     if (!res.ok) {
       if (body?.error === "balance") {
-        setErr("Not enough updates this month. Leave a note, or wait for the next grant.");
+        setErr("Not enough tokens. Leave a note, or wait for the next monthly top-up.");
       } else {
         setErr("That did not land. Try a smaller file, or write it as a comment.");
       }
@@ -113,10 +113,11 @@ export function CaptureWell({
 
   return (
     <form className="comment-box is-wide capture-well" onSubmit={onSubmit}>
-      {ready ? <p className="campus-token-count">{remaining} Instant updates</p> : null}
+      {ready ? <p className="campus-token-count">{remaining} tokens</p> : null}
       <p className="body bill-note">
-        Leave a note, a document, or an idea. Instant update goes in now
-        {held ? ` — ${remaining} of ${held.grantedThisPeriod} this month on this site` : ""}
+        Leave a note, a document, or an idea. Instant update spends from this
+        account
+        {held ? ` — ${remaining} tokens` : ""}
         .
       </p>
       {pageName ? (

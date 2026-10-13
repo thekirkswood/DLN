@@ -15,8 +15,10 @@ export type StudioSettings = {
   tokenGrant3: number;
   /** Send now / forced ping. */
   tokenPingCost: number;
-  /** Pictures, clips, written packs from our system — same well. */
+  /** Picture gen from the same wallet. */
   tokenGenCost: number;
+  /** Text documents from the same wallet. */
+  tokenTextCost: number;
 };
 
 export const DEFAULT_SETTINGS: StudioSettings = {
@@ -27,6 +29,7 @@ export const DEFAULT_SETTINGS: StudioSettings = {
   tokenGrant3: 250,
   tokenPingCost: 8,
   tokenGenCost: 12,
+  tokenTextCost: 12,
 };
 
 function asSettings(raw: unknown): StudioSettings {
@@ -46,6 +49,7 @@ function asSettings(raw: unknown): StudioSettings {
     tokenGrant3: grant("tokenGrant3", DEFAULT_SETTINGS.tokenGrant3),
     tokenPingCost: grant("tokenPingCost", DEFAULT_SETTINGS.tokenPingCost),
     tokenGenCost: grant("tokenGenCost", DEFAULT_SETTINGS.tokenGenCost),
+    tokenTextCost: grant("tokenTextCost", DEFAULT_SETTINGS.tokenTextCost),
   };
 }
 

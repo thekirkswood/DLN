@@ -16,6 +16,18 @@ import {
 
 type KitRow = { id: string; name: string };
 
+function filesFromDrop(dt: DataTransfer): File[] {
+  if (dt.files?.length) return Array.from(dt.files);
+  const out: File[] = [];
+  for (const item of Array.from(dt.items || [])) {
+    if (item.kind === "file") {
+      const file = item.getAsFile();
+      if (file) out.push(file);
+    }
+  }
+  return out;
+}
+
 function applyPatch(item: AssetItem, body: Record<string, unknown>): AssetItem {
   const next = { ...item, flags: { ...item.flags } };
   if (typeof body.title === "string") next.title = body.title;
@@ -68,6 +80,7 @@ export function AssetHub({
   const [lane, setLane] = useState<AssetLane | "all">("all");
   const [picked, setPicked] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [ready, setReady] = useState(false);
   const [over, setOver] = useState(false);
   const [writing, setWriting] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
@@ -79,7 +92,7 @@ export function AssetHub({
 
   const load = useCallback(async () => {
     try {
-      const q = lockedKit ? `?seed=1&kit=${encodeURIComponent(lockedKit)}` : "?seed=1";
+      const q = lockedKit ? `?kit=${encodeURIComponent(lockedKit)}` : "";
       const res = await fetch(`/api/assets${q}`, { credentials: "include", cache: "no-store" });
       if (!res.ok) {
         setError("Sign in to open assets.");
@@ -99,6 +112,8 @@ export function AssetHub({
       });
     } catch {
       setError("Assets could not load.");
+    } finally {
+      setReady(true);
     }
   }, [lockedKit, onlyKey]);
 
@@ -163,6 +178,10 @@ export function AssetHub({
       const form = new FormData();
       form.set("kit", house);
       form.set("file", file);
+      if (lane === "logo" || lane === "pack" || lane === "people" || lane === "promo" || lane === "banner") {
+        form.set(lane, "1");
+        form.set("share", "1");
+      }
       const res = await fetch("/api/assets", { method: "POST", credentials: "include", body: form });
       if (!res.ok) {
         setError(res.status === 413 ? "That file is too large (18 MB)." : "Could not add that file.");
@@ -173,6 +192,7 @@ export function AssetHub({
     }
     setBusy(false);
     await load();
+    if (added.length) setPicked(added[added.length - 1].id);
     for (const item of added) onUploaded?.(item);
   }
 
@@ -260,22 +280,27 @@ export function AssetHub({
       )}
 
       <div className="asset-hub__bar">
-        {kits.length > 1 && !lockedKit ? (
+        {!lockedKit ? (
           <label>
             House
             <select
               className="chamfer"
               value={house}
+              disabled={!kits.length}
               onChange={(e) => {
                 setHouse(e.target.value);
                 setPicked(null);
               }}
             >
-              {kits.map((kit) => (
-                <option key={kit.id} value={kit.id}>
-                  {kit.name}
-                </option>
-              ))}
+              {kits.length ? (
+                kits.map((kit) => (
+                  <option key={kit.id} value={kit.id}>
+                    {kit.name}
+                  </option>
+                ))
+              ) : (
+                <option value="">{ready ? "No house on this account" : "Opening houses…"}</option>
+              )}
             </select>
           </label>
         ) : null}
@@ -306,9 +331,9 @@ export function AssetHub({
             ref={fileRef}
             type="file"
             multiple
-            disabled={busy || !house}
-            accept="image/*,.pdf,.txt,.md,application/pdf,text/plain,text/markdown"
+            accept="image/*,.pdf,.txt,.md,.svg,application/pdf,text/plain,text/markdown"
             onChange={(e) => {
+              if (busy) return;
               if (e.target.files?.length) upload(e.target.files);
               e.target.value = "";
             }}
@@ -343,43 +368,71 @@ export function AssetHub({
       <div
         className={`asset-hub__drop chamfer${over ? " is-over" : ""}`}
         onClick={() => {
-          if (pick && !busy && house) fileRef.current?.click();
+          if (!busy) fileRef.current?.click();
         }}
         onDragEnter={(e) => {
           e.preventDefault();
+          e.stopPropagation();
           setOver(true);
         }}
         onDragOver={(e) => {
           e.preventDefault();
+          e.stopPropagation();
+          e.dataTransfer.dropEffect = "copy";
           setOver(true);
         }}
         onDragLeave={() => setOver(false)}
         onDrop={(e) => {
           e.preventDefault();
+          e.stopPropagation();
           setOver(false);
-          if (e.dataTransfer.files?.length) upload(e.dataTransfer.files);
+          const list = filesFromDrop(e.dataTransfer);
+          if (list.length) {
+            void upload(list);
+            return;
+          }
+          setError("That drop did not carry a file. Click Upload, or drop a PNG, JPEG, SVG, or PDF.");
         }}
       >
-        {busy ? "Adding…" : pick ? "Drop or click to upload — it lands in this vault and attaches." : "Drop files here — images, PDFs, or text."}
+        {busy
+          ? "Adding…"
+          : !ready
+            ? "Opening the vault…"
+            : !house
+              ? "Choose a house, then drop a file or click here."
+              : pick
+                ? "Drop or click to upload — it lands in this vault and attaches."
+                : "Drop files here, or click to choose — images, PDFs, or text."}
       </div>
 
       {shown.length ? (
         <ul className="asset-hub__grid">
-          {shown.map((item) => (
-            <li key={item.id}>
+          {shown.map((item) => {
+            const onGen = pick && pickedIds.includes(item.id);
+            const plate = (
               <button
                 type="button"
-                className={`assets-plate chamfer${(pick ? pickedIds.includes(item.id) : picked === item.id) ? " is-on" : ""}${!pick && isShared(item) ? " is-flagged" : ""}`}
+                className={`assets-plate chamfer${(onGen || (!pick && picked === item.id)) ? " is-on" : ""}${!pick && isShared(item) ? " is-flagged" : ""}`}
+                aria-pressed={pick ? onGen : undefined}
                 onClick={() => (pick && onToggle ? onToggle(item) : setPicked(picked === item.id ? null : item.id))}
               >
                 <FileFace href={item.href} title={item.title} kind={item.kind} />
               </button>
+            );
+            return (
+            <li key={item.id}>
+              {pick ? (
+                <div className={onGen ? "asset-hub__pick chamfer is-on" : "asset-hub__pick"}>{plate}</div>
+              ) : (
+                plate
+              )}
               <span className="assets-caption">
                 {item.title}
-                {isShared(item) ? <em>On the kit</em> : null}
+                {onGen ? <em>On this gen</em> : isShared(item) ? <em>On the kit</em> : null}
               </span>
             </li>
-          ))}
+            );
+          })}
         </ul>
       ) : (
         <p className="body">Nothing in this house yet. Drop a file or write a note.</p>
@@ -430,7 +483,12 @@ export function AssetHub({
                   key={key}
                   type="button"
                   className={`epk-onoff chamfer${selected.flags[key] ? " is-on" : ""}`}
-                  onClick={() => patch(selected.id, { flags: { [key]: !selected.flags[key] } })}
+                  onClick={() => {
+                    const on = !selected.flags[key];
+                    patch(selected.id, {
+                      flags: on ? { [key]: true, share: true } : { [key]: false },
+                    });
+                  }}
                 >
                   {label}
                 </button>

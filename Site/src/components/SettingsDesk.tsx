@@ -26,6 +26,7 @@ export function SettingsDesk({
   const [tokenGrant3, setTokenGrant3] = useState(String(settings.tokenGrant3));
   const [tokenPingCost, setTokenPingCost] = useState(String(settings.tokenPingCost));
   const [tokenGenCost, setTokenGenCost] = useState(String(settings.tokenGenCost));
+  const [tokenTextCost, setTokenTextCost] = useState(String(settings.tokenTextCost ?? settings.tokenGenCost));
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [ok, setOk] = useState("");
@@ -38,6 +39,7 @@ export function SettingsDesk({
     setTokenGrant3(String(settings.tokenGrant3));
     setTokenPingCost(String(settings.tokenPingCost));
     setTokenGenCost(String(settings.tokenGenCost));
+    setTokenTextCost(String(settings.tokenTextCost ?? settings.tokenGenCost));
   }, [settings]);
 
   async function onSubmit(e: FormEvent) {
@@ -61,6 +63,7 @@ export function SettingsDesk({
         tokenGrant3: Number(tokenGrant3),
         tokenPingCost: Number(tokenPingCost),
         tokenGenCost: Number(tokenGenCost),
+        tokenTextCost: Number(tokenTextCost),
       }),
     });
     setPending(false);
@@ -94,7 +97,7 @@ export function SettingsDesk({
             setGraceDays(raw);
           }}
         />
-        <label htmlFor="set-g1">BoomStack 1 monthly well</label>
+        <label htmlFor="set-g1">Monthly tokens · stack 1</label>
         <input
           id="set-g1"
           inputMode="numeric"
@@ -104,7 +107,7 @@ export function SettingsDesk({
             setTokenGrant1(e.target.value);
           }}
         />
-        <label htmlFor="set-g2">BoomStack 2 monthly well</label>
+        <label htmlFor="set-g2">Monthly tokens · stack 2</label>
         <input
           id="set-g2"
           inputMode="numeric"
@@ -114,7 +117,7 @@ export function SettingsDesk({
             setTokenGrant2(e.target.value);
           }}
         />
-        <label htmlFor="set-g3">BoomStack 3 monthly well</label>
+        <label htmlFor="set-g3">Monthly tokens · stack 3</label>
         <input
           id="set-g3"
           inputMode="numeric"
@@ -134,7 +137,7 @@ export function SettingsDesk({
             setTokenPingCost(e.target.value);
           }}
         />
-        <label htmlFor="set-gen">Generated pack cost</label>
+        <label htmlFor="set-gen">Picture cost</label>
         <input
           id="set-gen"
           inputMode="numeric"
@@ -142,6 +145,16 @@ export function SettingsDesk({
           onChange={(e) => {
             if (!/^\d*$/.test(e.target.value)) return;
             setTokenGenCost(e.target.value);
+          }}
+        />
+        <label htmlFor="set-text">Text document cost</label>
+        <input
+          id="set-text"
+          inputMode="numeric"
+          value={tokenTextCost}
+          onChange={(e) => {
+            if (!/^\d*$/.test(e.target.value)) return;
+            setTokenTextCost(e.target.value);
           }}
         />
         <label htmlFor="set-kit">Adobe Fonts kit</label>

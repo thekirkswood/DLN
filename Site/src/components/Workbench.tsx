@@ -538,6 +538,7 @@ export function Workbench({
               ways={ways}
               plots={me ? plots : []}
               lab={lab}
+              studio={studio}
               showBoard={lab && studio}
               onPickPlot={(slug) => {
                 writeLastPlot(slug);
@@ -666,6 +667,7 @@ function Land({
   ways,
   plots,
   lab = false,
+  studio = false,
   showBoard,
   onPickPlot,
   me = false,
@@ -677,6 +679,7 @@ function Land({
   ways: Ways;
   plots: PlotPeek[];
   lab?: boolean;
+  studio?: boolean;
   showBoard?: boolean;
   onPickPlot: (slug: string) => void;
   me?: boolean;
@@ -1146,8 +1149,8 @@ function HostRoom({
         })}
       </ol>
       <p className="campus-lead spring-foot">
-        Live and sandbox are one host. A comment in the evening; a hotfix we try
-        to audit within the hour. Heavy traffic is a conversation.
+        Live and sandbox are one host. You watch; we do the work. A hotfix if
+        something is wrong. Heavy traffic is a conversation.
       </p>
     </div>
   );

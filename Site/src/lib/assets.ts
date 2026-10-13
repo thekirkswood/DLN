@@ -165,6 +165,15 @@ export function guessKit(href: string): string | undefined {
   return undefined;
 }
 
+/** Filename says what it is — a logo goes on the press kit until someone ticks it off. */
+function flagsFromName(name: string): AssetFlags {
+  const n = name.toLowerCase();
+  if (/logo|wordmark|lockup/.test(n) && !/mark-barlow/.test(n)) {
+    return { logo: true, share: true };
+  }
+  return {};
+}
+
 function defaultFlags(href: string): AssetFlags {
   if (autoPackHref(href)) {
     const people = /ann-marie|annmarie|mark-barlow|greisy-flores|\/people\/council|ht4-people-hero|people-lead/.test(
@@ -273,8 +282,9 @@ export async function peekAssets(): Promise<AssetIndex> {
   return readIndex();
 }
 
+/** Fast read for the hub. Harvest is a studio seed, not every click. */
 export async function listAssets(): Promise<AssetIndex> {
-  return seedAssets();
+  return peekAssets();
 }
 
 export async function patchAsset(input: {
@@ -327,6 +337,70 @@ export function publicHref(item: AssetItem): string | null {
   return null;
 }
 
+/** Point the vault at a file that already sits in public. Do not copy or delete it. */
+export async function indexExistingAsset(input: {
+  kit: string;
+  href: string;
+  title?: string;
+  flags?: AssetFlags;
+  note?: string;
+}): Promise<AssetItem | null> {
+  const href = input.href.split("?")[0];
+  if (!href.startsWith("/") || !extKind(href)) return null;
+  const kit = input.kit.trim().toLowerCase();
+  if (!kit) return null;
+  const index = await readIndex();
+  const current = index.items.find((row) => row.href === href);
+  if (current) {
+    let dirty = false;
+    if (current.kit !== kit) {
+      current.kit = kit;
+      dirty = true;
+    }
+    if (input.flags) {
+      const next = { ...current.flags };
+      for (const [key, on] of Object.entries(input.flags)) {
+        if (on && !next[key as keyof AssetFlags]) {
+          next[key as keyof AssetFlags] = true;
+          dirty = true;
+        }
+      }
+      current.flags = next;
+    }
+    if (input.title && current.title !== input.title) {
+      current.title = input.title;
+      dirty = true;
+    }
+    if (input.note && !current.note) {
+      current.note = input.note;
+      dirty = true;
+    }
+    if (dirty) await writeIndex(index);
+    return current;
+  }
+  const dest = path.join(PUBLIC, href.replace(/^\//, ""));
+  try {
+    await fs.access(dest);
+  } catch {
+    return null;
+  }
+  const kind = extKind(href);
+  if (!kind) return null;
+  const item: AssetItem = {
+    id: randomUUID(),
+    href,
+    title: input.title || titleFromHref(href),
+    kind,
+    flags: { ...(input.flags || {}) },
+    kit,
+    note: input.note,
+    addedAt: new Date().toISOString(),
+  };
+  index.items.push(item);
+  await writeIndex(index);
+  return item;
+}
+
 function safeUploadName(name: string): string {
   const base = path.basename(name).replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/-+/g, "-");
   return base.slice(0, 80) || "file";
@@ -349,12 +423,13 @@ export async function addUploadedAsset(input: {
   await fs.writeFile(dest, input.bytes);
   const href = `/${rel}`;
   const index = await readIndex();
+  const guessed = flagsFromName(input.filename);
   const item: AssetItem = {
     id: randomUUID(),
     href,
     title: titleFromHref(href),
     kind: kind === "pdf" ? "pdf" : kind,
-    flags: { ...(input.flags || {}) },
+    flags: { ...guessed, ...(input.flags || {}) },
     kit,
     addedAt: new Date().toISOString(),
   };

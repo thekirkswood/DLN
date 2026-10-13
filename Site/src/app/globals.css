@@ -4368,6 +4368,7 @@ html[data-ground="ink"] .err {
   border: 1px dashed var(--line);
   font-size: 0.92rem;
   color: var(--mute);
+  cursor: pointer;
 }
 
 .asset-hub__drop.is-over {
@@ -4416,6 +4417,19 @@ html[data-ground="ink"] .err {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9.4rem, 1fr));
   gap: 0.9rem 0.75rem;
+}
+
+.asset-hub.is-pick .asset-hub__pick {
+  padding: 3px;
+  background: transparent;
+}
+
+.asset-hub.is-pick .asset-hub__pick.is-on {
+  background: var(--ink);
+}
+
+.asset-hub.is-pick .asset-hub__pick .assets-plate {
+  width: 100%;
 }
 
 .asset-hub__grid .assets-caption {
@@ -17147,6 +17161,8 @@ html[data-ground="ink"] .board-tile.is-apes img {
 }
 
 .pipe-attach p {
+  flex: 1;
+  min-width: 0;
   margin: 0;
   font-size: 0.72rem;
   line-height: 1.35;
@@ -17467,6 +17483,10 @@ html[data-ground="ink"] .board-tile.is-apes img {
   font-size: 0.72rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.studio-pick-notes .dln-chip {
+  margin-top: 0.45rem;
 }
 
 

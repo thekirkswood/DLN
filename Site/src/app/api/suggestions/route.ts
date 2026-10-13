@@ -99,13 +99,27 @@ export async function POST(req: NextRequest) {
   try {
     const row = await addLiveSuggestion({
       ...(body || {}),
+      kind: "hotfix",
       fromName: body?.fromName || user.displayName,
       authorId: user.id,
     });
-    return cors(req, NextResponse.json({ ok: true, id: row.id }));
+    const hostUp = row.hotfixPing?.some((p) => p.ok) ?? null;
+    return cors(
+      req,
+      NextResponse.json({
+        ok: true,
+        id: row.id,
+        hotfix: { actioned: Boolean(row.actioned), hostUp },
+      }),
+    );
   } catch (err) {
     const msg = err instanceof Error ? err.message : "";
-    const status = msg === "forbidden" || msg === "missing" ? 403 : 400;
-    return cors(req, NextResponse.json({ ok: false }, { status }));
+    const status =
+      msg === "forbidden" || msg === "missing"
+        ? 403
+        : msg === "no-suggest"
+          ? 400
+          : 400;
+    return cors(req, NextResponse.json({ ok: false, error: msg || "invalid" }, { status }));
   }
 }

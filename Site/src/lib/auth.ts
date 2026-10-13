@@ -338,6 +338,10 @@ export function isStudio(user: PublicUser): boolean {
   return user.role === "owner" || user.role === "studio";
 }
 
+export function isDave(user: PublicUser): boolean {
+  return user.email.trim().toLowerCase() === "dave@designlabnorth.com";
+}
+
 export async function findUserById(id: string): Promise<PublicUser | null> {
   const users = await readJson<User>(USERS);
   const u = users.find((x) => x.id === id);

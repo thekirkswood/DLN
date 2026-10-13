@@ -103,7 +103,7 @@ export async function addCapture(
   const text = input.text.trim();
   const page = input.page?.trim() || undefined;
   if (!plotSlug) throw new Error("invalid");
-  if (!isStudio(user) && !user.plots.includes(plotSlug) && !user.plots.includes("*")) {
+  if (!isStudio(user)) {
     throw new Error("forbidden");
   }
   if (!text && !input.files.length) throw new Error("invalid");

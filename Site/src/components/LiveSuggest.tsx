@@ -14,7 +14,7 @@ function SuggestWell({
   okLine,
 }: {
   plotSlug: string;
-  kind: "note" | "hotfix";
+  kind: "hotfix";
   title: string;
   hint: string;
   label: string;
@@ -53,9 +53,15 @@ function SuggestWell({
     });
     if (res.status === 401) {
       setPending(false);
-      setError("Sign in to Design Lab North to send a change request.");
+      setError("Sign in to Design Lab North to send a hotfix.");
       return;
     }
+    const data = (await res.json().catch(() => null)) as
+      | {
+          ok?: boolean;
+          hotfix?: { actioned?: boolean; hostUp?: boolean | null };
+        }
+      | null;
     setPending(false);
     if (!res.ok) {
       setError("That didn’t land. Try again in a moment.");
@@ -63,7 +69,19 @@ function SuggestWell({
     }
     setBody("");
     setFromName("");
-    setOk(okLine);
+    if (kind === "hotfix" && data?.hotfix) {
+      if (data.hotfix.actioned && data.hotfix.hostUp === false) {
+        setOk("The host did not answer. We’ll look at it as a hotfix.");
+      } else if (data.hotfix.actioned) {
+        setOk("Received. We’ll look at it as a hotfix.");
+      } else {
+        setOk(
+          "The host is answering. That’s a change to the work, not a hotfix.",
+        );
+      }
+    } else {
+      setOk(okLine);
+    }
   }
 
   return (
@@ -123,24 +141,13 @@ export function LiveSuggest({
       <p className="kicker">{embed ? plotName : plotName}</p>
       <SuggestWell
         plotSlug={plotSlug}
-        kind="note"
-        title="A change you’d like"
-        hint="Write what you’d like to change. If there are comments, we aim to roll an update that evening. Nothing on this host changes from the box itself."
-        label="Comment"
-        cta="Send"
-        embed={embed}
-        rows={embed ? 4 : 6}
-        okLine="Received. We’ll read it and turn it into a plan."
-      />
-      <SuggestWell
-        plotSlug={plotSlug}
         kind="hotfix"
         title="Hotfix"
-        hint="Something is wrong right now. We try to audit this within the hour."
+        hint="Something is wrong right now — a broken page, spelling, the host not answering. A change to the look of the work is not a hotfix."
         label="What’s wrong"
         cta="Send hotfix"
         embed={embed}
-        rows={embed ? 3 : 4}
+        rows={embed ? 4 : 6}
         okLine="Received. We’ll look at it as a hotfix."
       />
     </div>

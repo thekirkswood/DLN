@@ -26,22 +26,17 @@ Paying plot, monthly grant, different count per stack (seed: 40 / 100 / 250). De
 
 | Spend | Who | Wakes the house Cursor |
 |---|---|---|
-| Free note / file / drawing on the account or the site tab | Daily sweep | No |
-| **Instant update** (direct edit, or an update from a document they drop) | Token cost (`pingCost`, seed 8) | Yes — lab inbox + wake.flag |
-| Hotfix (site wrong now) | Wakes anyway; spends if they have balance | Yes |
+| **Instant update** | Off campus `:3010`. Edits go through Dave’s lab on `:3100`. | — |
+| Hotfix (site wrong now — broken, spelling, host down) | Client or studio. Ping the host. Spends if actioned and they have balance. A look/style ask is not actioned. | Yes if actioned |
 | Pictures, clips, written packs from our system | `genCost` (seed 12) when that pipe exists | — |
 
-Unpaid past grace: no grant, Instant update refuses. Studio can adjust a ledger.
+Unpaid past grace: no grant. Studio can adjust a ledger.
 
 Public word on the account: **updates this month**, not “tokens”. Never “we ping Cursor”.
 
 ## Capture (VPS, Design Lab North side)
 
-Clients (Mark on DAA first) drop briefs, documents they wrote or AI-generated, HTML windows, drawings, picture ideas. Stored `_meta/captures/` (gitignored, same disk as the hub book). Studio desk lists them. This Cursor reads the book and the files.
-
-Andrew Mallaban-style packs are in-scope: bare HTML, gen’d copy, sketches. We still build the actual site. The well is how they keep sending without a side channel.
-
-Forced Instant update is how Mark keeps the sandbox moving in the month without waiting for the evening sweep, as long as he is not silly with the grant.
+Postponed on campus `:3010` for studio and customer. They watch; we do the work. Site tab is sandbox, patch notes, hotfix. Edits go through Dave’s lab on `:3100`. Stored `_meta/captures/` remains the studio book.
 
 ## Watch (nose, not a hair-trigger)
 

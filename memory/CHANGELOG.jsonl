@@ -1369,3 +1369,61 @@
 {"t":"2026-10-12T11:58:42+01:00","k":"mod","p":"Site/next.config.mjs","s":"beforeFiles rewrite /press to /api/press","d":"public/ must not win"}
 {"t":"2026-10-12T11:58:42+01:00","k":"mod","p":"Site/src/middleware.ts","s":"Rewrite /press to /api/press","d":"live Swarm gen still 404 while testing"}
 {"t":"2026-10-12T11:58:42+01:00","k":"ver","p":"dln-19","s":"Studio steer tidies the typed line. Live /press from disk so gens show. Board still off live.","d":"numbered ship"}
+{"t": "2026-10-12T12:00:30+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "EPK bottles vault keeps cutouts and glass-shelf stills", "d": "Dave Instant update"}
+{"t": "2026-10-12T12:00:30+01:00", "k": "mod", "p": "Site/src/lib/modyu-epk/assets.ts", "s": "Restore bottle PNG cutouts beside the seven stills", "d": "both sets in Bottles"}
+{"t":"2026-10-12T12:11:00+01:00","k":"dir","p":"DIRECTIONS.md","s":"Mint and Windows Ollama current before plug-in","d":"do not wire Studio text until both seats are 0.40.3"}
+{"t":"2026-10-12T12:11:00+01:00","k":"mod","p":"memory/compass.md","s":"Ollama seat versions: Mint/Debian 0.32.5, latest 0.40.3, Windows not on LAN","d":"prep before plugging seats into Studio text"}
+{"t":"2026-10-12T12:11:00+01:00","k":"mod","p":"ops/vps","s":"VPS: pruned 178GB build cache; apt+docker 29.9.0; titles still 502 no plot tree","d":"Ewan asked for dependency and service updates; kernel reboot still pending"}
+{"t":"2026-10-12T12:29:25+01:00","k":"dir","p":"DIRECTIONS.md","s":"Vault share+tags drive EPK live; one account token wallet","d":"two ModYu logos ticked for kit did not show; Assets printed old token stacks"}
+{"t":"2026-10-12T12:29:25+01:00","k":"bp","p":"BLUEPRINT.md","s":"EPK reads vault share; Other for untagged; one wallet; Tokens desk; Assets has no token well","d":"customer vault without studio; house must not ship old token UI live"}
+{"t":"2026-10-12T12:29:25+01:00","k":"add","p":"Site/src/lib/epk-vault.ts","s":"Merge vault share onto kit stills; untagged → other","d":"ModYu EPK ignored the vault"}
+{"t":"2026-10-12T12:29:25+01:00","k":"mod","p":"Site/src/lib/modyu-epk/asset-origin.ts","s":"/press and /kit-stills stay on the hub","d":"vault logos were rewritten onto the ModYu plot and vanished"}
+{"t":"2026-10-12T12:29:25+01:00","k":"mod","p":"Site/src/components/modyu-epk/ModyuBespokeKit.tsx","s":"Assets page loads live vault share","d":"compile-time stills only"}
+{"t":"2026-10-12T12:29:25+01:00","k":"mod","p":"Site/src/components/EpkKitApp.tsx","s":"Other rail for untagged shared stills","d":"generic kits hid files with no lane"}
+{"t":"2026-10-12T12:29:25+01:00","k":"mod","p":"Site/src/components/AssetHub.tsx","s":"Lane tag also ticks share; upload in Logo sort tags logo","d":"on the kit and in the right section"}
+{"t":"2026-10-12T12:29:25+01:00","k":"mod","p":"Site/src/lib/tokens.ts","s":"One wallet per account; collapse old per-plot rows","d":"100 of 100 next to 12 of 0"}
+{"t":"2026-10-12T12:29:25+01:00","k":"mod","p":"Site/src/app/account/page.tsx","s":"Strip token well and captures from Assets","d":"live already clean; house was dumping stacks"}
+{"t":"2026-10-12T12:29:25+01:00","k":"add","p":"Site/src/components/TokensDesk.tsx","s":"Studio Tokens room lists wallets","d":"Ewan/Dave monitor"}
+{"t":"2026-10-12T12:29:25+01:00","k":"mod","p":"Site/src/components/studio/StudioApp.tsx","s":"Copy says tokens; text uses textCost","d":"not Instant updates as a second pile"}
+{"t":"2026-10-12T12:36:51+01:00","k":"mod","p":"ops/push-campus-downstairs.sh","s":"House rebuilt with vault→EPK and one wallet","d":"not a numbered live ship; assets volume left on Debian"}
+
+
+{"t":"2026-10-12T12:41:23+01:00","k":"dir","p":"DIRECTIONS.md","s":"Ollama seats current; Dave Assets drop; Dave Builder live push","d":"Windows+Linux up to date; drop looked live but house unset; polished VPS only"}
+{"t":"2026-10-12T12:41:23+01:00","k":"bp","p":"BLUEPRINT.md","s":"Assets peek not harvest; Dave-only numbered live button on every Builder house","d":"drop ignored; ship hid unless plot=dln"}
+{"t":"2026-10-12T12:41:23+01:00","k":"mod","p":"memory/compass.md","s":"Mint Ollama 0.40.3; Windows current per Ewan","d":"plug-in wait is over for house text"}
+{"t":"2026-10-12T12:41:23+01:00","k":"mod","p":"Site/src/lib/assets.ts","s":"listAssets reads the index; harvest is studio seed","d":"GET hung so Dave drop never set a house"}
+{"t":"2026-10-12T12:41:23+01:00","k":"mod","p":"Site/src/app/api/assets/route.ts","s":"Peek first; MIME name fallback; kit list fallback","d":"drop with no ext or empty kits"}
+{"t":"2026-10-12T12:41:23+01:00","k":"mod","p":"Site/src/components/AssetHub.tsx","s":"Always house; click-to-pick; Safari items; dropEffect copy","d":"is-over with no file"}
+{"t":"2026-10-12T12:41:23+01:00","k":"mod","p":"Repos/Builder LabDesk api/ship","s":"Dave-only Push to git and live on every house; no hotfix","d":"just for Dave; numbered dln ship from Builder"}
+{"t":"2026-10-12T12:48:00+01:00","k":"mod","p":"Site/src/components/AssetHub.tsx","s":"List vault without seed harvest","d":"seed=1 still hung Dave drop even after peek"}
+{"t":"2026-10-12T12:58:40+01:00","k":"mod","p":"Site/src/app/api/assets/route.ts","s":"Upload as Blob; Node 18 has no File","d":"LAN POST 500 ReferenceError File is not defined"}
+{"t":"2026-10-12T13:15:51+01:00","k":"dir","p":"DIRECTIONS.md","s":"EPK stills on vault; Builder live push under Send","d":"hardcoded kit-stills had no vault row; Dave button hidden from Ewan"}
+{"t":"2026-10-12T13:15:51+01:00","k":"bp","p":"BLUEPRINT.md","s":"Live push under Send for studio; EPK stills indexed in vault","d":"vault is home for press stills"}
+{"t":"2026-10-12T13:15:51+01:00","k":"add","p":"Site/src/lib/assets.ts","s":"indexExistingAsset for files already in public","d":"EPK kit-stills were not in the index"}
+{"t":"2026-10-12T13:15:51+01:00","k":"mod","p":"Site/src/lib/epk-vault.ts","s":"Ensure EPK srcs on vault; share tick can hide them","d":"do not remove from kit; copy missing plot cutouts"}
+{"t":"2026-10-12T13:15:51+01:00","k":"mod","p":"Repos/Builder LabDesk api/ship","s":"Live push under Send for studio, every house","d":"dave-only gate hid the button from Ewan"}
+{"t": "2026-10-13T11:35:13+01:00", "k": "dir", "p": "DIRECTIONS.md", "s": "EPK Logos vault includes Follicle Files logo", "d": "Dave Instant update"}
+{"t": "2026-10-13T11:35:13+01:00", "k": "add", "p": "Site/public/kit-stills/modyu/Follicle_Files_Logo.png", "s": "Follicle Files logo still", "d": "Dave Instant update"}
+{"t": "2026-10-13T11:35:13+01:00", "k": "mod", "p": "Site/src/lib/modyu-epk/assets.ts", "s": "Logos vault tile for Follicle Files logo", "d": "Dave Instant update"}
+{"t":"2026-10-13T11:50:13+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Picture gen: attached stills as pixels, not a guessed lockup","d":"Ewan: logo hallucinated, hand backwards"}
+{"t":"2026-10-13T11:50:13+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Studio stills push attached marks into the engine as pictures","d":"typed line alone invents logos"}
+{"t":"2026-10-13T11:50:13+01:00","k":"mod","p":"Site/src/lib/picture-steer.ts Site/src/app/api/studio/still/route.ts Site/src/lib/studio-engine.ts","s":"Pre-prompt names refs; raster stills uploaded before Fal/Gemini; anatomy lock","d":"logo must copy pixels; hands the right way round"}
+{"t":"2026-10-13T11:50:13+01:00","k":"mod","p":"Repos/Social engine/app/api/generate/still/route.ts","s":"alreadySteered stills still take assetIds as pixel refs","d":"house was skipping the pictures"}
+{"t":"2026-10-13T11:53:16+01:00","k":"dir","p":"DIRECTIONS.md","s":"Customers watch; hotfix only; no Instant update or suggestion well","d":"agency does the work; Dave lab unchanged"}
+{"t":"2026-10-13T11:53:16+01:00","k":"bp","p":"BLUEPRINT.md","s":"Site tab is sandbox, patch notes, hotfix; studio Instant update stays","d":"customer editor postponed"}
+{"t":"2026-10-13T11:53:16+01:00","k":"mod","p":"WORKSTREAM.md boomstack.md","s":"Site tab / tokens: customer hotfix gate; studio capture","d":"match postponed editor"}
+{"t":"2026-10-13T11:53:16+01:00","k":"add","p":"Site/src/lib/hotfix-gate.ts","s":"Ping host; action only if down or fault language","d":"style directive is not a hotfix"}
+{"t":"2026-10-13T11:53:16+01:00","k":"mod","p":"Site/src/lib/plans.ts Site/src/lib/captures.ts","s":"Client notes/captures forbidden; hotfix gated; spend only if actioned","d":"no customer editor"}
+{"t":"2026-10-13T11:53:16+01:00","k":"mod","p":"Site/src/components/SitePeek.tsx Site/src/components/Workbench.tsx","s":"CaptureWell studio only; client site tab hotfix","d":"sandbox + patch notes + hotfix"}
+{"t":"2026-10-13T11:53:16+01:00","k":"mod","p":"Site/src/components/LiveSuggest.tsx Site/src/app/suggest","s":"Hotfix well only; suggestion box gone","d":"posterity hotfix"}
+{"t":"2026-10-13T11:53:16+01:00","k":"mod","p":"Site/src/components/CommentBox.tsx Site/src/app/api/comments Site/src/app/api/suggestions","s":"Hotfix replies from ping gate","d":"edit vs fault"}
+{"t":"2026-10-13T11:53:16+01:00","k":"mod","p":"Site/src/data/account-faq.ts Site/src/data/catalogue.ts Site/src/data/worklines.ts Site/src/components/ClientAccount.tsx Site/src/components/BuildDemos.tsx Site/src/components/StudioDesk.tsx","s":"Copy: watch, we work, hotfix if wrong","d":"no customer editor promise"}
+{"t":"2026-10-13T12:02:18+01:00","k":"dir","p":"memory/DIRECTIONS.md","s":"Studio attach: Remove; vault pick shows ink frame","d":"Ewan: cannot unattach; cannot see selection"}
+{"t":"2026-10-13T12:02:18+01:00","k":"bp","p":"memory/BLUEPRINT.md","s":"Picked vault stills ink-framed; Remove takes them off the prompt","d":"chamfer clipped the old outline"}
+{"t":"2026-10-13T12:02:18+01:00","k":"mod","p":"Site/src/components/studio/StudioApp.tsx Site/src/components/AssetHub.tsx Site/src/app/globals.css","s":"Remove on attached stills; pick mode ink frame + On this gen","d":"clip-path hid outline; no off path"}
+{"t":"2026-10-13T11:57:40+01:00","k":"mod","p":"Site/src/components/Workbench.tsx","s":"Pass studio into Land so SitePeek does not throw","d":"studio was undefined on the site tab"}
+{"t":"2026-10-13T12:28:43+01:00","k":"dir","p":"DIRECTIONS.md","s":"Campus site tab is the customer tab for studio too","d":"edits on Builder :3100"}
+{"t":"2026-10-13T12:28:43+01:00","k":"bp","p":"BLUEPRINT.md boomstack.md WORKSTREAM.md","s":"No Instant update on :3010; hotfix gate for studio too","d":"see what customers see"}
+{"t":"2026-10-13T12:28:43+01:00","k":"mod","p":"Site/src/components/SitePeek.tsx Site/src/components/Workbench.tsx","s":"CaptureWell off the site tab for everyone","d":"sandbox + patch notes + hotfix"}
+{"t":"2026-10-13T12:28:43+01:00","k":"mod","p":"Site/src/lib/plans.ts","s":"Studio hotfix uses the same ping gate","d":"style ask not actioned"}
+{"t":"2026-10-13T12:29:17+01:00","k":"ver","p":"dln-20","s":"Picture gen takes attached stills as pictures, vault pick frame, customer site tab is sandbox and hotfix. Board still off live.","d":"numbered ship"}

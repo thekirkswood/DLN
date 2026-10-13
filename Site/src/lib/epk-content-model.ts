@@ -32,6 +32,7 @@ export type KitShown = {
   banners?: boolean;
   people?: boolean;
   files?: boolean;
+  other?: boolean;
   stories?: boolean;
   promos?: boolean;
 };

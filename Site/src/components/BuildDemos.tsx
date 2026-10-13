@@ -501,8 +501,8 @@ export function SystemsSketch() {
       <li>
         <strong>Host</strong>
         <span>
-          Live and sandbox as one host. Comments in the evening; a hotfix we
-          try to audit within the hour.
+          Live and sandbox as one host. You watch; we do the work. A hotfix if
+          something is wrong.
         </span>
       </li>
       <li>

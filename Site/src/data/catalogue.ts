@@ -189,7 +189,7 @@ export const CATALOGUE: CatalogueItem[] = [
     id: "host-monthly",
     stage: "build",
     name: "Host — live and sandbox",
-    blurb: "One host. Live site and a sandbox you can talk to. Comments in the evening; hotfix in the hour. Counts as BoomStack 1 for the monthly well until the plot moves onto a numbered stack.",
+    blurb: "One host. Live site and a sandbox. You watch; we do the work. Hotfix if something is wrong. Counts as BoomStack 1 for the monthly well until the plot moves onto a numbered stack.",
     amountGbp: 75,
     cadence: "monthly",
     plotBound: true,

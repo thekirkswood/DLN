@@ -20,7 +20,7 @@ export default async function SuggestIndex({
   if (!plot || plot.party !== "client") {
     return (
       <section className="wrap suggest-page">
-        <p className="body">No suggestion well on this host.</p>
+        <p className="body">No hotfix well on this host.</p>
       </section>
     );
   }

@@ -118,16 +118,32 @@ function avenueCopy(avenue: ShotAvenue) {
 
 function typeLock(attaches: PictureAttach[]) {
   const hasType = attaches.some((item) => item.lane === "logo" || item.lane === "pack");
-  if (hasType) return "Copy type and marks only from the attached stills. Do not invent lettering.";
+  if (hasType) {
+    return "Attached stills are pixel references, not mood. Copy type and marks only from those pictures. Do not invent, redraw, or restyle a logo, label, or lettering.";
+  }
   return "Do not invent a logo, label, or lettering.";
+}
+
+function anatomyLock() {
+  return "Hands and fingers anatomically correct: five digits, right way round, no extra limbs, no mirrored palms. Do not default to glossy photoreal, CGI skin, or beauty retouch unless the line asks for a photograph.";
 }
 
 function attachLine(item: PictureAttach) {
   const note = item.note.trim();
   const title = item.title?.trim();
-  const named = title ? ` (${title})` : "";
-  if (note) return `From the attached still${named}: ${note}.`;
-  return `A reference still is attached${named}. Take only what the prompt needs.`;
+  const named = title ? `"${title}"` : "attached still";
+  let role = `The ${named} is a pixel reference. Take only what the prompt asks from it.`;
+  if (item.lane === "logo") {
+    role = `The ${named} is the brand mark, sent as a picture. Place that exact lockup where the line says. Do not redraw, restyle, or invent a substitute.`;
+  } else if (item.lane === "pack") {
+    role = `The ${named} is the real pack. Copy shape, type, and finish. Do not invent a product.`;
+  } else if (item.lane === "people") {
+    role = `The ${named} is the person. Keep likeness.`;
+  } else if (item.lane === "promo" || item.lane === "banner") {
+    role = `The ${named} is campaign art. Keep its marks and layout cues.`;
+  }
+  if (note) return `${role} Use: ${note}.`;
+  return role;
 }
 
 export function missingAssets(line: string, extras: PictureExtras | undefined, attaches: PictureAttach[]) {
@@ -171,6 +187,7 @@ export function steerPicture(
     avenueCopy(avenue),
     scene?.recipe || "",
     typeLock(attaches),
+    anatomyLock(),
   ].filter(Boolean);
 
   return {

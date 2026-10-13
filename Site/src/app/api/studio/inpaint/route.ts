@@ -7,7 +7,7 @@ import { bytesFromHref, depositStudioFile, ensureProjectSpace } from "@/lib/stud
 import { appendStudioStill, getStudioProject } from "@/lib/studio-projects";
 import { getSessionUser } from "@/lib/session";
 import { studioEngineHref, studioSpendAllowed } from "@/lib/studio-hub";
-import { adjustTokens, spendTokens, tokenCosts } from "@/lib/tokens";
+import { refundTokens, spendTokens, tokenCosts } from "@/lib/tokens";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
   });
   if (!spent.ok) {
     return NextResponse.json(
-      { ok: false, error: spent.error === "balance" ? "Not enough Instant updates this month." : "Could not take tokens." },
+      { ok: false, error: spent.error === "balance" ? "Not enough tokens on this account." : "Could not take tokens." },
       { status: 402 },
     );
   }
@@ -121,9 +121,8 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     if (isStudio(user)) {
-      await adjustTokens({
+      await refundTokens({
         actor: user,
-        userId: user.id,
         plotSlug,
         n: costs.genCost,
         reason: "studio inpaint refund — gen missed",

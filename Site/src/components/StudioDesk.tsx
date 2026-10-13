@@ -15,6 +15,8 @@ import { AssetsDesk } from "@/components/AssetsDesk";
 import { AssetHub } from "@/components/AssetHub";
 import { HousesDesk } from "@/components/HousesDesk";
 import { EpkDesk } from "@/components/EpkDesk";
+import { TokensDesk } from "@/components/TokensDesk";
+import type { TokenLedger } from "@/lib/tokens";
 import { pressKitForPlot, epkHref } from "@/lib/epk-map";
 import { AvatarSlot } from "@/components/AccountBilling";
 import { type CatalogueItem } from "@/data/catalogue";
@@ -31,7 +33,7 @@ import type { WatchAttempt, WatchInstance } from "@/lib/watch-types";
 import type { BlockAppeal } from "@/lib/appeals";
 
 type Person = PublicUser;
-type DeskRoom = "clients" | "onboarding" | "book" | "pay" | "settings" | "watch" | "clock" | "houses" | "assets" | "epk" | "notifications";
+type DeskRoom = "clients" | "onboarding" | "book" | "pay" | "settings" | "watch" | "clock" | "houses" | "assets" | "epk" | "notifications" | "tokens";
 
 const ROOMS: DeskRoom[] = [
   "clients",
@@ -45,6 +47,7 @@ const ROOMS: DeskRoom[] = [
   "assets",
   "epk",
   "notifications",
+  "tokens",
 ];
 
 function asRoom(raw: string | null, fallback: DeskRoom): DeskRoom {
@@ -72,6 +75,10 @@ type DeskProps = {
   blocked?: BlockRow[];
   trapWeb?: TrapWeb;
   appeals?: BlockAppeal[];
+  ledgers?: TokenLedger[];
+  pingCost?: number;
+  genCost?: number;
+  textCost?: number;
 };
 
 export function StudioDesk(props: DeskProps) {
@@ -103,6 +110,10 @@ function StudioDeskLive({
   blocked = [],
   trapWeb,
   appeals = [],
+  ledgers = [],
+  pingCost = 8,
+  genCost = 12,
+  textCost = 12,
 }: DeskProps) {
   const router = useRouter();
   const path = usePathname() || "/account";
@@ -152,6 +163,11 @@ function StudioDeskLive({
           : "Quiet",
     },
     { id: "clock", name: "Clock", hint: "Estate" },
+    {
+      id: "tokens",
+      name: "Tokens",
+      hint: ledgers.length ? `${ledgers.length} wallets` : "Wallets",
+    },
   ];
 
   return (
@@ -296,6 +312,16 @@ function StudioDeskLive({
           ) : null}
 
           {desk === "clock" ? <ClockDesk /> : null}
+
+          {desk === "tokens" ? (
+            <TokensDesk
+              people={people}
+              ledgers={ledgers}
+              pingCost={pingCost}
+              genCost={genCost}
+              textCost={textCost}
+            />
+          ) : null}
 
           {desk === "houses" ? <HousesDesk /> : null}
 
@@ -535,7 +561,7 @@ function PersonPanel({
             plotSlug={defaultPlot}
             plotOptions={theirPlots.length ? theirPlots : plots.filter((p) => p.party === "client")}
             clientId={person.id}
-            hint="Add a note from a call. They leave suggestions on the live host."
+            hint="Add a note from a call. They have a hotfix box if something is wrong."
           />
           {defaultPlot ? (
             <SweepButton userId={person.id} plotSlug={defaultPlot} disabled={!openNotes.length} />

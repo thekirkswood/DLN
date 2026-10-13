@@ -30,6 +30,7 @@ export function CommentBox({
   const [slug, setSlug] = useState(plotSlug);
   const [body, setBody] = useState("");
   const [pending, setPending] = useState(false);
+  const [ok, setOk] = useState("");
 
   useEffect(() => {
     setSlug(plotSlug);
@@ -39,6 +40,7 @@ export function CommentBox({
     e.preventDefault();
     if (!slug || !body.trim()) return;
     setPending(true);
+    setOk("");
     const res = await fetch("/api/comments", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -50,9 +52,26 @@ export function CommentBox({
         page: page || undefined,
       }),
     });
+    const data = (await res.json().catch(() => null)) as
+      | {
+          ok?: boolean;
+          hotfix?: { actioned?: boolean; hostUp?: boolean | null };
+        }
+      | null;
     setPending(false);
     if (!res.ok) return;
     setBody("");
+    if (kind === "hotfix" && data?.hotfix) {
+      if (data.hotfix.actioned && data.hotfix.hostUp === false) {
+        setOk("The host did not answer. We’ll look at it as a hotfix.");
+      } else if (data.hotfix.actioned) {
+        setOk("Received. We’ll look at it as a hotfix.");
+      } else {
+        setOk(
+          "The host is answering. That’s a change to the work, not a hotfix.",
+        );
+      }
+    }
     router.refresh();
   }
 
@@ -92,6 +111,7 @@ export function CommentBox({
       <button type="submit" disabled={pending}>
         {pending ? "…" : cta}
       </button>
+      {ok ? <p className="status">{ok}</p> : null}
     </form>
   );
 }

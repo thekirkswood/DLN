@@ -53,3 +53,13 @@ If a job needs a house the other seat already holds, it **waits or takes another
 ## Inference vs sites
 
 Ollama/Chooz on Debian is a **different system** from the website campus. Sites sit on Node ports. Do not treat the host laptop as one brain that also routes into this chat.
+
+## Ollama seats (2026-10-12)
+
+Ewan confirmed Windows and Linux are current. Tower Mint is **0.40.3**. House text may use the seats. Live `designlabnorth.com` does not see a PC Ollama.
+
+| Seat | Version checked | Notes |
+|---|---|---|
+| Tower Mint (this Cursor, `192.168.0.123` / wifi `.104`) | **0.40.3** | Listens `0.0.0.0:11434`. Models include `llama3.2` (house text). |
+| 3060 Windows | Current (Ewan, 2026-10-12) | Default Ollama is localhost-only. No `:11434` scanned from this tower. |
+| Debian downstairs (`192.168.0.223`) | Last seen **0.32.5**, localhost only | Campus `:3010` uses this host. Not re-checked this turn. |

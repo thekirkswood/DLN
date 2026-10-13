@@ -10,12 +10,13 @@ import {
   type ShotAvenue,
   type SteerMode,
 } from "@/lib/picture-steer";
-import { bytesFromHref, depositStudioFile, ensureProjectSpace } from "@/lib/studio-engine";
+import { bytesFromHref, depositStudioFile, ensureProjectSpace, pushAttachedStills, rasterAttachHref } from "@/lib/studio-engine";
 import { appendStudioStill, getStudioProject } from "@/lib/studio-projects";
 import { resolveStudioUser, studioEngineHref, studioSpendAllowed } from "@/lib/studio-hub";
-import { adjustTokens, spendTokens, tokenCosts } from "@/lib/tokens";
+import { refundTokens, spendTokens, tokenCosts } from "@/lib/tokens";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   const host = headers().get("x-forwarded-host") || headers().get("host");
@@ -63,7 +64,7 @@ export async function POST(request: Request) {
   });
   if (!spent.ok) {
     return NextResponse.json(
-      { ok: false, error: spent.error === "balance" ? "Not enough Instant updates this month." : "Could not take tokens." },
+      { ok: false, error: spent.error === "balance" ? "Not enough tokens on this account." : "Could not take tokens." },
       { status: 402 },
     );
   }
@@ -92,6 +93,18 @@ export async function POST(request: Request) {
       if (!spaceRes.ok || !sandboxId) throw new Error("Studio gen is not running on this seat.");
     }
 
+    const attaches = Array.isArray(body.attaches) ? body.attaches : [];
+    const wanted = attaches.filter((item) => rasterAttachHref(item.href));
+    const wantedLogo = attaches.some((item) => item.lane === "logo" && rasterAttachHref(item.href));
+    const svgLogo = attaches.some((item) => item.lane === "logo" && /\.svg(\?.*)?$/i.test(item.href || ""));
+    const pushed = await pushAttachedStills({ sandboxId, host, attaches });
+    if (svgLogo && !pushed.gotLogo) {
+      throw new Error("The mark is a vector. Attach a PNG or JPG of it so the gen can copy the pixels.");
+    }
+    if ((wanted.length && pushed.assetIds.length === 0) || (wantedLogo && !pushed.gotLogo)) {
+      throw new Error("Could not read the attached pictures into the gen. The mark has to go in as a picture, not as words.");
+    }
+
     const stillRes = await fetch(studioEngineHref("/api/generate/still", host), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -100,7 +113,8 @@ export async function POST(request: Request) {
         prompt: steered.prompt,
         mode: body.mode,
         extras,
-        attaches: body.attaches,
+        attaches,
+        assetIds: pushed.assetIds,
         avenue: extras.avenue,
         housePaid: true,
         alreadySteered: true,
@@ -150,9 +164,8 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     if (isStudio(user)) {
-      await adjustTokens({
+      await refundTokens({
         actor: user,
-        userId: user.id,
         plotSlug,
         n: costs.genCost,
         reason: "studio still refund — gen missed",

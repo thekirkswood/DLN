@@ -110,6 +110,26 @@
     reverse_proxy plot-titles:3000
   }
 
+  @solport_www host www.solport.co.uk
+  handle @solport_www {
+    redir http://solport.co.uk{uri} permanent
+  }
+
+  @solport host solport.co.uk
+  handle @solport {
+    reverse_proxy plot-solport-park:80
+  }
+
+  @swimtl_www host www.swimmingthroughleaves.com
+  handle @swimtl_www {
+    redir http://swimmingthroughleaves.com{uri} permanent
+  }
+
+  @swimtl host swimmingthroughleaves.com
+  handle @swimtl {
+    reverse_proxy plot-swimtl-park:80
+  }
+
   handle_path /p/modyu* {
     reverse_proxy plot-modyu:3000
   }

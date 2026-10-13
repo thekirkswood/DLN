@@ -64,6 +64,7 @@ export async function GET(request: Request) {
       items,
       promos,
       stillCost: costs.genCost,
+      textCost: costs.textCost,
       ledgers: ledgers.map((row) => ({
         plotSlug: row.plotSlug,
         balance: row.balance,

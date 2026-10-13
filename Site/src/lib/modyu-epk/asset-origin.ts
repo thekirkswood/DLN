@@ -27,7 +27,8 @@ export function modyuAsset(path: string | undefined | null): string {
     return path;
   }
   const origin = modyuAssetOrigin();
-  if (path.startsWith("/kit-stills/")) return path;
+  // Hub vault and kit stills live on this campus, not the ModYu plot.
+  if (path.startsWith("/press/") || path.startsWith("/kit-stills/")) return path;
   if (path.startsWith("/")) return `${origin}${path}`;
   return `${origin}/${path}`;
 }

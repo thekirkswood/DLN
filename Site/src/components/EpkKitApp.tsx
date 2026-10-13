@@ -37,7 +37,10 @@ function stillHref(kit: string, item: AssetItem | undefined, fallback: string): 
   if (item.flags.logo) return epkHref(kit, `logos/${item.id}`);
   if (item.flags.banner) return epkHref(kit, `banners/${item.id}`);
   if (item.flags.people) return epkHref(kit, `people/${item.id}`);
-  return epkHref(kit, `files/${item.id}`);
+  if (isPdfHref(item.href) || item.kind === "pdf" || item.kind === "brief" || item.kind === "text") {
+    return epkHref(kit, `files/${item.id}`);
+  }
+  return epkHref(kit, `other/${item.id}`);
 }
 
 export function EpkKitApp({
@@ -64,6 +67,7 @@ export function EpkKitApp({
   const banners = isShown(content.shown, "banners") ? sectionItems(pack, "banners") : [];
   const people = isShown(content.shown, "people") ? sectionItems(pack, "people") : [];
   const files = isShown(content.shown, "files") ? sectionItems(pack, "files") : [];
+  const other = isShown(content.shown, "other") ? sectionItems(pack, "other") : [];
   const stories = isShown(content.shown, "stories") ? liveStories(content) : [];
   const promos = isShown(content.shown, "promos") ? livePromos(content) : [];
   const story = stories.find((s) => s.id === id);
@@ -73,6 +77,7 @@ export function EpkKitApp({
     banners.find((i) => i.id === id) ||
     people.find((i) => i.id === id) ||
     files.find((i) => i.id === id) ||
+    other.find((i) => i.id === id) ||
     pack.find((i) => i.id === id);
   const mark = firstLogo(pack);
   const overview = content.overview.length ? content.overview : doc.story.paras;
@@ -106,6 +111,7 @@ export function EpkKitApp({
     { href: epkHref(kit, "banners"), label: "Banners", on: Boolean(banners.length), current: section === "banners" },
     { href: epkHref(kit, "people"), label: "People", on: Boolean(people.length), current: section === "people" },
     { href: epkHref(kit, "files"), label: "Files", on: Boolean(files.length), current: section === "files" },
+    { href: epkHref(kit, "other"), label: "Other", on: Boolean(other.length), current: section === "other" },
   ].filter((row) => row.on);
 
   return (
@@ -196,9 +202,14 @@ export function EpkKitApp({
               banners={banners}
               people={people}
               files={files}
+              other={other}
             />
           ) : null}
-          {section === "logos" || section === "banners" || section === "people" || section === "files" ? (
+          {section === "logos" ||
+          section === "banners" ||
+          section === "people" ||
+          section === "files" ||
+          section === "other" ? (
             still && id ? (
               <StillPage kit={kit} section={section} item={still} />
             ) : (
@@ -212,7 +223,9 @@ export function EpkKitApp({
                       ? banners
                       : section === "people"
                         ? people
-                        : files
+                        : section === "other"
+                          ? other
+                          : files
                 }
               />
             )
@@ -272,6 +285,7 @@ function Cover({
   banners,
   people,
   files,
+  other,
 }: {
   kit: string;
   doc: EpkDoc;
@@ -282,6 +296,7 @@ function Cover({
   banners: AssetItem[];
   people: AssetItem[];
   files: AssetItem[];
+  other: AssetItem[];
 }) {
   const heroes: VaultLaneId[] = ["founder", "product", "campaigns"];
   const vault: { lane: VaultLaneId; href: string; label: string; on: boolean }[] = [
@@ -289,6 +304,7 @@ function Cover({
     { lane: "product", href: epkHref(kit, "banners"), label: "Banners", on: Boolean(banners.length) },
     { lane: "founder", href: epkHref(kit, "people"), label: "People", on: Boolean(people.length) },
     { lane: "campaigns", href: epkHref(kit, "files"), label: "Files", on: Boolean(files.length) },
+    { lane: "campaigns", href: epkHref(kit, "other"), label: "Other", on: Boolean(other.length) },
   ];
   return (
     <section className="epk-cover-map">
@@ -346,9 +362,10 @@ function Cover({
           {vault
             .filter((row) => row.on)
             .map((row) => {
-              const item = laneStill(items, content.cover, row.lane);
+              const item =
+                row.label === "Other" ? other[0] : laneStill(items, content.cover, row.lane);
               return (
-                <li key={row.lane}>
+                <li key={row.href}>
                   <Link href={row.href}>
                     <span className="epk-plate__still chamfer">
                       {item && isImageHref(item.href) ? (

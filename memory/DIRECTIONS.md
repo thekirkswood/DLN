@@ -1365,9 +1365,13 @@ Founder page header uses `AMB.png` behind the headline. The EPK home founder pla
 
 The shop homepage Founder block (`HomeFounder`) uses `AMB.png` — Ann-Marie Barlow. It is not the B&W shoot portrait (`about-modyu-portrait.png`). That still is campaign, not her. Her face is the headshot on the DLN book. Dave’s Instant update named the homepage, not only the EPK plate.
 
+## 2026-10-12 — ModYu EPK Follicle Files logo (Dave)
+
+The Follicle Files logo (`Follicle_Files_Logo.png`) sits in the EPK asset vault under Logos.
+
 ## 2026-10-12 — ModYu EPK bottle vault stills (Dave)
 
-Bottles in the EPK asset vault are Dave’s glass-shelf product shots (`kit-stills/modyu/ht4/p*-sheet.jpg`), not the plot PNG cutouts.
+Bottles in the EPK asset vault keep both sets: the original PNG cutouts (`/assets/epk/products/*.png`) and Dave’s seven glass-shelf product shots (`kit-stills/modyu/ht4/p*-sheet.jpg`). Do not drop either.
 
 ## 2026-10-12 — ModYu EPK Our Story copy (Dave)
 
@@ -1393,9 +1397,63 @@ Text sits on the project: press/promoter PDF, social caption steered to a market
 
 Ordinary Studio and site work stays on the house. Look at live when needed. Do not jump onto the VPS to edit or ship unless Ewan asks.
 
+## 2026-10-12 — Ollama current on Mint and Windows before plug-in (Ewan)
+
+Do not wire Studio text to the seats until Mint and the 3060 Windows Ollama are on the same current release (0.40.3 as of today). Live VPS is not an Ollama host.
+
+## 2026-10-12 — Ollama seats are current (Ewan)
+
+Windows and Linux Ollama are up to date. Tower Mint is 0.40.3. House Studio text may use those seats. Live VPS is still not an Ollama host.
+
+## 2026-10-12 — Dave can drop into Assets (Ewan)
+
+Dave’s Account → Assets upload must take a drop or a click and land the file. The well looking live (`is-over`) is not enough. Do not harvest the whole press tree on every list — that left the house unset so the drop was ignored. House first, not a numbered live dump.
+
+## 2026-10-12 — Dave’s Builder live push (Ewan)
+
+Dave gets a Push to git and live button on his Builder console, on every house tab, just for him. It is a numbered `dln-{n}` ship of polished Design Lab North. Ordinary Send does not deploy. Hotfix stays with Cursor. House stays the building site; VPS is the polished product. The queue must read that it came from Builder and that the change is small polish.
+
+## 2026-10-12 — Builder live push sits under Send (Ewan)
+
+Push to git and live is on Builder under Send, on every house. Studio can see it (Dave’s live push). Type `push to git and live`. Send still does not deploy.
+
+## 2026-10-12 — EPK stills live in the vault (Ewan)
+
+Every image on the EPK must have a vault row. Do not take stills off the kit. Index kit-stills and copy plot `/assets/` files that are missing. The vault is the home; tick off to hide.
+
 ## 2026-10-12 — Steer refines the line, not a pack case (Ewan)
 
 The picture refiner must take the user’s prompt and tidy it. Do not stamp ModYu bottle / cap / finish, booked talent, or “product is the hero” onto every Auto/Brand job. Attach notes are what the person writes. A pack flag is not a situation. Specific cases do not belong in the general finish.
+
+## 2026-10-12 — Vault share drives the press kit (Ewan)
+
+Ticking **On the press kit** in Assets puts that file on `/epk/{kit}` live. A Logo tag goes to Logos; untagged shared stills go to Other; retag moves the section. Do not hardcode the two new ModYu logos. The customer can do this without us. House only — do not ship this as a numbered live dump of old token UI.
+
+## 2026-10-12 — One token wallet (Ewan)
+
+One wallet per account. Instant update, picture gen, and text documents all spend from it at different costs. Monthly renewal tops it up. Not a stack per plot, not a second generation count. Assets on the house must match live: no token wells, no capture log there. Studio Tokens room is the monitor for Ewan and Dave.
+
+## 2026-10-13 — Picture gen takes attached stills as pictures (Ewan)
+
+The woman-with-phone still followed the prompt but invented a logo and a backwards hand. Not a Fal limit — Fal Kontext and Gemini both take reference pictures. The house was piping the typed line only; attached marks never arrived as pixels, so the model guessed a lockup.
+
+Attached stills (logo, pack, person) go into the gen as pictures. The pre-prompt names what to take and where. Do not invent a mark. Hands the right way round. Do not default to glossy photoreal unless they asked for a photograph. Full element-composited video (haircut from one still, lipstick from another) later. Not a numbered ship.
+
+## 2026-10-13 — Customers watch; we do the work (Ewan)
+
+Postpone the customer editor. Their site tab is the sandbox, patch notes from pushes, and a hotfix box. No Instant update. No suggestion well. Direct intervention undermines the agency; a watchful eye does not.
+
+Hotfix pings the host. Broken page, spelling, host not answering: action it. A look, style, or copy directive is not a hotfix — store it, do not wake, do not treat them as an editor.
+
+Studio Instant update stays on the campus site tab. Dave’s Builder Send is unchanged — do not classify his edits as direct vs suggestion. Not a numbered ship.
+
+## 2026-10-13 — Take a still off the gen (Ewan)
+
+Once a picture is attached in Studio you must be able to remove it. In the vault, selected stills need a visible ink frame so you can see what is on the gen. Click again or Remove. Not a numbered ship.
+
+## 2026-10-13 — Campus site tab is the customer tab (Ewan)
+
+`:3010` is what the customer sees, including for Ewan and Dave. Sandbox, patch notes, hotfix. No Instant update on that tab. Edits go through Builder `:3100`. Hotfix pings the host; a style directive is not actioned for studio either. Not a numbered ship.
 
 
 

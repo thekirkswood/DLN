@@ -23,6 +23,9 @@ export type SiteComment = {
   fromName?: string;
   /** hotfix = something wrong now. Never auto-deploys. query = Ask DLN. news = from us. */
   kind?: "note" | "hotfix" | "query" | "news";
+  /** Client hotfix: false means we pinged, it looked like an edit, we did not wake. */
+  actioned?: boolean;
+  hotfixPing?: { url: string; ok: boolean; status: number | null }[];
 };
 
 export type BuildPlan = {
@@ -131,6 +134,7 @@ export async function addComment(
         : input.kind === "news" && isStudio(user)
           ? "news"
           : "note";
+  if (!isStudio(user) && kind === "note") throw new Error("forbidden");
   const row: SiteComment = {
     id: randomUUID(),
     userId: ownerId,
@@ -142,6 +146,46 @@ export async function addComment(
     source: isStudio(user) ? "studio" : "account",
     kind,
   };
+  if (kind === "hotfix") {
+    const { wakeClientAsk } = await import("@/lib/client-ask");
+    const { spendTokens, tokenCosts } = await import("@/lib/tokens");
+    const { plotBySlug } = await import("@/lib/plots");
+    const { buildUrlFor, hostUrlFor, liveUrlFor } = await import("@/lib/plot-urls");
+    const { assessHotfix } = await import("@/lib/hotfix-gate");
+    const plot = await plotBySlug(plotSlug);
+    const urls = plot
+      ? [buildUrlFor(plot), hostUrlFor(plot), liveUrlFor(plot)].filter(
+          (u): u is string => Boolean(u),
+        )
+      : [];
+    const gate = await assessHotfix({ body, urls });
+    const action = gate.action;
+    row.actioned = action;
+    row.hotfixPing = gate.pings;
+    if (action) {
+      try {
+        const costs = await tokenCosts();
+        await spendTokens({
+          user,
+          plotSlug,
+          n: costs.pingCost,
+          k: "ping",
+          reason: "Hotfix",
+        });
+      } catch {
+        /* still wake — a real fault is not held for the wallet */
+      }
+      await wakeClientAsk({
+        kind: "hotfix-ask",
+        text: `Hotfix · ${plotSlug}${row.page ? ` · ${row.page}` : ""}: ${body}`,
+        author: user.displayName || user.id,
+        authorId: user.id,
+        plot: plotSlug,
+        page: row.page,
+        origin: `/?site=${encodeURIComponent(plotSlug)}`,
+      });
+    }
+  }
   const rows = await listComments();
   rows.unshift(row);
   await writeJson(COMMENTS, rows);
@@ -154,27 +198,6 @@ export async function addComment(
       authorId: user.id,
       plot: plotSlug,
       origin: "/account?view=notices",
-    });
-  }
-  if (kind === "hotfix") {
-    const { wakeClientAsk } = await import("@/lib/client-ask");
-    const { spendTokens, tokenCosts } = await import("@/lib/tokens");
-    const costs = await tokenCosts();
-    await spendTokens({
-      user,
-      plotSlug,
-      n: costs.pingCost,
-      k: "ping",
-      reason: "Hotfix",
-    });
-    await wakeClientAsk({
-      kind: "hotfix-ask",
-      text: `Hotfix · ${plotSlug}${row.page ? ` · ${row.page}` : ""}: ${body}`,
-      author: user.displayName || user.id,
-      authorId: user.id,
-      plot: plotSlug,
-      page: row.page,
-      origin: `/?site=${encodeURIComponent(plotSlug)}`,
     });
   }
   return row;
@@ -201,7 +224,8 @@ export async function addLiveSuggestion(input: {
   if (!owner) throw new Error("missing");
   const fromName = (input.fromName || "").trim().slice(0, 80) || undefined;
   const authorId = (input.authorId || "").trim() || "live";
-  const kind = input.kind === "hotfix" ? "hotfix" : "note";
+  if (input.kind !== "hotfix") throw new Error("no-suggest");
+  const kind = "hotfix" as const;
   const row: SiteComment = {
     id: randomUUID(),
     userId: owner.id,
@@ -214,19 +238,29 @@ export async function addLiveSuggestion(input: {
     fromName,
     kind,
   };
+  const { buildUrlFor, hostUrlFor, liveUrlFor } = await import("@/lib/plot-urls");
+  const { assessHotfix } = await import("@/lib/hotfix-gate");
+  const urls = [buildUrlFor(plot), hostUrlFor(plot), liveUrlFor(plot)].filter(
+    (u): u is string => Boolean(u),
+  );
+  const gate = await assessHotfix({ body, urls });
+  row.actioned = gate.action;
+  row.hotfixPing = gate.pings;
   const rows = await listComments();
   rows.unshift(row);
   await writeJson(COMMENTS, rows);
-  const { wakeClientAsk } = await import("@/lib/client-ask");
-  await wakeClientAsk({
-    kind: kind === "hotfix" ? "hotfix-ask" : "note",
-    text: kind === "hotfix" ? `Hotfix · ${plotSlug}: ${body}` : body,
-    author: fromName || authorId,
-    authorId,
-    plot: plotSlug,
-    page: row.page,
-    origin: "/suggest",
-  });
+  if (gate.action) {
+    const { wakeClientAsk } = await import("@/lib/client-ask");
+    await wakeClientAsk({
+      kind: "hotfix-ask",
+      text: `Hotfix · ${plotSlug}: ${body}`,
+      author: fromName || authorId,
+      authorId,
+      plot: plotSlug,
+      page: row.page,
+      origin: "/suggest",
+    });
+  }
   return row;
 }
 

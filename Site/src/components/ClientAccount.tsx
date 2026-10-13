@@ -200,8 +200,8 @@ export function ClientAccount({
             </div>
           )}
           <p className="body bill-note">
-            Talk to a site from its tab on the home — live view, Instant
-            update, hotfix, and patch notes sit under that window.
+            Talk to a site from its tab on the home — sandbox, patch notes,
+            and a hotfix box if something is wrong.
           </p>
           <section className="account-faq">
             <h2>FAQ</h2>
@@ -253,29 +253,25 @@ function PaymentsPanel({
 
       <h3>Tokens</h3>
       <p className="body bill-note">
-        Tokens are the currency on this account. Instant update spends them to
-        push immediate edits. Generated pictures, clips, and packs will spend the
-        same tokens. Grant is 40 / 100 / 250 a month on BoomStack 1 / 2 / 3.
+        One wallet on this account. A hotfix ping spends from it. Pictures and
+        text documents spend when we run those rooms. The monthly renewal tops
+        it up.
       </p>
       {ledgers.length ? (
         <ul className="note-list">
-          {ledgers.map((row) => {
-            const site = sites.find((p) => p.slug === row.plotSlug);
-            return (
-              <li key={row.id}>
-                <span className="status">
-                  Stack {row.stack} · {row.balance} tokens
-                </span>
-                <p>
-                  {site?.name || row.plotSlug}: {row.balance} of{" "}
-                  {row.grantedThisPeriod} this month.
-                </p>
-              </li>
-            );
-          })}
+          {ledgers.map((row) => (
+            <li key={row.id}>
+              <span className="status">{row.balance} tokens</span>
+              <p>
+                {row.grantedThisPeriod
+                  ? `${row.grantedThisPeriod} granted this month.`
+                  : "Wallet opens with the monthly roll."}
+              </p>
+            </li>
+          ))}
         </ul>
       ) : (
-        <p className="body">Tokens land here when a site is on a monthly stack.</p>
+        <p className="body">Tokens land here when the monthly roll is live.</p>
       )}
 
       <h3>Subscriptions</h3>

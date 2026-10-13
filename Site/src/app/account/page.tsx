@@ -25,7 +25,6 @@ import { getSettings } from "@/lib/settings";
 import { listEnquiries } from "@/lib/enquiries";
 import { listNotices } from "@/lib/notices";
 import { listAttempts, listOpenInstances, listVisits } from "@/lib/watch";
-import { listCaptures } from "@/lib/captures";
 import { grantDueTokens, ledgersVisibleTo, tokenCosts } from "@/lib/tokens";
 import { listBlocks } from "@/lib/block";
 import { absorbTrapWeb, listTrapWeb } from "@/lib/trap-web";
@@ -56,7 +55,6 @@ export default async function AccountPage({
   const plots = await allPlots();
   const invoices = await invoicesVisibleTo(user);
   const comments = await commentsFor(user);
-  const captures = await listCaptures(user);
   const plans = await plansFor(user);
   const claims = await paymentByInvoice();
   const rail = await getPayRail();
@@ -203,52 +201,6 @@ export default async function AccountPage({
         </ul>
       ) : null}
 
-      {studio ? (
-        <section className="token-well">
-          <h2>Tokens</h2>
-          <p className="body bill-note">
-            Leave a note is free. Instant update spends {costs.pingCost} tokens to
-            push immediate edits. Generated packs will spend {costs.genCost}.
-            Grants: {costs.grants[1]} / {costs.grants[2]} / {costs.grants[3]} on
-            stacks 1 / 2 / 3.
-          </p>
-          {ledgers.length ? (
-            <ul className="note-list">
-              {ledgers.map((row) => (
-                <li key={row.id}>
-                  <span className="status">
-                    {row.plotSlug} · stack {row.stack}
-                  </span>
-                  <p>
-                    {row.balance} of {row.grantedThisPeriod} left this month.
-                  </p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="body">Wells open when a site is on a monthly stack.</p>
-          )}
-        </section>
-      ) : null}
-
-      {studio && captures.length ? (
-        <section className="capture-log">
-          <h2>Captures</h2>
-          <ul className="note-list">
-            {captures.slice(0, 40).map((row) => (
-              <li key={row.id}>
-                <span className="status">
-                  {row.t.slice(0, 10)} · {row.plotSlug} · {row.pace} · {row.status}
-                </span>
-                <p>
-                  <strong>{row.kind}.</strong> {row.text || row.files.map((f) => f.name).join(", ")}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
       {studio && studioBook ? (
         <section className="campus-book">
           <StudioDesk
@@ -271,6 +223,10 @@ export default async function AccountPage({
             blocked={studioBook.blocked}
             trapWeb={studioBook.trapWeb}
             appeals={studioBook.appeals}
+            ledgers={ledgers}
+            pingCost={costs.pingCost}
+            genCost={costs.genCost}
+            textCost={costs.textCost}
           />
         </section>
       ) : null}

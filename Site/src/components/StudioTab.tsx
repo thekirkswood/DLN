@@ -194,9 +194,9 @@ export function StudioTab({
         ) : null}
         <p className="campus-plot-note">
           {held
-            ? `${held.balance} Instant updates on ${plotName || "this site"}`
-            : `${plotName || "This site"} · no Instant updates on the book yet`}
-          {` · a still is ${stillCost}`}
+            ? `${held.balance} tokens on this account`
+            : `${plotName || "This site"} · no tokens on the book yet`}
+          {` · a still is ${stillCost} tokens`}
         </p>
       </div>
 

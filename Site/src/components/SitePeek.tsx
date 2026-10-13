@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { CaptureWell } from "@/components/CaptureWell";
 import { CommentBox } from "@/components/CommentBox";
 import { PlotLog } from "@/components/PlotLog";
 import { epkHref } from "@/lib/epk-map";
@@ -118,8 +117,6 @@ export function SitePeek({
     setFrame(next);
   }
 
-  const pageName =
-    pages.find((row) => row.path === page)?.name || "this page";
   const hits = map?.hits;
   const hasLive = Boolean(live);
 
@@ -223,18 +220,12 @@ export function SitePeek({
       ) : null}
       {signedIn ? (
         <div className="campus-site-talk">
-          <CaptureWell
-            plotSlug={slug}
-            plotOptions={[{ slug, name }]}
-            page={page}
-            pageName={pageName}
-          />
           <CommentBox
             plotSlug={slug}
             plotOptions={[{ slug, name }]}
             kind="hotfix"
             title="Hotfix"
-            hint="Something is wrong right now."
+            hint="Something is wrong right now — a broken page, spelling, the host not answering. A change to the look of the work is not a hotfix."
             label="What is wrong"
             cta="Send hotfix"
             rows={4}

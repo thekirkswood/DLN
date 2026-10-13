@@ -15,7 +15,15 @@ export async function POST(req: NextRequest) {
   } | null;
   try {
     const row = await addComment(user, body || {});
-    return NextResponse.json({ ok: true, id: row.id });
+    const hostUp = row.hotfixPing?.some((p) => p.ok) ?? null;
+    return NextResponse.json({
+      ok: true,
+      id: row.id,
+      hotfix:
+        row.kind === "hotfix"
+          ? { actioned: Boolean(row.actioned), hostUp }
+          : undefined,
+    });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "";
     const status = msg === "forbidden" ? 403 : 400;

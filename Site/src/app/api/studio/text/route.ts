@@ -18,7 +18,7 @@ import { bytesFromHref, depositStudioFile } from "@/lib/studio-engine";
 import { getStudioProject } from "@/lib/studio-projects";
 import { getSessionUser } from "@/lib/session";
 import { studioSpendAllowed } from "@/lib/studio-hub";
-import { adjustTokens, spendTokens, tokenCosts } from "@/lib/tokens";
+import { refundTokens, spendTokens, tokenCosts } from "@/lib/tokens";
 
 export const dynamic = "force-dynamic";
 
@@ -81,13 +81,13 @@ export async function POST(request: Request) {
   const spent = await spendTokens({
     user,
     plotSlug,
-    n: costs.genCost,
-    k: "gen",
+    n: costs.textCost,
+    k: "text",
     reason: `studio text · ${kind} · ${plotSlug} · ${steered.title.slice(0, 80)}`,
   });
   if (!spent.ok) {
     return NextResponse.json(
-      { ok: false, error: spent.error === "balance" ? "Not enough Instant updates this month." : "Could not take tokens." },
+      { ok: false, error: spent.error === "balance" ? "Not enough tokens on this account." : "Could not take tokens." },
       { status: 402 },
     );
   }
@@ -162,16 +162,15 @@ export async function POST(request: Request) {
         missing: steered.missing,
       },
       balance: spent.balance,
-      spent: costs.genCost,
+      spent: costs.textCost,
     });
   } catch (error) {
     if (isStudio(user)) {
-      await adjustTokens({
+      await refundTokens({
         actor: user,
-        userId: user.id,
         plotSlug,
-        n: costs.genCost,
-        reason: "studio text refund — gen missed",
+        n: costs.textCost,
+        reason: "studio text refund — write missed",
       });
     }
     return NextResponse.json(
